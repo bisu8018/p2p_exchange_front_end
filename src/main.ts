@@ -7,7 +7,6 @@ import configRouter from "@/config/router";
 import {sync} from "vuex-router-sync";
 import vuexStore from '@/vuex/config/store'
 import 'vuetify/dist/vuetify.min.css'
-
 Vue.config.productionTip = false
 
 plugins(Vue);

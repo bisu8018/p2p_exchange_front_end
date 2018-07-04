@@ -1,75 +1,44 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-flex xs12 md6 offset-md3>
-        <v-card>
-          <v-card-title primary-title>
-            <div class="signup-subject">
-              <h2>Sign up to Allb</h2>
-            </div>
-          </v-card-title>
-          <v-card-text>
-            <v-flex>
-              <v-text-field label="Email" placeholder="Email" v-model="email" required></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-text-field label="Password" placeholder="Min 8 characters" v-model="password" :type="'password'" required></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-text-field label="Password Confirm" placeholder="Include characters, numbers, special chracters" v-model="passwordConfirm" :type="'password'" required></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-checkbox :label="'I agree to the Terms of Service'" v-model="checkbox"></v-checkbox>
-            </v-flex>
-          </v-card-text>
-          <v-card-actions>
-            <v-flex  text-sm-left>
-              <a>← BACK</a> </v-flex>
-            <v-flex>
-              <v-btn color="blue" class="signupBtn" @click="onSignup">Sign up</v-btn>
-            </v-flex>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
-  <!-- <div class="signup-container">
-            <div class="signup-header">
+  <v-app>
+    <v-container>
+      <v-layout>
+        <v-flex xs12 md6 offset-md3>
+          <v-card flat>
+            <v-card-title primary-title>
               <div class="signup-subject">
                 <h2>Sign up to Allb</h2>
               </div>
-            </div>
-            <div class="signup-contents">
-              <div class="email-container">
-                <v-flex>
-                  <v-text-field label="Email" placeholder="Email" v-model="email" required></v-text-field>
-                </v-flex>
-              </div>
-              <div class="password-container ">
-                <v-flex>
-                  <v-text-field label="Password" placeholder="Min 8 characters" v-model="password" :type="'password'" required></v-text-field>
-                </v-flex>
-              </div>
-              <div class="passwordConfirm-container">
-                <v-flex>
-                  <v-text-field label="Password Confirm" placeholder="Include characters, numbers, special chracters" v-model="passwordConfirm" :type="'password'" required></v-text-field>
-                </v-flex>
-              </div>
-            </div>
-            <div class="signup-footer">
-              <div class="checkbox-container">
+            </v-card-title>
+            <v-card-text>
+              <v-flex>
+                <v-text-field prepend-icon="person" name="email" v-model="email" label="Email" type="text" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field prepend-icon="lock" label="Password" placeholder="Min 8 characters" v-model="password" :type="'password'" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field prepend-icon="lock" label="Password Confirm" placeholder="Include characters, numbers, special chracters" v-model="passwordConfirm" :type="'password'" required></v-text-field>
+              </v-flex>
+              <v-flex>
                 <v-checkbox :label="'I agree to the Terms of Service'" v-model="checkbox"></v-checkbox>
-              </div>
-              <div class="signupBtn-container">
-                <div class="signupBtn-wrapper">
-                  <v-btn color="blue" class="signupBtn" @click="onSignup">Sign up</v-btn>
-                </div>
-                <div class="back-container">
-                  <a>← BACK</a>
-                </div>
-              </div>
-            </div>
-          </div> -->
+              </v-flex>
+            </v-card-text>
+            <v-card-actions>
+              <v-flex text-xs-left>
+                <v-btn color="primary" class="signupBtn" @click="onSignup" large>Sign up</v-btn>
+              </v-flex>
+              <v-flex>
+                Already have an account <a>Log in</a>
+              </v-flex>
+              <v-alert :value="true" type="error" absolute>
+                This is a error alert.
+              </v-alert>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <script lang="ts">

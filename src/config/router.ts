@@ -4,8 +4,8 @@ import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
 
-Vue.use(Router)
 
+Vue.use(Router)
 export default new Router({
   routes: [
     {

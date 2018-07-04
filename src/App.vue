@@ -1,11 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/signup">Signup</router-link>
-    </div>
-    <router-view/>
+      <home></home>
   </div>
 </template>
 
@@ -13,25 +8,17 @@
 <script>
     import Vue from "vue";
     import {setEventBus, setRouter} from "./common/common";
+    import Home from './views/home/Home.vue'
 
     export default Vue.extend({
         name: "app",
         components: {
+           'home' : Home
         },
-
-        data: function () {
-            return {
-                spriteImg: {
-                    'sprite_img' : true,
-                },
-            }
-        },
-        created() {
+        created() {            
             setEventBus(this.$eventBus);
             setRouter(this.$router);
-        },
-        mounted() {
-        },
+        }
     });
 </script>
 
