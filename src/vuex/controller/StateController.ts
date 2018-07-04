@@ -1,0 +1,27 @@
+import {VuexTypes} from "@/vuex/config/VuexTypes";
+import {Store} from "vuex";
+
+export default class StateController {
+    store: Store<any>;
+
+    constructor (vuexStore: Store<any>) {
+        this.store = vuexStore
+    }
+
+    // 모바일 체크
+    setIsMobile(isMobile: boolean) {
+        this.store.dispatch(VuexTypes.SET_IS_MOBILE, isMobile)
+    }
+    isMoblie() {
+        return this.store.state.state.isMobile
+    }
+
+    //OS 체크
+    setCheckOs(checkOs: number) {
+        this.store.dispatch(VuexTypes.SET_CHECK_OS, checkOs)
+    }
+    checkOs() {
+        return this.store.state.state.checkOs
+    }
+}
+
