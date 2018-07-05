@@ -28,11 +28,11 @@
                 <v-btn color="primary" class="signupBtn" @click="onSignup" large>Sign up</v-btn>
               </v-flex>
               <v-flex>
-                Already have an account <a>Log in</a>
+                Already have an account <a @click='goLogin'>Log in</a>
               </v-flex>
-              <v-alert :value="true" type="error" absolute>
+              <!-- <v-alert :value="true" type="error" absolute>
                 This is a error alert.
-              </v-alert>
+              </v-alert> -->
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -125,6 +125,9 @@
           .catch(ex => {
             console.log("err  :::::::::  ", ex);
           });
+      },
+      goLogin() {
+        this.$router.push("/login");
       }
     }
   });

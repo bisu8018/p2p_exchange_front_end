@@ -25,7 +25,7 @@ export default Vue.extend({
         })
     },
     created: function () {
-     this.$router.push("/login");
+     this.$router.push("/main");
     }
 });
 </script>
