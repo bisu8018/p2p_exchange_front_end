@@ -2,6 +2,8 @@ import {Store} from "vuex";
 import SampleController from "@/vuex/controller/SampleController";
 import StateController from "@/vuex/controller/StateController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
+import AxiosService from "@/service/AxiosService";
+import LoginService from "@/service/login/LoginService";
 
 
 let sampleController: SampleController;
@@ -62,6 +64,7 @@ export default {
     },
 
 
+
     State: {
         controller(): StateController {
             return stateController
@@ -76,7 +79,9 @@ export default {
     },
 
     Login: {
-
+        service() {
+            return LoginService;
+        }
     },
 
     SignUp: {

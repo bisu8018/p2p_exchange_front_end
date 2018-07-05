@@ -24,7 +24,7 @@
     </div>
     <div class="signup-footer">
       <div class="checkbox-container">
-        <v-checkbox :label="'I agree to the Terms of Service'" v-model="checkbox"></v-checkbox>
+        <v-checkbox :label="this.$str('I agree to the Terms of Service')" v-model="checkbox"></v-checkbox>
       </div>
       <div class="signupBtn-container">
         <div class="signupBtn-wrapper">
@@ -41,6 +41,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import AXIOS from 'axios';
+  import MainRepository from "../../../../../vuex/MainRepository";
   
   export default Vue.extend({
     name: 'forgetPassword',
@@ -56,20 +57,22 @@
         // Warnings in case of error in e-mail or password entry
   
         if (this.email === "") {
-          this.verify_warning = "pleaes enter email value.";
+          this.verify_warning = this.$str("pleaes enter email value.");
           return;
         }
   
         if (!this.emailCheck(this.email)) {
-          this.verify_warning = "Does not fit email format.";
+          this.verify_warning = this.$str("Does not fit email format.");
           return;
         }
-  
+
+        // 패스워드 공백
         if (this.password === "") {
-          this.verify_warning = "pleaes enter password value.";
+          this.verify_warning = this.$str("pleaes enter password value.");
           return;
         }
-  
+
+        // 최대 글자 8자 제한
         if (this.password.length <= 8) {
           this.verify_warning = "Please enter at least eight digits.";
           return;
@@ -112,16 +115,21 @@
       },
       onSignup() {
         //Send Email verification codes to Server
-        AXIOS.post("api/user", {
-            email: this.email,
-            encryptedPassword: this.password
-          })
-          .then(result => {
-            console.log(result);
-          })
-          .catch(ex => {
-            console.log("err  :::::::::  ", ex);
-          });
+        // AXIOS.post("api/user", {
+        //     email: this.email,
+        //     encryptedPassword: this.password
+        //   })
+        //   .then(result => {
+        //     console.log(result);
+        //   })
+        //   .catch(ex => {
+        //     console.log("err  :::::::::  ", ex);
+        //   });
+
+        MainRepository.Login.service().findPasswd(this.email, this.password, function (userInfo) {
+            // 성공
+            // userInfo.userId
+        })
       }
     }
   });

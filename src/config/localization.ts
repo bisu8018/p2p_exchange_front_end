@@ -39,12 +39,48 @@ const strings = new Map([
     CN: '创建',
     JP: ''
   }],
-  ['', {
-    KOR: '',
-    ENG: '',
-    CN: '',
-    JP: ''
-  }],
+    ['I agree to the Terms of Service', {
+        KOR: '',
+        ENG: 'I agree to the Terms of Service',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
 
 ])
 
@@ -100,7 +136,7 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.KO;
+let currentLang: Lang = Lang.EN;
 
 
 export function wbGetLang (): Lang {
