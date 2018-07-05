@@ -1,34 +1,67 @@
 <template>
   <v-footer
-    dark
     height="auto"
+    color="grey lighten-3"
+    column
+    wrap
+    align-center
   >
-    <v-card
-      flat
-      tile
-      class="indigo lighten-1 white--text text-xs-center"
-    >
-      <v-card-text>
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="mx-3 white--text"
-          icon
-        >
-          <v-icon size="24px">{{ icon }}</v-icon>
-        </v-btn>
-      </v-card-text>
+    <v-container fluid grid-list-xs>
 
-      <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      </v-card-text>
+      <v-layout
+        wrap
+        row
+        border-bottom
+      >
 
-      <v-divider></v-divider>
+        <!-- 카드 1 -->
+        <v-flex xs12 md4 text-xs-left>
+          <v-card flat>
+            <v-card-text class="grey--text">
+              <p>Support</p>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Guides</p></a>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>FAQ</p></a>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Announcements</p></a>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+        <!-- 카드 2 -->
+        <v-flex xs12 md4 text-xs-left>
+          <v-card flat>
+            <v-card-text class="grey--text">
+              <p>Terms</p>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Terms of Service</p></a>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Transaction Regulations</p></a>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Fees</p></a>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Terms of Privacy Policy</p></a>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>KYC&amp;AML Polocies</p></a>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+        <!-- 카드 3 -->
+        <v-flex xs12 md4 text-xs-left>
+          <v-card flat>
+            <v-card-text class="grey--text">
+              <p>Contact Us</p>
+              <a class="black--text" href="https://vuetifyjs.com" target="_blank">support@allb.com</a>
+            </v-card-text>
+          </v-card>
+        </v-flex>
 
-      <v-card-text class="white--text">
-        &copy;2018 — <strong>Vuetify</strong>
-      </v-card-text>
-    </v-card>
+        </v-layout>
+
+            <hr class="my-2">
+       
+          <v-card flat>
+            <v-card-text>
+              &copy; 2018 — <strong>otc.AllB.com</strong>
+            </v-card-text>
+          </v-card>
+          
+
+
+      
+    </v-container>
   </v-footer>
 </template>
 
@@ -44,11 +77,25 @@
         'fab fa-google-plus',
         'fab fa-linkedin',
         'fab fa-instagram'
-      ]
+      ],
+        support: [
+          'Guides',
+          'FAQ',
+          'Announcements',
+
+          'Terms of Service',
+          'Transaction Regulations',
+          'Fees',
+          'Terms of Privacy Policy',
+          'KYC&AML Policies',
+          // &amp; => &;
+
+          'Support@allb.com'
+        ]
     })    
     });
 </script>
 
 <style>
-    
+
 </style>
