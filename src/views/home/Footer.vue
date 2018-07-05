@@ -67,7 +67,6 @@
 
 <script lang="ts">
     import Vue from 'vue';   
-
     export default Vue.extend({    
         name: 'abFooter',
          data: () => ({
@@ -82,14 +81,12 @@
           'Guides',
           'FAQ',
           'Announcements',
-
           'Terms of Service',
           'Transaction Regulations',
           'Fees',
           'Terms of Privacy Policy',
           'KYC&AML Policies',
           // &amp; => &;
-
           'Support@allb.com'
         ]
     })    
@@ -97,5 +94,4 @@
 </script>
 
 <style>
-
 </style>
