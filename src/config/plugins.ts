@@ -2,12 +2,13 @@ import Vuetify from 'vuetify'
 import '../../node_modules/vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import {wbString} from "@/config/localization";
-//  import VeeValidate from 'vee-validate'
+import {abString} from "@/config/localization";
 
 export default (Vue: any) => {
   Vue.use(Vuex);
   Vue.use(VueRouter);
+
+
 
   // Design Plugin
   Vue.use(Vuetify, {
@@ -36,6 +37,8 @@ export default (Vue: any) => {
 
   // Localization
   Vue.prototype.$str = function (key: string) {
-    return wbString(key);
+    return abString(key);
   }
+
+ 
 }

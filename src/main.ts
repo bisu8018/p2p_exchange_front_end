@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Vuex from 'vuex'
-import Vuetify from 'vuetify'
 import plugins from "@/config/plugins";
 import configRouter from "@/config/router";
 import {sync} from "vuex-router-sync";
 import vuexStore from '@/vuex/config/store'
-import 'vuetify/dist/vuetify.min.css'
 Vue.config.productionTip = false
 
 plugins(Vue);
@@ -20,7 +18,6 @@ const event = function event(Vue: any) {
 };
 
 Vue.use(event);
-Vue.use(Vuetify)
 
 new Vue({
   router,

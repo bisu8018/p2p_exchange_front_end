@@ -3,14 +3,15 @@ import Router from 'vue-router'
 import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
-import Main from '../views/home/body/Main.vue'
+import AbMain from '../views/home/body/Main.vue'
+import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
 
 
 Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home
     },
@@ -25,9 +26,14 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/main',
-      name: 'main',
-      component: Main
+      path: '/',
+      name: 'abMain',
+      component: AbMain
+    },
+    {
+      path: '/findPassword',
+      name: 'findPassword',
+      component: FindPassword
     }
   ],
   mode:'history'

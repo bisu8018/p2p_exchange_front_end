@@ -1,4 +1,4 @@
-export var WbUtils = {
+export var abUtils = {
   // 정수형인지
   isNaturalNumber: function (number: any) {
     let regExp = /^\d*$/;
@@ -45,9 +45,14 @@ export var WbUtils = {
       return false;
     }
     // 영문/숫자/특수문자 중 택2
-    if ( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
-      return false;
-    }
+    // if ( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
+    //   return false;
+    // }
+
+    // 영문/숫자/특수문자 필수
+     if (num < 0 && eng < 0 && spe < 0){
+       return false;
+     }
     return true;
   },
   // 날짜
@@ -69,3 +74,4 @@ export var WbUtils = {
     return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
   }
 };
+

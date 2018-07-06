@@ -7,15 +7,13 @@
 
 <script>
     import Vue from "vue";
-    import {setEventBus, setRouter} from "./common/common";
+    import {setEventBus, setRouter} from "./common/common";    
     import Home from './views/home/Home.vue'
-    import Login from './views/home/body/login/Login.vue'
 
     export default Vue.extend({
         name: "app",
         components: {
            'home' : Home,
-           'login' : Login
         },
         created() {            
             setEventBus(this.$eventBus);

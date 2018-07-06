@@ -2,41 +2,47 @@ import {getCookie, setCookie} from "@/common/common";
 
 const strings = new Map([
 
-  // 버튼
-  [ '돌아가기', {
-    KOR : '돌아가기',
-    ENG: 'Back',
-    CN: '返回',
+  // signup
+  ['emailValue', {
+    KOR: '이메일을 입력해 주십시오.',
+    ENG: 'Pleaes enter email value.',
+    CN: '',
     JP: ''
   }],
-  [ '취소하기', {
-    KOR : '취소하기',
-    ENG: 'Cancel',
-    CN: '取消',
+  ['emailForm', {
+    KOR: '이메일 양식에 맞지 않습니다.',
+    ENG: 'Does not fit email format.',
+    CN: '',
     JP: ''
   }],
-  [ '취소', {
-    KOR : '취소',
-    ENG: 'Cancel',
-    CN: '取消',
+  ['passwordValue', {
+    KOR: '비밀번호를 입력해 주십시오.',
+    ENG: 'Pleaes enter password value.',
+    CN: '',
     JP: ''
   }],
-  [ '저장하기', {
-    KOR : '저장하기',
-    ENG: 'Save',
-    CN: '保存',
+  ['passwordDigit', {
+    KOR: '최소 8자를 입력해 주세요.',
+    ENG: 'Please enter at least eight digits.',
+    CN: '',
     JP: ''
   }],
-  [ '변경하기', {
-    KOR : '변경하기',
-    ENG: 'Change',
-    CN: '变更',
+  ['passwordForm', {
+    KOR: '비밀번호 양식에 맞지 않습니다.',
+    ENG: 'Does not fit password format.',
+    CN: '',
     JP: ''
   }],
-  ['생성하기', {
-    KOR: '생성하기',
-    ENG: 'Create',
-    CN: '创建',
+  ['passwordMatch', {
+    KOR: '패스워드가 일치하지 않습니다.',
+    ENG: 'Password is not matching.',
+    CN: '',
+    JP: ''
+  }],
+  ['AcceptConditions', {
+    KOR: '이용약관에 동의해 주십시오.',
+    ENG: 'Please accept the terms and conditions.',
+    CN: '',
     JP: ''
   }],
   ['', {
@@ -103,16 +109,16 @@ function checkLocale(): Lang {
 let currentLang: Lang = Lang.KO;
 
 
-export function wbGetLang (): Lang {
+export function abGetLang (): Lang {
   return currentLang
 }
 
-export function wbSetLang (lang: Lang): void {
+export function abSetLang (lang: Lang): void {
   currentLang = lang
 }
 
 
-export function wbString(key: string): string {
+export function abString(key: string): string {
   const string = strings.get(key);
   if (string !== undefined && string !== null) {
     switch (currentLang) {

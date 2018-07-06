@@ -1,9 +1,9 @@
 <template>
-  <div>
+<v-app>
     <abHeader></abHeader>
     <router-view></router-view>
     <abFooter></abFooter>
-  </div>
+</v-app>
 </template>
 
 <script lang="ts">
@@ -13,7 +13,7 @@ import AbHeader from "./Header.vue"
 import AbFooter from "./Footer.vue"
 
 export default Vue.extend({
-    name: 'home',
+    name: 'home',    
     components: {
       'abHeader' : AbHeader,
       'abFooter' : AbFooter
@@ -23,9 +23,6 @@ export default Vue.extend({
         MainRepository.init(this.$store, function () {
 
         })
-    },
-    created: function () {
-     // this.$router.push("/main");
     }
 });
 </script>

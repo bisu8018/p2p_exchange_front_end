@@ -1,17 +1,14 @@
 <template>
-  <v-app>
     <v-container>
       <v-layout>
         <v-flex xs12 md6 offset-md3>
           <v-card flat>
             <v-card-title primary-title>
-              <div class="signup-subject">
                 <h2>Sign up to Allb</h2>
-              </div>
             </v-card-title>
             <v-card-text>
               <v-flex>
-                <v-text-field prepend-icon="person" name="email" v-model="email" label="Email" type="text" required></v-text-field>
+                <v-text-field prepend-icon="person" name="email" v-model="email" label="Email" type="text" placeholder="guest@allblab.com" required></v-text-field>
               </v-flex>
               <v-flex>
                 <v-text-field prepend-icon="lock" label="Password" placeholder="Min 8 characters" v-model="password" :type="'password'" required></v-text-field>
@@ -25,7 +22,7 @@
             </v-card-text>
             <v-card-actions>
               <v-flex text-xs-left>
-                <v-btn color="primary" class="signupBtn" @click="onSignup" large>Sign up</v-btn>
+                <v-btn color="primary" class="signupBtn" @click="onCheck" large>Sign up</v-btn>
               </v-flex>
               <v-flex>
                 Already have an account <a @click='goLogin'>Log in</a>
@@ -38,12 +35,14 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-app>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import AXIOS from 'axios';
+  import { abUtils } from '@/common/utils';
+  import AccountService from '@/service/account/AccountService';
+ 
   
   export default Vue.extend({
     name: 'home',
@@ -54,77 +53,57 @@
       checkbox: false,
       verify_warning: ""
     }),
-    methods: {
-      onCheck() {
-        // Warnings in case of error in e-mail or password entry
-  
+    methods: { 
+      onCheck() { 
+        // Warnings in case of error in e-mail or password entry  
+
+        //email null
         if (this.email === "") {
-          this.verify_warning = "pleaes enter email value.";
+          this.verify_warning = Vue.prototype.$str("emailValue");
           return;
         }
-  
-        if (!this.emailCheck(this.email)) {
-          this.verify_warning = "Does not fit email format.";
+        //email form 
+        if (!abUtils.isEmail(this.email)) {
+          this.verify_warning = Vue.prototype.$str("emailForm");
           return;
         }
-  
+        //password null
         if (this.password === "") {
-          this.verify_warning = "pleaes enter password value.";
+          this.verify_warning = Vue.prototype.$str("passwordValue");
           return;
         }
-  
+        //password digit
         if (this.password.length <= 8) {
-          this.verify_warning = "Please enter at least eight digits.";
+          this.verify_warning = Vue.prototype.$str("passwordDigit");
           return;
-        }
-  
-  
-        if (!this.passwordCheck(this.password)) {
-          this.verify_warning = "Does not fit password format.";
+        }  
+        //password form
+        if (!abUtils.isPasswd(this.password)) {
+          this.verify_warning = Vue.prototype.$str("Does not fit password format.");
           return;
-        }
-  
-  
+        }  
+        //password ~ password confirm match
         if (this.password !== this.passwordConfirm) {
-          this.verify_warning = "password is not matching.";
+          this.verify_warning = Vue.prototype.$str("passwordMatch");
           return;
         }
-  
+        //terms and conditions
         if (this.checkbox === false) {
-          this.verify_warning = "Please accept the terms and conditions.";
+          this.verify_warning = Vue.prototype.$str("AcceptConditions");
           return;
-        }
-  
-  
-        //this.verify_warning = "Email verification is not yet done.";
-      },
-      emailCheck(email) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-          return true;
-        }
-        return false;
-      },
-      passwordCheck(password) {
-        //Password verification function
-        if (
-          /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(password)
-        ) {
-          return true;
-        }
-        return false;
+        } 
+        
+        this.onSignup();
       },
       onSignup() {
         //Send Email verification codes to Server
-        AXIOS.post("api/user", {
-            email: this.email,
-            encryptedPassword: this.password
-          })
-          .then(result => {
-            console.log(result);
-          })
-          .catch(ex => {
-            console.log("err  :::::::::  ", ex);
-          });
+        AccountService.Account.login({},function(error){
+          if(!error){
+            console.log("success");
+          }else{
+            console.log("POST ERROR ::::::: " + error);
+          }
+        })
       },
       goLogin() {
         this.$router.push("/login");
