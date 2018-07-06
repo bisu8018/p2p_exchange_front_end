@@ -1,6 +1,6 @@
-<template>   
+<template>
     <!--수직,수평정렬-->
-    <v-layout mt-5 mb-5>                 
+    <v-layout mt-5 mb-5>
         <v-flex xs12 lg4  offset-lg4 >
             <form action="/signin" method="post">
                 <v-card flat>
@@ -10,13 +10,13 @@
                     </v-card-title>
                     <v-card-text>
                         <v-text-field prepend-icon="person" name="email" v-model="email" v-bind:label="htmlEmail" type="text" required></v-text-field>
-                        <v-text-field prepend-icon="lock" name="encryptedPassword" v-model="encryptedPassword" v-bind:label="htmlPassword" type="password" required></v-text-field>                                
-                           <!--find password  페이지로 이동--> 
-                        <v-flex text-xs-left>                                                                            
-                            <a @click="goFindPassword">{{htmlForgetPassword}}</a>    
+                        <v-text-field prepend-icon="lock" name="encryptedPassword" v-model="encryptedPassword" v-bind:label="htmlPassword" type="password" required></v-text-field>
+                           <!--find password  페이지로 이동-->
+                        <v-flex text-xs-left>
+                            <a @click="goFindPassword">{{htmlForgetPassword}}</a>
                         </v-flex>
-                    </v-card-text>   
-                      <!--클라이언트 단 보안상 약점 존재, 구글 캣챠 대체가능-->   
+                    </v-card-text>
+                      <!--클라이언트 단 보안상 약점 존재, 구글 캣챠 대체가능-->
                     <v-card-actions>
                     <v-flex text-xs-left>
                     <v-btn color="primary" type="submit" large >{{htmlLoginText}}</v-btn>
@@ -24,11 +24,11 @@
                     <v-flex>
                         {{htmlAccoutYet}} <a @click='goSignup'>{{htmlSignupText}}</a>
                     </v-flex>
-                    </v-card-actions>        
-                </v-card> 
-            </form>   
+                    </v-card-actions>
+                </v-card>
+            </form>
         </v-flex>
-    </v-layout>     
+    </v-layout>
 </template>
 
 <script>
@@ -68,9 +68,5 @@ export default{
 }
 </script>
 <style>
-.loginPage{
-    position: relative;
-    
-}
 
 </style>
