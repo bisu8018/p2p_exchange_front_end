@@ -1,52 +1,49 @@
-<template>
-        <form action="/signin" method="post">
-            <v-content>
-                <v-container grid-list-md fill-height>
-                    <!--수직,수평정렬-->
-                    <v-layout row wrap align-center justify-center>                 
-                        <v-flex xs12 md6 lg4>
-                            <v-card>
-                                <v-card-title primary-title>
-                                        <img class="iconLogo" src="@/assets/imgs/logo_black.png">
-                                        <h3 class="headline mb-0">Welcome</h3>
-                                </v-card-title>
-                                <v-card-text>
-                                    <v-text-field prepend-icon="person" name="email" v-model="email" label="Email" type="text" required></v-text-field>
-                                    <v-text-field prepend-icon="lock" name="encryptedPassword" v-model="encryptedPassword" label="Password" type="password" required></v-text-field>
-                                </v-card-text>
-                                <!--password 분실시 찾아주는 페이지로 이동-->
-                                <div class="forgetPassword">
-                                    <a @click="goFindPassword">            
-                                        Forget Password?</a>
-                                    <br>
-                                    <br>                                
-                              </div>
-                            <!--클라이언트 단 보안상 약점 존재, 구글 캣챠 대체가능-->                           
-                            <div class="btnItem">
-                                <v-btn color="primary" block type="submit" large >Log In</v-btn>
-                            </div>
-                            <div class="text-xs-center">
-                                <hr class="v-divider">
-                                <span  style="position: relative; z-index:2;">or</span>
-                                <hr class="v-divider">
-                                <div class="loginOrLine"></div>
-                            </div>
-                            <div>
-                                <!--sign up page로 이동-->
-                                <v-btn @click="goSignup">Sign Up</v-btn>       
-                            </div>  
-                        </v-card>
+<template>   
+    <!--수직,수평정렬-->
+    <v-layout mt-5 mb-5>                 
+        <v-flex xs12 lg4  offset-lg4 >
+            <form action="/signin" method="post">
+                <v-card flat>
+                    <v-card-title primary-title>
+                        <img class="iconLogo mr-2" src="@/assets/img/logo_black.png" >
+                        <h2 class="headline">{{htmlWelcome}}</h2>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-text-field prepend-icon="person" name="email" v-model="email" v-bind:label="htmlEmail" type="text" required></v-text-field>
+                        <v-text-field prepend-icon="lock" name="encryptedPassword" v-model="encryptedPassword" v-bind:label="htmlPassword" type="password" required></v-text-field>                                
+                           <!--find password  페이지로 이동--> 
+                        <v-flex text-xs-left>                                                                            
+                            <a @click="goFindPassword">{{htmlForgetPassword}}</a>    
+                        </v-flex>
+                    </v-card-text>   
+                      <!--클라이언트 단 보안상 약점 존재, 구글 캣챠 대체가능-->   
+                    <v-card-actions>
+                    <v-flex text-xs-left>
+                    <v-btn color="primary" type="submit" large >{{htmlLoginText}}</v-btn>
                     </v-flex>
-                </v-layout>      
-            </v-container>
-        </v-content>
-    </form>   
+                    <v-flex>
+                        {{htmlAccoutYet}} <a @click='goSignup'>{{htmlSignupText}}</a>
+                    </v-flex>
+                    </v-card-actions>        
+                </v-card> 
+            </form>   
+        </v-flex>
+    </v-layout>     
 </template>
+
 <script>
+import Vue from 'vue';
 export default{
     name : 'login',
     data: function(){
         return{
+            htmlWelcome: Vue.prototype.$str("welcome"),
+            htmlEmail: Vue.prototype.$str("email"),
+            htmlPassword: Vue.prototype.$str("password"),
+            htmlSignupText: Vue.prototype.$str("signupText"), //SIGN UP
+            htmlLoginText: Vue.prototype.$str("loginText"),       //LOG IN
+            htmlForgetPassword: Vue.prototype.$str("forgetPassword"), //Forget Password?
+            htmlAccoutYet: Vue.prototype.$str("accountYet"), //Don't have an account?
             email : '',
             encryptedPassword : '',           
             emailRules: [
@@ -74,13 +71,6 @@ export default{
 .loginPage{
     position: relative;
     
-}
-.iconLogo{
-    width : 20px;
-    height: 20px;
-}
-.forgetPwd{
-    text-align: left;
 }
 
 </style>

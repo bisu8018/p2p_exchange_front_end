@@ -1,8 +1,13 @@
 <template>
-  <div style="min-height:300px;">
-    <a @click="goLogin" style=" cursor:pointer; font-size:20px; margin-right:20px">login</a>|      
-    <a @click="goSignup" style=" cursor:pointer; font-size:20px; margin-left:20px">signup</a>
-  </div>
+  <v-flex>
+     <v-carousel>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      :key="i"
+      :src="item.src"
+    ></v-carousel-item>
+  </v-carousel>
+  </v-flex>
 </template>
 
 <script lang="ts">
@@ -10,6 +15,24 @@ import Vue from 'vue';
 
 export default Vue.extend({
     name: 'abMain',
+    data () {
+      return {
+        items: [
+          {
+            src: 'https://s3.amazonaws.com/vuetify-docs/images/carousel/squirrel.jpg'
+          },
+          {
+            src: 'https://s3.amazonaws.com/vuetify-docs/images/carousel/sky.jpg'
+          },
+          {
+            src: 'https://s3.amazonaws.com/vuetify-docs/images/carousel/bird.jpg'
+          },
+          {
+            src: 'https://s3.amazonaws.com/vuetify-docs/images/carousel/planet.jpg'
+          }
+        ]
+      }
+    },
     methods: {
         goLogin() {
         this.$router.push("/login");

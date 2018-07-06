@@ -31,6 +31,11 @@ export default new Router({
       component: AbMain
     },
     {
+      path: '/abMain',
+      name: 'abMain',
+      component: AbMain
+    },
+    {
       path: '/findPassword',
       name: 'findPassword',
       component: FindPassword

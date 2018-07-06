@@ -2,47 +2,40 @@
     font-family: 'Noto Sans SC';
     font-style: normal;
     font-weight: 100;
-    src: url(../assets/font/NotoSansSC-Thin.woff2) format('woff2'),
-        url(../assets/font/NotoSansSC-Thin.woff) format('woff'),
-        url(../assets/font/NotoSansSC-Thin.otf) format('opentype');
+    src: url(../assets/font/NotoSansSC-Thin.woff2) format('woff2'), url(../assets/font/NotoSansSC-Thin.woff) format('woff'), url(../assets/font/NotoSansSC-Thin.otf) format('opentype');
 }
+
 @font-face {
     font-family: 'Noto Sans SC';
     font-style: normal;
     font-weight: 300;
-    src: url(../assets/font/NotoSansSC-Light.woff2) format('woff2'),
-        url(../assets/font/NotoSansSC-Light.woff) format('woff'),
-        url(../assets/font/NotoSansSC-Light.otf) format('opentype');
+    src: url(../assets/font/NotoSansSC-Light.woff2) format('woff2'), url(../assets/font/NotoSansSC-Light.woff) format('woff'), url(../assets/font/NotoSansSC-Light.otf) format('opentype');
 }
+
 @font-face {
     font-family: 'Noto Sans SC';
     font-style: normal;
     font-weight: 400;
-    src: url(../assets/font/NotoSansSC-Regular.woff2) format('woff2'),
-        url(../assets/font/NotoSansSC-Regular.woff) format('woff'),
-        url(../assets/font/NotoSansSC-Regular.otf) format('opentype');
+    src: url(../assets/font/NotoSansSC-Regular.woff2) format('woff2'), url(../assets/font/NotoSansSC-Regular.woff) format('woff'), url(../assets/font/NotoSansSC-Regular.otf) format('opentype');
 }
+
 @font-face {
     font-family: 'Noto Sans SC';
     font-style: normal;
     font-weight: 500;
-    src: url(../assets/font/NotoSansSC-Medium.woff2) format('woff2'),
-        url(../assets/font/NotoSansSC-Medium.woff) format('woff'),
-        url(../assets/font/NotoSansSC-Medium.otf) format('opentype');
+    src: url(../assets/font/NotoSansSC-Medium.woff2) format('woff2'), url(../assets/font/NotoSansSC-Medium.woff) format('woff'), url(../assets/font/NotoSansSC-Medium.otf) format('opentype');
 }
+
 @font-face {
     font-family: 'Noto Sans SC';
     font-style: normal;
     font-weight: 700;
-    src: url(../assets/font/NotoSansSC-Bold.woff2) format('woff2'),
-        url(../assets/font/NotoSansSC-Bold.woff) format('woff'),
-        url(../assets/font/NotoSansSC-Bold.otf) format('opentype');
+    src: url(../assets/font/NotoSansSC-Bold.woff2) format('woff2'), url(../assets/font/NotoSansSC-Bold.woff) format('woff'), url(../assets/font/NotoSansSC-Bold.otf) format('opentype');
 }
+
 @font-face {
     font-family: 'Noto Sans SC';
     font-style: normal;
     font-weight: 900;
-    src: url(../assets/font/NotoSansSC-Black.woff2) format('woff2'),
-        url(../assets/font/NotoSansSC-Black.woff) format('woff'),
-        url(../assets/font/NotoSansSC-Black.otf) format('opentype');
+    src: url(../assets/font/NotoSansSC-Black.woff2) format('woff2'), url(../assets/font/NotoSansSC-Black.woff) format('woff'), url(../assets/font/NotoSansSC-Black.otf) format('opentype');
 }

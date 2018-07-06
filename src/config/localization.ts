@@ -39,9 +39,101 @@ const strings = new Map([
     CN: '',
     JP: ''
   }],
-  ['AcceptConditions', {
+  ['acceptConditions', {
     KOR: '이용약관에 동의해 주십시오.',
     ENG: 'Please accept the terms and conditions.',
+    CN: '',
+    JP: ''
+  }],
+  ['signupSubject', {
+    KOR: '회원가입',
+    ENG: 'SIGN UP',
+    CN: '注册火币',
+    JP: ''
+  }],
+  ['email', {
+    KOR: '이메일',
+    ENG: 'Email',
+    CN: '邮箱',
+    JP: ''
+  }],
+  ['password', {
+    KOR: '비밀번호',
+    ENG: 'Password',
+    CN: '登录密码',
+    JP: ''
+  }],
+  ['passwordPlaceholder', {
+    KOR: '8~20자 숫자/영문/특수문자 포함',
+    ENG: '8 to 20 characters with a mix of letters and numbers',
+    CN: '8-20位数字和字母组合',
+    JP: ''
+  }],
+  ['passwordConfirm', {
+    KOR: '비밀번호 확인',
+    ENG: 'Password Confirm',
+    CN: '确认密码',
+    JP: ''
+  }],
+  ['termsLabel', {
+    KOR: '이용약관에 동의합니다.',
+    ENG: 'I agree to the Terms of Service',
+    CN: '我已阅读并同意',
+    JP: ''
+  }],
+  ['termsBtn', {
+    KOR: '이용약관',
+    ENG: 'Terms of Service',
+    CN: '用户协议',
+    JP: ''
+  }],
+  ['signupText', {
+    KOR: '회원가입',
+    ENG: 'SIGN UP',
+    CN: '确定注册',
+    JP: ''
+  }],
+  ['haveAccount', {
+    KOR: '이미 계정이 있으십니까 ?',
+    ENG: 'Already have an account ?',
+    CN: '已有账号 ?',
+    JP: ''
+  }],
+  ['loginText', {
+    KOR: '로그인',
+    ENG: 'LOG IN',
+    CN: '立即登录',
+    JP: ''
+  }],
+
+  //login
+  ['welcome', {
+    KOR: '환영합니다',
+    ENG: 'Welcome',
+    CN: '欢迎登录',
+    JP: ''
+  }],
+  ['forgetPassword', {
+    KOR: '비밀번호를 잊어버리셨습니까?',
+    ENG: 'Forget Password?',
+    CN: '忘记密码？',
+    JP: ''
+  }],
+  ['welcome', {
+    KOR: '환영합니다',
+    ENG: 'Welcome',
+    CN: '欢迎登录',
+    JP: ''
+  }],
+  ['accountYet', {
+    KOR: '아직 계정이 없으십니까?',
+    ENG: "Don't have an account?",
+    CN: '还没有账号？',
+    JP: ''
+  }],
+  ['', {
+    KOR: '',
+    ENG: '',
     CN: '',
     JP: ''
   }],

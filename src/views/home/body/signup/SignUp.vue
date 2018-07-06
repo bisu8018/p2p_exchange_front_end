@@ -1,40 +1,36 @@
 <template>
-    <v-container>
-      <v-layout>
-        <v-flex xs12 md6 offset-md3>
-          <v-card flat>
-            <v-card-title primary-title>
-                <h2>Sign up to Allb</h2>
-            </v-card-title>
-            <v-card-text>
-              <v-flex>
-                <v-text-field prepend-icon="person" name="email" v-model="email" label="Email" type="text" placeholder="guest@allblab.com" required></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field prepend-icon="lock" label="Password" placeholder="Min 8 characters" v-model="password" :type="'password'" required></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-text-field prepend-icon="lock" label="Password Confirm" placeholder="Include characters, numbers, special chracters" v-model="passwordConfirm" :type="'password'" required></v-text-field>
-              </v-flex>
-              <v-flex>
-                <v-checkbox :label="'I agree to the Terms of Service'" v-model="checkbox"></v-checkbox>
-              </v-flex>
-            </v-card-text>
-            <v-card-actions>
-              <v-flex text-xs-left>
-                <v-btn color="primary" class="signupBtn" @click="onCheck" large>Sign up</v-btn>
-              </v-flex>
-              <v-flex>
-                Already have an account <a @click='goLogin'>Log in</a>
-              </v-flex>
-              <!-- <v-alert :value="true" type="error" absolute>
-                This is a error alert.
-              </v-alert> -->
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+  <v-layout mt-5 mb-5>
+    <v-flex xs12  lg4  offset-lg4>
+      <v-card flat>
+        <v-card-title primary-title>
+           <img class="iconLogo mr-2" src="@/assets/img/logo_black.png" >
+            <h2 class="headline">{{htmlSignupSubject}}</h2>
+        </v-card-title>
+        <v-card-text>
+          <v-flex>
+            <v-text-field prepend-icon="person" name="email" v-model="email" v-bind:label="htmlEmail" type="text" placeholder="guest@allblab.com" required></v-text-field>
+          </v-flex>
+          <v-flex>
+            <v-text-field prepend-icon="lock" v-bind:label="htmlPassword" v-bind:placeholder="htmlPasswordPlaceholder" v-model="password" :type="'password'" required></v-text-field>
+          </v-flex>
+          <v-flex>
+            <v-text-field prepend-icon="lock" v-bind:label="htmlPasswordConfirm" v-bind:placeholder="htmlPasswordPlaceholder" v-model="passwordConfirm" :type="'password'" required></v-text-field>
+          </v-flex>
+          <v-flex>
+            <v-checkbox v-bind:label="htmlTermsLabel" v-model="checkbox"></v-checkbox>
+          </v-flex>
+        </v-card-text>
+        <v-card-actions>
+          <v-flex text-xs-left>
+            <v-btn color="primary" @click="onCheck" large>{{htmlSignupText}}</v-btn>           
+          </v-flex>
+          <v-flex>
+             {{htmlHaveAccount}} <a @click='goLogin'>{{htmlLoginText}}</a>
+          </v-flex>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script lang="ts">
@@ -47,6 +43,18 @@
   export default Vue.extend({
     name: 'home',
     data: () => ({
+      htmlSignupSubject: Vue.prototype.$str("signupSubject"), //Sign up to AllB
+      htmlEmail: Vue.prototype.$str("email"),
+      htmlPassword: Vue.prototype.$str("password"),
+      htmlPasswordPlaceholder: Vue.prototype.$str("passwordPlaceholder"), //8 to 20 characters with a mix of letters and numbers
+      htmlPasswordConfirm: Vue.prototype.$str("passwordConfirm"), //Password Confirm
+      htmlTermsLabel: Vue.prototype.$str("termsLabel"), //I agree to the Terms of Service
+      htmlTermsBtn: Vue.prototype.$str("termsBtn"), // Terms of Service
+      htmlSignupText: Vue.prototype.$str("signupText"), //SIGN UP
+      htmlHaveAccount : Vue.prototype.$str("haveAccount"), //Already have an account ?
+      htmlLoginText: Vue.prototype.$str("loginText"),       //LOG IN
+
+
       email: "",
       password: "",
       passwordConfirm: "",
@@ -79,7 +87,7 @@
         }  
         //password form
         if (!abUtils.isPasswd(this.password)) {
-          this.verify_warning = Vue.prototype.$str("Does not fit password format.");
+          this.verify_warning = Vue.prototype.$str("passwordForm");
           return;
         }  
         //password ~ password confirm match
@@ -89,7 +97,7 @@
         }
         //terms and conditions
         if (this.checkbox === false) {
-          this.verify_warning = Vue.prototype.$str("AcceptConditions");
+          this.verify_warning = Vue.prototype.$str("acceptConditions");
           return;
         } 
         

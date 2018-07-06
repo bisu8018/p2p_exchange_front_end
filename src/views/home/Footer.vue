@@ -17,7 +17,7 @@
         <!-- 카드 1 -->
         <v-flex xs12 md4 text-xs-left>
           <v-card flat>
-            <v-card-text class="grey--text" style="background: #eeeeee;">
+            <v-card-text class="grey--text grey lighten-3">
               <p>Support</p>
               <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Guides</p></a>
               <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>FAQ</p></a>
@@ -28,7 +28,7 @@
         <!-- 카드 2 -->
         <v-flex xs12 md4 text-xs-left>
           <v-card flat>
-            <v-card-text class="grey--text" style="background: #eeeeee;">
+            <v-card-text class="grey--text grey lighten-3">
               <p>Terms</p>
               <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Terms of Service</p></a>
               <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>Transaction Regulations</p></a>
@@ -39,9 +39,9 @@
           </v-card>
         </v-flex>
         <!-- 카드 3 -->
-        <v-flex xs12 md4 text-xs-left style="background: #eeeeee;">
+        <v-flex xs12 md4 text-xs-left class="grey lighten-3">
           <v-card flat>
-            <v-card-text class="grey--text" style="background: #eeeeee;">
+            <v-card-text class="grey--text grey lighten-3" >
               <p>Contact Us</p>
               <a class="black--text" href="https://vuetifyjs.com" target="_blank">support@allb.com</a>
             </v-card-text>
@@ -53,7 +53,7 @@
             <hr class="my-2">
        
           <v-card flat>
-            <v-card-text style="background: #eeeeee;">
+            <v-card-text class="grey lighten-3">
               &copy; 2018 — <strong>otc.AllB.com</strong>
             </v-card-text>
           </v-card>
