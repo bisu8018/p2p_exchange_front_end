@@ -8,7 +8,7 @@
                             <v-card>
                                 <v-card-title primary-title>
                                     <div class="loginTitle">
-                                        <img class="iconLogo" src="../../../../assets/imgs/logo_black.png"> <!--우리로고이미지로 대체해야함-->
+                                        <img class="iconLogo" src="../../../../assets/img/logo_black.png"> <!--우리로고이미지로 대체해야함-->
                                         <h3 class="headline mb-0"> Welcome</h3>
                                     </div>
                                 </v-card-title>
