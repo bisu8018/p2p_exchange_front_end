@@ -7,8 +7,8 @@
                         <v-flex xs12 md6 lg4>
                             <v-card>
                                 <v-card-title primary-title>
-                                        <img class="iconLogo" src="@/assets/imgs/logo_black.png">
-                                        <h3 class="headline mb-0">Welcome</h3>
+                                        <img class="iconLogo" src="@/assets/img/logo_black.png">
+                                        <h3 class="headline mb-0">欢迎登录</h3>
                                 </v-card-title>
                                 <v-card-text>
                                     <v-text-field prepend-icon="person" name="email" v-model="email" label="Email" type="text" required></v-text-field>
