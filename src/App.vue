@@ -21,9 +21,7 @@
         }
     });
 </script>
-
 <style>
-
 #app {
   font-family: 'Noto Sans SC', Helvetica, Arial, sans-serif ;
   -webkit-font-smoothing: antialiased;

@@ -62,7 +62,7 @@ export default{
             this.$router.push("/signup");
         },
         goFindPassword() {
-             this.$router.push("/findPassword");
+            this.$router.push("/findPassword");
         }        
     }
 }

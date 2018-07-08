@@ -2,6 +2,8 @@
  <p>
   <v-toolbar flat>   
     <v-toolbar-title @click="goMain()">AllB</v-toolbar-title>
+    <v-toolbar-title @click="goTradeCenter()">Trade Center</v-toolbar-title>
+    <v-toolbar-title @click="goPostAd()">Post Ad</v-toolbar-title>
     <v-spacer></v-spacer>
   <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>  
   </v-toolbar>  
@@ -53,6 +55,12 @@
         },
         goMain() {
           this.$router.push("/abMain");
+        },
+        goTradeCenter() {
+          this.$router.push("/tradeCenter");
+        },
+        goPostAd() {
+          this.$router.push("/postAd");
         }        
     }
   });
