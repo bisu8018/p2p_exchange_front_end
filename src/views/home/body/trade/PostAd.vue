@@ -8,8 +8,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import AXIOS from 'axios';
-  import ListView from '@/views/home/body/trade/common/listView.vue';
-  import SelectBar from '@/views/home/body/trade/common/selectBar.vue';
+  import ListView from '@/components/listView.vue';
+  import SelectBar from '@/components/selectBar.vue';
   
   export default Vue.extend({
     name: 'postAd',
