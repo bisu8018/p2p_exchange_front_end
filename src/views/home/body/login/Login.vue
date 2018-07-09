@@ -5,7 +5,7 @@
             <v-card flat>
                 <v-card-title primary-title>
                     <img class="iconLogo mr-2" src="@/assets/img/logo_black.png" >
-                    <h2 class="headline">{{htmlWelcome}}</h2>
+                    <h2 class="">{{htmlWelcome}}</h2>
                 </v-card-title>
                 <v-card-text>                    
                     <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlEmail}}</v-flex>
@@ -35,6 +35,7 @@
 import Vue from 'vue';
 import VerifySlider from "@/components/VerifySlider";
 import { abUtils } from '@/common/utils';
+import AccountService from '@/service/account/AccountService';
 
 export default{
     name : 'login',

@@ -23,7 +23,7 @@
 </script>
 <style>
 #app {
-  font-family: 'Noto Sans SC', Helvetica, Arial, sans-serif ;
+  font-family: 'Noto Sans KR', Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

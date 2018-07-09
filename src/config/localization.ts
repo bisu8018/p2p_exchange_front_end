@@ -108,7 +108,7 @@ const strings = new Map([
 
   //login
   ['welcome', {
-    KOR: '환영합니다',
+    KOR: '환영합니다 Welcome 欢迎登录',
     ENG: 'Welcome',
     CN: '欢迎登录',
     JP: ''
@@ -117,12 +117,6 @@ const strings = new Map([
     KOR: '비밀번호를 잊어버리셨습니까?',
     ENG: 'Forget Password?',
     CN: '忘记密码？',
-    JP: ''
-  }],
-  ['welcome', {
-    KOR: '환영합니다',
-    ENG: 'Welcome',
-    CN: '欢迎登录',
     JP: ''
   }],
   ['accountYet', {

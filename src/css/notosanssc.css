@@ -20,10 +20,10 @@
 }
 
 @font-face {
-    font-family: 'Noto Sans SC';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
-    src: url(../assets/font/NotoSansSC-Medium.woff2) format('woff2'), url(../assets/font/NotoSansSC-Medium.woff) format('woff'), url(../assets/font/NotoSansSC-Medium.otf) format('opentype');
+    src: url(../assets/font/NotoSansKR-Medium.woff2) format('woff2'), url(../assets/font/NotoSansKR-Medium.woff) format('woff'), url(../assets/font/NotoSansKR-Medium.otf) format('opentype');
 }
 
 @font-face {
