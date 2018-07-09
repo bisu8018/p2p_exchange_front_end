@@ -5,8 +5,8 @@ import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
 import AbMain from '../views/home/body/Main.vue'
 import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
-import TradeCenter from '../views/home/body/trade/TradeCenter.vue'
-import PostAd from '../views/home/body/trade/PostAd.vue'
+import TradeCenter from '../views/home/body/tradeCenter/TradeCenter.vue'
+import PostAd from '../views/home/body/postAd/PostAd.vue'
 
 
 Vue.use(Router)
