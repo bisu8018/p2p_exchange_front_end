@@ -7,14 +7,17 @@
             <h2 class="headline">{{htmlSignupSubject}}</h2>
         </v-card-title>
         <v-card-text>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlEmail}}</v-flex>
           <v-flex>
-            <v-text-field prepend-icon="person" name="email" v-model="email" v-bind:label="htmlEmail" type="text" placeholder="guest@allblab.com" required></v-text-field>
+            <v-text-field name="email" v-model="email" type="text" placeholder="guest@allblab.com" solo></v-text-field>
           </v-flex>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlPassword}}</v-flex>
           <v-flex>
-            <v-text-field prepend-icon="lock" v-bind:label="htmlPassword" v-bind:placeholder="htmlPasswordPlaceholder" v-model="password" :type="'password'" required></v-text-field>
+            <v-text-field v-bind:label="htmlPassword" v-model="password" :type="'password'" solo></v-text-field>
           </v-flex>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlPasswordConfirm}}</v-flex>
           <v-flex>
-            <v-text-field prepend-icon="lock" v-bind:label="htmlPasswordConfirm" v-bind:placeholder="htmlPasswordPlaceholder" v-model="passwordConfirm" :type="'password'" required></v-text-field>
+            <v-text-field v-bind:label="htmlPasswordConfirm" v-model="passwordConfirm" :type="'password'" solo></v-text-field>
           </v-flex>
           <v-flex>
             <v-checkbox v-bind:label="htmlTermsLabel" v-model="checkbox"></v-checkbox>
@@ -22,7 +25,7 @@
         </v-card-text>
         <v-card-actions>
           <v-flex text-xs-left>
-            <v-btn color="primary" @click="onCheck" large>{{htmlSignupText}}</v-btn>           
+            <v-btn dark color="blue darken-3" @click="onCheck" large>{{htmlSignupText}}</v-btn>           
           </v-flex>
           <v-flex>
              {{htmlHaveAccount}} <a @click='goLogin'>{{htmlLoginText}}</a>
@@ -105,7 +108,10 @@
       },
       onSignup() {
         //Send Email verification codes to Server
-        AccountService.Account.login({},function(error){
+        AccountService.Account.signup({
+          email : this.email,
+          encryptedPassword : this.password
+        },function(error){
           if(!error){
             console.log("success");
           }else{

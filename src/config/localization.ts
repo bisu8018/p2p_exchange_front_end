@@ -131,16 +131,16 @@ const strings = new Map([
     CN: '还没有账号？',
     JP: ''
   }],
-  ['', {
-    KOR: '',
-    ENG: '',
-    CN: '',
+  ['verify', {
+    KOR: '인증',
+    ENG: 'Verify',
+    CN: '滑动验证',
     JP: ''
   }],
-  ['', {
-    KOR: '',
-    ENG: '',
-    CN: '',
+  ['verifySlider', {
+    KOR: '슬라이드 바 인증을 부탁드립니다.',
+    ENG: 'Please certify slide bar.',
+    CN: '请证明滑动条',
     JP: ''
   }],
 

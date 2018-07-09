@@ -1,21 +1,16 @@
 <template>
  <p>
-  <v-toolbar flat>   
-    <v-toolbar-title @click="goMain()">AllB</v-toolbar-title>
+  <v-toolbar flat dark color="indigo" fixed>   
+    <v-toolbar-title @click="goMain()" >AllB</v-toolbar-title>
     <v-spacer></v-spacer>
   <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>  
   </v-toolbar>  
  
-  <v-navigation-drawer
-      v-model="drawer"
-      temporary
-      right
-      app
-    >
+  <v-navigation-drawer v-model="drawer" temporary right app>
      <v-list class="pa-1">
           <v-list-tile>        
             <v-list-tile-content>
-              <v-list-tile-title class="title">ALLB</v-list-tile-title>
+              <v-list-tile-title class="title" @click="goMain()">ALLB</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
