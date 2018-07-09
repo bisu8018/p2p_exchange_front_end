@@ -108,7 +108,7 @@ const strings = new Map([
 
   //login
   ['welcome', {
-    KOR: '환영합니다 Welcome 欢迎登录',
+    KOR: '환영합니다',
     ENG: 'Welcome',
     CN: '欢迎登录',
     JP: ''
@@ -192,7 +192,7 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.KO;
+let currentLang: Lang = Lang.ZH;
 
 
 export function abGetLang (): Lang {

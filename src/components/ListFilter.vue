@@ -1,42 +1,12 @@
 <template>
-<div class="text-xs-center">
-    <div class="text-xs-center">
-      <v-btn
-        v-if="!chip1 && !chip2 && !chip3 && !chip4"
-        color="primary"
-        dark
-        @click="chip1 = true, chip2 = true, chip3 = true, chip4= true"
-      >
-        Reset Chips
-      </v-btn>
-    </div>
+  <div class="text-xs-center">
+    <v-chip color="secondary" text-color="white" label>Primary</v-chip>
 
-    <v-chip
-      v-model="chip1"
-      close
-    >Closable</v-chip>
+    <v-chip color="secondary" text-color="white" label>Secondary</v-chip>
 
-    <v-chip
-      v-model="chip2"
-      close
-      color="red"
-      text-color="white"
-    >Remove</v-chip>
+    <v-chip color="secondary" text-color="white" label>Colored Chip</v-chip>
 
-    <v-chip
-      v-model="chip3"
-      close
-      color="green"
-      outline
-    >Success</v-chip>
-
-    <v-chip
-      v-model="chip4"
-      close
-      color="orange"
-      label
-      outline
-    >Complete</v-chip>
+    <v-chip color="secondary" text-color="white" label>Colored Chip</v-chip>
   </div>
 </template>
 
@@ -48,10 +18,12 @@
   export default Vue.extend({
     name: 'listFilter',
     data: () => ({
-        chip1: true,
-        chip2: true,
-        chip3: true,
-        chip4: true
+       items: [
+          { title: 'china' ,name: 'login'},
+          { title: 'Sign Up', name: 'signup'},
+          { title: 'Trade Center', name: 'tradeCenter'},
+          { title: 'Post AD', name: 'postAd'}
+        ]
     })
   });
 </script>
