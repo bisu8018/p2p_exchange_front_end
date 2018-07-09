@@ -1,28 +1,22 @@
 <template>
-  <v-toolbar dense>
-    
-
-    <v-divider vertical></v-divider>
-    <v-btn-toggle
-      v-model="toggle_exclusive"
-    >
+    <v-btn-toggle v-model="toggle_exclusive">
       <v-btn :value="1" flat>
         country
       </v-btn>
 
       <v-btn :value="2" flat>
-        <v-icon>format_align_center</v-icon>
+        currency
       </v-btn>
 
       <v-btn :value="3" flat>
-        <v-icon>format_align_right</v-icon>
+        payment
       </v-btn>
 
       <v-btn :value="4" flat>
-        <v-icon>format_align_justify</v-icon>
+        <v-icon>format_align_search</v-icon>
       </v-btn>
     </v-btn-toggle>
-  </v-toolbar>
+  
 </template>
 
 
