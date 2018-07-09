@@ -7,13 +7,16 @@ export default {
         login: function (data: any, callback: any) {
             AxiosService._requestWithBody('/signin', 'POST', data,
                 function (data: any) {
+                    return data;
                 },
                 function () {
+                    
                 })
         },
         signup: function (data: any, callback: any) {
             AxiosService._requestWithBody('/signup', 'POST', data,
                 function (data: any) {
+                    return data;
                 },
                 function () {
                 })

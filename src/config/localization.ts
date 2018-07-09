@@ -139,7 +139,7 @@ const strings = new Map([
   }],
   ['verifySlider', {
     KOR: '슬라이드 바 인증을 부탁드립니다.',
-    ENG: 'Please certify slide bar.',
+    ENG: 'Please certify slide bar',
     CN: '请证明滑动条',
     JP: ''
   }],
