@@ -68,10 +68,13 @@ export default {
         },
         isMobile(): boolean {
             return stateController.isMoblie();
-        }
+        },
     },
 
     User: {
+        controller() {
+
+        }
 
     },
 
@@ -80,6 +83,13 @@ export default {
     },
 
     SignUp: {
+
+    },
+
+    Sample: {
+        controller(): SampleController {
+            return sampleController
+        }
 
     },
 }

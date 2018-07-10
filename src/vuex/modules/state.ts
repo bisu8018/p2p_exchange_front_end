@@ -1,4 +1,5 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
+import User from "@/vuex/model/User";
 
 
 const mutations = {
@@ -43,12 +44,15 @@ let isMobile: boolean = false;
 // OS 체크
 let checkOs: number = 1;
 
+let user: User = new User('');
+
 
 const state = {
   initCompleted: initCompleted,
   isMobile: isMobile,
   //OS 체크
   checkOs: checkOs,
+    user: user,
 }
 
 export default {

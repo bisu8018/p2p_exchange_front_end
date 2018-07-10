@@ -25,4 +25,9 @@ export enum VuexTypes {
     // =====================================
     SET_SAMPLE_DATA = 'sample/SET_SAMPLE_DATA',
 
+
+    //======================================
+    //              Sample2
+    // =====================================
+    SET_MOBILE_STATUS = 'sample2/SET_MOBILE_STATUS',
 }
