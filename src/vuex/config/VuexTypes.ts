@@ -25,4 +25,8 @@ export enum VuexTypes {
     // =====================================
     SET_SAMPLE_DATA = 'sample/SET_SAMPLE_DATA',
 
+    //======================================
+    //              ListView
+    // =====================================
+    SET_LISTVIEW_DATA = 'listView/SET_LISTVIEW_DATA',
 }
