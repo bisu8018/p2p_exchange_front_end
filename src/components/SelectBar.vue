@@ -1,56 +1,60 @@
 
 <template>
-    <v-container app>
+    <v-flex>
         <!-- Web 일때 -->
-        <v-flex v-if="$vuetify.breakpoint.mdAndUp" md12>
-            <v-layout>
-                <v-flex md2 text-md-left><span>Buy</span></v-flex>
-                <v-flex md2 text-md-left><span>Sell</span></v-flex>
+        <v-flex v-if="$vuetify.breakpoint.mdAndUp">
+            <v-layout row wrap style="font-size: 16px" mt-4 mb-1>
+                <v-flex md4 offset-md1  text-md-left pl-3>Buy</v-flex>
+                <v-flex md4 offset-md1  text-md-left pl-3>Sell</v-flex>
             </v-layout>
             <v-layout row wrap>
-                <v-tabs>
-                    <v-breadcrumbs divider="|">
-                        <v-breadcrumbs-item v-for="item in items" :key="item.text" :disabled="item.disabled">
-                            {{ item.text }}
-                        </v-breadcrumbs-item>
-                    </v-breadcrumbs>
+                <v-layout row wrap style="font-size: 16px" mb-3>
+                    <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                    <v-flex md1 v-for="item in items" key="item.text" :disabled="item.disabled">
+                        {{ item.text }}
+                    </v-flex>
+                    <v-flex md1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
+
                     <v-divider vertical></v-divider>
-                    <v-breadcrumbs divider="|">
-                        <v-breadcrumbs-item v-for="item in items" :key="item.text" :disabled="item.disabled">
-                            {{ item.text }}
-                        </v-breadcrumbs-item>
-                    </v-breadcrumbs>
-                </v-tabs>
+
+                    <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                    <v-flex md1 v-for="item in items" key="item.text" :disabled="item.disabled">
+                        {{ item.text }}
+                    </v-flex>
+                    <v-flex md1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
+                </v-layout>
             </v-layout>
         </v-flex>
 
         <!-- mobile 일때 -->
 
         <v-flex v-else xs12>
+            <!-- buy sell 버튼 -->
             <div>
-                <v-btn-toggle  v-model="tradeStatus">
-                    <v-btn outline color="indigo" value="Buy">
-                        Buy
-                    </v-btn>
-                    <v-btn outline color="indigo" value="Sell">
-                        Sell
-                    </v-btn>
-                </v-btn-toggle>
+                <div style="height: 36px; width:67px; border: solid 1px #5e91d2; border-top-left-radius:200px;
+                    display: inline-block;  position: relative; border-bottom-left-radius:200px;">
+                    <span style="line-height:50px; color:#5e91d2; position: absolute; left: 20px; bottom: -8px;">Buy</span>
+                </div>
+                <div style="height: 36px; width:67px; background: #5e91d2; border-top-right-radius:200px;
+                    display: inline-block; border: solid 1px #5e91d2; position: relative;
+                    border-bottom-right-radius:200px;">
+                    <span style="line-height:50px; color:white; position: absolute; left: 20px; bottom: -8px;"> Sell</span>
+                </div>
             </div>
-            <v-layout row wrap justify-center>
-                <v-tabs>
 
-                    <v-breadcrumbs divider="|">
-                        <v-breadcrumbs-item v-for="item in items" :key="item.text" :disabled="item.disabled">
-                            {{ item.text }}
-                        </v-breadcrumbs-item>
-                    </v-breadcrumbs>
-                </v-tabs>
-            </v-layout>
+            <!-- BTC ALLB ETH  버튼 -->
+                <v-layout row wrap justify-center style="font-size: 16px" mt-4 mb-4>
+                    <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                    <v-flex xs3 v-for="item in items" key="item.text" :disabled="item.disabled" >
+                        {{ item.text }}
+                    </v-flex>
+                    <v-flex xs1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
+                </v-layout>
+
         </v-flex>
 
 
-    </v-container>
+    </v-flex>
 </template>
 
 <script lang="ts">

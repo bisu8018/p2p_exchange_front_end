@@ -2,46 +2,49 @@
     <v-container>
 
         <!-- Web 일때 -->
-        
-        <v-container row wrap v-if="$vuetify.breakpoint.mdAndUp">
-            <v-flex>   <!--title들 md 이상에서만 binding-->
-                <v-layout>
-                    <v-flex v-for="header in headers" :key="`i${header}`" >
-                        <td class="text-xs-left">{{header.text}} </td>
-                    </v-flex>
-                </v-layout>
-            </v-flex>
 
+        <v-flex v-if="$vuetify.breakpoint.mdAndUp"> <!--title들 md 이상에서만 binding-->
+            <v-layout mb-3>
+                <v-flex md3 text-md-left>Merchant(Volume | Trade rate)</v-flex>
+                <v-flex md2 text-md-left>Volume</v-flex>
+                <v-flex md2 text-md-left>Limits</v-flex>
+                <v-flex md2 text-md-left>Price </v-flex>
+                <v-flex md2 text-md-left>Payment Method </v-flex>
+                <v-flex md1 text-md-right>Control</v-flex>
 
+            </v-layout>
+            <hr class="v-divider">
             <v-flex v-for="user in users" :key="`i${user}`" md12>
-                <v-layout row wrap>
-                    <v-flex md2><td><v-avatar color="teal"  :size="30">
+                <v-layout row wrap style="height: 90px;" pt-4>
+                    <v-flex md3><td><v-avatar color="teal"  :size="30">
                         <span class="white--text headline">{{user.name[0]}}</span>
                     </v-avatar> {{user.name}} </td></v-flex>
-                    <v-flex md2 >{{user.coin}} BTC </v-flex>
-                    <v-flex md2 text-md-center>{{user.merchantRange}} CNY </v-flex>
-                    <v-flex md2 text-md-center>{{user.restMoney}} CNY </v-flex>
+                    <v-flex md2 text-md-left >{{user.coin}} BTC </v-flex>
+                    <v-flex md2 text-md-left>{{user.merchantRange}} CNY </v-flex>
+                    <v-flex md2 text-md-left>{{user.restMoney}} CNY </v-flex>
                     <v-flex md2>{{user.dealMode}} {{user.dealMode}} {{user.dealMode}} </v-flex>
-                    <v-flex md2 text-md-center><v-btn color="primary" round class="tradeBtn">Trade</v-btn></v-flex>
-
+                    <v-flex md1 text-md-center><v-btn color="primary" round small class="tradeBtn">Trade</v-btn></v-flex>
                 </v-layout>
+                <hr class="v-divider">
             </v-flex>
-        </v-container>
+        </v-flex>
 
 
         <!-- mobile 일때 -->
-        <v-flex v-else v-for="user in users" :key="`i${user}`" xs12>
-            <v-layout row wrap>
-                <v-flex xs10  ><td class="text-xs-left">
-                    <v-avatar color="teal"  :size="30">
+        <v-flex v-else v-for="user in users" :key="`i${user}`" xs12 style="height: 180px;" >
+            <v-layout row wrap pb-2>
+                <v-flex xs2  ><td class="text-xs-left">
+                    <v-avatar color="teal"  :size="34">
                         <span class="white--text headline">{{user.name[0]}}</span>
-                    </v-avatar> {{user.name}}
-                </td></v-flex>
-                <v-flex xs10  text-xs-left>Volume: {{user.coin}} BTC </v-flex>
-                <v-flex xs10 text-xs-left>Limits: {{user.merchantRange}} CNY </v-flex>
-                <v-flex xs10 text-xs-left>Price: {{user.restMoney}} CNY </v-flex>
-                <v-flex xs6 text-xs-left>{{user.dealMode}} {{user.dealMode}} {{user.dealMode}} </v-flex>
-                <v-flex xs5 text-xs-right><v-btn color="primary" round class="tradeBtn">Trade</v-btn></v-flex>
+                    </v-avatar></td></v-flex>
+                <v-flex xs10 text-xs-left>{{user.name}}</v-flex>
+
+                <v-flex xs3  offset-xs2 text-xs-left>Volume :</v-flex> <v-flex xs5 offset-xs1 text-xs-right> {{user.coin}} BTC </v-flex>
+                <v-flex xs3  offset-xs2 text-xs-left>Limits :</v-flex> <v-flex xs5 offset-xs1 text-xs-right> {{user.merchantRange}} CNY </v-flex>
+                <v-flex xs3  offset-xs2 text-xs-left>Price :</v-flex> <v-flex xs5 offset-xs1 text-xs-right> {{user.restMoney}} CNY </v-flex>
+
+                <v-flex xs2 text-xs-right>{{user.dealMode}}</v-flex> <v-flex xs1 text-xs-right> {{user.dealMode}}</v-flex> <v-flex xs1 text-xs-right> {{user.dealMode}} </v-flex>
+                <v-flex xs8 text-xs-right><v-btn color="primary" round class="tradeBtn">Trade</v-btn></v-flex>
             </v-layout>
             <hr class="v-divider">
         </v-flex>

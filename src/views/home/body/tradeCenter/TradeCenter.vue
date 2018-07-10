@@ -1,10 +1,12 @@
 <template>
-    <v-flex>
-        <SelectBar></SelectBar>
-        <SearchBar></SearchBar>
+    <v-container >
+        <v-layout row wrap>
+            <v-flex xs12 md8><SelectBar></SelectBar> </v-flex>
+            <v-flex xs12 md4><ListFilter></ListFilter></v-flex>
+        </v-layout>
         <ListView></ListView>
-        <ListFilter></ListFilter>
-    </v-flex>
+
+    </v-container>
 </template>
 
 <script lang="ts">
