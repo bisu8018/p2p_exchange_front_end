@@ -1,8 +1,7 @@
 <template>
  <p>
-  <v-toolbar flat dark class="indigo " fixed>   
-    <v-toolbar-title @click="goMain()">AllB</v-toolbar-title>     
-    <router-link to="/login">About</router-link>
+  <v-toolbar flat dark class="indigo " fixed style="height:64px">   
+    <v-toolbar-title @click="goMain()">AllB</v-toolbar-title>    
     <v-spacer></v-spacer>
   <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>  
   </v-toolbar>  

@@ -1,5 +1,5 @@
 <template>
-  <v-flex>
+  <v-parallax>
      <v-carousel>
     <v-carousel-item
       v-for="(item,i) in items"
@@ -7,7 +7,7 @@
       :src="item.src"
     ></v-carousel-item>
   </v-carousel>
-  </v-flex>
+  </v-parallax>
 </template>
 
 <script lang="ts">

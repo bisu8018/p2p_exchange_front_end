@@ -4,31 +4,33 @@
       <v-card flat>
         <v-card-title primary-title>
            <img class="iconLogo mr-2" src="@/assets/img/logo_black.png" >
-            <h2 class="headline">{{htmlSignupSubject}}</h2>
+            <h2 class="headline">{{$str("signupSubject")}}</h2>
         </v-card-title>
         <v-card-text>
-          <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlEmail}}</v-flex>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("country")}}</v-flex>
+          <country-select></country-select>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("email")}}</v-flex>
           <v-flex>
             <v-text-field name="email" v-model="email" type="text" placeholder="guest@allblab.com" solo></v-text-field>
           </v-flex>
-          <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlPassword}}</v-flex>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("password")}}</v-flex>
           <v-flex>
-            <v-text-field v-bind:label="htmlPassword" v-model="password" :type="'password'" solo></v-text-field>
+            <v-text-field v-bind:label="$str('password')" v-model="password" :type="'password'" solo></v-text-field>
           </v-flex>
-          <v-flex text-xs-left mb-2 style="color:#353535;">{{htmlPasswordConfirm}}</v-flex>
+          <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("passwordConfirm")}}</v-flex>
           <v-flex>
-            <v-text-field v-bind:label="htmlPasswordConfirm" v-model="passwordConfirm" :type="'password'" solo></v-text-field>
+            <v-text-field v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'" solo></v-text-field>
           </v-flex>
           <v-flex>
-            <v-checkbox v-bind:label="htmlTermsLabel" v-model="checkbox"></v-checkbox>
+            <v-checkbox v-bind:label="$str('termsLabel')" v-model="checkbox"></v-checkbox>
           </v-flex>
         </v-card-text>
         <v-card-actions>
           <v-flex text-xs-left>
-            <v-btn dark color="blue darken-3" @click="onCheck" large>{{htmlSignupText}}</v-btn>           
+            <v-btn dark color="blue darken-3" @click="onCheck" large>{{$str("signupText")}}</v-btn>           
           </v-flex>
           <v-flex>
-             {{htmlHaveAccount}} <a @click='goLogin'>{{htmlLoginText}}</a>
+             {{$str("haveAccount")}} <a @click='goLogin'>{{$str("loginText")}}</a>
           </v-flex>
         </v-card-actions>
       </v-card>
@@ -41,23 +43,14 @@
   import AXIOS from 'axios';
   import { abUtils } from '@/common/utils';
   import AccountService from '@/service/account/AccountService';
- 
+  import CountrySelect from '@/components/CountrySelect.vue';
   
   export default Vue.extend({
     name: 'home',
-    data: () => ({
-      htmlSignupSubject: Vue.prototype.$str("signupSubject"), //Sign up to AllB
-      htmlEmail: Vue.prototype.$str("email"),
-      htmlPassword: Vue.prototype.$str("password"),
-      htmlPasswordPlaceholder: Vue.prototype.$str("passwordPlaceholder"), //8 to 20 characters with a mix of letters and numbers
-      htmlPasswordConfirm: Vue.prototype.$str("passwordConfirm"), //Password Confirm
-      htmlTermsLabel: Vue.prototype.$str("termsLabel"), //I agree to the Terms of Service
-      htmlTermsBtn: Vue.prototype.$str("termsBtn"), // Terms of Service
-      htmlSignupText: Vue.prototype.$str("signupText"), //SIGN UP
-      htmlHaveAccount : Vue.prototype.$str("haveAccount"), //Already have an account ?
-      htmlLoginText: Vue.prototype.$str("loginText"),       //LOG IN
-
-
+    components: {
+      CountrySelect
+    },
+    data: () => ({       
       email: "",
       password: "",
       passwordConfirm: "",

@@ -137,6 +137,12 @@ const strings = new Map([
     CN: '请证明滑动条',
     JP: ''
   }],
+  ['country', {
+    KOR: '국가',
+    ENG: 'Country',
+    CN: '国家',
+    JP: ''
+  }],
 
 ])
 
@@ -192,7 +198,7 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.ZH;
+let currentLang: Lang = Lang.KO;
 
 
 export function abGetLang (): Lang {
