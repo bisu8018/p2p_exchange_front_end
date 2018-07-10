@@ -1,11 +1,13 @@
 import {Store} from "vuex";
 import SampleController from "@/vuex/controller/SampleController";
 import StateController from "@/vuex/controller/StateController";
+import ListController from "@/vuex/controller/ListController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 
 
 let sampleController: SampleController;
 let stateController: StateController;
+let listController : ListController;
 
 let store: Store<any>;
 let instance: any;
@@ -17,6 +19,7 @@ export default {
 
         sampleController = new SampleController(store);
         stateController = new StateController(store);
+        listController = new ListController(store);
 
         // 자기 참조할 때 씀
         instance = this;
@@ -68,10 +71,13 @@ export default {
         },
         isMobile(): boolean {
             return stateController.isMoblie();
-        }
+        },
     },
 
     User: {
+        controller() {
+
+        }
 
     },
 
@@ -80,6 +86,13 @@ export default {
     },
 
     SignUp: {
+
+    },
+
+    Sample: {
+        controller(): SampleController {
+            return sampleController
+        }
 
     },
 }

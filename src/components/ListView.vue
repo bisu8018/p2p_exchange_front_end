@@ -81,6 +81,7 @@
     import Vue from 'vue';
     import AXIOS from 'axios';
     import MainRepository from '@/vuex/MainRepository.ts';
+    import TradeService from '@/service/trade/TradeService';
 
     export default Vue.extend({
         name: 'listView',
@@ -183,9 +184,20 @@
                     restMoney: 24,
                     dealMode: 4.0,
                 },
-            ]
+            ],
+
         }),
         methods: {
+            onReceive() {
+                //receive list data
+                TradeService.listView.receiveTradeData({
+
+                }, function(response){
+                    console.log(response);
+                })
+            },
+        },
+        computed: {
 
         }
     });

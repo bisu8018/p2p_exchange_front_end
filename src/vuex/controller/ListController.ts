@@ -1,7 +1,7 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 
-export default class SampleController {
+export default class ListController {
     store: Store<any>;
 
     constructor (vuexStore: Store<any>) {
@@ -9,11 +9,10 @@ export default class SampleController {
     }
 
     setOk(isOk: boolean) {
-        this.store.dispatch(VuexTypes.SET_SAMPLE_DATA, isOk);
+        this.store.dispatch(VuexTypes.SET_LISTVIEW_DATA, isOk)
     }
 
     isOk(): boolean {
         return this.store.state.sample.isOk
     }
 }
-
