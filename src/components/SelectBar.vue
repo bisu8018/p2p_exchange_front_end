@@ -1,6 +1,6 @@
 
 <template>
-    <v-container>
+    <v-container app>
         <!-- Web 일때 -->
         <v-flex v-if="$vuetify.breakpoint.mdAndUp" md12>
             <v-layout>

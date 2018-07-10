@@ -2,7 +2,7 @@
     <v-container>
 
         <!-- Web 일때 -->
-
+        
         <v-container row wrap v-if="$vuetify.breakpoint.mdAndUp">
             <v-flex>   <!--title들 md 이상에서만 binding-->
                 <v-layout>

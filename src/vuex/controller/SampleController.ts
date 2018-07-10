@@ -9,7 +9,7 @@ export default class SampleController {
     }
 
     setOk(isOk: boolean) {
-        this.store.dispatch(VuexTypes.SET_SAMPLE_DATA, isOk)
+        this.store.dispatch(VuexTypes.SET_SAMPLE_DATA, isOk);
     }
 
     isOk(): boolean {
