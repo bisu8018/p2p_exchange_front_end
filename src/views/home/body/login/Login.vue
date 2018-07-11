@@ -8,7 +8,7 @@
                     <h2 class="">{{$str("welcome")}}</h2>
                 </v-card-title>
                 <v-card-text>               
-                     <!-- <form action="http://52.78.153.51/signin" method="post" >      -->
+                <form action="/signin" method="post" >     
                     <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("email")}}</v-flex>
                     <v-text-field  name="email" v-model="email" type="text" solo></v-text-field>
                     <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("password")}}</v-flex>
@@ -17,8 +17,8 @@
                         <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("verify")}}</v-flex>
                         <VerifySlider v-on:passcallback="putVerified"></VerifySlider>
                     </v-flex>
-                     <!-- <v-btn color="primary" type="submit" >Log In</v-btn> -->
-                      <!-- </form> -->
+                     <v-btn color="primary" type="submit" >Log In</v-btn>
+                </form>
                     <!--go to the page 'find password' -->
                     <v-flex text-xs-left>
                         <a @click="goFindPassword">{{$str("forgetPassword")}}</a>

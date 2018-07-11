@@ -13,6 +13,7 @@ export default (Vue: any) => {
   // Design Plugin
   Vue.use(Vuetify, {
     theme: {
+      TextBlack :  '#353535',
       primary: '#42b6f6',
       secondary: '#b0bec5',
       accent: '#8c9eff',
@@ -29,7 +30,6 @@ export default (Vue: any) => {
       darkNavy: '#163354',
       deepNavy: '#122b47',
       navy: '#192b41',
-      transparent: 'transparent',
       lightGray: '#f3f8ff',
       wbPurple: '#9190ef',
     }

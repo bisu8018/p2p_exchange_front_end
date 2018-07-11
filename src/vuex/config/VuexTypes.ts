@@ -20,9 +20,10 @@ export enum VuexTypes {
     SET_IS_MOBILE = 'state/SET_IS_MOBILE',
 
 
+
     //======================================
-    //              Sample
+    //              Country
     // =====================================
-    SET_SAMPLE_DATA = 'sample/SET_SAMPLE_DATA',
+    SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
 
 }

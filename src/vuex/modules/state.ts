@@ -40,14 +40,13 @@ const getters = {
 
 let initCompleted: boolean = false;
 let isMobile: boolean = false;
-// OS 체크
+// OS Check
 let checkOs: number = 1;
-
 
 const state = {
   initCompleted: initCompleted,
   isMobile: isMobile,
-  //OS 체크
+  //OS Check
   checkOs: checkOs,
 }
 

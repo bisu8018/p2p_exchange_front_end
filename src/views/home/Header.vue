@@ -46,7 +46,7 @@
             this.$router.push("/signup");
         },
         goLogin() {
-             this.$router.push("/login");
+             this.$router.push("/home/login");
         },
         goMain() {
           this.$router.push("/abMain");
