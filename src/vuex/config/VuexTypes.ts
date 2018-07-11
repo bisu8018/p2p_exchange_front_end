@@ -26,10 +26,7 @@ export enum VuexTypes {
     // =====================================
     SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
 
-    //======================================
-    //              ListView
-    // =====================================
-    SET_LISTVIEW_DATA = 'listView/SET_LISTVIEW_DATA]',
+
 
 
 }
