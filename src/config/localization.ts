@@ -47,7 +47,7 @@ const strings = new Map([
     }],
     ['signupSubject', {
         KOR: '회원가입',
-        ENG: 'Sign up to AllB OTC',
+        ENG: 'SIGN UP',
         CN: '注册火币',
         JP: ''
     }],
@@ -77,7 +77,7 @@ const strings = new Map([
     }],
     ['termsLabel', {
         KOR: '이용약관에 동의합니다.',
-        ENG: 'I agree to the ',
+        ENG: 'I agree to the Terms of Service',
         CN: '我已阅读并同意',
         JP: ''
     }],
@@ -89,7 +89,7 @@ const strings = new Map([
     }],
     ['signupText', {
         KOR: '가입',
-        ENG: 'Sign Up',
+        ENG: 'SIGN UP',
         CN: '注册',
         JP: ''
     }],
@@ -155,6 +155,12 @@ const strings = new Map([
         CN: '请输入密码',
         JP: ''
     }],
+    ['verifySliderPlaceholder', {
+        KOR: '인증을 위해 슬라이드해 주십시오',
+        ENG: 'Please slide to verify',
+        CN: '请按住滑块，拖动到最右边',
+        JP: ''
+    }],
 
     //Trade Center
     ['currency', {
@@ -163,112 +169,168 @@ const strings = new Map([
         CN: '法币币种',
         JP: ''
     }],
-    ['paymentMethod', {
-        KOR: '결제수단',
-        ENG: 'Payment Method',
-        CN: '支付方式',
+    ['payment', {
+    KOR: '지불액',
+    ENG: 'Payment',
+    CN: '付款',
+    JP: ''
+    }],
+  ['paymentMethod', {
+      KOR: '결제수단',
+      ENG: 'Payment Method',
+      CN: '支付方式',
+      JP: ''
+  }],
+  ['amount', {
+      KOR: '액수',
+      ENG: 'Amount',
+      CN: '金额',
+      JP: ''
+  }],
+  ['How_much_you_want_to_trade?', {
+      KOR: '희망하시는 거래량을 입력해주세요',
+      ENG: 'How much you want to trade?',
+      CN: '请输入交易金额',
+      JP: ''
+  }],
+  ['search', {
+      KOR: '검색',
+      ENG: 'Search',
+      CN: '搜索',
+      JP: ''
+  }],
+  ['cancel', {
+      KOR: '취소',
+      ENG: 'Cancel',
+      CN: '取消',
+      JP: ''
+  }],
+  ['Merchant(Volume | Trade rate)', {
+      KOR: '판매자(규모 | 거래율)',
+      ENG: 'Merchant(Volume | Trade rate)',
+      CN: '商家(30天成单 | 完成率)',
+      JP: ''
+  }],
+  ['volume', {
+      KOR: '규모',
+      ENG: 'Volume',
+      CN: '数量',
+      JP: ''
+  }],
+  ['limits', {
+      KOR: '제한',
+      ENG: 'Limits',
+      CN: '限额',
+      JP: ''
+  }],
+  ['price', {
+      KOR: '가격',
+      ENG: 'Price',
+      CN: '单价',
+      JP: ''
+  }],
+  ['control', {
+      KOR: '거래결제',
+      ENG: 'Control',
+      CN: '操作',
+      JP: ''
+  }],
+  ['buy', {
+      KOR: '구매',
+      ENG: 'Buy',
+      CN: '购买',
+      JP: ''
+  }],
+  ['sell', {
+      KOR: '판매',
+      ENG: 'Sell',
+      CN: '出售',
+      JP: ''
+  }],
+  ['exchange', {
+      KOR: '거래',
+      ENG: 'Exchange',
+      CN: '币币交易',
+      JP: ''
+  }],
+  ['postAd', {
+      KOR: '광고게시',
+      ENG: 'Post Ad',
+      CN: '发布广告',
+      JP: ''
+  }],
+  ['assets', {
+      KOR: '자산',
+      ENG: 'Assets',
+      CN: '订单',
+      JP: ''
+  }],
+  ['order', {
+      KOR: '주문',
+      ENG: 'Order',
+      CN: '发布广告',
+      JP: ''
+  }],
+
+    //footer
+    ['support', {
+        KOR: '지원안내',
+        ENG: 'Support',
+        CN: '支持',
+    JP: ''
+}],
+    ['guides', {
+        KOR: '이용안내',
+        ENG: 'Guides',
+        CN: '新手帮助',
         JP: ''
     }],
-    ['amount', {
-        KOR: '액수',
-        ENG: 'Amount',
-        CN: '金额',
+    ['FAQ', {
+        KOR: 'FAQ',
+        ENG: 'FAQ',
+        CN: '常见问题',
         JP: ''
     }],
-    ['How_much_you_want_to_trade?', {
-        KOR: '희망하시는 거래량을 입력해주세요',
-        ENG: 'How much you want to trade?',
-        CN: '请输入交易金额',
+    ['announcements', {
+        KOR: '공지사항',
+        ENG: 'Announcements',
+        CN: '公告',
         JP: ''
     }],
-    ['search', {
-        KOR: '검색',
-        ENG: 'Search',
-        CN: '搜索',
+    ['terms', {
+        KOR: '이용약관',
+        ENG: 'Terms',
+        CN: '条款',
         JP: ''
     }],
-    ['cancel', {
-        KOR: '취소',
-        ENG: 'Cancel',
-        CN: '取消',
+    ['terms_Of_Service', {
+        KOR: '서비스 약관',
+        ENG: 'Terms of Service',
+        CN: '服务协议',
         JP: ''
     }],
-    ['Merchant(Volume | Trade rate)', {
-        KOR: '판매자(규모 | 거래율)',
-        ENG: 'Merchant(Volume | Trade rate)',
-        CN: '商家(30天成单 | 完成率)',
+    ['transaction_Regulations', {
+        KOR: '거래규제',
+        ENG: 'Transaction Regulations',
+        CN: '交易规则',
         JP: ''
     }],
-    ['volume', {
-        KOR: '규모',
-        ENG: 'Volume',
-        CN: '数量',
+    ['fees', {
+        KOR: '수수료율',
+        ENG: 'Fees',
+        CN: '费率说明',
         JP: ''
     }],
-    ['limits', {
-        KOR: '제한',
-        ENG: 'Limits',
-        CN: '限额',
+    ['contact_Us', {
+        KOR: '고객센터',
+        ENG: 'Contact Us',
+        CN: '客服',
         JP: ''
     }],
-    ['price', {
-        KOR: '가격',
-        ENG: 'Price',
-        CN: '单价',
-        JP: ''
-    }],
-    ['control', {
-        KOR: '거래결제',
-        ENG: 'Control',
-        CN: '操作',
-        JP: ''
-    }],
-    ['buy', {
-        KOR: '구매',
-        ENG: 'Buy',
-        CN: '购买',
-        JP: ''
-    }],
-    ['sell', {
-        KOR: '판매',
-        ENG: 'Sell',
-        CN: '出售',
-        JP: ''
-    }],
-    ['exchange', {
-        KOR: '거래',
-        ENG: 'Exchange',
-        CN: '币币交易',
-        JP: ''
-    }],
-    ['postAd', {
-        KOR: '광고게시',
-        ENG: 'Post Ad',
-        CN: '发布广告',
-        JP: ''
-    }],
-    ['assets', {
-        KOR: '자산',
-        ENG: 'Assets',
-        CN: '订单',
-        JP: ''
-    }],
-    ['order', {
-        KOR: '주문',
-        ENG: 'Order',
-        CN: '发布广告',
-        JP: ''
-    }],
-    ['verifySliderPlaceholder', {
-        KOR: '인증을 위해 슬라이드해 주십시오',
-        ENG: 'Please slide to verify',
-        CN: '请按住滑块，拖动到最右边',
-        JP: ''
-    }],
-    ['verifySliderSuccess', {
-        KOR: '인증성공 ',
-        ENG: 'Verified',
-        CN: '验证成功',
+    ['language', {
+        KOR: '언어',
+        ENG: 'Language',
+        CN: '客服',
         JP: ''
     }],
 
@@ -326,8 +388,7 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.EN;
-// let currentLang: Lang = checkLocale();
+let currentLang: Lang = checkLocale();
 
 
 

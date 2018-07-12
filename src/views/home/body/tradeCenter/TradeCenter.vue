@@ -1,11 +1,10 @@
 <template>
-    <v-container >
+    <v-container style="max-width: 1178px" pr-0 pl-0 >
         <v-layout row wrap>
             <v-flex xs12 md8><SelectBar></SelectBar> </v-flex>
             <v-flex xs12 md4><ListFilter></ListFilter></v-flex>
         </v-layout>
         <ListView></ListView>
-
     </v-container>
 </template>
 

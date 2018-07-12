@@ -3,27 +3,46 @@
     <v-flex>
         <!-- Web 일때 -->
         <v-flex v-if="$vuetify.breakpoint.mdAndUp">
-            <v-layout row wrap style="font-size: 16px" mt-4 mb-1>
-                <v-flex md4 offset-md1  text-md-left pl-3>Buy</v-flex>
-                <v-flex md4 offset-md1  text-md-left pl-3>Sell</v-flex>
-            </v-layout>
-            <v-layout row wrap>
-                <v-layout row wrap style="font-size: 16px" mb-3>
-                    <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                    <v-flex md1 v-for="item in items" key="item.text" :disabled="item.disabled">
-                        {{ item.text }}
-                    </v-flex>
-                    <v-flex md1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
-
-                    <v-divider vertical></v-divider>
-
-                    <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                    <v-flex md1 v-for="item in items" key="item.text" :disabled="item.disabled">
-                        {{ item.text }}
-                    </v-flex>
-                    <v-flex md1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
+          <v-layout row>
+            <v-flex md5>
+              <v-layout column>
+                <v-layout row style="font-size: 16px" mt-4 mb-1>
+                  <v-flex md3 offset-md1 bold>{{$str("buy")}}</v-flex>
+                  <v-flex md7></v-flex>
                 </v-layout>
-            </v-layout>
+                <v-layout row>
+                  <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                  <v-flex md3 v-for="item in items" key="item.text" :disabled="item.disabled">
+                    {{ item.text }}
+                  </v-flex>
+                  <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
+                </v-layout>
+              </v-layout>
+            </v-flex>
+
+            <v-flex md1>
+              <v-layout align-center justify-end column fill-height pr-4>
+                <span><v-divider vertical style="height: 48px;"></v-divider></span>
+              </v-layout>
+            </v-flex>
+
+            <v-flex md5>
+              <v-layout column>
+                <v-layout row style="font-size: 16px" mt-4 mb-1>
+                  <v-flex md3 offset-md1 bold>{{$str("sell")}}</v-flex>
+                  <v-flex md7></v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                  <v-flex md3 v-for="item in items" key="item.text" :disabled="item.disabled">
+                    {{ item.text }}
+                  </v-flex>
+                  <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
+                </v-layout>
+              </v-layout>
+            </v-flex>
+
+          </v-layout>
         </v-flex>
 
         <!-- mobile 일때 -->
@@ -60,6 +79,7 @@
 <script lang="ts">
     import Vue from 'vue';
     import AXIOS from 'axios';
+    import { abUtils } from '@/common/utils';
 
     export default Vue.extend({
         name: 'selectBar',
