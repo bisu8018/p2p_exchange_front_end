@@ -29,18 +29,12 @@
                 isPassing: false,
                 slidebarWidth: 200 ,
                 slidebarHeight: 44,
-                vIcon : "keyboard_arrow_right"
+                vIcon : "keyboard_arrow_right",
+                text : Vue.prototype.$str("verifySliderPlaceholder"),
+                successText : Vue.prototype.$str("verifySliderSuccess")
             }
         },
         props: {
-            text: {
-                type: String,
-                default: Vue.prototype.$str("loginEmailPlaceholder"),
-            },
-            successText: {
-                type: String,
-                default: 'Verified'
-            },
             background: {
                 type: String,
                 default: 'white'

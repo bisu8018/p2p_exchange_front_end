@@ -56,44 +56,44 @@
       onCheck() {
         // Warnings in case of error in e-mail or password entry
 
-        if (this.email === "") {
-          this.verify_warning = this.$str("pleaes enter email value.");
-          return;
-        }
-
-        if (!this.emailCheck(this.email)) {
-          this.verify_warning = this.$str("Does not fit email format.");
-          return;
-        }
-
-        // 패스워드 공백
-        if (this.password === "") {
-          this.verify_warning = this.$str("pleaes enter password value.");
-          return;
-        }
-
-        // 최대 글자 8자 제한
-        if (this.password.length <= 8) {
-          this.verify_warning = "Please enter at least eight digits.";
-          return;
-        }
-  
-  
-        if (!this.passwordCheck(this.password)) {
-          this.verify_warning = "Does not fit password format.";
-          return;
-        }
-  
-  
-        if (this.password !== this.passwordConfirm) {
-          this.verify_warning = "password is not matching.";
-          return;
-        }  
-
-        if(this.checkbox === false) {
-           this.verify_warning = "Please accept the terms and conditions.";
-          return;
-        }
+        // if (this.email === "") {
+        //   this.verify_warning = this.$str("pleaes enter email value.");
+        //   return;
+        // }
+        //
+        // if (!this.emailCheck(this.email)) {
+        //   this.verify_warning = this.$str("Does not fit email format.");
+        //   return;
+        // }
+        //
+        // // 패스워드 공백
+        // if (this.password === "") {
+        //   this.verify_warning = this.$str("pleaes enter password value.");
+        //   return;
+        // }
+        //
+        // // 최대 글자 8자 제한
+        // if (this.password.length <= 8) {
+        //   this.verify_warning = "Please enter at least eight digits.";
+        //   return;
+        // }
+        //
+        //
+        // if (!this.passwordCheck(this.password)) {
+        //   this.verify_warning = "Does not fit password format.";
+        //   return;
+        // }
+        //
+        //
+        // if (this.password !== this.passwordConfirm) {
+        //   this.verify_warning = "password is not matching.";
+        //   return;
+        // }
+        //
+        // if(this.checkbox === false) {
+        //    this.verify_warning = "Please accept the terms and conditions.";
+        //   return;
+        // }
   
   
         //this.verify_warning = "Email verification is not yet done.";

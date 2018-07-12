@@ -1,36 +1,33 @@
 <template>
-    <v-layout mt-5 mb-5>
+    <v-layout mt-4 mb-5>
         <v-flex xs12 lg4 offset-lg4>
             <v-card flat>
-                <v-card-title primary-title>
+                <v-card-title  >
                     <img class="iconLogo mr-2" src="@/assets/img/logo_black.png">
-                    <h2 class="headline">{{$str("signupSubject")}}</h2>
+                    <div class="headline-2">{{$str("signupSubject")}}</div>
                 </v-card-title>
                 <v-card-text>
-                    <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("country")}}</v-flex>
+                    <v-flex text-xs-left mb-2  caption>{{$str("country")}}</v-flex>
                     <country-select></country-select>
-                    <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("email")}}</v-flex>
+                    <v-flex text-xs-left mb-2 caption>{{$str("email")}}</v-flex>
                     <v-flex>
-                        <v-text-field name="email" v-model="email" type="text" placeholder="guest@allblab.com"
-                                      solo></v-text-field>
+                        <input name="email" v-model="email" type="text" class="signupInput">
                     </v-flex>
-                    <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("password")}}</v-flex>
+                    <v-flex text-xs-left mb-2 caption>{{$str("password")}}</v-flex>
                     <v-flex>
-                        <v-text-field v-bind:label="$str('password')" v-model="password" :type="'password'"
-                                      solo></v-text-field>
+                        <input v-bind:label="$str('password')" v-model="password" :type="'password'"  class="signupInput">
                     </v-flex>
-                    <v-flex text-xs-left mb-2 style="color:#353535;">{{$str("passwordConfirm")}}</v-flex>
+                    <v-flex text-xs-left mb-2 caption>{{$str("passwordConfirm")}}</v-flex>
                     <v-flex>
-                        <v-text-field v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm"
-                                      :type="'password'" solo></v-text-field>
+                        <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'" class="signupInput">
                     </v-flex>
-                    <v-flex>
+                    <v-flex class="checkbox-terms">
                         <v-checkbox v-bind:label="$str('termsLabel')" v-model="checkbox"></v-checkbox>
                     </v-flex>
                 </v-card-text>
                 <v-card-actions>
                     <v-flex text-xs-left>
-                        <v-btn dark color="blue darken-3" @click="onCheck" large>{{$str("signupText")}}</v-btn>
+                        <button class="signup-btn" @click="onCheck" large>{{$str("signupText")}}</button>
                     </v-flex>
                     <v-flex>
                         {{$str("haveAccount")}} <a @click='goLogin'>{{$str("loginText")}}</a>
@@ -123,6 +120,43 @@
     });
 </script>
 
-<style>
+<style scoped>
+    .iconLogo {
+        width : 32px;
+        height: 24px;
+    }
+
+    .signupInput {
+        height: 36px;
+        width: 100%;
+        border-radius: 2px;
+        background-color: #ffffff;
+        border: solid 1px #8d8d8d;
+        margin-bottom: 26px;
+    }
+
+    .v-label {
+        margin-top: -4px;
+        height: 20px;
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #353535 !important;
+    }
+
+    .signup-btn {
+        width: 132px;
+        height: 44px;
+        border-radius: 3px;
+        background-color: #214ea1 ;
+        color: white;
+    }
+
+    .signup-btn:hover {
+        background-color: #316ee4 ;
+    }
 
 </style>

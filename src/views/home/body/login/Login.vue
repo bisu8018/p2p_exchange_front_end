@@ -1,6 +1,6 @@
 <template>
     <!--Vertical, horizontal alignment-->
-    <v-layout mt-4a>
+    <v-layout mt-4a mb-4a>
         <v-flex class="card-flex" xs12 md6 lg4 offset-md3 offset-lg4 pa-2 pt-1>
             <v-card flat>
                 <v-card-title title class="cardTitle" >
@@ -23,7 +23,7 @@
                         <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
                     </form>
                     <!--go to the page 'find password' -->
-                    <v-flex text-xs-left caption>
+                    <v-flex text-xs-left caption class="goForgetPwdWrapper">
                         <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
                     </v-flex>
                     <v-btn dark color="Button" class="btnHover elevation-0" @click='onCheck' large block>{{$str("loginText")}}</v-btn>
@@ -114,7 +114,7 @@
         }
     }
 </script>
-<style scopped>
+<style scoped>
     .card-flex {
         border-radius: 3px;
         border: solid 1px #8d8d8d;
@@ -166,10 +166,15 @@
 
     .btnSignup{
         border : 1px solid #214ea1 !important;
+        margin-bottom: -10px;
     }
 
     .goForgetPwd{
         cursor: pointer;
+    }
+
+    .goForgetPwdWrapper{
+        margin-bottom: 9px !important;
     }
 
     .goForgetPwd:hover{

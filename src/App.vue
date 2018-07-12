@@ -140,14 +140,14 @@
 
     }
 
-    .headline {
-        font-size: 26px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535;
+    .headline-2 {
+        font-size: 26px !important;
+        font-weight: bold !important;
+        font-style: normal!important;
+        font-stretch: normal !important;
+        line-height: normal !important;
+        letter-spacing: normal !important;
+        color: #353535 !important;
     }
 
     .title {
@@ -266,7 +266,7 @@
     /*vuetify 버튼 hover 시, color foggy 현상 방지*/
     .v-btn:before {
         opacity: 0 !important;
-        border-radius: 3px;
+        border-radius: 3px !important;
     }
 
 </style>

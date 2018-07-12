@@ -1,21 +1,22 @@
 <template>
-    <v-layout wrap align-center>  
+    <v-layout wrap align-center>
       <v-flex xs12 >
         <v-select
-          v-model="selectedCountry"          
+          v-model="selectedCountry"
           :items="items"
           item-text="country"
           item-value="code"
           label="Select"
           solo
           @change="setCountry"
+          flat
         ></v-select>
       </v-flex>
     </v-layout>
 </template>
 <script>
   import MainRepository from "@/vuex/MainRepository";
-  export default {    
+  export default {
     name: 'countrySelect',
     data: () => ({
       selectedCountry: 'ALL',
@@ -48,4 +49,12 @@
   }
 </script>
 <style>
+    .v-text-field.v-text-field--solo .v-input__control {
+        min-height: 36px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        border: solid 1px #8d8d8d;
+        margin-bottom: 26px;
+    }
+
 </style>

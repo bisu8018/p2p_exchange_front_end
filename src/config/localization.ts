@@ -47,7 +47,7 @@ const strings = new Map([
     }],
     ['signupSubject', {
         KOR: '회원가입',
-        ENG: 'SIGN UP',
+        ENG: 'Sign up to AllB OTC',
         CN: '注册火币',
         JP: ''
     }],
@@ -77,7 +77,7 @@ const strings = new Map([
     }],
     ['termsLabel', {
         KOR: '이용약관에 동의합니다.',
-        ENG: 'I agree to the Terms of Service',
+        ENG: 'I agree to the ',
         CN: '我已阅读并同意',
         JP: ''
     }],
@@ -89,7 +89,7 @@ const strings = new Map([
     }],
     ['signupText', {
         KOR: '가입',
-        ENG: 'SIGN UP',
+        ENG: 'Sign Up',
         CN: '注册',
         JP: ''
     }],
@@ -326,7 +326,7 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.ZH;
+let currentLang: Lang = Lang.EN;
 // let currentLang: Lang = checkLocale();
 
 

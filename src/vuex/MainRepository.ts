@@ -101,7 +101,6 @@ export default {
                 for(let key in data) {
                     let trade : Trade = new Trade(data[key]);
                     tradeList.push(trade);
-                    alert("2");
                 }
                 alert("3");
                 listController.setTrade(tradeList);
