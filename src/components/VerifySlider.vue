@@ -149,7 +149,7 @@ export default {
                 }else if(_x > (this.width-this.height)){  
                 	handler.style.left = (this.width - this.height)+ 'px';
                     this.$refs.progressBar.style.width = (this.width-this.height/2)+'px';
-                     this.passVerify();
+                    this.passVerify();
                 }
             }
 		},

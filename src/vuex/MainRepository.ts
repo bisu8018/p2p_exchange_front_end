@@ -1,11 +1,13 @@
 import {Store} from "vuex";
 import CountryController from "@/vuex/controller/CountryController";
 import StateController from "@/vuex/controller/StateController";
+import ListController from "@/vuex/controller/ListController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 
 
 let countryController: CountryController;
 //let stateController: StateController;
+let listController : ListController;
 
 let store: Store<any>;
 //let instance: any;
@@ -15,7 +17,9 @@ export default {
         // Vuex < > Controller 연결
         store = vuexStore;
         countryController = new CountryController(store);
+        listController = new ListController(store);
         // stateController = new StateController(store);
+
 
         // 자기 참조할 때 씀
         // instance = this;
@@ -69,6 +73,15 @@ export default {
     // User: {},
     // Login: {},
     // SignUp: {},
+    TradeView: {
+        controller(): ListController{
+            return listController
+        },
+        setTradeView(trade : Object) {
+            listController.setTrade(trade);
+        }
+
+    },
     Country: {
         set(country: string) {
             countryController.setCountry(country);

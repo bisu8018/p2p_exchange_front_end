@@ -7,8 +7,6 @@ export enum VuexTypes {
     // Login
 
     // SignIn
-
-
     //======================================
     //              Home
     // =====================================
@@ -20,13 +18,14 @@ export enum VuexTypes {
     SET_IS_MOBILE = 'state/SET_IS_MOBILE',
 
 
-
     //======================================
     //              Country
     // =====================================
     SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
 
-
-
+    //======================================
+    //              TradeView
+    // =====================================
+    SET_TRADEVIEW_DATA = 'tradeView/SET_TRADEVIEW_DATA',
 
 }

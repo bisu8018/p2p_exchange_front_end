@@ -8,11 +8,12 @@ export default class ListController {
         this.store = vuexStore
     }
 
-    setOk(isOk: boolean) {
-        this.store.dispatch(VuexTypes.SET_LISTVIEW_DATA, isOk)
+    setTrade(tradeInfo: Object) {
+        this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeInfo)
     }
 
     isOk(): boolean {
-        return this.store.state.sample.isOk
+        return this.store.state.trade.isOk
     }
+
 }
