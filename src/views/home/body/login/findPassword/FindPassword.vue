@@ -126,10 +126,10 @@
         //     console.log("err  :::::::::  ", ex);
         //   });
 
-        MainRepository.Login.service().findPasswd(this.email, this.password, function (userInfo) {
-            // 성공
-            // userInfo.userId
-        })
+        // MainRepository.Login.service().findPasswd(this.email, this.password, function (userInfo) {
+        //     // 성공
+        //     // userInfo.userId
+        // })
       }
     }
   });
