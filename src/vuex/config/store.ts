@@ -1,13 +1,13 @@
-import sample1 from "@/vuex/modules/sample1";
+import country from "@/vuex/modules/country";
 import state from "@/vuex/modules/state";
-import listView from "@/vuex/modules/listView";
+import trade from "@/vuex/modules/trade";
 
 
 export default {
     modules: {
-        sample1,
+        country,
         state,
-        listView
+        trade
     },
     strict: true
 }

@@ -1,5 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
+import Trade from "@/vuex/model/Trade";
 
 export default class ListController {
     store: Store<any>;
@@ -8,11 +9,12 @@ export default class ListController {
         this.store = vuexStore
     }
 
-    setOk(isOk: boolean) {
-        this.store.dispatch(VuexTypes.SET_LISTVIEW_DATA, isOk)
+    setTrade(tradeInfo: Trade[]) {
+        this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeInfo)
     }
 
-    isOk(): boolean {
-        return this.store.state.sample.isOk
+    getTrade() {
+        return this.store.state.trade.isOk;
     }
+
 }

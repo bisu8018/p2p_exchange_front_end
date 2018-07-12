@@ -7,28 +7,25 @@ export enum VuexTypes {
     // Login
 
     // SignIn
-
-
     //======================================
     //              Home
     // =====================================
     // 초기화 완료
     INIT_COMPLETED = 'home/INIT_COMPLETED',
     //OS 체크
-    SET_CHECK_OS = 'home/SET_CHECK_OS',
+    //SET_CHECK_OS = 'home/SET_CHECK_OS',
     // 모바일 인지 체크
     SET_IS_MOBILE = 'state/SET_IS_MOBILE',
 
 
     //======================================
-    //              Sample
+    //              Country
     // =====================================
-    SET_SAMPLE_DATA = 'sample/SET_SAMPLE_DATA',
+    SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
 
     //======================================
-    //              ListView
+    //              TradeView
     // =====================================
-    SET_LISTVIEW_DATA = 'listView/SET_LISTVIEW_DATA]',
-
+    SET_TRADEVIEW_DATA = 'tradeView/SET_TRADEVIEW_DATA',
 
 }

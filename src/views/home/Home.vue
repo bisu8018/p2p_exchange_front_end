@@ -22,7 +22,7 @@ export default Vue.extend({
       'abHeader' : AbHeader,
       'abFooter' : AbFooter
     },
-    beforeCreate: function () {
+    beforeCreate: function () {    
         // vuex store를 넘겨준다.
         MainRepository.init(this.$store, function () {
 

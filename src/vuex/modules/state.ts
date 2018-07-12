@@ -1,5 +1,4 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
-import User from "@/vuex/model/User";
 
 
 const mutations = {
@@ -13,9 +12,9 @@ const mutations = {
         state.isMobile = isMobile;
     },
     // OS 체크
-    [VuexTypes.SET_CHECK_OS] (state: any, checkOs: number) {
-        state.checkOs = checkOs;
-    },
+    // [VuexTypes.SET_CHECK_OS] (state: any, checkOs: number) {
+    //     state.checkOs = checkOs;
+    // },
 };
 
 
@@ -30,9 +29,9 @@ const actions = {
         context.commit(VuexTypes.SET_IS_MOBILE, isMobile)
     },
     // OS 체크
-    [VuexTypes.SET_CHECK_OS] (context: any, checkOs: number) {
-        context.commit(VuexTypes.SET_CHECK_OS, checkOs)
-    },
+    // [VuexTypes.SET_CHECK_OS] (context: any, checkOs: number) {
+    //     context.commit(VuexTypes.SET_CHECK_OS, checkOs)
+    // },
 };
 
 const getters = {
@@ -41,18 +40,14 @@ const getters = {
 
 let initCompleted: boolean = false;
 let isMobile: boolean = false;
-// OS 체크
-let checkOs: number = 1;
-
-let user: User = new User('');
-
+// OS Check
+//let checkOs: number = 1;
 
 const state = {
   initCompleted: initCompleted,
   isMobile: isMobile,
-  //OS 체크
-  checkOs: checkOs,
-    user: user,
+  //OS Check
+  //checkOs: checkOs,
 }
 
 export default {

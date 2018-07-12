@@ -1,23 +1,24 @@
 <template>
     <v-layout wrap align-center>  
-      <v-flex xs12 sm6 d-flex>
+      <v-flex xs12 >
         <v-select
-          v-model="select"          
+          v-model="selectedCountry"          
           :items="items"
           item-text="country"
           item-value="code"
           label="Select"
           solo
-          change="onChange"
+          @change="setCountry"
         ></v-select>
       </v-flex>
     </v-layout>
 </template>
 <script>
-  export default {
-    name: 'countySelect',
+  import MainRepository from "@/vuex/MainRepository";
+  export default {    
+    name: 'countrySelect',
     data: () => ({
-        select: {country : 'All countries', code : 'ALL'},
+      selectedCountry: 'ALL',
       items: [
           {country : 'All countries', code : 'ALL'},
           {country : 'China', code : 'CN'},
@@ -40,8 +41,8 @@
         ]
     }),
     methods : {
-      onChange (){
-        this.$emit('countryCode',this.select.code);
+      setCountry() {
+          MainRepository.Country.set(this.selectedCountry);
       }
     }
   }
