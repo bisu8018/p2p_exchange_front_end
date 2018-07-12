@@ -17,11 +17,11 @@ export default class StateController {
     }
 
     //OS 체크
-    setCheckOs(checkOs: number) {
-        this.store.dispatch(VuexTypes.SET_CHECK_OS, checkOs)
-    }
-    checkOs() {
-        return this.store.state.state.checkOs
-    }
+    // setCheckOs(checkOs: number) {
+    //     this.store.dispatch(VuexTypes.SET_CHECK_OS, checkOs)
+    // }
+    // checkOs() {
+    //     return this.store.state.state.checkOs
+    // }
 }
 

@@ -5,7 +5,7 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 
 
 let countryController: CountryController;
-//let stateController: StateController;
+let stateController: StateController;
 
 let store: Store<any>;
 //let instance: any;
@@ -15,7 +15,7 @@ export default {
         // Vuex < > Controller 연결
         store = vuexStore;
         countryController = new CountryController(store);
-        // stateController = new StateController(store);
+        stateController = new StateController(store);
 
         // 자기 참조할 때 씀
         // instance = this;
@@ -28,11 +28,11 @@ export default {
 
 
         // 모바일 인지 체크 -> Vuex
-        // if (document.documentElement.clientWidth < 768) {
-        //     this.State.controller().setIsMobile(true);
-        // } else {
-        //     this.State.controller().setIsMobile(false);
-        // }
+        if (document.documentElement.clientWidth < 768) {
+            this.State.controller().setIsMobile(true);
+        } else {
+            this.State.controller().setIsMobile(false);
+        }
 
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
@@ -58,14 +58,14 @@ export default {
     // setInitCompleted(isCompleted: boolean) {
     //     store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
     // },
-    // State: {
-    //     controller(): StateController {
-    //         return stateController
-    //     },
-    //     isMobile(): boolean {
-    //         return stateController.isMoblie();
-    //     }
-    // },
+    State: {
+        controller(): StateController {
+            return stateController
+        },
+        isMobile(): boolean {
+            return stateController.isMoblie();
+        }
+    },
     // User: {},
     // Login: {},
     // SignUp: {},

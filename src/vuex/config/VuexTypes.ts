@@ -15,7 +15,7 @@ export enum VuexTypes {
     // 초기화 완료
     INIT_COMPLETED = 'home/INIT_COMPLETED',
     //OS 체크
-    SET_CHECK_OS = 'home/SET_CHECK_OS',
+    //SET_CHECK_OS = 'home/SET_CHECK_OS',
     // 모바일 인지 체크
     SET_IS_MOBILE = 'state/SET_IS_MOBILE',
 
