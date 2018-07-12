@@ -1,4 +1,4 @@
-import {getCookie, setCookie} from "@/common/common";
+import {deleteCookie, getCookie, setCookie} from "@/common/common";
 
 const strings = new Map([
 
@@ -198,15 +198,41 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.KO;
+let currentLang: Lang = checkLocale();
+
 
 
 export function abGetLang (): Lang {
-  return currentLang
+    return currentLang
 }
 
-export function abSetLang (lang: Lang): void {
-  currentLang = lang
+export function abSetLang (lang: Lang) {
+    currentLang = lang
+
+    deleteCookie('language');
+
+    switch (lang) {
+        case Lang.EN:
+            setCookie('language', 'en', 30);
+            location.reload();
+            break;
+
+        case Lang.ZH:
+            setCookie('language', 'zh', 30);
+            location.reload();
+            break;
+
+        case Lang.JP:
+            setCookie('language', 'en', 30);
+            location.reload();
+            break;
+
+        case Lang.KO:
+        default:
+            setCookie('language', 'ko', 30);
+            location.reload();
+            break;
+    }
 }
 
 

@@ -6,7 +6,7 @@
         </div>
         <!-- 데탑용 -->
         <div v-else>
-
+            {{ country }}
         </div>
 
 
@@ -24,7 +24,7 @@
         },
         data() {
             return {
-                isMobileMode: false
+                isMobileMode: false,
             }
         },
         computed: {
@@ -32,11 +32,17 @@
                 return MainRepository.State.isMobile();
             },
             userInfo() {
-                MainRepository.User.controller().getUser();
+                return MainRepository.User.controller().getUser();
+            },
+            country() {
+                return MainRepository.Country.get();
             }
         },
         created() {
+            MainRepository.Service.Account().Account.login('hi', '1234',
+                function (data, num) {
 
+            })
         },
         mounted() {
 

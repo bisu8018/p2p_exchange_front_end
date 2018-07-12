@@ -36,3 +36,7 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
   let expires = "expires="+d.toUTCString();
   document.cookie = cname + "=" + cvalue + "; " + expires;
 }
+
+export function deleteCookie(name) {
+    if (getCookie(name)) document.cookie = name + "=" + ";expires=Thu, 01-Jan-70 00:00:01 GMT";
+}

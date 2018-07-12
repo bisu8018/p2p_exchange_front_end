@@ -3,6 +3,7 @@ import CountryController from "@/vuex/controller/CountryController";
 import StateController from "@/vuex/controller/StateController";
 import ListController from "@/vuex/controller/ListController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
+import AccountService from "@/service/account/AccountService";
 
 
 let countryController: CountryController;
@@ -73,6 +74,13 @@ export default {
     // User: {},
     // Login: {},
     // SignUp: {},
+
+    Service: {
+        Account() {
+            return AccountService;
+        }
+    },
+
     TradeView: {
         controller(): ListController{
             return listController
@@ -83,6 +91,10 @@ export default {
 
     },
     Country: {
+        controller() {
+          return countryController
+        },
+
         set(country: string) {
             countryController.setCountry(country);
         },
