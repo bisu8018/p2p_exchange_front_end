@@ -15,7 +15,8 @@
                         <v-flex text-xs-left mb-2 caption>{{$str("password")}}</v-flex>
                         <input name="encryptedPassword" v-model="password" type="password" class="Login-input"
                                :placeholder="loginPasswordPlaceholder">
-                        <v-flex class="verifySlider" v-if="email.length>0 && password.length>=8" mb-5>
+                        <!--<v-flex class="verifySlider" v-if="email.length>0 && password.length>=8" mb-5>-->
+                        <v-flex class="verifySlider" mb-5>
                             <v-flex text-xs-left mb-2 caption>{{$str("verify")}}</v-flex>
                             <VerifySlider v-on:passcallback="putVerified"></VerifySlider>
                         </v-flex>

@@ -27,8 +27,6 @@
                 isMoving: false,
                 x: 0,
                 isPassing: false,
-                windowWidth: 0,
-                txt: ''
             }
         },
         props: {
@@ -129,9 +127,8 @@
             this.init(),
                 this.$nextTick(() => {
                     window.addEventListener('resize', () => {
-                        this.windowWidth = window.innerWidth;
                         var layout_width = document.getElementById('verify_wrapper').offsetWidth;
-                        this.width = layout_width;
+                        this.width = layout_width;console.log(layout_width);
                     });
                 })
         },
@@ -139,6 +136,7 @@
             init: function () {
                 //this.text = Vue.prototype.$str('verifySliderPlaceholder');
                 this.width = document.getElementById('verify_wrapper').offsetWidth;
+                this.isPassing = false;
             },
             dragStart: function (e) {
                 if (!this.isPassing) {
@@ -148,7 +146,7 @@
                 }
 
             },
-            dragMoving: function (e) {
+            dragMoving: function (e) {console.log(e);
                 if (this.isMoving && !this.isPassing) {
                     var _x = (e.pageX || e.touches[0].pageX) - this.x;
                     var handler = this.$refs.handler;
