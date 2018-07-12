@@ -9,7 +9,7 @@
               <v-flex md5 text-xs-left >
                 <!-- logo버튼-->
                 <v-btn flat style="font-weight: 400;" @click="goMain()" >
-                  <img  src="@/assets/img/1.png" style="width: 38px; height: 33px;">
+                  <img  src="@/assets/img/logo_color.png" style="width: 38px; height: 33px;">
                 </v-btn>
                 <!-- OTC버튼-->
                 <v-btn flat style="font-weight: 400" @click="goTradeCenter()">OTC</v-btn>
@@ -48,7 +48,7 @@
     <!-- 모바일 일때-->
     <v-layout v-else >
       <v-btn flat>
-        <img @click="goMain()" src="@/assets/img/1.png" style="width: 30px; height: 24px;">
+        <img @click="goMain()" src="@/assets/img/logo_color.png" style="width: 30px; height: 24px;">
       </v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
