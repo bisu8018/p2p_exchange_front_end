@@ -107,7 +107,7 @@
             }, function(){
 
             });
-            this.users =
+            //this.users =
 
         },
         mounted() {
