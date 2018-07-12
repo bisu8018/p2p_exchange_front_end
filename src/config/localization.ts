@@ -1,4 +1,4 @@
-import {getCookie, setCookie} from "@/common/common";
+import {deleteCookie, getCookie, setCookie} from "@/common/common";
 
 const strings = new Map([
 
@@ -283,84 +283,110 @@ export enum Lang {
 
 
 function checkLocale(): Lang {
-    let cookieLang = getCookie('language');
+  let cookieLang = getCookie('language');
 
-    // 쿠키 값이 있을 때
-    if (cookieLang !== '') {
-        switch (cookieLang) {
-            case 'en':
-                return Lang.EN;
+  // 쿠키 값이 있을 때
+  if (cookieLang !== '') {
+    switch (cookieLang) {
+      case 'en':
+        return Lang.EN;
 
-            case 'zh':
-                return Lang.ZH;
+      case 'zh':
+        return Lang.ZH;
 
-            case 'ko':
-                return Lang.KO;
+      case 'ko':
+        return Lang.KO;
 
-            default:
-                return Lang.KO;
-        }
+      default:
+        return Lang.KO;
     }
+  }
 
-    // 없을 때
-    let userLang = navigator.language;
+  // 없을 때
+  let userLang = navigator.language;
 
-    switch (userLang.toLowerCase()) {
-        case 'ko-kr':
-        case 'ko':
-            setCookie('language', 'ko', 30);
-            return Lang.KO;
+  switch (userLang.toLowerCase()) {
+    case 'ko-kr':
+    case 'ko':
+      setCookie('language', 'ko', 30);
+      return Lang.KO;
 
-        case 'en':
-        case 'en-us':
+    case 'en':
+    case 'en-us':
+      setCookie('language', 'en', 30);
+      return Lang.EN;
+
+    case 'zh':
+      setCookie('language', 'zh', 30);
+      return Lang.ZH;
+
+    default:
+      setCookie('language', 'ko', 30);
+      return Lang.KO;
+  }
+}
+
+let currentLang: Lang = checkLocale();
+
+
+
+export function abGetLang (): Lang {
+  return currentLang
+}
+
+export function abSetLang (lang: Lang) {
+    currentLang = lang
+
+    deleteCookie('language');
+
+    switch (lang) {
+        case Lang.EN:
             setCookie('language', 'en', 30);
-            return Lang.EN;
+            location.reload();
+            break;
 
-        case 'zh':
+        case Lang.ZH:
             setCookie('language', 'zh', 30);
-            return Lang.ZH;
+            location.reload();
+            break;
 
+        case Lang.JP:
+            setCookie('language', 'en', 30);
+            location.reload();
+            break;
+
+        case Lang.KO:
         default:
             setCookie('language', 'ko', 30);
-            return Lang.KO;
+            location.reload();
+            break;
     }
-}
-
-let currentLang: Lang = Lang.ZH;
-
-
-export function abGetLang(): Lang {
-    return currentLang
-}
-
-export function abSetLang(lang: Lang): void {
-    currentLang = lang
 }
 
 
 export function abString(key: string): string {
-    const string = strings.get(key);
-    if (string !== undefined && string !== null) {
-        switch (currentLang) {
-            case Lang.KO:
-                return string.KOR;
+  const string = strings.get(key);
+  if (string !== undefined && string !== null) {
+    switch (currentLang) {
+      case Lang.KO:
+        return string.KOR;
 
-            case Lang.ZH:
-                if (string.CN === '') return string.KOR;
-                return string.CN;
+      case Lang.ZH:
+        if (string.CN === '') return string.KOR;
+        return string.CN;
 
-            case Lang.JP:
-                if (string.JP === '') return string.KOR;
-                return string.JP;
+      case Lang.JP:
+        if (string.JP === '') return string.KOR;
+        return string.JP;
 
-            case Lang.EN:
-                if (string.ENG === '') return string.KOR;
-                return string.ENG;
+      case Lang.EN:
+        if (string.ENG === '') return string.KOR;
+        return string.ENG;
 
-            default :
-                return string.KOR;
-        }
-    } else {
-        return '.' + key
+      default :
+        return string.KOR;
     }
+  } else {
+    return '.' + key
+  }
 }

@@ -12,6 +12,7 @@ export default class StateController {
     setIsMobile(isMobile: boolean) {
         this.store.dispatch(VuexTypes.SET_IS_MOBILE, isMobile)
     }
+
     isMoblie() {
         return this.store.state.state.isMobile
     }
