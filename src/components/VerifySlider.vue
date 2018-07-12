@@ -11,7 +11,7 @@
             <div class="dv_handler dv_handler_bg" @mousedown="dragStart"
                  ref="handler" :style="handlerStyle" @touchstart="dragStart">
                 <i class="handlerIcon">
-                    <v-icon dark class="verify-icon" standard>keyboard_arrow_right</v-icon>
+                    <v-icon dark class="verify-icon" standard>{{vIcon}}</v-icon>
                 </i>
             </div>
         </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-
+    import Vue from 'vue';
     export default {
         name: 'dragVerify',
         data() {
@@ -27,19 +27,15 @@
                 isMoving: false,
                 x: 0,
                 isPassing: false,
+                slidebarWidth: 200 ,
+                slidebarHeight: 44,
+                vIcon : "keyboard_arrow_right"
             }
         },
         props: {
-            width: {
-                type: Number
-            },
-            height: {
-                type: Number,
-                default: 44
-            },
             text: {
                 type: String,
-                default: "Please slide to verify"
+                default: Vue.prototype.$str("loginEmailPlaceholder"),
             },
             successText: {
                 type: String,
@@ -85,8 +81,8 @@
             handlerStyle: function () {
                 return {
                     left: '0px',
-                    width: this.height - 2 + 'px',
-                    height: this.height - 2 + 'px',
+                    width: this.slidebarHeight - 2 + 'px',
+                    height: this.slidebarHeight - 2 + 'px',
                     borderRadius: this.circle ? '50%' : 0,
                     background: this.handlerBg,
                     border: this.handlerBorder
@@ -98,24 +94,24 @@
             //드래그 전체 창 css
             dragVerifyStyle: function () {
                 return {
-                    width: this.width + 'px',
-                    height: this.height + 'px',
-                    lineHeight: this.height + 'px',
+                    width: this.slidebarWidth  + 'px',
+                    height: this.slidebarHeight + 'px',
+                    lineHeight: this.slidebarHeight + 'px',
                     background: this.background,
-                    borderRadius: this.circle ? this.height / 2 + 'px' : 0
+                    borderRadius: this.circle ? this.slidebarHeight / 2 + 'px' : 0
                 }
             },
             progressBarStyle: function () {
                 return {
                     background: this.progressBarBg,
-                    height: this.height - 2 + 'px',
-                    borderRadius: this.circle ? this.height / 2 + 'px 0 0 ' + this.height / 2 + 'px' : 0
+                    height: this.slidebarHeight - 2 + 'px',
+                    borderRadius: this.circle ? this.slidebarHeight / 2 + 'px 0 0 ' + this.slidebarHeight / 2 + 'px' : 0
                 }
             },
             textStyle: function () {
                 return {
-                    height: this.height + 'px',
-                    width: this.width + 'px',
+                    height: this.slidebarHeight + 'px',
+                    width: this.slidebarWidth + 'px',
                     fontSize: this.textSize
                 }
             },
@@ -128,15 +124,14 @@
                 this.$nextTick(() => {
                     window.addEventListener('resize', () => {
                         var layout_width = document.getElementById('verify_wrapper').offsetWidth;
-                        this.width = layout_width;console.log(layout_width);
+                        this.slidebarWidth = layout_width;
                     });
                 })
         },
         methods: {
             init: function () {
                 //this.text = Vue.prototype.$str('verifySliderPlaceholder');
-                this.width = document.getElementById('verify_wrapper').offsetWidth;
-                this.isPassing = false;
+                this.slidebarWidth = document.getElementById('verify_wrapper').offsetWidth;
             },
             dragStart: function (e) {
                 if (!this.isPassing) {
@@ -144,18 +139,17 @@
                     var handler = this.$refs.handler;
                     this.x = (e.pageX || e.touches[0].pageX) - parseInt(handler.style.left.replace('px', ''), 10);
                 }
-
             },
-            dragMoving: function (e) {console.log(e);
+            dragMoving: function (e) {
                 if (this.isMoving && !this.isPassing) {
                     var _x = (e.pageX || e.touches[0].pageX) - this.x;
                     var handler = this.$refs.handler;
-                    if (_x > 0 && _x <= (this.width - this.height)) {
+                    if (_x > 0 && _x <= (this.slidebarWidth - this.slidebarHeight)) {
                         handler.style.left = _x + 'px';
-                        this.$refs.progressBar.style.width = (_x + this.height / 2) + 'px';
-                    } else if (_x > (this.width - this.height)) {
-                        handler.style.left = (this.width - this.height) + 'px';
-                        this.$refs.progressBar.style.width = (this.width - this.height / 2) + 'px';
+                        this.$refs.progressBar.style.width = (_x + this.slidebarHeight / 2) + 'px';
+                    } else if (_x > (this.slidebarWidth - this.slidebarHeight)) {
+                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) -2 + 'px';
+                        this.$refs.progressBar.style.width = (this.slidebarWidth - this.slidebarHeight / 2) + 'px';
                         this.passVerify();
                     }
                 }
@@ -163,7 +157,7 @@
             dragFinish: function (e) {
                 if (this.isMoving && !this.isPassing) {
                     var _x = (e.pageX || e.changedTouches[0].pageX) - this.x;
-                    if (_x < (this.width - this.height)) {
+                    if (_x < (this.slidebarWidth - this.slidebarHeight)) {
                         this.$refs.handler.style.left = '0';
                         this.$refs.progressBar.style.width = '0';
                     }
@@ -174,15 +168,15 @@
             passVerify: function () {
                 this.isPassing = true;
                 this.isMoving = false;
+                this.vIcon = "check";
                 var handler = this.$refs.handler;
                 handler.className += ' dv_handler_ok_bg';
                 handler.children[0].className = this.successIcon;
                 this.$refs.progressBar.style.background = 'this.completedBg';
-                this.$refs.message.style.color = '#3a75c2';
+                this.$refs.message.style.color = '#214ea1';
                 this.$emit('passcallback');
-                document.getElementsByClassName("drag_verify")[0].style.border = '1px solid #5e91d2';
-                document.getElementsByTagName("i")[1].style.background = '#5e91d2';
-                // = '#5e91d2';
+                document.getElementsByClassName("drag_verify")[0].style.border = '1px solid #316ee4';
+                document.getElementsByClassName('drag_verify')[0].lastChild.children[0].children[0].style.background = '#316ee4'
             }
         },
     }
@@ -224,7 +218,7 @@
 
     .drag_verify .dv_handler i {
         background: #214ea1;
-        padding: 0px 0px 0px 2px;
+        padding: 0px 2px 0px 2px;
         border-radius: 47px;
         color: white;
     }

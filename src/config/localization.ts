@@ -326,7 +326,8 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = checkLocale();
+let currentLang: Lang = Lang.ZH;
+// let currentLang: Lang = checkLocale();
 
 
 

@@ -266,6 +266,7 @@
     /*vuetify 버튼 hover 시, color foggy 현상 방지*/
     .v-btn:before {
         opacity: 0 !important;
+        border-radius: 3px;
     }
 
 </style>

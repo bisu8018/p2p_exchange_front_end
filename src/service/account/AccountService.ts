@@ -13,10 +13,10 @@ export default {
 
             let data = '';
 
-            AxiosService._requestWithBody('/signin', 'POST', data ,
+            AxiosService._requestWithBody('/signin', 'GET', '' ,
                 function (data: any) {
 
-                    callback(data, 2);
+                    callback(data);
                 },
                 function () {
 
@@ -25,7 +25,7 @@ export default {
         signup: function (data: any, callback: any) {
             AxiosService._requestWithBody('/signup', 'POST', data ,
                 function (data: any) {
-                    return data;
+                callback(data)
                 },
                 function () {
                 })

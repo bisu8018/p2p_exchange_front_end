@@ -3,7 +3,7 @@
     <v-layout mt-4a>
         <v-flex class="card-flex" xs12 md6 lg4 offset-md3 offset-lg4 pa-2 pt-1>
             <v-card flat>
-                <v-card-title title style="margin-top: 2px">
+                <v-card-title title class="cardTitle" >
                     <img class="iconLogo mr-2" src="@/assets/img/logo_black.png">
                     <h2 class="Welcome">{{$str("welcome")}}</h2>
                 </v-card-title>
@@ -24,7 +24,7 @@
                     </form>
                     <!--go to the page 'find password' -->
                     <v-flex text-xs-left caption>
-                        <span @click="goFindPassword" class="textBlue">{{$str("forgetPassword")}}</span>
+                        <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
                     </v-flex>
                     <v-btn dark color="Button" class="btnHover elevation-0" @click='onCheck' large block>{{$str("loginText")}}</v-btn>
                     <v-flex mt-4a mb-4a orWrapper >
@@ -132,7 +132,6 @@
     }
 
     .Welcome {
-        width: 88px;
         height: 33px;
         font-size: 22px;
         font-weight: normal;
@@ -167,5 +166,17 @@
 
     .btnSignup{
         border : 1px solid #214ea1 !important;
+    }
+
+    .goForgetPwd{
+        cursor: pointer;
+    }
+
+    .goForgetPwd:hover{
+        color: #316ee4 !important;
+    }
+
+    .cardTitle{
+        margin-top: 3px;
     }
 </style>
