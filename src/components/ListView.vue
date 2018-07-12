@@ -14,14 +14,14 @@
 
             </v-layout>
             <hr class="v-divider">
-            <v-flex v-for="user in users" :key="`i${user}`" md12>
+            <v-flex v-for="user in dataInfo()" :key="`i${user}`" md12>
                 <v-layout row wrap style="height: 90px;" pt-4>
                     <v-flex md3><td><v-avatar color="teal"  :size="30">
                         <!--<span class="white&#45;&#45;text headline">{{user.name[0]}}</span>-->
-                    </v-avatar> {{user[0]}} </td></v-flex>
-                    <v-flex md2 text-md-left >{{user[1]}} BTC </v-flex>
-                    <v-flex md2 text-md-left>{{user[2]}} CNY </v-flex>
-                    <v-flex md2 text-md-left>{{user[3]}} CNY </v-flex>
+                    </v-avatar> {{user.data[0]}} </td></v-flex>
+                    <v-flex md2 text-md-left >{{user.data[1]}} BTC </v-flex>
+                    <!--<v-flex md2 text-md-left>{{user[2]}} CNY </v-flex>-->
+                    <!--<v-flex md2 text-md-left>{{user[3]}} CNY </v-flex>-->
                     <!--<v-flex md2>{{user.dealMode}} {{user.dealMode}} {{user.dealMode}} </v-flex>-->
                     <v-flex md1 text-md-center><v-btn color="primary" round small class="tradeBtn">Trade</v-btn></v-flex>
                 </v-layout>
@@ -98,26 +98,18 @@
                 { text: 'Payment Method', value: 'paymentMethod' },
                 { text: 'Control', align: 'right', value: 'control' }
             ],
-            users : []
-
         }),
         created() {
-            TradeService.tradeView.tradeInfo({
-
-            }, function(){
-
-            });
-            //this.users =
-
+                MainRepository.TradeView.setTradeView();
         },
         mounted() {
 
         },
         computed: {
-            userInfo() {
-                 //MainRepository.tradeView.setTradeView();
+            dataInfo(){
+                alert(4);
+                return MainRepository.TradeView.getTradeView();
             }
-
         },
         methods: {
 

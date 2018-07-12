@@ -4,6 +4,11 @@ import StateController from "@/vuex/controller/StateController";
 import ListController from "@/vuex/controller/ListController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
+import trade from "@/vuex/modules/trade";
+import Trade from "@/vuex/model/Trade";
+import TradeService from "@/service/trade/TradeService";
+import {AxiosInstance} from "axios";
+import {toASCII} from "punycode";
 
 
 let countryController: CountryController;
@@ -78,15 +83,32 @@ export default {
     Service: {
         Account() {
             return AccountService;
+        },
+        Trade() {
+            return TradeService;
         }
     },
+
 
     TradeView: {
         controller(): ListController{
             return listController
         },
-        setTradeView(trade : Object) {
-            listController.setTrade(trade);
+        setTradeView () {
+            TradeService.tradeView.tradeInfo(function(data) {
+                let tradeList: Trade[] = [];
+
+                for(let key in data) {
+                    let trade : Trade = new Trade(data[key]);
+                    tradeList.push(trade);
+                    alert("2");
+                }
+                alert("3");
+                listController.setTrade(tradeList);
+            });
+        },
+        getTradeView () {
+            return listController.getTrade();
         }
 
     },

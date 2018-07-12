@@ -4,16 +4,11 @@ import MainRepository from "@/vuex/MainRepository";
 
 export default {
     tradeView: {
-        tradeInfo : function (data: any, callback: any) {
-            //모델 정의
-            //let trade  = new Trade(data);
-            //뷰엑스 모델 데이터 셋
-            AxiosService._requestWithBody('tradeView', 'GET', data,
+        tradeInfo : function (callback: any) {
+            AxiosService._requestWithBody('tradeView', 'GET', '',
                 function (data: any) {
-                    alert(data);
-                    //MainRepository.TradeView.setTradeView(data);
-                    return data;
-
+                    alert(1);
+                    callback(data);
                 },
                 function (error) {
                     console.log(error);
