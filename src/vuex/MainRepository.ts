@@ -39,9 +39,9 @@ export default {
 
         // 모바일 인지 체크 -> Vuex
         if (document.documentElement.clientWidth < 768) {
-            this.State.controller().setIsMobile(true);
+            this.State.controller().setMobile(true);
         } else {
-            this.State.controller().setIsMobile(false);
+            this.State.controller().setMobile(false);
         }
 
         // 운영체제 체크

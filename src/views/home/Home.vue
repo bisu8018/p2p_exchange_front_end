@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import MainRepository from "../../vuex/MainRepository"; // @ is an alias to /src
+import MainRepository from "../../vuex/MainRepository";
 import AbHeader from "./Header.vue"
 import AbFooter from "./Footer.vue"
 
@@ -22,11 +22,38 @@ export default Vue.extend({
       'abHeader' : AbHeader,
       'abFooter' : AbFooter
     },
+    data() {
+      return {
+          isMobileMode: false,
+      }
+    },
     beforeCreate: function () {    
         // vuex store를 넘겨준다.
         MainRepository.init(this.$store, function () {
-
         })
+    },
+    mounted() {
+        this.$nextTick(function() {
+            window.addEventListener('resize', this.getWindowWidth);
+            //Init
+            this.getWindowWidth()
+        })
+    },
+    methods: {
+        getWindowWidth() {
+            // 모바일 버전으로 전환됨
+            if (document.documentElement.clientWidth < 768) {
+                if (!this.isMobileMode) {
+                    this.isMobileMode = true;
+                    MainRepository.State.controller().setMobile(true);
+                }
+            } else {  // PC 버전으로 전환됨
+                if (this.isMobileMode) {
+                    this.isMobileMode = false;
+                    MainRepository.State.controller().setMobile(true);
+                }
+            }
+        },
     }
 });
 </script>

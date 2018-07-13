@@ -45,34 +45,8 @@
             })
         },
         mounted() {
-
-            this.$nextTick(function() {
-                window.addEventListener('resize', this.getWindowWidth);
-
-                //Init
-                this.getWindowWidth()
-            })
-
         },
         methods: {
-            getWindowWidth() {
-                // 모바일 버전으로 전환됨
-                if (document.documentElement.clientWidth < 768) {
-                    if (!this.isMobileMode) {
-                        this.isMobileMode = true;
-                        MainRepository.state().setIsMobile(true);
-                    }
-                } else {  // PC 버전으로 전환됨
-                    if (this.isMobileMode) {
-                        this.isMobileMode = false;
-                        MainRepository.state().setIsMobile(false);
-
-                    }
-                }
-            },
-            setOk() {
-                MainRepository.Sample.controller().setOk(true);
-            }
 
         }
     }
