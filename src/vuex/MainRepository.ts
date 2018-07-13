@@ -4,7 +4,6 @@ import StateController from "@/vuex/controller/StateController";
 import ListController from "@/vuex/controller/ListController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
-import trade from "@/vuex/modules/trade";
 import Trade from "@/vuex/model/Trade";
 import TradeService from "@/service/trade/TradeService";
 import {AxiosInstance} from "axios";
@@ -108,7 +107,6 @@ export default {
         },
         getTradeView () {
             console.log("getTradeView");
-            this.setTradeView();
             return listController.getTrade();
         }
 

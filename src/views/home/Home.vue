@@ -36,6 +36,7 @@ export default Vue.extend({
     beforeCreate: function () {    
         // vuex store를 넘겨준다.
         MainRepository.init(this.$store, function () {
+            console.log("MainRepository");
         })
     },
     mounted() {
