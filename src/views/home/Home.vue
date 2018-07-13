@@ -27,6 +27,12 @@ export default Vue.extend({
           isMobileMode: false,
       }
     },
+    computed: {
+        isMobile() {
+            console.log(MainRepository.State.isMobile())
+            return MainRepository.State.isMobile();
+        }
+    },
     beforeCreate: function () {    
         // vuex store를 넘겨준다.
         MainRepository.init(this.$store, function () {
@@ -50,7 +56,7 @@ export default Vue.extend({
             } else {  // PC 버전으로 전환됨
                 if (this.isMobileMode) {
                     this.isMobileMode = false;
-                    MainRepository.State.controller().setMobile(true);
+                    MainRepository.State.controller().setMobile(false);
                 }
             }
         },
