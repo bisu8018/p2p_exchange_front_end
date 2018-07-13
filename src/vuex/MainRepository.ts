@@ -102,11 +102,13 @@ export default {
                     let trade : Trade = new Trade(data[key]);
                     tradeList.push(trade);
                 }
-                alert("3");
+                console.log(1);
                 listController.setTrade(tradeList);
             });
         },
         getTradeView () {
+            console.log("getTradeView");
+            this.setTradeView();
             return listController.getTrade();
         }
 

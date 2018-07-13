@@ -26,6 +26,6 @@ export enum VuexTypes {
     //======================================
     //              TradeView
     // =====================================
-    SET_TRADEVIEW_DATA = 'tradeView/SET_TRADEVIEW_DATA',
+    SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
 
 }

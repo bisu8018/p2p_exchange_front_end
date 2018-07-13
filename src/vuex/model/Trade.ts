@@ -3,13 +3,15 @@ export default class Trade {
     email: string;
     price: number;
     volumeTotal : number;
+    limitMax : number;
     adType : string;
 
     constructor (data: any) {
         this.idx = Number(data.idx) || -1;
-        this.email = data.email || '';
+        this.email = data.email;
         this.price = data.price || '';
         this.volumeTotal = data.volumeTotal || '';
+        this.limitMax = data.limitMax || '';
         this.adType = data.adType;
     }
 
