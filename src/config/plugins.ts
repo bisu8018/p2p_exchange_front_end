@@ -15,17 +15,7 @@ export default (Vue: any) => {
             error: '#b71c1c',
             //COMMON COLOR
             BGNav : '#002970',
-            TextBlack : '#353535',
-            TextDarkgray : '#9294A6',
-            TextGray : '#C8C8C8',
-            TextBlue : '#214EA1',
-            TextPointBlue : '#316EE4',
-            TextHover : '#316EE4',
-            TextPrice : '#E25422',
-            TextError : '#BF2324',
-            TextWarning : '#F9A825',
-            TextSuccess : '#71AA3A',
-            TextWhite : '#FFFFFF',
+
             Avartar1 : '#8869CA',
             Avartar2 : '#E05543',
             Avartar3 : '#E25422',

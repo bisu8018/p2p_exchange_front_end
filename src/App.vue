@@ -92,6 +92,7 @@
     }
 
     .avatar {
+        font-weight: 400;
         font-size: 16px;
     }
 
@@ -112,11 +113,12 @@
 
     .button-1 {
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 700 !important;
     }
 
     .button-2 {
         font-size: 14px;
+        font-weight: 400 !important;
     }
 
     .layer-text {
@@ -268,5 +270,39 @@
         opacity: 0 !important;
         border-radius: 3px !important;
     }
+    /*common text color */
 
+    .TextBlack{
+        color: #353535;
+    }
+    .TextDarkgray{
+        color : #9294A6
+    }
+    .TextGray{
+      color : #C8C8C8
+    }
+    .TextBlue{
+        color : #214EA1
+    }
+    .TextPointBlue{
+        color : #316EE4
+    }
+    .TextHover{
+        color : #316EE4
+    }
+    .TextPrice{
+        color : #E25422
+    }
+    .TextError{
+        color : #BF2324
+    }
+    .TextWarning{
+        color : #F9A825
+    }
+    .TextSuccess{
+        color : #71AA3A
+    }
+    .TextWhite{
+        color : #FFFFFF
+    }
 </style>

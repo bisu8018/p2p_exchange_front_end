@@ -10,7 +10,7 @@
                 <v-flex md2 text-md-left>{{$str("paymentMethod")}} </v-flex>
                 <v-flex md1 text-md-right>{{$str("control")}}</v-flex>
             </v-layout>
-            <hr class="v-divider">
+            <v-divider></v-divider>
             <v-flex v-for="user in users" :key="`i${user}`" md12>
                 <v-layout row wrap style="height: 90px; " align-center>
                     <v-flex md3><td><v-avatar color="teal"  :size="30">
@@ -22,7 +22,7 @@
                     <v-flex md2>{{user.dealMode}} {{user.dealMode}} {{user.dealMode}} </v-flex>
                     <v-flex md1 text-md-center><v-btn class="Button button-2" style="color: white;" round  >{{$str("buy")}} ALLB</v-btn></v-flex>
                 </v-layout>
-                <hr class="v-divider">
+                <v-divider></v-divider>
             </v-flex>
         </v-flex>
 
