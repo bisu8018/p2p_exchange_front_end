@@ -93,6 +93,7 @@
 
     .avatar {
         font-size: 16px;
+        font-weight: 400;
     }
 
     .price-1 {
@@ -111,12 +112,13 @@
     }
 
     .button-1 {
-        font-size: 14px;
-        font-weight: 700;
+        font-size: 14px !important;
+        font-weight: 700 !important;
     }
 
     .button-2 {
-        font-size: 14px;
+        font-size: 14px !important;
+        font-weight: 400 !important;
     }
 
     .layer-text {
@@ -269,4 +271,14 @@
         border-radius: 3px !important;
     }
 
+    /*common text style*/
+    .TextDarkgray{
+        color : #9294A6;
+    }
+    .TextBlack{
+        color : #353535;
+    }
+    .TextWhite{
+        color : #FFFFFF;
+    }
 </style>

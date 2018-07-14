@@ -259,6 +259,18 @@ const strings = new Map([
       CN: '发布广告',
       JP: ''
   }],
+    ['Post_General_AD', {
+        KOR: '일반광고게시',
+        ENG: 'Post General Ad',
+        CN: '发布广告',
+        JP: ''
+    }],
+    ['Post_Block_AD', {
+        KOR: '블록광고게시',
+        ENG: 'Post Block Ad',
+        CN: '发布广告',
+        JP: ''
+    }],
   ['assets', {
       KOR: '자산',
       ENG: 'Assets',
