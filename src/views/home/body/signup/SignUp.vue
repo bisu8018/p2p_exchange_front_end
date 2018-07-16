@@ -107,7 +107,10 @@
                     encryptedPassword: this.password
                 }, function (error) {
                     if (!error) {
-                        console.log("success");
+                        //console.log("success");
+                        alert("Thank you");
+                        location.href = "/abMain";
+
                     } else {
                         console.log("POST ERROR ::::::: " + error);
                     }
@@ -115,7 +118,7 @@
             },
             goLogin() {
                 //this.$router.push("/login");
-            }
+            },
         }
     });
 </script>

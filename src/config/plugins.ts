@@ -16,6 +16,16 @@ export default (Vue: any) => {
             //COMMON COLOR
             BGNav : '#002970',
 
+
+            TextGray : '#C8C8C8',
+            TextBlue : '#214EA1',
+            TextPointBlue : '#316EE4',
+            TextHover : '#316EE4',
+            TextPrice : '#E25422',
+            TextError : '#BF2324',
+            TextWarning : '#F9A825',
+            TextSuccess : '#71AA3A',
+
             Avartar1 : '#8869CA',
             Avartar2 : '#E05543',
             Avartar3 : '#E25422',

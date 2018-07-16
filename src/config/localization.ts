@@ -163,12 +163,6 @@ const strings = new Map([
     }],
 
     //Trade Center
-    ['nationality', {
-        KOR: '국가',
-        ENG: 'Nationality',
-        CN: '国家',
-        JP: ''
-    }],
     ['currency', {
         KOR: '통화',
         ENG: 'Currency',
@@ -255,25 +249,25 @@ const strings = new Map([
   }],
   ['exchange', {
       KOR: '거래',
-      ENG: 'EXCHANGE',
+      ENG: 'Exchange',
       CN: '币币交易',
       JP: ''
   }],
   ['postAd', {
       KOR: '광고게시',
-      ENG: 'POST AD',
+      ENG: 'Post Ad',
       CN: '发布广告',
       JP: ''
   }],
-    ['Post General AD', {
+    ['Post_General_AD', {
         KOR: '일반광고게시',
-        ENG: 'Post General AD',
+        ENG: 'Post General Ad',
         CN: '发布广告',
         JP: ''
     }],
-    ['Post Block AD', {
+    ['Post_Block_AD', {
         KOR: '블록광고게시',
-        ENG: 'Post Block AD',
+        ENG: 'Post Block Ad',
         CN: '发布广告',
         JP: ''
     }],
