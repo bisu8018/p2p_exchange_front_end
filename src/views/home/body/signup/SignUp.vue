@@ -1,39 +1,39 @@
 <template>
-    <v-layout mt-4 mb-5>
+    <v-layout mt-5 mb-5 ml-4 mr-4>
         <v-flex xs12 lg4 offset-lg4>
-            <v-card flat>
-                <v-card-title  >
-                    <img class="iconLogo mr-2" src="@/assets/img/logo_black.png">
-                    <div class="headline-2">{{$str("signupSubject")}}</div>
-                </v-card-title>
-                <v-card-text>
-                    <v-flex text-xs-left mb-2  caption>{{$str("country")}}</v-flex>
-                    <country-select></country-select>
-                    <v-flex text-xs-left mb-2 caption>{{$str("email")}}</v-flex>
-                    <v-flex>
-                        <input name="email" v-model="email" type="text" class="signupInput">
-                    </v-flex>
-                    <v-flex text-xs-left mb-2 caption>{{$str("password")}}</v-flex>
-                    <v-flex>
-                        <input v-bind:label="$str('password')" v-model="password" :type="'password'"  class="signupInput">
-                    </v-flex>
-                    <v-flex text-xs-left mb-2 caption>{{$str("passwordConfirm")}}</v-flex>
-                    <v-flex>
-                        <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'" class="signupInput">
-                    </v-flex>
-                    <v-flex class="checkbox-terms">
-                        <v-checkbox v-bind:label="$str('termsLabel')" v-model="checkbox"></v-checkbox>
-                    </v-flex>
-                </v-card-text>
-                <v-card-actions>
-                    <v-flex text-xs-left>
-                        <button class="signup-btn" @click="onCheck" large>{{$str("signupText")}}</button>
-                    </v-flex>
-                    <v-flex>
-                        {{$str("haveAccount")}} <a @click='goLogin'>{{$str("loginText")}}</a>
-                    </v-flex>
-                </v-card-actions>
-            </v-card>
+            <div class="mb-4a signup-flex">
+                <div class="pt-1">
+                    <img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
+                <div class="title-2">{{$str("signupSubject")}}</div>
+            </div>
+            <div class="text-xs-left mb-2 caption mt-1 input-label">{{$str("country")}}</div>
+            <country-select></country-select>
+            <div class="text-xs-left mb-2 caption input-label mt-4">{{$str("email")}}</div>
+            <div>
+                <input name="email" v-model="email" type="text" class="common-input mb-4">
+            </div>
+            <div class="text-xs-left mb-2 caption input-label">{{$str("password")}}</div>
+            <div>
+                <input v-bind:label="$str('password')" v-model="password" :type="'password'"
+                       class="common-input mb-4">
+            </div>
+            <div class="text-xs-left mb-2 caption input-label">{{$str("passwordConfirm")}}</div>
+            <div>
+                <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
+                       class="common-input mb-4">
+            </div>
+            <div class="mb-4 text-xs-left">
+                <label><input type="checkbox" v-model="checkbox" class="mr-2">{{$str('termsLabel')}}</label>
+            </div>
+            <div class="signup-flex">
+                <div class="mr-3">
+                    <button class="signup-btn btnHover block" @click="onCheck">{{$str("signupText")}}</button>
+                </div>
+                <div class="text-xs-left">
+                    <div class="caption ">{{$str("haveAccount")}}</div>
+                    <div><a @click='goLogin' class="layer-text signup-a">{{$str("loginText")}}</a></div>
+                </div>
+            </div>
         </v-flex>
     </v-layout>
 </template>
@@ -114,49 +114,49 @@
                 })
             },
             goLogin() {
-                //this.$router.push("/login");
+                this.$router.push("/login");
             }
         }
     });
 </script>
 
 <style scoped>
+    .signup-flex {
+        display: flex;
+    }
+
     .iconLogo {
-        width : 32px;
+        width: 30px;
         height: 24px;
     }
 
-    .signupInput {
-        height: 36px;
-        width: 100%;
-        border-radius: 2px;
-        background-color: #ffffff;
-        border: solid 1px #8d8d8d;
-        margin-bottom: 26px;
-    }
-
-    .v-label {
-        margin-top: -4px;
-        height: 20px;
-        font-size: 14px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535 !important;
-    }
-
     .signup-btn {
-        width: 132px;
-        height: 44px;
         border-radius: 3px;
-        background-color: #214ea1 ;
+        background-color: #214ea1;
         color: white;
+        height: 44px;
+        width: 156px;
+
     }
 
-    .signup-btn:hover {
-        background-color: #316ee4 ;
+    .input-label {
+        color: #9294a6;
     }
+
+
+    .common-input {
+        background: white;
+    }
+
+    .signup-a {
+        font-size: 14px;
+        line-height: 1;
+        color: #214ea1;
+    }
+
+    .signup-a:hover {
+        color: #316ee4;
+    }
+
 
 </style>

@@ -184,15 +184,10 @@
             ],
 
         }),
-        methods: {
-            onReceive() {
-                //receive list data
-                TradeService.listView.receiveTradeData({
+        created () {
 
-                }, function(response){
-                    console.log(response);
-                })
-            },
+        },
+        methods: {
         },
         computed: {
             widthVal(){

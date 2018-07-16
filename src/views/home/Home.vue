@@ -2,9 +2,7 @@
   <v-app>
       <abHeader></abHeader>
       <v-content class='white' style="min-height:600px; ">
-        <v-container>
           <router-view ></router-view>
-        </v-container>
       </v-content>
       <abFooter></abFooter>
   </v-app>

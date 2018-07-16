@@ -1,4 +1,4 @@
-import {deleteCookie, getCookie, setCookie} from "@/common/common";
+import {getCookie, setCookie, deleteCookie} from "@/common/common";
 
 const strings = new Map([
 
@@ -47,7 +47,7 @@ const strings = new Map([
     }],
     ['signupSubject', {
         KOR: '회원가입',
-        ENG: 'SIGN UP',
+        ENG: 'Sign up to AllB OTC',
         CN: '注册火币',
         JP: ''
     }],
@@ -71,13 +71,13 @@ const strings = new Map([
     }],
     ['passwordConfirm', {
         KOR: '비밀번호 확인',
-        ENG: 'Password Confirm',
+        ENG: 'Confirm Password',
         CN: '确认密码',
         JP: ''
     }],
     ['termsLabel', {
         KOR: '이용약관에 동의합니다.',
-        ENG: 'I agree to the Terms of Service',
+        ENG: 'I agree to the ',
         CN: '我已阅读并同意',
         JP: ''
     }],
@@ -89,19 +89,19 @@ const strings = new Map([
     }],
     ['signupText', {
         KOR: '가입',
-        ENG: 'SIGN UP',
+        ENG: 'Sign Up',
         CN: '注册',
         JP: ''
     }],
     ['haveAccount', {
         KOR: '이미 계정이 있으십니까 ?',
-        ENG: 'Already have an account ?',
+        ENG: 'Already have an account',
         CN: '已有账号?',
         JP: ''
     }],
     ['loginText', {
         KOR: '로그인',
-        ENG: 'LOG IN',
+        ENG: 'Log in',
         CN: '立即登录',
         JP: ''
     }],
@@ -139,7 +139,7 @@ const strings = new Map([
     }],
     ['country', {
         KOR: '국가',
-        ENG: 'Country',
+        ENG: 'Nationality',
         CN: '国家',
         JP: ''
     }],
@@ -161,7 +161,12 @@ const strings = new Map([
         CN: '请按住滑块，拖动到最右边',
         JP: ''
     }],
-
+    ['verifySliderSuccess', {
+        KOR: '인증성공',
+        ENG: 'Verified',
+        CN: '验证成功',
+        JP: ''
+    }],
     //Trade Center
     ['currency', {
         KOR: '통화',
@@ -277,8 +282,8 @@ const strings = new Map([
         KOR: '지원안내',
         ENG: 'Support',
         CN: '支持',
-    JP: ''
-}],
+        JP: ''
+    }],
     ['guides', {
         KOR: '이용안내',
         ENG: 'Guides',
@@ -334,13 +339,15 @@ const strings = new Map([
         JP: ''
     }],
 
+
+
 ])
 
 export enum Lang {
-    EN = 'EN',
-    KO = 'KO',
-    JP = 'JP',
-    ZH = 'ZH',
+  EN = 'EN',
+  KO = 'KO',
+  JP = 'JP',
+  ZH = 'ZH',
 }
 
 
@@ -388,12 +395,12 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = checkLocale();
-
+let currentLang: Lang = Lang.EN;
+// let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {
-  return currentLang
+    return currentLang
 }
 
 export function abSetLang (lang: Lang) {
