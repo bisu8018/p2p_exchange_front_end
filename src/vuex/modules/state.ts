@@ -12,9 +12,9 @@ const mutations = {
         state.isMobile = isMobile;
     },
     // OS 체크
-    // [VuexTypes.SET_CHECK_OS] (state: any, checkOs: number) {
-    //     state.checkOs = checkOs;
-    // },
+    [VuexTypes.SET_CHECK_OS] (state: any, checkOs: number) {
+        state.checkOs = checkOs;
+    },
 };
 
 
@@ -29,9 +29,9 @@ const actions = {
         context.commit(VuexTypes.SET_IS_MOBILE, isMobile)
     },
     // OS 체크
-    // [VuexTypes.SET_CHECK_OS] (context: any, checkOs: number) {
-    //     context.commit(VuexTypes.SET_CHECK_OS, checkOs)
-    // },
+    [VuexTypes.SET_CHECK_OS] (context: any, checkOs: number) {
+        context.commit(VuexTypes.SET_CHECK_OS, checkOs)
+    },
 };
 
 const getters = {

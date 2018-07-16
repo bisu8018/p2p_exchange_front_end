@@ -39,9 +39,9 @@ export default {
 
         // 모바일 인지 체크 -> Vuex
         if (document.documentElement.clientWidth < 768) {
-            this.State.controller().setIsMobile(true);
+            this.State.controller().setMobile(true);
         } else {
-            this.State.controller().setIsMobile(false);
+            this.State.controller().setMobile(false);
         }
 
         // 운영체제 체크
@@ -102,11 +102,13 @@ export default {
                     let trade : Trade = new Trade(data[key]);
                     tradeList.push(trade);
                 }
-                alert("3");
+                console.log(1);
                 listController.setTrade(tradeList);
             });
         },
         getTradeView () {
+            console.log("getTradeView");
+            this.setTradeView();
             return listController.getTrade();
         }
 

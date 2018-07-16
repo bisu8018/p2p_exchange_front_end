@@ -5,8 +5,9 @@ import Trade from "@/vuex/model/Trade";
 const mutations = {
     // -                   현재 상태                             -
     // 초기화 완료
-    [VuexTypes.SET_TRADEVIEW_DATA] (trade: any, isOk: Trade[]) {
-        trade.isOk = isOk
+    [VuexTypes.SET_TRADEVIEW_DATA] (trade: any, tradeInfo: Trade[]) {
+        console.log(3);
+        trade.tradeInfo = tradeInfo;
     },
 };
 
@@ -14,17 +15,19 @@ const mutations = {
 const actions = {
     // -                   현재 상태                             -
     // 초기화 완료
-    [VuexTypes.SET_TRADEVIEW_DATA] (context: any, isOk: Trade[]) {
-        context.commit(VuexTypes.SET_TRADEVIEW_DATA, isOk)
+    [VuexTypes.SET_TRADEVIEW_DATA] (context: any, tradeInfo: Trade[]) {
+        console.log(2);
+        context.commit(VuexTypes.SET_TRADEVIEW_DATA, tradeInfo)
     },
 };
 
 const getters = {
 };
 
+let tradeInfo : Trade[]  =  [];
 
 const trade = {
-    isOk: null
+    tradeInfo: tradeInfo
 }
 
 export default {

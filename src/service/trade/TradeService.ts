@@ -7,7 +7,6 @@ export default {
         tradeInfo : function (callback: any) {
             AxiosService._requestWithBody('tradeView', 'GET', '',
                 function (data: any) {
-                    alert(1);
                     callback(data);
                 },
                 function (error) {
@@ -15,4 +14,15 @@ export default {
                 })
         }
     }
+    // tradeView: {
+    //     tradeInfo : function (callback: any) {
+    //         AxiosService._requestWithBody('tradeView', 'GET', '',
+    //             function (data: any) {
+    //                 callback(data);
+    //             },
+    //             function (error) {
+    //                 console.log(error);
+    //             })
+    //     }
+    // }
 }
