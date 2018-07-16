@@ -1,38 +1,39 @@
 <template>
     <!--Vertical, horizontal alignment-->
-    <v-layout mt-4a mb-4a>
-        <v-flex class="card-flex" xs12 md6 lg4 offset-md3 offset-lg4 pa-2 pt-1>
-            <v-card flat>
-                <v-card-title title class="cardTitle" >
-                    <img class="iconLogo mr-2" src="@/assets/img/logo_black.png">
-                    <h2 class="Welcome">{{$str("welcome")}}</h2>
-                </v-card-title>
-                <v-card-text>
-                    <form action="/signin" method="post" id="loginForm">
-                        <v-flex text-xs-left mb-2 caption>{{$str("email")}}</v-flex>
-                        <input type="text" class="Login-input" name="email" v-model="email"
-                               :placeholder="loginEmailPlaceholder">
-                        <v-flex text-xs-left mb-2 caption>{{$str("password")}}</v-flex>
-                        <input name="encryptedPassword" v-model="password" type="password" class="Login-input"
-                               :placeholder="loginPasswordPlaceholder">
-                        <!--<v-flex class="verifySlider" v-if="email.length>0 && password.length>=8" mb-5>-->
-                        <v-flex class="verifySlider" mb-5>
-                            <v-flex text-xs-left mb-2 caption>{{$str("verify")}}</v-flex>
-                            <VerifySlider v-on:passcallback="putVerified"></VerifySlider>
-                        </v-flex>
-                        <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
-                    </form>
-                    <!--go to the page 'find password' -->
-                    <v-flex text-xs-left caption class="goForgetPwdWrapper">
-                        <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
+    <v-layout mt-5 mb-5 ml-3 mr-3>
+        <v-flex class="card-flex" xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
+            <div>
+                <div class="mb-4a login-title">
+                    <div class="pt-1"><img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
+                    <h2 class="title-2">{{$str("welcome")}}</h2>
+                </div>
+                <form action="/signin" method="post" id="loginForm">
+                    <v-flex text-xs-left mb-2 caption>{{$str("email")}}</v-flex>
+                    <input type="text" class="common-input" name="email" v-model="email"
+                           :placeholder="loginEmailPlaceholder">
+                    <v-flex text-xs-left mb-2 caption>{{$str("password")}}</v-flex>
+                    <input name="encryptedPassword" v-model="password" type="password" class="common-input"
+                           :placeholder="loginPasswordPlaceholder">
+                    <v-flex class="verifySlider" v-if="email.length>0 && password.length>=8" mb-4>
+                    <!--<v-flex class="verifySlider" mb-4>-->
+                        <v-flex text-xs-left mb-2 caption>{{$str("verify")}}</v-flex>
+                        <verify-slider v-on:passcallback="putVerified"></verify-slider>
                     </v-flex>
-                    <v-btn dark color="Button" class="btnHover elevation-0" @click='onCheck' large block>{{$str("loginText")}}</v-btn>
-                    <v-flex mt-4a mb-4a orWrapper >
-                        <div class="orTextWrapper"><span class="orText caption">or</span></div>
-                    </v-flex>
-                    <v-btn @click='goSignup' flat large block class="textBlue btnHover btnSignup">{{$str("signupText")}}</v-btn>
-                </v-card-text>
-            </v-card>
+                    <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
+                </form>
+                <!--go to the page 'find password' -->
+                <v-flex text-xs-left caption class="goForgetPwdWrapper">
+                    <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
+                </v-flex>
+                <v-btn dark color="Button" class="btnHover elevation-0" @click='onCheck' large block>
+                    {{$str("loginText")}}
+                </v-btn>
+                <v-flex mt-4a mb-4a orWrapper>
+                    <div class="orTextWrapper"><span class="orText caption">or</span></div>
+                </v-flex>
+                <v-btn @click='goSignup' flat large block class="textBlue btnHover btnSignup">{{$str("signupText")}}
+                </v-btn>
+            </div>
         </v-flex>
     </v-layout>
 </template>
@@ -115,32 +116,20 @@
     }
 </script>
 <style scoped>
+    .iconLogo {
+        width: 30px;
+        height: 24px;
+    }
+
+    .login-title {
+        display: flex;
+    }
     .card-flex {
         border-radius: 3px;
         border: solid 1px #8d8d8d;
         padding-bottom: 40px !important;
     }
 
-    .Login-input {
-        height: 44px;
-        border-radius: 2px;
-        background-color: #f8f8fa;
-        border: solid 1px #8d8d8d;
-        width: 100%;
-        margin-bottom: 22px;
-        padding-left: 12px;
-    }
-
-    .Welcome {
-        height: 33px;
-        font-size: 22px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535;
-    }
 
     .textBlue {
         color: #214ea1 !important;
@@ -164,24 +153,24 @@
         color: #9294a6;
     }
 
-    .btnSignup{
-        border : 1px solid #214ea1 !important;
+    .btnSignup {
+        border: 1px solid #214ea1 !important;
         margin-bottom: -10px;
     }
 
-    .goForgetPwd{
+    .goForgetPwd {
         cursor: pointer;
     }
 
-    .goForgetPwdWrapper{
+    .goForgetPwdWrapper {
         margin-bottom: 9px !important;
     }
 
-    .goForgetPwd:hover{
+    .goForgetPwd:hover {
         color: #316ee4 !important;
     }
 
-    .cardTitle{
+    .cardTitle {
         margin-top: 3px;
     }
 </style>

@@ -152,14 +152,15 @@
         color: #353535 !important;
     }
 
-    .title {
-        font-size: 22px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535;
+    .title-2 {
+        font-size: 22px !important;
+        font-weight: normal !important;
+        font-style: normal !important;
+        font-stretch: normal !important;
+        line-height: normal !important;
+        letter-spacing: normal !important;
+        color: #353535 !important;
+        font-weight: bold !important;
     }
 
     .subheading {
@@ -269,6 +270,21 @@
     .v-btn:before {
         opacity: 0 !important;
         border-radius: 3px !important;
+    }
+    .v-btn {
+        height: 40px !important;
+        border-radius: 3px !important;
+    }
+    /*input text 필드 공통 CSS*/
+    .common-input {
+        height: 40px;
+        border-radius: 2px;
+        background-color: #f8f8fa;
+        border: solid 1px #8d8d8d;
+        width: 100%;
+        margin-bottom: 22px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     /*common text style*/
