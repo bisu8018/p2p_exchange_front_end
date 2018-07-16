@@ -23,7 +23,7 @@ export default {
                 })
         },
         signup: function (data: any, callback: any) {
-            AxiosService._requestWithBody('/signup', 'POST', data ,
+            AxiosService._requestWithBody('signup', 'POST', data ,
                 function (data: any) {
                 callback(data)
                 },

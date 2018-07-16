@@ -12,7 +12,6 @@ export default {
         }
 
         callback(userDummy);
-
         return;
 
         // let data = {

@@ -30,16 +30,26 @@
                             <!-- signup 버튼-->
                             <v-btn  flat class="button-2" style="color: #ffffff; " @click="goSignup()">{{$str("signupText")}}</v-btn>
                             <!-- 언어설정버튼 -->
-                            <v-menu offset-y open-on-hover>
-                                <v-btn  flat class="button-2" style="color: #ffffff; " slot="activator" v-if="currentLang=='KO'"> <img src="@/assets/img/flag3.png">한국어▼</v-btn>
-                                <v-btn  flat class="button-2" style="color: #ffffff; " slot="activator" v-else-if="currentLang=='EN'"> <img src="@/assets/img/flag2.png">English▼</v-btn>
-                                <v-btn  flat class="button-2" style="color: #ffffff; " slot="activator" v-else> <img src="@/assets/img/flag1.png">简体中文<v-icon>keyboard_arrow_down</v-icon></v-btn>
+                            <v-menu offset-y open-on-hover >
+                                <!-- 한국어-->
+                                <v-btn flat slot="activator" v-if="currentLang=='KO'">
+                                    <img src="@/assets/img/flag3.png"><div class="caption ml-2 TextWhite">한국어<v-icon small >keyboard_arrow_down</v-icon></div>
+                                </v-btn>
+                                <!-- 영어 -->
+                                <v-btn flat  slot="activator" v-else-if="currentLang=='EN'" >
+                                    <img src="@/assets/img/flag2.png"><div class="caption ml-2 TextWhite" >English<v-icon small >keyboard_arrow_down</v-icon></div>
+                                </v-btn>
+                                <!-- 중국어 -->
+                                <v-btn flat slot="activator" v-else>
+                                    <img src="@/assets/img/flag1.png"><div class="caption ml-2 TextWhite">简体中文<v-icon small >keyboard_arrow_down</v-icon></div>
+                                </v-btn>
                                 <v-list>
                                     <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
                                         <v-list-tile-title>{{ language.title }}</v-list-tile-title>
                                     </v-list-tile>
                                 </v-list>
                             </v-menu>
+
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -48,63 +58,47 @@
 
             <!-- 모바일 일때-->
             <div v-else >
-                <v-layout row wrap>
-                    <v-flex xs1 style="padding-top: 20px;  padding-left: 20px; ">
+                <v-layout style="height:64px;">
+                    <div style="padding-top: 20px;  padding-left: 16px; ">
 
                         <img @click="goMain()" src="@/assets/img/logo_color.png" style="width: 30px; height: 24px;">
 
-                    </v-flex>
-                    <v-flex xs9></v-flex>
-                    <v-flex xs2 style="padding-top: 8px;  ">
-                        <v-toolbar-side-icon class="button-2" style="color: #ffffff; " @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-                    </v-flex>
+                    </div>
+                    <v-spacer> </v-spacer>
+                    <div class="mr-3" style="margin-top: 20px">
+                        <v-icon class="" style="color: #ffffff; width: 24px; height: 16px;" @click.stop="drawer = !drawer">menu</v-icon>
+                    </div>
                 </v-layout>
 
-
-
-
-                <v-flex xs12 v-if="drawer" >
-                    <v-card style="position: relative; z-index:100;" class="BGNav">
+                <!-- navigation drawer 열렸을 시 -->
+                <v-flex xs12 v-if="drawer" @click.stop="drawer = !drawer">
+                    <div style="position: relative; z-index:100;" class="BGNav">
                         <v-layout row wrap >
 
                             <!-- OTC버튼-->
-                            <v-flex xs12 text-xs-left mt-3 ml-3><div class="button-2 " style="color: #ffffff;" right flat  @click="goTradeCenter()">OTC</div></v-flex>
+                            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3><div class="button-2 " style="color: #ffffff;" right flat  @click="goTradeCenter()">OTC</div></v-flex>
                             <!-- Exchange 버튼-->
-                            <v-flex xs12 text-xs-left mt-4a ml-3><div class="button-2" style="color: #ffffff;  " flat >{{$str("exchange")}}</div></v-flex>
+                            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3><div class="button-2" style="color: #ffffff;  " flat >{{$str("exchange")}}</div></v-flex>
                             <!-- post AD 버튼 -->
-                            <v-flex xs12 text-xs-left mt-4a ><div class="button-2" style="color: #ffffff; " flat @click.stop="postadDrawer = !postadDrawer"><div class="ml-3">{{$str("postAd")}}</div>
-                                <!--post AD 눌렀을때 나오는 세부항목-->
-                                <v-flex v-if="postadDrawer" style=" background-color: #21407e; ">
-                                    <v-flex xs12 text-xs-left mt-3 ml-4a ml-5 pt-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post General AD")}}</div></v-flex>
-                                    <v-flex xs12 text-xs-left mt-4a ml-4a ml-5 pb-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post Block AD")}}</div></v-flex>
-                                </v-flex>
-                            </div>
+                            <v-flex xs12 text-xs-left mt-3 pb-3 >
+                                <div class="button-2" style="color: #ffffff; " flat @click.stop="postadDrawer = !postadDrawer"><div class="ml-3">{{$str("postAd")}}</div></div>
                             </v-flex>
+                                    <!--post AD 눌렀을때 나오는 세부항목-->
+                            <v-flex xs12 text-xs-left><div v-if="postadDrawer" style=" background-color: #21407e; ">
+                                <v-flex xs12 text-xs-left pb-3 ml-5 pt-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post_General_AD")}}</div></v-flex>
+                                <v-flex xs12 text-xs-left pt-3  ml-5 pb-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post_Block_AD")}}</div></v-flex>
+                                </div>
+                            </v-flex>
+
+
                             <!-- login 버튼-->
-                            <v-flex xs12 text-xs-left mt-3 ml-3><div class="button-2" style="color: #ffffff; "  flat  @click="goLogin()">{{$str("loginText")}}</div></v-flex>
+                            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3><div class="button-2" style="color: #ffffff; "  flat  @click="goLogin()">{{$str("loginText")}}</div></v-flex>
                             <!-- signup 버튼-->
-                            <v-flex xs12 text-xs-left mt-4a mb-4a ml-3><div class="button-2" style="color: #ffffff;" flat  @click="goSignup()">{{$str("signupText")}}</div></v-flex>
+                            <v-flex xs12 text-xs-left mt-3 mb-4 ml-3><div class="button-2" style="color: #ffffff;" flat  @click="goSignup()">{{$str("signupText")}}</div></v-flex>
                         </v-layout>
-                    </v-card>
+                    </div>
                 </v-flex>
             </div>
-            <!--v-navigation-drawer v-model="drawer" temporary right app>
-               <v-list class="pa-1">
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title class="title" @click="goMain()">ALLB</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                  </v-list>
-                <v-list class="pt-0" dense>
-                  <v-divider></v-divider>
-                  <v-list-tile v-for="item in items" :key="item.name" @click="item.name=='login' ? goLogin() : (item.name=='signup' ? goSignup() : (item.name=='tradeCenter' ? goTradeCenter() : goPostAd()))">
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list>
-              </v-navigation-drawer-->
         </div>
         <div style="position: relative; width: 100%; z-index: 0; height:64px;"> </div>
     </div>

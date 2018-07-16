@@ -9,7 +9,7 @@ export default class StateController {
     }
 
     // 모바일 체크
-    setIsMobile(isMobile: boolean) {
+    setMobile(isMobile: boolean) {
         this.store.dispatch(VuexTypes.SET_IS_MOBILE, isMobile)
     }
 

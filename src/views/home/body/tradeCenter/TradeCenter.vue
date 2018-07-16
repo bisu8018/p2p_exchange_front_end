@@ -22,6 +22,8 @@
         data: () => ({
 
         }),
+        created() {
+        },
         methods: {
 
         }

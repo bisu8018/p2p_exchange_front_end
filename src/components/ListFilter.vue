@@ -118,13 +118,13 @@
     }),
       methods : {
           onCurrencyChange (){
-              this.currency = this.selectCurrency.code;
+              //this.currency = this.selectCurrency.code;
           },
           onPaymentMethodChange (){
-              this.paymentMethod = this.selectPaymentMethod.code;
+              //this.paymentMethod = this.selectPaymentMethod.code;
           },
           onAmountChange (){
-              this.amount = this.a
+              //this.amount = this.a
           },
 
       }

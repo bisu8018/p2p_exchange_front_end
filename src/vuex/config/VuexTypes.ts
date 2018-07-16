@@ -11,9 +11,9 @@ export enum VuexTypes {
     //              Home
     // =====================================
     // 초기화 완료
-    INIT_COMPLETED = 'home/INIT_COMPLETED',
+    INIT_COMPLETED = 'state/INIT_COMPLETED',
     //OS 체크
-    //SET_CHECK_OS = 'home/SET_CHECK_OS',
+    SET_CHECK_OS = 'state/SET_CHECK_OS',
     // 모바일 인지 체크
     SET_IS_MOBILE = 'state/SET_IS_MOBILE',
 
@@ -26,6 +26,6 @@ export enum VuexTypes {
     //======================================
     //              TradeView
     // =====================================
-    SET_TRADEVIEW_DATA = 'tradeView/SET_TRADEVIEW_DATA',
+    SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
 
 }
