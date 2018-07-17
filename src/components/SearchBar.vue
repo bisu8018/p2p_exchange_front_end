@@ -28,15 +28,26 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import AXIOS from 'axios';
+    import SearchService from '@/service/trade/search/SearchService';
+    import MainRepository from "../vuex/MainRepository";
     import { abUtils } from '@/common/utils';
-
 
     export default Vue.extend({
         name: 'searchBar',
         data: () => ({
             toggle_exclusive : 1,
-        })
+        }),
+        methods: {
+            onSearchList() {
+              SearchService.searchTradeView.searchTradeInfo(function(error){
+                  if(!error){
+                      MainRepository.TradeView.getTradeView();
+                  }else {
+                      console.log("POST ERROR ::::::: " + error);
+                  }
+              })
+            }
+        }
     });
 </script>
 <style>
