@@ -28,7 +28,7 @@
                 x: 0,
                 isPassing: false,
                 slidebarWidth: 200 ,
-                slidebarHeight: 44,
+                slidebarHeight: 40,
                 vIcon : "keyboard_arrow_right",
                 text : Vue.prototype.$str("verifySliderPlaceholder"),
                 successText : Vue.prototype.$str("verifySliderSuccess")
@@ -124,7 +124,6 @@
         },
         methods: {
             init: function () {
-                //this.text = Vue.prototype.$str('verifySliderPlaceholder');
                 this.slidebarWidth = document.getElementById('verify_wrapper').offsetWidth;
             },
             dragStart: function (e) {
@@ -142,7 +141,7 @@
                         handler.style.left = _x + 'px';
                         this.$refs.progressBar.style.width = (_x + this.slidebarHeight / 2) + 'px';
                     } else if (_x > (this.slidebarWidth - this.slidebarHeight)) {
-                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) -2 + 'px';
+                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) -6 + 'px';
                         this.$refs.progressBar.style.width = (this.slidebarWidth - this.slidebarHeight / 2) + 'px';
                         this.passVerify();
                     }

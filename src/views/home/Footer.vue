@@ -6,7 +6,7 @@
           wrap
           align-center
   >
-    <v-container fluid grid-list-xs style="max-width: 1200px;" pl-0 pr-0 pt-0>
+    <v-container fluid grid-list-xs style="max-width: 1176px;" pl-0 pr-0 pt-0>
       <v-layout
               wrap
               row
@@ -23,7 +23,7 @@
           <div class="TextDarkgray caption mb-3">{{$str("support")}}</div>
           <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("guides")}}</p></a>
           <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("FAQ")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("announcements")}}</p></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><div class="mb-4 caption">{{$str("announcements")}}</div></a>
           <div v-if="$vuetify.breakpoint.smAndDown" class=""> </div>
         </v-flex>
         <!-- 카드 3 Terms-->
@@ -31,21 +31,30 @@
           <p class="TextDarkgray">{{$str("terms")}}</p>
           <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>{{$str("terms_Of_Service")}}</p></a>
           <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>{{$str("transaction_Regulations")}}</p></a>
-          <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>{{$str("fees")}}</p></a>
+          <a class="black--text" href="https://vuetifyjs.com" target="_blank"><div class="mb-4 caption">{{$str("fees")}}</div></a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
         <v-flex xs12 md3 text-md-right  class="grey lighten-4">
           <p class="TextDarkgray">{{$str("contact_Us")}}</p>
-          <a class="black--text " href="https://vuetifyjs.com" target="_blank"><div class="mb-5">support@allblab.com</div></a>
+          <a class="black--text " href="https://vuetifyjs.com" target="_blank"><div class="mb-5 caption">support@allblab.com</div></a>
         </v-flex>
       </v-layout>
       <v-divider></v-divider>
       <!--언어설정 버튼-->
       <v-layout justify-center mt-4>
         <v-menu offset-y open-on-hover >
-          <v-btn  flat style="font-weight: 400" slot="activator" v-if="currentLang=='KO'"> <img src="@/assets/img/flag3.png">한국어▼</v-btn>
-          <v-btn  flat style="font-weight: 400" slot="activator" v-else-if="currentLang=='EN'"> <img src="@/assets/img/flag2.png">English▼</v-btn>
-          <v-btn  flat style="font-weight: 400" slot="activator" v-else> <img src="@/assets/img/flag1.png">简体中文▼</v-btn>
+          <!-- 한국어-->
+          <v-btn flat slot="activator" v-if="currentLang=='KO'">
+            <img src="@/assets/img/flag3.png"><div class="caption ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+          </v-btn>
+          <!-- 영어 -->
+          <v-btn flat  slot="activator" v-else-if="currentLang=='EN'">
+            <img src="@/assets/img/flag2.png"><div class="caption ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+          </v-btn>
+          <!-- 중국어 -->
+          <v-btn flat slot="activator" v-else>
+            <img src="@/assets/img/flag1.png"><div class="caption ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+          </v-btn>
           <v-list>
             <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
               <v-list-tile-title>{{ language.title }}</v-list-tile-title>
@@ -111,4 +120,5 @@
     margin-bottom: 16px;
     font-size : 12px;
   }
+
 </style>
