@@ -1,8 +1,32 @@
 
 <template>
     <div>
+        <!-- mobile 일때 -->
+        <v-flex v-if="isMobile">
+          <!-- buy sell 버튼 -->
+          <div>
+            <div class="mobileBuyBtn" >
+              <span class="mobileBtnText">Buy</span>
+            </div>
+            <div class="mobileSellBtn" >
+              <span class="mobileBtnTextClicked" > Sell</span>
+            </div>
+          </div>
+
+          <!-- BTC ALLB ETH  버튼 -->
+          <v-layout row wrap justify-center style="font-size: 16px" mt-4 mb-4>
+            <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+            <v-flex xs3 v-for="item in items" key="itemKey2" @click="getBuyInfo(item.text) "  >
+              {{ item.text }}
+            </v-flex>
+            <v-flex xs1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
+          </v-layout>
+        </v-flex>
+
         <!-- Web 일때 -->
-        <v-flex v-if="$vuetify.breakpoint.mdAndUp">
+
+        <v-flex v-else xs12>
+          <!--buy 부분 -->
           <v-layout>
             <v-flex md5>
               <v-layout column>
@@ -19,13 +43,13 @@
                 </v-layout>
               </v-layout>
             </v-flex>
-
+            <!-- 가운데 divider-->
             <v-flex md1>
               <v-layout align-center justify-end column fill-height pr-4>
                 <span><v-divider vertical style="height: 48px;"></v-divider></span>
               </v-layout>
             </v-flex>
-
+            <!-- Sell 부분 -->
             <v-flex md5>
               <v-layout column>
                 <v-layout row style="font-size: 16px" mb-1>
@@ -41,35 +65,8 @@
                 </v-layout>
               </v-layout>
             </v-flex>
-
           </v-layout>
         </v-flex>
-
-        <!-- mobile 일때 -->
-
-        <v-flex v-else xs12>
-            <!-- buy sell 버튼 -->
-            <div>
-                <div class="mobileBuyBtn" >
-                    <span class="mobileBtnText">Buy</span>
-                </div>
-                <div class="mobileSellBtn" >
-                    <span class="mobileBtnTextClicked" > Sell</span>
-                </div>
-            </div>
-
-            <!-- BTC ALLB ETH  버튼 -->
-                <v-layout row wrap justify-center style="font-size: 16px" mt-4 mb-4>
-                    <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                    <v-flex xs3 v-for="item in items" key="itemKey2" @click="getBuyInfo(item.text) "  >
-                        {{ item.text }}
-                    </v-flex>
-                    <v-flex xs1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
-                </v-layout>
-
-        </v-flex>
-
-
     </div>
 </template>
 
@@ -77,6 +74,7 @@
     import Vue from 'vue';
     import AXIOS from 'axios';
     import { abUtils } from '@/common/utils';
+    import MainRepository from "../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'selectBar',
@@ -110,6 +108,11 @@
             },
 
 
+        },
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
         }
     });
 </script>

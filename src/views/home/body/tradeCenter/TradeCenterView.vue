@@ -1,62 +1,61 @@
 <template>
-    <div>
-        <!-- Web 일때 -->
-        <div v-if="$vuetify.breakpoint.mdAndUp">
+  <div>
 
-            <!-- chart의 title들 -->
-            <!-- md 이상에서만 binding-->
-            <div class="div-gutter mb-3" style=" display: flex;">
-                <v-flex md3 text-md-left>Merchant(Volume | Trade rate)</v-flex>
-                <v-flex md2 text-md-left>Volume</v-flex>
-                <v-flex md2 text-md-left>Limits</v-flex>
-                <v-flex md2 text-md-left>Price </v-flex>
-                <v-flex md2 text-md-left>Payment Method </v-flex>
-                <v-flex md1 text-md-right>Control</v-flex>
-
-            </div>
-            <v-divider></v-divider>
-
-            <!-- user item list들 10개씩 출력-->
-            <v-flex v-for="(user,index) in users" :key="index" md12 >
-                <list-user
-                        v-bind:name="user.name"
-                        v-bind:volumeTotal="user.volumeTotal"
-                        v-bind:limitMax="user.limitMax"
-                        v-bind:price="user.price"
-                        v-bind:dealMode="user.dealMode"
-                ></list-user>
-                <v-divider></v-divider>
-            </v-flex>
-        </div>
-
-
-        <!-- mobile 일때 -->
-        <v-flex v-else v-for="user in users" :key="`i${user}`" xs12 style="height: 180px;" >
-            <list-user
-                    v-bind:name="user.name"
-                    v-bind:volumeTotal="user.volumeTotal"
-                    v-bind:limitMax="user.limitMax"
-                    v-bind:price="user.price"
-                    v-bind:dealMode="user.dealMode"
-            ></list-user>
-            <v-divider></v-divider>
-        </v-flex>
-        <!-- pagination -->
-        <v-pagination v-model="page" :length="pages" ></v-pagination>
-
+    <!-- mobile 일때 -->
+    <div v-if="isMobile">
+      <v-flex  v-for="user in users" :key="`i${user}`" xs12 style="height: 180px;" >
+        <trade-list-item
+                v-bind:name="user.name"
+                v-bind:volumeTotal="user.volumeTotal"
+                v-bind:limitMax="user.limitMax"
+                v-bind:price="user.price"
+                v-bind:dealMode="user.dealMode"
+        ></trade-list-item>
+        <v-divider></v-divider>
+      </v-flex>
     </div>
+    <!-- Web 일때 -->
+    <div v-else>
 
+      <!-- chart의 title들 -->
+      <!-- md 이상에서만 binding-->
+      <div class="gridBox mb-3" style=" display: flex;">
+        <v-flex md3 text-md-left>Merchant(Volume | Trade rate)</v-flex>
+        <v-flex md2 text-md-left>Volume</v-flex>
+        <v-flex md2 text-md-left>Limits</v-flex>
+        <v-flex md2 text-md-left>Price </v-flex>
+        <v-flex md2 text-md-left>Payment Method </v-flex>
+        <v-flex md1 text-md-right>Control</v-flex>
 
+      </div>
+      <v-divider></v-divider>
+
+      <!-- user item list들 10개씩 출력-->
+      <v-flex v-for="(user,index) in users" :key="index" md12 >
+        <trade-list-item
+                v-bind:name="user.name"
+                v-bind:volumeTotal="user.volumeTotal"
+                v-bind:limitMax="user.limitMax"
+                v-bind:price="user.price"
+                v-bind:dealMode="user.dealMode"
+        ></trade-list-item>
+        <v-divider></v-divider>
+      </v-flex>
+    </div>
+    <!-- pagination -->
+    <v-pagination v-model="page" :length="pages" ></v-pagination>
+
+  </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
-    import MainRepository from "../vuex/MainRepository";
-    import ListUser from "../views/home/body/tradeCenter/tradeListItem/TradeListItem.vue"
+    import MainRepository from "../../../../vuex/MainRepository";
+    import TradeListItem from "./tradeListItem/TradeListItem"
 
     export default Vue.extend({
-        name: 'listView',
-        components:{ListUser},
+        name: 'TradeCenterView',
+        components:{TradeListItem},
         data: () => ({
 
             page : 1,
@@ -171,9 +170,12 @@
 
         },
         computed: {
+            isMobile(){
+                return MainRepository.State.isMobile();
+            },
             dataInfo(){
-                 console.log(MainRepository.TradeView.getTradeView());
-                 return MainRepository.TradeView.getTradeView();
+                console.log(MainRepository.TradeView.getTradeView());
+                return MainRepository.TradeView.getTradeView();
             },
             pages () {
                 //return 전체페이지수는 몇개인지.
@@ -193,16 +195,17 @@
 
     });
 </script>
-<style>
-    .userList{
-        display: flex;
-        height: 90px;
-    }
-    .ctlButton{
-        border-radius: 86px;
-        color: white;
-        height: 36px;
-        width: 86px;
+
+<style scoped>
+  .userList{
+    display: flex;
+    height: 90px;
+  }
+  .ctlButton{
+      border-radius: 86px;
+      color: white;
+      height: 36px;
+      width: 86px;
     }
 
 </style>
