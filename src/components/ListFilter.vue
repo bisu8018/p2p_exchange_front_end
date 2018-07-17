@@ -19,34 +19,19 @@
           <v-card-text>
             <v-layout row wrap>
             <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("country")}}</v-flex>
-            <v-flex xs12 md8><CountrySelect></CountrySelect></v-flex>
+              <!--country select box-->
+            <v-flex xs12 md8><SelectBox select-box-type="country"></SelectBox></v-flex>
 
             <!-- currency 셀렉터-->
             <v-flex xs12 md4 pr-2  text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("currency")}}</v-flex>
             <v-flex xs12 md8>
-              <v-select
-                      v-model="selectCurrency"
-                      :items="currencyItems"
-                      item-text="currency"
-                      item-value="code"
-                      label="Select"
-                      solo
-                      change="onCurrencyChange"
-              ></v-select>
+              <SelectBox select-box-type="currency"></SelectBox>
             </v-flex>
               
             <!-- payment method 셀렉터-->
             <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("paymentMethod")}}</v-flex>
             <v-flex xs12 md8>
-              <v-select
-                      v-model="selectPaymentMethod"
-                      :items="paymentMethodItems"
-                      item-text="paymentMethod"
-                      item-value="code"
-                      label="Select"
-                      solo
-                      change="onPaymentMethodChange"
-              ></v-select>
+              <SelectBox select-box-type="payment"></SelectBox>
             </v-flex>
             <!-- amount 셀렉터 -->
             <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("amount")}}</v-flex>
@@ -74,13 +59,13 @@
 <script lang="ts">
   import Vue from 'vue';
   import AXIOS from 'axios';
-  import CountrySelect from '@/components/CountrySelect.vue';
+  import SelectBox from '@/components/SelectBox.vue';
 
   
   export default Vue.extend({
     name: 'listFilter',
     components: {
-        CountrySelect
+        SelectBox
     },
     data: () => ({
         isAmout : true,
@@ -89,32 +74,6 @@
         currency: '',
         paymentMethod: '',
         amount : 500,
-        currencyItems: [
-            {currency : 'CNY', code : 'CNY'},
-            {currency : 'USD', code : 'USD'},
-            {currency : 'SGD', code : 'SGD'},
-            {currency : 'INR', code : 'INR'},
-            {currency : 'VND', code : 'VND'},
-            {currency : 'CAD', code : 'CAD'},
-            {currency : 'AUD', code : 'AUD'},
-            {currency : 'KRW', code : 'KRW'},
-            {currency : 'CHF', code : 'CHF'},
-            {currency : 'TWD', code : 'TWD'},
-            {currency : 'RUB', code : 'RUB'},
-            {currency : 'GBP', code : 'GBP'},
-            {currency : 'HKD', code : 'HKD'},
-            {currency : 'EUR', code : 'EUR'},
-            {currency : 'NGN', code : 'NGN'},
-            {currency : 'IDR', code : 'IDR'},
-            {currency : 'PHP', code : 'PHP'},
-            {currency : 'KHR', code : 'KHR'},
-        ],
-        paymentMethodItems: [
-            {paymentMethod : 'AllPayments', code : 'All'},
-            {paymentMethod : 'Bank Account', code : 'BAC'},
-            {paymentMethod : 'Alipay', code : 'Ali'},
-            {paymentMethod : 'Wechat', code : 'WEC'},
-        ]
     }),
       methods : {
           onCurrencyChange (){

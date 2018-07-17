@@ -1,11 +1,12 @@
-import country from "@/vuex/modules/country";
+import selectBox from "@/vuex/modules/selectBox";
 import state from "@/vuex/modules/state";
 import trade from "@/vuex/modules/trade";
 
 
+
 export default {
     modules: {
-        country,
+        selectBox,
         state,
         trade
     },

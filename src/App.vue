@@ -285,6 +285,9 @@
         margin-bottom: 22px;
         padding-left: 8px;
         padding-right: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #9294a6;
     }
 
     /*common text style*/
@@ -296,5 +299,20 @@
     }
     .TextWhite{
         color : #FFFFFF;
+    }
+
+    /*web 에서*/
+    @media only screen and (min-width: 960px) {
+        .gridBox {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+    /*mobile 에서*/
+    @media only screen and (max-width: 959px) {
+        .gridBox {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
     }
 </style>

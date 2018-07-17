@@ -65,7 +65,7 @@ const strings = new Map([
     }],
     ['passwordPlaceholder', {
         KOR: '8~20자 숫자/영문/특수문자 포함',
-        ENG: '8 to 20 characters with a mix of letters and numbers',
+        ENG: 'Enter 8 to 20 characters with a mix of letters and numbers',
         CN: '8-20位数字和字母组合',
         JP: ''
     }],
@@ -351,6 +351,277 @@ const strings = new Map([
         JP: ''
     }],
 
+    //post AD
+    ['generalAdSubject', {
+        KOR: '일반공고',
+        ENG: 'Post General AD',
+        CN: '发布普通广告',
+        JP: ''
+    }],
+    ['blockAdSubject', {
+        KOR: '대량가격공고',
+        ENG: 'Post Block AD',
+        CN: '发布大宗广告',
+        JP: ''
+    }],
+    ['priceType', {
+        KOR: '가격유형',
+        ENG: 'Price Type',
+        CN: '定价方式',
+        JP: ''
+    }],
+    ['fixedPrice', {
+        KOR: '고정가격',
+        ENG: 'Fixed Price',
+        CN: '浮动价格',
+        JP: ''
+    }],
+    ['floatPrice', {
+        KOR: '변동가격',
+        ENG: 'Float Price',
+        CN: '固定价格',
+        JP: ''
+    }],
+    ['priceText', {
+        KOR: '거래가격',
+        ENG: 'Price',
+        CN: '交易价格',
+        JP: ''
+    }],
+    ['marektPrice', {
+        KOR: '시장가격',
+        ENG: 'Market Price',
+        CN: '市场参考价',
+        JP: ''
+    }],
+    ['priceExplain', {
+        KOR: '고정가격은 시장에 따라 변동되지 않습니다',
+        ENG: 'Fixed prices do not fluctuate with the market',
+        CN: '固定价格不会随市场波动',
+        JP: ''
+    }],
+    ['volumeText', {
+        KOR: '거래수량',
+        ENG: 'Volume',
+        CN: '交易数量',
+        JP: ''
+    }],
+    ['minLimit', {
+        KOR: '최소 한도',
+        ENG: 'Min. Limit',
+        CN: '最小单笔限额',
+        JP: ''
+    }],
+    ['maxLimit', {
+        KOR: '최대 한도',
+        ENG: 'Max. Limit',
+        CN: '最大单笔限额',
+        JP: ''
+    }],
+    ['paymentWindow', {
+        KOR: '지불 기간',
+        ENG: 'Payment Window',
+        CN: '付款期限',
+        JP: ''
+    }],
+    ['paymentWindowExplain', {
+        KOR: '구매자는 지불 기간 내에 지불금을 이체해야 합니다. 그러지 못할 경우 거래는 자동으로 취소됩니다',
+        ENG: 'Buyer should initiate the payment within the payment window. Otherwise the order will be cancelled automatically',
+        CN: '买家需在付款期限内转账并点击确认付款按钮，超过时限该笔交易将自动取消，您可以依据不同交易方式来调整时限',
+        JP: ''
+    }],
+    ['minuteText', {
+        KOR: '분',
+        ENG: 'Min',
+        CN: '分钟',
+        JP: ''
+    }],
+    ['sellText', {
+        KOR: '판매',
+        ENG: 'Sell',
+        CN: '出售',
+        JP: ''
+    }],
+    ['buyText', {
+        KOR: '구매',
+        ENG: 'Buy',
+        CN: '购买',
+        JP: ''
+    }],
+    ['volumePlaceholderWeb', {
+        KOR: '거래 금액을 입력하십시오',
+        ENG: 'Please enter volume',
+        CN: '请输入交易数量',
+        JP: ''
+    }],
+    ['volumePlaceholderMobile', {
+        KOR: '사용 가능 : ',
+        ENG: 'Available : ',
+        CN: '可用：',
+        JP: ''
+    }],
+    ['minLimitPlaceholder', {
+        KOR: '최소 100',
+        ENG: 'at least 100',
+        CN: '最小为100',
+        JP: ''
+    }],
+    ['maxLimitPlaceholder', {
+        KOR: '최대 0.00',
+        ENG: 'at most 0.00',
+        CN: '最大为0.00',
+        JP: ''
+    }],
+    ['paymentWindowPlaceholder', {
+        KOR: '10-20분',
+        ENG: '10 to 20 Min.',
+        CN: '10-20分钟',
+        JP: ''
+    }],
+    ['alipayText', {
+        KOR: '알리페이',
+        ENG: 'Alipay',
+        CN: '支付宝',
+        JP: ''
+    }],
+    ['wechatPayText', {
+        KOR: '위챗페이',
+        ENG: 'Wechat Pay',
+        CN: '微信支付',
+        JP: ''
+    }],
+    ['bankAccountText', {
+        KOR: '은행 계좌',
+        ENG: 'Bank account',
+        CN: '银行卡',
+        JP: ''
+    }],
+    ['refreshBtnText', {
+        KOR: '새로고침',
+        ENG: 'Refresh',
+        CN: '点击刷新',
+        JP: ''
+    }],
+    ['paymentExplain', {
+        KOR: '위 결제 정보는 구매자에게 표시됩니다. 만약 추가 또는 수정을 원하시면 ',
+        ENG: 'The above payment information will be displayed to the buyer.If you want to add or modify ',
+        CN: '以上支付信息将向买家展示。如需添加、修改请 ',
+        JP: ''
+    }],
+    ['clickHereText', {
+        KOR: '여기를 클릭해주세요',
+        ENG: 'please click here',
+        CN: '点击这里',
+        JP: ''
+    }],
+    ['autoReplyText', {
+        KOR: '자동 댓글',
+        ENG: 'autoReplyText',
+        CN: '自动回复',
+        JP: ''
+    }],
+    ['autoReplyPlaceholder', {
+        KOR: '자동 답장 하려는 정보를 입력하십시오',
+        ENG: 'After the order is established, this information is automatically sent to the other party',
+        CN: '请输入您希望自动回复给对方的信息',
+        JP: ''
+    }],
+    ['termsTransactionText', {
+        KOR: '거래조항',
+        ENG: 'Terms of the Transaction',
+        CN: '交易条款',
+        JP: ''
+    }],
+    ['termsTransactionPlaceholder', {
+        KOR: '주문 시, 거래 조건이 상대방에게 표시됩니다',
+        ENG: 'Your trading terms will be displayed to each other when placing an order',
+        CN: '您的交易条款会在下单时，向对方展示',
+        JP: ''
+    }],
+    ['counterpartyFilterText', {
+        KOR: '',
+        ENG: 'Counterparty Filter',
+        CN: '对方限制',
+        JP: ''
+    }],
+    ['counterpartyFilterPlaceholder', {
+        KOR: '상대방 제한사항',
+        ENG: 'The counterparty should complete how many trades',
+        CN: '需对方最少完成几笔交易',
+        JP: ''
+    }],
+    ['counterpartyCheckbox1', {
+        KOR: '상대방은 고급 인증을 통과해야 합니다',
+        ENG: 'The counterparty should pass advanced verification',
+        CN: '需对方通过高级认证',
+        JP: ''
+    }],
+    ['counterpartyCheckbox2', {
+        KOR: '상대방은 휴대전화 번호를 연동해야 합니다',
+        ENG: 'The counterparty should bind mobile number to their account',
+        CN: '需对方绑定手机号码',
+        JP: ''
+    }],
+    ['counterpartyCheckbox3', {
+        KOR: '다른 사람과 거래하지 말아야 합니다',
+        ENG: 'Do not trade with other merchants',
+        CN: '不和其他商家交易',
+        JP: ''
+    }],
+    ['counterpartyExplain', {
+        KOR: '상대방 제한을 설정하면보다 신뢰할 수있는 거래자를 필터링 할 수 있지만 제한이 너무 많으면 거래 성공 가능성이 낮아집니다.',
+        ENG: 'The requirements will allow you to filter traders with more trustworthiness. However, please note that too many filter requirements may decrease trading success rate. ',
+        CN: '设置对方限制可以让您筛选出可信度更高的交易对象，但过多的限制将下降您交易成功的机率。',
+        JP: ''
+    }],
+    ['tradePwText', {
+        KOR: '거래 비밀번호',
+        ENG: 'Trade Password',
+        CN: '资金密码',
+        JP: ''
+    }],
+    ['agreeTermsExplain', {
+        KOR: '본인은 이를 이해하고 준수할 것에 동의 합니다',
+        ENG: 'I have read and agree to the ',
+        CN: '我已知晓并同意遵守',
+        JP: ''
+    }],
+    ['termsTrading', {
+        KOR: '거래규칙',
+        ENG: 'Terms of trading',
+        CN: '',
+        JP: ''
+    }],
+    ['postAdBtn', {
+        KOR: '일반 AD 등록',
+        ENG: 'Post General AD',
+        CN: '发布普通广告',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
 
 
 ])
