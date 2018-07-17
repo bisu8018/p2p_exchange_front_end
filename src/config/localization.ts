@@ -204,6 +204,12 @@ const strings = new Map([
       CN: '搜索',
       JP: ''
   }],
+    ['confirm', {
+        KOR: '확인',
+        ENG: 'Confirm',
+        CN: '下单',
+        JP: ''
+    }],
   ['cancel', {
       KOR: '취소',
       ENG: 'Cancel',
@@ -252,15 +258,30 @@ const strings = new Map([
       CN: '出售',
       JP: ''
   }],
+
+  //  header
   ['exchange', {
       KOR: '거래',
       ENG: 'Exchange',
       CN: '币币交易',
       JP: ''
   }],
+    ['TradeCenter', {
+        KOR: '거래소',
+        ENG: 'Trade Center',
+        CN: '普通交易',
+        JP: ''
+    }],
+
+    ['BlockTrade', {
+        KOR: '대량거래',
+        ENG: 'Block Trade',
+        CN: '大宗交易',
+        JP: ''
+    }],
   ['postAd', {
       KOR: '광고게시',
-      ENG: 'Post Ad',
+      ENG: 'Post AD',
       CN: '发布广告',
       JP: ''
   }],
@@ -350,6 +371,13 @@ const strings = new Map([
         CN: '客服',
         JP: ''
     }],
+    ['nationality', {
+        KOR: '국가',
+        ENG: 'Nationality',
+        CN: '国家',
+        JP: ''
+    }],
+
 
 
 

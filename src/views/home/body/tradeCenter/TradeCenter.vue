@@ -1,11 +1,11 @@
 <template>
-    <v-container style="max-width: 1178px" pr-0 pl-0 >
-        <v-layout row wrap>
+    <div class="contentsWrapper" style="max-width: 1200px" >
+        <v-layout mt-4 wrap>
             <v-flex xs12 md8><SelectBar></SelectBar> </v-flex>
             <v-flex xs12 md4><ListFilter></ListFilter></v-flex>
         </v-layout>
         <ListView></ListView>
-    </v-container>
+    </div>
 </template>
 
 <script lang="ts">
@@ -31,4 +31,8 @@
 </script>
 
 <style>
+    .contentsWrapper{
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>

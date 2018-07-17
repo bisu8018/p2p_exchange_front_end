@@ -47,7 +47,7 @@ export default Vue.extend({
     methods: {
         getWindowWidth() {
             // 모바일 버전으로 전환됨
-            if (document.documentElement.clientWidth < 768) {
+            if (document.documentElement.clientWidth < 960) {
                 if (!this.isMobileMode) {
                     this.isMobileMode = true;
                     MainRepository.State.controller().setMobile(true);

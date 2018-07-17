@@ -1,21 +1,19 @@
 <template>
 <div>
-    <v-card style=" border: solid 1px #b2b2b2;">
-      <v-layout row text-xs-center>
-        <v-flex xs10>
-          <v-chip color="secondary" pl-2 pr-2 text-color="white" label small >{{country}}</v-chip>
-          <v-chip color="secondary" pl-2 pr-2 text-color="white" label small>{{currency}}</v-chip>
-          <v-chip color="secondary" text-color="white" label small>{{paymentMethod}}</v-chip>
-          <v-chip color="secondary" v-if="amount!=0" v-model="isAmout" text-color="white"
-                  @input="removeAmount" label close small>{{amount}}</v-chip>
-        </v-flex>
-        <v-flex xs2 pt-1 ><v-icon  @click.stop="isModal = true">search</v-icon></v-flex>
-      </v-layout>
-    </v-card>
+    <v-layout class="filterStatusBar"row text-xs-center fill-height>
+      <v-flex xs10>
+        <div  class="statusChip ChipGray"  >{{country}}</div>
+        <div class="statusChip ChipGray mt-4"  >{{currency}}</div>
+        <div class="statusChip ChipGray"  >{{paymentMethod}}</div>
+        <div class="statusChip ChipGray" v-if="amount!=0" v-model="isAmout"
+                @input="removeAmount" >{{amount}}<v-icon small @click="removeAmount">close</v-icon></div>
+      </v-flex>
+      <v-flex xs2 pt-1><v-icon  @click.stop="isModal = true">search</v-icon></v-flex>
+    </v-layout>
 
    <v-layout >
     <v-flex xs12 md4 >
-      <v-dialog v-model="isModal" width="370px">
+      <div v-if="isModal" class="filterModal">
         <v-card width="370px">
           <v-card-text>
             <v-layout row wrap>
@@ -24,33 +22,23 @@
 
             <!-- currency 셀렉터-->
             <v-flex xs12 md4 pr-2  text-md-right text-xs-left mb-2 style="color: #353535" >{{$str("currency")}}</v-flex>
-            <v-flex xs12 md8>
-              <v-select
-                      v-model="currency"
-                      :items="currencyItems"
-                      item-text="currency"
-                      item-value="code"
-                      label="Select"
-                      solo
-                      @change="onCurrencyChange"
-                      box
-
-              ></v-select>
+            <v-flex xs12 md8 selectbox-wrapper>
+              <select v-model="currency" @change="onCurrencyChange" class="selectbox caption">
+                <option v-for="item in currencyItems" v-bind:value="currencyItems.code">{{item.currency}}</option>
+              </select>
+              <v-icon class="icon-style">keyboard_arrow_down</v-icon>
             </v-flex>
               
             <!-- payment method 셀렉터-->
             <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("paymentMethod")}}</v-flex>
-            <v-flex xs12 md8>
-              <v-select
-                      v-model="paymentMethod"
-                      :items="paymentMethodItems"
-                      item-text="paymentMethod"
-                      item-value="paymentMethod"
-                      box
-                      solo
-                      change="onPaymentMethodChange"
-              ></v-select>
-            </v-flex>
+              <v-flex xs12 md8 selectbox-wrapper>
+                <select v-model="paymentMethod" @change="onPaymentMethodChange" class="selectbox caption">
+                  <option v-for="item in paymentMethodItems" v-bind:value="item.code">{{item.paymentMethod}}</option>
+                </select>
+                <v-icon class="icon-style">keyboard_arrow_down</v-icon>
+              </v-flex>
+
+
             <!-- amount 셀렉터 -->
             <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("amount")}}</v-flex>
             <v-flex xs12 md8>
@@ -66,7 +54,7 @@
             </v-flex>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </div>
     </v-flex>
   </v-layout>
 
@@ -121,17 +109,17 @@
     }),
       methods : {
           onCurrencyChange (){
-              this.currency = this.selectCurrency.code;
+              //currency vuex 추가
           },
           onPaymentMethodChange (){
-              this.paymentMethod = this.selectPaymentMethod.code;
+              //paymnetMethod vuex 추가
           },
           onAmountChange (){
-              this.amount = this.amount
+              //amount vuex 추가
           },
           onSearch(){
-              // search 누르면 뭐할지 여기에 기입.
 
+              // search 누르면 뭐할지 여기에 기입.
               this.isModal = false; //modal 창 끄기.
           },
           removeAmount(){
@@ -144,4 +132,40 @@
 </script>
 
 <style>
+  .selectbox {
+    width: 100%;
+    height: 36px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: solid 1px #8d8d8d;
+    margin-bottom: 26px;
+    color: #9294a6;
+    padding-left: 12px;
+  }
+
+  .icon-style {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+  }
+  .filterStatusBar{
+    border: solid 1px #b2b2b2;
+    min-height: 40px;
+  }
+  .statusChip{
+    color: white;
+    width: auto;
+    display: inline-block;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 2px;
+    margin: 4px;
+
+  }
+  .filterModal{
+    width: 370px;
+    z-index: 99;
+  }
 </style>
