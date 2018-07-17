@@ -99,7 +99,10 @@
                 }
             ],
             tradeStatus : 'Buy',
-        })
+        }),
+        methods : {
+
+        }
     });
 </script>
 <style>
