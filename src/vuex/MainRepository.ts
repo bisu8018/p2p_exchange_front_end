@@ -6,6 +6,7 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
 import Trade from "@/vuex/model/Trade";
 import TradeService from "@/service/trade/TradeService";
+import SearchService from "@/service/trade/search/SearchService";
 import {AxiosInstance} from "axios";
 import {toASCII} from "punycode";
 
@@ -108,8 +109,7 @@ export default {
         getTradeView () {
             console.log("getTradeView");
             return listController.getTrade();
-        }
-
+        },
     },
     SelectBox: {
         controller() {

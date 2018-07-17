@@ -12,7 +12,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3 v-for="item in items" key="item.text" :disabled="item.disabled">
+                  <v-flex md3 v-for="item in items" @click="getBuyInfo(item.text) " key="item.text">
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
@@ -34,7 +34,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3 v-for="item in items" key="item.text" :disabled="item.disabled">
+                  <v-flex md3 v-for="item in items" key="item.text" @click="getBuyInfo(item.text) " >
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
@@ -54,7 +54,7 @@
                     display: inline-block;  position: relative; border-bottom-left-radius:200px;">
                     <span style="line-height:50px; color:#5e91d2; position: absolute; left: 20px; bottom: -8px;">Buy</span>
                 </div>
-                <div style="height: 36px; width:67px; background: #5e91d2; border-top-right-radius:200px;
+                <div class="Button" style="height: 36px; width:67px; background: #5e91d2; border-top-right-radius:200px;
                     display: inline-block; border: solid 1px #5e91d2; position: relative;
                     border-bottom-right-radius:200px;">
                     <span style="line-height:50px; color:white; position: absolute; left: 20px; bottom: -8px;"> Sell</span>
@@ -64,7 +64,7 @@
             <!-- BTC ALLB ETH  버튼 -->
                 <v-layout row wrap justify-center style="font-size: 16px" mt-4 mb-4>
                     <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                    <v-flex xs3 v-for="item in items" key="item.text" :disabled="item.disabled" >
+                    <v-flex xs3 v-for="item in items" key="item.text" @click="getBuyInfo(item.text) "  >
                         {{ item.text }}
                     </v-flex>
                     <v-flex xs1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
@@ -99,7 +99,10 @@
                 }
             ],
             tradeStatus : 'Buy',
-        })
+        }),
+        methods : {
+
+        }
     });
 </script>
 <style>
