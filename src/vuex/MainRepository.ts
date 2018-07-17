@@ -1,5 +1,5 @@
 import {Store} from "vuex";
-import CountryController from "@/vuex/controller/CountryController";
+import SelectBoxController from "@/vuex/controller/SelectBoxController";
 import StateController from "@/vuex/controller/StateController";
 import ListController from "@/vuex/controller/ListController";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
@@ -11,7 +11,7 @@ import {AxiosInstance} from "axios";
 import {toASCII} from "punycode";
 
 
-let countryController: CountryController;
+let selectBoxController: SelectBoxController;
 let listController : ListController;
 let stateController: StateController;
 
@@ -22,7 +22,7 @@ export default {
     init: function (vuexStore: Store<any>, callback: () => any) {
         // Vuex < > Controller 연결
         store = vuexStore;
-        countryController = new CountryController(store);
+        selectBoxController = new SelectBoxController(store);
         stateController = new StateController(store);
         listController = new ListController(store);
 
@@ -111,17 +111,10 @@ export default {
             return listController.getTrade();
         },
     },
-    Country: {
+    SelectBox: {
         controller() {
-          return countryController
+          return selectBoxController
         },
-
-        set(country: string) {
-            countryController.setCountry(country);
-        },
-        get() {
-            return countryController.getCountry();
-        }
 
     }
 }

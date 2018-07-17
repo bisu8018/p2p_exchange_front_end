@@ -1,36 +1,36 @@
 <template>
     <!--Vertical, horizontal alignment-->
     <v-layout mt-5 mb-5 ml-3 mr-3>
-        <v-flex class="card-flex" xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
+        <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
             <div>
                 <div class="mb-4a login-title">
                     <div class="pt-1"><img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
                     <h2 class="title-2">{{$str("welcome")}}</h2>
                 </div>
                 <form action="/signin" method="post" id="loginForm">
-                    <v-flex text-xs-left mb-2 caption>{{$str("email")}}</v-flex>
+                    <div class="text-xs-left mb-2 caption">{{$str("email")}}</div>
                     <input type="text" class="common-input" name="email" v-model="email"
                            :placeholder="loginEmailPlaceholder">
-                    <v-flex text-xs-left mb-2 caption>{{$str("password")}}</v-flex>
+                    <div class="text-xs-left mb-2 caption">{{$str("password")}}</div>
                     <input name="encryptedPassword" v-model="password" type="password" class="common-input"
                            :placeholder="loginPasswordPlaceholder">
-                    <v-flex class="verifySlider" v-if="email.length>0 && password.length>=8" mb-4>
+                    <div class="mb-4 verifySlider" v-if="email.length>0 && password.length>=8" >
                     <!--<v-flex class="verifySlider" mb-4>-->
-                        <v-flex text-xs-left mb-2 caption>{{$str("verify")}}</v-flex>
+                        <div class="text-xs-left mb-2 caption">{{$str("verify")}}</div>
                         <verify-slider v-on:passcallback="putVerified"></verify-slider>
-                    </v-flex>
+                    </div>
                     <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
                 </form>
                 <!--go to the page 'find password' -->
-                <v-flex text-xs-left caption class="goForgetPwdWrapper">
+                <div class="goForgetPwdWrapper text-xs-left caption ">
                     <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
-                </v-flex>
+                </div>
                 <v-btn dark color="Button" class="btnHover elevation-0" @click='onCheck' large block>
                     {{$str("loginText")}}
                 </v-btn>
-                <v-flex mt-4a mb-4a orWrapper>
+                <div class="mt-4a mb-4a orWrapper">
                     <div class="orTextWrapper"><span class="orText caption">or</span></div>
-                </v-flex>
+                </div>
                 <v-btn @click='goSignup' flat large block class="textBlue btnHover btnSignup">{{$str("signupText")}}
                 </v-btn>
             </div>

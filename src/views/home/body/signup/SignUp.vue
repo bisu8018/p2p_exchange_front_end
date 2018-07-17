@@ -1,5 +1,5 @@
 <template>
-    <v-layout mt-5 mb-5 ml-4 mr-4>
+    <v-layout mt-5 mb-5 ml-3 mr-3>
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex">
                 <div class="pt-1">
@@ -7,7 +7,7 @@
                 <div class="title-2">{{$str("signupSubject")}}</div>
             </div>
             <div class="text-xs-left mb-2 caption mt-1 input-label">{{$str("country")}}</div>
-            <country-select></country-select>
+            <select-box></select-box>
             <div class="text-xs-left mb-2 caption input-label mt-4">{{$str("email")}}</div>
             <div>
                 <input name="email" v-model="email" type="text" class="common-input mb-4">
@@ -15,24 +15,25 @@
             <div class="text-xs-left mb-2 caption input-label">{{$str("password")}}</div>
             <div>
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
-                       class="common-input mb-4">
+                       class="common-input mb-4" :placeholder="$str('passwordPlaceholder')">
             </div>
             <div class="text-xs-left mb-2 caption input-label">{{$str("passwordConfirm")}}</div>
             <div>
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
-                       class="common-input mb-4">
+                       class="common-input mb-4" :placeholder="$str('passwordPlaceholder')">
             </div>
             <div class="mb-4 text-xs-left">
-                <label><input type="checkbox" v-model="checkbox" class="mr-2">{{$str('termsLabel')}}</label>
+                <label class="caption"><input type="checkbox" v-model="checkbox"
+                                              class="mr-2">{{$str('termsLabel')}}</label>
             </div>
             <div class="signup-flex">
-                <div class="mr-3">
+                <v-flex mr-2 xs6>
                     <button class="signup-btn btnHover block" @click="onCheck">{{$str("signupText")}}</button>
-                </div>
-                <div class="text-xs-left">
-                    <div class="caption ">{{$str("haveAccount")}}</div>
+                </v-flex>
+                <v-flex text-xs-left xs6 caption>
+                    <div>{{$str("haveAccount")}}</div>
                     <div><a @click='goLogin' class="layer-text signup-a">{{$str("loginText")}}</a></div>
-                </div>
+                </v-flex>
             </div>
         </v-flex>
     </v-layout>
@@ -42,13 +43,13 @@
     import Vue from 'vue';
     import {abUtils} from '@/common/utils';
     import AccountService from '@/service/account/AccountService';
-    import CountrySelect from '@/components/CountrySelect.vue';
+    import SelectBox from '@/components/SelectBox.vue';
     import MainRepository from "@/vuex/MainRepository";
 
     export default Vue.extend({
         name: 'home',
         components: {
-            CountrySelect
+            SelectBox
         },
         data: () => ({
             email: "",
@@ -102,7 +103,7 @@
             onSignup() {
                 //Send Email verification codes to Server
                 AccountService.Account.signup({
-                    country: MainRepository.Country.get(),
+                    country: MainRepository.SelectBox.controller().getCountry(),
                     email: this.email,
                     encryptedPassword: this.password
                 }, function (error) {
@@ -137,8 +138,8 @@
         border-radius: 3px;
         background-color: #214ea1;
         color: white;
-        height: 44px;
-        width: 156px;
+        height: 40px;
+        width: 100%;
 
     }
 
@@ -146,14 +147,12 @@
         color: #9294a6;
     }
 
-
     .common-input {
         background: white;
     }
 
     .signup-a {
         font-size: 14px;
-        line-height: 1;
         color: #214ea1;
     }
 
@@ -161,5 +160,19 @@
         color: #316ee4;
     }
 
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        font-size: 10px;
+        color: #c8c8c8;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-size: 10px;
+        color: #c8c8c8;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        font-size: 10px;
+        color: #c8c8c8;
+    }
 
 </style>

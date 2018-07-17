@@ -162,11 +162,13 @@
                 this.isPassing = true;
                 this.isMoving = false;
                 this.vIcon = "check";
+                this.$refs.progressBar.style.background = 'this.completedBg';
+                this.$refs.message.style.textAlign = 'left';
+                this.$refs.message.style.color = '#214ea1';
+                this.$refs.message.style.paddingLeft = '8px';
                 var handler = this.$refs.handler;
                 handler.className += ' dv_handler_ok_bg';
                 handler.children[0].className = this.successIcon;
-                this.$refs.progressBar.style.background = 'this.completedBg';
-                this.$refs.message.style.color = '#214ea1';
                 this.$emit('passcallback');
                 document.getElementsByClassName("drag_verify")[0].style.border = '1px solid #316ee4';
                 document.getElementsByClassName('drag_verify')[0].lastChild.children[0].children[0].style.background = '#316ee4'
@@ -232,7 +234,6 @@
         -ms-user-select: none;
         font-size: 12px !important;
         letter-spacing: 0 !important;
-        left: -13px;
     }
 
     .verify-icon {

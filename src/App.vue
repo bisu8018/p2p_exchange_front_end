@@ -285,11 +285,15 @@
         margin-bottom: 22px;
         padding-left: 8px;
         padding-right: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #9294a6;
     }
 
-
-    /*common text color */
-
+    /*common text style*/
+    .TextDarkgray{
+        color : #9294A6;
+    }
     .TextBlack{
         color: #353535;
     }
@@ -321,7 +325,7 @@
         color : #71AA3A
     }
     .TextWhite{
-        color : #FFFFFF
+        color : #FFFFFF;
     }
     /* 웹에서*/
     @media only screen and (min-width: 960px) {
