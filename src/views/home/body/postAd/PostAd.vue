@@ -163,9 +163,9 @@
         <!--상대방 제한사항 입력-->
         <v-flex xs12 lg4 offset-lg4 wrap flex-divide>
             <div class="text-xs-left mb-2 caption mt-1 input-label">{{$str("counterpartyFilterText")}}</div>
+            <div class="text-xs-left mb-2 caption mt-1 input-label">{{$str("counterpartyFilterPlaceholder")}}</div>
             <div class="price-input-wrapper">
-                <textarea :placeholder="$str('counterpartyFilterPlaceholder')"
-                          v-model="counterpartyFilterValue"></textarea>
+                <input type="tel" v-model="counterpartyFilterValue">
             </div>
             <div><label><input type="checkbox"
                                v-model="counterpartyCheckbox_first"/>{{$str("counterpartyCheckbox1")}}</label></div>
@@ -232,22 +232,27 @@
             counterpartyCheckbox_third: false,
             tradePwValue: "",
             agreeTerms: false,
-            isVerified: false
+            isVerified: false,
+            adType: ""
         }),
         components: {
             SelectBox, VerifySlider
         },
         beforeCreate() {
-            /*AdService.AD.getMarketPrice(function (error) {
-                if (!error) {
-                    //console.log("success");
-                    alert("Thank you");
-                    location.href = "/abMain";
+            var url = location.href;
+            var param = (url.slice(url.indexOf('?') + 1, url.length));
+            this.adType = param;
+            console.log(param);
+
+
+            AdService.AD.getUserInfo(function (data) {
+                if (data) {
+                    console.log(data);
 
                 } else {
-                    console.log("GET ERROR ::::::: " + error);
+                    console.log("ERROR");
                 }
-            })*/
+            })
 
             //쿠키 또는 vuex에서 유져데이터 받아와, 관련 데이터 db select 필요!
             //추가로, 해당 유져 KYC 레벨 낮을 경우(결제수단 최소 1개필요) 페이지 진입 못하게 할것! 그리고 post할 때도 검사 필요
@@ -257,13 +262,13 @@
                 AdService.AD.postAD({
                     country: MainRepository.SelectBox.controller().getCountry(),
                     currency: MainRepository.SelectBox.controller().getCurrency(),
-                    tradeType: this.tradeType,
-                    coinType: this.coinType,
+                    ad_type: this.tradeType,
+                    token: this.coinType,
                     priceType: this.priceType,
-                    priceValue: this.priceValue,
-                    volumeValue: this.volumeValue,
-                    minLimitValue: this.minLimitValue,
-                    maxLimitValue: this.maxLimitValue,
+                    price: this.priceValue,
+                    volume_total: this.volumeValue,
+                    limit_min: this.minLimitValue,
+                    limit_max: this.maxLimitValue,
                     paymentWindowValue: this.paymentWindowValue,
                     alipayUse: this.alipayUse,               //NULL 값 허용
                     wechatPayUse: this.wechatPayUse,         //최소 한개 필요 !!
@@ -274,6 +279,7 @@
                     counterpartyCheckbox_first: this.counterpartyCheckbox_first,
                     counterpartyCheckbox_second: this.counterpartyCheckbox_second,
                     counterpartyCheckbox_third: this.counterpartyCheckbox_third,
+                    blocktrade: this.adType,
                     tradePwValue: this.tradePwValue,
                     agreeTerms: this.agreeTerms
                 }, function (error) {
