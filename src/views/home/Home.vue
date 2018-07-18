@@ -17,8 +17,7 @@ import AbFooter from "./Footer.vue"
 export default Vue.extend({
     name: 'home',    
     components: {
-      'abHeader' : AbHeader,
-      'abFooter' : AbFooter
+      AbHeader, AbFooter
     },
     data() {
       return {

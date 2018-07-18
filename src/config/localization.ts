@@ -539,7 +539,7 @@ const strings = new Map([
         JP: ''
     }],
     ['counterpartyFilterText', {
-        KOR: '',
+        KOR: '상대 제한',
         ENG: 'Counterparty Filter',
         CN: '对方限制',
         JP: ''

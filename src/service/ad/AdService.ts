@@ -6,7 +6,7 @@ export default {
     AD: {
         // CNY, USDT 코인 환율 select
         getMarketPrice: function (callback: any) {
-            AxiosService._requestWithBody('/signin', 'GET', '' ,
+            AxiosService._requestWithBody('/exchangeRate', 'GET', '' ,
                 function (data: any) {
 
                     callback(data);
@@ -16,7 +16,7 @@ export default {
                 })
         },
         postAD: function (data: any, callback: any) {
-            AxiosService._requestWithBody('signup', 'POST', data ,
+            AxiosService._requestWithBody('/postAD', 'POST', data ,
                 function (data: any) {
                 callback(data)
                 },
