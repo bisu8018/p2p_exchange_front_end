@@ -31,7 +31,7 @@
         <!-- Payment Methods -->
         <v-layout gridBox>
             <v-flex xs2 text-xs-right><img src="../../../../../assets/img/method_alipay.png"> </v-flex>
-            <v-flex xs1 text-xs-right> <img src="../../../../../assets/img/method_bankacount.png"> </v-flex>
+            <v-flex xs1 text-xs-right> <img src="../../../../../assets/img/method_bankaccount.png"> </v-flex>
             <v-flex xs1 text-xs-right><img src="../../../../../assets/img/method_wechatpay.png"></v-flex>
             <v-flex xs8 text-xs-right><button class="ctlButton Button btnHover" @click="drawer = !drawer">{{$str("buy")}} BTC</button></v-flex>
         </v-layout>
@@ -67,7 +67,7 @@
         <v-layout gridBox>
           <v-flex xs5 offset-xs2 text-xs-left> {{$str("payment")}}:</v-flex>
           <v-flex xs1 text-xs-right><img src="../../../../../assets/img/method_alipay.png"> </v-flex>
-          <v-flex xs1 text-xs-right> <img src="../../../../../assets/img/method_bankacount.png"> </v-flex>
+          <v-flex xs1 text-xs-right> <img src="../../../../../assets/img/method_bankaccount.png"> </v-flex>
           <v-flex xs1 text-xs-right><img src="../../../../../assets/img/method_wechatpay.png"></v-flex>
         </v-layout>
         <v-layout>
@@ -105,7 +105,7 @@
         <v-flex md2 text-md-left>{{price}} CNY </v-flex>
         <v-flex md2>
           <img src="../../../../../assets/img/method_alipay.png">
-          <img src="../../../../../assets/img/method_bankacount.png">
+          <img src="../../../../../assets/img/method_bankaccount.png">
           <img src="../../../../../assets/img/method_wechatpay.png">
         </v-flex>
         <v-flex md1 text-md-center><button class="ctlButton Button btnHover" @click="drawer = !drawer">{{$str("buy")}} BTC</button></v-flex>
@@ -155,7 +155,7 @@
           <v-flex md1></v-flex>
           <v-flex md4>
             <img src="../../../../../assets/img/method_alipay.png"> Alipay
-            <img src="../../../../../assets/img/method_bankacount.png"> Bank Account
+            <img src="../../../../../assets/img/method_bankaccount.png"> Bank Account
             <img src="../../../../../assets/img/method_wechatpay.png"> Wechatpay
           </v-flex>
           <v-flex md5>
