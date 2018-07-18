@@ -295,24 +295,53 @@
         color : #9294A6;
     }
     .TextBlack{
-        color : #353535;
+        color: #353535;
+    }
+    .TextDarkgray{
+        color : #9294A6
+    }
+    .TextGray{
+        color : #C8C8C8
+    }
+    .TextBlue{
+        color : #214EA1
+    }
+    .TextPointBlue{
+        color : #316EE4
+    }
+    .TextHover{
+        color : #316EE4
+    }
+    .TextPrice{
+        color : #E25422
+    }
+    .TextError{
+        color : #BF2324
+    }
+    .TextWarning{
+        color : #F9A825
+    }
+    .TextSuccess{
+        color : #71AA3A
     }
     .TextWhite{
         color : #FFFFFF;
     }
-
-    /*web 에서*/
+    /* 웹에서*/
     @media only screen and (min-width: 960px) {
         .gridBox {
             padding-left: 12px;
             padding-right: 12px;
+
         }
     }
-    /*mobile 에서*/
+    /* mobile 에서*/
     @media only screen and (max-width: 959px) {
         .gridBox {
             padding-left: 4px;
             padding-right: 4px;
+
         }
     }
+
 </style>

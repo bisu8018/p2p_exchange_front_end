@@ -78,13 +78,13 @@
     }),
       methods : {
           onCurrencyChange (){
-              this.currency = this.selectCurrency.code;
+
           },
           onPaymentMethodChange (){
-              this.paymentMethod = this.selectPaymentMethod.code;
+
           },
           onAmountChange (){
-              this.amount = this.amount
+              
           },
           onSearch(){
               // search 누르면 뭐할지 여기에 기입.
