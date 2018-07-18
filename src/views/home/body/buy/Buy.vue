@@ -1,39 +1,106 @@
 <template>
-    <v-layout mt-5 mb-5 ml-3 mr-3>
-        <v-flex xs12 lg4 offset-lg4>
-            <div class="mb-4a signup-flex">
-                <div class="pt-1">
-                    <img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
-                <div class="title-2">{{$str("signupSubject")}}</div>
-            </div>
-            <div class="text-xs-left mb-2 caption mt-1 input-label">{{$str("country")}}</div>
-            <select-box></select-box>
-            <div class="text-xs-left mb-2 caption input-label mt-4">{{$str("email")}}</div>
+    <v-layout mt-5 mb-5 ml-3 mr-3 column>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide>
             <div>
-                <input name="email" v-model="email" type="text" class="common-input mb-4">
+                {{$str('orderText')}} :
+                <!--{{order_number}} 주문번호-->
             </div>
-            <div class="text-xs-left mb-2 caption input-label">{{$str("password")}}</div>
             <div>
-                <input v-bind:label="$str('password')" v-model="password" :type="'password'"
-                       class="common-input mb-4" :placeholder="$str('passwordPlaceholder')">
+                <!--{{ad_type}} buy/sell -->
+                <!--{{volume}} 토큰량 -->
+                <!--{{token}} 토큰종류-->
+                From
+                <!--{{email}} 이메일-->
             </div>
-            <div class="text-xs-left mb-2 caption input-label">{{$str("passwordConfirm")}}</div>
             <div>
-                <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
-                       class="common-input mb-4" :placeholder="$str('passwordPlaceholder')">
+                <div>
+                    {{$str('price')}} :
+                    <!--{{price}} 가격 -->
+                    <!--{{currency}} 화폐단위-->
+                    /
+                    <!--{{token}} 토큰종류-->
+                </div>
+                <div>
+                    {{$str('amount')}} :
+                    <!--{{price}} 가격 -->
+                    <!--{{currency}} 화폐단위-->
+                </div>
             </div>
-            <div class="mb-4 text-xs-left">
-                <label class="caption"><input type="checkbox" v-model="checkbox"
-                                              class="mr-2">{{$str('termsLabel')}}</label>
+
+        </v-flex>
+        <v-flex xs12 lg4 offset-lg4 wrap>
+            <!--알리페이 결제-->
+            <div class="payment-alipay">
+                <div>
+                    <p><img src="@/assets/img/method_alipay.png">{{$str("alipayText")}} : </p>
+                </div>
+                <div>
+                    <!--알리페이 정보-->
+                </div>
             </div>
-            <div class="signup-flex">
-                <v-flex mr-2 xs6>
-                    <button class="signup-btn btnHover block" @click="onCheck">{{$str("signupText")}}</button>
-                </v-flex>
-                <v-flex text-xs-left xs6 caption>
-                    <div>{{$str("haveAccount")}}</div>
-                    <div><a @click='goLogin' class="layer-text signup-a">{{$str("loginText")}}</a></div>
-                </v-flex>
+
+            <!--위챗페이 결제-->
+            <div class="payment-wechat">
+                <div>
+                    <p><img src="@/assets/img/method_wechatpay.png">{{$str("wechatPayText")}} : </p>
+                </div>
+                <div>
+                    <!--위챗페이정보-->
+                </div>
+            </div>
+
+            <!--은행 계좌 결제-->
+            <div class="payment-bankAccount">
+                <div>
+                    <p><img src="@/assets/img/method_bankaccount.png">{{$str("bankAccountText")}} : </p>
+                </div>
+                <div>
+                    <!--은행계좌 정보-->
+                </div>
+            </div>
+            <div>
+
+                <!--<span v-if="status 값 따라 분기 처리">-->
+
+                <span>
+                {{$str("paymentExplain1")}}
+                    <!--{{price}} 가격 -->
+                    <!--{{currency}} 화폐단위-->
+                {{$str("paymentExplain2")}}
+                    <!--{{email}} 이메일-->
+                {{$str("paymentExplain3")}}
+                    <!--{{paymentWindow}} 지불기간-->
+                {{$str("paymentExplain4")}}
+                </span>
+                <span>
+                {{$str("referenceText")}}
+                    <!--{{거래번호}}-->
+                </span>
+            </div>
+            <div>
+                <input type="button" class="paid-btn" :value="$str('paidText')">
+                <div>
+                    {{$str('paymentText')}}
+                </div>
+            </div>
+            <div>
+                <input type="button" :value="$str('cancel')" @click="onPaid">
+            </div>
+            <div>
+
+                <!--채팅창-->
+
+            </div>
+            <div>
+                <p>
+                    {{$str('transferChecklist1')}}
+                </p>
+                <p>
+                    {{$str('transferChecklist2')}}
+                </p>
+                <p>
+                    {{$str('transferChecklist3')}}
+                </p>
             </div>
         </v-flex>
     </v-layout>
@@ -41,138 +108,21 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {abUtils} from '@/common/utils';
-    import AccountService from '@/service/account/AccountService';
-    import SelectBox from '@/components/SelectBox.vue';
-    import MainRepository from "@/vuex/MainRepository";
 
     export default Vue.extend({
-        name: 'home',
-        components: {
-            SelectBox
-        },
-        data: () => ({
-            email: "",
-            password: "",
-            passwordConfirm: "",
-            checkbox: false,
-            verify_warning: ""
-        }),
+        name: 'buy',
+        components: {},
+        data: () => ({}),
         methods: {
-            onCheck() {
-                // Warnings in case of error in e-mail or password entry
-
-                //email null
-                if (this.email === "") {
-                    this.verify_warning = Vue.prototype.$str("emailValue");
-                    return;
-                }
-                //email form
-                if (!abUtils.isEmail(this.email)) {
-                    this.verify_warning = Vue.prototype.$str("emailForm");
-                    return;
-                }
-                //password null
-                if (this.password === "") {
-                    this.verify_warning = Vue.prototype.$str("passwordValue");
-                    return;
-                }
-                //password digit
-                if (this.password.length <= 8) {
-                    this.verify_warning = Vue.prototype.$str("passwordDigit");
-                    return;
-                }
-                //password form
-                if (!abUtils.isPasswd(this.password)) {
-                    this.verify_warning = Vue.prototype.$str("passwordForm");
-                    return;
-                }
-                //password ~ password confirm match
-                if (this.password !== this.passwordConfirm) {
-                    this.verify_warning = Vue.prototype.$str("passwordMatch");
-                    return;
-                }
-                //terms and conditions
-                if (this.checkbox === false) {
-                    this.verify_warning = Vue.prototype.$str("acceptConditions");
-                    return;
-                }
-
-                this.onSignup();
-            },
-            onSignup() {
-                //Send Email verification codes to Server
-                AccountService.Account.signup({
-                    country: MainRepository.SelectBox.controller().getCountry(),
-                    email: this.email,
-                    encryptedPassword: this.password
-                }, function (error) {
-                    if (!error) {
-                        //console.log("success");
-                        alert("Thank you");
-                        location.href = "/abMain";
-
-                    } else {
-                        console.log("POST ERROR ::::::: " + error);
-                    }
-                })
-            },
-            goLogin() {
-                this.$router.push("/login");
+            onPaid() {
+                // post작업
             }
         }
     });
 </script>
 
 <style scoped>
-    .signup-flex {
-        display: flex;
+    .flex-divide {
+        border-bottom: solid 1px #d1d1d1;
     }
-
-    .iconLogo {
-        width: 30px;
-        height: 24px;
-    }
-
-    .signup-btn {
-        border-radius: 3px;
-        background-color: #214ea1;
-        color: white;
-        height: 40px;
-        width: 100%;
-
-    }
-
-    .input-label {
-        color: #9294a6;
-    }
-
-    .common-input {
-        background: white;
-    }
-
-    .signup-a {
-        font-size: 14px;
-        color: #214ea1;
-    }
-
-    .signup-a:hover {
-        color: #316ee4;
-    }
-
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        font-size: 10px;
-        color: #c8c8c8;
-    }
-
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        font-size: 10px;
-        color: #c8c8c8;
-    }
-
-    ::-ms-input-placeholder { /* Microsoft Edge */
-        font-size: 10px;
-        color: #c8c8c8;
-    }
-
 </style>

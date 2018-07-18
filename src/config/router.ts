@@ -6,7 +6,9 @@ import Signup from '../views/home/body/signup/SignUp.vue'
 import AbMain from '../views/home/body/Main.vue'
 //import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
 import TradeCenter from '../views/home/body/tradeCenter/TradeCenter.vue'
-import PostAd from '../views/home/body/postAd/PostAd.vue'
+import GeneralAd from '../views/home/body/postAd/general/General.vue'
+import BlockAd from '../views/home/body/postAd/block/Block.vue'
+import Buy from '../views/home/body/buy/Buy.vue'
 
 
 Vue.use(Router)
@@ -43,9 +45,19 @@ export default new Router({
       component: TradeCenter
     },
     {
-      path: '/postAd',
-      name: 'postAd',
-      component: PostAd
+      path: '/blockAd',
+      name: 'blockAd',
+      component: BlockAd
+    },
+    {
+      path: '/generalAd',
+      name: 'generalAd',
+      component: GeneralAd
+    },
+    {
+      path : '/buy',
+      name: 'buy',
+      component: Buy
     }
   ],
   mode:'history'

@@ -6,7 +6,7 @@
         <!--***************       섹션        *********-->
         <v-flex xs12 lg4 offset-lg4 wrap flex-divide>
             <div class="mb-4a signup-flex">
-                <div class="title-2">{{$str("generalAdSubject")}}</div>
+                <div class="title-2">{{message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject")}}</div>
             </div>
             <div>
                 <!--국가 select box-->
@@ -208,6 +208,7 @@
 
     export default Vue.extend({
         name: 'postAd',
+        props: ['message'],
         data: () => ({
             price: "",
             currency: "",
@@ -237,25 +238,6 @@
         }),
         components: {
             SelectBox, VerifySlider
-        },
-        beforeCreate() {
-            var url = location.href;
-            var param = (url.slice(url.indexOf('?') + 1, url.length));
-            //this.adType = param;
-            console.log(param);
-
-
-            // AdService.AD.getUserInfo(function (data) {
-            //     if (data) {
-            //         console.log(data);
-            //
-            //     } else {
-            //         console.log("ERROR");
-            //     }
-            // })
-
-            //쿠키 또는 vuex에서 유져데이터 받아와, 관련 데이터 db select 필요!
-            //추가로, 해당 유져 KYC 레벨 낮을 경우(결제수단 최소 1개필요) 페이지 진입 못하게 할것! 그리고 post할 때도 검사 필요
         },
         methods: {
             onPost: function () {

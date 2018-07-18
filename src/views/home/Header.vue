@@ -32,12 +32,12 @@
                             <v-flex xs12 text-xs-left><div v-if="postadDrawer" style=" background-color: #21407e; ">
                                 <!--post general AD-->
                                 <v-flex xs12 text-xs-left pb-3 ml-5 pt-3>
-                                    <div class="button-2" @click="goPostAd('GeneralAd')" style="color: #ffffff; " flat >
+                                    <div class="button-2" @click="goPostGeneralAd" style="color: #ffffff; " flat >
                                         {{$str("Post_General_AD")}}</div>
                                 </v-flex>
                                 <!--post block AD-->
                                 <v-flex xs12 text-xs-left pt-3  ml-5 pb-3>
-                                    <div class="button-2" @click="goPostAd('BlockAd')" style="color: #ffffff; " flat >
+                                    <div class="button-2" @click="goPostBlockAd" style="color: #ffffff; " flat >
                                         {{$str("Post_Block_AD")}}</div>
                                 </v-flex>
                                 </div>
@@ -160,25 +160,15 @@
             goTradeCenter() {
                 this.$router.push("/tradeCenter");
             },
-            goPostAd(type){
-                switch(type){
-                    case 'GeneralAd':
-                        this.$router.push("/postAd?general");
-                        break;
-
-                    case 'BlockAd':
-                        this.$router.push("/postAd?block");
-                        break;
-                }
-            },
             goPostGeneralAd() {
-                this.$router.push("/postAd?general");
+                this.$router.push("/generalAd");
             },
             goPostBlockAd() {
-                this.$router.push("/postAd?block");
+                this.$router.push("/blockAd");
+                //this.$router.push("/postAd?block");
             },
             changeLang: function (userLang) {
-                abSetLang(userLang)
+                abSetLang(userLang);
                 this.currentLang = userLang
             },
 

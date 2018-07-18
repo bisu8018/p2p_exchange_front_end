@@ -61,6 +61,7 @@
   import Vue from 'vue';
   import AXIOS from 'axios';
   import SelectBox from '@/components/SelectBox.vue';
+  import MainRepository from "../vuex/MainRepository";
 
   
   export default Vue.extend({
@@ -71,9 +72,9 @@
     data: () => ({
         isAmout : true,
         isModal: false,
-        country: '',
-        currency: '',
-        paymentMethod: '',
+        country: 'All countries',
+        currency: 'CNY',
+        paymentMethod: 'All Payments',
         amount : 500,
     }),
       methods : {
@@ -84,12 +85,18 @@
 
           },
           onAmountChange (){
-              
+
           },
           onSearch(){
               // search 누르면 뭐할지 여기에 기입.
+              this.country = MainRepository.SelectBox.controller().getCountry();
+              this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
+              this.currency = MainRepository.SelectBox.controller().getCurrency();
 
               this.isModal = false; //modal 창 끄기.
+
+              //리스트 불러오기
+              // MainRepository.TradeView.get~~~~
           },
           removeAmount(){
               location.reload();      // 새로고침으로 해놨는데, vuex도입시 수정할것.

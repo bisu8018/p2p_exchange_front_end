@@ -387,6 +387,12 @@ const strings = new Map([
         JP: ''
     }],
     ['blockAdSubject', {
+        KOR: '대량공고',
+        ENG: 'Block General AD',
+        CN: '发布大宗广告',
+        JP: ''
+    }],
+    ['blockAdSubject', {
         KOR: '대량가격공고',
         ENG: 'Post Block AD',
         CN: '发布大宗广告',
@@ -624,6 +630,74 @@ const strings = new Map([
         KOR: '일반 AD 등록',
         ENG: 'Post General AD',
         CN: '发布普通广告',
+        JP: ''
+    }],
+
+    //Buy
+    ['orderText', {
+        KOR: '주문번호',
+        ENG: 'Order',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentExplain1', {
+        KOR: '지불 대기 중. 지불이 필요한 금액은',
+        ENG: 'Pending Payment. Please complete the payment of ',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentExplain2', {
+        KOR: ' 이며, ',
+        ENG: ' to ',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentExplain3', {
+        KOR: '에게',
+        ENG: 'with',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentExplain4', {
+        KOR: '까지 지불 부탁 드립니다, ',
+        ENG: ', ',
+        CN: '',
+        JP: ''
+    }],
+    ['referenceText', {
+        KOR: '참고',
+        ENG: 'Reference',
+        CN: '',
+        JP: ''
+    }],
+    ['paidText', {
+        KOR: '지불완료',
+        ENG: "i've paid",
+        CN: '',
+        JP: ''
+    }],
+    ['paymentText', {
+        KOR: '지불 완료 후, 이 버튼을 클릭하여 판매자에게 상기시켜 주십시오',
+        ENG: 'Please click here to remind seller after you complete the payment',
+        CN: '',
+        JP: ''
+    }],
+    ['transferChecklist1', {
+        KOR: '1. 귀하의 송금은 판매자의 계좌로 입금됩니다. 거래가 완료되기 전에 판매 자산은 저희 플랫폼에 의해 안전하게 보관됩니다.',
+        ENG: '1. Your transfer will be credited to seller’s account. Before the transaction is completed, the assets for sale will be frozen by our platform for safekeeping.',
+        CN: '',
+        JP: ''
+    }],
+    ['transferChecklist2', {
+        KOR: '2. 정해진 시간 내에 결제를 완료하고, 완료되면 \'지불완료\'를 클릭하십시오. 판매자가 자금 수령을 확인하면 자산이 자동 계좌 이체됩니다',
+        ENG: '2. Please complete your payment within the stipulated time and proceed to click on ‘I have paid’ when done. After the seller confirms the receipt of funds, the assets will be transferred to your account automatically.',
+        CN: '',
+        JP: ''
+    }],
+    ['transferChecklist3', {
+        KOR: '3. 하루에 3건의 거래가 취소되면 당일 거래가 일시 중지됩니다.',
+        ENG: '3. Trading will be suspended for the day, should there 3 cancelled transactions in a day.',
+        CN: '',
         JP: ''
     }],
     ['', {
