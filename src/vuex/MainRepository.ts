@@ -6,7 +6,6 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
 import Trade from "@/vuex/model/Trade";
 import TradeService from "@/service/trade/TradeService";
-import SearchService from "@/service/trade/search/SearchService";
 import {AxiosInstance} from "axios";
 import {toASCII} from "punycode";
 
@@ -94,23 +93,28 @@ export default {
         controller(): ListController{
             return listController
         },
-        setTotalTradeView () {
-            TradeService.tradeView.tradeTotalInfo(function(data) {
-                let tradeList: Trade[] = [];
-                for(let key in data) {
-                    let trade : Trade = new Trade(data[key]);
-                    tradeList.push(trade);
-                }
+        setTotalTradeView (token: string, adType: string) {
 
-                listController.setTotalTrade(tradeList);
+            TradeService.tradeView.tradeTotalInfo(token, adType, function(data) {
+                console.log("setTotalTradeView: " + data);
+                listController.setTotalTrade(data);
             });
+            // TradeService.tradeView.tradeTotalInfo(function(data) {
+            //     let tradeList: Trade[] = [];
+            //     for(let key in data) {
+            //         let trade : Trade = new Trade(data[key]);
+            //         tradeList.push(trade);
+            //     }
+            //
+            //     listController.setTotalTrade(tradeList);
+            // });
         },
         getTotalTradeView () {
             console.log("getTradeView");
             return listController.getTotalTrade();
         },
-        setSelectPage(page : number) {
-            TradeService.tradeView.tradePageInfo(page, function(data) {
+        setSelectPage(page : number, token: string, adType: string) {
+            TradeService.tradeView.tradePageInfo(page, token, adType, function(data) {
                 let tradeList: Trade[] = [];
                 for(let key in data) {
                     let trade : Trade = new Trade(data[key]);
@@ -121,12 +125,11 @@ export default {
         },
         getSelectPage () {
             return listController.getSelectTrade();
-        }
+        },
     },
     SelectBox: {
         controller() {
           return selectBoxController
         },
-
     }
 }
