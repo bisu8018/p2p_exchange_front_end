@@ -13,13 +13,12 @@
     import AXIOS from 'axios';
     import TradeCenterView from './TradeCenterView.vue';
     import SelectBar from '@/components/SelectBar.vue';
-    import SearchBar from '@/components/SearchBar.vue';
     import ListFilter from '@/components/ListFilter.vue';
     import ListView from '@/components/ListView.vue';
 
     export default Vue.extend({
         name: 'TradeCenter',
-        components: {SelectBar, SearchBar, TradeCenterView, ListFilter},
+        components: {SelectBar, TradeCenterView, ListFilter},
         data: () => ({
 
         }),
