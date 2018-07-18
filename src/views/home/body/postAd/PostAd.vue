@@ -201,8 +201,8 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import SelectBox from '@/components/SelectBox';
-    import VerifySlider from "@/components/VerifySlider";
+    import SelectBox from '../../../../components/SelectBox.vue';
+    import VerifySlider from "../../../../components/VerifySlider.vue";
     import AdService from "../../../../service/ad/AdService";
     import MainRepository from "../../../../vuex/MainRepository";
 

@@ -177,8 +177,8 @@
             },
             pages () {
                 //return 전체페이지수는 몇개인지.
-                let usersnum = this.users.length;
-                return Math.ceil(usersnum / 10);
+                // let usersnum = this.users.length;
+                // return Math.ceil(usersnum / 10);
             },
         },
         methods: {

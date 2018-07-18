@@ -30,8 +30,8 @@
                             </v-flex>
                                     <!--post AD 눌렀을때 나오는 세부항목-->
                             <v-flex xs12 text-xs-left><div v-if="postadDrawer" style=" background-color: #21407e; ">
-                                <v-flex xs12 text-xs-left pb-3 ml-5 pt-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post_General_AD")}}</div></v-flex>
-                                <v-flex xs12 text-xs-left pt-3  ml-5 pb-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post_Block_AD")}}</div></v-flex>
+                                <v-flex xs12 text-xs-left pb-3 ml-5 pt-3><div class="button-2" style="color: #ffffff; " flat  @click="goPostGeneralAd()">{{$str("Post_General_AD")}}</div></v-flex>
+                                <v-flex xs12 text-xs-left pt-3  ml-5 pb-3><div class="button-2" style="color: #ffffff; " flat  @click="goPostBlockAd()">{{$str("Post_Block_AD")}}</div></v-flex>
                                 </div>
                             </v-flex>
 
@@ -146,8 +146,8 @@
                 this.$router.push("/postAd?block");
             },
             changeLang: function (userLang) {
-                abSetLang(userLang)
-                this.currentLang = userLang
+                abSetLang(userLang);
+                this.currentLang = userLang;
             },
 
         },

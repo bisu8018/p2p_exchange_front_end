@@ -13,30 +13,32 @@
               mt-5
       >
         <!-- 카드 1 로고사진  -->
-        <v-flex xs12 md3 text-md-left>
+        <v-flex xs12 md3 text-md-left text-xs-left>
           <div class="mb-4a">
             <img src="@/assets/img/logo_OTC.png">
           </div>
         </v-flex>
         <!-- 카드 2 Support -->
-        <v-flex xs12 md3 text-md-left>
-          <div class="TextDarkgray caption mb-3">{{$str("support")}}</div>
+        <v-flex xs12 md3 text-md-left text-xs-left>
+          <p class="TextDarkgray">{{$str("support")}}</p>
           <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("guides")}}</p></a>
           <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("FAQ")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><div class="mb-4 caption">{{$str("announcements")}}</div></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p >{{$str("announcements")}}</p></a>
           <div v-if="$vuetify.breakpoint.smAndDown" class=""> </div>
         </v-flex>
         <!-- 카드 3 Terms-->
-        <v-flex xs12 md3 text-md-left>
+        <v-flex xs12 md3 text-md-left text-xs-left>
           <p class="TextDarkgray">{{$str("terms")}}</p>
-          <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>{{$str("terms_Of_Service")}}</p></a>
-          <a class="black--text" href="https://vuetifyjs.com" target="_blank"><p>{{$str("transaction_Regulations")}}</p></a>
-          <a class="black--text" href="https://vuetifyjs.com" target="_blank"><div class="mb-4 caption">{{$str("fees")}}</div></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("terms_Of_Service")}}</p></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("transaction_Regulations")}}</p></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("fees")}}</p></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("Terms_Of_Privacy_Policy")}}</p></a>
+          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("KYC&AML_Policies")}}</p></a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
-        <v-flex xs12 md3 text-md-right  class="grey lighten-4">
+        <v-flex xs12 md3 text-md-left text-xs-left class="grey lighten-4">
           <p class="TextDarkgray">{{$str("contact_Us")}}</p>
-          <a class="black--text " href="https://vuetifyjs.com" target="_blank"><div class="mb-5 caption">support@allblab.com</div></a>
+          <a class="TextBlack " href="https://vuetifyjs.com" target="_blank"><p>support@allblab.com</p></a>
         </v-flex>
       </v-layout>
       <v-divider></v-divider>
@@ -45,15 +47,15 @@
         <v-menu offset-y open-on-hover >
           <!-- 한국어-->
           <v-btn flat slot="activator" v-if="currentLang=='KO'">
-            <img src="@/assets/img/flag3.png"><div class="caption ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+            <img src="@/assets/img/flag3.png"><div class=" ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
           </v-btn>
           <!-- 영어 -->
           <v-btn flat  slot="activator" v-else-if="currentLang=='EN'">
-            <img src="@/assets/img/flag2.png"><div class="caption ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+            <img src="@/assets/img/flag2.png"><div class="ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
           </v-btn>
           <!-- 중국어 -->
           <v-btn flat slot="activator" v-else>
-            <img src="@/assets/img/flag1.png"><div class="caption ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+            <img src="@/assets/img/flag1.png"><div class="ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
           </v-btn>
           <v-list>
             <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
@@ -118,7 +120,7 @@
   }
   p{
     margin-bottom: 16px;
-    font-size : 12px;
+    font-size : 14px;
   }
 
 </style>
