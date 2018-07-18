@@ -231,7 +231,8 @@
             counterpartyCheckbox_second: false,
             counterpartyCheckbox_third: false,
             tradePwValue: "",
-            agreeTerms: false
+            agreeTerms: false,
+            isVerified: false
         }),
         components: {
             SelectBox, VerifySlider
