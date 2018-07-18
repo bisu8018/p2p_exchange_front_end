@@ -20,9 +20,9 @@
                     <div style="position: relative; z-index:100;" class="BGNav">
                         <v-layout row wrap >
 
-                            <!-- OTC버튼-->
+                            <!-- TradeCenter버튼-->
                             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3><div class="button-2 " style="color: #ffffff;" right flat  @click="goTradeCenter()">{{$str("TradeCenter")}}</div></v-flex>
-                            <!-- Exchange 버튼-->
+                            <!-- BlockTrade 버튼-->
                             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3><div class="button-2" style="color: #ffffff;  " flat >{{$str("BlockTrade")}}</div></v-flex>
                             <!-- post AD 버튼 -->
                             <v-flex xs12 text-xs-left mt-3 pb-3 >
@@ -30,11 +30,18 @@
                             </v-flex>
                                     <!--post AD 눌렀을때 나오는 세부항목-->
                             <v-flex xs12 text-xs-left><div v-if="postadDrawer" style=" background-color: #21407e; ">
-                                <v-flex xs12 text-xs-left pb-3 ml-5 pt-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post_General_AD")}}</div></v-flex>
-                                <v-flex xs12 text-xs-left pt-3  ml-5 pb-3><div class="button-2" style="color: #ffffff; " flat >{{$str("Post_Block_AD")}}</div></v-flex>
+                                <!--post general AD-->
+                                <v-flex xs12 text-xs-left pb-3 ml-5 pt-3>
+                                    <div class="button-2" @click="goPostAd('GeneralAd')" style="color: #ffffff; " flat >
+                                        {{$str("Post_General_AD")}}</div>
+                                </v-flex>
+                                <!--post block AD-->
+                                <v-flex xs12 text-xs-left pt-3  ml-5 pb-3>
+                                    <div class="button-2" @click="goPostAd('BlockAd')" style="color: #ffffff; " flat >
+                                        {{$str("Post_Block_AD")}}</div>
+                                </v-flex>
                                 </div>
                             </v-flex>
-
 
                             <!-- login 버튼-->
                             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3><div class="button-2" style="color: #ffffff; "  flat  @click="goLogin()">{{$str("loginText")}}</div></v-flex>
@@ -53,12 +60,22 @@
                         <v-btn flat  @click="goMain()" >
                             <img  src="@/assets/img/logo_color.png" style="width: 38px; height: 33px;">
                         </v-btn>
-                        <!-- OTC버튼-->
+                        <!-- TradeCenter버튼-->
                         <v-btn flat  @click="goTradeCenter()" class="button-2" style="color: #ffffff; ">{{$str("TradeCenter")}}</v-btn>
-                        <!-- Exchange 버튼-->
+                        <!-- BlockTrade 버튼-->
                         <v-btn  flat class="button-2" style="color: #ffffff; ">{{$str("BlockTrade")}}</v-btn>
                         <!-- post AD 버튼 -->
-                        <v-btn  flat class="button-2" style="color: #ffffff; ">{{$str("postAd")}}</v-btn>
+
+
+                        <v-menu offset-y open-on-hover >
+                            <v-btn  slot="activator" flat class="button-2" @click="goPostAd(GeneralAd)" style="color: #ffffff; ">{{$str("postAd")}}</v-btn>
+                            <!-- default post AD 버튼-->
+                            <v-list>
+                                <v-list-tile  v-for="(postAdType, index) in postAdTypes"  :key="index"  @click="goPostAd(postAdType.code)">
+                                    <v-list-tile-title>{{ postAdType.title }}</v-list-tile-title>
+                                </v-list-tile>
+                            </v-list>
+                        </v-menu>
                     </v-flex>
 
                     <v-flex md7 text-xs-right >
@@ -75,15 +92,15 @@
                         <v-menu offset-y open-on-hover >
                             <!-- 한국어-->
                             <v-btn flat slot="activator" v-if="currentLang=='KO'">
-                                <img src="@/assets/img/flag3.png"><div class="caption ml-2 TextWhite">한국어<v-icon small >keyboard_arrow_down</v-icon></div>
+                                <img src="@/assets/img/flag3.png"><div class=" ml-2 TextWhite">한국어<v-icon small >keyboard_arrow_down</v-icon></div>
                             </v-btn>
                             <!-- 영어 -->
                             <v-btn flat  slot="activator" v-else-if="currentLang=='EN'" >
-                                <img src="@/assets/img/flag2.png"><div class="caption ml-2 TextWhite" >English<v-icon small >keyboard_arrow_down</v-icon></div>
+                                <img src="@/assets/img/flag2.png"><div class=" ml-2 TextWhite" >English<v-icon small >keyboard_arrow_down</v-icon></div>
                             </v-btn>
                             <!-- 중국어 -->
                             <v-btn flat slot="activator" v-else>
-                                <img src="@/assets/img/flag1.png"><div class="caption ml-2 TextWhite">简体中文<v-icon small >keyboard_arrow_down</v-icon></div>
+                                <img src="@/assets/img/flag1.png"><div class=" ml-2 TextWhite">简体中文<v-icon small >keyboard_arrow_down</v-icon></div>
                             </v-btn>
                             <v-list>
                                 <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
@@ -122,7 +139,11 @@
                 {title: '简体中文', code: 'ZH'},
                 {title: 'English', code: 'EN'},
             ],
-            currentLang : 'EN',
+            postAdTypes : [
+                {title: 'Post General Ad', code: 'GeneralAd'},
+                {title: 'Post Block Ad', code: 'BlockAd'},
+            ],
+            currentLang : 'KO',
 
 
         }),
@@ -138,6 +159,17 @@
             },
             goTradeCenter() {
                 this.$router.push("/tradeCenter");
+            },
+            goPostAd(type){
+                switch(type){
+                    case 'GeneralAd':
+                        this.$router.push("/postAd?general");
+                        break;
+
+                    case 'BlockAd':
+                        this.$router.push("/postAd?block");
+                        break;
+                }
             },
             goPostGeneralAd() {
                 this.$router.push("/postAd?general");
