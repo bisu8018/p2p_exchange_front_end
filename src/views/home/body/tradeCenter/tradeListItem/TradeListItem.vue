@@ -90,6 +90,7 @@
           <v-flex xs4 text-xs-right><button class="confirmButton Button btnHover" @click="">{{$str("confirm")}}</button></v-flex>
         </v-layout>
       </div>
+
     </div>
 
 
@@ -193,6 +194,11 @@
             limitMax : 0,
             price : 0,
             dealMode : 0,
+            user: [
+
+            ],
+
+
 
 
         },
