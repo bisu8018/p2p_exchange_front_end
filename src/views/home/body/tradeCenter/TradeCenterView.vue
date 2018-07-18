@@ -161,16 +161,13 @@
             // ],
         }),
         created() {
-            console.log("Created");
-            MainRepository.TradeView.setSelectPage(0);
-            console.log(MainRepository.TradeView.setSelectPage(0));
+            MainRepository.TradeView.setSelectPage(0, "BTC", "BUY");
         },
         mounted() {
 
         },
         computed: {
             dataInfo(){
-                console.log(MainRepository.TradeView.getSelectPage());
                 return MainRepository.TradeView.getSelectPage();
             },
         },

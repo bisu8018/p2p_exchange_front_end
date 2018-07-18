@@ -5,6 +5,7 @@ export default class Trade {
     volumeTotal : number;
     limitMax : number;
     adType : string;
+    token: string;
 
     constructor (data: any) {
         this.idx = Number(data.idx) || -1;
@@ -13,6 +14,7 @@ export default class Trade {
         this.volumeTotal = data.volumeTotal || '';
         this.limitMax = data.limitMax || '';
         this.adType = data.adType;
+        this.token = data.token;
     }
 
     isNull (): boolean {

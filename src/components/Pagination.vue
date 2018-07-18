@@ -13,21 +13,23 @@
             page : 0,
         }),
         created() {
-            console.log("Created Page Number:" + MainRepository.TradeView.setTotalTradeView());
-            MainRepository.TradeView.setTotalTradeView();
+            console.log("Created Page Number:" + MainRepository.TradeView.setTotalTradeView('BTC','BUY'));
+            //default BTC , BUY
+            MainRepository.TradeView.setTotalTradeView('BTC','BUY');
         },
         computed: {
             pages () {
-                console.log("Make page:" + Math.ceil(MainRepository.TradeView.getTotalTradeView().length / 10));
-                return Math.ceil(MainRepository.TradeView.getTotalTradeView().length / 10);
+                console.log("Make page:" + Math.ceil(MainRepository.TradeView.getTotalTradeView() / 10));
+                return Math.ceil(MainRepository.TradeView.getTotalTradeView()/ 10);
             },
         },
         methods: {
             onChanged() {
             console.log("pageChange");
             let pageNumber : number = this.page - 1;
-            return MainRepository.TradeView.setSelectPage(pageNumber);
-        }
+            return MainRepository.TradeView.setSelectPage(pageNumber, 'BTC' ,'BUY');
+            //MainRepository.TradeView.getSelectPage();
+            }
         },
     });
 </script>
