@@ -16,7 +16,7 @@
           <!-- BTC ALLB ETH  버튼 -->
           <v-layout row wrap justify-center style="font-size: 16px" mt-4 mb-4>
             <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-            <v-flex xs3 v-for="item in items" key="itemKey2" @click="getBuyInfo(item.text) "  >
+            <v-flex xs3 v-for="item in items" key="itemKey2" @click="setBuyInfo(item.text) "  >
               {{ item.text }}
             </v-flex>
             <v-flex xs1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
@@ -36,7 +36,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3 v-for="item in items" @click="getBuyInfo(item.text)" key="buyKey">
+                  <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" class="coinBtn" key="buyKey">
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
@@ -58,7 +58,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3 v-for="item in items" key="itemKey" @click="getSellInfo(item.text) " >
+                  <v-flex md3  v-for="item in items" key="itemKey" @click="setSellInfo(item.text) " class="coinBtn">
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
@@ -97,12 +97,12 @@
             tradeCoin: 'BTC',
         }),
         methods : {
-            getBuyInfo(item){
+            setBuyInfo(item){
               this.tradeStatus = 'Buy';
               this.tradeCoin =item;
 
             },
-            getSellInfo(item){
+            setSellInfo(item){
               this.tradeStatus = 'Sell';
               this.tradeCoin =item;
             },
@@ -120,7 +120,7 @@
   .mobileBuyBtn{
     height: 36px;
     width:67px;
-    border: solid 1px #5e91d2;
+    border: solid 1px #214ea1;
     border-top-left-radius:200px;
     display: inline-block;
     position: relative;
@@ -129,15 +129,15 @@
   .mobileSellBtn{
     height: 36px;
     width:67px;
-    background: #5e91d2;
+    background: #214ea1;
     border-top-right-radius:200px;
     display: inline-block;
-    border: solid 1px #5e91d2;
+    border: solid 1px #214ea1;
     position: relative;
     border-bottom-right-radius:200px;
   }
   .mobileBtnText{
-    line-height:50px; color:#5e91d2; position: absolute; left: 20px; bottom: -8px;
+    line-height:50px; color:#214ea1; position: absolute; left: 20px; bottom: -8px;
   }
   .mobileBtnTextClicked{
     line-height:50px;
@@ -145,5 +145,10 @@
     position: absolute;
     left: 20px;
     bottom: -8px;
+  }
+  .coinBtn:hover{
+    color : #214ea1 !important;
+    font-size: 16px;
+    font-weight: bold;
   }
 </style>
