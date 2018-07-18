@@ -42,11 +42,11 @@ export default new Router({
       name: 'tradeCenter',
       component: TradeCenter
     },
-    {
-      path: '/postAd',
-      name: 'postAd',
-      component: PostAd
-    }
+    // {
+    //   path: '/postAd',
+    //   name: 'postAd',
+    //   component: PostAd
+    // }
   ],
   mode:'history'
 })
