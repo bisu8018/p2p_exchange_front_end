@@ -201,7 +201,7 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import SelectBox from '@/components/SelectBox.vue';
+    import SelectBox from '@/components/SelectBox';
     import VerifySlider from "@/components/VerifySlider";
     import AdService from "../../../../service/ad/AdService";
     import MainRepository from "../../../../vuex/MainRepository";
@@ -231,7 +231,8 @@
             counterpartyCheckbox_second: false,
             counterpartyCheckbox_third: false,
             tradePwValue: "",
-            agreeTerms: false
+            agreeTerms: false,
+            isVerified: false
         }),
         components: {
             SelectBox, VerifySlider

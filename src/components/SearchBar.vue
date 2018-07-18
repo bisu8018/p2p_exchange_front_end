@@ -41,7 +41,7 @@
             onSearchList() {
               SearchService.searchTradeView.searchTradeInfo(function(error){
                   if(!error){
-                      MainRepository.TradeView.getTradeView();
+                      //MainRepository.TradeView.getTradeView();
                   }else {
                       console.log("POST ERROR ::::::: " + error);
                   }

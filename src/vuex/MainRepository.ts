@@ -94,22 +94,34 @@ export default {
         controller(): ListController{
             return listController
         },
-        setTradeView () {
-            TradeService.tradeView.tradeInfo(function(data) {
+        setTotalTradeView () {
+            TradeService.tradeView.tradeTotalInfo(function(data) {
                 let tradeList: Trade[] = [];
-
                 for(let key in data) {
                     let trade : Trade = new Trade(data[key]);
                     tradeList.push(trade);
                 }
-                console.log(1);
-                listController.setTrade(tradeList);
+
+                listController.setTotalTrade(tradeList);
             });
         },
-        getTradeView () {
+        getTotalTradeView () {
             console.log("getTradeView");
-            return listController.getTrade();
+            return listController.getTotalTrade();
         },
+        setSelectPage(page : number) {
+            TradeService.tradeView.tradePageInfo(page, function(data) {
+                let tradeList: Trade[] = [];
+                for(let key in data) {
+                    let trade : Trade = new Trade(data[key]);
+                    tradeList.push(trade);
+                }
+                listController.setSelectTrade(tradeList);
+            });
+        },
+        getSelectPage () {
+            return listController.getSelectTrade();
+        }
     },
     SelectBox: {
         controller() {

@@ -9,14 +9,20 @@ export default class ListController {
         this.store = vuexStore
     }
 
-    setTrade(tradeInfo : Trade[]) {
-        this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeInfo);
+    setTotalTrade(tradeTotalInfo : Trade[]) {
+        this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeTotalInfo);
 
     }
-    getTrade() {
-        console.log("getTrade ListController");
-        console.log(this.store.state.trade.tradeInfo);
-        return this.store.state.trade.tradeInfo;
+    getTotalTrade() {
+        return this.store.state.trade.tradeTotalInfo;
+    }
+
+    setSelectTrade(tradeSelectInfo : Trade[]) {
+        this.store.dispatch(VuexTypes.SET_SELECTTRADEVIEW_DATA, tradeSelectInfo);
+    }
+
+    getSelectTrade() {
+        return this.store.state.trade.tradeSelectInfo;
     }
 
 }
