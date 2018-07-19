@@ -19,19 +19,19 @@
         <v-layout>
             <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left>Volume :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.volumeTotal}} BTC </v-flex>
+            <v-flex xs6 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left>Limits :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.limitMax}} CNY </v-flex>
+            <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left>Price :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.price}} CNY </v-flex>
+            <v-flex xs6 text-xs-right> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout>
@@ -64,17 +64,17 @@
         <!-- Volume -->
         <v-layout >
           <v-flex xs3  offset-xs2 text-xs-left>Volume :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{user.volumeTotal}} AllB </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout >
           <v-flex xs3  offset-xs2 text-xs-left>Limits :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{user.limitMax}} SGD </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout >
           <v-flex xs3  offset-xs2 text-xs-left>Price :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{user.price}} SGD </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- payment methods -->
         <v-layout >
@@ -113,17 +113,17 @@
           <td>
             <v-avatar color=""   :size="30">
               <span class="">{{user.email[0]}}</span>
-            </v-avatar> {{user.email}} ( {{user.volumeTotal}} | 99%)
+            </v-avatar> {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
             <!--판매자 rank-->
             <img class="ml-2" src="../../../../../assets/img/rank_crown.png">
           </td>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volumeTotal}} BTC </v-flex>
+        <v-flex md2 text-md-left >{{user.volumeTotal}} {{token}} </v-flex>
         <!--limits-->
-        <v-flex md2 text-md-left >{{user.limitMax}} CNY </v-flex>
+        <v-flex md2 text-md-left >{{user.limitMax}} {{currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left >{{user.price}} CNY </v-flex>
+        <v-flex md2 text-md-left >{{user.price}} {{token}} </v-flex>
         <!-- payment method-->
         <v-flex md2 text-md-left >
           <img src="../../../../../assets/img/method_alipay.png">
@@ -133,7 +133,7 @@
         <!-- but 혹은 sell button -->
         <v-flex md1 text-md-right >
           <button class="Button" @click="drawer = !drawer">
-            {{$str("buy")}} BTC</button>
+            {{tradeType}} {{token}} </button>
         </v-flex>
       </v-layout>
 
@@ -152,32 +152,32 @@
             <!-- merchant 정보-->
             <span >
               <span class="mr-2">
-                {{user.email}} ( {{user.volumeTotal}} | 99%)
+                {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
               </span>
               <img src="../../../../../assets/img/rank_crown.png">
-              <span>{{$str("volume")}} : {{user.volumeTotal}} AllB</span>
+              <div>{{$str("volume")}} : {{user.volumeTotal}} {{token}}</div>
             </span>
           </v-flex>
 
           <v-flex md2 text-md-left>
             <div>
-              {{user.volumeTotal}} SGD
+              {{user.volumeTotal}} {{currency}}
             </div>
             <div>
-              {{user.volumeTotal}} SGD
+              {{user.volumeTotal}} {{currency}}
             </div>
           </v-flex>
 
           <v-flex md4 text-md-left>
             <input type="number" class="userInput" name="toValue" v-model="toValue"
-                   :placeholder="toPlaceholder">
+                   :placeholder="currency">
             <span><-></span>
             <input type="number" class="userInput" name="fromValue" v-model="fromValue"
-                   :placeholder="fromPlaceholder">
+                   :placeholder="tradeType">
           </v-flex>
           <v-flex md3 text-md-left>
             <button class="">{{$str("confirm")}} </button>
-            <button class="">{{$str("cancel")}} </button>
+            <button class="" @click="drawer = !drawer">{{$str("cancel")}} </button>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
@@ -188,11 +188,15 @@
           </v-flex>
           <v-flex md4></v-flex>
           <v-flex md4>
-            <span class="TextDarkgray">Payment window is 20minutes</span>
+            <span class="TextDarkgray">{{$str("Payment_window_is_15minutes")}}</span>
           </v-flex>
-
-
-
+        </v-layout>
+        <!-- 판매자가 남긴 요구 메모가 있을시-->
+        <v-layout>
+          <v-flex v-if="user.memo !== '' " text-md-left>
+            {{$str("userMemo")}}： <br>
+            {{user.memo}}
+          </v-flex>
         </v-layout>
       </div>
     </div>
@@ -205,24 +209,17 @@
         name: "TradeListItem",
         data: () => ({
             drawer: false,
-            toPlaceholder: 'CNY',
-            fromPlaceholder: 'AllB',
             pwPlaceholder: 'Trade Password',
             toValue : '',
             fromValue : '',
             tradePassword : '',
-
+            token : 'BTC',      //현재 거래하고자 하는 coin
+            currency : 'CNY',   //현재 사용하고자 하는 화폐단위
+            tradeType : 'BUY',  //살건지 팔건지 여부.
 
         }),
         props : {
-            name: {
-                type: String,
-                default: '',
-            },
-            volumeTotal : 0,
-            limitMax : 0,
-            price : 0,
-            dealMode : 0,
+
             user: {},
 
 

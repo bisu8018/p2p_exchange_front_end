@@ -63,6 +63,9 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
+                    '            If urgent, please message me on Telegram at +84963126446',
                 },
                 {
                     email: 'Dean',
@@ -70,6 +73,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'Jack',
@@ -77,6 +82,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'Jiny',
@@ -84,6 +91,9 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
+                    '            If urgent, please message me on Telegram at +84963126446',
                 },
                 {
                     email: 'Jun',
@@ -91,6 +101,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'Kay',
@@ -98,6 +110,9 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
+                    '            If urgent, please message me on Telegram at +84963126446',
                 },
                 {
                     email: 'Kevin',
@@ -105,6 +120,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'Max',
@@ -112,6 +129,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'BK',
@@ -119,6 +138,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'Ryan',
@@ -126,6 +147,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'Tom',
@@ -133,6 +156,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
                 {
                     email: 'AB',
@@ -140,6 +165,8 @@
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
                 },
             ],
         }),

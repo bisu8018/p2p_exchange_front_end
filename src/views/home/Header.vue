@@ -57,6 +57,33 @@
             <v-flex xs12 text-xs-left mt-3 mb-4 ml-3>
               <button flat  @click="goSignup()">{{$str("signupText")}}</button>
             </v-flex>
+            <!--로그인시 -->
+
+            <!--Orders-->
+            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
+              <button flat  @click="goMyInfo('MyOrder')">{{$str("order")}}</button>
+            </v-flex>
+            <!--Balances-->
+            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
+              <button flat  @click="goBalances()">{{$str("Balances")}}</button>
+            </v-flex>
+            <!-- My Ads-->
+            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
+              <button flat  @click="goMyInfo('MyAds')">{{$str("MyAds")}}</button>
+            </v-flex>
+            <!-- User Center-->
+            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
+              <button flat  @click="goUserCenter()">{{$str("UserCenter")}}</button>
+            </v-flex>
+            <!-- Merchant -->
+            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
+              <button flat  @click="goMerchant()">{{$str("Merchant")}}</button>
+            </v-flex>
+            <!-- Log Out-->
+            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
+              <button flat  @click="goLogOut()">{{$str("LogOut")}}</button>
+            </v-flex>
+
           </v-layout>
         </div>
       </div>
@@ -86,17 +113,14 @@
           <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
           <v-spacer></v-spacer>
 
-          <!-- 로그인시 내정보 버튼 -->
 
-          <div class=" mr-4a">
-            <button class="ml-4a" >{{$str("MyPage")}}
-              <div class="">
-                <!-- 내 정보 list 버튼-->
-                <button @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</button>
-                <button @click="goMyInfo('MyAds')">{{$str("MyAds")}}</button>
-              </div>
-            </button>
-          </div>
+          <!-- 로그인시 내정보 사항들-->
+          <!--MyOrder-->
+          <button class="mr-4a" @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</button>
+          <!--balance-->
+          <button  class="mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
+          <!--My ads-->
+          <button class="mr-4a" @click="goMyInfo('MyAds')">{{$str("MyAds")}}</button>
           <!--내 정보 끝-->
 
 
@@ -188,6 +212,9 @@
                         this.$router.push("/myAds");
                         break;
                 }
+            },
+            goBalances() {
+                this.$router.push("/balances");
             },
 
             changeLang: function (userLang) {

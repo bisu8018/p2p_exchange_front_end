@@ -265,6 +265,18 @@ const strings = new Map([
       CN: '出售',
       JP: ''
   }],
+    ['userMemo', {
+        KOR: '판매자 메모',
+        ENG: 'User Memo',
+        CN: '商家备注',
+        JP: ''
+    }],
+    ['Payment_window_is_15minutes', {
+        KOR: '15분후 거래화면이 닫힙니다.',
+        ENG: 'Payment window is 15minutes',
+        CN: '买方付款时限为15分钟',
+        JP: ''
+    }],
 
   //  header
   ['exchange', {
@@ -334,6 +346,30 @@ const strings = new Map([
       CN: '发布广告',
       JP: ''
   }],
+    ['Balances', {
+        KOR: '밸런스',
+        ENG: 'Balances',
+        CN: '余额',
+        JP: ''
+    }],
+    ['UserCenter', {
+        KOR: '유저센터',
+        ENG: 'User Center',
+        CN: '用户中心',
+        JP: ''
+    }],
+    ['Merchant', {
+        KOR: '판매자',
+        ENG: 'Merchant',
+        CN: '商人',
+        JP: ''
+    }],
+    ['LogOut', {
+        KOR: '로그아웃',
+        ENG: 'Log Out',
+        CN: '登出',
+        JP: ''
+    }],
 
     //footer
     ['support', {

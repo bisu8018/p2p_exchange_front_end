@@ -49,10 +49,10 @@
         <v-flex  md1 text-md-left>{{adslist.price}}</v-flex>
         <v-flex  md2 text-md-left>{{adslist.time}}</v-flex>
         <v-flex  md3 text-md-right>
-          <span class="mr-3">Edit</span>
-          <span class="mr-3">Enable</span>
-          <span class="mr-3">Delete</span>
-          <span>Share</span>
+          <button class="mr-3">Edit</button>
+          <button class="mr-3">Enable</button>
+          <button class="mr-3">Delete</button>
+          <button>Share</button>
         </v-flex>
 
       </v-layout>
