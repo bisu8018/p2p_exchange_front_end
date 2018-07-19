@@ -1,7 +1,7 @@
 <template>
 
-    <div>
-      <v-layout wrap row mt-5>
+    <div class="footer">
+      <v-layout wrap row mt-5 style="max-width: 1200px">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 text-md-left text-xs-left>
           <div class="mb-4a">
@@ -31,28 +31,37 @@
           <a class="TextBlack " href="https://www.allblab.com" target="_blank"><p>support@allblab.com</p></a>
         </v-flex>
       </v-layout>
-      <v-divider></v-divider>
-      <!--언어설정 버튼-->
-      <v-layout justify-center mt-4>
-        <v-menu offset-y open-on-hover >
-          <!-- 한국어-->
-          <div style="display: flex;" slot="activator" v-if="currentLang=='KO'">
-            <img src="@/assets/img/flag3.png"><div class=" ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+      <v-divider ></v-divider>
+      <!-- 언어설정버튼 -->
+      <v-layout mt-4a mb-4a row wrap style="max-width: 1200px">
+        <v-flex md6 xs12 mb-3 class="dropDownBtn" text-xs-center text-md-left>
+          <!-- 한국어모드일때-->
+          <div style="display: inline-block;"  v-if="currentLang=='KO'">
+            <img src="@/assets/img/flag3.png">
+            <span class=" ml-2 TextBlack">한국어<v-icon small >keyboard_arrow_up</v-icon></span>
           </div>
-          <!-- 영어 -->
-          <div style="display: flex;" slot="activator" v-else-if="currentLang=='EN'">
-            <img src="@/assets/img/flag2.png"><div class="ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+          <!-- 영어모드일때 -->
+          <div style="display: inline-block;"  v-else-if="currentLang=='EN'" >
+            <img src="@/assets/img/flag2.png">
+            <span class=" ml-2 TextBlack" >English<v-icon small >keyboard_arrow_up</v-icon></span>
           </div>
-          <!-- 중국어 -->
-          <div style="display: flex;" slot="activator" v-else>
-            <img src="@/assets/img/flag1.png"><div class="ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+          <!-- 중국어모드일때 -->
+          <div style="display: inline-block;" v-else>
+            <img src="@/assets/img/flag1.png">
+            <span class=" ml-2 TextBlack">简体中文<v-icon small >keyboard_arrow_up</v-icon></span>
           </div>
-          <v-list>
-            <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
-              <v-list-tile-title>{{ language.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
+          <!--언어 설정시 dropdown box-->
+          <div class="dropDown-content dropDown-Lang">
+            <!-- 내 정보 list 버튼-->
+            <div @click="changeLang('KO')">한국어</div>
+            <div @click="changeLang('ZH')">简体中文</div>
+            <div @click="changeLang('EN')">English</div>
+          </div>
+        </v-flex>
+
+        <v-flex md6 xs12 text-md-right>
+          <span>© 2018 allb.com</span>
+        </v-flex>
       </v-layout>
     </div>
 
@@ -111,6 +120,35 @@
   p{
     margin-bottom: 16px;
     font-size : 14px;
+  }
+  .footer{
+
+  }
+  .dropDownBtn{
+    position: relative;
+    display: inline-block;
+
+  }
+  .dropDownBtn:hover .dropDown-content{
+    display: block;
+  }
+  .dropDown-content{
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    top: auto;
+    bottom: 100%;
+    z-index: 1;
+  }
+  .dropDown-content div{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropDown-Lang{
+    min-width: 104px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.34);
   }
 
 </style>

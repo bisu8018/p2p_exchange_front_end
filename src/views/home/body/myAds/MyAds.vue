@@ -23,13 +23,13 @@
       <div v-else>
         <!-- 표의 header들 -->
         <v-layout mb-3>
-          <v-flex gridBox md1 text-md-left>No</v-flex>
-          <v-flex gridBox md2 text-md-left>Ads Type</v-flex>
-          <v-flex gridBox md1 text-md-left>Amount</v-flex>
-          <v-flex gridBox md2 text-md-left>Limits</v-flex>
-          <v-flex gridBox md1 text-md-left>Price</v-flex>
-          <v-flex gridBox md2 text-md-left>Time</v-flex>
-          <v-flex gridBox md3 text-md-right>Control</v-flex>
+          <v-flex  md1 text-md-left>No</v-flex>
+          <v-flex  md2 text-md-left>Ads Type</v-flex>
+          <v-flex  md1 text-md-left>Amount</v-flex>
+          <v-flex  md2 text-md-left>Limits</v-flex>
+          <v-flex  md1 text-md-left>Price</v-flex>
+          <v-flex  md2 text-md-left>Time</v-flex>
+          <v-flex  md3 text-md-right>Control</v-flex>
         </v-layout>
         <v-divider></v-divider>
 

@@ -1,17 +1,17 @@
 <template>
 <div>
-    <v-card style=" border: solid 1px #b2b2b2;">
-      <v-layout row text-xs-center>
+    <div style=" border: solid 1px #b2b2b2;">
+      <v-layout row text-xs-left>
         <v-flex xs10>
-          <v-chip color="secondary" pl-2 pr-2 text-color="white" label small >{{country}}</v-chip>
-          <v-chip color="secondary" pl-2 pr-2 text-color="white" label small>{{currency}}</v-chip>
-          <v-chip color="secondary" text-color="white" label small>{{paymentMethod}}</v-chip>
-          <v-chip color="secondary" v-if="amount!=0" v-model="isAmout" text-color="white"
-                  @input="removeAmount" label close small>{{amount}}</v-chip>
+          <div  class=" statusChip"  >{{country}}</div>
+          <div  class=" statusChip"  >{{currency}}</div>
+          <div  class=" statusChip" >{{paymentMethod}}</div>
+          <div  class=" statusChip" v-if="amount!=0" v-model="isAmout"
+                  @input="removeAmount" >{{amount}}</div>
         </v-flex>
         <v-flex xs2 pt-1 ><v-icon  @click.stop="isModal = true">search</v-icon></v-flex>
       </v-layout>
-    </v-card>
+    </div>
 
    <v-layout>
     <v-flex xs12 md4 >
@@ -108,4 +108,14 @@
 </script>
 
 <style>
+  .statusChip{
+    display : inline-block;
+    background-color: #9294A6;
+    margin-left: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+  }
 </style>

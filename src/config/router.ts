@@ -11,6 +11,9 @@ import BlockAd from '../views/home/body/postAd/block/Block.vue'
 import Buy from '../views/home/body/buy/Buy.vue'
 
 
+import PostAd from '../views/home/body/postAd/PostAd.vue'
+import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
+import MyAds from '../views/home/body/myAds/MyAds.vue'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -58,7 +61,17 @@ export default new Router({
       path : '/buy',
       name: 'buy',
       component: Buy
-    }
+    },
+      {
+          path: '/myOrder',
+          name: 'myOrder',
+          component: MyOrder,
+      },
+      {
+          path: '/myAds',
+          name: 'myAds',
+          component: MyAds,
+      },
   ],
   mode:'history'
 })

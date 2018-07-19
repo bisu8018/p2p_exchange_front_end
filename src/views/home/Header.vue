@@ -17,7 +17,7 @@
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
-                <v-flex xs12 v-if="drawer" @click.stop="drawer = !drawer">
+                <div v-if="drawer" @click.stop="drawer = !drawer">
                     <div style="position: relative; z-index:100;" class="BGNav">
                         <v-layout row wrap >
                             <!-- TradeCenter버튼-->
@@ -34,8 +34,9 @@
                                     <div class="ml-3">{{$str("postAd")}}</div>
                                 </div>
                             </v-flex>
-                                    <!--post AD 눌렀을때 나오는 세부항목-->
-                            <v-flex xs12 text-xs-left><div v-if="postadDrawer" style=" background-color: #21407e; ">
+                            <!--post AD 눌렀을때 나오는 세부항목-->
+                            <div class="xs12 text-xs-left" style="width: 100%">
+                              <div v-if="postadDrawer" style=" background-color: #21407e; ">
                                 <!--post general AD-->
                                 <v-flex xs12 text-xs-left pb-3 ml-5 pt-3>
                                     <div class="button-2" @click="goPostGeneralAd" style="color: #ffffff; " flat >
@@ -47,7 +48,7 @@
                                         {{$str("Post_Block_AD")}}</div>
                                 </v-flex>
                                 </div>
-                            </v-flex>
+                            </div>
 
                             <!-- login 버튼-->
                             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
@@ -59,12 +60,12 @@
                             </v-flex>
                         </v-layout>
                     </div>
-                </v-flex>
+                </div>
             </div>
 
             <!-- 웹일때 -->
             <div  v-else class="headerMainWrapper">
-                <v-layout class="webHeadercontent"row wrap>
+                <v-layout class="webHeadercontent"align-center row fill-height>
                     <!-- logo버튼-->
                     <div  @click="goMain()" class="ml-4">
                         <img  src="@/assets/img/logo_color.png" style="width: 38px; height: 33px;">
@@ -74,29 +75,30 @@
                     <!-- BlockTrade 버튼-->
                     <div class="button-2 ml-4a" style="color: #ffffff; ">{{$str("BlockTrade")}}</div>
                     <!-- post AD 버튼 -->
-                    <v-menu offset-y open-on-hover >
-                        <div  slot="activator" flat class="button-2 ml-4a" @click="goPostAd(GeneralAd)" style="color: #ffffff; ">{{$str("postAd")}}</div>
-                        <!-- default post AD 버튼-->
-                        <v-list>
-                            <v-list-tile  v-for="(postAdType, index) in postAdTypes"  :key="index"  @click="goPostAd(postAdType.code)">
-                                <v-list-tile-title>{{ postAdType.title }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
+                    <div class="dropDownBtn">
+                      <!-- default post AD 버튼-->
+                        <button  class="button-2 ml-4a" style="color: #ffffff; ">{{$str("postAd")}}
+                          <div class="dropDown-content dropDown-PostAd">
+                            <div @click="goPostGeneralAd">{{$str("Post_General_AD")}}</div>
+                            <div @click="goPostBlockAd">{{$str("Post_Block_AD")}}</div>
+                          </div>
+                        </button>
+                    </div>
+
                     <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
                     <v-spacer></v-spacer>
+
                     <!-- 로그인시 내정보 버튼 -->
-                    <v-menu offset-y open-on-hover class="mr-4a">
-                        <v-avatar slot="activator"  color="white"  :size="34">
-                            <span class="TextBlack">My</span>
-                        </v-avatar>
+
+                  <div class="dropDownBtn mr-4a">
+                    <button  class="button-2 ml-4a" style="color: #ffffff; ">{{$str("MyPage")}}
+                      <div class="dropDown-content dropDown-MyPage">
                         <!-- 내 정보 list 버튼-->
-                        <v-list>
-                            <v-list-tile  v-for="(myInfoItem, index) in myInfoItems"  :key="index"  @click="goMyInfo(myInfoItem.code)">
-                                <v-list-tile-title>{{ myInfoItem.title }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
+                        <div @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</div>
+                        <div @click="goMyInfo('MyAds')">{{$str("MyAds")}}</div>
+                      </div>
+                    </button>
+                  </div>
                     <!--내 정보 끝-->
 
 
@@ -105,29 +107,30 @@
                     <!-- signup 버튼-->
                     <div  class="button-2 mr-4a" style="color: #ffffff; " @click="goSignup()">{{$str("signupText")}}</div>
                     <!-- 언어설정버튼 -->
-                    <v-menu offset-y open-on-hover mr-4a>
-                        <!-- 한국어-->
-                        <div style="display: flex;" slot="activator" v-if="currentLang=='KO'">
-                            <img src="@/assets/img/flag3.png">
-                            <div class=" ml-2 TextWhite">한국어<v-icon small >keyboard_arrow_down</v-icon></div>
-                        </div>
-                        <!-- 영어 -->
-                        <div style="display: flex;" slot="activator" v-else-if="currentLang=='EN'" >
-                            <img src="@/assets/img/flag2.png">
-                            <div class=" ml-2 TextWhite" >English<v-icon small >keyboard_arrow_down</v-icon></div>
-                        </div>
-                        <!-- 중국어 -->
-                        <div style="display: flex;" slot="activator" v-else>
-                            <img src="@/assets/img/flag1.png">
-                            <div class=" ml-2 TextWhite">简体中文<v-icon small >keyboard_arrow_down</v-icon></div>
-                        </div>
-                        <!--언어 설정시 dropdown box-->
-                        <v-list>
-                            <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
-                                <v-list-tile-title>{{ language.title }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
+                    <div class="dropDownBtn mr-4a">
+                      <!-- 한국어-->
+                      <div style="display: inline-block;"  v-if="currentLang=='KO'">
+                          <img src="@/assets/img/flag3.png">
+                          <span class=" ml-2 TextWhite">한국어<v-icon small >keyboard_arrow_down</v-icon></span>
+                      </div>
+                      <!-- 영어 -->
+                      <div style="display: inline-block;"  v-else-if="currentLang=='EN'" >
+                          <img src="@/assets/img/flag2.png">
+                          <span class=" ml-2 TextWhite" >English<v-icon small >keyboard_arrow_down</v-icon></span>
+                      </div>
+                      <!-- 중국어 -->
+                      <div style="display: inline-block;"  v-else>
+                          <img src="@/assets/img/flag1.png">
+                          <span class=" ml-2 TextWhite">简体中文<v-icon small >keyboard_arrow_down</v-icon></span>
+                      </div>
+                      <!--언어 설정시 dropdown box-->
+                      <div class="dropDown-content dropDown-Lang">
+                        <!-- 내 정보 list 버튼-->
+                        <div @click="changeLang('KO')">한국어</div>
+                        <div @click="changeLang('ZH')">简体中文</div>
+                        <div @click="changeLang('EN')">English</div>
+                      </div>
+                    </div>
                 </v-layout>
 
             </div>
@@ -148,24 +151,11 @@
             title : 'header',
             drawer: false,
             postadDrawer : false,
-            items: [
-                { title: 'Log In' ,name: 'login'},
-                { title: 'Sign Up', name: 'signup'},
-                { title: 'Trade Center', name: 'tradeCenter'},
-                { title: 'Post AD', name: 'postAd'}
-            ],
+
             languages: [
                 {title: '한국어', code: 'KO'},
                 {title: '简体中文', code: 'ZH'},
                 {title: 'English', code: 'EN'},
-            ],
-            postAdTypes : [
-                {title: 'Post General Ad', code: 'GeneralAd'},
-                {title: 'Post Block Ad', code: 'BlockAd'},
-            ],
-            myInfoItems : [
-                {title: 'My Order', code: 'MyOrder'},
-                {title: 'My Ads', code: 'MyAds'},
             ],
             currentLang : 'KO',
 
@@ -236,5 +226,40 @@
 .webHeadercontent{
     margin-left: auto;
     margin-right: auto;
+    min-height:64px;
 }
+  .dropDownBtn{
+    position: relative;
+    display: inline-block;
+  }
+  .dropDownBtn:hover .dropDown-content{
+    display: block;
+  }
+  .dropDown-content{
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    top: 42px;
+    z-index: 1;
+  }
+  .dropDown-content div{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropDown-PostAd{
+    min-width: 215px;
+    text-align: left;
+    box-shadow: 1px 1px 8px 0px rgba(0,0,0,0.23);
+  }
+  .dropDown-Lang{
+    min-width: 104px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.34);
+  }
+  .dropDown-MyPage{
+    min-width: 104px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.34);
+  }
+
 </style>

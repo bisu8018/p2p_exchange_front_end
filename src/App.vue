@@ -336,8 +336,8 @@
     /* mobile 에서 gutter 주기*/
     @media only screen and (max-width: 959px) {
         .flex{
-            padding-left: 4px !important;
-            padding-right: 4px !important;
+            padding-left: 4px;
+            padding-right: 4px;
         }
     }
 

@@ -297,6 +297,24 @@ const strings = new Map([
         CN: '发布广告',
         JP: ''
     }],
+    ['MyPage', {
+        KOR: '마이페이지',
+        ENG: 'My Page',
+        CN: '我的页面',
+        JP: ''
+    }],
+    ['MyOrder', {
+        KOR: '내 주문내역',
+        ENG: 'My Order',
+        CN: '我的订单',
+        JP: ''
+    }],
+    ['MyAds', {
+        KOR: '내 광고내역',
+        ENG: 'My Ads',
+        CN: '我的广告',
+        JP: ''
+    }],
   ['assets', {
       KOR: '자산',
       ENG: 'Assets',

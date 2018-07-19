@@ -24,14 +24,14 @@
       <div v-else>
         <!-- 표의 header들 -->
         <v-layout mb-3>
-          <v-flex gridBox md1 text-md-left>Order number</v-flex>
-          <v-flex gridBox md2 text-md-left>Transaction Type</v-flex>
-          <v-flex gridBox md2 text-md-left>Number of transactions</v-flex>
-          <v-flex gridBox md2 text-md-left>Total price</v-flex>
-          <v-flex gridBox md1 text-md-left>unit price</v-flex>
-          <v-flex gridBox md2 text-md-left>time</v-flex>
-          <v-flex gridBox md1 text-md-left>status </v-flex>
-          <v-flex gridBox md1 text-md-right>Trading partners</v-flex>
+          <v-flex  md1 text-md-left>Order number</v-flex>
+          <v-flex  md2 text-md-left>Transaction Type</v-flex>
+          <v-flex  md2 text-md-left>Number of transactions</v-flex>
+          <v-flex  md2 text-md-left>Total price</v-flex>
+          <v-flex  md1 text-md-left>unit price</v-flex>
+          <v-flex  md2 text-md-left>time</v-flex>
+          <v-flex  md1 text-md-left>status </v-flex>
+          <v-flex  md1 text-md-right>Trading partners</v-flex>
         </v-layout>
         <v-divider></v-divider>
 

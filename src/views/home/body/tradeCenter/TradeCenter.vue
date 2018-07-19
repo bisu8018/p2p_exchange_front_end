@@ -5,7 +5,7 @@
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <v-flex  v-for="user in dataInfo" :key="`i${user}`"  xs12 style="height: 180px;" >
+                <v-flex  v-for="user in users" :key="`i${user}`"  xs12 style="height: 180px;" >
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
@@ -18,18 +18,18 @@
                 <!-- chart의 title들 -->
                 <!-- md 이상에서만 binding-->
                 <v-layout mb-3>
-                    <v-flex gridBox md3 text-md-left>Merchant(Volume | Trade rate)</v-flex>
-                    <v-flex gridBox md2 text-md-left>Available</v-flex>
-                    <v-flex gridBox md2 text-md-left>Limits</v-flex>
-                    <v-flex gridBox md2 text-md-left>Price </v-flex>
-                    <v-flex gridBox md2 text-md-left>Payment Method </v-flex>
-                    <v-flex gridBox md1 text-md-right>Control</v-flex>
+                    <v-flex  md3 text-md-left>Merchant(Volume | Trade rate)</v-flex>
+                    <v-flex  md2 text-md-left>Available</v-flex>
+                    <v-flex  md2 text-md-left>Limits</v-flex>
+                    <v-flex  md2 text-md-left>Price </v-flex>
+                    <v-flex  md2 text-md-left>Payment Method </v-flex>
+                    <v-flex  md1 text-md-right>Control</v-flex>
 
                 </v-layout>
                 <v-divider></v-divider>
 
                 <!-- user item list들 10개씩 출력-->
-                <v-flex v-for="(user,index) in dataInfo" :key="index" md12 >
+                <v-flex v-for="(user,index) in users" :key="index" md12 >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>
