@@ -5,8 +5,8 @@ import MainRepository from "@/vuex/MainRepository";
 export default {
     AD: {
         // CNY, USDT 코인 환율 select
-        getMarketPrice: function (callback: any) {
-            AxiosService._requestWithBody('/exchangeRate', 'GET', '' ,
+        getUserInfo: function (callback: any) {
+            AxiosService._requestWithBody('/postAdInfo', 'GET', '' ,
                 function (data: any) {
 
                     callback(data);

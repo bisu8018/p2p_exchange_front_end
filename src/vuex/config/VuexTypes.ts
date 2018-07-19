@@ -22,8 +22,8 @@ export enum VuexTypes {
     //              SELECTBOX
     // =====================================
     SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
-    SET_CURRENCY_DATA = 'Country/SET_COUNTRY_DATA',
-    SET_PAYMENET_DATA = 'Country/SET_COUNTRY_DATA',
+    SET_CURRENCY_DATA = 'Currency/SET_CURRENCY_DATA',
+    SET_PAYMENET_DATA = 'Payment/SET_PAYMENET_DATA',
 
     //======================================
     //              TradeView
