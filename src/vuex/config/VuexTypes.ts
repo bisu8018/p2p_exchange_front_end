@@ -30,4 +30,6 @@ export enum VuexTypes {
     // =====================================
     SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
     SET_SELECTTRADEVIEW_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
+    SET_BUYSELL_DATA = 'trade/SET_BUYSELL_DATA',
+    SET_TOKEN_DATA = 'trade/SET_TOKEN_DATA',
 }

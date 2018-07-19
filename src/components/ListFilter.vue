@@ -13,7 +13,7 @@
       </v-layout>
     </v-card>
 
-   <v-layout >
+   <v-layout>
     <v-flex xs12 md4 >
       <v-dialog v-model="isModal" width="370px">
         <v-card width="370px">
