@@ -1,58 +1,64 @@
 <template>
 
-    <div>
-      <v-layout wrap row mt-5>
+    <div class="footer">
+      <v-layout wrap row mt-5 class="footerContainer">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 text-md-left text-xs-left>
-          <div class="mb-4a">
-            <img src="@/assets/img/logo_OTC.png">
-          </div>
+          <img class="mb-4a" src="@/assets/img/logo_OTC.png">
         </v-flex>
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 text-md-left text-xs-left>
-          <p class="TextDarkgray">{{$str("support")}}</p>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("guides")}}</p></a>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("FAQ")}}</p></a>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p >{{$str("announcements")}}</p></a>
-          <div v-if="$vuetify.breakpoint.smAndDown" class=""> </div>
+          <p >{{$str("support")}}</p>
+          <a  href="https://www.allblab.com"><p>{{$str("guides")}}</p></a>
+          <a  href="https://www.allblab.com" ><p>{{$str("FAQ")}}</p></a>
+          <a  href="https://www.allblab.com" ><p>{{$str("announcements")}}</p></a>
         </v-flex>
         <!-- 카드 3 Terms-->
         <v-flex xs12 md3 text-md-left text-xs-left>
-          <p class="TextDarkgray">{{$str("terms")}}</p>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("terms_Of_Service")}}</p></a>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("transaction_Regulations")}}</p></a>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("fees")}}</p></a>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("Terms_Of_Privacy_Policy")}}</p></a>
-          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("KYC&AML_Policies")}}</p></a>
+          <p >{{$str("terms")}}</p>
+          <a  href="https://www.allblab.com" ><p>{{$str("terms_Of_Service")}}</p></a>
+          <a  href="https://www.allblab.com" ><p>{{$str("transaction_Regulations")}}</p></a>
+          <a href="https://www.allblab.com" ><p>{{$str("fees")}}</p></a>
+          <a href="https://www.allblab.com" ><p>{{$str("Terms_Of_Privacy_Policy")}}</p></a>
+          <a  href="https://www.allblab.com" ><p>{{$str("KYC&AML_Policies")}}</p></a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
         <v-flex xs12 md3 text-md-left text-xs-left>
-          <p class="TextDarkgray">{{$str("contact_Us")}}</p>
-          <a class="TextBlack " href="https://www.allblab.com" target="_blank"><p>support@allblab.com</p></a>
+          <p>{{$str("contact_Us")}}</p>
+          <a  href="https://www.allblab.com"><p>support@allblab.com</p></a>
         </v-flex>
       </v-layout>
-      <v-divider></v-divider>
-      <!--언어설정 버튼-->
-      <v-layout justify-center mt-4>
-        <v-menu offset-y open-on-hover >
-          <!-- 한국어-->
-          <div slot="activator" v-if="currentLang=='KO'">
-            <img src="@/assets/img/flag3.png"><div class=" ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
+      <v-divider ></v-divider>
+      <!-- 언어설정버튼 -->
+      <v-layout mt-4a mb-4a row wrap class="footerContainer">
+        <v-flex md6 xs12 mb-3 text-xs-center text-md-left>
+          <!-- 한국어모드일때-->
+          <button v-if="currentLang=='KO'">
+            <img src="@/assets/img/flag3.png">
+            <span class=" ml-2 ">한국어<v-icon small >keyboard_arrow_up</v-icon></span>
+          </button>
+          <!-- 영어모드일때 -->
+          <button  v-else-if="currentLang=='EN'" >
+            <img src="@/assets/img/flag2.png">
+            <span class=" ml-2 " >English<v-icon small >keyboard_arrow_up</v-icon></span>
+          </button>
+          <!-- 중국어모드일때 -->
+          <button v-else>
+            <img src="@/assets/img/flag1.png">
+            <span class=" ml-2">简体中文<v-icon small >keyboard_arrow_up</v-icon></span>
+          </button>
+          <!--언어 설정시 dropdown box-->
+          <div class="">
+            <!-- 내 정보 list 버튼-->
+            <button @click="changeLang('KO')">한국어</button>
+            <button @click="changeLang('ZH')">简体中文</button>
+            <button @click="changeLang('EN')">English</button>
           </div>
-          <!-- 영어 -->
-          <div  slot="activator" v-else-if="currentLang=='EN'">
-            <img src="@/assets/img/flag2.png"><div class="ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
-          </div>
-          <!-- 중국어 -->
-          <div slot="activator" v-else>
-            <img src="@/assets/img/flag1.png"><div class="ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
-          </div>
-          <v-list>
-            <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
-              <v-list-tile-title>{{ language.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
+        </v-flex>
+
+        <v-flex md6 xs12 text-md-right>
+          <span>© 2018 allb.com</span>
+        </v-flex>
       </v-layout>
     </div>
 
@@ -65,30 +71,6 @@
     export default Vue.extend({
         name: 'abFooter',
         data: () => ({
-            icons: [
-                'fab fa-facebook',
-                'fab fa-twitter',
-                'fab fa-google-plus',
-                'fab fa-linkedin',
-                'fab fa-instagram'
-            ],
-            support: [
-                'Guides',
-                'FAQ',
-                'Announcements',
-                'Terms of Service',
-                'Transaction Regulations',
-                'Fees',
-                'Terms of Privacy Policy',
-                'KYC&AML Policies',
-                // &amp; => &;
-                'Support@allb.com'
-            ],
-            languages: [
-                {title: '한국어', code: 'KO'},
-                {title: '简体中文', code: 'ZH'},
-                {title: 'English', code: 'EN'},
-            ],
             currentLang : 'EN',
         }),
         methods : {
@@ -104,13 +86,11 @@
 </script>
 
 <style scoped>
-  a{
-    text-decoration: none;
 
-  }
-  p{
-    margin-bottom: 16px;
-    font-size : 14px;
+  .footerContainer{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
 </style>

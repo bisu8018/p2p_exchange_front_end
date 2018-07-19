@@ -198,6 +198,7 @@ const strings = new Map([
         JP: ''
     }],
     //Trade Center
+
     ['currency', {
         KOR: '통화',
         ENG: 'Currency',
@@ -252,6 +253,12 @@ const strings = new Map([
       CN: '商家(30天成单 | 完成率)',
       JP: ''
   }],
+    ['Available', {
+        KOR: '가능규모',
+        ENG: 'Available',
+        CN: '可用尺寸',
+        JP: ''
+    }],
   ['volume', {
       KOR: '규모',
       ENG: 'Volume',
@@ -288,6 +295,18 @@ const strings = new Map([
       CN: '出售',
       JP: ''
   }],
+    ['userMemo', {
+        KOR: '판매자 메모',
+        ENG: 'User Memo',
+        CN: '商家备注',
+        JP: ''
+    }],
+    ['Payment_window_is_15minutes', {
+        KOR: '15분후 거래화면이 닫힙니다.',
+        ENG: 'Payment window is 15minutes',
+        CN: '买方付款时限为15分钟',
+        JP: ''
+    }],
 
   //  header
   ['exchange', {
@@ -327,6 +346,24 @@ const strings = new Map([
         CN: '发布广告',
         JP: ''
     }],
+    ['MyPage', {
+        KOR: '마이페이지',
+        ENG: 'My Page',
+        CN: '我的页面',
+        JP: ''
+    }],
+    ['MyOrder', {
+        KOR: '내 주문내역',
+        ENG: 'My Order',
+        CN: '我的订单',
+        JP: ''
+    }],
+    ['MyAds', {
+        KOR: '내 광고내역',
+        ENG: 'My Ads',
+        CN: '我的广告',
+        JP: ''
+    }],
   ['assets', {
       KOR: '자산',
       ENG: 'Assets',
@@ -339,6 +376,30 @@ const strings = new Map([
       CN: '发布广告',
       JP: ''
   }],
+    ['Balances', {
+        KOR: '밸런스',
+        ENG: 'Balances',
+        CN: '余额',
+        JP: ''
+    }],
+    ['UserCenter', {
+        KOR: '유저센터',
+        ENG: 'User Center',
+        CN: '用户中心',
+        JP: ''
+    }],
+    ['Merchant', {
+        KOR: '판매자',
+        ENG: 'Merchant',
+        CN: '商人',
+        JP: ''
+    }],
+    ['LogOut', {
+        KOR: '로그아웃',
+        ENG: 'Log Out',
+        CN: '登出',
+        JP: ''
+    }],
 
     //footer
     ['support', {
@@ -387,6 +448,18 @@ const strings = new Map([
         KOR: '수수료율',
         ENG: 'Fees',
         CN: '费率说明',
+        JP: ''
+    }],
+    ['Terms_Of_Privacy_Policy', {
+        KOR: '개인정보 보호 정책약관',
+        ENG: 'Terms of Privacy Policy',
+        CN: '隐私政策条款',
+        JP: ''
+    }],
+    ['KYC&AML_Policies', {
+        KOR: 'KYC&AML 정책',
+        ENG: 'KYC&AML Policies',
+        CN: 'KYC&AML 政策',
         JP: ''
     }],
     ['contact_Us', {
@@ -754,6 +827,76 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    // My Order
+    ['OrderNumber', {
+        KOR: '거래 번호',
+        ENG: 'Order number',
+        CN: '订单号',
+        JP: ''
+    }],
+    ['TransactionType', {
+        KOR: '거래 유형',
+        ENG: 'Transaction type',
+        CN: '交易类型',
+        JP: ''
+    }],
+    ['NumberOfTransactions', {
+        KOR: '거래 수',
+        ENG: 'Number of transactions',
+        CN: '交易数量',
+        JP: ''
+    }],
+    ['TotalPrice', {
+        KOR: '총 가격',
+        ENG: 'Total price',
+        CN: '总价',
+        JP: ''
+    }],
+    ['unitPrice', {
+        KOR: '단가',
+        ENG: 'Unit price',
+        CN: '单价',
+        JP: ''
+    }],
+    ['status', {
+        KOR: '상태',
+        ENG: 'Status',
+        CN: '状态',
+        JP: ''
+    }],
+    ['TradingPartners', {
+        KOR: '교환 상대',
+        ENG: 'Trading partners',
+        CN: '交易对象',
+        JP: ''
+    }],
+    // My Order
+    ['MyAds', {
+        KOR: '내 광고내역',
+        ENG: 'My Ads',
+        CN: '我的订单',
+        JP: ''
+    }],
+    ['No', {
+        KOR: 'No',
+        ENG: 'No',
+        CN: '订单号',
+        JP: ''
+    }],
+    ['AdsType', {
+        KOR: '광고 종류',
+        ENG: 'Ads Type',
+        CN: '交易类型',
+        JP: ''
+    }],
+    ['time', {
+        KOR: '시간',
+        ENG: 'Time',
+        CN: '时间',
+        JP: ''
+    }],
+
+
 
 
 ])
@@ -810,8 +953,8 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.EN;
-// let currentLang: Lang = checkLocale();
+// let currentLang: Lang = Lang.EN;
+ let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {

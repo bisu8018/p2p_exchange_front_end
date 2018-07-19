@@ -1,8 +1,10 @@
 <template>
   <v-app>
       <abHeader></abHeader>
-      <v-content class='white' style="min-height:600px; ">
-          <router-view ></router-view>
+      <v-content>
+        <div class="mainView">
+          <router-view></router-view>
+        </div>
       </v-content>
       <abFooter></abFooter>
   </v-app>
@@ -63,4 +65,12 @@ export default Vue.extend({
 </script>
 
 <style>
+  .mainView{
+    max-width: 1200px;
+    min-height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+
+  }
 </style>

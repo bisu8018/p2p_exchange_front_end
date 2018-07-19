@@ -2,7 +2,7 @@
   <div>
     <v-layout row wrap mt-5>
       <!--header-->
-      <v-flex md3 xs12>My Ads</v-flex>
+      <v-flex md3 xs12>{{$str("MyAds")}}</v-flex>
       <v-flex md5 xs12></v-flex>
       <!--search filter 추가할것-->
       <v-flex md4 xs12><list-filter></list-filter></v-flex>
@@ -11,7 +11,7 @@
     <div>
       <!--mobile 일때-->
       <div v-if="isMobile">
-        <v-flex  v-for="adslist in adsLists" :key="`i${user}`"  xs12 style="height: 180px;" >
+        <v-flex  v-for="adslist in adsLists" :key="`i${adslist}`"  xs12 style="height: 180px;" >
           <my-ads-list
                   :adslist="adslist"
           ></my-ads-list>
@@ -23,18 +23,18 @@
       <div v-else>
         <!-- 표의 header들 -->
         <v-layout mb-3>
-          <v-flex gridBox md1 text-md-left>No</v-flex>
-          <v-flex gridBox md2 text-md-left>Ads Type</v-flex>
-          <v-flex gridBox md1 text-md-left>Amount</v-flex>
-          <v-flex gridBox md2 text-md-left>Limits</v-flex>
-          <v-flex gridBox md1 text-md-left>Price</v-flex>
-          <v-flex gridBox md2 text-md-left>Time</v-flex>
-          <v-flex gridBox md3 text-md-right>Control</v-flex>
+          <v-flex  md1 text-md-left>{{$str("No")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("AdsType")}}</v-flex>
+          <v-flex  md1 text-md-left>{{$str("amount")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("limits")}}</v-flex>
+          <v-flex  md1 text-md-left>{{$str("price")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("time")}}</v-flex>
+          <v-flex  md3 text-md-right>{{$str("control")}}</v-flex>
         </v-layout>
         <v-divider></v-divider>
 
         <!-- user ad list들 10개씩 출력-->
-        <v-flex v-for="(adslist,index) in adslists" :key="index" md12 >
+        <v-flex v-for="(adslist,index) in adsLists" :key="index" md12 >
           <my-ads-list
                   :adslist="adslist"
           ></my-ads-list>
@@ -61,64 +61,52 @@
         data: () => ({
             adsLists: [
                 {
-                    orderNum: '6517',
-                    exType: 119,
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    unitPrice: 44.0,
+                    no: '6517',
+                    adType: 119,
+                    amount: 66.0,
+                    limits: 224,
+                    price: 44.0,
                     time : '11:59:59',
-                    status : 'assign',
-                    partner : 'haohao',
                 },
                 {
-                    orderNum: '6517',
-                    exType: 119,
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    unitPrice: 44.0,
+                    no: '6517',
+                    adType: 119,
+                    amount: 66.0,
+                    limits: 224,
+                    price: 44.0,
                     time : '11:59:59',
-                    status : 'assign',
-                    partner : 'haohao',
                 },
                 {
-                    orderNum: '6517',
-                    exType: 119,
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    unitPrice: 44.0,
+                    no: '6517',
+                    adType: 119,
+                    amount: 66.0,
+                    limits: 224,
+                    price: 44.0,
                     time : '11:59:59',
-                    status : 'assign',
-                    partner : 'haohao',
                 },
                 {
-                    orderNum: '6517',
-                    exType: 119,
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    unitPrice: 44.0,
+                    no: '6517',
+                    adType: 119,
+                    amount: 66.0,
+                    limits: 224,
+                    price: 44.0,
                     time : '11:59:59',
-                    status : 'assign',
-                    partner : 'haohao',
                 },
                 {
-                    orderNum: '6517',
-                    exType: 119,
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    unitPrice: 44.0,
+                    no: '6517',
+                    adType: 119,
+                    amount: 66.0,
+                    limits: 224,
+                    price: 44.0,
                     time : '11:59:59',
-                    status : 'assign',
-                    partner : 'haohao',
                 },
                 {
-                    orderNum: '6517',
-                    exType: 119,
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    unitPrice: 44.0,
+                    no: '6517',
+                    adType: 119,
+                    amount: 66.0,
+                    limits: 224,
+                    price: 44.0,
                     time : '11:59:59',
-                    status : 'assign',
-                    partner : 'haohao',
                 },
 
             ],

@@ -2,17 +2,16 @@
   <div>
     <v-layout row wrap mt-5>
       <!--header-->
-      <v-flex md3 xs12>My Order</v-flex>
+      <v-flex md3 xs12>{{$str("MyOrder")}}</v-flex>
       <v-flex md5 xs12></v-flex>
       <!--search filter 추가할것-->
       <v-flex md4 xs12><list-filter></list-filter></v-flex>
     </v-layout>
     <!--main list view-->
     <div>
-
       <!--mobile 일때-->
       <div v-if="isMobile">
-        <v-flex  v-for="orderlist in orderLists" :key="`i${user}`"  xs12 style="height: 180px;" >
+        <v-flex  v-for="orderlist in orderLists" :key="`i${user}`" xs12>
           <my-order-list
                   :orderlist="orderlist"
           ></my-order-list>
@@ -24,14 +23,14 @@
       <div v-else>
         <!-- 표의 header들 -->
         <v-layout mb-3>
-          <v-flex gridBox md1 text-md-left>Order number</v-flex>
-          <v-flex gridBox md2 text-md-left>Transaction Type</v-flex>
-          <v-flex gridBox md2 text-md-left>Number of transactions</v-flex>
-          <v-flex gridBox md2 text-md-left>Total price</v-flex>
-          <v-flex gridBox md1 text-md-left>unit price</v-flex>
-          <v-flex gridBox md2 text-md-left>time</v-flex>
-          <v-flex gridBox md1 text-md-left>status </v-flex>
-          <v-flex gridBox md1 text-md-right>Trading partners</v-flex>
+          <v-flex  md1 text-md-left>{{$str("OrderNumber")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("TransactionType")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("NumberOfTransactions")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
+          <v-flex  md1 text-md-left>{{$str("unitPrice")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("time")}}</v-flex>
+          <v-flex  md1 text-md-left>{{$str("status")}} </v-flex>
+          <v-flex  md1 text-md-right>{{$str("TradingPartners")}}</v-flex>
         </v-layout>
         <v-divider></v-divider>
 

@@ -1,6 +1,6 @@
 <template>
     <!--Vertical, horizontal alignment-->
-    <v-layout mt-5 mb-5 ml-3 mr-3>
+    <v-layout mt-5 mb-5>
         <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
             <div>
                 <div class="mb-4a login-title">
@@ -39,14 +39,13 @@
                 <div class="goForgetPwdWrapper text-xs-left caption ">
                     <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
                 </div>
-                <v-btn dark color="Button" class="btnHover elevation-0" @click='onCheck' large block>
-                    {{$str("loginText")}}
-                </v-btn>
+                <button class=" btnHover block" @click="onCheck">{{$str("loginText")}}</button>
+
                 <div class="mt-4a mb-4a orWrapper">
                     <div class="orTextWrapper"><span class="orText caption">or</span></div>
                 </div>
-                <v-btn @click='goSignup' flat large block class="textBlue btnHover btnSignup">{{$str("signupText")}}
-                </v-btn>
+                <button class=" btnHover block" @click="goSignup">{{$str("signupText")}}</button>
+
             </div>
         </v-flex>
     </v-layout>

@@ -1,51 +1,59 @@
 <template>
   <div>
+    <!-- Mobile 일때-->
     <div v-if="isMobile">
       <!-- name-->
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>Order number</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.orderNum}}</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>No</v-flex>
+        <v-flex xs8 text-xs-right>{{adslist.no}}</v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>Transaction Type</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.exType}}</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>Ads Type</v-flex>
+        <v-flex xs8 text-xs-right>{{adslist.adType}}</v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>Number of transactions</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.exNum}}</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>Amount</v-flex>
+        <v-flex xs8 text-xs-right>{{adslist.amount}}</v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>Total price</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.totalPrice}}</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>Limits</v-flex>
+        <v-flex xs8 text-xs-right>{{adslist.limits}}</v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>unit price</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.unitPrice}}</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>Price</v-flex>
+        <v-flex xs8 text-xs-right>{{adslist.price}}</v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>time</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>Time</v-flex>
         <v-flex xs8 text-xs-right>{{adslist.time}}</v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>status</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.status}}</v-flex>
+      <v-layout >
+        <v-flex xs4 text-xs-left>Control</v-flex>
+        <v-flex xs8 text-xs-right>
+          <span class="mr-3">Edit</span>
+          <span class="mr-3">Enable</span>
+          <span class="mr-3">Delete</span>
+          <span>Share</span>
+        </v-flex>
       </v-layout>
-      <v-layout gridBox>
-        <v-flex xs4 text-xs-left>Trading partners</v-flex>
-        <v-flex xs8 text-xs-right>{{adslist.partner}}</v-flex>
-      </v-layout>
-
 
     </div>
+
+    <!-- Web 일때-->
     <div v-else>
       <v-layout pt-4 >
-        <v-flex gridBox md1 text-md-left>{{adslist.orderNum}}</v-flex>
-        <v-flex gridBox md2 text-md-left>{{adslist.exType}}</v-flex>
-        <v-flex gridBox md1 text-md-left>{{adslist.exNum}}</v-flex>
-        <v-flex gridBox md2 text-md-left>{{adslist.totalPrice}}</v-flex>
-        <v-flex gridBox md1 text-md-left>{{adslist.unitPrice}}</v-flex>
-        <v-flex gridBox md2 text-md-left>{{adslist.time}}</v-flex>
-        <v-flex gridBox md3 text-md-right>{{adslist.partner}}</v-flex>
+        <v-flex  md1 text-md-left>{{adslist.no}}</v-flex>
+        <v-flex  md2 text-md-left>{{adslist.adType}}</v-flex>
+        <v-flex  md1 text-md-left>{{adslist.amount}}</v-flex>
+        <v-flex  md2 text-md-left>{{adslist.limits}}</v-flex>
+        <v-flex  md1 text-md-left>{{adslist.price}}</v-flex>
+        <v-flex  md2 text-md-left>{{adslist.time}}</v-flex>
+        <v-flex  md3 text-md-right>
+          <button class="mr-3">Edit</button>
+          <button class="mr-3">Enable</button>
+          <button class="mr-3">Delete</button>
+          <button>Share</button>
+        </v-flex>
 
       </v-layout>
     </div>
