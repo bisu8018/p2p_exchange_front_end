@@ -77,7 +77,7 @@
                 </v-flex>
             </div>
         </v-flex>
-        <verification-modal :show="showModal" v-on:verifyConfirm="onSignup"></verification-modal>
+        <verification-modal :show="showModal" v-on:verifyConfirm="onSignup" v-on:close="onClose"></verification-modal>
     </v-layout>
 </template>
 
@@ -216,6 +216,10 @@
                         console.log("POST ERROR ::::::: " + error);
                     }
                 })
+            },
+            // 모달 종료
+            onClose() {
+                this.showModal = false;
             },
             // 로그인 페이지 이동
             goLogin() {

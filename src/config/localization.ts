@@ -953,8 +953,8 @@ function checkLocale(): Lang {
   }
 }
 
-// let currentLang: Lang = Lang.EN;
- let currentLang: Lang = checkLocale();
+let currentLang: Lang = Lang.EN;
+ //let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {
@@ -962,7 +962,7 @@ export function abGetLang (): Lang {
 }
 
 export function abSetLang (lang: Lang) {
-    currentLang = lang
+    currentLang = lang;
 
     deleteCookie('language');
 

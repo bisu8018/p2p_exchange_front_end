@@ -20,6 +20,7 @@
 
 <script>
     import Vue from 'vue';
+
     export default {
         name: 'dragVerify',
         data() {
@@ -27,11 +28,11 @@
                 isMoving: false,
                 x: 0,
                 isPassing: false,
-                slidebarWidth: 200 ,
+                slidebarWidth: 200,
                 slidebarHeight: 40,
-                vIcon : "keyboard_arrow_right",
-                text : Vue.prototype.$str("verifySliderPlaceholder"),
-                successText : Vue.prototype.$str("verifySliderSuccess")
+                vIcon: "keyboard_arrow_right",
+                text: Vue.prototype.$str("verifySliderPlaceholder"),
+                successText: Vue.prototype.$str("verifySliderSuccess")
             }
         },
         props: {
@@ -45,7 +46,7 @@
             },
             completedBg: {
                 type: String,
-                default: '#white'
+                default: 'white'
             },
             circle: {
                 type: Boolean,
@@ -88,7 +89,7 @@
             //드래그 전체 창 css
             dragVerifyStyle: function () {
                 return {
-                    width: this.slidebarWidth  + 'px',
+                    width: this.slidebarWidth + 'px',
                     height: this.slidebarHeight + 'px',
                     lineHeight: this.slidebarHeight + 'px',
                     background: this.background,
@@ -114,17 +115,25 @@
             },
         },
         mounted: function () {
-            this.init(),
-                this.$nextTick(() => {
-                    window.addEventListener('resize', () => {
-                        var layout_width = document.getElementById('verify_wrapper').offsetWidth;
-                        this.slidebarWidth = layout_width;
-                    });
-                })
+            this.init();
+            this.$nextTick(() => {
+                window.addEventListener('resize', () => {
+                    var layout_width = document.getElementById('verify_wrapper').offsetWidth;
+                    this.slidebarWidth = layout_width;
+                    if(this.slidebarWidth == 0){
+                        //모달 길이 fix시 수정 필요
+                        this.slidebarWidth = 352;
+                    }
+                });
+            })
         },
         methods: {
             init: function () {
                 this.slidebarWidth = document.getElementById('verify_wrapper').offsetWidth;
+                if(this.slidebarWidth == 0){
+                    //모달 길이 fix시 수정 필요
+                    this.slidebarWidth = 352;
+                }
             },
             dragStart: function (e) {
                 if (!this.isPassing) {
@@ -141,7 +150,7 @@
                         handler.style.left = _x + 'px';
                         this.$refs.progressBar.style.width = (_x + this.slidebarHeight / 2) + 'px';
                     } else if (_x > (this.slidebarWidth - this.slidebarHeight)) {
-                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) -6 + 'px';
+                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) - 6 + 'px';
                         this.$refs.progressBar.style.width = (this.slidebarWidth - this.slidebarHeight / 2) + 'px';
                         this.passVerify();
                     }

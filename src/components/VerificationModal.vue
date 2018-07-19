@@ -1,8 +1,9 @@
 <template>
     <div class="text-xs-center">
         <v-dialog
-                v-model="dialog"
-                width="500"
+                v-model="show"
+                width="384"
+                persistent = false
         >
             <v-card>
                 <v-card-title
@@ -11,7 +12,7 @@
                 >
                     {{$str("verification")}}
                     <v-spacer></v-spacer>
-                    <v-btn icon dark @click.native="dialog = false">
+                    <v-btn icon dark @click.native="onClose">
                         <!--아이콘 직접 import 필요 (해당 부분 kay 작업 중 2018-07-19)-->
                         <v-icon>close</v-icon>
                     </v-btn>
@@ -30,7 +31,7 @@
                     <v-btn
                             color="primary"
                             flat
-                            @click="dialog = false"
+                            @click="onClose"
                     >
                         {{$str("cancel")}}
                     </v-btn>
@@ -57,7 +58,6 @@
         },
         data() {
             return {
-                dialog: this.show,
                 isVerified: false,
                 warning_verify_terms: false
             }
@@ -70,15 +70,13 @@
             onConfirm: function () {
                 if (this.isVerified) {
                     this.$emit('verifyConfirm');
-                    this.dialog = false;
                 } else {
                     this.warning_verify_terms = true;
                 }
-
-            },temp(show) {
-                console.log(123);
+            },
+            onClose: function () {
+                this.$emit('close');
             }
-
         },
     }
 </script>

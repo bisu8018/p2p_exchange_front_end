@@ -1,156 +1,148 @@
 <template>
-  <div >
+  <div>
     <div>
       <!-- 모바일 일때-->
       <div v-if="isMobile">
-        <v-layout id="nav">
+        <v-layout id="nav" class="align-center">
           <!--logo-->
-          <button>
+          <div class="ml-3">
             <img @click="goMain()" src="@/assets/img/logo_color.png" id="logo">
-          </button>
+          </div>
           <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
-
+          <v-spacer> </v-spacer>
           <!--햄버거 bar-->
-          <button class="mr-3">
-            <v-icon @click.stop="drawer = !drawer">menu</v-icon>
-          </button>
+          <div class="mr-3">
+            <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
+          </div>
         </v-layout>
 
         <!-- navigation drawer 열렸을 시 나오는 menu bar-->
         <div class="dropDownBtn" v-if="drawer" @click.stop="drawer = !drawer">
-          <v-layout row wrap class="hello">
+          <v-layout row wrap id="dropDownMenu">
             <!-- TradeCenter버튼-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button right flat  @click="goTradeCenter()">{{$str("TradeCenter")}}</button>
+            <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
+              <button class="text-xs-left ml-3">
+                <div right flat >{{$str("TradeCenter")}}</div>
+              </button>
             </v-flex>
             <!-- BlockTrade 버튼-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat >{{$str("BlockTrade")}}</button>
+            <v-flex xs12 class="verticalcentertext">
+
+              <button class="text-xs-left ml-3">
+                <div flat>{{$str("BlockTrade")}}</div>
+              </button>
             </v-flex>
             <!-- post AD 버튼 -->
-            <v-flex xs12 text-xs-left mt-3 pb-3 ml-3>
-              <button flat @click.stop="postadDrawer = !postadDrawer">
-                <div>{{$str("postAd")}}</div>
+            <v-flex xs12 class="verticalcentertext" @click.stop="postadDrawer = !postadDrawer">
+
+              <button class="text-xs-left ml-3">
+                <div>
+                  <div>{{$str("postAd")}}</div>
+                </div>
               </button>
             </v-flex>
             <!--post AD 눌렀을때 나오는 세부항목-->
             <div id="submenu">
               <div v-if="postadDrawer">
                 <!--post general AD-->
-                <v-flex xs12 text-xs-left pb-3 ml-5 pt-3>
-                  <button @click="goPostGeneralAd" flat >
-                    {{$str("Post_General_AD")}}</button>
+                <v-flex xs12 class="verticalcentertext" @click="goPostGeneralAd" >
+                  <button class="text-xs-left ml-5">
+                    <div flat>
+                      {{$str("Post_General_AD")}}</div>
+                  </button>
                 </v-flex>
                 <!--post block AD-->
-                <v-flex xs12 text-xs-left pt-3  ml-5 pb-3>
-                  <button @click="goPostBlockAd" flat >
-                    {{$str("Post_Block_AD")}}</button>
+                <v-flex xs12 class="verticalcentertext" @click="goPostBlockAd" >
+                  <button class="text-xs-left ml-5">
+                    <div>
+                      {{$str("Post_Block_AD")}}</div>
+                  </button>
                 </v-flex>
               </div>
             </div>
 
             <!-- login 버튼-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goLogin()">{{$str("loginText")}}</button>
+            <v-flex xs12 class="verticalcentertext" @click="goLogin()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("loginText")}}</div>
+              </button>
             </v-flex>
             <!-- signup 버튼-->
-            <v-flex xs12 text-xs-left mt-3 mb-4 ml-3>
-              <button flat  @click="goSignup()">{{$str("signupText")}}</button>
+            <v-flex xs12 class="verticalcentertext" @click="goSignup()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("signupText")}}</div>
+              </button>
             </v-flex>
-            <!--로그인시 -->
-
-            <!--Orders-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goMyInfo('MyOrder')">{{$str("order")}}</button>
-            </v-flex>
-            <!--Balances-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goBalances()">{{$str("Balances")}}</button>
-            </v-flex>
-            <!-- My Ads-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goMyInfo('MyAds')">{{$str("MyAds")}}</button>
-            </v-flex>
-            <!-- User Center-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goUserCenter()">{{$str("UserCenter")}}</button>
-            </v-flex>
-            <!-- Merchant -->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goMerchant()">{{$str("Merchant")}}</button>
-            </v-flex>
-            <!-- Log Out-->
-            <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <button flat  @click="goLogOut()">{{$str("LogOut")}}</button>
-            </v-flex>
-
           </v-layout>
         </div>
       </div>
 
       <!-- 웹일때 -->
-      <div  v-else>
-        <v-layout align-center row fill-height>
+      <div v-else>
+        <v-layout align-center row id="nav">
           <!-- logo버튼-->
-          <button  @click="goMain()" class="ml-4">
-            <img  src="@/assets/img/logo_color.png" >
+          <button @click="goMain()" class="ml-4">
+            <img src="@/assets/img/logo_color.png" id="logo">
           </button>
           <!-- TradeCenter버튼-->
-          <button   @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</button>
+
+          <button @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</button>
           <!-- BlockTrade 버튼-->
-          <button class="ml-4a" >{{$str("BlockTrade")}}</button>
+          <button class="ml-4a">{{$str("BlockTrade")}}</button>
           <!-- post AD 버튼 -->
-          <div >
-            <!-- default post AD 버튼-->
-            <button  class="ml-4a">{{$str("postAd")}}
-              <div>
-                <button @click="goPostGeneralAd">{{$str("Post_General_AD")}}</button>
-                <button @click="goPostBlockAd">{{$str("Post_Block_AD")}}</button>
-              </div>
-            </button>
-          </div>
+          <!-- default post AD 버튼-->
+          <button class="ml-4a dropDownBtn">{{$str("postAd")}}
+            <div class="dropDown-content pl-3 pt-3 pr-3">
+              <div class="pb-3 text-md-left" @click="goPostGeneralAd">{{$str("Post_General_AD")}}</div>
+              <div class="pb-3 text-md-left" @click="goPostBlockAd">{{$str("Post_Block_AD")}}</div>
+            </div>
+          </button>
 
           <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
           <v-spacer></v-spacer>
 
-
-          <!-- 로그인시 내정보 사항들-->
-          <!--MyOrder-->
-          <button class="mr-4a" @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</button>
-          <!--balance-->
-          <button  class="mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
-          <!--My ads-->
-          <button class="mr-4a" @click="goMyInfo('MyAds')">{{$str("MyAds")}}</button>
+          <!-- 로그인시 내정보 버튼 -->
+          <!--
+          <div class="dropDownBtn mr-4a">
+              <button class="ml-4a pl-3">{{$str("MyPage")}}
+                            <div class="dropDown-content dropDown-MyPage"> -->
+          <!-- 내 정보 list 버튼-->
+          <!--
+          <div @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</div>
+          <div @click="goMyInfo('MyAds')">{{$str("MyAds")}}</div>
+        </div>
+      </button>
+</div> -->
           <!--내 정보 끝-->
 
 
           <!-- login 버튼 -->
-          <button  class="mr-4a" @click="goLogin()">{{$str("loginText")}}</button>
+          <button class="button-2 mr-4a" @click="goLogin()">{{$str("loginText")}}</button>
           <!-- signup 버튼-->
-          <div  class="mr-4a" @click="goSignup()">{{$str("signupText")}}</div>
+          <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
           <!-- 언어설정버튼 -->
-          <div class="mr-4a">
+          <div class="dropDownBtn mr-4a" >
             <!-- 한국어-->
-            <button   v-if="currentLang=='KO'">
+            <div style="display: inline-block;" v-if="currentLang=='KO'">
               <img src="@/assets/img/flag3.png">
-              <span class=" ml-2 ">한국어<v-icon small >keyboard_arrow_down</v-icon></span>
-            </button>
+              <span class=" ml-2">한국어<i class="material-icons md-light">keyboard_arrow_down</i></span>
+            </div>
             <!-- 영어 -->
-            <button  v-else-if="currentLang=='EN'" >
+            <div style="display: inline-block;" v-else-if="currentLang=='EN'">
               <img src="@/assets/img/flag2.png">
-              <span class=" ml-2" >English<v-icon small >keyboard_arrow_down</v-icon></span>
-            </button>
+              <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+            </div>
             <!-- 중국어 -->
-            <button   v-else>
+            <div style="display: inline-block;" v-else>
               <img src="@/assets/img/flag1.png">
-              <span class=" ml-2 ">简体中文<v-icon small >keyboard_arrow_down</v-icon></span>
-            </button>
+              <span class=" ml-2">简体中文<v-icon small >keyboard_arrow_down</v-icon></span>
+            </div>
             <!--언어 설정시 dropdown box-->
-            <div >
+            <div class="dropDown-content dropDown-Lang">
               <!-- 내 정보 list 버튼-->
-              <button @click="changeLang('KO')">한국어</button>
-              <button @click="changeLang('ZH')">简体中文</button>
-              <button @click="changeLang('EN')">English</button>
+              <div class=" pl-3 pt-3 pb-3 text-md-left" @click="changeLang('KO')">한국어</div>
+              <div class=" pl-3 pb-3 text-md-left" @click="changeLang('ZH')">简体中文</div>
+              <div class=" pl-3 pb-3 text-md-left" @click="changeLang('EN')">English</div>
             </div>
           </div>
         </v-layout>
@@ -163,27 +155,38 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {abGetLang, abSetLang} from "../../config/localization";
+    import {
+        abGetLang,
+        abSetLang
+    } from "../../config/localization";
     import MainRepository from "../../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'abHeader',
         data: () => ({
-            title : 'header',
+            title: 'header',
             drawer: false,
-            postadDrawer : false,
+            postadDrawer: false,
 
-            languages: [
-                {title: '한국어', code: 'KO'},
-                {title: '简体中文', code: 'ZH'},
-                {title: 'English', code: 'EN'},
+            languages: [{
+                title: '한국어',
+                code: 'KO'
+            },
+                {
+                    title: '简体中文',
+                    code: 'ZH'
+                },
+                {
+                    title: 'English',
+                    code: 'EN'
+                },
             ],
-            currentLang : 'KO',
+            currentLang: 'KO',
 
 
         }),
         methods: {
-            goSignup(){
+            goSignup() {
                 this.$router.push("/signup");
             },
             goLogin() {
@@ -202,8 +205,8 @@
                 this.$router.push("/blockAd");
                 //this.$router.push("/postAd?block");
             },
-            goMyInfo(myInfo){
-                switch(myInfo){
+            goMyInfo(myInfo) {
+                switch (myInfo) {
                     case 'MyOrder':
                         this.$router.push("/myOrder");
                         break;
@@ -213,17 +216,14 @@
                         break;
                 }
             },
-            goBalances() {
-                this.$router.push("/balances");
-            },
 
-            changeLang: function (userLang) {
+            changeLang: function(userLang) {
                 abSetLang(userLang);
                 this.currentLang = userLang
             },
 
         },
-        computed : {
+        computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             }
@@ -238,15 +238,8 @@
 <style>
   #nav {
     height: 64px;
-    padding-top: 20px;
-    padding-left: 16px;
     background-color: #002970;
-
-  }
-
-  #submenu {
-    width: 100%;
-    background-color: #21407e;
+    color: white;
   }
 
   #logo {
@@ -255,67 +248,63 @@
   }
 
 
-
-
-
-
-  .hello {
+  #dropDownMenu {
     z-index: 100;
     position: absolute;
     width: 100%;
     color: white;
     background-color: #002970;
-    display: inline-block;
   }
 
+  #dropDownMenu .flex {
+    padding-left: 0;
+    padding-right: 0;
+    height: 52px;
+  }
 
-
-
-  .headerFirst{
-    position: fixed;
-    z-index:100 ;
+  #submenu {
     width: 100%;
-
-  }
-  .headerMainWrapper{
-    min-height:64px;
-
-
-  }
-  .webHeadercontent{
-    margin-left: auto;
-    margin-right: auto;
-    min-height:64px;
+    background-color: #21407e;
   }
 
-  .dropDownBtn:hover .dropDown-content{
+  #submenu.flex {
+    height: 52px;
+  }
+
+  .verticalcentertext {
+    align-items: center;
+    display: flex;
+  }
+
+  .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
     display: block;
   }
-  .dropDown-content{
+
+  .dropDown-content {
     display: none;
     position: absolute;
     background-color: #ffffff;
-    top: 42px;
-    z-index: 1;
+    top: 64px;
+    z-index: 0;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 2px;
+    font-weight: 400;
+
   }
-  .dropDown-content div{
+
+  .dropDown-content div {
     color: black;
-    padding: 12px 16px;
     text-decoration: none;
     display: block;
   }
-  .dropDown-PostAd{
-    min-width: 215px;
-    text-align: left;
-    box-shadow: 1px 1px 8px 0px rgba(0,0,0,0.23);
-  }
-  .dropDown-Lang{
+
+
+  .dropDown-Lang {
     min-width: 104px;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.34);
-  }
-  .dropDown-MyPage{
-    min-width: 104px;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.34);
   }
 
+  .dropDown-MyPage {
+    min-width: 104px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.34);
+  }
 </style>
