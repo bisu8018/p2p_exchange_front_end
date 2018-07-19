@@ -168,30 +168,33 @@
                     disabled: false
                 }
             ],
-            tradeStatus : 'Buy',
+            tradeStatus : 'BUY',
             tradeCoin: 'BTC',
         }),
         methods : {
             setBuyInfo(item){
-
-                this.tradeStatus = 'Buy';
+                this.tradeStatus = 'BUY';
                 if(item =="current"){ //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
-                    this.tradeCoin
-
+                    //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
                 }
                 else{
                     this.tradeCoin =item;
+                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
+                    MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
+                    MainRepository.TradeView.setSelectPage(0);
                 }
 
             },
             setSellInfo(item){
-                this.tradeStatus = 'Sell';
+                this.tradeStatus = 'SELL';
                 if(item =='current'){     //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
-                    this.tradeCoin
-
+                    //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
                 }
                 else{
                     this.tradeCoin =item;
+                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
+                    MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
+                    MainRepository.TradeView.setSelectPage(0);
                 }
 
             },

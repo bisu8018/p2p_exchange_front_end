@@ -5,7 +5,7 @@
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <v-flex  v-for="user in users" :key="`i${user}`"  xs12 style="height: 180px;" >
+                <v-flex  v-for="user in dataInfo" :key="`i${user}`"  xs12 style="height: 180px;" >
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
@@ -29,7 +29,7 @@
                 <v-divider></v-divider>
 
                 <!-- user item list들 10개씩 출력-->
-                <v-flex v-for="(user,index) in users" :key="index" md12 >
+                <v-flex v-for="(user,index) in dataInfo" :key="index" md12 >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>

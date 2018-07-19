@@ -279,7 +279,6 @@
     .common-input {
         height: 40px;
         border-radius: 2px;
-        background-color: #f8f8fa;
         border: solid 1px #8d8d8d;
         width: 100%;
         margin-bottom: 22px;
