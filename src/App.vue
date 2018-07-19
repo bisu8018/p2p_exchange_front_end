@@ -327,21 +327,20 @@
     .TextWhite{
         color : #FFFFFF;
     }
-    /* 웹에서*/
+    /* 웹에서 gutter 주기*/
     @media only screen and (min-width: 960px) {
-        .gridBox {
+        .flex{
             padding-left: 12px;
             padding-right: 12px;
-
         }
     }
-    /* mobile 에서*/
+    /* mobile 에서 gutter 주기*/
     @media only screen and (max-width: 959px) {
-        .gridBox {
-            padding-left: 4px;
-            padding-right: 4px;
-
+        .flex{
+            padding-left: 4px !important;
+            padding-right: 4px !important;
         }
     }
+
 
 </style>
