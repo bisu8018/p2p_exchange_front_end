@@ -700,21 +700,21 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['sellChecklist1', {
+        KOR: '1. 판매하는 자산은 이미 고정되어 있습니다. 송금을받은 후 자산을 지불하려면 버튼을 클릭하십시오.',
+        ENG: '1. The assets you sell are already frozen. Please click on the button to pay assets after you receive the transfer.',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['sellChecklist2', {
+        KOR: '2. 만약 구매자가 당신이 미리 자산을 공개하기를 원한다면, 그가 이야기 하는 어떠한 이유도 믿지 마십시오. 불필요한 손실을 방지하려면 송금을 받은 후 자산을 공개 해야합니다.',
+        ENG: '2. Please do not trust any excuses made by the buyer if he wants you to release the assets in advance. To avoid unnecessary loss, please make sure that you release the assets after you receive the transfer.',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['sellChecklist3', {
+        KOR: '3. 수신 SMS를받은 후 사기성 SMS로 인한 실수로 자산을 공개 할 수 있으므로 온라인 은행이나 모바일 은행에 로그인하여 수신을 확인하십시오.',
+        ENG: '3. After you receive the arrival SMS, please log into online bank or mobile bank to check the arrival because fraud SMS can make you release the assets by mistake.',
         CN: '',
         JP: ''
     }],

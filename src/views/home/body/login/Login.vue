@@ -8,7 +8,7 @@
                     <h2 class="title-2">{{$str("welcome")}}</h2>
                 </div>
                 <form action="/signin" method="post" id="loginForm">
-                    <div class="text-xs-left mb-2 caption">{{$str("email")}}</div>
+                    <div class="text-xs-left mb-2 caption" >{{$str("email")}}</div>
                     <input type="text" class="common-input" name="email" v-model="email"
                            :placeholder="loginEmailPlaceholder">
                     <div class="text-xs-left mb-2 caption">{{$str("password")}}</div>
