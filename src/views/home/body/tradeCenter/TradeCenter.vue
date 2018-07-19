@@ -1,11 +1,11 @@
 <template>
-    <div class="contentsWrapper" style="max-width: 1200px">
+    <div class="contentsWrapper" >
         <!-- 상단의 list filter -->
         <trade-center-filter></trade-center-filter>
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <v-flex  v-for="user in users" :key="`i${user}`"  xs12 style="height: 180px;" >
+                <v-flex  v-for="user in users" :key="`i${user}`"  xs12>
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
@@ -165,18 +165,5 @@
 </script>
 
 <style scoped>
-    .contentsWrapper{
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .userList{
-        display: flex;
-        height: 90px;
-    }
-    .ctlButton{
-        border-radius: 86px;
-        color: white;
-        height: 36px;
-        width: 86px;
-    }
+
 </style>

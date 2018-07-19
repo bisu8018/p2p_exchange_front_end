@@ -18,7 +18,7 @@
             </div>
 
             <!-- BTC ALLB ETH  버튼 -->
-            <v-layout row wrap justify-center style="font-size: 16px" mt-4 mb-4>
+            <v-layout row wrap justify-center>
             <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
             <v-flex xs3 v-for="item in items" key="itemKey2" @click="setBuyInfo(item.text) "  >
               {{ item.text }}
@@ -37,13 +37,13 @@
           <v-layout>
             <v-flex md5>
               <v-layout column>
-                <v-layout row style="font-size: 16px" mb-1>
+                <v-layout row mb-1>
                   <v-flex md3 offset-md1 bold>{{$str("buy")}}</v-flex>
                   <v-flex md7></v-flex>
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" class="coinBtn" key="buyKey">
+                  <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" key="buyKey">
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
@@ -52,15 +52,15 @@
             </v-flex>
             <!-- 가운데 divider-->
             <v-flex md1>
-              <v-layout align-center justify-end column fill-height pr-4>
-                <span><v-divider vertical style="height: 48px;"></v-divider></span>
+              <v-layout align-center justify-end column fill-height>
+                <span><v-divider vertical ></v-divider></span>
               </v-layout>
             </v-flex>
             <!-- Sell 부분 -->
             <v-flex md5>
               <v-layout column>
-                <v-layout row style="font-size: 16px" mb-1>
-                  <v-flex md3 offset-md1 bold>{{$str("sell")}}</v-flex>
+                <v-layout row >
+                  <v-flex md3 offset-md1 >{{$str("sell")}}</v-flex>
                   <v-flex md7></v-flex>
                 </v-layout>
                 <v-layout row>
@@ -79,42 +79,42 @@
     <!-- right filter -->
     <v-flex xs12 md5>
       <div>
-        <div style=" border: solid 1px #b2b2b2;">
+        <div >
           <v-layout row text-xs-left>
-            <v-flex xs10 pr-0 pl-0>
-              <div  class=" statusChip" >{{country}}</div>
-              <div  class=" statusChip">{{currency}}</div>
-              <div  class=" statusChip">{{paymentMethod}}</div>
-              <div  class=" statusChip" v-if="amount!=0" v-model="isAmout" text-color="white"
+            <v-flex xs10 >
+              <div  class="" >{{country}}</div>
+              <div  class="">{{currency}}</div>
+              <div  class=" ">{{paymentMethod}}</div>
+              <div  class=" " v-if="amount!=0" v-model="isAmout"
                       @input="removeAmount" >{{amount}}</div>
             </v-flex>
-            <v-flex xs2 pt-1 pr-0 pl-0><v-icon  @click.stop="isModal = true">search</v-icon></v-flex>
+            <v-flex xs2 pt-1 ><v-icon  @click.stop="isModal = true">search</v-icon></v-flex>
           </v-layout>
         </div>
 
-        <v-layout>
-          <v-flex xs12 md4 >
-            <v-dialog v-model="isModal" width="370px">
+        <v-layout class="cardModal">
+          <div >
+            <div v-if="isModal" >
               <v-card width="370px">
                 <v-card-text>
                   <v-layout row wrap>
-                    <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("country")}}</v-flex>
+                    <v-flex xs12 md4 text-md-right text-xs-left mb-2 >{{$str("country")}}</v-flex>
                     <!--country select box-->
                     <v-flex xs12 md8><SelectBox select-box-type="country"></SelectBox></v-flex>
 
                     <!-- currency 셀렉터-->
-                    <v-flex xs12 md4 pr-2  text-md-right text-xs-left mb-2 style="color: #353535" >{{$str("currency")}}</v-flex>
+                    <v-flex xs12 md4  text-md-right text-xs-left mb-2  >{{$str("currency")}}</v-flex>
                     <v-flex xs12 md8>
                       <SelectBox select-box-type="currency"></SelectBox>
                     </v-flex>
 
                     <!-- payment method 셀렉터-->
-                    <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("paymentMethod")}}</v-flex>
+                    <v-flex xs12 md4 text-md-right text-xs-left >{{$str("paymentMethod")}}</v-flex>
                     <v-flex xs12 md8>
                       <SelectBox select-box-type="payment"></SelectBox>
                     </v-flex>
                     <!-- amount 셀렉터 -->
-                    <v-flex xs12 md4 pr-2 text-md-right text-xs-left mb-2 style="color:#353535;">{{$str("amount")}}</v-flex>
+                    <v-flex xs12 md4 text-md-right text-xs-left>{{$str("amount")}}</v-flex>
                     <v-flex xs12 md8>
                       <v-text-field v-bind:label="$str('How_much_you_want_to_trade?')" v-model="amount" :type="'number'" ></v-text-field>
                     </v-flex>
@@ -123,15 +123,14 @@
                 <!-- cancel, search 버튼-->
                 <v-card-actions>
                   <v-flex text-xs-right >
-                    <v-btn dark round color="secondary" @click.native="isModal = false" >{{$str("cancel")}}</v-btn>
-                    <v-btn dark color="primary" round @click="onSearch">{{$str("search")}}</v-btn>
+                    <button class="" @click="isModal = false" >{{$str("cancel")}} </button>
+                    <button class="" @click="onSearch" >{{$str("search")}} </button>
                   </v-flex>
                 </v-card-actions>
               </v-card>
-            </v-dialog>
-          </v-flex>
+            </div>
+          </div>
         </v-layout>
-
       </div>
     </v-flex>
   </v-layout>
@@ -170,6 +169,7 @@
             ],
             tradeStatus : 'BUY',
             tradeCoin: 'BTC',
+
         }),
         methods : {
             setBuyInfo(item){
@@ -252,7 +252,11 @@
     border-bottom-right-radius:200px;
   }
   .mobileBtnText{
-    line-height:50px; color:#214ea1; position: absolute; left: 20px; bottom: -8px;
+    line-height:50px;
+    color:#214ea1;
+    position: absolute;
+    left: 20px;
+    bottom: -8px;
   }
   .mobileBtnTextClicked{
     line-height:50px;
@@ -266,14 +270,9 @@
     font-size: 16px;
     font-weight: bold;
   }
-  .statusChip{
-    display : inline-block;
-    background-color: #9294A6;
-    margin-left: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #ffffff;
+
+  .cardModal{
+    z-index: 2;
+    position: absolute;
   }
 </style>
