@@ -143,7 +143,7 @@
     import SelectBox from '@/components/SelectBox.vue';
     import AXIOS from 'axios';
     export default Vue.extend({
-        name: "TradeCenterFi,.lter",
+        name: "TradeCenterFilter",
         components: {
             SelectBox,
         },

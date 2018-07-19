@@ -343,4 +343,28 @@
         }
     }
 
+    .warning_border {
+        border: solid 1px #e62a2b;
+    }
+
+    .warning_text {
+        color: #e62a2b;
+        font-size: 10px;
+        display: block !important;
+    }
+
+    .hide_warning_text {
+        display: none;
+    }
+
+    .text-input-wrapper {
+        position: relative;
+    }
+
+    .warning-text-wrapper {
+        position: absolute !important;
+        bottom: 6px !important;;
+        right: 0 !important;;
+    }
+
 </style>

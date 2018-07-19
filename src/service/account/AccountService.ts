@@ -29,6 +29,14 @@ export default {
                 },
                 function () {
                 })
+        },
+        sendVerificationCode: function (data: any, callback: any) {
+            AxiosService._requestWithBody('sendValidationCode', 'POST', data ,
+                function (data: any) {
+                    callback(data)
+                },
+                function () {
+                })
         }
     }
 }

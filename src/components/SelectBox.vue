@@ -1,6 +1,6 @@
 <template>
     <v-layout wrap align-center>
-        <v-flex xs12 class="selectbox-wrapper" >
+        <div  class="selectbox-wrapper selectbox-width" >
             <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="abSelectBox caption">
                 <option v-for="country in countries" v-bind:value="country.code" >{{country.country}}</option>
             </select>
@@ -11,7 +11,7 @@
                 <option v-for="payment in payments" v-bind:value="payment.code" >{{payment.payment}}</option>
             </select>
             <v-icon class="icon-style">keyboard_arrow_down</v-icon>
-        </v-flex>
+        </div>
     </v-layout>
 </template>
 <script>
@@ -83,7 +83,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .abSelectBox {
         width: 100%;
         height: 40px;
@@ -92,14 +92,12 @@
         border: solid 1px #8d8d8d;
         color: #9294a6;
         padding-left: 12px;
+        cursor: pointer;
     }
 
     .abSelectBox option:checked {
         background: #f8f8fa;
     }
-
-
-
 
     .selectbox-wrapper{
         position: relative;

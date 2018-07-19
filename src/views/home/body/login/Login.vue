@@ -8,14 +8,28 @@
                     <h2 class="title-2">{{$str("welcome")}}</h2>
                 </div>
                 <form action="/signin" method="post" id="loginForm">
-                    <div class="text-xs-left mb-2 caption" >{{$str("email")}}</div>
-                    <input type="text" class="common-input" name="email" v-model="email"
-                           :placeholder="loginEmailPlaceholder">
+                    <div class="text-xs-left mb-2 caption">{{$str("email")}}</div>
+                    <div class="text-input-wrapper"><input type="text" class="common-input" name="email" v-model="email"
+                                                           @blur="onCheckEmail"
+                                                           :placeholder="loginEmailPlaceholder"
+                                                           v-bind:class="{'warning_border' : warning_email}">
+                        <div class="warning-text-wrapper">
+                            <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_email}">{{verify_warning_email}}</span>
+                        </div>
+                    </div>
                     <div class="text-xs-left mb-2 caption">{{$str("password")}}</div>
-                    <input name="encryptedPassword" v-model="password" type="password" class="common-input"
-                           :placeholder="loginPasswordPlaceholder">
-                    <div class="mb-4 verifySlider" v-if="email.length>0 && password.length>=8" >
-                    <!--<v-flex class="verifySlider" mb-4>-->
+                    <div class="text-input-wrapper">
+                        <input name="encryptedPassword" v-model="password" type="password" class="common-input"
+                               @blur="onCheckPassword"
+                               :placeholder="loginPasswordPlaceholder"
+                               v-bind:class="{'warning_border' : warning_password}">
+                        <div class="warning-text-wrapper">
+                            <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_password}">{{verify_warning_password}}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 verifySlider" v-if="email.length>0 && password.length>=8">
+                        <!--<v-flex class="verifySlider" mb-4>-->
                         <div class="text-xs-left mb-2 caption">{{$str("verify")}}</div>
                         <verify-slider v-on:passcallback="putVerified"></verify-slider>
                     </div>
@@ -51,13 +65,18 @@
                 email: '',
                 password: '',
                 isVerified: false,
-                verify_warning: "",
+                verify_warning_email: "",
+                verify_warning_password: "",
+                verify_warning_slider: "",
                 loginEmailPlaceholder: Vue.prototype.$str("loginEmailPlaceholder"),
-                loginPasswordPlaceholder: Vue.prototype.$str("loginPasswordPlaceholder")
+                loginPasswordPlaceholder: Vue.prototype.$str("loginPasswordPlaceholder"),
+                warning_email: false,
+                warning_password: false,
+                warning_slider: false,
             }
         },
         components: {
-            'VerifySlider': VerifySlider,
+            VerifySlider,
         },
         methods: {
             goSignup() {
@@ -69,48 +88,57 @@
             onLogin() {
                 //Send Email verification codes to Server
                 document.getElementById("loginForm").submit();
-                // AccountService.Account.login({
-                //     email: this.email,
-                //     encryptedPassword: this.password
-                // }, function (error) {
-                //     if (!error) {
-                //         console.log("success");
-                //     } else {
-                //         console.log("POST ERROR ::::::: " + error);
-                //     }
-                // })
             },
             putVerified: function () {
                 this.isVerified = true;
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
+                if (this.onCheckEmail() && this.onCheckPassword() && this.onCheckSlider()) {
+                    this.onLogin();
+                }
+            },
+            onCheckEmail() {
                 //email null
                 if (this.email === "") {
-                    this.verify_warning = $str("emailValue");
-                    return;
+                    this.verify_warning_email = Vue.prototype.$str("emailValue");
+                    this.warning_email = true;
+                    return false;
                 }
                 //email form
                 if (!abUtils.isEmail(this.email)) {
-                    this.verify_warning = $str("emailForm");
-                    return;
+                    this.verify_warning_email = Vue.prototype.$str("emailForm");
+                    this.warning_email = true;
+                    return false;
                 }
+                this.warning_email = false;
+                return true;
+            },
+            onCheckPassword() {
                 //password null
                 if (this.password === "") {
-                    this.verify_warning = $str("passwordValue");
-                    return;
+                    this.verify_warning_password = Vue.prototype.$str("passwordValue");
+                    this.warning_password = true;
+                    return false;
                 }
                 //password form
                 if (!abUtils.isPasswd(this.password)) {
-                    this.verify_warning = $str("passwordForm");
-                    return;
+                    this.verify_warning_password = Vue.prototype.$str("passwordForm");
+                    this.warning_password = true;
+                    return false;
                 }
+                this.warning_password = false;
+                return true;
+            },
+            onCheckSlider() {
                 //verify slider
                 if (this.isVerified === false) {
-                    this.verify_warning = $str("verifySlider");
-                    return;
+                    this.verify_warning_slider = Vue.prototype.$str("verifySlider");
+                    this.warning_slider = true;
+                    return false;
                 }
-                this.onLogin();
+                this.warning_slider = false;
+                return true;
             }
         }
     }
@@ -124,12 +152,12 @@
     .login-title {
         display: flex;
     }
+
     .card-flex {
         border-radius: 3px;
         border: solid 1px #8d8d8d;
         padding-bottom: 40px !important;
     }
-
 
     .textBlue {
         color: #214ea1 !important;
@@ -173,4 +201,13 @@
     .cardTitle {
         margin-top: 3px;
     }
+
+
+
+    /*verify slider warning CSS*/
+    /*.warning-text-slider-wrapper {
+    position: absolute;
+    bottom: -16px;
+    right: 0;
+    }*/
 </style>

@@ -48,9 +48,8 @@ export var abUtils = {
     // if ( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
     //   return false;
     // }
-
     // 영문/숫자/특수문자 필수
-     if (num < 0 && eng < 0 && spe < 0){
+     if (num < 0 || eng < 0 || spe < 0){
        return false;
      }
     return true;

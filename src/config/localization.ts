@@ -6,43 +6,61 @@ const strings = new Map([
     ['emailValue', {
         KOR: '이메일을 입력해 주십시오.',
         ENG: 'Pleaes enter email value.',
-        CN: '',
+        CN: '请输入您的电子邮件',
         JP: ''
     }],
     ['emailForm', {
         KOR: '이메일 양식에 맞지 않습니다.',
         ENG: 'Does not fit email format.',
-        CN: '',
+        CN: '不合适与电子邮件形式',
+        JP: ''
+    }],
+    ['verificationCode', {
+        KOR: '인증코드를 입력해 주십시오.',
+        ENG: 'Pleaes enter verification code.',
+        CN: '请输入认证号码',
+        JP: ''
+    }],
+    ['verification', {
+        KOR: '인증코드',
+        ENG: 'Verification',
+        CN: '验证号码',
+        JP: ''
+    }],
+    ['slideVerifyText', {
+        KOR: '슬라이드 인증',
+        ENG: 'Slide verify',
+        CN: '滑动验证',
         JP: ''
     }],
     ['passwordValue', {
         KOR: '비밀번호를 입력해 주십시오.',
         ENG: 'Pleaes enter password value.',
-        CN: '',
+        CN: '请输入密码',
         JP: ''
     }],
     ['passwordDigit', {
         KOR: '최소 8자를 입력해 주세요.',
         ENG: 'Please enter at least eight digits.',
-        CN: '',
+        CN: '密码为8个字以上',
         JP: ''
     }],
     ['passwordForm', {
         KOR: '비밀번호 양식에 맞지 않습니다.',
         ENG: 'Does not fit password format.',
-        CN: '',
+        CN: '不合适与密码形式',
         JP: ''
     }],
     ['passwordMatch', {
         KOR: '패스워드가 일치하지 않습니다.',
         ENG: 'Password is not matching.',
-        CN: '',
+        CN: '密码错误',
         JP: ''
     }],
     ['acceptConditions', {
         KOR: '이용약관에 동의해 주십시오.',
         ENG: 'Please accept the terms and conditions.',
-        CN: '',
+        CN: '请同意使用条款',
         JP: ''
     }],
     ['signupSubject', {
@@ -55,6 +73,18 @@ const strings = new Map([
         KOR: '이메일',
         ENG: 'Email',
         CN: '账户名',
+        JP: ''
+    }],
+    ['emailVerificationCdoe', {
+        KOR: '이메일 인증 코드',
+        ENG: 'Email Verification Cdoe',
+        CN: '手机验证码',
+        JP: ''
+    }],
+    ['clickToSend', {
+        KOR: '클릭하여 전송',
+        ENG: 'Click to send',
+        CN: '发送验证码',
         JP: ''
     }],
     ['password', {
