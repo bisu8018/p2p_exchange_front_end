@@ -36,15 +36,15 @@
       <v-layout justify-center mt-4>
         <v-menu offset-y open-on-hover >
           <!-- 한국어-->
-          <div slot="activator" v-if="currentLang=='KO'">
+          <div style="display: flex;" slot="activator" v-if="currentLang=='KO'">
             <img src="@/assets/img/flag3.png"><div class=" ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
           </div>
           <!-- 영어 -->
-          <div  slot="activator" v-else-if="currentLang=='EN'">
+          <div style="display: flex;" slot="activator" v-else-if="currentLang=='EN'">
             <img src="@/assets/img/flag2.png"><div class="ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
           </div>
           <!-- 중국어 -->
-          <div slot="activator" v-else>
+          <div style="display: flex;" slot="activator" v-else>
             <img src="@/assets/img/flag1.png"><div class="ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
           </div>
           <v-list>

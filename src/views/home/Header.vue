@@ -107,17 +107,17 @@
                     <!-- 언어설정버튼 -->
                     <v-menu offset-y open-on-hover mr-4a>
                         <!-- 한국어-->
-                        <div slot="activator" v-if="currentLang=='KO'">
+                        <div style="display: flex;" slot="activator" v-if="currentLang=='KO'">
                             <img src="@/assets/img/flag3.png">
                             <div class=" ml-2 TextWhite">한국어<v-icon small >keyboard_arrow_down</v-icon></div>
                         </div>
                         <!-- 영어 -->
-                        <div  slot="activator" v-else-if="currentLang=='EN'" >
+                        <div style="display: flex;" slot="activator" v-else-if="currentLang=='EN'" >
                             <img src="@/assets/img/flag2.png">
                             <div class=" ml-2 TextWhite" >English<v-icon small >keyboard_arrow_down</v-icon></div>
                         </div>
                         <!-- 중국어 -->
-                        <div slot="activator" v-else>
+                        <div style="display: flex;" slot="activator" v-else>
                             <img src="@/assets/img/flag1.png">
                             <div class=" ml-2 TextWhite">简体中文<v-icon small >keyboard_arrow_down</v-icon></div>
                         </div>

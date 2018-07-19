@@ -359,6 +359,18 @@ const strings = new Map([
         CN: '费率说明',
         JP: ''
     }],
+    ['Terms_Of_Privacy_Policy', {
+        KOR: '개인정보 보호 정책약관',
+        ENG: 'Terms of Privacy Policy',
+        CN: '隐私政策条款',
+        JP: ''
+    }],
+    ['KYC&AML_Policies', {
+        KOR: 'KYC&AML 정책',
+        ENG: 'KYC&AML Policies',
+        CN: 'KYC&AML 政策',
+        JP: ''
+    }],
     ['contact_Us', {
         KOR: '고객센터',
         ENG: 'Contact Us',
@@ -780,8 +792,8 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.EN;
-// let currentLang: Lang = checkLocale();
+// let currentLang: Lang = Lang.EN;
+ let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {
