@@ -22,14 +22,14 @@ export enum VuexTypes {
     //              SELECTBOX
     // =====================================
     SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
-    SET_CURRENCY_DATA = 'Currency/SET_CURRENCY_DATA',
-    SET_PAYMENET_DATA = 'Payment/SET_PAYMENET_DATA',
+    SET_CURRENCY_DATA = 'Country/SET_COUNTRY_DATA',
+    SET_PAYMENET_DATA = 'Country/SET_COUNTRY_DATA',
 
     //======================================
     //              TradeView
     // =====================================
     SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
     SET_SELECTTRADEVIEW_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
-    SET_BUYSELL_DATA = 'trade/SET_BUYSELL_DATA',
     SET_TOKEN_DATA = 'trade/SET_TOKEN_DATA',
+    SET_ADTYPE_DATA = 'trade/SET_ADTYPE_DATA'
 }

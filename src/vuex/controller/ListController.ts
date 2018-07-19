@@ -29,4 +29,20 @@ export default class ListController {
         return this.store.state.trade.tradeSelectInfo;
     }
 
+    setToken(token: string) {
+        this.store.dispatch(VuexTypes.SET_TOKEN_DATA, token);
+    }
+
+    getToken() {
+        return this.store.state.trade.token;
+    }
+
+    setAdType(adType: string) {
+        this.store.dispatch(VuexTypes.SET_ADTYPE_DATA, adType);
+    }
+
+    getAdType() {
+        return this.store.state.trade.adType;
+    }
+
 }

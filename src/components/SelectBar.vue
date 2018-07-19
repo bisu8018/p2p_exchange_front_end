@@ -71,7 +71,6 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import AXIOS from 'axios';
     import { abUtils } from '@/common/utils';
     import MainRepository from "../vuex/MainRepository";
 
@@ -99,14 +98,19 @@
             setBuyInfo(item){
                 this.tradeStatus = 'BUY';
                 this.tradeCoin = item;
-                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, "BUY");
-                MainRepository.TradeView.setSelectPage(0, this.tradeCoin, "BUY");
+                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
+                console.log()
+                MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
+                console.log("setTokenAndAdType:buy " + MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus));
+                MainRepository.TradeView.setSelectPage(0);
             },
             setSellInfo(item){
                 this.tradeStatus = 'SELL';
                 this.tradeCoin = item;
-                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, "SELL");
-                MainRepository.TradeView.setSelectPage(0, this.tradeCoin, "SELL");
+                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
+                console.log("setTokenAndAdType:sell " + MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus));
+                MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
+                MainRepository.TradeView.setSelectPage(0);
             },
         },
         computed: {

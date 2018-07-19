@@ -27,7 +27,7 @@
             onChanged() {
             console.log("pageChange");
             let pageNumber : number = this.page - 1;
-            return MainRepository.TradeView.setSelectPage(pageNumber, 'BTC' ,'BUY');
+            return MainRepository.TradeView.setSelectPage(pageNumber);
             //MainRepository.TradeView.getSelectPage();
             }
         },
