@@ -8,25 +8,25 @@
         <v-layout gridBox>
           <v-flex xs2 ><td class="text-xs-left">
             <v-avatar color="teal"  :size="34">
-              <span class="white--text headline">{{name[0]}}</span>
+              <span class="white--text headline">{{uesr.email[0]}}</span>
             </v-avatar></td></v-flex>
-          <v-flex xs6 text-xs-left>{{name}} ( {{volumeTotal}} | 99%)</v-flex>
+          <v-flex xs6 text-xs-left>{{uesr.email}} ( {{user.volumeTotal}} | 99%)</v-flex>
           <v-flex xs4 text-xs-left><img src="../../../../../assets/img/rank_crown.png"></v-flex>
         </v-layout>
         <!-- Volume -->
         <v-layout gridBox>
             <v-flex xs3  offset-xs2 text-xs-left>Volume :</v-flex>
-            <v-flex xs5 offset-xs1 text-xs-right> {{volumeTotal}} BTC </v-flex>
+            <v-flex xs5 offset-xs1 text-xs-right> {{user.volumeTotal}} BTC </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout gridBox>
             <v-flex xs3  offset-xs2 text-xs-left>Limits :</v-flex>
-            <v-flex xs5 offset-xs1 text-xs-right> {{limitMax}} CNY </v-flex>
+            <v-flex xs5 offset-xs1 text-xs-right> {{user.limitMax}} CNY </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout gridBox>
             <v-flex xs3  offset-xs2 text-xs-left>Price :</v-flex>
-            <v-flex xs5 offset-xs1 text-xs-right> {{price}} CNY </v-flex>
+            <v-flex xs5 offset-xs1 text-xs-right> {{user.price}} CNY </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout gridBox>
@@ -43,25 +43,25 @@
         <v-layout gridBox>
           <v-flex xs2 ><td class="text-xs-left">
             <v-avatar color="teal"  :size="34">
-              <span class="white--text headline">{{name[0]}}</span>
+              <span class="white--text headline">{{user.email[0]}}</span>
             </v-avatar></td></v-flex>
-          <v-flex xs6 text-xs-left>{{name}} ( {{volumeTotal}} | 99%)</v-flex>
+          <v-flex xs6 text-xs-left>{{user.email}} ( {{user.volumeTotal}} | 99%)</v-flex>
           <v-flex xs4 text-xs-left><img src="../../../../../assets/img/rank_crown.png"></v-flex>
         </v-layout>
         <!-- Volume -->
         <v-layout gridBox>
           <v-flex xs3  offset-xs2 text-xs-left>Volume :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{volumeTotal}} AllB </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right> {{user.volumeTotal}} AllB </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout gridBox>
           <v-flex xs3  offset-xs2 text-xs-left>Limits :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{limitMax}} SGD </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right> {{user.limitMax}} SGD </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout gridBox>
           <v-flex xs3  offset-xs2 text-xs-left>Price :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{price}} SGD </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right> {{user.price}} SGD </v-flex>
         </v-layout>
         <!-- payment methods -->
         <v-layout gridBox>
@@ -97,19 +97,30 @@
     <!--Web 일때-->
     <div v-else>
       <v-layout userList pt-4 >
-        <v-flex md2><td><v-avatar color="teal"  :size="30">
-          <span class=" headline">{{name[0]}}</span>
-        </v-avatar> {{name}} ( {{volumeTotal}} | 99%)</td></v-flex>
-        <v-flex md1 text-md-left><img src="../../../../../assets/img/rank_crown.png"></v-flex>
-        <v-flex md2 text-md-left >{{volumeTotal}} BTC </v-flex>
-        <v-flex md2 text-md-left>{{limitMax}} CNY </v-flex>
-        <v-flex md2 text-md-left>{{price}} CNY </v-flex>
-        <v-flex md2>
+        <v-flex  md3 text-md-left gridBox>
+          <td>
+            <v-avatar color="teal"  :size="30">
+              <span class=" headline">{{user.email[0]}}</span>
+            </v-avatar> {{user.email}} ( {{user.volumeTotal}} | 99%)
+            <!--판매자 rank-->
+            <img class="ml-2" src="../../../../../assets/img/rank_crown.png">
+          </td>
+        </v-flex>
+
+        <v-flex md2 text-md-left gridBox>{{user.volumeTotal}} BTC </v-flex>
+        <v-flex md2 text-md-left gridBox>{{user.limitMax}} CNY </v-flex>
+        <v-flex md2 text-md-left gridBox>{{user.price}} CNY </v-flex>
+        <!-- payment method-->
+        <v-flex md2 text-md-left gridBox>
           <img src="../../../../../assets/img/method_alipay.png">
           <img src="../../../../../assets/img/method_bankaccount.png">
           <img src="../../../../../assets/img/method_wechatpay.png">
         </v-flex>
-        <v-flex md1 text-md-center><button class="ctlButton Button btnHover" @click="drawer = !drawer">{{$str("buy")}} BTC</button></v-flex>
+        <!-- but 혹은 sell button -->
+        <v-flex md1 text-md-right gridBox>
+          <button class="ctlButton Button btnHover" @click="drawer = !drawer">
+            {{$str("buy")}} BTC</button>
+        </v-flex>
       </v-layout>
 
       <!--Buy 를 위한 modal-->
@@ -118,25 +129,24 @@
         <v-layout row wrap>
           <v-flex md1 text-md-left>
             <span><v-avatar color="teal"  :size="30">
-            <span class=" headline">{{name[0]}}</span>
+            <span class=" headline">{{user.email[0]}}</span>
             </v-avatar></span>
           </v-flex>
           <v-flex md2 text-md-left>
               <span>
-                {{name}} ( {{volumeTotal}} | 99%)
+                {{user.email}} ( {{user.volumeTotal}} | 99%)
                 <img src="../../../../../assets/img/rank_crown.png">
               </span>
-            <div>Volume: {{volumeTotal}} AllB</div>
+            <div>Volume: {{user.volumeTotal}} AllB</div>
           </v-flex>
           <v-flex md2>
             <div>
-              {{volumeTotal}} SGD
+              {{user.volumeTotal}} SGD
             </div>
             <div>
-              {{volumeTotal}} SGD
+              {{user.volumeTotal}} SGD
             </div>
           </v-flex>
-
 
           <v-flex md4 text-md-left>
 
@@ -165,10 +175,8 @@
           </v-flex>
           <v-flex md2>
             <span class="TextDarkgray">Payment window is 20minutes</span>
-
           </v-flex>
         </v-layout>
-
       </div>
     </div>
   </div>
@@ -189,14 +197,15 @@
 
         }),
         props : {
-            name: '',
+            name: {
+                type: String,
+                default: '',
+            },
             volumeTotal : 0,
             limitMax : 0,
             price : 0,
             dealMode : 0,
-            user: [
-
-            ],
+            user: {},
 
 
 
@@ -215,7 +224,6 @@
 
 <style scoped>
   .userList{
-    display: flex;
     height: 90px;
   }
   .userModal{

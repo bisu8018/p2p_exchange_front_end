@@ -1,17 +1,7 @@
 <template>
-  <v-footer
-          height="auto"
-          color="grey lighten-4"
-          column
-          wrap
-          align-center
-  >
-    <v-container fluid grid-list-xs style="max-width: 1176px;" pl-0 pr-0 pt-0>
-      <v-layout
-              wrap
-              row
-              mt-5
-      >
+
+    <div>
+      <v-layout wrap row mt-5>
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 text-md-left text-xs-left>
           <div class="mb-4a">
@@ -21,24 +11,24 @@
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 text-md-left text-xs-left>
           <p class="TextDarkgray">{{$str("support")}}</p>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("guides")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("FAQ")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p >{{$str("announcements")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("guides")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("FAQ")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p >{{$str("announcements")}}</p></a>
           <div v-if="$vuetify.breakpoint.smAndDown" class=""> </div>
         </v-flex>
         <!-- 카드 3 Terms-->
         <v-flex xs12 md3 text-md-left text-xs-left>
           <p class="TextDarkgray">{{$str("terms")}}</p>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("terms_Of_Service")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("transaction_Regulations")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("fees")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("Terms_Of_Privacy_Policy")}}</p></a>
-          <a class="TextBlack" href="https://vuetifyjs.com" target="_blank"><p>{{$str("KYC&AML_Policies")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("terms_Of_Service")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("transaction_Regulations")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("fees")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("Terms_Of_Privacy_Policy")}}</p></a>
+          <a class="TextBlack" href="https://www.allblab.com" target="_blank"><p>{{$str("KYC&AML_Policies")}}</p></a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
-        <v-flex xs12 md3 text-md-left text-xs-left class="grey lighten-4">
+        <v-flex xs12 md3 text-md-left text-xs-left>
           <p class="TextDarkgray">{{$str("contact_Us")}}</p>
-          <a class="TextBlack " href="https://vuetifyjs.com" target="_blank"><p>support@allblab.com</p></a>
+          <a class="TextBlack " href="https://www.allblab.com" target="_blank"><p>support@allblab.com</p></a>
         </v-flex>
       </v-layout>
       <v-divider></v-divider>
@@ -46,17 +36,17 @@
       <v-layout justify-center mt-4>
         <v-menu offset-y open-on-hover >
           <!-- 한국어-->
-          <v-btn flat slot="activator" v-if="currentLang=='KO'">
+          <div slot="activator" v-if="currentLang=='KO'">
             <img src="@/assets/img/flag3.png"><div class=" ml-2">한국어<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
-          </v-btn>
+          </div>
           <!-- 영어 -->
-          <v-btn flat  slot="activator" v-else-if="currentLang=='EN'">
+          <div  slot="activator" v-else-if="currentLang=='EN'">
             <img src="@/assets/img/flag2.png"><div class="ml-2">English<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
-          </v-btn>
+          </div>
           <!-- 중국어 -->
-          <v-btn flat slot="activator" v-else>
+          <div slot="activator" v-else>
             <img src="@/assets/img/flag1.png"><div class="ml-2">简体中文<v-icon small color="ChipGray">keyboard_arrow_up</v-icon></div>
-          </v-btn>
+          </div>
           <v-list>
             <v-list-tile  v-for="(language, index) in languages"   :key="index"  @click="changeLang(language.code)">
               <v-list-tile-title>{{ language.title }}</v-list-tile-title>
@@ -64,8 +54,8 @@
           </v-list>
         </v-menu>
       </v-layout>
-    </v-container>
-  </v-footer>
+    </div>
+
 </template>
 
 <script lang="ts">

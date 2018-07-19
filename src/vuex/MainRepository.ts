@@ -94,26 +94,20 @@ export default {
             return listController
         },
         setTotalTradeView (token: string, adType: string) {
-
             TradeService.tradeView.tradeTotalInfo(token, adType, function(data) {
                 console.log("setTotalTradeView: " + data);
                 listController.setTotalTrade(data);
             });
-            // TradeService.tradeView.tradeTotalInfo(function(data) {
-            //     let tradeList: Trade[] = [];
-            //     for(let key in data) {
-            //         let trade : Trade = new Trade(data[key]);
-            //         tradeList.push(trade);
-            //     }
-            //
-            //     listController.setTotalTrade(tradeList);
-            // });
         },
         getTotalTradeView () {
-            console.log("getTradeView");
+            //console.log("getTradeView");
             return listController.getTotalTrade();
         },
-        setSelectPage(page : number, token: string, adType: string) {
+        setSelectPage(page : number) {
+            //토큰 adType
+            let token = listController.getToken();
+            let adType = listController.getAdType();
+
             TradeService.tradeView.tradePageInfo(page, token, adType, function(data) {
                 let tradeList: Trade[] = [];
                 for(let key in data) {
@@ -126,6 +120,12 @@ export default {
         getSelectPage () {
             return listController.getSelectTrade();
         },
+
+        setTokenAndAdType (token: string, adType: string) {
+            listController.setToken(token);
+            listController.setAdType(adType);
+        },
+
     },
     SelectBox: {
         controller() {
