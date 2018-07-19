@@ -2,7 +2,7 @@
   <div>
     <v-layout row wrap mt-5>
       <!--header-->
-      <v-flex md3 xs12>My Ads</v-flex>
+      <v-flex md3 xs12>{{$str("MyAds")}}</v-flex>
       <v-flex md5 xs12></v-flex>
       <!--search filter 추가할것-->
       <v-flex md4 xs12><list-filter></list-filter></v-flex>
@@ -23,13 +23,13 @@
       <div v-else>
         <!-- 표의 header들 -->
         <v-layout mb-3>
-          <v-flex  md1 text-md-left>No</v-flex>
-          <v-flex  md2 text-md-left>Ads Type</v-flex>
-          <v-flex  md1 text-md-left>Amount</v-flex>
-          <v-flex  md2 text-md-left>Limits</v-flex>
-          <v-flex  md1 text-md-left>Price</v-flex>
-          <v-flex  md2 text-md-left>Time</v-flex>
-          <v-flex  md3 text-md-right>Control</v-flex>
+          <v-flex  md1 text-md-left>{{$str("No")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("AdsType")}}</v-flex>
+          <v-flex  md1 text-md-left>{{$str("amount")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("limits")}}</v-flex>
+          <v-flex  md1 text-md-left>{{$str("price")}}</v-flex>
+          <v-flex  md2 text-md-left>{{$str("time")}}</v-flex>
+          <v-flex  md3 text-md-right>{{$str("control")}}</v-flex>
         </v-layout>
         <v-divider></v-divider>
 

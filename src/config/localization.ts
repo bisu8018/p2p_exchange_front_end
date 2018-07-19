@@ -168,6 +168,7 @@ const strings = new Map([
         JP: ''
     }],
     //Trade Center
+
     ['currency', {
         KOR: '통화',
         ENG: 'Currency',
@@ -222,6 +223,12 @@ const strings = new Map([
       CN: '商家(30天成单 | 完成率)',
       JP: ''
   }],
+    ['Available', {
+        KOR: '가능규모',
+        ENG: 'Available',
+        CN: '可用尺寸',
+        JP: ''
+    }],
   ['volume', {
       KOR: '규모',
       ENG: 'Volume',
@@ -754,6 +761,76 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    // My Order
+    ['OrderNumber', {
+        KOR: '거래 번호',
+        ENG: 'Order number',
+        CN: '订单号',
+        JP: ''
+    }],
+    ['TransactionType', {
+        KOR: '거래 유형',
+        ENG: 'Transaction type',
+        CN: '交易类型',
+        JP: ''
+    }],
+    ['NumberOfTransactions', {
+        KOR: '거래 수',
+        ENG: 'Number of transactions',
+        CN: '交易数量',
+        JP: ''
+    }],
+    ['TotalPrice', {
+        KOR: '총 가격',
+        ENG: 'Total price',
+        CN: '总价',
+        JP: ''
+    }],
+    ['unitPrice', {
+        KOR: '단가',
+        ENG: 'Unit price',
+        CN: '单价',
+        JP: ''
+    }],
+    ['status', {
+        KOR: '상태',
+        ENG: 'Status',
+        CN: '状态',
+        JP: ''
+    }],
+    ['TradingPartners', {
+        KOR: '교환 상대',
+        ENG: 'Trading partners',
+        CN: '交易对象',
+        JP: ''
+    }],
+    // My Order
+    ['MyAds', {
+        KOR: '내 광고내역',
+        ENG: 'My Ads',
+        CN: '我的订单',
+        JP: ''
+    }],
+    ['No', {
+        KOR: 'No',
+        ENG: 'No',
+        CN: '订单号',
+        JP: ''
+    }],
+    ['AdsType', {
+        KOR: '광고 종류',
+        ENG: 'Ads Type',
+        CN: '交易类型',
+        JP: ''
+    }],
+    ['time', {
+        KOR: '시간',
+        ENG: 'Time',
+        CN: '时间',
+        JP: ''
+    }],
+
+
 
 
 ])

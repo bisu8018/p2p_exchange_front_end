@@ -5,15 +5,15 @@
       <div v-if="isMobile">
         <v-layout id="nav">
           <!--logo-->
-          <div>
+          <button>
             <img @click="goMain()" src="@/assets/img/logo_color.png" id="logo">
-          </div>
+          </button>
           <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
 
           <!--햄버거 bar-->
-          <div class="mr-3">
+          <button class="mr-3">
             <v-icon @click.stop="drawer = !drawer">menu</v-icon>
-          </div>
+          </button>
         </v-layout>
 
         <!-- navigation drawer 열렸을 시 나오는 menu bar-->
@@ -21,41 +21,41 @@
           <v-layout row wrap class="hello">
             <!-- TradeCenter버튼-->
             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <div right flat  @click="goTradeCenter()">{{$str("TradeCenter")}}</div>
+              <button right flat  @click="goTradeCenter()">{{$str("TradeCenter")}}</button>
             </v-flex>
             <!-- BlockTrade 버튼-->
             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <div flat >{{$str("BlockTrade")}}</div>
+              <button flat >{{$str("BlockTrade")}}</button>
             </v-flex>
             <!-- post AD 버튼 -->
             <v-flex xs12 text-xs-left mt-3 pb-3 ml-3>
-              <div flat @click.stop="postadDrawer = !postadDrawer">
+              <button flat @click.stop="postadDrawer = !postadDrawer">
                 <div>{{$str("postAd")}}</div>
-              </div>
+              </button>
             </v-flex>
             <!--post AD 눌렀을때 나오는 세부항목-->
             <div id="submenu">
               <div v-if="postadDrawer">
                 <!--post general AD-->
                 <v-flex xs12 text-xs-left pb-3 ml-5 pt-3>
-                  <div @click="goPostGeneralAd" flat >
-                    {{$str("Post_General_AD")}}</div>
+                  <button @click="goPostGeneralAd" flat >
+                    {{$str("Post_General_AD")}}</button>
                 </v-flex>
                 <!--post block AD-->
                 <v-flex xs12 text-xs-left pt-3  ml-5 pb-3>
-                  <div @click="goPostBlockAd" flat >
-                    {{$str("Post_Block_AD")}}</div>
+                  <button @click="goPostBlockAd" flat >
+                    {{$str("Post_Block_AD")}}</button>
                 </v-flex>
               </div>
             </div>
 
             <!-- login 버튼-->
             <v-flex xs12 text-xs-left mt-3 mb-3 ml-3>
-              <div flat  @click="goLogin()">{{$str("loginText")}}</div>
+              <button flat  @click="goLogin()">{{$str("loginText")}}</button>
             </v-flex>
             <!-- signup 버튼-->
             <v-flex xs12 text-xs-left mt-3 mb-4 ml-3>
-              <div flat  @click="goSignup()">{{$str("signupText")}}</div>
+              <button flat  @click="goSignup()">{{$str("signupText")}}</button>
             </v-flex>
           </v-layout>
         </div>
@@ -65,20 +65,20 @@
       <div  v-else>
         <v-layout align-center row fill-height>
           <!-- logo버튼-->
-          <div  @click="goMain()" class="ml-4">
+          <button  @click="goMain()" class="ml-4">
             <img  src="@/assets/img/logo_color.png" >
-          </div>
+          </button>
           <!-- TradeCenter버튼-->
-          <div   @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</div>
+          <button   @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</button>
           <!-- BlockTrade 버튼-->
-          <div class="ml-4a" >{{$str("BlockTrade")}}</div>
+          <button class="ml-4a" >{{$str("BlockTrade")}}</button>
           <!-- post AD 버튼 -->
           <div >
             <!-- default post AD 버튼-->
             <button  class="ml-4a">{{$str("postAd")}}
               <div>
-                <div @click="goPostGeneralAd">{{$str("Post_General_AD")}}</div>
-                <div @click="goPostBlockAd">{{$str("Post_Block_AD")}}</div>
+                <button @click="goPostGeneralAd">{{$str("Post_General_AD")}}</button>
+                <button @click="goPostBlockAd">{{$str("Post_Block_AD")}}</button>
               </div>
             </button>
           </div>
@@ -92,8 +92,8 @@
             <button class="ml-4a" >{{$str("MyPage")}}
               <div class="">
                 <!-- 내 정보 list 버튼-->
-                <div @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</div>
-                <div @click="goMyInfo('MyAds')">{{$str("MyAds")}}</div>
+                <button @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</button>
+                <button @click="goMyInfo('MyAds')">{{$str("MyAds")}}</button>
               </div>
             </button>
           </div>
@@ -107,26 +107,26 @@
           <!-- 언어설정버튼 -->
           <div class="mr-4a">
             <!-- 한국어-->
-            <div   v-if="currentLang=='KO'">
+            <button   v-if="currentLang=='KO'">
               <img src="@/assets/img/flag3.png">
               <span class=" ml-2 ">한국어<v-icon small >keyboard_arrow_down</v-icon></span>
-            </div>
+            </button>
             <!-- 영어 -->
-            <div  v-else-if="currentLang=='EN'" >
+            <button  v-else-if="currentLang=='EN'" >
               <img src="@/assets/img/flag2.png">
               <span class=" ml-2" >English<v-icon small >keyboard_arrow_down</v-icon></span>
-            </div>
+            </button>
             <!-- 중국어 -->
-            <div   v-else>
+            <button   v-else>
               <img src="@/assets/img/flag1.png">
               <span class=" ml-2 ">简体中文<v-icon small >keyboard_arrow_down</v-icon></span>
-            </div>
+            </button>
             <!--언어 설정시 dropdown box-->
             <div >
               <!-- 내 정보 list 버튼-->
-              <div @click="changeLang('KO')">한국어</div>
-              <div @click="changeLang('ZH')">简体中文</div>
-              <div @click="changeLang('EN')">English</div>
+              <button @click="changeLang('KO')">한국어</button>
+              <button @click="changeLang('ZH')">简体中文</button>
+              <button @click="changeLang('EN')">English</button>
             </div>
           </div>
         </v-layout>

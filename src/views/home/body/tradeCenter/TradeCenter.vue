@@ -1,40 +1,39 @@
 <template>
-    <div class="contentsWrapper" >
+    <div class="" >
         <!-- 상단의 list filter -->
         <trade-center-filter></trade-center-filter>
+        <!--본 list들-->
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <v-flex  v-for="user in users" :key="`i${user}`"  xs12>
+                <div  v-for="user in users" :key="`i${user}`" >
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
                     <v-divider></v-divider>
-                </v-flex>
+                </div>
             </div>
             <!-- Web 일때 -->
             <div v-else>
 
                 <!-- chart의 title들 -->
-                <!-- md 이상에서만 binding-->
                 <v-layout mb-3>
-                    <v-flex  md3 text-md-left>Merchant(Volume | Trade rate)</v-flex>
-                    <v-flex  md2 text-md-left>Available</v-flex>
-                    <v-flex  md2 text-md-left>Limits</v-flex>
-                    <v-flex  md2 text-md-left>Price </v-flex>
-                    <v-flex  md2 text-md-left>Payment Method </v-flex>
-                    <v-flex  md1 text-md-right>Control</v-flex>
-
+                    <v-flex  md3 text-md-left>{{$str("Merchant(Volume | Trade rate)")}}</v-flex>
+                    <v-flex  md2 text-md-left>{{$str("Available")}}</v-flex>
+                    <v-flex  md2 text-md-left>{{$str("limits")}}</v-flex>
+                    <v-flex  md2 text-md-left>{{$str("price")}} </v-flex>
+                    <v-flex  md2 text-md-left>{{$str("paymentMethod")}}</v-flex>
+                    <v-flex  md1 text-md-right>{{$str("control")}}</v-flex>
                 </v-layout>
                 <v-divider></v-divider>
 
                 <!-- user item list들 10개씩 출력-->
-                <v-flex v-for="(user,index) in users" :key="index" md12 >
+                <div v-for="(user,index) in users" :key="index" >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>
                     <v-divider></v-divider>
-                </v-flex>
+                </div>
             </div>
             <!-- pagination -->
             <Pagination></Pagination>

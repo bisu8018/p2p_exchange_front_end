@@ -33,26 +33,26 @@
       <v-layout mt-4a mb-4a row wrap class="footerContainer">
         <v-flex md6 xs12 mb-3 text-xs-center text-md-left>
           <!-- 한국어모드일때-->
-          <div v-if="currentLang=='KO'">
+          <button v-if="currentLang=='KO'">
             <img src="@/assets/img/flag3.png">
             <span class=" ml-2 ">한국어<v-icon small >keyboard_arrow_up</v-icon></span>
-          </div>
+          </button>
           <!-- 영어모드일때 -->
-          <div  v-else-if="currentLang=='EN'" >
+          <button  v-else-if="currentLang=='EN'" >
             <img src="@/assets/img/flag2.png">
             <span class=" ml-2 " >English<v-icon small >keyboard_arrow_up</v-icon></span>
-          </div>
+          </button>
           <!-- 중국어모드일때 -->
-          <div v-else>
+          <button v-else>
             <img src="@/assets/img/flag1.png">
             <span class=" ml-2">简体中文<v-icon small >keyboard_arrow_up</v-icon></span>
-          </div>
+          </button>
           <!--언어 설정시 dropdown box-->
           <div class="">
             <!-- 내 정보 list 버튼-->
-            <div @click="changeLang('KO')">한국어</div>
-            <div @click="changeLang('ZH')">简体中文</div>
-            <div @click="changeLang('EN')">English</div>
+            <button @click="changeLang('KO')">한국어</button>
+            <button @click="changeLang('ZH')">简体中文</button>
+            <button @click="changeLang('EN')">English</button>
           </div>
         </v-flex>
 
