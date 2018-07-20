@@ -15,7 +15,7 @@ let listController : ListController;
 let stateController: StateController;
 
 let store: Store<any>;
-//let instance: any;
+let instance: any;
 
 export default {
     init: function (vuexStore: Store<any>, callback: () => any) {
@@ -26,8 +26,9 @@ export default {
         listController = new ListController(store);
 
 
+
         // 자기 참조할 때 씀
-        // instance = this;
+        instance = this;
 
         // 서버 데이터 초기화 -> 완료 후 Callback
         // MainService.getInitValue(function (data: any) {
@@ -88,13 +89,12 @@ export default {
         }
     },
 
-
     TradeView: {
         controller(): ListController{
             return listController
         },
-        setTotalTradeView (token: string, adType: string) {
-            TradeService.tradeView.tradeTotalInfo(token, adType, function(data) {
+        setTotalTradeView (token: string, adType: string, country: string, currency: string, limitMin: number) {
+            TradeService.tradeView.tradeTotalInfo(token, adType, country, currency, limitMin, function(data) {
                 console.log("setTotalTradeView: " + data);
                 listController.setTotalTrade(data);
             });
@@ -107,8 +107,16 @@ export default {
             //토큰 adType
             let token = listController.getToken();
             let adType = listController.getAdType();
+            let country = selectBoxController.getCountry();
+            console.log(selectBoxController.getCountry());
+            console.log("getCountry: " + selectBoxController.getCountry());
+            console.log(country);
+            let currency = selectBoxController.getCurrency();
+            console.log("getCurrency: " + selectBoxController.getCurrency());
+            console.log(currency);
+            let limitMin = 0;
 
-            TradeService.tradeView.tradePageInfo(page, token, adType, function(data) {
+            TradeService.tradeView.tradePageInfo(page, token, adType, country, currency, limitMin, function(data) {
                 let tradeList: Trade[] = [];
                 for(let key in data) {
                     let trade : Trade = new Trade(data[key]);
@@ -128,7 +136,7 @@ export default {
 
     },
     SelectBox: {
-        controller() {
+        controller() : SelectBoxController{
           return selectBoxController
         },
     }

@@ -13,9 +13,9 @@
             page : 0,
         }),
         created() {
-            console.log("Created Page Number:" + MainRepository.TradeView.setTotalTradeView('BTC','BUY'));
             //default BTC , BUY
-            MainRepository.TradeView.setTotalTradeView('BTC','BUY');
+            MainRepository.TradeView.setTotalTradeView('BTC','BUY','ALL','CNY',0);
+            //return MainRepository.TradeView.getTotalTradeView();
         },
         computed: {
             pages () {

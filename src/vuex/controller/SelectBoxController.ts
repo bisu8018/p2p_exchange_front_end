@@ -18,8 +18,8 @@ export default class SelectBoxController {
     }
 
     // select box currency
-    setCurrency(curreny: string){
-        this.store.dispatch(VuexTypes.SET_CURRENCY_DATA, curreny);
+    setCurrency(currency: string){
+        this.store.dispatch(VuexTypes.SET_CURRENCY_DATA, currency);
     }
 
     getCurrency() {

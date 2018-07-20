@@ -1,6 +1,6 @@
 <template>
     <v-layout wrap align-center>
-        <div  class="relative selectbox-width" >
+        <div  class="selectbox-wrapper selectbox-width" >
             <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="abSelectBox caption">
                 <option v-for="country in countries" v-bind:value="country.code" >{{country.country}}</option>
             </select>
@@ -74,11 +74,17 @@
         }),
         methods: {
             setCountry() {
+                console.log(this.selectedCountry);
                 MainRepository.SelectBox.controller().setCountry(this.selectedCountry);
+                console.log("setCountry:" + MainRepository.SelectBox.controller().setCountry(this.selectedCountry));
             }, setCurrency() {
+                console.log("selectedCurrency: " + this.selectedCurrency);
                 MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency);
+                console.log("setCurrency:" + MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency));
             }, setPayment() {
+                console.log("selectedPayment:" + this.selectedPayment)
                 MainRepository.SelectBox.controller().setPayment(this.selectedPayment);
+                console.log("setPayment:" + MainRepository.SelectBox.controller().setPayment(this.selectedPayment));
             }
         }
     }
@@ -99,6 +105,9 @@
         background: #f8f8fa;
     }
 
+    .selectbox-wrapper{
+        position: relative;
+    }
 
     .icon-style {
         position: absolute;

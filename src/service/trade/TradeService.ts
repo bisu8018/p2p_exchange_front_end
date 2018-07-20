@@ -4,8 +4,11 @@ import MainRepository from "@/vuex/MainRepository";
 
 export default {
     tradeView: {
-        tradeTotalInfo : function (token: string, adType: string, callback: any) {
-            AxiosService._requestWithBody('tradePageCount?token='+ token + '&adType='+ adType, 'GET', '',
+        //+ "&limitMin=" + limitMin
+        tradeTotalInfo : function (token: string, adType: string, country: string, currency: string, limitMin: number, callback: any) {
+            AxiosService._requestWithBody('tradePageCount?token='+ token + '&adType='+ adType + '&country=' + country
+                + '&currency=' + currency
+                , 'GET', '',
                 function (data: any) {
                     callback(data);
                 },
@@ -13,8 +16,11 @@ export default {
                     console.log(error);
                 })
         },
-        tradePageInfo : function (page: number, token: string, adType: string, callback: any) {
-            AxiosService._requestWithBody('tradeView?size=10&page='+ page + '&token='+ token + '&adType='+ adType ,'GET', '',
+        //+ "&limitMin=" + limitMin
+        tradePageInfo : function (page: number, token: string, adType: string, country: string, currency: string, limitMin: number, callback: any) {
+            AxiosService._requestWithBody('tradeView?size=10&page='+ page + '&token='+ token + '&adType='+ adType + '&country=' + country
+                + '&currency=' + currency
+                ,'GET', '',
                 function (data: any) {
                     callback(data);
                 },
