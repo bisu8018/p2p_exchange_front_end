@@ -372,7 +372,7 @@ const strings = new Map([
   }],
   ['order', {
       KOR: '주문',
-      ENG: 'Order',
+      ENG: 'Orders',
       CN: '发布广告',
       JP: ''
   }],
@@ -893,6 +893,38 @@ const strings = new Map([
         KOR: '시간',
         ENG: 'Time',
         CN: '时间',
+        JP: ''
+    }],
+
+    //Balance
+    ['Details', {
+        KOR: '세부사항',
+        ENG: 'Details',
+        CN: '细节',
+        JP: ''
+    }],
+    ['Transfer', {
+        KOR: '이체',
+        ENG: 'Transfer',
+        CN: '转让',
+        JP: ''
+    }],
+    ['Deposit', {
+        KOR: '예금',
+        ENG: 'Deposit',
+        CN: '存款',
+        JP: ''
+    }],
+    ['Type', {
+        KOR: '예금',
+        ENG: 'Type',
+        CN: '类型',
+        JP: ''
+    }],
+    ['Coin', {
+        KOR: '코인',
+        ENG: 'Coin',
+        CN: '硬币',
         JP: ''
     }],
 
