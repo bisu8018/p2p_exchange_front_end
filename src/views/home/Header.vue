@@ -73,6 +73,38 @@
                 <div>{{$str("signupText")}}</div>
               </button>
             </v-flex>
+
+            <!-- 로그인시 추가되는 화면들-->
+            <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("order")}}</div>
+              </button>
+            </v-flex>
+            <v-flex xs12 class="verticalcentertext" @click="goBalances()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("Balances")}}</div>
+              </button>
+            </v-flex>
+            <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("MyAds")}}</div>
+              </button>
+            </v-flex>
+            <v-flex xs12 class="verticalcentertext" @click="goUserCenter()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("UserCenter")}}</div>
+              </button>
+            </v-flex>
+            <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("Merchant")}}</div>
+              </button>
+            </v-flex>
+            <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
+              <button class="text-xs-left ml-3">
+                <div>{{$str("LogOut")}}</div>
+              </button>
+            </v-flex>
           </v-layout>
         </div>
       </div>
@@ -102,17 +134,15 @@
           <v-spacer></v-spacer>
 
           <!-- 로그인시 내정보 버튼 -->
-          <!--
-          <div class="dropDownBtn mr-4a">
-              <button class="ml-4a pl-3">{{$str("MyPage")}}
-                            <div class="dropDown-content dropDown-MyPage"> -->
-          <!-- 내 정보 list 버튼-->
-          <!--
-          <div @click="goMyInfo('MyOrder')">{{$str("MyOrder")}}</div>
-          <div @click="goMyInfo('MyAds')">{{$str("MyAds")}}</div>
-        </div>
-      </button>
-</div> -->
+          <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
+
+          <!--MyOrder-->
+          <button class="button-2 mr-4a" @click="goMyOrder()">{{$str("MyOrder")}}</button>
+          <!--Balances -->
+          <button class="button-2 mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
+          <!-- My Ads-->
+          <button class="button-2 mr-4a" @click="goMyAds()">{{$str("MyAds")}}</button>
+
           <!--내 정보 끝-->
 
 
@@ -215,6 +245,15 @@
                         this.$router.push("/myAds");
                         break;
                 }
+            },
+            goMyOrder(){
+                this.$router.push("/myOrder");
+            },
+            goMyAds(){
+                this.$router.push("/myAds");
+            },
+            goBalances(){
+                this.$router.push("/balances");
             },
 
             changeLang: function(userLang) {
