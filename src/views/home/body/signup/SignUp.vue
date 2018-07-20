@@ -1,5 +1,5 @@
 <template>
-    <v-layout mt-5 mb-5 ml-3 mr-3>
+    <v-layout pt-5 pb-5 ml-3 mr-3>
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex">
                 <div class="pt-1">
@@ -8,11 +8,11 @@
             </div>
 
             <!--국가 select box-->
-            <div class="text-xs-left mb-2 caption mt-1 input-label">{{$str("country")}}</div>
+            <div class="text-xs-left mb-2 text-black mt-1">{{$str("country")}}</div>
             <select-box></select-box>
 
             <!--Email 입력필드-->
-            <div class="text-xs-left mb-2 caption input-label mt-4">{{$str("email")}}</div>
+            <div class="text-xs-left mb-2 text-black mt-4">{{$str("email")}}</div>
             <div class="text-input-wrapper">
                 <input name="email" v-model="email" type="text" class="common-input mb-4"
                        v-bind:class="{'warning_border' : warning_email}" @blur="onCheckEmail">
@@ -22,8 +22,8 @@
             </div>
 
             <!--인증코드 입력필드-->
-            <div class="text-xs-left mb-2 caption input-label">{{$str("emailVerificationCdoe")}}</div>
-            <div class="verification-wrapper">
+            <div class="text-xs-left mb-2 text-black">{{$str("emailVerificationCdoe")}}</div>
+            <div class="relative">
                 <input name="verificationCode" v-model="verificationCode" type="text" class="common-input mb-4"
                        autocomplete="off" v-bind:class="{'warning_border' : warning_verification_code}"
                        @blur="onCheckVerificationCode">
@@ -35,7 +35,7 @@
             </div>
 
             <!--비밀번호 입력필드-->
-            <div class="text-xs-left mb-2 caption input-label">{{$str("password")}}</div>
+            <div class="text-xs-left mb-2 text-black">{{$str("password")}}</div>
             <div class="text-input-wrapper">
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
                        class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
@@ -46,7 +46,7 @@
             </div>
 
             <!--비밀번호 확인 입력필드-->
-            <div class="text-xs-left mb-2 caption input-label">{{$str("passwordConfirm")}}</div>
+            <div class="text-xs-left mb-2 text-black">{{$str("passwordConfirm")}}</div>
             <div class="text-input-wrapper">
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
                        class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
@@ -61,7 +61,7 @@
                 <label class="caption"><input id="termsCheckbox" type="checkbox" v-model="checkbox"
                                               @click="onCheckTerms()"
                                               class="mr-2">{{$str('termsLabel')}}</label>
-                <div class="warning_terms_text">
+                <div class="absolute">
                     <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
             </div>
@@ -69,11 +69,11 @@
             <!--로그인/ 회원가입 버튼-->
             <div class="signup-flex">
                 <v-flex mr-2 xs6>
-                    <button class="signup-btn btnHover block" @click="onCheck">{{$str("signupText")}}</button>
+                    <button class="common-normal-button common-btn-hover" @click="onCheck">{{$str("signupText")}}</button>
                 </v-flex>
                 <v-flex text-xs-left xs6 caption>
-                    <div>{{$str("haveAccount")}}</div>
-                    <div><a @click='goLogin' class="layer-text signup-a">{{$str("loginText")}}</a></div>
+                    <div class="text-black">{{$str("haveAccount")}}</div>
+                    <div><a @click='goLogin' class="layer-text text-blue">{{$str("loginText")}}</a></div>
                 </v-flex>
             </div>
         </v-flex>
@@ -257,50 +257,6 @@
         height: 24px;
     }
 
-    .signup-btn {
-        border-radius: 3px;
-        background-color: #214ea1;
-        color: white;
-        height: 40px;
-        width: 100%;
-
-    }
-
-    .input-label {
-        color: #9294a6;
-    }
-
-    .common-input {
-        background: white;
-    }
-
-    .signup-a {
-        font-size: 14px;
-        color: #214ea1;
-    }
-
-    .signup-a:hover {
-        color: #316ee4;
-    }
-
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        font-size: 10px;
-        color: #c8c8c8;
-    }
-
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        font-size: 10px;
-        color: #c8c8c8;
-    }
-
-    ::-ms-input-placeholder { /* Microsoft Edge */
-        font-size: 10px;
-        color: #c8c8c8;
-    }
-
-    .verification-wrapper {
-        position: relative;
-    }
 
     .click-send-text {
         font-size: 12px;
@@ -315,14 +271,5 @@
         top: 10px;
         cursor: pointer;
     }
-
-    .click-send-text:hover {
-        color: #316ee4;
-    }
-
-    .warning_terms_text {
-        position: absolute;
-    }
-
 
 </style>

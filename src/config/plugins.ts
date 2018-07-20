@@ -15,6 +15,7 @@ export default (Vue: any) => {
             error: '#b71c1c',
             //COMMON COLOR
             BGNav : '#002970',
+            white: '#ffffff',
 
 
             TextGray : '#C8C8C8',

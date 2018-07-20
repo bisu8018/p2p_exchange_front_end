@@ -193,7 +193,7 @@
 
             <!--슬라이드 바 인증-->
             <verify-slider v-on:passcallback="putVerified"></verify-slider>
-            <v-btn @click='onPost' flat large block class="textBlue btnHover btnSignup">{{$str("postAdBtn")}}
+            <v-btn @click='onPost' flat large block class="textBlue common-btn-hover common-normal-bordered-button">{{$str("postAdBtn")}}
             </v-btn>
         </v-flex>
     </v-layout>

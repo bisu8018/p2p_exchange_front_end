@@ -150,7 +150,7 @@
                         handler.style.left = _x + 'px';
                         this.$refs.progressBar.style.width = (_x + this.slidebarHeight / 2) + 'px';
                     } else if (_x > (this.slidebarWidth - this.slidebarHeight)) {
-                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) - 6 + 'px';
+                        handler.style.left = (this.slidebarWidth - this.slidebarHeight) - 2 + 'px';
                         this.$refs.progressBar.style.width = (this.slidebarWidth - this.slidebarHeight / 2) + 'px';
                         this.passVerify();
                     }
@@ -171,7 +171,7 @@
                 this.isPassing = true;
                 this.isMoving = false;
                 this.vIcon = "check";
-                this.$refs.progressBar.style.background = 'this.completedBg';
+                //this.$refs.progressBar.style.background = 'this.completedBg';
                 this.$refs.message.style.textAlign = 'left';
                 this.$refs.message.style.color = '#214ea1';
                 this.$refs.message.style.paddingLeft = '8px';
@@ -179,6 +179,7 @@
                 handler.className += ' dv_handler_ok_bg';
                 handler.children[0].className = this.successIcon;
                 this.$emit('passcallback');
+                document.getElementsByClassName("verify-icon")[0].style.textSize = '16px';
                 document.getElementsByClassName("drag_verify")[0].style.border = '1px solid #316ee4';
                 document.getElementsByClassName('drag_verify')[0].lastChild.children[0].children[0].style.background = '#316ee4'
             }
@@ -209,7 +210,7 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        width: 44px !important;
+        width: 40px !important;
     }
 
     .drag_verify .dv_handler_bg {
@@ -222,7 +223,7 @@
 
     .drag_verify .dv_handler i {
         background: #214ea1;
-        padding: 0px 2px 0px 2px;
+        padding: 0px 1px 0px 2px;
         border-radius: 47px;
         color: white;
     }
@@ -243,11 +244,13 @@
         -ms-user-select: none;
         font-size: 12px !important;
         letter-spacing: 0 !important;
+        text-align: left;
+        padding-left: 52px;
     }
 
     .verify-icon {
-        width: 23px;
-        height: 23px;
+        width: 21px;
+        height: 21px;
         font-size: 21px;
         padding: 0px 0px 0px 1px;
         position: absolute;

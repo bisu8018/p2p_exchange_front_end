@@ -119,7 +119,7 @@ const strings = new Map([
     }],
     ['signupText', {
         KOR: '가입',
-        ENG: 'Sign Up',
+        ENG: 'Signup',
         CN: '注册',
         JP: ''
     }],
@@ -131,7 +131,7 @@ const strings = new Map([
     }],
     ['loginText', {
         KOR: '로그인',
-        ENG: 'Log in',
+        ENG: 'Login',
         CN: '立即登录',
         JP: ''
     }],
