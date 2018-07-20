@@ -2,17 +2,22 @@
   <div>
 
     <!-- mobile 일때-->
-    <div v-if="isMobile">
+    <div v-if="isMobile" >
       <div>
         <!-- name-->
         <v-layout>
-          <v-flex xs2 ><td>
-            <v-avatar color="" :size="34">
-              <span class=" ">{{user.email[0]}}</span>
-            </v-avatar></td></v-flex>
+          <v-flex xs2 >
+            <avatar
+              :name = user.email[0]
+              :isLogin = user.isLogin
+              :color = user.color>
+            </avatar>
+          </v-flex>
+
           <v-flex xs10 text-xs-left>
             {{user.email}} ( {{user.volumeTotal}} | 99%)
-            <img src="../../../../../assets/img/rank_crown.png">
+            <!-- user의 rank 이미지-->
+            <img :src="rankSrc" class="ml-2">
           </v-flex>
         </v-layout>
         <!-- Volume -->
@@ -28,7 +33,7 @@
             <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
-        <v-layout>
+        <v-layout mb-3>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left>Price :</v-flex>
             <v-flex xs6 text-xs-right> {{user.price}} {{currency}} </v-flex>
@@ -37,14 +42,14 @@
         <v-layout>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left>
-              <img src="../../../../../assets/img/method_alipay.png">
-              <img src="../../../../../assets/img/method_bankaccount.png">
-              <img src="../../../../../assets/img/method_wechatpay.png">
+              <img class="paymentImg" src="../../../../../assets/img/method_alipay.png">
+              <img class="paymentImg" src="../../../../../assets/img/method_bankaccount.png">
+              <img class="paymentImg" src="../../../../../assets/img/method_wechatpay.png">
             </v-flex>
             <!--거래 버튼-->
             <v-flex xs6 text-xs-right>
-              <button class="Button" @click="drawer = !drawer">
-                {{$str("buy")}} BTC</button>
+              <button class="common-rounded-button" @click="drawer = !drawer">
+                {{tradeType}} {{token}}</button>
             </v-flex>
         </v-layout>
       </div>
@@ -53,13 +58,17 @@
       <div v-if="drawer" class="mobileModal">
         <!-- name-->
         <v-layout>
-          <v-flex xs2><td class="text-xs-left">
-            <v-avatar color=""   :size="34">
-              <span class="">{{user.email[0]}}</span>
-            </v-avatar></td>
+          <v-flex xs2>
+            <avatar
+                  :name = user.email[0]
+                  :isLogin = user.isLogin
+                  :color = user.color>
+          </avatar>
           </v-flex>
-          <v-flex xs6 text-xs-left>{{user.email}} ( {{user.volumeTotal}} | 99%)</v-flex>
-          <v-flex xs4 text-xs-left><img src="../../../../../assets/img/rank_crown.png"></v-flex>
+          <v-flex xs12 text-xs-left>
+            {{user.email}} ( {{user.volumeTotal}} | 99%)
+            <img :src="rankSrc" class="userRank">
+          </v-flex>
         </v-layout>
         <!-- Volume -->
         <v-layout >
@@ -97,8 +106,11 @@
           </v-flex>
         </v-layout>
         <v-layout>
-          <v-flex xs7>Payment window is 20 minutes</v-flex>
-          <v-flex xs4 text-xs-right><button class="Button" @click="">{{$str("confirm")}}</button></v-flex>
+          <v-flex xs6>Payment window is 20 minutes</v-flex>
+          <v-flex xs6 text-xs-right>
+            <button class="common-rounded-small-flat-button" @click="">{{$str("cancel")}}</button>
+            <button class="common-rounded-small-button" @click="">{{$str("confirm")}}</button>
+          </v-flex>
         </v-layout>
       </div>
 
@@ -107,16 +119,21 @@
 
     <!--Web 일때-->
     <div v-else>
-      <v-layout userList pt-4 >
+      <v-layout class="userList" align-center justify-center fill-height>
         <!--ㅡmerchant-->
-        <v-flex  md3 text-md-left >
-          <td>
-            <v-avatar color=""   :size="30">
-              <span class="">{{user.email[0]}}</span>
-            </v-avatar> {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+        <v-flex  md3 text-md-left>
+          <v-layout align-center>
+              <avatar
+              :name = user.email[0]
+              :isLogin = user.isLogin
+              :color = user.color>
+            </avatar>
+            <span class="ml-3">
+              {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+            </span>
             <!--판매자 rank-->
-            <img class="ml-2" src="../../../../../assets/img/rank_crown.png">
-          </td>
+            <img :src="rankSrc" class="userRank">
+          </v-layout>
         </v-flex>
         <!--available-->
         <v-flex md2 text-md-left >{{user.volumeTotal}} {{token}} </v-flex>
@@ -125,15 +142,17 @@
         <!--price-->
         <v-flex md2 text-md-left >{{user.price}} {{token}} </v-flex>
         <!-- payment method-->
-        <v-flex md2 text-md-left >
-          <img src="../../../../../assets/img/method_alipay.png">
-          <img src="../../../../../assets/img/method_bankaccount.png">
-          <img src="../../../../../assets/img/method_wechatpay.png">
-        </v-flex>
-        <!-- but 혹은 sell button -->
-        <v-flex md1 text-md-right >
-          <button class="Button" @click="drawer = !drawer">
-            {{tradeType}} {{token}} </button>
+        <v-flex md3 text-md-right>
+          <v-layout align-center justify-space-between>
+            <!--payment method-->
+            <img src="../../../../../assets/img/method_alipay.png">
+            <img src="../../../../../assets/img/method_bankaccount.png">
+            <img src="../../../../../assets/img/method_wechatpay.png">
+            <!-- buy 혹은 sell button -->
+            <button class="common-rounded-button" @click="drawer = !drawer">
+              {{tradeType}} {{token}}
+            </button>
+          </v-layout>
         </v-flex>
       </v-layout>
 
@@ -142,21 +161,23 @@
 
         <v-layout row wrap>
           <v-flex md3 text-md-left >
-            <!--avarta-->
-            <span>
-              <v-avatar color=""  :size="30">
-                <!--merchant email의 첫글자-->
-              {{user.email[0]}}
-              </v-avatar>
-            </span>
-            <!-- merchant 정보-->
-            <span >
-              <span class="mr-2">
-                {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+            <v-layout>
+              <!--avarta-->
+              <avatar
+                        :name = user.email[0]
+                        :isLogin = user.isLogin
+                        :color = user.color>
+              </avatar>
+
+              <!-- merchant 정보-->
+              <span>
+                <span class="mr-2 ml-3">
+                  {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+                </span>
+                <img :src="rankSrc" class="userRank">
+                <div class="ml-3">{{$str("volume")}} : {{user.volumeTotal}} {{token}}</div>
               </span>
-              <img src="../../../../../assets/img/rank_crown.png">
-              <div>{{$str("volume")}} : {{user.volumeTotal}} {{token}}</div>
-            </span>
+            </v-layout>
           </v-flex>
 
           <v-flex md2 text-md-left>
@@ -205,6 +226,7 @@
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
+    import Avatar from '@/components/Avatar.vue';
     export default {
         name: "TradeListItem",
         data: () => ({
@@ -216,29 +238,42 @@
             token : 'BTC',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
             tradeType : 'BUY',  //살건지 팔건지 여부.
+            rankSrc : ''
+
 
         }),
+        components:{Avatar},
         props : {
-
             user: {},
-
-
-
-
-
         },
         methods : {
 
+        },
+        mounted(){
+          switch (this.user.rank) {
+              case 1:
+                  this.rankSrc = require('../../../../../assets/img/rank_crown.png');
+                  break;
+              case 2:
+                  this.rankSrc = require('../../../../../assets/img/rank_diamond.png');
+                  break;
+              default:
+                  this.rankSrc = '';
+          }
         },
         computed : {
             isMobile(){
                 return MainRepository.State.isMobile();
             },
-        }
+        },
+
     }
 </script>
 
 <style scoped>
+  .userList{
+    height: 84px;
+  }
   .userInput{
     height: 36px;
     border-radius: 2px;
@@ -252,6 +287,14 @@
     background-color: #f8f8fa;
     border: solid 1px #8d8d8d;
     width: 100%
+  }
+  .userRank{
+    width: 16px;
+    height: 18px;
+    margin-left: 16px;
+  }
+  .paymentImg{
+    margin-right : 8px;
   }
 
 </style>

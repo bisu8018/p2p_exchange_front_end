@@ -43,7 +43,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" key="buyKey">
+                  <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" >
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
@@ -65,7 +65,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3  v-for="item in items" key="itemKey" @click="setSellInfo(item.text) " class="coinBtn">
+                  <v-flex md3  v-for="item in items" @click="setSellInfo(item.text) " class="coinBtn">
                     {{ item.text }}
                   </v-flex>
                   <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>

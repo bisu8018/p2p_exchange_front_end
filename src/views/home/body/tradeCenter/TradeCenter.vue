@@ -6,7 +6,7 @@
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <div  v-for="user in users" :key="`i${user}`" >
+                <div  v-for="user in users"  >
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
@@ -66,6 +66,9 @@
                     tradeRate: 99,
                     memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
                     '            If urgent, please message me on Telegram at +84963126446',
+                    isLogin : true,
+                    color : '#8869CA',
+                    rank : 1,
                 },
                 {
                     email: 'Dean',
@@ -75,6 +78,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : false,
+                    color : '#E05543',
+                    rank : 2,
                 },
                 {
                     email: 'Jack',
@@ -84,6 +90,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : false,
+                    color : '#E25422',
+                    rank : 1,
                 },
                 {
                     email: 'Jiny',
@@ -94,6 +103,9 @@
                     tradeRate: 99,
                     memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
                     '            If urgent, please message me on Telegram at +84963126446',
+                    isLogin : true,
+                    color : '#2799C9',
+                    rank : 2,
                 },
                 {
                     email: 'Jun',
@@ -103,6 +115,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#B0D63E',
+                    rank : 3,
                 },
                 {
                     email: 'Kay',
@@ -113,6 +128,9 @@
                     tradeRate: 99,
                     memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
                     '            If urgent, please message me on Telegram at +84963126446',
+                    isLogin : true,
+                    color : '#394B50',
+                    rank : 1,
                 },
                 {
                     email: 'Kevin',
@@ -122,6 +140,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#BF4F79',
+                    rank : 2,
                 },
                 {
                     email: 'Max',
@@ -131,6 +152,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#8869CA',
+                    rank : 3,
                 },
                 {
                     email: 'BK',
@@ -140,6 +164,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#8869CA',
+                    rank : 1,
                 },
                 {
                     email: 'Ryan',
@@ -149,6 +176,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#8869CA',
+                    rank : 1,
                 },
                 {
                     email: 'Tom',
@@ -158,6 +188,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#8869CA',
+                    rank : 1,
                 },
                 {
                     email: 'AB',
@@ -167,6 +200,9 @@
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
+                    isLogin : true,
+                    color : '#8869CA',
+                    rank : 2,
                 },
             ],
         }),
