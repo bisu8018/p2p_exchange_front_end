@@ -1,7 +1,7 @@
 <template>
   <v-app>
       <abHeader></abHeader>
-      <v-content>
+      <v-content class="white">
         <div class="mainView">
           <router-view></router-view>
         </div>
@@ -65,12 +65,12 @@ export default Vue.extend({
 </script>
 
 <style>
+
+
   .mainView{
     max-width: 1200px;
-    min-height: 600px;
+    min-height: 400px;
     margin-left: auto;
     margin-right: auto;
-
-
   }
 </style>

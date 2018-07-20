@@ -1,6 +1,6 @@
 <template>
     <v-layout wrap align-center>
-        <div  class="selectbox-wrapper selectbox-width" >
+        <div  class="relative selectbox-width" >
             <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="abSelectBox caption">
                 <option v-for="country in countries" v-bind:value="country.code" >{{country.country}}</option>
             </select>
@@ -99,9 +99,6 @@
         background: #f8f8fa;
     }
 
-    .selectbox-wrapper{
-        position: relative;
-    }
 
     .icon-style {
         position: absolute;

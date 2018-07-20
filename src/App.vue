@@ -217,7 +217,7 @@
         font-weight: bold !important;
     }
 
-    .subheading {
+    .subheading-2 {
         font-size: 18px;
         font-weight: normal;
         font-style: normal;
@@ -240,32 +240,32 @@
     /*placeholder CSS 설정*/
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
         font-size: 12px;
-        font-weight: 500;
+        font-weight: normal;
         font-style: normal;
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #9294a6;
+        color: #c8c8c8;
     }
 
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
         font-size: 12px;
-        font-weight: 500;
+        font-weight: normal;
         font-style: normal;
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #9294a6;
+        color: #c8c8c8;
     }
 
     ::-ms-input-placeholder { /* Microsoft Edge */
         font-size: 12px;
-        font-weight: 500;
+        font-weight: normal;
         font-style: normal;
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #9294a6;
+        color: #c8c8c8;
     }
 
     /*margin, padding 32px 설정*/
@@ -309,39 +309,6 @@
         padding : 32px;
     }
 
-    /*버튼 호버 CSS 설정*/
-    .btnHover:hover  {
-        background-color: #316ee4 !important;
-        color : white !important;
-    }
-
-    /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
-    .v-ripple__container {
-        opacity: 0;
-    }
-
-    /*vuetify 버튼 hover 시, color foggy 현상 방지*/
-    .v-btn:before {
-        opacity: 0 !important;
-        border-radius: 3px !important;
-    }
-    .v-btn {
-        height: 40px !important;
-        border-radius: 3px !important;
-    }
-    /*input text 필드 공통 CSS*/
-    .common-input {
-        height: 40px;
-        border-radius: 2px;
-        border: solid 1px #8d8d8d;
-        width: 100%;
-        margin-bottom: 22px;
-        padding-left: 8px;
-        padding-right: 8px;
-        font-size: 12px;
-        font-weight: 500;
-        color: #9294a6;
-    }
 
 
     /*common text style*/
@@ -406,7 +373,7 @@
     }
 
     .warning_border {
-        border: solid 1px #e62a2b;
+        border: solid 1px #e62a2b !important;
     }
 
     .warning_text {
@@ -428,5 +395,111 @@
         bottom: 6px !important;;
         right: 0 !important;;
     }
+
+
+
+
+    /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
+    .v-ripple__container {
+        opacity: 0;
+    }
+
+    /*버튼 호버 CSS 설정*/
+    .common-btn-hover:hover  {
+        background-color: #316ee4 !important;
+        color : white !important;
+    }
+
+    .common-text-hover:hover  {
+        color :  #316ee4  !important;
+    }
+
+    /*input text 필드 공통 CSS*/
+    .common-input {
+        height: 40px;
+        border-radius: 2px;
+        border: solid 1px #8d8d8d;
+        width: 100%;
+        margin-bottom: 22px;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 14px;
+        color: #353535;
+    }
+    /*button 공통 CSS*/
+    .common-normal-button {         /*사각형 파랑배경 흰색폰트 버튼*/
+        height: 40px;
+        width: 100%;
+        background: #214ea1;
+        color: white;
+        border-radius: 3px;
+    }
+    .common-rounded-button {         /*사각형 파랑배경 흰색폰트 라운드 버튼*/
+        height: 36px;
+        padding-left: 16px;
+        padding-right: 16px;
+        background: #214ea1;
+        border-radius: 30px;
+        font-size: 14px;
+        color: white;
+    }
+    .common-normal-bordered-button {         /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
+        border: 1px solid #214ea1 !important;
+        margin-bottom: -10px;
+        width: 100%;
+        height: 40px;
+        background: white;
+        border-radius: 3px;
+        color: #214EA1;
+    }
+    .common-rounded-flat-button {         /*사각형 하얀배경 파랑폰트 버튼*/
+
+        height: 36px;
+        padding-left: 16px;
+        padding-right: 16px;
+        background: white;
+        border-radius: 30px;
+        font-size: 14px;
+        color: #214ea1;
+    }
+
+    /*vuetify dialog*/
+    .v-dialog {
+        margin: 16px !important;
+        background: white;
+        width: 384px;
+        padding: 24px 16px 24px 16px;
+    }
+
+    .absolute{
+        position: absolute;
+    }
+
+    .relative {
+        position: relative;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .line-height-1 {
+        line-height: 1;
+    }
+
+
+
+
+
+
+    /*vuetify 버튼 hover 시, color foggy 현상 방지*/
+    /*.v-btn:before {*/
+    /*opacity: 0 !important;*/
+    /*border-radius: 3px !important;*/
+    /*}*/
+    /*.v-btn {*/
+    /*height: 40px !important;*/
+    /*border-radius: 3px !important;*/
+    /*}*/
 
 </style>

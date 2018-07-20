@@ -9,74 +9,81 @@ import TradeCenter from '../views/home/body/tradeCenter/TradeCenter.vue'
 import GeneralAd from '../views/home/body/postAd/general/General.vue'
 import BlockAd from '../views/home/body/postAd/block/Block.vue'
 import Buy from '../views/home/body/buy/Buy.vue'
-
+import Sell from '../views/home/body/sell/Sell.vue'
 import PostAd from '../views/home/body/postAd/PostAd.vue'
 import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
 import Balances from '../views/home/body/balances/Balances.vue'
+
+
 Vue.use(Router)
 export default new Router({
-  routes: [
-    {
-      path: '/home',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: Signup
-    },
-    {
-      path: '/abMain',
-      name: 'abMain',
-      component: AbMain
-    },
-    {
-      path: '/findPassword',
-      name: 'findPassword',
-      //component: FindPassword
-    },
-    {
-      path: '/tradeCenter',
-      name: 'tradeCenter',
-      component: TradeCenter
-    },
-    {
-      path: '/blockAd',
-      name: 'blockAd',
-      component: BlockAd
-    },
-    {
-      path: '/generalAd',
-      name: 'generalAd',
-      component: GeneralAd
-    },
-    {
-      path : '/buy',
-      name: 'buy',
-      component: Buy
-    },
-      {
-          path: '/myOrder',
-          name: 'myOrder',
-          component: MyOrder,
-      },
-      {
-          path: '/myAds',
-          name: 'myAds',
-          component: MyAds,
-      },
-      {
-          path: '/balances',
-          name: 'balances',
-          component: Balances,
-      },
-  ],
-  mode:'history'
+    routes: [
+        {
+            path: '/home',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: Signup
+        },
+        {
+            path: '/abMain',
+            name: 'abMain',
+            component: AbMain
+        },
+        {
+            path: '/findPassword',
+            name: 'findPassword',
+            //component: FindPassword
+        },
+        {
+            path: '/tradeCenter',
+            name: 'tradeCenter',
+            component: TradeCenter
+        },
+        {
+            path: '/blockAd',
+            name: 'blockAd',
+            component: BlockAd
+        },
+        {
+            path: '/generalAd',
+            name: 'generalAd',
+            component: GeneralAd
+        },
+        {
+            path: '/buy',
+            name: 'buy',
+            component: Buy
+        },
+        {
+            path: '/sell',
+            name: 'sell',
+            component: Sell
+        },
+        {
+            path: '/myOrder',
+            name: 'myOrder',
+            component: MyOrder,
+        },
+        {
+            path: '/myAds',
+            name: 'myAds',
+            component: MyAds,
+        },
+        {
+            path: '/balances',
+            name: 'balances',
+            component: Balances,
+        },
+    ],
+    mode: 'history'
 })

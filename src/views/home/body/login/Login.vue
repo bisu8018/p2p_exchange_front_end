@@ -1,14 +1,14 @@
 <template>
     <!--Vertical, horizontal alignment-->
-    <v-layout mt-5 mb-5>
+    <v-layout pt-5 pb-5 mr-3 ml-3>
         <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
             <div>
                 <div class="mb-4a login-title">
                     <div class="pt-1"><img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
-                    <h2 class="title-2">{{$str("welcome")}}</h2>
+                    <div class="title-2">{{$str("welcome")}}</div>
                 </div>
                 <form action="/signin" method="post" id="loginForm">
-                    <div class="text-xs-left mb-2 caption">{{$str("email")}}</div>
+                    <div class="text-xs-left mb-2 button-2 text-black">{{$str("email")}}</div>
                     <div class="text-input-wrapper"><input type="text" class="common-input" name="email" v-model="email"
                                                            @blur="onCheckEmail"
                                                            :placeholder="loginEmailPlaceholder"
@@ -17,7 +17,7 @@
                             <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_email}">{{verify_warning_email}}</span>
                         </div>
                     </div>
-                    <div class="text-xs-left mb-2 caption">{{$str("password")}}</div>
+                    <div class="text-xs-left mb-2 button-2 text-black">{{$str("password")}}</div>
                     <div class="text-input-wrapper">
                         <input name="encryptedPassword" v-model="password" type="password" class="common-input"
                                @blur="onCheckPassword"
@@ -30,22 +30,23 @@
 
                     <div class="mb-4 verifySlider" v-if="email.length>0 && password.length>=8">
                         <!--<v-flex class="verifySlider" mb-4>-->
-                        <div class="text-xs-left mb-2 caption">{{$str("verify")}}</div>
+                        <div class="text-xs-left mb-2 caption text-black">{{$str("verify")}}</div>
                         <verify-slider v-on:passcallback="putVerified"></verify-slider>
                     </div>
                     <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
                 </form>
                 <!--go to the page 'find password' -->
                 <div class="goForgetPwdWrapper text-xs-left caption ">
-                    <span @click="goFindPassword" class="textBlue goForgetPwd">{{$str("forgetPassword")}}</span>
+                    <span @click="goFindPassword" class="text-blue goForgetPwd button-2">{{$str("forgetPassword")}}</span>
                 </div>
-                <button class=" btnHover block" @click="onCheck">{{$str("loginText")}}</button>
-
+                <button  class="common-btn-hover common-normal-button" @click='onCheck'>
+                    {{$str("loginText")}}
+                </button>
                 <div class="mt-4a mb-4a orWrapper">
                     <div class="orTextWrapper"><span class="orText caption">or</span></div>
                 </div>
-                <button class=" btnHover block" @click="goSignup">{{$str("signupText")}}</button>
-
+                <button @click='goSignup' class="common-btn-hover common-normal-bordered-button">{{$str("signupText")}}
+                </button>
             </div>
         </v-flex>
     </v-layout>
@@ -158,10 +159,6 @@
         padding-bottom: 40px !important;
     }
 
-    .textBlue {
-        color: #214ea1 !important;
-    }
-
     .orWrapper {
         border-bottom: 1px solid #d1d1d1;
         position: relative;
@@ -180,11 +177,6 @@
         color: #9294a6;
     }
 
-    .btnSignup {
-        border: 1px solid #214ea1 !important;
-        margin-bottom: -10px;
-    }
-
     .goForgetPwd {
         cursor: pointer;
     }
@@ -197,16 +189,10 @@
         color: #316ee4 !important;
     }
 
-    .cardTitle {
-        margin-top: 3px;
-    }
-
-
-
     /*verify slider warning CSS*/
     /*.warning-text-slider-wrapper {
-    position: absolute;
-    bottom: -16px;
-    right: 0;
+        position: absolute;
+        bottom: -16px;
+        right: 0;
     }*/
 </style>
