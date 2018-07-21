@@ -4,14 +4,14 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 const mutations = {
     // -                   현재 상태                             -
     // 초기화 완료
-    [VuexTypes.SET_COUNTRY_DATA](selectBox: any, country: string) {
-        selectBox.getCountry = country;
+    [VuexTypes.SET_COUNTRY_DATA](state: any, country: string) {
+        state.getCountry = country;
     },
-    [VuexTypes.SET_CURRENCY_DATA](selectBox: any, currency: string) {
-        selectBox.getCurrency = currency;
+    [VuexTypes.SET_CURRENCY_DATA](state: any, currency: string) {
+        state.getCurrency = currency;
     },
-    [VuexTypes.SET_PAYMENET_DATA](selectBox: any, payment: string) {
-        selectBox.getPayment = payment;
+    [VuexTypes.SET_PAYMENET_DATA](state: any, payment: string) {
+        state.getPayment = payment;
     },
 
 };
@@ -33,7 +33,7 @@ const actions = {
     },
 };
 
-// const getters = {};
+const getters = {};
 
 
 //Country Selectbox
@@ -41,7 +41,7 @@ let getCountry: string = 'ALL';
 let getCurrency: string = 'CNY';
 let getPayment: string = 'ALL';
 
-const selectBox = {
+const state = {
     //Country Check
     getCountry: getCountry,
     getCurrency: getCurrency,
@@ -51,6 +51,7 @@ const selectBox = {
 export default {
     namespaced: false,
     actions,
-    selectBox,
+    getters,
+    state,
     mutations
 }

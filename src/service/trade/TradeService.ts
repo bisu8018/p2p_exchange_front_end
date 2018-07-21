@@ -28,14 +28,5 @@ export default {
                     console.log(error);
                 })
         },
-        // tradeTotalInfo : function (callback: any) {
-        //     AxiosService._requestWithBody('tradeView', 'GET', '',
-        //         function (data: any) {
-        //             callback(data);
-        //         },
-        //         function (error) {
-        //             console.log(error);
-        //         })
-        // },
     }
 }

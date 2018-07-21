@@ -149,7 +149,7 @@
         data: () => ({
             isAmout : true,
             isModal: false,
-            country: 'All countries',
+            country: 'ALL',
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : 500,
@@ -174,12 +174,17 @@
         methods : {
             setBuyInfo(item){
                 this.tradeStatus = 'BUY';
+                //default data
+                this.country = MainRepository.SelectBox.controller().getCountry();
+                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
+                this.currency = MainRepository.SelectBox.controller().getCurrency();
+
                 if(item =="current"){ //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
                     //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
                 }
                 else{
-                    this.tradeCoin =item;
-                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
+                    this.tradeCoin = item;
+                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, null);
                     MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
                     MainRepository.TradeView.setSelectPage(0);
                 }
@@ -192,7 +197,7 @@
                 }
                 else{
                     this.tradeCoin =item;
-                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
+                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, null);
                     MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
                     MainRepository.TradeView.setSelectPage(0);
                 }
@@ -213,15 +218,15 @@
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
 
+                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, null);
+                MainRepository.TradeView.setSelectPage(0);
+
                 this.isModal = false; //modal 창 끄기.
             },
             removeAmount(){
                 location.reload();      // 새로고침으로 해놨는데, vuex도입시 수정할것.
                 this.amount = 0;
             },
-
-
-
         },
         computed: {
             isMobile() {
