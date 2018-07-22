@@ -94,8 +94,8 @@ export default {
             return listController
         },
         // 총 페이지네이션 수 SET
-        setTotalTradeView (token: string, adType: string, country: string, currency: string, limitMin: number) {
-            TradeService.tradeView.tradeTotalInfo(token, adType, country, currency, limitMin, function(data) {
+        setTotalTradeView (token: string, adType: string, country: string, currency: string, limitMin: number, paymentMethod: string) {
+            TradeService.tradeView.tradeTotalInfo(token, adType, country, currency, limitMin, paymentMethod, function(data) {
                 // data 형태 number
                 listController.setTotalTrade(data);
             });
@@ -112,8 +112,9 @@ export default {
             let country = selectBoxController.getCountry();
             let currency = selectBoxController.getCurrency();
             let limitMin = listController.getLimitMin();
+            let paymentMethod = selectBoxController.getPayment();
 
-            TradeService.tradeView.tradePageInfo(page, token, adType, country, currency, limitMin, function(data) {
+            TradeService.tradeView.tradePageInfo(page, token, adType, country, currency, limitMin, paymentMethod, function(data) {
                 let tradeList: Trade[] = [];
                 for(let key in data) {
                     let trade : Trade = new Trade(data[key]);

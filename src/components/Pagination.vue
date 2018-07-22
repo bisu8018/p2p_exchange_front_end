@@ -16,6 +16,7 @@
             country : 'ALL',
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
             amount : 0,
+            payment : 'ALL'
         }),
         created() {
             //Get default Value
@@ -24,10 +25,11 @@
             this.country = MainRepository.SelectBox.controller().getCountry();
             this.currency = MainRepository.SelectBox.controller().getCurrency();
             this.amount = MainRepository.TradeView.controller().getLimitMin();
+            this.payment = MainRepository.SelectBox.controller().getPayment();
 
             console.log('pagination data:' + this.token + this.adType + this.country + this.currency);
             console.log('pagination amount data:' + this.amount);
-            MainRepository.TradeView.setTotalTradeView(this.token, this.adType, this.country, this.currency, this.amount);
+            MainRepository.TradeView.setTotalTradeView(this.token, this.adType, this.country, this.currency, this.amount, this.payment);
             //return MainRepository.TradeView.getTotalTradeView();
         },
         computed: {
