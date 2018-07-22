@@ -20,6 +20,10 @@ const mutations = {
     [VuexTypes.SET_ADTYPE_DATA] (state: any, adType: string) {
         state.adType = adType;
     },
+    // AMOUNT(LIMIT_MIN) 타입
+    [VuexTypes.SET_LIMITMIN_DATA] (context: any, limitMin: number) {
+        state.limitMin = limitMin;
+    }
 };
 
 
@@ -41,21 +45,28 @@ const actions = {
     [VuexTypes.SET_ADTYPE_DATA] (context: any, adType: string) {
         context.commit(VuexTypes.SET_ADTYPE_DATA, adType)
     },
+    // AMOUNT(LIMIT_MIN) 타입
+    [VuexTypes.SET_LIMITMIN_DATA] (context: any, limitMin: number) {
+        context.commit(VuexTypes.SET_LIMITMIN_DATA, limitMin)
+    }
 };
 
 const getters = {
 };
 
 let tradeTotalInfo : number  =  0;
-let token : string = "";
-let adType : string = "";
 let tradeSelectInfo : Trade[] = [];
+
+let token : string = '';
+let adType : string = '';
+let limitMin : number = 0;
 
 const state= {
     tradeTotalInfo: tradeTotalInfo,
     tradeSelectInfo: tradeSelectInfo,
     token: token,
-    adType: adType
+    adType: adType,
+    limitMin: limitMin
 }
 
 export default {

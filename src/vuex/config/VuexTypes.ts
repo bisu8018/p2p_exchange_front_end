@@ -21,9 +21,9 @@ export enum VuexTypes {
     //======================================
     //              SELECTBOX
     // =====================================
-    SET_COUNTRY_DATA = 'Country/SET_COUNTRY_DATA',
-    SET_CURRENCY_DATA = 'Country/SET_CURRENCY_DATA',
-    SET_PAYMENET_DATA = 'Country/SET_PAYMENET_DATA',
+    SET_COUNTRY_DATA = 'country/SET_COUNTRY_DATA',
+    SET_CURRENCY_DATA = 'country/SET_CURRENCY_DATA',
+    SET_PAYMENET_DATA = 'country/SET_PAYMENET_DATA',
 
     //======================================
     //              TradeView
@@ -31,5 +31,11 @@ export enum VuexTypes {
     SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
     SET_SELECTTRADEVIEW_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
     SET_TOKEN_DATA = 'trade/SET_TOKEN_DATA',
-    SET_ADTYPE_DATA = 'trade/SET_ADTYPE_DATA'
+    SET_ADTYPE_DATA = 'trade/SET_ADTYPE_DATA',
+
+    //======================================
+    //              TradeFilter
+    // =====================================
+    // amount == limitMin
+    SET_LIMITMIN_DATA = 'trade/SET_LIMITMIN_DATA'
 }

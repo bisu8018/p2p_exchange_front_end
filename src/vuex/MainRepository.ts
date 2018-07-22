@@ -93,28 +93,25 @@ export default {
         controller(): ListController{
             return listController
         },
+        // 총 페이지네이션 수 SET
         setTotalTradeView (token: string, adType: string, country: string, currency: string, limitMin: number) {
             TradeService.tradeView.tradeTotalInfo(token, adType, country, currency, limitMin, function(data) {
-                console.log("setTotalTradeView: " + data);
+                // data 형태 number
                 listController.setTotalTrade(data);
             });
         },
+        // 총 페이지네이션 수 GET
         getTotalTradeView () {
-            //console.log("getTradeView");
             return listController.getTotalTrade();
         },
+        // 리스트 페이지 SET
         setSelectPage(page : number) {
-            //토큰 adType
+            // Vuex Value GET
             let token = listController.getToken();
             let adType = listController.getAdType();
             let country = selectBoxController.getCountry();
-            console.log(selectBoxController.getCountry());
-            console.log("getCountry: " + selectBoxController.getCountry());
-            console.log(country);
             let currency = selectBoxController.getCurrency();
-            console.log("getCurrency: " + selectBoxController.getCurrency());
-            console.log(currency);
-            let limitMin = 0;
+            let limitMin = listController.getLimitMin();
 
             TradeService.tradeView.tradePageInfo(page, token, adType, country, currency, limitMin, function(data) {
                 let tradeList: Trade[] = [];
@@ -122,13 +119,15 @@ export default {
                     let trade : Trade = new Trade(data[key]);
                     tradeList.push(trade);
                 }
+                //리스트 형태 SET
                 listController.setSelectTrade(tradeList);
             });
         },
+        // 리스트 페이지 GET ? 필요한가?
         getSelectPage () {
             return listController.getSelectTrade();
         },
-
+        // Token AdType Vuex
         setTokenAndAdType (token: string, adType: string) {
             listController.setToken(token);
             listController.setAdType(adType);

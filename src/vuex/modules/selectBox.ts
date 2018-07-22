@@ -28,18 +28,15 @@ const actions = {
     [VuexTypes.SET_PAYMENET_DATA](store: any, payment: string) {
         store.commit(VuexTypes.SET_PAYMENET_DATA, payment);
     },
-    [VuexTypes.SET_COUNTRY_DATA](store: any, country: string) {
-        store.commit(VuexTypes.SET_COUNTRY_DATA, country);
-    },
 };
 
 const getters = {};
 
 
 //Country Selectbox
-let getCountry: string = 'ALL';
-let getCurrency: string = 'CNY';
-let getPayment: string = 'ALL';
+let getCountry: string = '';
+let getCurrency: string = '';
+let getPayment: string = '';
 
 const state = {
     //Country Check

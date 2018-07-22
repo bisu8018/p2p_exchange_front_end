@@ -22,9 +22,9 @@
             'selectBoxType' : {type:String, default:'country'}
         },      //country, currency, payment
         data: () => ({
-            selectedCountry: 'ALL',
-            selectedCurrency: 'CNY',
-            selectedPayment: 'ALL',
+            selectedCountry: '',
+            selectedCurrency: '',
+            selectedPayment: '',
             countries: [
                 {country: 'All countries', code: 'ALL'},
                 {country: 'China', code: 'CN'},
@@ -74,13 +74,13 @@
         }),
         methods: {
             setCountry() {
-                console.log(this.selectedCountry);
+                console.log("selectedCountry: " + this.selectedCountry);
                 MainRepository.SelectBox.controller().setCountry(this.selectedCountry);
-                console.log("setCountry:" + MainRepository.SelectBox.controller().setCountry(this.selectedCountry));
+                //console.log("setCountry:" + MainRepository.SelectBox.controller().setCountry(this.selectedCountry));
             }, setCurrency() {
                 console.log("selectedCurrency: " + this.selectedCurrency);
                 MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency);
-                console.log("setCurrency:" + MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency));
+                //console.log("setCurrency:" + MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency));
             }, setPayment() {
                 console.log("selectedPayment:" + this.selectedPayment)
                 MainRepository.SelectBox.controller().setPayment(this.selectedPayment);

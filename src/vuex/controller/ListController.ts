@@ -45,4 +45,12 @@ export default class ListController {
         return this.store.state.trade.adType;
     }
 
+    setLimitMin(limitMin: number) {
+        this.store.dispatch(VuexTypes.SET_LIMITMIN_DATA, limitMin);
+    }
+
+    getLimitMin() {
+        return this.store.state.trade.limitMin;
+    }
+
 }

@@ -149,10 +149,10 @@
         data: () => ({
             isAmout : true,
             isModal: false,
-            country: 'ALL',
-            currency: 'CNY',
+            country: '',
+            currency: '',
             paymentMethod: 'All Payments',
-            amount : 500,
+            amount : 0,
             items: [
                 {
                     text: 'BTC',
@@ -176,15 +176,16 @@
                 this.tradeStatus = 'BUY';
                 //default data
                 this.country = MainRepository.SelectBox.controller().getCountry();
-                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
+                //this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
+                this.amount = MainRepository.TradeView.controller().getLimitMin();
 
                 if(item =="current"){ //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
                     //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
                 }
                 else{
                     this.tradeCoin = item;
-                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, null);
+                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount);
                     MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
                     MainRepository.TradeView.setSelectPage(0);
                 }
@@ -192,12 +193,18 @@
             },
             setSellInfo(item){
                 this.tradeStatus = 'SELL';
+                //default data
+                this.country = MainRepository.SelectBox.controller().getCountry();
+                //this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
+                this.currency = MainRepository.SelectBox.controller().getCurrency();
+                this.amount = MainRepository.TradeView.controller().getLimitMin();
+
                 if(item =='current'){     //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
                     //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus);
                 }
                 else{
                     this.tradeCoin =item;
-                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, null);
+                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount);
                     MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
                     MainRepository.TradeView.setSelectPage(0);
                 }
@@ -215,10 +222,17 @@
             onSearch(){
                 // search 누르면 뭐할지 여기에 기입.
                 this.country = MainRepository.SelectBox.controller().getCountry();
-                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
+                //this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
 
-                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, null);
+                console.log("search country data:" + this.country);
+                console.log("search currency data:" + this.currency);
+                console.log("search amount data:" + this.amount);
+                MainRepository.SelectBox.controller().setCountry(this.country);
+                MainRepository.SelectBox.controller().setCurrency(this.currency);
+                MainRepository.TradeView.controller().setLimitMin(this.amount);
+
+                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount);
                 MainRepository.TradeView.setSelectPage(0);
 
                 this.isModal = false; //modal 창 끄기.

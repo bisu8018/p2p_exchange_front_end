@@ -15,7 +15,7 @@
             token : 'BTC', //현재 거래하고자 하는 coin
             country : 'ALL',
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-
+            amount : 0,
         }),
         created() {
             //Get default Value
@@ -23,9 +23,11 @@
             this.adType = MainRepository.TradeView.controller().getAdType();
             this.country = MainRepository.SelectBox.controller().getCountry();
             this.currency = MainRepository.SelectBox.controller().getCurrency();
+            this.amount = MainRepository.TradeView.controller().getLimitMin();
 
             console.log('pagination data:' + this.token + this.adType + this.country + this.currency);
-            MainRepository.TradeView.setTotalTradeView(this.token, this.adType, this.country, this.currency, 0);
+            console.log('pagination amount data:' + this.amount);
+            MainRepository.TradeView.setTotalTradeView(this.token, this.adType, this.country, this.currency, this.amount);
             //return MainRepository.TradeView.getTotalTradeView();
         },
         computed: {
