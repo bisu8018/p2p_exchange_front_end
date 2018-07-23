@@ -44,7 +44,6 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import AXIOS from 'axios';
     import MainRepository from "../../../../vuex/MainRepository";
     import TradeListItem from "./tradeListItem/TradeListItem.vue"
     import TradeCenterFilter from './tradeListItem/TradeCenterFilter.vue';
@@ -53,6 +52,7 @@
 
     export default Vue.extend({
         name: 'TradeCenter',
+        props: ['message'],
         components: {Pagination, TradeListItem, TradeCenterFilter},
         data: () => ({
             page : 1,
@@ -207,9 +207,16 @@
             // ],
         }),
         created() {
-            console.log("Created");
-            MainRepository.TradeView.setSelectPage(0);
-            console.log(MainRepository.TradeView.setSelectPage(0));
+            if(this.message == "general"){
+                console.log("General Created");
+                MainRepository.TradeView.setSelectPage(0);
+                console.log(MainRepository.TradeView.setSelectPage(0));
+            }else {
+                console.log("Block Created");
+                MainRepository.TradeView.setSelectPage(0);
+                console.log(MainRepository.TradeView.setSelectPage(0));
+            }
+
         },
         computed: {
             dataInfo(){

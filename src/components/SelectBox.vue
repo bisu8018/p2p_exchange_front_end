@@ -22,9 +22,9 @@
             'selectBoxType' : {type:String, default:'country'}
         },      //country, currency, payment
         data: () => ({
-            selectedCountry: '',
-            selectedCurrency: '',
-            selectedPayment: '',
+            selectedCountry: 'ALL',
+            selectedCurrency: 'CNY',
+            selectedPayment: 'ALL',
             countries: [
                 {country: 'All countries', code: 'ALL'},
                 {country: 'China', code: 'CN'},

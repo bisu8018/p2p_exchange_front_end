@@ -895,6 +895,13 @@ const strings = new Map([
         CN: '时间',
         JP: ''
     }],
+    ['Export', {
+        KOR: 'Export',
+        ENG: 'Export',
+        CN: 'Export',
+        JP: ''
+    }],
+
 
     //Balance
     ['Details', {

@@ -26,7 +26,7 @@
               </button>
             </v-flex>
             <!-- BlockTrade 버튼-->
-            <v-flex xs12 class="verticalcentertext">
+            <v-flex xs12 class="verticalcentertext" @click="goBlockTrade()">
 
               <button class="text-xs-left ml-3">
                 <div flat>{{$str("BlockTrade")}}</div>
@@ -120,7 +120,7 @@
 
           <button @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</button>
           <!-- BlockTrade 버튼-->
-          <button class="ml-4a">{{$str("BlockTrade")}}</button>
+          <button @click="goBlockTrade()" class="ml-4a">{{$str("BlockTrade")}}</button>
           <!-- post AD 버튼 -->
           <!-- default post AD 버튼-->
           <button class="ml-4a dropDownBtn">{{$str("postAd")}}
@@ -227,6 +227,10 @@
             },
             goTradeCenter() {
                 this.$router.push("/tradeCenter");
+            },
+            goBlockTrade() {
+                console.log("go blockTrade");
+                this.$router.push("/blockTrade");
             },
             goPostGeneralAd() {
                 this.$router.push("/generalAd");

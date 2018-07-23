@@ -1,11 +1,9 @@
 <template>
   <div>
-    <v-layout row wrap mt-5>
+    <v-layout row wrap mt-5 mb-5>
       <!--header-->
-      <v-flex md3 xs12>{{$str("MyOrder")}}</v-flex>
-      <v-flex md5 xs12></v-flex>
-      <!--search filter 추가할것-->
-      <v-flex md4 xs12><list-filter></list-filter></v-flex>
+      <v-flex md6 xs12 text-md-left class="title-2">{{$str("MyOrder")}}</v-flex>
+      <v-flex md6 xs12><my-order-filter class="myOrderFilter"></my-order-filter></v-flex>
     </v-layout>
     <!--main list view-->
     <div>
@@ -54,9 +52,10 @@
     import MainRepository from "../../../../vuex/MainRepository";
     import Pagination from '@/components/Pagination.vue';
     import MyOrderList from './MyOrderListItem/MyOrderList';
+    import MyOrderFilter from './MyOrderListItem/MyOrderFilter';
     export default {
         name: "MyOrder",
-        components: {ListFilter, Pagination, MyOrderList,},
+        components: {ListFilter, Pagination, MyOrderList, MyOrderFilter},
         data: () => ({
             orderLists: [
                 {
@@ -142,5 +141,4 @@
 </script>
 
 <style scoped>
-
 </style>
