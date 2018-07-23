@@ -65,12 +65,21 @@ export default Vue.extend({
 </script>
 
 <style>
-
-
-  .mainView{
-    max-width: 1200px;
-    min-height: 400px;
-    margin-left: auto;
-    margin-right: auto;
+  /* 웹에서 gutter 주기*/
+  @media only screen and (min-width: 960px) {
+    .mainView{
+      max-width: 1200px;
+      min-height: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
+  /* mobile 에서 gutter 주기*/
+  @media only screen and (max-width: 959px) {
+    .mainView{
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
 </style>

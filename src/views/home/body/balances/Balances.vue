@@ -10,7 +10,7 @@
     <v-divider></v-divider>
 
     <!--BalanceList-->
-    <div  v-for="tokenlist in tokenLists" :key="`i${tokenlist}`">
+    <div  v-for="tokenlist in tokenLists" >
       <balance-token-list
               :tokenlist="tokenlist"
       ></balance-token-list>
@@ -38,7 +38,7 @@
     </div>
 
     <!--BalanceList-->
-    <div  v-for="detailList in detailLists" :key="`i${detailList}`">
+    <div  v-for="detailList in detailLists" >
       <balance-detail-list
               :detailList="detailList"
       ></balance-detail-list>

@@ -1,83 +1,79 @@
 <template>
-  <v-layout mt-4 row wrap>
+  <v-layout mt-5 row wrap>
     <!--left filter-->
-    <v-flex xs12 md7>
-      <div>
-        <!-- mobile 일때 -->
-        <v-flex v-if="isMobile">
-            <!-- buy sell 버튼 -->
-            <div>
-              <!--buy-->
-              <div class="mobileBuyBtn" >
-                <span class="mobileBtnText" @click="setBuyInfo('current')">Buy</span>
-              </div>
-              <!--sell-->
-              <div class="mobileSellBtn" >
-                <span class="mobileBtnTextClicked" @click="setBuyInfo('current')"> Sell</span>
-              </div>
+
+      <!-- mobile 일때 -->
+      <v-layout row wrap v-if="isMobile" mb-4a>
+        <v-flex xs12>
+          <!-- buy sell 버튼 -->
+          <div>
+            <!--buy-->
+            <div class="mobileBuyBtn" >
+              <span class="mobileBtnText" @click="setBuyInfo('current')">Buy</span>
             </div>
-
-            <!-- BTC ALLB ETH  버튼 -->
-            <v-layout row wrap justify-center>
-            <v-flex xs1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-            <v-flex xs3 v-for="item in items" key="itemKey2" @click="setBuyInfo(item.text) "  >
-              {{ item.text }}
-            </v-flex>
-            <v-flex xs1> <v-icon>keyboard_arrow_right</v-icon> </v-flex>
-          </v-layout>
-
-          <!--right selecter-->
-
+            <!--sell-->
+            <div class="mobileSellBtn" >
+              <span class="mobileBtnTextClicked" @click="setBuyInfo('current')"> Sell</span>
+            </div>
+          </div>
         </v-flex>
+          <!-- BTC ALLB ETH  버튼 -->
+        <v-flex xs2 ><v-icon>keyboard_arrow_left</v-icon></v-flex>
+        <v-flex xs2 text-xs-left @click="setBuyInfo('BTC')">BTC</v-flex>
+        <v-flex xs4 text-xs-middle @click="setBuyInfo('USDT')">USDT</v-flex>
+        <v-flex xs2 text-xs-right @click="setBuyInfo('ETH')">ETH</v-flex>
+        <v-flex xs2><v-icon>keyboard_arrow_right</v-icon> </v-flex>
 
-        <!-- Web 일때 -->
+      </v-layout>
 
-        <div v-else>
-          <!--buy 부분 -->
-          <v-layout>
-            <v-flex md5>
-              <v-layout column>
-                <v-layout row mb-1>
-                  <v-flex md3 offset-md1 bold>{{$str("buy")}}</v-flex>
-                  <v-flex md7></v-flex>
-                </v-layout>
-                <v-layout row>
-                  <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" >
-                    {{ item.text }}
-                  </v-flex>
-                  <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
-                </v-layout>
+      <!-- Web 일때 -->
+
+      <div v-else>
+        <!--buy 부분 -->
+        <v-layout >
+          <v-flex md5>
+            <v-layout column>
+              <v-layout row mb-1>
+                <v-flex md3 offset-md1 bold>{{$str("buy")}}</v-flex>
+                <v-flex md7></v-flex>
               </v-layout>
-            </v-flex>
-            <!-- 가운데 divider-->
-            <v-flex md1>
-              <v-layout align-center justify-end column fill-height>
-                <span><v-divider vertical ></v-divider></span>
+              <v-layout row>
+                <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                <v-flex md3  v-for="item in items" @click="setBuyInfo(item.text)" >
+                  {{ item.text }}
+                </v-flex>
+                <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
               </v-layout>
-            </v-flex>
-            <!-- Sell 부분 -->
-            <v-flex md5>
-              <v-layout column>
-                <v-layout row >
-                  <v-flex md3 offset-md1 >{{$str("sell")}}</v-flex>
-                  <v-flex md7></v-flex>
-                </v-layout>
-                <v-layout row>
-                  <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
-                  <v-flex md3  v-for="item in items" @click="setSellInfo(item.text) " class="coinBtn">
-                    {{ item.text }}
-                  </v-flex>
-                  <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
-                </v-layout>
+            </v-layout>
+          </v-flex>
+          <!-- 가운데 divider-->
+          <v-flex md1>
+            <v-layout align-center justify-end column fill-height>
+              <span><v-divider vertical ></v-divider></span>
+            </v-layout>
+          </v-flex>
+          <!-- Sell 부분 -->
+          <v-flex md5>
+            <v-layout column>
+              <v-layout row >
+                <v-flex md3 offset-md1 >{{$str("sell")}}</v-flex>
+                <v-flex md7></v-flex>
               </v-layout>
-            </v-flex>
-          </v-layout>
-        </div>
+              <v-layout row>
+                <v-flex md1><v-icon>keyboard_arrow_left</v-icon></v-flex>
+                <v-flex md3  v-for="item in items" @click="setSellInfo(item.text) " class="coinBtn">
+                  {{ item.text }}
+                </v-flex>
+                <v-flex md1> <v-icon>keyboard_arrow_right</v-icon></v-flex>
+              </v-layout>
+            </v-layout>
+          </v-flex>
+        </v-layout>
       </div>
-    </v-flex>
+
+
     <!-- right filter -->
-    <v-flex xs12 md5>
+    <v-flex xs12 md5 mb-4a>
       <div>
         <div >
           <v-layout row text-xs-left>

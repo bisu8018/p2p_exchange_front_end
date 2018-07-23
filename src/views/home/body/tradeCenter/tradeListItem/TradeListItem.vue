@@ -41,13 +41,22 @@
         <!-- Payment Methods -->
         <v-layout>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left>
-              <img class="paymentImg" src="../../../../../assets/img/method_alipay.png">
-              <img class="paymentImg" src="../../../../../assets/img/method_bankaccount.png">
-              <img class="paymentImg" src="../../../../../assets/img/method_wechatpay.png">
+            <v-flex xs6 text-xs-left>
+              <a class="tooltips">
+                <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
+                <span class="BankTooltip tooltip-content">Bank account</span>
+              </a>
+              <a class="tooltips" >
+                <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+                <span class="tooltip-content">Alipay</span>
+              </a>
+              <a class="tooltips" >
+                <img class="mr-2" src="../../../../../assets/img/method_wechatpay.png">
+                <span class="tooltip-content">Wechatpay</span>
+              </a>
             </v-flex>
             <!--거래 버튼-->
-            <v-flex xs6 text-xs-right>
+            <v-flex xs4 text-xs-right>
               <button class="common-rounded-button" @click="drawer = !drawer">
                 {{tradeType}} {{token}}</button>
             </v-flex>
@@ -118,8 +127,8 @@
 
 
     <!--Web 일때-->
-    <div v-else>
-      <v-layout class="userList" align-center justify-center fill-height>
+    <div v-else class="webListWrapper">
+      <v-layout class="userWebList" align-center justify-center fill-height>
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
           <v-layout align-center>
@@ -143,11 +152,22 @@
         <v-flex md2 text-md-left >{{user.price}} {{token}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
-          <v-layout align-center justify-space-between>
+          <v-layout align-center >
             <!--payment method-->
-            <img src="../../../../../assets/img/method_alipay.png">
-            <img src="../../../../../assets/img/method_bankaccount.png">
-            <img src="../../../../../assets/img/method_wechatpay.png">
+            <a class="tooltips">
+              <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
+              <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+            </a>
+            <a class="tooltips">
+              <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+              <span class="tooltip-content">{{$str("alipayText")}}</span>
+            </a>
+            <a class="tooltips">
+              <img src="../../../../../assets/img/method_wechatpay.png">
+              <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+            </a>
+            <!--img와 button을 양쪽에 정렬시키기 위함.-->
+            <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
             <button class="common-rounded-button" @click="drawer = !drawer">
               {{tradeType}} {{token}}
@@ -157,11 +177,10 @@
       </v-layout>
 
       <!--Buy 를 위한 modal-->
-      <div v-if="drawer" class="">
-
+      <div v-if="drawer" class="buyWebModal">
         <v-layout row wrap>
           <v-flex md3 text-md-left >
-            <v-layout>
+            <v-layout pl-4>
               <!--avarta-->
               <avatar
                         :name = user.email[0]
@@ -175,7 +194,7 @@
                   {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
                 </span>
                 <img :src="rankSrc" class="userRank">
-                <div class="ml-3">{{$str("volume")}} : {{user.volumeTotal}} {{token}}</div>
+                <div class="ml-3">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
               </span>
             </v-layout>
           </v-flex>
@@ -197,24 +216,35 @@
                    :placeholder="tradeType">
           </v-flex>
           <v-flex md3 text-md-left>
-            <button class="">{{$str("confirm")}} </button>
-            <button class="" @click="drawer = !drawer">{{$str("cancel")}} </button>
+            <button class="common-rounded-button common-btn-hover mr-3">{{$str("confirm")}} </button>
+            <button class="common-rounded-flat-button common-text-hover" @click="drawer = !drawer">{{$str("cancel")}} </button>
           </v-flex>
         </v-layout>
-        <v-layout row wrap>
-          <v-flex md4 >
-            <img src="../../../../../assets/img/method_alipay.png"> {{$str("alipayText")}}
-            <img src="../../../../../assets/img/method_bankaccount.png"> {{$str("bankAccountText")}}
-            <img src="../../../../../assets/img/method_wechatpay.png">{{$str("wechatPayText")}}
+        <v-layout row wrap buyWebModal-secondRow>
+          <v-flex md6 text-md-left>
+            <div class="margin-left-74">
+              <!--Bank account-->
+              <img class="mr-2"src="../../../../../assets/img/method_bankaccount.png">
+              <span class="mr-3">{{$str("bankAccountText")}}</span>
+              <!--Alipay-->
+              <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+              <span class="mr-3">{{$str("alipayText")}}</span>
+              <!--WechatPay-->
+              <img class="mr-2"src="../../../../../assets/img/method_wechatpay.png">
+              <span class="mr-3">{{$str("wechatPayText")}}</span>
+            </div>
           </v-flex>
-          <v-flex md4></v-flex>
-          <v-flex md4>
+          <v-flex md5 text-md-right>
             <span class="TextDarkgray">{{$str("Payment_window_is_15minutes")}}</span>
           </v-flex>
+
         </v-layout>
+
+
+
         <!-- 판매자가 남긴 요구 메모가 있을시-->
-        <v-layout>
-          <v-flex v-if="user.memo !== '' " text-md-left>
+        <v-layout mt-5>
+          <v-flex md12 v-if="user.memo !== '' " margin-left-74 mr-4 text-md-left>
             {{$str("userMemo")}}： <br>
             {{user.memo}}
           </v-flex>
@@ -271,8 +301,13 @@
 </script>
 
 <style scoped>
-  .userList{
+  .webListWrapper{
+    position: relative;
+  }
+  .userWebList{
     height: 84px;
+    position: relative;
+    z-index: 0;
   }
   .userInput{
     height: 36px;
@@ -293,8 +328,28 @@
     height: 18px;
     margin-left: 16px;
   }
-  .paymentImg{
-    margin-right : 8px;
+
+  .BankTooltip{
+    width: 101px;
+  }
+  .buyWebModal{
+    min-height: 171px;
+    background-color: #ffffff;
+    width: 100%;
+    position: absolute;
+    border-radius: 2px;
+    padding-top: 24px;
+    padding-bottom: 48px;
+    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+    display: block;
+    z-index: 1;
+  }
+
+  .buyWebModal-secondRow{
+    margin-top: 36px;
+  }
+  .margin-left-74{
+    margin-left: 74px;
   }
 
 </style>
