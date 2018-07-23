@@ -105,6 +105,8 @@
                 <div>{{$str("LogOut")}}</div>
               </button>
             </v-flex>
+
+
           </v-layout>
         </div>
       </div>
@@ -123,12 +125,15 @@
           <button @click="goBlockTrade()" class="ml-4a">{{$str("BlockTrade")}}</button>
           <!-- post AD 버튼 -->
           <!-- default post AD 버튼-->
-          <button class="ml-4a dropDownBtn">{{$str("postAd")}}
-            <div class="dropDown-content pl-3 pt-3 pr-3">
-              <div class="pb-3 text-md-left" @click="goPostGeneralAd">{{$str("Post_General_AD")}}</div>
-              <div class="pb-3 text-md-left" @click="goPostBlockAd">{{$str("Post_Block_AD")}}</div>
+          <div class="dropdown">
+            <button class="ml-4a dropbtn">{{$str("postAd")}}</button>
+            <div class="dropdown-content pl-3 pt-3 pr-3" style="min-width: 140px;">
+              <button class="mb-3 text-md-left" @click="goPostGeneralAd">{{$str("Post_General_AD")}}</button>
+              <button class="mb-3 text-md-left" @click="goPostBlockAd">{{$str("Post_Block_AD")}}</button>
             </div>
-          </button>
+          </div>
+
+
 
           <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
           <v-spacer></v-spacer>
@@ -142,7 +147,6 @@
           <button class="button-2 mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
           <!-- My Ads-->
           <button class="button-2 mr-4a" @click="goMyAds()">{{$str("MyAds")}}</button>
-
           <!--내 정보 끝-->
 
 
@@ -151,28 +155,28 @@
           <!-- signup 버튼-->
           <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
           <!-- 언어설정버튼 -->
-          <div class="dropDownBtn mr-4a" >
+          <div class="dropdown mr-4a">
             <!-- 한국어-->
-            <div style="display: inline-block;" v-if="currentLang=='KO'">
+            <button v-if="currentLang=='KO'" class="dropbtn">
               <img src="@/assets/img/flag3.png">
-              <span class=" ml-2">한국어<i class="material-icons md-light">keyboard_arrow_down</i></span>
-            </div>
+              <span class=" ml-2">한국어<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+            </button>
             <!-- 영어 -->
-            <div style="display: inline-block;" v-else-if="currentLang=='EN'">
+            <button v-else-if="currentLang=='EN'" class="dropbtn">
               <img src="@/assets/img/flag2.png">
               <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-            </div>
+            </button>
             <!-- 중국어 -->
-            <div style="display: inline-block;" v-else>
+            <button v-else class="dropbtn">
               <img src="@/assets/img/flag1.png">
-              <span class=" ml-2">简体中文<v-icon small >keyboard_arrow_down</v-icon></span>
-            </div>
+              <span class="ml-2">简体中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+            </button>
             <!--언어 설정시 dropdown box-->
-            <div class="dropDown-content dropDown-Lang">
+            <div class="dropdown-content">
               <!-- 내 정보 list 버튼-->
-              <div class=" pl-3 pt-3 pb-3 text-md-left" @click="changeLang('KO')">한국어</div>
-              <div class=" pl-3 pb-3 text-md-left" @click="changeLang('ZH')">简体中文</div>
-              <div class=" pl-3 pb-3 text-md-left" @click="changeLang('EN')">English</div>
+              <button class=" pl-3 mt-3 mb-3 text-md-left" @click="changeLang('KO')">한국어</button>
+              <button class=" pl-3 mb-3 text-md-left" @click="changeLang('ZH')">简体中文</button>
+              <button class=" pl-3 mb-3 text-md-left" @click="changeLang('EN')">English</button>
             </div>
           </div>
         </v-layout>
@@ -278,7 +282,7 @@
     });
 </script>
 
-<style>
+<style scoped>
   #nav {
     height: 64px;
     background-color: #002970;
@@ -319,7 +323,41 @@
     display: flex;
   }
 
-  .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
+
+  .dropbtn {
+    padding-top: 22px;
+    padding-bottom: 22px;
+    border: none;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    color: black;
+    min-width: 104px;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
+    z-index: 1;
+    border-radius: 2px;
+    font-weight: 400;
+    background-color: white;
+  }
+
+  .dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {background-color: #ddd;}
+
+  .dropdown:hover .dropdown-content, .dropdown-content button {display: block;
+  }
+
+  /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
     display: block;
   }
 
@@ -327,7 +365,7 @@
     display: none;
     position: absolute;
     background-color: #ffffff;
-    top: 64px;
+    padding-top: 64px;
     z-index: 0;
     box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
     border-radius: 2px;
@@ -349,5 +387,5 @@
   .dropDown-MyPage {
     min-width: 104px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.34);
-  }
+  } */
 </style>

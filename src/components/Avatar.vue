@@ -60,8 +60,8 @@
     font-size: 16px;
   }
   .loginCircle{
-    position : relative;
-    top: -10px;
+    position: relative;
+    top: -8px;
     left: 24px;
     height: 10px;
     width: 10px;

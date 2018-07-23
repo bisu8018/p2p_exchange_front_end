@@ -311,7 +311,7 @@
 
 
 
-    /*common text style*/
+    /*common text st   yle*/
 
     .text-black {
         color: #353535;
@@ -434,15 +434,16 @@
         color: white;
         border-radius: 3px;
     }
-    .common-rounded-button {         /*사각형 파랑배경 흰색폰트 라운드 버튼*/
+    .common-rounded-button {         /* 파랑배경 흰색폰트 라운드 버튼*/
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: #214ea1;
-        border-radius: 30px;
+        border-radius: 18px;
         font-size: 14px;
         color: white;
     }
+
     .common-normal-bordered-button {         /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
         border: 1px solid #214ea1 !important;
         margin-bottom: -10px;
@@ -485,6 +486,50 @@
 
     .line-height-1 {
         line-height: 1;
+    }
+
+    /*hover시 상단 말풍선. 아래와 같이 사용가능*/
+
+    /*<a class="tooltips">*/
+        /*<img src="../../../../../assets/img/method_alipay.png">*/
+        /*<span>Alipay</span>*/
+     /*</a>*/
+
+    .tooltips {
+        position: relative;
+        display: inline;
+
+    }
+    .tooltips .tooltip-content {
+        display: none;
+        position: absolute;
+        padding: 8px;
+        color: #FFFFFF;
+        background: #545c6a;
+        font-size: 12px;
+        text-align: center;
+        border-radius: 2px;
+    }
+    .tooltips .tooltip-content:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+        width: 0;
+        height: 0;
+        border-top: 6px solid #545c6a;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+    }
+
+    :hover.tooltips .tooltip-content {
+        display: block;
+        bottom: 140%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        z-index: 999;
     }
 
 

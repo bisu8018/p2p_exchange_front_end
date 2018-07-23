@@ -623,7 +623,7 @@ const strings = new Map([
     }],
     ['wechatPayText', {
         KOR: '위챗페이',
-        ENG: 'Wechat Pay',
+        ENG: 'Wechatpay',
         CN: '微信支付',
         JP: ''
     }],
