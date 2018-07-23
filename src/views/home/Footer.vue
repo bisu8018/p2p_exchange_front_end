@@ -55,7 +55,7 @@
             <div class="dropup-content pl-3">
               <!-- 내 정보 list 버튼-->
               <button class="mt-3 mb-3" @click="changeLang('KO')">한국어</button>
-              <button class="mt-3 mb-3" @click="changeLang('ZH')">简体中文</button>
+              <button @click="changeLang('ZH')">简体中文</button>
               <button class="mt-3 mb-3" @click="changeLang('EN')">English</button>
             </div>
           </div>
