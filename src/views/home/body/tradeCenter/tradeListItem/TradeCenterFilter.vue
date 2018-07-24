@@ -89,7 +89,7 @@
               </v-flex>
             </v-layout>
             <!-- cancel, search 버튼-->
-            <v-flex text-xs-right >
+            <v-flex text-xs-right>
               <button class="common-rounded-flat-button common-text-hover" @click="isModal = false" >{{$str("cancel")}} </button>
               <button class="common-rounded-button common-btn-hover" @click="onSearch" >{{$str("search")}} </button>
             </v-flex>

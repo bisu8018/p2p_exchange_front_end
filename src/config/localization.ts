@@ -934,6 +934,24 @@ const strings = new Map([
         CN: '硬币',
         JP: ''
     }],
+    ['OTC_Account', {
+        KOR: 'OTC 계좌',
+        ENG: 'OTC Account',
+        CN: 'OTC 帐户',
+        JP: ''
+    }],
+    ['Frozen', {
+        KOR: '동결 계좌',
+        ENG: 'Frozen',
+        CN: '冻结账户',
+        JP: ''
+    }],
+    ['Transfer_to_Exchange_account_to_withdraw', {
+        KOR: '인출을 위해 교환 계정으로 전송',
+        ENG: 'Transfer to Exchange account to withdraw',
+        CN: '转账到兑换账户退出',
+        JP: ''
+    }],
 
 
 
