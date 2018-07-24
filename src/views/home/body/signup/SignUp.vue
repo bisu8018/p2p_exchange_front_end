@@ -15,9 +15,9 @@
             <div class="text-xs-left mb-2 text-black mt-4">{{$str("email")}}</div>
             <div class="text-input-wrapper">
                 <input name="email" v-model="email" type="text" class="common-input mb-4"
-                       v-bind:class="{'warning_border' : warning_email}" @blur="onCheckEmail">
+                       v-bind:class="{'warning-border' : warning_email}" @blur="onCheckEmail">
                 <div class="warning-text-wrapper">
-                    <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_email}">{{verify_warning_email}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_email}">{{verify_warning_email}}</span>
                 </div>
             </div>
 
@@ -25,11 +25,11 @@
             <div class="text-xs-left mb-2 text-black">{{$str("emailVerificationCdoe")}}</div>
             <div class="relative">
                 <input name="verificationCode" v-model="verificationCode" type="text" class="common-input mb-4"
-                       autocomplete="off" v-bind:class="{'warning_border' : warning_verification_code}"
+                       autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
                        @blur="onCheckVerificationCode">
                 <span class="click-send-text" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                 <div class="warning-text-wrapper">
-                    <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_verification_code}"
+                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
                 </div>
             </div>
@@ -39,9 +39,9 @@
             <div class="text-input-wrapper">
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
                        class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
-                       v-bind:class="{'warning_border' : warning_password}" @blur="onCheckPassword">
+                       v-bind:class="{'warning-border' : warning_password}" @blur="onCheckPassword">
                 <div class="warning-text-wrapper">
-                    <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_password}">{{verify_warning_password}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_password}">{{verify_warning_password}}</span>
                 </div>
             </div>
 
@@ -50,9 +50,9 @@
             <div class="text-input-wrapper">
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
                        class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
-                       v-bind:class="{'warning_border' : warning_password_confirm}" @blur="onCheckPasswordConfirm">
+                       v-bind:class="{'warning-border' : warning_password_confirm}" @blur="onCheckPasswordConfirm">
                 <div class="warning-text-wrapper">
-                    <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
                                               @click="onCheckTerms()"
                                               class="mr-2">{{$str('termsLabel')}}</label>
                 <div class="absolute">
-                    <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_verify_terms}">{{verify_terms}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
             </div>
 
@@ -243,7 +243,7 @@
     });
 </script>
 
-<style>
+<style scoped>
     .selectbox-width {
         width: 100%;
     }

@@ -1,30 +1,30 @@
 <template>
     <v-layout wrap align-center>
-        <div  class="selectbox-wrapper selectbox-width" >
-            <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="abSelectBox caption">
+        <div  class="relative selectbox-width" >
+            <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="common-selectbox caption">
                 <option v-for="country in countries" v-bind:value="country.code" >{{country.country}}</option>
             </select>
-            <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="abSelectBox caption">
+            <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="common-selectbox caption">
                 <option v-for="currency in currencies" v-bind:value="currency.currency" >{{currency.currency}}</option>
             </select>
-            <select v-else="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="abSelectBox caption">
+            <select v-else="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="common-selectbox caption">
                 <option v-for="payment in payments" v-bind:value="payment.code" >{{payment.payment}}</option>
             </select>
-            <v-icon class="icon-style">keyboard_arrow_down</v-icon>
+            <v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>
         </div>
     </v-layout>
 </template>
 <script>
     import MainRepository from "@/vuex/MainRepository";
     export default {
-        name: 'abSelectBox',
+        name: 'selectBox',
         props : {
             'selectBoxType' : {type:String, default:'country'}
         },      //country, currency, payment
         data: () => ({
-            selectedCountry: '',
-            selectedCurrency: '',
-            selectedPayment: '',
+            selectedCountry: 'ALL',
+            selectedCurrency: 'CNY',
+            selectedPayment: 'ALL',
             countries: [
                 {country: 'All countries', code: 'ALL'},
                 {country: 'China', code: 'CN'},
@@ -89,30 +89,7 @@
         }
     }
 </script>
-<style scoped>
-    .abSelectBox {
-        width: 100%;
-        height: 40px;
-        border-radius: 2px;
-        background-color: #ffffff;
-        border: solid 1px #8d8d8d;
-        color: #9294a6;
-        padding-left: 12px;
-        cursor: pointer;
-    }
-
-    .abSelectBox option:checked {
-        background: #f8f8fa;
-    }
-
-    .selectbox-wrapper{
-        position: relative;
-    }
-
-    .icon-style {
-        position: absolute;
-        right: 8px;
-        top: 8px;
-        pointer-events: none;
-    }
+<style >
+    /*특정 뷰에서 셀렉박스 길이 설정 필요 시,*/
+    /*selectbox-width 클래스 지정 후 사용*/
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div>
+    <div >
+      <div class="header-wrapper">
       <!-- 모바일 일때-->
       <div v-if="isMobile">
-        <v-layout id="nav" class="align-center">
+        <v-layout class="nav align-center">
           <!--logo-->
           <div class="ml-3">
-            <img @click="goMain()" src="@/assets/img/logo_color.png" id="logo">
+            <img @click="goMain()" src="@/assets/img/logo_color.png" class="logo">
           </div>
           <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
           <v-spacer> </v-spacer>
@@ -111,10 +111,10 @@
 
       <!-- 웹일때 -->
       <div v-else>
-        <v-layout align-center row id="nav">
+        <v-layout align-center row class="nav">
           <!-- logo버튼-->
           <button @click="goMain()" class="ml-4">
-            <img src="@/assets/img/logo_color.png" id="logo">
+            <img src="@/assets/img/logo_color.png" class="logo">
           </button>
           <!-- TradeCenter버튼-->
 
@@ -176,11 +176,10 @@
             </div>
           </div>
         </v-layout>
-
       </div>
     </div>
-    <!--header 아래 contents 들이 겹쳐지지 않기 위한 빈 box-->
-  </div>
+      <div class="unvisible-header"></div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -275,13 +274,13 @@
 </script>
 
 <style>
-  #nav {
+  .nav {
     height: 64px;
     background-color: #002970;
     color: white;
   }
 
-  #logo {
+  .logo {
     width: 30px;
     height: 24px;
   }
@@ -345,5 +344,15 @@
   .dropDown-MyPage {
     min-width: 104px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.34);
+  }
+
+  .header-wrapper{
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .unvisible-header {
+    margin-bottom: 64px;
   }
 </style>

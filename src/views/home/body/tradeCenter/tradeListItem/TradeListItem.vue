@@ -2,11 +2,12 @@
   <div>
 
     <!-- mobile 일때-->
-    <div v-if="isMobile" >
+    <div v-if="isMobile" class="relative">
+      <!--거래 list -->
       <div>
         <!-- name-->
-        <v-layout>
-          <v-flex xs2 >
+        <v-layout mt-4>
+          <v-flex xs2 text-xs-left>
             <avatar
               :name = user.email[0]
               :isLogin = user.isLogin
@@ -39,77 +40,104 @@
             <v-flex xs6 text-xs-right> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
-        <v-layout>
+        <v-layout align-center justify-space-between row fill-height mb-4>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left>
-              <img class="paymentImg" src="../../../../../assets/img/method_alipay.png">
-              <img class="paymentImg" src="../../../../../assets/img/method_bankaccount.png">
-              <img class="paymentImg" src="../../../../../assets/img/method_wechatpay.png">
+            <v-flex xs6 text-xs-left>
+              <a class="tooltips">
+                <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
+                <span class="BankTooltip tooltip-content">Bank account</span>
+              </a>
+              <a class="tooltips" >
+                <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+                <span class="tooltip-content">Alipay</span>
+              </a>
+              <a class="tooltips" >
+                <img class="mr-2" src="../../../../../assets/img/method_wechatpay.png">
+                <span class="tooltip-content">Wechatpay</span>
+              </a>
             </v-flex>
             <!--거래 버튼-->
-            <v-flex xs6 text-xs-right>
+            <v-flex xs4 text-xs-right>
               <button class="common-rounded-button" @click="drawer = !drawer">
                 {{tradeType}} {{token}}</button>
             </v-flex>
         </v-layout>
       </div>
 
-      <!--거래를 위한 mobile modal-->
+      <!--버튼 클릭시 거래를 위한 mobile modal-->
       <div v-if="drawer" class="mobileModal">
         <!-- name-->
         <v-layout>
-          <v-flex xs2>
+          <v-flex xs2 pl-2>
             <avatar
                   :name = user.email[0]
                   :isLogin = user.isLogin
                   :color = user.color>
           </avatar>
           </v-flex>
-          <v-flex xs12 text-xs-left>
+          <v-flex xs8 text-xs-left>
             {{user.email}} ( {{user.volumeTotal}} | 99%)
             <img :src="rankSrc" class="userRank">
+          </v-flex>
+          <v-flex xs2 text-xs-center>
+            <button><i class="material-icons" @click="drawer = false">close</i></button>
           </v-flex>
         </v-layout>
         <!-- Volume -->
         <v-layout >
-          <v-flex xs3  offset-xs2 text-xs-left>Volume :</v-flex>
+          <v-flex xs3  offset-xs2 text-xs-left>{{$str("Available")}} :</v-flex>
           <v-flex xs5 offset-xs1 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout >
-          <v-flex xs3  offset-xs2 text-xs-left>Limits :</v-flex>
+          <v-flex xs3  offset-xs2 text-xs-left>{{$str("limits")}} :</v-flex>
           <v-flex xs5 offset-xs1 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout >
-          <v-flex xs3  offset-xs2 text-xs-left>Price :</v-flex>
+          <v-flex xs3  offset-xs2 text-xs-left>{{$str("price")}} :</v-flex>
           <v-flex xs5 offset-xs1 text-xs-right> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- payment methods -->
-        <v-layout >
-          <v-flex xs5 offset-xs2 text-xs-left> {{$str("payment")}}:</v-flex>
-          <v-flex xs1 text-xs-right><img src="../../../../../assets/img/method_alipay.png"> </v-flex>
-          <v-flex xs1 text-xs-right> <img src="../../../../../assets/img/method_bankaccount.png"> </v-flex>
-          <v-flex xs1 text-xs-right><img src="../../../../../assets/img/method_wechatpay.png"></v-flex>
-        </v-layout>
         <v-layout>
-          <v-flex xs2></v-flex>
-          <v-flex xs9>
-            <input type="number" class="mobileInput" name="toValue" v-model="toValue"
-                   :placeholder="toPlaceholder">
-
-            <input type="number" class="mobileInput" name="toValue" v-model="fromValue"
-                   :placeholder="fromPlaceholder">
-
-            <input type="number" class="mobileInput" name="toValue" v-model="tradePassword"
-                   :placeholder="pwPlaceholder">
+          <v-flex xs3  offset-xs2 text-xs-left> {{$str("payment")}}:</v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right>
+            <img src="../../../../../assets/img/method_bankaccount.png">
+            <img src="../../../../../assets/img/method_alipay.png" class="ml-2">
+            <img src="../../../../../assets/img/method_wechatpay.png" class="ml-2">
           </v-flex>
         </v-layout>
-        <v-layout>
-          <v-flex xs6>Payment window is 20 minutes</v-flex>
-          <v-flex xs6 text-xs-right>
-            <button class="common-rounded-small-flat-button" @click="">{{$str("cancel")}}</button>
-            <button class="common-rounded-small-button" @click="">{{$str("confirm")}}</button>
+        <v-layout mt-4>
+          <v-flex xs9 offset-xs2 text-xs-left>
+            <div >
+              <input type="number" class="mobileInput " name="toValue" v-model="toValue"
+                     :placeholder="currency">
+            </div>
+            <div class="mt-3">
+              <input type="number" class="mobileInput" name="toValue" v-model="fromValue"
+                     :placeholder="token">
+            </div>
+            <div class="mt-3" v-if="tradeType =='SELL'">
+              <input type="number" class="mobileInput" name="toValue" v-model="tradePassword"
+                     :placeholder="pwPlaceholder">
+            </div>
+          </v-flex>
+        </v-layout>
+        <v-layout mt-4a>
+          <v-flex xs9 offset-xs2 text-xs-left>
+            <button class="common-normal-button" @click="">{{$str("confirm")}}</button>
+          </v-flex>
+        </v-layout>
+        <v-layout mt-4>
+          <v-flex xs9 offset-xs2 text-xs-left>
+            {{$str("Payment_window_is_15minutes")}}
+          </v-flex>
+        </v-layout>
+        <!--user Memo가 있을시-->
+        <v-layout v-if="user.memo !== '' " mt-4>
+          <v-flex xs9 offset-xs2 text-xs-left>
+            {{$str("userMemo")}}： <br>
+            {{user.memo}}
           </v-flex>
         </v-layout>
       </div>
@@ -118,8 +146,8 @@
 
 
     <!--Web 일때-->
-    <div v-else>
-      <v-layout class="userList" align-center justify-center fill-height>
+    <div v-else class="relative">
+      <v-layout class="userWebList" align-center justify-center fill-height>
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
           <v-layout align-center>
@@ -143,11 +171,22 @@
         <v-flex md2 text-md-left >{{user.price}} {{token}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
-          <v-layout align-center justify-space-between>
+          <v-layout align-center >
             <!--payment method-->
-            <img src="../../../../../assets/img/method_alipay.png">
-            <img src="../../../../../assets/img/method_bankaccount.png">
-            <img src="../../../../../assets/img/method_wechatpay.png">
+            <a class="tooltips">
+              <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
+              <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+            </a>
+            <a class="tooltips">
+              <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+              <span class="tooltip-content">{{$str("alipayText")}}</span>
+            </a>
+            <a class="tooltips">
+              <img src="../../../../../assets/img/method_wechatpay.png">
+              <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+            </a>
+            <!--img와 button을 양쪽에 정렬시키기 위함.-->
+            <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
             <button class="common-rounded-button" @click="drawer = !drawer">
               {{tradeType}} {{token}}
@@ -157,11 +196,10 @@
       </v-layout>
 
       <!--Buy 를 위한 modal-->
-      <div v-if="drawer" class="">
-
+      <div v-if="drawer" class="tradeWebModal">
         <v-layout row wrap>
           <v-flex md3 text-md-left >
-            <v-layout>
+            <v-layout pl-4>
               <!--avarta-->
               <avatar
                         :name = user.email[0]
@@ -175,7 +213,7 @@
                   {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
                 </span>
                 <img :src="rankSrc" class="userRank">
-                <div class="ml-3">{{$str("volume")}} : {{user.volumeTotal}} {{token}}</div>
+                <div class="ml-3">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
               </span>
             </v-layout>
           </v-flex>
@@ -189,32 +227,51 @@
             </div>
           </v-flex>
 
-          <v-flex md4 text-md-left>
+          <v-flex md4>
+            <!-- 수평: 양쪽으로 벌리고, 수직: 가운데정렬-->
+            <v-layout align-center justify-space-between row fill-height>
             <input type="number" class="userInput" name="toValue" v-model="toValue"
                    :placeholder="currency">
-            <span><-></span>
+            <i class="material-icons text-darkgray swapIcon">swap_horiz</i>
             <input type="number" class="userInput" name="fromValue" v-model="fromValue"
-                   :placeholder="tradeType">
+                   :placeholder="token">
+            </v-layout>
           </v-flex>
           <v-flex md3 text-md-left>
-            <button class="">{{$str("confirm")}} </button>
-            <button class="" @click="drawer = !drawer">{{$str("cancel")}} </button>
+            <button class="common-rounded-button common-btn-hover mr-3">{{$str("confirm")}} </button>
+            <button class="common-rounded-flat-button common-text-hover" @click="drawer = !drawer">{{$str("cancel")}} </button>
           </v-flex>
         </v-layout>
-        <v-layout row wrap>
-          <v-flex md4 >
-            <img src="../../../../../assets/img/method_alipay.png"> {{$str("alipayText")}}
-            <img src="../../../../../assets/img/method_bankaccount.png"> {{$str("bankAccountText")}}
-            <img src="../../../../../assets/img/method_wechatpay.png">{{$str("wechatPayText")}}
+        <v-layout row wrap tradeWebModal-secondRow>
+          <v-flex md6 text-md-left>
+            <div class="margin-left-74">
+              <!--Bank account-->
+              <img class="mr-2"src="../../../../../assets/img/method_bankaccount.png">
+              <span class="mr-3">{{$str("bankAccountText")}}</span>
+              <!--Alipay-->
+              <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+              <span class="mr-3">{{$str("alipayText")}}</span>
+              <!--WechatPay-->
+              <img class="mr-2"src="../../../../../assets/img/method_wechatpay.png">
+              <span class="mr-3">{{$str("wechatPayText")}}</span>
+            </div>
           </v-flex>
-          <v-flex md4></v-flex>
-          <v-flex md4>
+          <v-flex md3 text-md-right>
+            <div v-if="tradeType =='SELL'">
+              <input type="text" class="userInput" name="tradePW" v-model="tradePW"
+                     :placeholder="pwPlaceholder">
+            </div>
+          </v-flex>
+          <v-flex md2 text-md-right>
             <span class="TextDarkgray">{{$str("Payment_window_is_15minutes")}}</span>
           </v-flex>
         </v-layout>
+
+
+
         <!-- 판매자가 남긴 요구 메모가 있을시-->
-        <v-layout>
-          <v-flex v-if="user.memo !== '' " text-md-left>
+        <v-layout >
+          <v-flex md12 mt-5 mb-5 v-if="user.memo !== '' " margin-left-74 mr-4 text-md-left>
             {{$str("userMemo")}}： <br>
             {{user.memo}}
           </v-flex>
@@ -238,7 +295,9 @@
             token : 'BTC',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
             tradeType : 'BUY',  //살건지 팔건지 여부.
-            rankSrc : ''
+            tradePW : '',       // Trade Password
+            rankSrc : '',
+
 
 
         }),
@@ -271,8 +330,10 @@
 </script>
 
 <style scoped>
-  .userList{
+  .userWebList{
     height: 84px;
+    position: relative;
+    z-index: 0;
   }
   .userInput{
     height: 36px;
@@ -293,8 +354,38 @@
     height: 18px;
     margin-left: 16px;
   }
-  .paymentImg{
-    margin-right : 8px;
+
+  .BankTooltip{
+    width: 101px;
+  }
+  .tradeWebModal{
+    min-height: 171px;
+    background-color: #ffffff;
+    width: 100%;
+    position: absolute;
+    border-radius: 2px;
+    padding-top: 24px;
+    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+    display: block;
+    z-index: 1;
   }
 
+
+  .tradeWebModal-secondRow{
+    margin-top: 36px;
+  }
+  .margin-left-74{
+    margin-left: 74px;
+  }
+  .mobileModal{
+    border-radius: 2px;
+    background-color: #ffffff;
+    width: 100%;
+    position: absolute;
+    display: block;
+    z-index: 1;
+    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
 </style>

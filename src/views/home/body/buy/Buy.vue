@@ -1,14 +1,14 @@
 <template>
     <v-layout mt-5 mb-5 ml-3 mr-3 column>
         <div class="flex-divide mb-4">
-            <div class="text-darkgray caption text-xs-left mb-3">
+            <div class="text-darkgray caption text-xs-left mb-4">
                 <!--{{order_number}} 주문번호-->
                 {{$str('orderText')}} : #{{orderNumber}}
 
             </div>
-            <div class="headline-2 text-black text-xs-left mb-3">
+            <div class="headline-2 text-black text-xs-left mb-4a line-height-1">
                 <!--{{ad_type}} buy/sell -->
-                <div>{{adType = 'BUY'? 'Buy' : 'Sell'}}
+                <div>Buy
                     <!--{{volume}} 토큰량 -->
                     {{volumeTotal}}
                     <!--{{token}} 토큰종류-->
@@ -17,15 +17,15 @@
                 <!--{{email}} 이메일-->
                 <div>From {{email}}</div>
             </div>
-            <div class="text-xs-left mb-4">
-                <div class="test-black mb-3 ">
+            <div class="text-xs-left mb-4a">
+                <div class="text-black mb-3 ">
                     {{$str('price')}} :
                     <!--{{price}} 가격 -->
                     <span class="ml-3 subheading-2">{{price}}
                         <!--{{currency}} 화폐단위-->  <!--{{currency}} 토큰종류-->
                         {{currency}} / {{token}}</span>
                 </div>
-                <div>
+                <div class="text-black">
                     {{$str('amount')}} :
                     <!--{{price}} 가격 -->
                     <span class="ml-3 subheading-2 text-price bold">{{price}}
@@ -35,9 +35,9 @@
             </div>
 
         </div>
-        <div class=" mb-4a">
+        <div class=" mb-4a" v-if="status != 'cancel'">
             <!--알리페이 결제-->
-            <div class="payment-wrapper" v-if="alipay === 'Y'">
+            <div class="payment-wrapper mb-3 " v-if="alipay === 'Y'">
                 <div class="payment-wrapper width-half">
                     <div class="mr-2">
                         <img src="@/assets/img/method_alipay.png">
@@ -46,13 +46,13 @@
                         {{$str("alipayText")}}
                     </div>
                 </div>
-                <div class="text-xs-right width-half">
+                <div class="text-xs-right width-half text-black">
                     <!--알리페이 정보-->
                     {{alipay_address}}
                 </div>
             </div>
             <div class="text-xs-right mb-3">
-                Alipay QR
+                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer">
             </div>
             <!--위챗페이 결제-->
             <div class="payment-wrapper mb-3" v-if="wechat === 'Y'">
@@ -64,13 +64,13 @@
                         {{$str("wechatPayText")}}
                     </div>
                 </div>
-                <div class="text-xs-right width-half">
+                <div class="text-xs-right width-half text-black">
                     <!--위챗페이정보-->
                     {{wechatpay_address}}
                 </div>
             </div>
-            <div class="text-xs-right mb-3">
-                Wechatpay QR
+            <div class="text-xs-right mb-3 ">
+                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer">
             </div>
             <!--은행 계좌 결제-->
             <div class="payment-wrapper" v-if="bankAccount === 'Y'">
@@ -82,15 +82,15 @@
                         {{$str("bankAccountText")}}
                     </div>
                 </div>
-                <div class="text-xs-right width-half">
+                <div class="text-xs-right width-half text-black">
                     <!--은행계좌 정보-->
                     {{bankaccount_address}}
                 </div>
             </div>
         </div>
         <div class="coinselect-1 text-black text-xs-left mb-4a line-height-1">
-            <div class="mb-3">
-                <!--<span v-if="status 값 따라 분기 처리">-->
+            <!--pending 상태 일때-->
+            <div class="mb-3" v-if="status === 'pending'">
                 {{$str("paymentExplain1")}}
 
                 <!--{{price}} 가격 --><!--{{currency}} 화폐단위-->
@@ -106,55 +106,130 @@
                 <span class="text-success">{{paymentWindow}}</span>
                 {{$str("paymentExplain4")}}
             </div>
-            <div>
-                {{$str("referenceText")}} :
 
-                <span class="common-normal-bordered-button name bold pl-3 pr-3 ml-3 ">
+            <!--buying 상태 일때-->
+            <div class="mb-3" v-else-if="status === 'buying'">
+                {{$str("buyingExplain1")}}
+
+                <!--{{volumeTotal}} 가격 --><!--{{token}} 단위-->
+                <span class="text-price">{{volumeTotal}} {{token}}</span>
+                {{$str("buyingExplain2")}}
+
+                <!--{{email}} 이메일-->
+                {{email}}
+                {{$str("buyingExplain3")}}
+            </div>
+
+            <div  class="mb-3 line-height-apealcode" v-else-if="status === 'appeal'">
+                    {{$str("appealCodeExplain")}}
+                {{appealCode}}
+            </div>
+
+            <!--status cancel 일 시 설명 문구-->
+            <div class="cancel-explain mb-4" v-else-if="status ==='cancel'">
+                {{$str("cancelExplain")}}
+            </div>
+
+            <div>
+                <span v-if="status === 'buying'">
+                    {{$str("buyingExplain4")}}
+                </span>
+                <span v-else-if="status === 'paid' || status === 'cancel'">
+                    {{$str("complete")}}
+                </span>
+
+                {{$str("referenceText")}} :
+                <div class="tooltips">
+                    <span slot="activator" class=" common-normal-bordered-button name bold pl-3 pr-3 ml-3 " @click="onCopy()">
                     <!--{{거래번호}}-->
                     {{reference}}
-                </span>
+                    </span>
+                    <input type="text" :value="reference" id="referenceNum" class="referenceNum">
+                    <span class="tooltip-content">Copy</span>
+                </div>
             </div>
         </div>
 
-        <!--paid 버튼-->
-        <div class="mb-3">
-            <input type="button" class="common-normal-button" :value="$str('paidText')" @click="onPaid">
+
+        <div class="mb-3" v-if="status != 'paid' && status != 'cancel'" >
+            <!--paid 버튼--><!--pending 상태 일때-->
+            <input v-if="status === 'pending'" type="button" class="common-normal-button common-btn-hover"
+                   :value="$str('paidText')" @click="onModal('paid')">
+            <!--buying process indicator --><!--buying 상태 일때-->
+            <span v-else-if="status === 'buying'" class="relative">
+                <input type="text" class="buying-process"
+                       :value="$str('buyingIndicator')"
+                       readonly>
+                <v-progress-circular indeterminate class="text-blue progress-circular"
+                ></v-progress-circular>
+            </span>
         </div>
 
         <!--paid 설명-->
-        <div class="payment-explain-wrapper text-price caption line-height-1 text-xs-left pt-3 pb-3 pr-2 pl-2 mb-4a">
-            <div class="mr-2"><v-icon class="icon-style ">error</v-icon></div>
+        <div class="payment-explain-wrapper text-price caption line-height-1 text-xs-left pt-3 pb-3 pr-2 pl-2 mb-4a"
+             v-if="status === 'pending'">
+            <div class="mr-2">
+                <i class="material-icons text-price">info</i>
+            </div>
             <div>{{$str('paymentText')}}</div>
         </div>
 
-        <div class="mb-4a text-xs-left">
-            <input class="common-rounded-flat-button" type="button" :value="$str('cancel')">
+        <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
+        <div class="mb-4a text-xs-left" v-if="status != 'paid' && status != 'cancel' && status !='appeal'" >
+            <input class="common-rounded-flat-button common-text-hover mr-3" type="button" :value="$str('cancel')" @click="onModal('cancel')">
+            <input v-if="status === 'buying'" class="common-text-hover common-rounded-flat-button" type="button"
+                   :value="$str('appeal')" @click="onModal('appeal')">
+        </div>
+
+        <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
+        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-else-if="status === 'paid'">
+            <div><i class="material-icons check-icon">check_circle</i></div>
+            <div class="text-xs-left ml-3  ">{{$str('completedPayment')}}
+                <a class="text-blue common-text-hover">{{$str('tranferNow')}}</a>
+            </div>
+        </div>
+
+        <!--거래 취소 아이콘 (cancel 상태일때)-->
+        <div class=" cancel-icon-wrapper text-xs-left" v-if="status === 'cancel'" >
+            <i class="material-icons cancel-icon">cancel</i>
+        </div>
+
+        <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
+        <div class="align-center payment-complete-wrapper" v-if="status === 'appeal'" >
+            <i class="material-icons  warning-icon ">error</i>
+            <v-spacer></v-spacer>
+            <a class="text-blue common-text-hover" @click="onModal('cancelAppeal')">{{$str('cancelModalButton')}}</a>
         </div>
         <div>
 
             <!--채팅창-->
 
         </div>
-        <div class="caption text-xs-left text-darkgray line-height-1">
+        <div class="caption text-xs-left text-darkgray line-height-1 mt-4a">
             <p class="mb-2">
                 {{$str('transferChecklist1')}}
             </p>
             <p>
                 {{$str('transferChecklist2')}}
             </p>
-            <p>
+            <p class="mb-0">
                 {{$str('transferChecklist3')}}
             </p>
         </div>
+        <buy-modal :show="showModal" :type="modalType" v-on:paymentConfirm="onPaid" v-on:close="onClose" v-on:cancel="onCancel" v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></buy-modal>
     </v-layout>
 </template>
 
 <script lang="ts">
     import Vue from 'vue';
+    import BuyModal from './buyModal/BuyModal.vue'
 
     export default Vue.extend({
         name: 'buy',
-        components: {},
+        components: {
+            BuyModal
+        },
+        props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
             orderNumber: 115294828805587,
             adType: 'BUY',
@@ -170,14 +245,66 @@
             wechatpay_address: 'wwxx88663   微信支付直接扫码',
             bankaccount_address: '6217001250015304185  建设银行',
             paymentWindow: 15,
-            reference: 453534
-
+            reference: 453534,
+            showModal: false,
+            status: 'pending',     //pending -> buying -> paid   그리고   cancel, appeal
+            modalType : '',
+            appealCode : 977057
         }),
+        created() {
+            // 유져 데이터 정보 get
+
+            //취소 일경우 props로 판단 및 status 변경
+            if(this.cancel === 'true'){
+                this.status = 'cancel';
+            }
+        },
         methods: {
             onPaid() {
-                // post작업
+                // pending 구매 전 단계
+                // *************************************post작업
+
+                // buying 구매 중 단계
+                // post 작업 성공시
+                this.status = 'buying';
+
+                this.onClose();
+            },
+            onClose() {
+                this.showModal = false;
+            },
+            onCopy() {
+                let copyTemp = (document.querySelector('#referenceNum')as HTMLInputElement);
+                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+                if (!isiOSDevice) {
+                    copyTemp.setAttribute('type', 'text');
+                    copyTemp.select();
+                }
+                document.execCommand('copy');
+            },
+            onCancel() {
+                this.showModal = false;
+                // *************************************post작업 성공시
+                this.status = 'cancel';
+
+            },
+            onAppeal() {
+                this.showModal = false;
+                // *************************************post작업 성공시
+                this.status = 'appeal';
+            },
+            onModal(type) {
+                this.showModal = true;
+                this.modalType = type;
+            },
+            onCancelAppeal() {
+                this.showModal = false;
+                // *************************************post작업 성공시
+                this.status = 'buying';
             }
-        }
+        },
+
     });
 </script>
 
@@ -191,6 +318,11 @@
         line-height: 1;
     }
 
+    .payment-complete-wrapper {
+        display: flex;
+        line-height: 1.14;
+    }
+
     .width-half {
         width: 50%;
     }
@@ -200,5 +332,85 @@
         background: #f8f8fa;
         display: flex;
     }
+
+    .text-price {
+        color: #E25422 !important;
+    }
+
+    .buying-process {
+        width: 100%;
+        height: 40px;
+        border-radius: 3px;
+        background-color: #f8f8fa;
+        border: solid 1px #8d8d8d;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 14px;
+        color: #9294a6;
+    }
+
+    .progress-circular {
+        width: 24px !important;
+        height: 24px !important;
+        position: absolute;
+        right: 10px;
+        top: -2px;
+    }
+
+    .check-icon{
+        font-size: 102px;
+        font-weight: bold;
+        color: #71aa3a;
+        margin : -7px;
+    }
+    .cancel-icon{
+        font-size: 102px;
+        font-weight: bold;
+        color: #9294A6;
+        margin : -7px;
+    }
+    .warning-icon{
+        font-size: 103px;
+        color: #F9A825;
+        margin : -7px;
+    }
+
+    .tooltips .tooltip-content {
+        font-weight: 100;
+    }
+
+    .tooltips {
+        cursor: pointer;
+    }
+
+    .cancel-explain {
+        border-radius: 3px;
+        background-color: #f8f8fa;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        text-align: center;
+        color: #9294a6;
+        padding: 8px;
+    }
+
+    .cancel-icon-wrapper{
+        height: 88px;
+    }
+
+    .referenceNum {
+        position: absolute;
+        left: -1000px;
+    }
+
+    .qr-code-img {
+        width: 14px;
+        height: 14px;
+    }
+
+    .line-height-apealcode {
+        line-height: 1.13;
+    }
+
 
 </style>

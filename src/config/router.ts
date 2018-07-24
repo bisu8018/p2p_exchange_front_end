@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import AbMain from '../views/home/body/Main.vue'
 import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
-import AbMain from '../views/home/body/Main.vue'
 //import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
-import TradeCenter from '../views/home/body/tradeCenter/TradeCenter.vue'
+import TradeCenter from '../views/home/body/tradeCenter/general/General.vue'
+import BlockTrade from '../views/home/body/tradeCenter/block/Block.vue'
 import GeneralAd from '../views/home/body/postAd/general/General.vue'
 import BlockAd from '../views/home/body/postAd/block/Block.vue'
 import Buy from '../views/home/body/buy/Buy.vue'
@@ -17,8 +18,19 @@ import Balances from '../views/home/body/balances/Balances.vue'
 
 
 Vue.use(Router)
+
 export default new Router({
     routes: [
+        {
+            path: '/',
+            name: 'abMain',
+            component: AbMain
+        },
+        {
+            path: '/abMain',
+            name: 'abMain',
+            component: AbMain
+        },
         {
             path: '/home',
             name: 'home',
@@ -35,11 +47,6 @@ export default new Router({
             component: Signup
         },
         {
-            path: '/abMain',
-            name: 'abMain',
-            component: AbMain
-        },
-        {
             path: '/findPassword',
             name: 'findPassword',
             //component: FindPassword
@@ -48,6 +55,11 @@ export default new Router({
             path: '/tradeCenter',
             name: 'tradeCenter',
             component: TradeCenter
+        },
+        {
+            path: '/blockTrade',
+            name: 'blockTrade',
+            component: BlockTrade
         },
         {
             path: '/blockAd',

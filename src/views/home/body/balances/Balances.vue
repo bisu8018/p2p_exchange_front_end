@@ -2,15 +2,15 @@
   <div>
     <v-layout row wrap mt-5>
       <!--header-->
-      <v-flex md6 xs12 text-md-left>{{$str("Balances")}}</v-flex>
+      <v-flex md6 xs12 mb-4a text-xs-left title-2>{{$str("Balances")}}</v-flex>
       <!--search filter 추가할것-->
       <v-flex md6 xs12><list-filter></list-filter></v-flex>
-
     </v-layout>
-    <v-divider></v-divider>
+
+
 
     <!--BalanceList-->
-    <div  v-for="tokenlist in tokenLists" :key="`i${tokenlist}`">
+    <div  v-for="tokenlist in tokenLists" >
       <balance-token-list
               :tokenlist="tokenlist"
       ></balance-token-list>
@@ -18,12 +18,12 @@
 
     <v-layout row wrap mt-5>
       <!--Detail header-->
-      <v-flex md8 xs12 text-md-left>{{$str("Details")}}</v-flex>
+      <v-flex md8 xs12 text-xs-left title-2>{{$str("Details")}}</v-flex>
 
       <!--search filter 추가할것-->
       <v-flex md4 xs12><list-filter></list-filter></v-flex>
     </v-layout>
-    <v-divider></v-divider>
+
 
     <!-- Web 일때-->
     <div v-if="!isMobile">
@@ -38,7 +38,7 @@
     </div>
 
     <!--BalanceList-->
-    <div  v-for="detailList in detailLists" :key="`i${detailList}`">
+    <div  v-for="detailList in detailLists" >
       <balance-detail-list
               :detailList="detailList"
       ></balance-detail-list>
@@ -66,7 +66,7 @@
         data: () => ({
             tokenLists: [
                 {
-                    logo: '주황로고',
+                    logo: 'BTC',
                     name: 'BTC',
                     OtcAvailable: 66.0,
                     OtcFrozen: 224,
@@ -74,7 +74,7 @@
                     ExFrozen : 1234,
                 },
                 {
-                    logo: '파랑로고',
+                    logo: 'ETH',
                     name: 'ETH',
                     OtcAvailable: 66.0,
                     OtcFrozen: 224,
@@ -82,8 +82,16 @@
                     ExFrozen : 1234,
                 },
                 {
-                    logo: '초록로고',
+                    logo: 'USDT',
                     name: 'USDT',
+                    OtcAvailable: 66.0,
+                    OtcFrozen: 224,
+                    ExAvailable: 44.0,
+                    ExFrozen : 1234,
+                },
+                {
+                    logo: 'ALLB',
+                    name: 'ALLB',
                     OtcAvailable: 66.0,
                     OtcFrozen: 224,
                     ExAvailable: 44.0,
