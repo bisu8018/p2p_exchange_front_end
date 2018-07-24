@@ -22,6 +22,11 @@ Vue.use(Router)
 export default new Router({
     routes: [
         {
+            path: '/',
+            name: 'abMain',
+            component: AbMain
+        },
+        {
             path: '/abMain',
             name: 'abMain',
             component: AbMain
