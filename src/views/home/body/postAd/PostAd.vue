@@ -66,9 +66,9 @@
             <div class="text-xs-left mb-2 button- text-black input-label">{{$str("fixedPrice")}}</div>
             <div class="price-input-wrapper mb-4a relative"  v-bind:class="{'warning-border' : warning_fixed_price}">
                 <input type="number" class="price-input" v-model="priceValue" @keyup="onDeleteZero" @blur="onCheckFixedPrice">
-                <div class="currency-indicator caption" v-bind:class="{'warning_indicator' : warning_fixed_price}">{{currency}}</div>
+                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_fixed_price}">{{currency}}</div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_fixed_price}" >{{verify_warning_fixed_price}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_fixed_price}" >{{verify_warning_fixed_price}}</span>
                 </div>
             </div>
 
@@ -86,9 +86,9 @@
             <div class="price-input-wrapper mb-3 relative" v-bind:class="{'warning-border' : warning_volume}">
                 <input type="number" class="price-input" v-model="volumeValue" @blur="onCheckVolume"
                        :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + coinType">
-                <div class="currency-indicator caption" v-bind:class="{'warning_indicator' : warning_volume}">{{coinType}}</div>
+                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_volume}">{{coinType}}</div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_volume}" >{{verify_warning_volume}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_volume}" >{{verify_warning_volume}}</span>
                 </div>
             </div>
 
@@ -97,9 +97,9 @@
             <div class="price-input-wrapper mb-3 relative" v-bind:class="{'warning-border' : warning_min_limit}">
                 <input type="number" class="price-input" :placeholder="$str('minLimitPlaceholder')" @blur="onCheckMinLimit"
                        v-model="minLimitValue">
-                <div class="currency-indicator caption" v-bind:class="{'warning_indicator' : warning_min_limit}">{{currency}}</div>
+                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_min_limit}">{{currency}}</div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_min_limit}" >{{verify_warning_min_limit}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_min_limit}" >{{verify_warning_min_limit}}</span>
                 </div>
             </div>
 
@@ -108,9 +108,9 @@
             <div class="price-input-wrapper mb-3 relative" v-bind:class="{'warning-border' : warning_max_limit}">
                 <input type="number" class="price-input" :placeholder="$str('maxLimitPlaceholder')"  @blur="onCheckMaxLimit"
                        v-model="maxLimitValue">
-                <div class="currency-indicator caption" v-bind:class="{'warning_indicator' : warning_max_limit}">{{currency}}</div>
+                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_max_limit}">{{currency}}</div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
                 </div>
             </div>
 
@@ -119,9 +119,9 @@
             <div class="price-input-wrapper mb-4a relative" v-bind:class="{'warning-border' : warning_payment_window}">
                 <input type="number" class="price-input" :placeholder="$str('paymentWindowPlaceholder')" @blur="onPaymentWindow"
                        v-model="paymentWindowValue">
-                <div class="currency-indicator caption" v-bind:class="{'warning_indicator' : warning_payment_window}">{{$str("minuteText")}}</div>
+                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_payment_window}">{{$str("minuteText")}}</div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_payment_window}" >{{verify_warning_payment_window}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_payment_window}" >{{verify_warning_payment_window}}</span>
                 </div>
             </div>
             <div class="text-xs-left text-darkgray line-height-1a">{{$str("paymentWindowExplain")}}</div>
@@ -530,7 +530,7 @@
     }
 
     /*warning indicator css */
-    .warning_indicator {
+    .warning-indicator {
         background: white;
         color: black;
         font-weight: bold;

@@ -17,7 +17,7 @@
                 <input name="email" v-model="email" type="text" class="common-input mb-4"
                        v-bind:class="{'warning-border' : warning_email}" @blur="onCheckEmail">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_email}">{{verify_warning_email}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                        @blur="onCheckVerificationCode">
                 <span class="click-send-text" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_verification_code}"
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                        class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
                        v-bind:class="{'warning-border' : warning_password}" @blur="onCheckPassword">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_password}">{{verify_warning_password}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
                        class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
                        v-bind:class="{'warning-border' : warning_password_confirm}" @blur="onCheckPasswordConfirm">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
                                               @click="onCheckTerms()"
                                               class="mr-2">{{$str('termsLabel')}}</label>
                 <div class="absolute">
-                    <span class="hide-warning-text" v-bind:class="{'warning_text' : warning_verify_terms}">{{verify_terms}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
             </div>
 

@@ -22,7 +22,7 @@
                 </div>
                 <verify-slider v-on:passcallback="putVerified"></verify-slider>
                 <div class="absolute">
-                    <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_verify_terms}">{{$str("verifySlider")}}</span>
+                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_verify_terms}">{{$str("verifySlider")}}</span>
                 </div>
             </div>
             <div class="text-xs-right mt-4">
