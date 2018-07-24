@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import AbMain from '../views/home/body/Main.vue'
 import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
-import AbMain from '../views/home/body/Main.vue'
 //import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
 import TradeCenter from '../views/home/body/tradeCenter/general/General.vue'
 import BlockTrade from '../views/home/body/tradeCenter/block/Block.vue'
@@ -18,8 +18,14 @@ import Balances from '../views/home/body/balances/Balances.vue'
 
 
 Vue.use(Router)
+
 export default new Router({
     routes: [
+        {
+            path: '/abMain',
+            name: 'abMain',
+            component: AbMain
+        },
         {
             path: '/home',
             name: 'home',
@@ -34,11 +40,6 @@ export default new Router({
             path: '/signup',
             name: 'signup',
             component: Signup
-        },
-        {
-            path: '/abMain',
-            name: 'abMain',
-            component: AbMain
         },
         {
             path: '/findPassword',
