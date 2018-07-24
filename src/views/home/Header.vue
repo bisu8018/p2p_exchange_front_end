@@ -233,7 +233,6 @@
                 this.$router.push("/tradeCenter");
             },
             goBlockTrade() {
-                console.log("go blockTrade");
                 this.$router.push("/blockTrade");
             },
             goPostGeneralAd() {

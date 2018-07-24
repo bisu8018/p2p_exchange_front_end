@@ -52,7 +52,7 @@
 
     export default Vue.extend({
         name: 'TradeCenter',
-        props: ['message'],
+        props: ['message'],             // generalTrade와 blockTrade를 구분하기 위해
         components: {Pagination, TradeListItem, TradeCenterFilter},
         data: () => ({
             page : 1,

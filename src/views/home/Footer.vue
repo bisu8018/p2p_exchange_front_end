@@ -2,20 +2,20 @@
 
   <div class="footer">
     <div class="flex">
-      <v-layout wrap row mt-4 mb-5 class="footerContainer">
+      <v-layout wrap row mt-4 mb-4 class="footerContainer">
         <!-- 카드 1 로고사진  -->
-        <v-flex xs12 md3 mt-3 class="footer-top">
+        <v-flex xs12 md3 mt-4 class="footer-top">
           <img class="mb-4a" src="@/assets/img/logo_OTC.png">
         </v-flex>
         <!-- 카드 2 Support -->
-        <v-flex xs12 md3 mt-3 class="footer-top">
+        <v-flex xs12 md3 mt-4 class="footer-top">
           <p >{{$str("support")}}</p>
           <a  href="https://www.allblab.com"><p>{{$str("guides")}}</p></a>
           <a  href="https://www.allblab.com" ><p>{{$str("FAQ")}}</p></a>
           <a  href="https://www.allblab.com" ><p>{{$str("announcements")}}</p></a>
         </v-flex>
         <!-- 카드 3 Terms-->
-        <v-flex xs12 md3 mt-3  class="footer-top">
+        <v-flex xs12 md3 mt-4 class="footer-top">
           <p >{{$str("terms")}}</p>
           <a  href="https://www.allblab.com" ><p>{{$str("terms_Of_Service")}}</p></a>
           <a  href="https://www.allblab.com" ><p>{{$str("transaction_Regulations")}}</p></a>
@@ -24,7 +24,7 @@
           <a  href="https://www.allblab.com" ><p>{{$str("KYC&AML_Policies")}}</p></a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
-        <v-flex xs12 md3 mt-3 class="footer-top">
+        <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("contact_Us")}}</p>
           <a  href="https://www.allblab.com"><p>support@allblab.com</p></a>
         </v-flex>
@@ -34,7 +34,7 @@
     <!-- 언어설정버튼 -->
     <div class="flex">
       <v-layout mt-4a mb-4a row wrap class="footerContainer">
-        <v-flex md6 xs12 mb-3 text-md-left>
+        <v-flex md6 xs12 mb-1 text-md-left>
           <div class="dropup">
             <!-- 한국어모드일때-->
             <button v-if="currentLang=='KO'" class="dropbtn">
@@ -105,6 +105,7 @@
   }
   .footer p {
     color: #9294a6;
+    font-size: 14px;
   }
   .footer a {
     text-decoration: none;

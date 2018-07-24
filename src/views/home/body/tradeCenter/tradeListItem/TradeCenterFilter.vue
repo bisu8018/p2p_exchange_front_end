@@ -2,41 +2,53 @@
   <v-layout mt-5>
     <!--left filter-->
       <!-- mobile 일때 -->
-      <v-layout row wrap v-if="isMobile" mb-4a>
+      <v-layout row wrap v-if="isMobile" >
         <!-- buy sell 버튼 -->
         <v-flex xs12>
           <div v-if="tradeStatus ==='BUY'">
             <!--buy가 활성화-->
             <div class="buyBtn mobileActiveBtn">
-              <span class="mobileActiveBtnText" @click="setBuyInfo('current')">Buy</span>
+              <button class="mobileActiveBtnText" @click="setBuyInfo('current')">Buy</button>
             </div>
             <!--sell-->
             <div class="sellBtn mobileInactiveBtn">
-              <span class="mobileInactiveBtnText" @click="setSellInfo('current')"> Sell</span>
+              <button class="mobileInactiveBtnText" @click="setSellInfo('current')"> Sell</button>
             </div>
           </div>
           <div v-else>
             <!--buy-->
             <div class="buyBtn mobileInactiveBtn">
-              <span class="mobileInactiveBtnText" @click="setBuyInfo('current')">Buy</span>
+              <button class="mobileInactiveBtnText" @click="setBuyInfo('current')">Buy</button>
             </div>
             <!--sell 이 활성화-->
             <div class="sellBtn mobileActiveBtn">
-              <span class="mobileActiveBtnText" @click="setSellInfo('current')"> Sell</span>
+              <button class="mobileActiveBtnText" @click="setSellInfo('current')"> Sell</button>
             </div>
           </div>
         </v-flex>
           <!-- BTC ALLB ETH  버튼 -->
         <v-layout justify-space-between row coinselect-2 mt-4>
-          <i class="material-icons md-24">keyboard_arrow_left</i>
-          <span v-bind:class="{'text-darkgray' : !isBTC, 'text-blue' : isBTC}"
-                @click="setBuyInfo('BTC')">BTC</span>
-          <span v-bind:class="{'text-darkgray' : !isETH, 'text-blue' : isETH}"
-                @click="setBuyInfo('ETH')">ETH</span>
-          <span v-bind:class="{'text-darkgray' : !isUSDT, 'text-blue' : isUSDT}"
-                @click="setBuyInfo('USDT')">USDT</span>
-          <i class="material-icons md-24">keyboard_arrow_right</i>
+          <!-- < 화살표-->
+          <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
+          <!--BTC 버튼-->
+          <button class="text-darkgray"
+                v-bind:class="{'text-blue' : clicked[0].isBTC}"
+                @click="onMobileTokenClicked('BTC')">BTC
+          </button>
+          <!--ETH 버튼-->
+          <button class="text-darkgray"
+                v-bind:class="{'text-blue' : clicked[1].isETH}"
+                @click="onMobileTokenClicked('ETH')">ETH
+          </button>
+          <!-- USDT 버튼 -->
+          <button class="text-darkgray"
+                v-bind:class="{'text-blue' : clicked[2].isUSDT}"
+                @click="onMobileTokenClicked('USDT')">USDT
+          </button>
+          <!-- > 화살표 -->
+          <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
         </v-layout>
+        <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
             <v-flex xs11 text-xs-left >
@@ -47,9 +59,12 @@
                     @input="removeAmount" >{{amount}}</div>
             </v-flex>
             <v-flex xs1 pt-2 text-xs-center relative>
+              <!-- 필터 펼치기 버튼 -->
               <img src="../../../../../assets/img/searchBtn.png" @click.stop="isModal = !isModal">
             </v-flex>
           </v-layout>
+
+          <!--필터링 card modal-->
           <div class="cardModal cardModalMobile"  v-if="isModal">
             <v-layout row wrap>
               <v-flex xs12 text-xs-left cardText>{{$str("country")}}</v-flex>
@@ -93,14 +108,25 @@
                 <v-flex md6></v-flex>
               </v-layout>
               <v-layout justify-space-between row coinselect-2>
-                  <i class="material-icons md-24">keyboard_arrow_left</i>
-                  <span class="text-darkgray" v-bind:class="{'text-blue' : isBTC && tradeStatus==='BUY'}"
-                        @click="setBuyInfo('BTC')">BTC</span>
-                  <span class="text-darkgray" v-bind:class="{'text-blue' : isETH && tradeStatus==='BUY'}"
-                        @click="setBuyInfo('ETH')">ETH</span>
-                  <span class="text-darkgray" v-bind:class="{'text-blue' : isUSDT && tradeStatus==='BUY'}"
-                        @click="setBuyInfo('USDT')">USDT</span>
-                  <i class="material-icons md-24">keyboard_arrow_right</i>
+                <!-- < 화살표-->
+                  <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
+                <!--BTC 버튼-->
+                  <button class="text-darkgray"
+                        v-bind:class="{'text-blue' : clicked[0].isBTC && tradeStatus==='BUY'}"
+                        @click="setBuyInfo('BTC')">BTC
+                  </button>
+                <!-- ETH 버튼-->
+                  <button class="text-darkgray"
+                        v-bind:class="{'text-blue' : clicked[1].isETH && tradeStatus==='BUY'}"
+                        @click="setBuyInfo('ETH')">ETH
+                  </button>
+                <!-- USDT 버튼-->
+                  <button class="text-darkgray"
+                        v-bind:class="{'text-blue' : clicked[2].isUSDT && tradeStatus==='BUY'}"
+                        @click="setBuyInfo('USDT')">USDT
+                  </button>
+                <!-- > 화살표-->
+                  <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
               </v-layout>
           </v-layout>
         </v-flex>
@@ -108,6 +134,7 @@
         <v-flex md1 justify-center >
           <div class="selectDivider"></div>
         </v-flex>
+
         <!-- Sell 부분 -->
         <v-flex md3 pl-0 pr-0>
           <v-layout column>
@@ -117,18 +144,25 @@
             </v-layout>
             <v-layout justify-space-between row coinselect-2>
               <i class="material-icons md-24">keyboard_arrow_left</i>
-              <span class="text-darkgray" v-bind:class="{'text-blue' : isBTC && tradeStatus==='SELL'}"
-                    @click="setSellInfo('BTC')">BTC</span>
-              <span class="text-darkgray" v-bind:class="{'text-blue' : isETH && tradeStatus==='SELL'}"
-                    @click="setSellInfo('ETH')">ETH</span>
-              <span class="text-darkgray" v-bind:class="{'text-blue' : isUSDT && tradeStatus==='SELL'}"
-                    @click="setSellInfo('USDT')">USDT</span>
+              <!--BTC 버튼-->
+              <button class="text-darkgray"
+                    v-bind:class="{'text-blue' : clicked[0].isBTC && tradeStatus==='SELL'}"
+                    @click="setSellInfo('BTC')">BTC</button>
+              <!-- ETH 버튼-->
+              <button class="text-darkgray"
+                    v-bind:class="{'text-blue' : clicked[1].isETH && tradeStatus==='SELL'}"
+                    @click="setSellInfo('ETH')">ETH</button>
+              <!-- USDT 버튼-->
+              <button class="text-darkgray" v-bind:class="{'text-blue' : clicked[2].isUSDT && tradeStatus==='SELL'}"
+                    @click="setSellInfo('USDT')">USDT</button>
               <i class="material-icons md-24">keyboard_arrow_right</i>
             </v-layout>
           </v-layout>
         </v-flex>
-        <v-flex md1></v-flex>
-        <v-flex md4 pl-0 pr-0 class="cardParent">
+
+
+        <!--right filter-->
+        <v-flex md4 offset-md1 pl-0 pr-0 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
             <v-flex xs10 text-xs-left >
               <div  class="statusChip" >{{country}}</div>
@@ -138,7 +172,9 @@
                     @input="removeAmount" >{{amount}}</div>
             </v-flex>
             <v-flex xs2 pt-2 text-xs-right relative>
-                <img src="../../../../../assets/img/searchBtn.png" @click.stop="isModal = !isModal">
+                <button>
+                  <img src="../../../../../assets/img/searchBtn.png" @click.stop="isModal = !isModal">
+                </button>
             </v-flex>
           </v-layout>
           <div class="cardModal" v-if="isModal">
@@ -197,32 +233,21 @@
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : 0,
-            items: [
-                {
-                    text: 'BTC',
-                    isclicked: true
-                },
-                {
-                    text: 'ETH',
-                    isclicked: false
-                },
-                {
-                    text: 'USDT',
-                    isclicked: false
-                }
+
+            clicked : [
+                {isBTC : true},
+                {isETH : false},
+                {isUSDT : false},
             ],
-            isBTC : true,
-            isETH : false,
-            isUSDT : false,
+
             tradeStatus : 'BUY',
             tradeCoin: 'BTC',
 
         }),
         methods : {
             setBuyInfo(item){
-
                 this.tradeStatus = "BUY";
-
+                this.setTokenStyle(item);
                 //default data
                 this.country = MainRepository.SelectBox.controller().getCountry();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
@@ -232,25 +257,6 @@
                 if(item =="current"){ //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
                 }
                 else{
-                    switch (item){
-                        case 'BTC':
-                            this.isBTC = true;
-                            this.isETH = false;
-                            this.isUSDT = false;
-                            break;
-
-                        case 'ETH':
-                            this.isBTC = false;
-                            this.isETH = true;
-                            this.isUSDT = false;
-                            break;
-
-                        case 'USDT':
-                            this.isBTC = false;
-                            this.isETH = false;
-                            this.isUSDT = true;
-                            break;
-                    }
                     this.tradeCoin = item;
                     MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount, this.paymentMethod);
                     MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
@@ -259,9 +265,8 @@
 
             },
             setSellInfo(item){
-
                 this.tradeStatus = "SELL";
-
+                this.setTokenStyle(item);
                 //default data
                 this.country = MainRepository.SelectBox.controller().getCountry();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
@@ -272,31 +277,42 @@
 
                 }
                 else{
-                    switch (item){
-                        case 'BTC':
-                            this.isBTC = true;
-                            this.isETH = false;
-                            this.isUSDT = false;
-                            break;
-
-                        case 'ETH':
-                            this.isBTC = false;
-                            this.isETH = true;
-                            this.isUSDT = false;
-                            break;
-
-                        case 'USDT':
-                            this.isBTC = false;
-                            this.isETH = false;
-                            this.isUSDT = true;
-                            break;
-                    }
                     this.tradeCoin =item;
                     MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount, this.paymentMethod);
                     MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
                     MainRepository.TradeView.setSelectPage(0);
                 }
 
+            },
+            setTokenStyle(item){
+                switch (item){
+                    case 'BTC':
+                        this.clicked[0].isBTC = true;
+                        this.clicked[1].isETH = false;
+                        this.clicked[2].isUSDT = false;
+                        break;
+
+                    case 'ETH':
+                        this.clicked[0].isBTC = false;
+                        this.clicked[1].isETH = true;
+                        this.clicked[2].isUSDT = false;
+                        break;
+
+                    case 'USDT':
+                        this.clicked[0].isBTC = false;
+                        this.clicked[1].isETH = false;
+                        this.clicked[2].isUSDT = true;
+                        break;
+                }
+            },
+            //모바일에서 token 변화를 눌렀을시
+            onMobileTokenClicked(item){
+              if(this.tradeStatus == 'BUY'){
+                  this.setBuyInfo(item);
+              }
+              else{
+                  this.setSellInfo(item);
+              }
             },
             onCurrencyChange (){
 
@@ -345,17 +361,17 @@
     height: 36px;
     width:67px;
     border-top-right-radius:200px;
+    border-bottom-right-radius:200px;
     display: inline-block;
     position: relative;
-    border-bottom-right-radius:200px;
   }
   .buyBtn{
     height: 36px;
     width:67px;
     border-top-left-radius:200px;
+    border-bottom-left-radius:200px;
     display: inline-block;
     position: relative;
-    border-bottom-left-radius:200px;
   }
   .mobileActiveBtn{
     background: #214ea1;
@@ -418,6 +434,8 @@
      border-left: 8px solid transparent;
 
    }
+   /* filter card 가 mobile에선 width 100이므로
+   mobile에서만 추가 선언.*/
   .cardModalMobile{
     width: 100%;
     left: 0%;

@@ -25,7 +25,7 @@
     </div>
     <!--web 일때-->
     <div v-else>
-      <v-layout row wrap class="">
+      <v-layout row wrap class="webDetailWrapper">
         <v-flex md3 xs12 text-md-left>
           {{detailList.type}}
         </v-flex>
@@ -66,5 +66,7 @@
 </script>
 
 <style scoped>
-
+.webDetailWrapper{
+  min-height: 68px;
+}
 </style>
