@@ -55,9 +55,6 @@
         src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material//MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
-
-
-
     .material-icons {
         font-family: 'Material Icons';
         font-weight: normal;
@@ -81,13 +78,11 @@
         font-feature-settings: 'liga';
     }
 
-
     /* Rules for sizing the icon. */
 
     .material-icons.md-12 {
         font-size: 12px;
     }
-
 
     .material-icons.md-18 {
         font-size: 18px;
@@ -105,7 +100,6 @@
         font-size: 48px;
     }
 
-
     /* Rules for using icons as white on a dark background. */
 
     .material-icons.md-light {
@@ -115,8 +109,6 @@
     .material-icons.md-light.md-inactive {
         color: rgba(255, 255, 255, 0.3);
     }
-
-
 
     #app {
         font-family: Noto Sans SC, Helvetica, Arial, sans-serif !important;
@@ -153,6 +145,11 @@
     .price-1 {
         font-size: 18px;
         font-weight: 700;
+    }
+
+    .price-1b {
+        font-size: 18px;
+        font-weight: 500;
     }
 
     .price-2 {
@@ -193,13 +190,12 @@
         line-height: normal;
         letter-spacing: normal;
         color: #353535;
-
     }
 
     .headline-2 {
         font-size: 26px !important;
         font-weight: bold !important;
-        font-style: normal!important;
+        font-style: normal !important;
         font-stretch: normal !important;
         line-height: normal !important;
         letter-spacing: normal !important;
@@ -245,7 +241,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #9294a6;
     }
 
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
@@ -255,7 +251,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #9294a6;
     }
 
     ::-ms-input-placeholder { /* Microsoft Edge */
@@ -265,7 +261,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #9294a6;
     }
 
     /*margin, padding 32px 설정*/
@@ -286,7 +282,7 @@
     }
 
     .ma-4a {
-        margin : 32px !important;
+        margin: 32px !important;
     }
 
     .pb-4a {
@@ -306,12 +302,10 @@
     }
 
     .pa-4a {
-        padding : 32px;
+        padding: 32px;
     }
 
-
-
-    /*common text st   yle*/
+    /*common text style*/
 
     .text-black {
         color: #353535;
@@ -359,30 +353,31 @@
 
     /* 웹에서 gutter 주기*/
     @media only screen and (min-width: 960px) {
-        .flex{
+        .flex {
             padding-left: 12px;
             padding-right: 12px;
         }
     }
+
     /* mobile 에서 gutter 주기*/
     @media only screen and (max-width: 959px) {
-        .flex{
+        .flex {
             padding-left: 4px;
             padding-right: 4px;
         }
     }
 
-    .warning_border {
+    .warning-border {
         border: solid 1px #e62a2b !important;
     }
 
-    .warning_text {
+    .warning-text {
         color: #e62a2b;
         font-size: 10px;
         display: block !important;
     }
 
-    .hide_warning_text {
+    .hide-warning-text {
         display: none;
     }
 
@@ -396,22 +391,19 @@
         right: 0 !important;;
     }
 
-
-
-
     /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
     .v-ripple__container {
         opacity: 0;
     }
 
     /*버튼 호버 CSS 설정*/
-    .common-btn-hover:hover  {
+    .common-btn-hover:hover {
         background-color: #316ee4 !important;
-        color : white !important;
+        color: white !important;
     }
 
-    .common-text-hover:hover  {
-        color :  #316ee4  !important;
+    .common-text-hover:hover {
+        color: #316ee4 !important;
     }
 
     /*input text 필드 공통 CSS*/
@@ -420,31 +412,33 @@
         border-radius: 2px;
         border: solid 1px #8d8d8d;
         width: 100%;
-        margin-bottom: 22px;
         padding-left: 8px;
         padding-right: 8px;
         font-size: 14px;
         color: #353535;
     }
+
     /*button 공통 CSS*/
-    .common-normal-button {         /*사각형 파랑배경 흰색폰트 버튼*/
+    .common-normal-button { /*사각형 파랑배경 흰색폰트 버튼*/
         height: 40px;
         width: 100%;
         background: #214ea1;
         color: white;
         border-radius: 3px;
     }
-    .common-rounded-button {         /* 파랑배경 흰색폰트 라운드 버튼*/
+
+    .common-rounded-button { /*라운드 파랑배경 흰색폰트 버튼*/
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: #214ea1;
-        border-radius: 18px;
-        font-size: 14px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: normal;
         color: white;
     }
 
-    .common-normal-bordered-button {         /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
+    .common-normal-bordered-button { /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
         border: 1px solid #214ea1 !important;
         margin-bottom: -10px;
         width: 100%;
@@ -453,15 +447,35 @@
         border-radius: 3px;
         color: #214EA1;
     }
-    .common-rounded-flat-button {         /*사각형 하얀배경 파랑폰트 버튼*/
+
+    .common-rounded-flat-button { /*라운드 하얀배경 파랑폰트 버튼*/
 
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: white;
         border-radius: 30px;
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: normal;
         color: #214ea1;
+    }
+
+    .common-selectbox { /*셀렉박스 공통 CSS*/
+        width: 100%;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        border: solid 1px #8d8d8d;
+        color: #9294a6;
+        padding-left: 12px;
+        cursor: pointer;
+    }
+
+    .common-selectbox-icon { /*셀렉박스 화살표 아이콘 공통 CSS*/
+        position: absolute; /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
+        right: 8px;
+        top: 8px;
+        pointer-events: none;
     }
 
     /*vuetify dialog*/
@@ -472,7 +486,8 @@
         padding: 24px 16px 24px 16px;
     }
 
-    .absolute{
+    /*Simple Css Manual*/
+    .absolute {
         position: absolute;
     }
 
@@ -485,21 +500,35 @@
     }
 
     .line-height-1 {
-        line-height: 1;
+        line-height: 1 !important;
+    }
+
+    .display-none {
+        display: none !important;
+    }
+
+    .grid {
+        display: grid;
+    }
+
+    .visible-hidden {
+        visibility: hidden;
+    }
+
+    .pointer {
+        cursor: pointer;
     }
 
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
-
     /*<a class="tooltips">*/
-        /*<img src="../../../../../assets/img/method_alipay.png">*/
-        /*<span>Alipay</span>*/
-     /*</a>*/
-
+    /*<img src="../../../../../assets/img/method_alipay.png">*/
+    /*<span>Alipay</span>*/
+    /*</a>*/
     .tooltips {
         position: relative;
         display: inline;
-
     }
+
     .tooltips .tooltip-content {
         display: none;
         position: absolute;
@@ -510,6 +539,7 @@
         text-align: center;
         border-radius: 2px;
     }
+
     .tooltips .tooltip-content:after {
         content: '';
         position: absolute;
@@ -528,15 +558,12 @@
         bottom: 140%;
         left: 50%;
         transform: translateX(-50%);
-
         z-index: 999;
     }
-    .v-parallax__content{
+
+    .v-parallax__content {
         padding: 0 !important;
     }
-
-
-
 
     /*vuetify 버튼 hover 시, color foggy 현상 방지*/
     /*.v-btn:before {*/

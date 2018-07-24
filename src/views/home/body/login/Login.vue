@@ -9,22 +9,22 @@
                 </div>
                 <form action="/signin" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 button-2 text-black">{{$str("email")}}</div>
-                    <div class="text-input-wrapper"><input type="text" class="common-input" name="email" v-model="email"
+                    <div class="text-input-wrapper mb-4"><input type="text" class="common-input" name="email" v-model="email"
                                                            @blur="onCheckEmail"
                                                            :placeholder="loginEmailPlaceholder"
-                                                           v-bind:class="{'warning_border' : warning_email}">
+                                                           v-bind:class="{'warning-border' : warning_email}">
                         <div class="warning-text-wrapper">
-                            <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_email}">{{verify_warning_email}}</span>
+                            <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                         </div>
                     </div>
                     <div class="text-xs-left mb-2 button-2 text-black">{{$str("password")}}</div>
-                    <div class="text-input-wrapper">
+                    <div class="text-input-wrapper mb-4">
                         <input name="encryptedPassword" v-model="password" type="password" class="common-input"
                                @blur="onCheckPassword"
                                :placeholder="loginPasswordPlaceholder"
-                               v-bind:class="{'warning_border' : warning_password}">
+                               v-bind:class="{'warning-border' : warning_password}">
                         <div class="warning-text-wrapper">
-                            <span class="hide_warning_text" v-bind:class="{'warning_text' : warning_password}">{{verify_warning_password}}</span>
+                            <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
                         </div>
                     </div>
 

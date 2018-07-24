@@ -34,9 +34,9 @@ const getters = {};
 
 
 //Country Selectbox
-let getCountry: string = '';
-let getCurrency: string = '';
-let getPayment: string = '';
+let getCountry: string = 'ALL';
+let getCurrency: string = 'CNY';
+let getPayment: string = 'ALL';
 
 const state = {
     //Country Check

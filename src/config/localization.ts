@@ -260,7 +260,7 @@ const strings = new Map([
         JP: ''
     }],
   ['volume', {
-      KOR: '규모',
+      KOR: '거래수량',
       ENG: 'Volume',
       CN: '数量',
       JP: ''
@@ -513,6 +513,36 @@ const strings = new Map([
         CN: '浮动价格',
         JP: ''
     }],
+    ['warningFixedPricePlaceholder', {
+        KOR: '수를 입력해 주십시오',
+        ENG: 'Please enter a number',
+        CN: '',
+        JP: ''
+    }],
+    ['warningVolume', {
+        KOR: '거래수량을 입력해 주십시오',
+        ENG: 'Please enter volume',
+        CN: '',
+        JP: ''
+    }],
+    ['warningMinLimit', {
+        KOR: '최소액을 입력해 주십시오',
+        ENG: 'Please enter Min.limit',
+        CN: '',
+        JP: ''
+    }],
+    ['warningMaxLimit', {
+        KOR: '최대액을 입력해 주십시오',
+        ENG: 'Please enter Max.limit',
+        CN: '',
+        JP: ''
+    }],
+    ['warningPaymentWindow', {
+        KOR: '지불기간을 입력해 주십시오',
+        ENG: 'Please enter the payment window',
+        CN: '',
+        JP: ''
+    }],
     ['floatPrice', {
         KOR: '변동가격',
         ENG: 'Float Price',
@@ -641,25 +671,25 @@ const strings = new Map([
     }],
     ['paymentExplain', {
         KOR: '위 결제 정보는 구매자에게 표시됩니다. 만약 추가 또는 수정을 원하시면 ',
-        ENG: 'The above payment information will be displayed to the buyer.If you want to add or modify ',
+        ENG: 'The above payment information will be displayed to the buyer.If you want to add or modify please ',
         CN: '以上支付信息将向买家展示。如需添加、修改请 ',
         JP: ''
     }],
     ['clickHereText', {
         KOR: '여기를 클릭해주세요',
-        ENG: 'please click here',
+        ENG: 'click here',
         CN: '点击这里',
         JP: ''
     }],
     ['autoReplyText', {
         KOR: '자동 댓글',
-        ENG: 'autoReplyText',
+        ENG: 'Auto-Reply',
         CN: '自动回复',
         JP: ''
     }],
     ['autoReplyPlaceholder', {
-        KOR: '자동 답장 하려는 정보를 입력하십시오',
-        ENG: 'After the order is established, this information is automatically sent to the other party',
+        KOR: '자동 답장 하려는 정보를 입력하십시오.',
+        ENG: 'After the order is established, this information is automatically sent to the other party.',
         CN: '请输入您希望自动回复给对方的信息',
         JP: ''
     }],
@@ -735,6 +765,48 @@ const strings = new Map([
         CN: '发布普通广告',
         JP: ''
     }],
+    ['postAdIn', {
+        KOR: '광고 등록 정보',
+        ENG: 'Post AD in',
+        CN: '',
+        JP: ''
+    }],
+    ['tradeType', {
+        KOR: '거래 종류',
+        ENG: 'Trade type',
+        CN: '',
+        JP: ''
+    }],
+    ['cryptoCurrency', {
+        KOR: '암호화폐',
+        ENG: 'Cryptocurrency',
+        CN: '',
+        JP: ''
+    }],
+    ['lowBalance', {
+        KOR: '보유하고 계신 코인 잔액이 부족합니다',
+        ENG: 'You do not have enough coins',
+        CN: '',
+        JP: ''
+    }],
+    ['atLeast', {
+        KOR: '한도금액 이상으로 입력해 주십시오',
+        ENG: 'Please enter greater than or equal to limit',
+        CN: '',
+        JP: ''
+    }],
+    ['atMost', {
+        KOR: '한도금액 이하로 입력해 주십시오',
+        ENG: 'Please enter less than or equal to limit',
+        CN: '',
+        JP: ''
+    }],
+    ['timeRange', {
+        KOR: '범위 시간 내로 입력해 주십시오',
+        ENG: 'Please enter within the range of time',
+        CN: '',
+        JP: ''
+    }],
 
     //Buy
     ['orderText', {
@@ -768,15 +840,15 @@ const strings = new Map([
         JP: ''
     }],
     ['referenceText', {
-        KOR: '참고',
+        KOR: '지불 참조 번호',
         ENG: 'Reference',
-        CN: '',
+        CN: '付款参考号',
         JP: ''
     }],
     ['paidText', {
         KOR: '지불완료',
         ENG: "i've paid",
-        CN: '',
+        CN: '已完成',
         JP: ''
     }],
     ['paymentText', {
@@ -788,19 +860,19 @@ const strings = new Map([
     ['transferChecklist1', {
         KOR: '1. 귀하의 송금은 판매자의 계좌로 입금됩니다. 거래가 완료되기 전에 판매 자산은 저희 플랫폼에 의해 안전하게 보관됩니다.',
         ENG: '1. Your transfer will be credited to seller’s account. Before the transaction is completed, the assets for sale will be frozen by our platform for safekeeping.',
-        CN: '',
+        CN: '1、您的汇款将直接进入卖方账户，交易过程中卖方出售的数字资产由平台托管保护。',
         JP: ''
     }],
     ['transferChecklist2', {
         KOR: '2. 정해진 시간 내에 결제를 완료하고, 완료되면 \'지불완료\'를 클릭하십시오. 판매자가 자금 수령을 확인하면 자산이 자동 계좌 이체됩니다',
         ENG: '2. Please complete your payment within the stipulated time and proceed to click on ‘I have paid’ when done. After the seller confirms the receipt of funds, the assets will be transferred to your account automatically.',
-        CN: '',
+        CN: '2、请在规定时间内完成付款，并务必点击“我已付款”，卖方确认收款后，系统会将数字资产划转到您的账户。',
         JP: ''
     }],
     ['transferChecklist3', {
         KOR: '3. 하루에 3건의 거래가 취소되면 당일 거래가 일시 중지됩니다.',
         ENG: '3. Trading will be suspended for the day, should there 3 cancelled transactions in a day.',
-        CN: '',
+        CN: '3、如果买方当日取消订单达3次，将会被限制当日的买入功能。',
         JP: ''
     }],
     ['sellChecklist1', {
@@ -810,7 +882,7 @@ const strings = new Map([
         JP: ''
     }],
     ['sellChecklist2', {
-        KOR: '2. 만약 구매자가 당신이 미리 자산을 공개하기를 원한다면, 그가 이야기 하는 어떠한 이유도 믿지 마십시오. 불필요한 손실을 방지하려면 송금을 받은 후 자산을 공개 해야합니다.',
+        KOR: '2. 만약 구매자가 당신에게 미리 자산을 공개해 달라고 부탁한다면, 그가 이야기하는 어떠한 이유도 믿지 마십시오. 불필요한 손실을 방지하려면 송금을 받은 후 자산을 공개 해야합니다.',
         ENG: '2. Please do not trust any excuses made by the buyer if he wants you to release the assets in advance. To avoid unnecessary loss, please make sure that you release the assets after you receive the transfer.',
         CN: '',
         JP: ''
@@ -818,6 +890,216 @@ const strings = new Map([
     ['sellChecklist3', {
         KOR: '3. 수신 SMS를받은 후 사기성 SMS로 인한 실수로 자산을 공개 할 수 있으므로 온라인 은행이나 모바일 은행에 로그인하여 수신을 확인하십시오.',
         ENG: '3. After you receive the arrival SMS, please log into online bank or mobile bank to check the arrival because fraud SMS can make you release the assets by mistake.',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmPayment', {
+        KOR: '지불 승인',
+        ENG: 'Confirm Payment',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentContents1', {
+        KOR: '판매자에게 대금을 지불했는지 확인하십시오.',
+        ENG: 'Kindly confirm that you have made payment to the seller.',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentContents2', {
+        KOR: '사기 시도로 인해 계정이 정지 될 수 있습니다.',
+        ENG: 'Fraudulent attempts will result in the account being suspended.',
+        CN: '',
+        JP: ''
+    }],
+    ['buyingExplain1', {
+        KOR: '지불되었습니다. 당신은 ',
+        ENG: 'Paid, you will receive ',
+        CN: '',
+        JP: ''
+    }],
+    ['buyingExplain2', {
+        KOR: ' 에 대하여 ',
+        ENG: ' after ',
+        CN: '',
+        JP: ''
+    }],
+    ['buyingExplain3', {
+        KOR: '가 영수증 발급 확인한 뒤에 전달 받게 될 것입니다.',
+        ENG: 'confirm receipt and',
+        CN: '',
+        JP: ''
+    }],
+    ['buyingExplain4', {
+        KOR: '지불 참조 번호',
+        ENG: 'release, ',
+        CN: '',
+        JP: ''
+    }],
+    ['buyingIndicator', {
+        KOR: '구매자가 지불중 입니다',
+        ENG: 'Buyer is paying',
+        CN: '',
+        JP: ''
+    }],
+    ['appeal', {
+        KOR: '이의제기',
+        ENG: 'Appeal',
+        CN: '',
+        JP: ''
+    }],
+    ['complete', {
+        KOR: '완료, ',
+        ENG: 'Complete, ',
+        CN: '已完成',
+        JP: ''
+    }],
+    ['completedPayment', {
+        KOR: '지금 거래소 계좌로 전송하여 거래를 시작하십시오!',
+        ENG: 'Now transfer to Exchange Account and start trading! ',
+        CN: '',
+        JP: ''
+    }],
+    ['tranferNow', {
+        KOR: '지금 전송하기',
+        ENG: 'Transfer Now',
+        CN: '',
+        JP: ''
+    }],
+    ['cancelExplain', {
+        KOR: '주문이 취소되었으며 결제 정보를 볼 수 없습니다',
+        ENG: 'Order cancelled, unable to view payment information',
+        CN: '订单已取消，无法查看支付信息',
+        JP: ''
+    }],
+    ['cancelModalContent', {
+        KOR: '이 거래를 취소 하시겠습니까?',
+        ENG: 'Are you sure you want to cancel this applying?',
+        CN: '',
+        JP: ''
+    }],
+    ['cancelModalButton', {
+        KOR: '이의제기 취소',
+        ENG: 'Cancel this Appeal',
+        CN: '',
+        JP: ''
+    }],
+    ['appeal', {
+        KOR: '이의제기',
+        ENG: 'Appeal',
+        CN: '',
+        JP: ''
+    }],
+    ['appealModalContent', {
+        KOR: '이 이의 제기가 성공적으로 제출 된 후에 자산은 동결되며 고객 서비스는 거래가 끝날 때까지 개입합니다. 악의적인 불만사항은 계정이 동결됩니다.',
+        ENG: 'The assets will be frozen after this appeal submit successfully, and the customer service will intervene in the transaction until the end. Malicious complainants will be frozen accounts. ',
+        CN: '',
+        JP: ''
+    }],
+    ['cancelModalTrade', {
+        KOR: '거래 취소',
+        ENG: 'Cancel this Trade',
+        CN: '',
+        JP: ''
+    }],
+    ['appealReason', {
+        KOR: '이의제기 사유',
+        ENG: 'Appeal Reason',
+        CN: '',
+        JP: ''
+    }],
+    ['details', {
+        KOR: '상세내용',
+        ENG: 'Details',
+        CN: '',
+        JP: ''
+    }],
+    ['detailsPlaceholder', {
+        KOR: '이의제기 사유의 상세내용을 입력해 주십시오',
+        ENG: 'Please enter the details of appeal reasons',
+        CN: '',
+        JP: ''
+    }],
+    ['appealCodeExplain', {
+        KOR: '이의제기 중, 이의제기 코드 : ',
+        ENG: 'Appealing,the code of appeal : ',
+        CN: '',
+        JP: ''
+    }],
+    ['payingExplain1', {
+        KOR: '잠시만 기다려 주십시오, ',
+        ENG: 'Wait for payment, ',
+        CN: '',
+        JP: ''
+    }],
+    ['payingExplain2', {
+        KOR: ' 님께서 당신에게 ',
+        ENG: ' will pay you ',
+        CN: '',
+        JP: ''
+    }],
+    ['payingExplain3', {
+        KOR: '을 지불할 것 입니다. ',
+        ENG: ' in ',
+        CN: '',
+        JP: ''
+    }],
+    ['payingExplain4', {
+        KOR: ' 까지 지불될 예정 입니다. ',
+        ENG: ',',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmgExplain1', {
+        KOR: '지불됨, ',
+        ENG: 'Paid, ',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmgExplain2', {
+        KOR: '이 지불 완료 처리한 금액은 ',
+        ENG: ' has marked this order as paid you ',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmgExplain3', {
+        KOR: '입니다. ',
+        ENG: ', ',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmRelease', {
+        KOR: '확인 및 공개',
+        ENG: 'Confirm and release',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmContents1', {
+        KOR: '영수증을 확인하려면 은행 계좌 또는 기타 전자 지갑에 로그인했는지 확인하십시오.',
+        ENG: 'Make sure that you have logged in your bank account or other e-wallet to check the receipt.',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmCheckbox', {
+        KOR: '나는 이 지불금을 받았음을 확인합니다.',
+        ENG: 'I confirm that I\'ve received this payment',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
         CN: '',
         JP: ''
     }],

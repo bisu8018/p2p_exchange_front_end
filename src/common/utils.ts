@@ -71,6 +71,10 @@ export var abUtils = {
     amount = amount || '';
     let parts = amount.split(".");
     return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+  },
+  toDeleteZero: function (amount: string): string {
+    amount = amount || '';
+    return amount.replace(/(^0+)/, "");
   }
 };
 
