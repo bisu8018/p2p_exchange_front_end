@@ -1,7 +1,7 @@
 <template>
   <v-app>
       <abHeader></abHeader>
-      <v-content class="white">
+      <v-content>
         <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
           <router-view ></router-view>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <v-layout mt-5 mb-5 ml-3 mr-3 column>
+    <v-layout mt-5 mb-5 column>
         <div class="flex-divide mb-4">
             <div class="text-darkgray caption text-xs-left mb-4">
                 <!--{{order_number}} 주문번호-->

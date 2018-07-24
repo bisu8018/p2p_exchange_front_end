@@ -1,6 +1,6 @@
 <template>
     <!--Vertical, horizontal alignment-->
-    <v-layout pt-5 pb-5 mr-3 ml-3>
+    <v-layout pt-5 pb-5>
         <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
             <div>
                 <div class="mb-4a login-title">

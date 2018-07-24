@@ -1,5 +1,5 @@
 <template>
-    <v-layout pt-5 pb-5 ml-3 mr-3>
+    <v-layout pt-5 pb-5 >
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex">
                 <div class="pt-1">

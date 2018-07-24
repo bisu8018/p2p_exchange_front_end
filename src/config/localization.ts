@@ -641,7 +641,7 @@ const strings = new Map([
     }],
     ['paymentWindowPlaceholder', {
         KOR: '10-20분',
-        ENG: '10 to 20 Min.',
+        ENG: '10 to 20 Min',
         CN: '10-20分钟',
         JP: ''
     }],
@@ -786,24 +786,48 @@ const strings = new Map([
     ['lowBalance', {
         KOR: '보유하고 계신 코인 잔액이 부족합니다',
         ENG: 'You do not have enough coins',
-        CN: '',
+        CN: '保有货币余额不足',
         JP: ''
     }],
     ['atLeast', {
         KOR: '한도금액 이상으로 입력해 주십시오',
         ENG: 'Please enter greater than or equal to limit',
-        CN: '',
+        CN: '请输入限度以上的金额',
         JP: ''
     }],
     ['atMost', {
         KOR: '한도금액 이하로 입력해 주십시오',
         ENG: 'Please enter less than or equal to limit',
-        CN: '',
+        CN: '请输入限度以下的金额',
         JP: ''
     }],
     ['timeRange', {
         KOR: '범위 시간 내로 입력해 주십시오',
         ENG: 'Please enter within the range of time',
+        CN: '请输入范围时间内',
+        JP: ''
+    }],
+    ['counterpartyWarning', {
+        KOR: '거래 수는 99 까지가 최대입니다',
+        ENG: 'Trade number limits can be up to 99',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_trade_password', {
+        KOR: '거래 비밀번호를 입력해 주십시오',
+        ENG: 'Please enter you trade password',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
         CN: '',
         JP: ''
     }],
@@ -1082,30 +1106,6 @@ const strings = new Map([
     ['confirmCheckbox', {
         KOR: '나는 이 지불금을 받았음을 확인합니다.',
         ENG: 'I confirm that I\'ve received this payment',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
         CN: '',
         JP: ''
     }],
