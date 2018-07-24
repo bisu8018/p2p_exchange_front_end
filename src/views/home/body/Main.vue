@@ -66,32 +66,10 @@
   });
 </script>
 
-<style scope>
-  /* 웹에서 gutter 주기*/
-  
-  @media only screen and (min-width: 960px) {
-    .mainView {
-      max-width: 100% !important;
-      min-height: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-  
-  
-  /* mobile 에서 gutter 주기*/
-  
-  @media only screen and (max-width: 959px) {
-    .mainView {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-  }
+<style scoped>
 
+  /* 웹에서 최대 width 주기*/
 
-
-  /* 웹에서 gutter 주기*/
-  
   @media only screen and (min-width: 960px) {
     .pageView {
       max-width: 1200px;
@@ -99,10 +77,10 @@
       margin-right: auto;
     }
   }
-  
-  
+
+
   /* mobile 에서 gutter 주기*/
-  
+
   @media only screen and (max-width: 959px) {
     .pageView {
       padding-left: 12px;

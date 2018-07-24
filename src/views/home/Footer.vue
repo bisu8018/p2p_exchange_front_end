@@ -99,6 +99,7 @@
     margin-left: auto;
     margin-right: auto;
 
+
   }
   .footer {
     background-color: #f8f8fa;

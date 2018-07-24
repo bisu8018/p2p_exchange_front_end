@@ -531,8 +531,9 @@
 
         z-index: 999;
     }
-
-
+    .v-parallax__content{
+        padding: 0 !important;
+    }
 
 
 

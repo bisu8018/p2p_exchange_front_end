@@ -1,5 +1,5 @@
 <template>
-    <div class="" >
+    <div>
         <!-- 상단의 list filter -->
         <trade-center-filter></trade-center-filter>
         <!--본 list들-->

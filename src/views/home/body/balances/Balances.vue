@@ -23,7 +23,7 @@
       <!--search filter 추가할것-->
       <v-flex md4 xs12><list-filter></list-filter></v-flex>
     </v-layout>
-    
+
 
     <!-- Web 일때-->
     <div v-if="!isMobile">
