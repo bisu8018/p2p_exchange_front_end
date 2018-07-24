@@ -155,6 +155,11 @@
         font-weight: 700;
     }
 
+    .price-1b {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
     .price-2 {
         font-size: 14px;
         font-weight: 700;
@@ -245,7 +250,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #9294a6;
     }
 
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
@@ -255,7 +260,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #9294a6;
     }
 
     ::-ms-input-placeholder { /* Microsoft Edge */
@@ -265,7 +270,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #9294a6;
     }
 
     /*margin, padding 32px 설정*/
@@ -338,7 +343,7 @@
     }
 
     .text-price {
-        color: #E25422;
+        color: #E25422 ;
     }
 
     .text-error {
@@ -372,17 +377,17 @@
         }
     }
 
-    .warning_border {
+    .warning-border {
         border: solid 1px #e62a2b !important;
     }
 
-    .warning_text {
+    .warning-text {
         color: #e62a2b;
         font-size: 10px;
         display: block !important;
     }
 
-    .hide_warning_text {
+    .hide-warning-text {
         display: none;
     }
 
@@ -404,6 +409,7 @@
         opacity: 0;
     }
 
+
     /*버튼 호버 CSS 설정*/
     .common-btn-hover:hover  {
         background-color: #316ee4 !important;
@@ -420,7 +426,6 @@
         border-radius: 2px;
         border: solid 1px #8d8d8d;
         width: 100%;
-        margin-bottom: 22px;
         padding-left: 8px;
         padding-right: 8px;
         font-size: 14px;
@@ -434,13 +439,14 @@
         color: white;
         border-radius: 3px;
     }
-    .common-rounded-button {         /*사각형 파랑배경 흰색폰트 라운드 버튼*/
+    .common-rounded-button {         /*라운드 파랑배경 흰색폰트 버튼*/
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: #214ea1;
         border-radius: 30px;
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: normal;
         color: white;
     }
     .common-normal-bordered-button {         /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
@@ -452,16 +458,37 @@
         border-radius: 3px;
         color: #214EA1;
     }
-    .common-rounded-flat-button {         /*사각형 하얀배경 파랑폰트 버튼*/
+    .common-rounded-flat-button {         /*라운드 하얀배경 파랑폰트 버튼*/
 
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: white;
         border-radius: 30px;
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: normal;
         color: #214ea1;
     }
+
+    .common-selectbox {             /*셀렉박스 공통 CSS*/
+        width: 100%;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        border: solid 1px #8d8d8d;
+        color: #9294a6;
+        padding-left: 12px;
+        cursor: pointer;
+    }
+
+    .common-selectbox-icon {        /*셀렉박스 화살표 아이콘 공통 CSS*/
+        position: absolute;         /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
+        right: 8px;
+        top: 8px;
+        pointer-events: none;
+    }
+
+
 
     /*vuetify dialog*/
     .v-dialog {
@@ -471,6 +498,8 @@
         padding: 24px 16px 24px 16px;
     }
 
+
+    /*Simple Css Manual*/
     .absolute{
         position: absolute;
     }
@@ -479,12 +508,66 @@
         position: relative;
     }
 
+
+
     .bold {
         font-weight: bold;
     }
 
     .line-height-1 {
-        line-height: 1;
+        line-height: 1 !important;
+    }
+
+    .display-none {
+        display: none !important;
+    }
+
+    .grid {
+        display: grid;
+    }
+
+    .visible-hidden {
+        visibility: hidden;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
+
+    /*tooltip*/
+    .tooltips {
+        position: relative;
+        display: inline;
+    }
+    .tooltips .tooltip-content {
+        display: none;
+        position: absolute;
+        padding: 8px;
+        color: #FFFFFF;
+        background: #545c6a;
+        font-size: 12px;
+        text-align: center;
+        border-radius: 2px;
+    }
+    .tooltips .tooltip-content:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+        width: 0;
+        height: 0;
+        border-top: 6px solid #545c6a;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+    }
+    :hover.tooltips .tooltip-content {
+        display: block;
+        bottom: 140%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
     }
 
 
