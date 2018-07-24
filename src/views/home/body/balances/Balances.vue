@@ -2,7 +2,7 @@
   <div>
     <v-layout row wrap mt-5>
       <!--header-->
-      <v-flex md6 xs12 mb-4a text-xs-left title-2>{{$str("Balances")}}</v-flex>
+      <v-flex md6 xs12 mb-4a pl-0 text-xs-left title-2>{{$str("Balances")}}</v-flex>
       <!--search filter 추가할것-->
       <v-flex md6 xs12><list-filter></list-filter></v-flex>
     </v-layout>
@@ -16,7 +16,7 @@
       ></balance-token-list>
     </div>
 
-    <v-layout row wrap mt-5>
+    <v-layout row wrap mt-5 mb-4a>
       <!--Detail header-->
       <v-flex md8 xs12 text-xs-left title-2>{{$str("Details")}}</v-flex>
 
