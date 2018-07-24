@@ -653,7 +653,7 @@ const strings = new Map([
     }],
     ['wechatPayText', {
         KOR: '위챗페이',
-        ENG: 'Wechat Pay',
+        ENG: 'Wechatpay',
         CN: '微信支付',
         JP: ''
     }],
@@ -1177,6 +1177,13 @@ const strings = new Map([
         CN: '时间',
         JP: ''
     }],
+    ['Export', {
+        KOR: 'Export',
+        ENG: 'Export',
+        CN: 'Export',
+        JP: ''
+    }],
+
 
     //Balance
     ['Details', {
