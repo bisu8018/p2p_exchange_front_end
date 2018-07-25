@@ -56,7 +56,7 @@
         font-weight: 400;
         src: url(assets/font/material/MaterialIcons-Regular.eot);
         /* For IE6-8 */
-        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material//MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
+        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material/MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
     .material-icons {
@@ -338,12 +338,12 @@
         color: #353535;
     }
 
-    .color-darkgray {
-        color: #9294A6;
-    }
-
     .color-gray {
         color: #C8C8C8;
+    }
+
+    .color-darkgray {
+        color: #9294A6;
     }
 
     .color-blue {
@@ -522,7 +522,6 @@
     .warning-text-wrapper {
         position: absolute !important;
         bottom: 6px !important;
-    ;
         right: 0 !important;
     ;
     }
@@ -553,8 +552,6 @@
         padding-right: 16px;
         background: #214ea1;
         border-radius: 30px;
-        font-size: 12px;
-        font-weight: normal;
         color: white;
     }
 
@@ -576,8 +573,6 @@
         padding-right: 16px;
         background: white;
         border-radius: 30px;
-        font-size: 12px;
-        font-weight: normal;
         color: #214ea1;
     }
 

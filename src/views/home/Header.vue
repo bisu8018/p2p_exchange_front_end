@@ -5,9 +5,9 @@
             <div v-if="isMobile">
                 <v-layout class="nav align-center">
                     <!--logo-->
-                    <div class="ml-3">
-                        <img @click="goMain()" src="@/assets/img/logo_color.png" class="logo">
-                    </div>
+                    <button @click="goMain()" class="ml-3">
+                        <img src="@/assets/img/logo_color.png" class="logo">
+                    </button>
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
                     <v-spacer> </v-spacer>
                     <!--햄버거 bar-->
@@ -17,7 +17,7 @@
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
-                <div class="dropDownBtn" v-if="drawer" @click.stop="drawer = !drawer">
+                <div class="dropDownBtn mt-6" v-if="drawer" @click.stop="drawer = !drawer">
                     <v-layout row wrap class="dropDownMenu">
                         <!-- TradeCenter버튼-->
                         <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
@@ -156,7 +156,7 @@
                     <!-- signup 버튼-->
                     <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
                     <!-- 언어설정버튼 -->
-                    <div class="dropdown mr-4a">
+                    <div class="dropdown mr-4a d-block">
                         <!-- 한국어-->
                         <button v-if="currentLang=='KO'" class="dropbtn">
                             <img src="@/assets/img/flag3.png">
@@ -290,6 +290,11 @@
         height: 64px;
         background-color: #002970;
         color: white;
+        position: fixed;
+        top: 0;
+        overflow: hidden;
+        z-index: 999;
+        width: 100%;
     }
 
     .logo {
@@ -299,10 +304,10 @@
 
     .dropDownMenu {
         z-index: 100;
-        position: absolute;
         width: 100%;
         color: white;
         background-color: #002970;
+        position: fixed;
     }
 
     .dropDownMenu .flex {
@@ -337,7 +342,7 @@
 
     .dropdown-content {
         display: none;
-        position: absolute;
+        position: fixed;
         color: black;
         min-width: 104px;
         box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
