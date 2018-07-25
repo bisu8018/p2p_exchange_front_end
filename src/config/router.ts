@@ -15,6 +15,7 @@ import PostAd from '../views/home/body/postAd/PostAd.vue'
 import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
 import Balances from '../views/home/body/balances/Balances.vue'
+import MyPage from '../views/home/body/myPage/MyPage.vue'
 
 
 Vue.use(Router)
@@ -95,6 +96,11 @@ export default new Router({
             path: '/balances',
             name: 'balances',
             component: Balances,
+        },
+        {
+            path: '/myPage',
+            name: 'myPage',
+            component: MyPage,
         },
     ],
     mode: 'history'

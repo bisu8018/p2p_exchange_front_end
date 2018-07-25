@@ -457,7 +457,7 @@
 
 
     /* 폰트 사이즈, 웨이트 등 */
-
+    /*태그*/
     h1 {
         font-size: 26px;
         line-height: 1.4em;
@@ -489,6 +489,39 @@
         font-size: 10px;
         line-height: 1.4em;
     }
+    /*클래스*/
+    .h1 {
+        font-size: 26px;
+        line-height: 1.4em;
+    }
+
+    .h2 {
+        font-size: 22px;
+    }
+
+    .h3 {
+        font-size: 18px;
+    }
+
+    .h4 {
+        font-size: 16px;
+    }
+
+    .h5 {
+        font-size: 14px;
+        line-height: 1.6em;
+    }
+
+    .h6 {
+        font-size: 12px;
+        line-height: 1.6em;
+    }
+
+    .p {
+        font-size: 10px;
+        line-height: 1.4em;
+    }
+
 
     .normal {
         font-weight: 400;
