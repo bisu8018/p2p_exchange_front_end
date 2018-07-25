@@ -3,36 +3,36 @@
     <div v-if="isMobile">
       <!-- name-->
       <v-layout >
-        <v-flex xs4 text-xs-left>Order number</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.orderNum}}</v-flex>
+        <v-flex xs5 text-xs-left>Order number</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.orderNum}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>Transaction Type</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.exType}}</v-flex>
+        <v-flex xs5 text-xs-left>Transaction Type</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.exType}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>Number of transactions</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.exNum}}</v-flex>
+        <v-flex xs5 text-xs-left>Number of transactions</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.exNum}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>Total price</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.totalPrice}}</v-flex>
+        <v-flex xs5 text-xs-left>Total price</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.totalPrice}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>unit price</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.unitPrice}}</v-flex>
+        <v-flex xs5 text-xs-left>unit price</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.unitPrice}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>time</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.time}}</v-flex>
+        <v-flex xs5 text-xs-left>time</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.time}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>status</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.status}}</v-flex>
+        <v-flex xs5 text-xs-left>status</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.status}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs4 text-xs-left>Trading partners</v-flex>
-        <v-flex xs8 text-xs-right>{{orderlist.partner}}</v-flex>
+        <v-flex xs5 text-xs-left>Trading partners</v-flex>
+        <v-flex xs7 text-xs-right>{{orderlist.partner}}</v-flex>
       </v-layout>
 
 

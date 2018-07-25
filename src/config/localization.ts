@@ -819,18 +819,6 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        JP: ''
-    }],
 
     //Buy
     ['orderText', {
@@ -1178,9 +1166,51 @@ const strings = new Map([
         JP: ''
     }],
     ['Export', {
-        KOR: 'Export',
+        KOR: '',
         ENG: 'Export',
-        CN: 'Export',
+        CN: '',
+        JP: ''
+    }],
+    ['orderFilterPlaceholder', {
+        KOR: '주문 날짜/상태/번호/통화',
+        ENG: 'Oder Date/Status/Number/Currency',
+        CN: '订单日期/状态/编号/币种',
+        JP: ''
+    }],
+    ['date', {
+        KOR: '날짜',
+        ENG: 'Date',
+        CN: '日期',
+        JP: ''
+    }],
+    ['datePickerPlaceholder', {
+        KOR: '날짜를 선택해 주십시오',
+        ENG: 'Please select date',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
         JP: ''
     }],
 
