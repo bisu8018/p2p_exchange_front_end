@@ -656,7 +656,7 @@
     /* 디스플레이 관련 */
 
     .d-none {
-        display: none !important;
+        display: none;
     }
 
     .d-grid {

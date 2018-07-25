@@ -1393,8 +1393,8 @@ function checkLocale(): Lang {
   }
 }
 
-// let currentLang: Lang = Lang.EN;
- let currentLang: Lang = checkLocale();
+let currentLang: Lang = Lang.EN;
+ //let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {
