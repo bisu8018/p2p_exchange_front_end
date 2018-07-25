@@ -140,7 +140,8 @@
 
                     <!-- 로그인시 내정보 버튼 -->
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
-
+                  <!--MyPage-->
+                  <button class="button-2 mr-4a" @click="goMyPage()">{{$str("MyPage")}}</button>
                     <!--MyOrder-->
                     <button class="button-2 mr-4a" @click="goMyOrder()">{{$str("MyOrder")}}</button>
                     <!--Balances -->
@@ -252,6 +253,9 @@
                         this.$router.push("/myAds");
                         break;
                 }
+            },
+            goMyPage(){
+                this.$router.push("/myPage");
             },
             goMyOrder() {
                 this.$router.push("/myOrder");
