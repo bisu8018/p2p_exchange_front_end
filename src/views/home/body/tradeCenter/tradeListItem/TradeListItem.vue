@@ -2,7 +2,7 @@
   <div>
 
     <!-- mobile 일때-->
-    <div v-if="isMobile" class="relative">
+    <div v-if="isMobile" class="p-relative">
       <!--거래 list -->
       <div>
         <!-- name-->
@@ -15,7 +15,7 @@
             </avatar>
           </v-flex>
 
-          <v-flex xs10 text-xs-left>
+          <v-flex xs10 text-xs-left color-blue>
             {{user.email}} ( {{user.volumeTotal}} | 99%)
             <!-- user의 rank 이미지-->
             <img :src="rankSrc" class="ml-2">
@@ -24,20 +24,20 @@
         <!-- Volume -->
         <v-layout>
             <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left>Volume :</v-flex>
+            <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
             <v-flex xs6 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left>Limits :</v-flex>
+            <v-flex xs4 text-xs-left color-darkgray>Limits :</v-flex>
             <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left>Price :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.price}} {{currency}} </v-flex>
+            <v-flex xs4 text-xs-left color-darkgray>Price :</v-flex>
+            <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -58,7 +58,7 @@
             </v-flex>
             <!--거래 버튼-->
             <v-flex xs4 text-xs-right>
-              <button class="common-rounded-button" @click="drawer = !drawer">
+              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
                 {{tradeType}} {{token}}</button>
             </v-flex>
         </v-layout>
@@ -146,7 +146,7 @@
 
 
     <!--Web 일때-->
-    <div v-else class="relative">
+    <div v-else class="p-relative">
       <v-layout class="userWebList" align-center justify-center fill-height>
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
@@ -156,7 +156,7 @@
               :isLogin = user.isLogin
               :color = user.color>
             </avatar>
-            <span class="ml-3">
+            <span class="ml-3 color-blue">
               {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
             </span>
             <!--판매자 rank-->
@@ -168,7 +168,7 @@
         <!--limits-->
         <v-flex md2 text-md-left >{{user.limitMax}} {{currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left >{{user.price}} {{token}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{user.price}} {{token}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -188,8 +188,8 @@
             <!--img와 button을 양쪽에 정렬시키기 위함.-->
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
-            <button class="common-rounded-button" @click="drawer = !drawer">
-              {{tradeType}} {{token}}
+            <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+              <h5>{{tradeType}} {{token}}</h5>
             </button>
           </v-layout>
         </v-flex>
@@ -200,7 +200,7 @@
         <v-layout row wrap>
           <v-flex md3 text-md-left >
             <v-layout pl-4>
-              <!--avarta-->
+              <!--avatar-->
               <avatar
                         :name = user.email[0]
                         :isLogin = user.isLogin
@@ -209,20 +209,20 @@
 
               <!-- merchant 정보-->
               <span>
-                <span class="mr-2 ml-3">
+                <span class="mr-2 ml-3 color-blue medium">
                   {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
                 </span>
                 <img :src="rankSrc" class="userRank">
-                <div class="ml-3">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
               </span>
             </v-layout>
           </v-flex>
 
           <v-flex md2 text-md-left>
-            <div>
+            <div class="bold color-orange-price">
               {{user.volumeTotal}} {{currency}}
             </div>
-            <div>
+            <div class="medium">
               {{user.volumeTotal}} {{currency}}
             </div>
           </v-flex>
@@ -230,16 +230,16 @@
           <v-flex md4>
             <!-- 수평: 양쪽으로 벌리고, 수직: 가운데정렬-->
             <v-layout align-center justify-space-between row fill-height>
-            <input type="number" class="userInput textRightPlaceholder" name="toValue" v-model="toValue"
+            <input type="number" class="input userInput textRightPlaceholder" name="toValue" v-model="toValue"
                    :placeholder="currency">
-            <i class="material-icons text-darkgray swapIcon">swap_horiz</i>
-            <input type="number" class="userInput textRightPlaceholder" name="fromValue" v-model="fromValue"
+            <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
+            <input type="number" class="input userInput textRightPlaceholder" name="fromValue" v-model="fromValue"
                    :placeholder="token">
             </v-layout>
           </v-flex>
           <v-flex md3 text-md-left>
-            <button class="common-rounded-button common-btn-hover mr-3">{{$str("confirm")}} </button>
-            <button class="common-rounded-flat-button common-text-hover" @click="drawer = !drawer">{{$str("cancel")}} </button>
+            <button class="btn-rounded-blue btn-blue-hover mr-3">{{$str("confirm")}} </button>
+            <button class="btn-rounded-white text-white-hover" @click="drawer = !drawer">{{$str("cancel")}} </button>
           </v-flex>
         </v-layout>
         <v-layout row wrap tradeWebModal-secondRow>
@@ -258,12 +258,12 @@
           </v-flex>
           <v-flex md3 text-md-right>
             <div v-if="tradeType =='SELL'">
-              <input type="text" class="userInput textLeftPlaceholder" name="tradePW" v-model="tradePW"
+              <input type="text" class="input userInput textLeftPlaceholder" name="tradePW" v-model="tradePW"
                      :placeholder="pwPlaceholder">
             </div>
           </v-flex>
           <v-flex md2 text-md-right>
-            <span class="TextDarkgray">{{$str("Payment_window_is_15minutes")}}</span>
+            <h6 class="color-darkgray">{{$str("Payment_window_is_15minutes")}}</h6>
           </v-flex>
         </v-layout>
 
@@ -272,8 +272,10 @@
         <!-- 판매자가 남긴 요구 메모가 있을시-->
         <v-layout >
           <v-flex md12 mt-5 mb-5 v-if="user.memo !== '' " margin-left-74 mr-4 text-md-left>
-            {{$str("userMemo")}}： <br>
-            {{user.memo}}
+            <h6 class="color-darkgray">
+              {{$str("userMemo")}}： <br>
+              {{user.memo}}
+            </h6>
           </v-flex>
         </v-layout>
       </div>
@@ -336,16 +338,13 @@
     z-index: 0;
   }
   .userInput{
-    height: 36px;
-    border-radius: 2px;
-    background-color: #f8f8fa;
-    border: solid 1px #8d8d8d;
+    border: solid 1px #b2b2b2;
     width: 153px;
   }
   .mobileInput{
     height: 36px;
     border-radius: 2px;
-    background-color: #f8f8fa;
+
     border: solid 1px #8d8d8d;
     width: 100%;
 

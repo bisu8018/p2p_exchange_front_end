@@ -18,12 +18,24 @@
 
                 <!-- chart의 title들 -->
                 <v-layout mb-3>
-                    <v-flex  md3 text-md-left>{{$str("Merchant(Volume | Trade rate)")}}</v-flex>
-                    <v-flex  md2 text-md-left>{{$str("Available")}}</v-flex>
-                    <v-flex  md2 text-md-left>{{$str("limits")}}</v-flex>
-                    <v-flex  md2 text-md-left>{{$str("price")}} </v-flex>
-                    <v-flex  md2 text-md-left>{{$str("paymentMethod")}}</v-flex>
-                    <v-flex  md1 text-md-right>{{$str("control")}}</v-flex>
+                    <v-flex  md3 text-md-left color-darkgray>
+                        {{$str("Merchant(Volume | Trade rate)")}}
+                    </v-flex>
+                    <v-flex  md2 text-md-left color-darkgray>
+                        {{$str("Available")}}
+                    </v-flex>
+                    <v-flex  md2 text-md-left color-darkgray>
+                        {{$str("limits")}}
+                    </v-flex>
+                    <v-flex  md2 text-md-left color-darkgray>
+                        {{$str("price")}}
+                    </v-flex>
+                    <v-flex  md2 text-md-left color-darkgray>
+                        {{$str("paymentMethod")}}
+                    </v-flex>
+                    <v-flex  md1 text-md-right color-darkgray>
+                        {{$str("control")}}
+                    </v-flex>
                 </v-layout>
                 <v-divider></v-divider>
 

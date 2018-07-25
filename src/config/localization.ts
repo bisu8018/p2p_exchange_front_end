@@ -1266,7 +1266,7 @@ const strings = new Map([
     }],
     ['BalanceDepositExplain1-2', {
         KOR: '를 제외한 다른 디지털 자산을 예치하지 마십시오.',
-        ENG: 'to the above address',
+        ENG: 'to the above address.',
         CN: '到上述地址',
         JP: ''
     }],
@@ -1303,6 +1303,30 @@ const strings = new Map([
         ENG: 'Please make sure that your computer and browser are secure ' +
         'and your information is protected from being tampered or leaked.',
         CN: '请确保您的计算机和浏览器安全，并保护您的信息不被篡改或泄露。',
+        JP: ''
+    }],
+    ['Exchange_Account', {
+        KOR: '교환 계좌',
+        ENG: 'Exchange Account',
+        CN: '交换账户',
+        JP: ''
+    }],
+    ['Please_select_date', {
+        KOR: '날짜를 선택하세요',
+        ENG: 'Please select date',
+        CN: '请选择日期',
+        JP: ''
+    }],
+    ['clear', {
+        KOR: '초기화',
+        ENG: 'Clear',
+        CN: '删除所有',
+        JP: ''
+    }],
+    ['Date', {
+        KOR: '날짜',
+        ENG: 'Date',
+        CN: '日期',
         JP: ''
     }],
 
