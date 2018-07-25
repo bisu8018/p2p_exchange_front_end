@@ -43,15 +43,15 @@
         <v-layout align-center justify-space-between row fill-height mb-4>
           <v-flex xs2></v-flex>
             <v-flex xs6 text-xs-left>
-              <a class="tooltips">
+              <a class="tooltip">
                 <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
                 <span class="BankTooltip tooltip-content">Bank account</span>
               </a>
-              <a class="tooltips" >
+              <a class="tooltip" >
                 <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
                 <span class="tooltip-content">Alipay</span>
               </a>
-              <a class="tooltips" >
+              <a class="tooltip" >
                 <img class="mr-2" src="../../../../../assets/img/method_wechatpay.png">
                 <span class="tooltip-content">Wechatpay</span>
               </a>
@@ -110,15 +110,15 @@
         <v-layout mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
             <div >
-              <input type="number" class="mobileInput " name="toValue" v-model="toValue"
+              <input type="number" class="mobileInput textRightPlaceholder" name="toValue" v-model="toValue"
                      :placeholder="currency">
             </div>
             <div class="mt-3">
-              <input type="number" class="mobileInput" name="toValue" v-model="fromValue"
+              <input type="number" class="mobileInput textRightPlaceholder" name="toValue" v-model="fromValue"
                      :placeholder="token">
             </div>
             <div class="mt-3" v-if="tradeType =='SELL'">
-              <input type="number" class="mobileInput" name="toValue" v-model="tradePassword"
+              <input type="number" class="mobileInput textLeftPlaceholder" name="toValue" v-model="tradePassword"
                      :placeholder="pwPlaceholder">
             </div>
           </v-flex>
@@ -173,15 +173,15 @@
         <v-flex md3 text-md-right>
           <v-layout align-center >
             <!--payment method-->
-            <a class="tooltips">
+            <a class="tooltip">
               <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
               <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
             </a>
-            <a class="tooltips">
+            <a class="tooltip">
               <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
               <span class="tooltip-content">{{$str("alipayText")}}</span>
             </a>
-            <a class="tooltips">
+            <a class="tooltip">
               <img src="../../../../../assets/img/method_wechatpay.png">
               <span class="tooltip-content">{{$str("wechatPayText")}}</span>
             </a>
@@ -230,10 +230,10 @@
           <v-flex md4>
             <!-- 수평: 양쪽으로 벌리고, 수직: 가운데정렬-->
             <v-layout align-center justify-space-between row fill-height>
-            <input type="number" class="userInput" name="toValue" v-model="toValue"
+            <input type="number" class="userInput textRightPlaceholder" name="toValue" v-model="toValue"
                    :placeholder="currency">
             <i class="material-icons text-darkgray swapIcon">swap_horiz</i>
-            <input type="number" class="userInput" name="fromValue" v-model="fromValue"
+            <input type="number" class="userInput textRightPlaceholder" name="fromValue" v-model="fromValue"
                    :placeholder="token">
             </v-layout>
           </v-flex>
@@ -258,7 +258,7 @@
           </v-flex>
           <v-flex md3 text-md-right>
             <div v-if="tradeType =='SELL'">
-              <input type="text" class="userInput" name="tradePW" v-model="tradePW"
+              <input type="text" class="userInput textLeftPlaceholder" name="tradePW" v-model="tradePW"
                      :placeholder="pwPlaceholder">
             </div>
           </v-flex>
@@ -347,7 +347,17 @@
     border-radius: 2px;
     background-color: #f8f8fa;
     border: solid 1px #8d8d8d;
-    width: 100%
+    width: 100%;
+
+  }
+  .textRightPlaceholder::-webkit-input-placeholder{
+    text-align: right;
+
+
+  }
+  .textLeftPlaceholder::-webkit-input-placeholder{
+    text-align: left;
+
   }
   .userRank{
     width: 16px;

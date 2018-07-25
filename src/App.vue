@@ -7,7 +7,10 @@
 
 <script>
     import Vue from "vue";
-    import {setEventBus, setRouter} from "./common/common";
+    import {
+        setEventBus,
+        setRouter
+    } from "./common/common";
     import Home from './views/home/Home.vue'
 
     export default Vue.extend({
@@ -21,9 +24,8 @@
         }
     });
 </script>
+
 <style>
-
-
     @font-face {
         font-family: 'Noto Sans SC';
         font-style: normal;
@@ -45,14 +47,16 @@
         src: url(assets/font/notosans/NotoSansSC-Bold.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Bold.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Bold.otf) format('opentype');
     }
 
+
     /*material font*/
+
     @font-face {
         font-family: 'Material Icons';
         font-style: normal;
         font-weight: 400;
         src: url(assets/font/material/MaterialIcons-Regular.eot);
         /* For IE6-8 */
-        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material//MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
+        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material/MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
     .material-icons {
@@ -78,6 +82,7 @@
         font-feature-settings: 'liga';
     }
 
+
     /* Rules for sizing the icon. */
 
     .material-icons.md-12 {
@@ -100,6 +105,7 @@
         font-size: 48px;
     }
 
+
     /* Rules for using icons as white on a dark background. */
 
     .material-icons.md-light {
@@ -110,131 +116,190 @@
         color: rgba(255, 255, 255, 0.3);
     }
 
+
+    /* 초기화 태그 */
+
+
+    /* http://meyerweb.com/eric/tools/css/reset/
+       v2.0 | 20110126
+       License: none (public domain)
+    */
+
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+
+
+    /* HTML5 display-role reset for older browsers */
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+        display: block;
+    }
+
+    body {
+        line-height: 1;
+        -ms-touch-action: unset;
+        -webkit-user-select: unset;
+        -moz-user-select: unset;
+        -ms-user-select: unset;
+        user-select: unset;
+    }
+
+    ol,
+    ul {
+        list-style: none;
+    }
+
+    blockquote,
+    q {
+        quotes: none;
+    }
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    b {
+        font-weight: bold;
+    }
+
+
+    /* 웹에서 gutter 주기*/
+
+    @media only screen and (min-width: 960px) {
+        .flex {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+
+
+    /* mobile 에서 gutter 주기*/
+
+    @media only screen and (max-width: 959px) {
+        .flex {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+    }
+
     #app {
         font-family: Noto Sans SC, Helvetica, Arial, sans-serif !important;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
-        color: #2c3e50;
-    }
-
-    #nav a {
-        font-weight: bold;
-        color: #2c3e50;
-    }
-
-    #nav a.router-link-exact-active {
-        color: #42b983;
-    }
-
-    .coinselect-1 {
-        font-size: 16px;
-        font-weight: 700;
-    }
-
-    .coinselect-2 {
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .avatar {
-        font-size: 16px;
-        font-weight: 400;
-    }
-
-    .price-1 {
-        font-size: 18px;
-        font-weight: 700;
-    }
-
-    .price-1b {
-        font-size: 18px;
-        font-weight: 500;
-    }
-
-    .price-2 {
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-    .name {
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .button-1 {
-        font-size: 14px !important;
-        font-weight: 700 !important;
-    }
-
-    .button-2 {
-        font-size: 14px !important;
-        font-weight: 400 !important;
-    }
-
-    .layer-text {
-        font-size: 12px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
         color: #353535;
     }
 
-    .display-1 {
-        font-size: 36px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535;
-    }
-
-    .headline-2 {
-        font-size: 26px !important;
-        font-weight: bold !important;
-        font-style: normal !important;
-        font-stretch: normal !important;
-        line-height: normal !important;
-        letter-spacing: normal !important;
-        color: #353535 !important;
-    }
-
-    .title-2 {
-        font-size: 22px !important;
-        font-weight: normal !important;
-        font-style: normal !important;
-        font-stretch: normal !important;
-        line-height: normal !important;
-        letter-spacing: normal !important;
-        color: #353535 !important;
-        font-weight: bold !important;
-    }
-
-    .subheading-2 {
-        font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535;
-    }
-
-    .caption {
-        font-size: 12px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #353535;
-    }
 
     /*placeholder CSS 설정*/
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
         font-size: 12px;
         font-weight: normal;
         font-style: normal;
@@ -244,7 +309,8 @@
         color: #9294a6;
     }
 
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
         font-size: 12px;
         font-weight: normal;
         font-style: normal;
@@ -254,7 +320,8 @@
         color: #9294a6;
     }
 
-    ::-ms-input-placeholder { /* Microsoft Edge */
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
         font-size: 12px;
         font-weight: normal;
         font-style: normal;
@@ -264,7 +331,67 @@
         color: #9294a6;
     }
 
-    /*margin, padding 32px 설정*/
+
+    /*폰트 색깔*/
+
+    .color-black {
+        color: #353535;
+    }
+
+    .color-gray {
+        color: #C8C8C8;
+    }
+
+    .color-darkgray {
+        color: #9294A6;
+    }
+
+    .color-blue {
+        color: #214EA1;
+    }
+
+    .color-pointblue {
+        color: #316EE4;
+    }
+
+    .color-orange {
+        color: #F9A825;
+    }
+
+    .color-orange-price {
+        color: #E25422;
+    }
+
+    .color-red {
+        color: #E62A2B;
+    }
+
+    .color-green {
+        color: #71AA3A;
+    }
+
+    .color-white {
+        color: #FFFFFF;
+    }
+
+
+    /* 백그라운드 색깔 */
+
+    .bg-white {
+        background-color: #fff;
+    }
+
+    .bg-gray {
+        background-color: #f8f8fa;
+    }
+
+    .bg-overlay {
+        background-color: rgba(0, 0, 0, 0.45)
+    }
+
+
+    /* 마진, margin 설정*/
+
     .mb-4a {
         margin-bottom: 32px !important;
     }
@@ -284,6 +411,29 @@
     .ma-4a {
         margin: 32px !important;
     }
+
+    .mb-6 {
+        margin-bottom: 64px !important;
+    }
+
+    .mt-6 {
+        margin-top: 64px !important;
+    }
+
+    .mr-6 {
+        margin-right: 64px !important;
+    }
+
+    .ml-6 {
+        margin-left: 64px !important;
+    }
+
+    .ma-6 {
+        margin: 64px !important;
+    }
+
+
+    /* 패딩, padding 설정 */
 
     .pb-4a {
         padding-bottom: 32px;
@@ -305,67 +455,59 @@
         padding: 32px;
     }
 
-    /*common text style*/
 
-    .text-black {
-        color: #353535;
+    /* 폰트 사이즈, 웨이트 등 */
+
+    h1 {
+        font-size: 26px;
+        line-height: 1.4em;
     }
 
-    .text-darkgray {
-        color: #9294A6;
+    h2 {
+        font-size: 22px;
     }
 
-    .text-gray {
-        color: #C8C8C8;
+    h3 {
+        font-size: 18px;
     }
 
-    .text-blue {
-        color: #214EA1;
+    h4 {
+        font-size: 16px;
     }
 
-    .text-pointblue {
-        color: #316EE4;
+    h5 {
+        font-size: 14px;
+        line-height: 1.6em;
     }
 
-    .text-hover {
-        color: #316EE4;
+    h6 {
+        font-size: 12px;
+        line-height: 1.6em;
     }
 
-    .text-price {
-        color: #E25422;
+    p {
+        font-size: 10px;
+        line-height: 1.4em;
     }
 
-    .text-error {
-        color: #E62A2B;
+    .normal {
+        font-weight: 400;
     }
 
-    .text-warning {
-        color: #F9A825;
+    .medium {
+        font-weight: 500;
     }
 
-    .text-success {
-        color: #71AA3A;
+    .bold {
+        font-weight: 700;
     }
 
-    .text-white {
-        color: #FFFFFF;
+    .line-height-1 {
+        line-height: 1 !important;
     }
 
-    /* 웹에서 gutter 주기*/
-    @media only screen and (min-width: 960px) {
-        .flex {
-            padding-left: 12px;
-            padding-right: 12px;
-        }
-    }
 
-    /* mobile 에서 gutter 주기*/
-    @media only screen and (max-width: 959px) {
-        .flex {
-            padding-left: 4px;
-            padding-right: 4px;
-        }
-    }
+    /* Warning 관련 */
 
     .warning-border {
         border: solid 1px #e62a2b !important;
@@ -377,49 +519,25 @@
         display: block !important;
     }
 
-    .hide-warning-text {
-        display: none;
-    }
-
-    .text-input-wrapper {
-        position: relative;
-    }
-
     .warning-text-wrapper {
         position: absolute !important;
-        bottom: 6px !important;;
-        right: 0 !important;;
+        bottom: 6px !important;
+        right: 0 !important;
+    ;
     }
 
+
     /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
+
     .v-ripple__container {
         opacity: 0;
     }
 
-    /*버튼 호버 CSS 설정*/
-    .common-btn-hover:hover {
-        background-color: #316ee4 !important;
-        color: white !important;
-    }
-
-    .common-text-hover:hover {
-        color: #316ee4 !important;
-    }
-
-    /*input text 필드 공통 CSS*/
-    .common-input {
-        height: 40px;
-        border-radius: 2px;
-        border: solid 1px #8d8d8d;
-        width: 100%;
-        padding-left: 8px;
-        padding-right: 8px;
-        font-size: 14px;
-        color: #353535;
-    }
 
     /*button 공통 CSS*/
-    .common-normal-button { /*사각형 파랑배경 흰색폰트 버튼*/
+
+    .btn-blue {
+        /*사각형 파랑배경 흰색폰트 버튼*/
         height: 40px;
         width: 100%;
         background: #214ea1;
@@ -427,18 +545,18 @@
         border-radius: 3px;
     }
 
-    .common-rounded-button { /*라운드 파랑배경 흰색폰트 버튼*/
+    .btn-rounded-blue {
+        /*라운드 파랑배경 흰색폰트 버튼*/
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: #214ea1;
         border-radius: 30px;
-        font-size: 12px;
-        font-weight: normal;
         color: white;
     }
 
-    .common-normal-bordered-button { /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
+    .btn-white {
+        /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
         border: 1px solid #214ea1 !important;
         margin-bottom: -10px;
         width: 100%;
@@ -448,19 +566,30 @@
         color: #214EA1;
     }
 
-    .common-rounded-flat-button { /*라운드 하얀배경 파랑폰트 버튼*/
-
+    .btn-rounded-white {
+        /*라운드 하얀배경 파랑폰트 버튼*/
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
         background: white;
         border-radius: 30px;
-        font-size: 12px;
-        font-weight: normal;
         color: #214ea1;
     }
 
-    .common-selectbox { /*셀렉박스 공통 CSS*/
+
+    /*버튼 호버 CSS 설정*/
+
+    .btn-blue-hover:hover {
+        background-color: #316ee4 !important;
+        color: white !important;
+    }
+
+    .text-white-hover:hover {
+        color: #316ee4 !important;
+    }
+
+    .comp-selectbox {
+        /*셀렉박스 공통 CSS*/
         width: 100%;
         height: 40px;
         border-radius: 2px;
@@ -471,14 +600,32 @@
         cursor: pointer;
     }
 
-    .common-selectbox-icon { /*셀렉박스 화살표 아이콘 공통 CSS*/
-        position: absolute; /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
+    .comp-selectbox-icon {
+        /*셀렉박스 화살표 아이콘 공통 CSS*/
+        position: absolute;
+        /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
         right: 8px;
         top: 8px;
         pointer-events: none;
     }
 
+
+    /*input text 필드 공통 CSS*/
+
+    .input {
+        height: 40px;
+        border-radius: 2px;
+        border: solid 1px #8d8d8d;
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 14px;
+        color: #353535;
+    }
+
+
     /*vuetify dialog*/
+
     .v-dialog {
         margin: 16px !important;
         background: white;
@@ -486,50 +633,87 @@
         padding: 24px 16px 24px 16px;
     }
 
-    /*Simple Css Manual*/
-    .absolute {
+
+    /* 포지션 */
+
+    .p-absolute {
         position: absolute;
     }
 
-    .relative {
+    .p-relative {
         position: relative;
     }
 
-    .bold {
-        font-weight: bold;
+    .p-fixed {
+        position: fixed;
     }
 
-    .line-height-1 {
-        line-height: 1 !important;
+    .p-static {
+        position: static;
     }
 
-    .display-none {
+
+    /* 디스플레이 관련 */
+
+    .d-none {
         display: none !important;
     }
 
-    .grid {
+    .d-grid {
         display: grid;
     }
 
-    .visible-hidden {
+    .d-block {
+        display: block;
+    }
+
+    .d-inline {
+        display: inline;
+    }
+
+    .d-inline-block {
+        display: inline-block;
+    }
+
+
+    /* 비지빌리티 */
+
+    .v-visible {
+        visibility: visible;
+    }
+
+    .v-hidden {
         visibility: hidden;
     }
 
-    .pointer {
+
+    /* 이 아이는 커서 */
+
+    .c-pointer {
         cursor: pointer;
     }
 
+
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
+
+
     /*<a class="tooltips">*/
+
+
     /*<img src="../../../../../assets/img/method_alipay.png">*/
+
+
     /*<span>Alipay</span>*/
+
+
     /*</a>*/
-    .tooltips {
+
+    .tooltip {
         position: relative;
         display: inline;
     }
 
-    .tooltips .tooltip-content {
+    .tooltip .tooltip-content {
         display: none;
         position: absolute;
         padding: 8px;
@@ -540,7 +724,7 @@
         border-radius: 2px;
     }
 
-    .tooltips .tooltip-content:after {
+    .tooltip .tooltip-content:after {
         content: '';
         position: absolute;
         top: 100%;
@@ -553,7 +737,7 @@
         border-left: 6px solid transparent;
     }
 
-    :hover.tooltips .tooltip-content {
+    :hover.tooltip .tooltip-content {
         display: block;
         bottom: 140%;
         left: 50%;
@@ -561,18 +745,45 @@
         z-index: 999;
     }
 
-    .v-parallax__content {
+
+    /*vuetify 버튼 hover 시, color foggy 현상 방지*/
+
+
+    /*.v-btn:before {*/
+
+
+    /*opacity: 0 !important;*/
+
+
+    /*border-radius: 3px !important;*/
+
+
+    /*}*/
+
+
+    /*.v-btn {*/
+
+
+    /*height: 40px !important;*/
+
+
+    /*border-radius: 3px !important;*/
+
+
+    /*}*/
+
+
+    /* 랜딩페이지 Carousel */
+
+    .application .v-parallax__content {
         padding: 0 !important;
     }
 
-    /*vuetify 버튼 hover 시, color foggy 현상 방지*/
-    /*.v-btn:before {*/
-    /*opacity: 0 !important;*/
-    /*border-radius: 3px !important;*/
-    /*}*/
-    /*.v-btn {*/
-    /*height: 40px !important;*/
-    /*border-radius: 3px !important;*/
-    /*}*/
+    .application .v-btn__content i {
+        font-size: 32px !important;
+    }
 
+    .application .v-carousel__controls {
+        background: none;
+    }
 </style>

@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div class="header-wrapper">
+        <div>
             <!-- 모바일 일때-->
             <div v-if="isMobile">
                 <v-layout class="nav align-center">
                     <!--logo-->
-                    <div class="ml-3">
-                        <img @click="goMain()" src="@/assets/img/logo_color.png" class="logo">
-                    </div>
+                    <button @click="goMain()" class="ml-3">
+                        <img src="@/assets/img/logo_color.png" class="logo">
+                    </button>
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
-                    <v-spacer></v-spacer>
+                    <v-spacer> </v-spacer>
                     <!--햄버거 bar-->
                     <div class="mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
@@ -17,8 +17,8 @@
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
-                <div class="dropDownBtn" v-if="drawer" @click.stop="drawer = !drawer">
-                    <v-layout row wrap id="dropDownMenu">
+                <div class="dropDownBtn mt-6" v-if="drawer" @click.stop="drawer = !drawer">
+                    <v-layout row wrap class="dropDownMenu">
                         <!-- TradeCenter버튼-->
                         <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
                             <button class="text-xs-left ml-3">
@@ -42,22 +42,20 @@
                             </button>
                         </v-flex>
                         <!--post AD 눌렀을때 나오는 세부항목-->
-                        <div id="submenu">
+                        <div class="submenu">
                             <div v-if="postadDrawer">
                                 <!--post general AD-->
                                 <v-flex xs12 class="verticalcentertext" @click="goPostGeneralAd">
                                     <button class="text-xs-left ml-5">
                                         <div flat>
-                                            {{$str("Post_General_AD")}}
-                                        </div>
+                                            {{$str("Post_General_AD")}}</div>
                                     </button>
                                 </v-flex>
                                 <!--post block AD-->
                                 <v-flex xs12 class="verticalcentertext" @click="goPostBlockAd">
                                     <button class="text-xs-left ml-5">
                                         <div>
-                                            {{$str("Post_Block_AD")}}
-                                        </div>
+                                            {{$str("Post_Block_AD")}}</div>
                                     </button>
                                 </v-flex>
                             </div>
@@ -130,11 +128,11 @@
                     <div class="dropdown">
                         <button class="ml-4a dropbtn">{{$str("postAd")}}</button>
                         <div class="dropdown-content pl-3 pt-3 pr-3" style="min-width: 140px;">
-                            <button class="mb-3 text-md-left" @click="goPostGeneralAd">{{$str("Post_General_AD")}}
-                            </button>
+                            <button class="mb-3 text-md-left" @click="goPostGeneralAd">{{$str("Post_General_AD")}}</button>
                             <button class="mb-3 text-md-left" @click="goPostBlockAd">{{$str("Post_Block_AD")}}</button>
                         </div>
                     </div>
+
 
 
                     <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
@@ -157,12 +155,11 @@
                     <!-- signup 버튼-->
                     <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
                     <!-- 언어설정버튼 -->
-                    <div class="dropdown mr-4a">
+                    <div class="dropdown mr-4a d-block">
                         <!-- 한국어-->
                         <button v-if="currentLang=='KO'" class="dropbtn">
                             <img src="@/assets/img/flag3.png">
-                            <span class=" ml-2">한국어<i
-                                    class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                            <span class=" ml-2">한국어<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!-- 영어 -->
                         <button v-else-if="currentLang=='EN'" class="dropbtn">
@@ -172,8 +169,7 @@
                         <!-- 중국어 -->
                         <button v-else class="dropbtn">
                             <img src="@/assets/img/flag1.png">
-                            <span class="ml-2">简体中文<i
-                                    class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                            <span class="ml-2">简体中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!--언어 설정시 dropdown box-->
                         <div class="dropdown-content">
@@ -184,9 +180,10 @@
                         </div>
                     </div>
                 </v-layout>
+
             </div>
         </div>
-        <div class="unvisible-header"></div>
+        <!--header 아래 contents 들이 겹쳐지지 않기 위한 빈 box-->
     </div>
 </template>
 
@@ -266,7 +263,7 @@
                 this.$router.push("/balances");
             },
 
-            changeLang: function (userLang) {
+            changeLang: function(userLang) {
                 abSetLang(userLang);
                 this.currentLang = userLang
             },
@@ -289,6 +286,11 @@
         height: 64px;
         background-color: #002970;
         color: white;
+        position: fixed;
+        top: 0;
+        overflow: hidden;
+        z-index: 999;
+        width: 100%;
     }
 
     .logo {
@@ -296,26 +298,26 @@
         height: 24px;
     }
 
-    #dropDownMenu {
+    .dropDownMenu {
         z-index: 100;
-        position: absolute;
         width: 100%;
         color: white;
         background-color: #002970;
+        position: fixed;
     }
 
-    #dropDownMenu .flex {
+    .dropDownMenu .flex {
         padding-left: 0;
         padding-right: 0;
         height: 52px;
     }
 
-    #submenu {
+    .submenu {
         width: 100%;
         background-color: #21407e;
     }
 
-    #submenu.flex {
+    .submenu.flex {
         height: 52px;
     }
 
@@ -336,7 +338,7 @@
 
     .dropdown-content {
         display: none;
-        position: absolute;
+        position: fixed;
         color: black;
         min-width: 104px;
         box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
@@ -356,50 +358,41 @@
         background-color: #ddd;
     }
 
-    .dropdown:hover .dropdown-content, .dropdown-content button {
+    .dropdown:hover .dropdown-content,
+    .dropdown-content button {
         display: block;
     }
 
+
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
-      display: block;
-    }
+        display: block;
+      }
 
-    .dropDown-content {
-      display: none;
-      position: absolute;
-      background-color: #ffffff;
-      padding-top: 64px;
-      z-index: 0;
-      box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
-      border-radius: 2px;
-      font-weight: 400;
+      .dropDown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        padding-top: 64px;
+        z-index: 0;
+        box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 2px;
+        font-weight: 400;
 
-    }
+      }
 
-    .dropDown-content div {
-      color: black;
-      text-decoration: none;
-      display: block;
-    }
+      .dropDown-content div {
+        color: black;
+        text-decoration: none;
+        display: block;
+      }
 
 
-    .dropDown-Lang {
-      min-width: 104px;
-    }
+      .dropDown-Lang {
+        min-width: 104px;
+      }
 
-    .dropDown-MyPage {
-      min-width: 104px;
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.34);
-    }
-
-    .header-wrapper{
-      position: fixed;
-      width: 100%;
-      z-index: 9999;
-    }
-
-    .unvisible-header {
-      margin-bottom: 64px;
-    }
-    */
+      .dropDown-MyPage {
+        min-width: 104px;
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.34);
+      } */
 </style>
