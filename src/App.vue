@@ -456,6 +456,15 @@
     }
 
 
+
+    /*상하 가운데 정렬*/
+
+    .vertical-center {
+        align-items: center;
+        display: flex;
+    }
+
+
     /* 폰트 사이즈, 웨이트 등 */
     /*태그*/
     h1 {
@@ -488,7 +497,9 @@
     p {
         font-size: 10px;
         line-height: 1.4em;
+        margin-bottom: 0 !important;
     }
+
     /*클래스*/
     .h1 {
         font-size: 26px;
@@ -662,7 +673,7 @@
     .v-dialog {
         margin: 16px !important;
         background: white;
-        width: 384px;
+        max-width: 384px;
         padding: 24px 16px 24px 16px;
     }
 
