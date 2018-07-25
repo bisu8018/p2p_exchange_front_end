@@ -1,5 +1,4 @@
 <template>
-
   <div class="footer">
     <div class="flex">
       <v-layout wrap row mt-4 mb-4 class="footerContainer">
@@ -9,24 +8,42 @@
         </v-flex>
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 mt-4 class="footer-top">
-          <p >{{$str("support")}}</p>
-          <a  href="https://www.allblab.com"><p>{{$str("guides")}}</p></a>
-          <a  href="https://www.allblab.com" ><p>{{$str("FAQ")}}</p></a>
-          <a  href="https://www.allblab.com" ><p>{{$str("announcements")}}</p></a>
+          <p>{{$str("support")}}</p>
+          <a href="https://www.allblab.com">
+            <p>{{$str("guides")}}</p>
+          </a>
+          <a href="https://www.allblab.com">
+            <p>{{$str("FAQ")}}</p>
+          </a>
+          <a href="https://www.allblab.com">
+            <p>{{$str("announcements")}}</p>
+          </a>
         </v-flex>
         <!-- 카드 3 Terms-->
         <v-flex xs12 md3 mt-4 class="footer-top">
-          <p >{{$str("terms")}}</p>
-          <a  href="https://www.allblab.com" ><p>{{$str("terms_Of_Service")}}</p></a>
-          <a  href="https://www.allblab.com" ><p>{{$str("transaction_Regulations")}}</p></a>
-          <a href="https://www.allblab.com" ><p>{{$str("fees")}}</p></a>
-          <a href="https://www.allblab.com" ><p>{{$str("Terms_Of_Privacy_Policy")}}</p></a>
-          <a  href="https://www.allblab.com" ><p>{{$str("KYC&AML_Policies")}}</p></a>
+          <p>{{$str("terms")}}</p>
+          <a href="https://www.allblab.com">
+            <p>{{$str("terms_Of_Service")}}</p>
+          </a>
+          <a href="https://www.allblab.com">
+            <p>{{$str("transaction_Regulations")}}</p>
+          </a>
+          <a href="https://www.allblab.com">
+            <p>{{$str("fees")}}</p>
+          </a>
+          <a href="https://www.allblab.com">
+            <p>{{$str("Terms_Of_Privacy_Policy")}}</p>
+          </a>
+          <a href="https://www.allblab.com">
+            <p>{{$str("KYC&AML_Policies")}}</p>
+          </a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("contact_Us")}}</p>
-          <a  href="https://www.allblab.com"><p>support@allblab.com</p></a>
+          <a href="https://www.allblab.com">
+            <p>support@allblab.com</p>
+          </a>
         </v-flex>
       </v-layout>
     </div>
@@ -42,7 +59,7 @@
               <span class=" ml-2 ">한국어<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 영어모드일때 -->
-            <button  v-else-if="currentLang=='EN'" class="dropbtn">
+            <button v-else-if="currentLang=='EN'" class="dropbtn">
               <img src="@/assets/img/flag2.png">
               <span class=" ml-2 " >English<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
@@ -68,20 +85,22 @@
     </div>
 
   </div>
-
 </template>
 
 <script lang="ts">
     import Vue from 'vue';
-    import {abGetLang, abSetLang} from "../../config/localization";
+    import {
+        abGetLang,
+        abSetLang
+    } from "../../config/localization";
 
     export default Vue.extend({
         name: 'abFooter',
         data: () => ({
-            currentLang : 'EN',
+            currentLang: 'EN',
         }),
-        methods : {
-            changeLang: function (userLang) {
+        methods: {
+            changeLang: function(userLang) {
                 abSetLang(userLang)
             }
         },
@@ -93,26 +112,31 @@
 </script>
 
 <style scoped>
-
-  .footerContainer{
+  .footerContainer {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-
-
   }
+
   .footer {
     background-color: #f8f8fa;
   }
+
   .footer p {
     color: #9294a6;
     font-size: 14px;
   }
+
   .footer a {
     text-decoration: none;
   }
-  .footer a p{
+
+  .footer a p {
     color: #353535;
+  }
+
+  .footer a p:hover {
+    color: #316ee4;
   }
 
   .dropbtn {
@@ -145,7 +169,9 @@
     display: block;
   }
 
-  .dropup-content a:hover {background-color: #ccc}
+  .dropup-content a:hover {
+    background-color: #ccc
+  }
 
   .dropup:hover .dropup-content {
     display: block;
@@ -155,5 +181,5 @@
     text-align: left;
   }
 
-  /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
+
 </style>

@@ -1234,6 +1234,77 @@ const strings = new Map([
         CN: '转账到兑换账户退出',
         JP: ''
     }],
+    ['All', {
+        KOR: '전액',
+        ENG: 'All',
+        CN: '所有',
+        JP: ''
+    }],
+    ['TransferNow', {
+        KOR: '전환하기',
+        ENG: 'Transfer Now',
+        CN: '现在转移',
+        JP: ''
+    }],
+    ['Deposit_Address', {
+        KOR: '예금 주소',
+        ENG: 'Deposit Address',
+        CN: '存款地址',
+        JP: ''
+    }],
+    ['Or_scan_this_QR_code', {
+        KOR: '또는 위의 QR 코드를 스캔하세요',
+        ENG: 'Or scan this QR code',
+        CN: '或者扫描这个二维码',
+        JP: ''
+    }],
+    ['BalanceDepositExplain1-1', {
+        KOR: '위 주소에',
+        ENG: 'Please don\'t deposit any other digital assets except',
+        CN: '请不要存入任何其他数字资产，除非',
+        JP: ''
+    }],
+    ['BalanceDepositExplain1-2', {
+        KOR: '를 제외한 다른 디지털 자산을 예치하지 마십시오.',
+        ENG: 'to the above address',
+        CN: '到上述地址',
+        JP: ''
+    }],
+    ['BalanceDepositExplain2', {
+        KOR: '위 주소로 입금하려면 전체 네트워크를 확인해야합니다. ' +
+        '6 번의 확인 후에 도착할 것입니다. 일반적으로 약 10 ~ 60 분이 소요됩니다.',
+        ENG: 'Depositing to the above address requires confirmations of the entire network. It will arrive ' +
+        'after 6 confirmations. It will take about 10 to 60 mins usually.',
+        CN: '或者扫描这个二维码',
+        JP: ''
+    }],
+    ['BalanceDepositExplain3-1', {
+        KOR: '최소 입금액 :',
+        ENG: 'Minimum deposit amount:',
+        CN: '最低存款金额:',
+        JP: ''
+    }],
+    ['BalanceDepositExplain3-2', {
+        KOR: '다음의 값보다 적게 적립되지 않습니다',
+        ENG: 'It won\'t be credited less than',
+        CN: '它不会低于',
+        JP: ''
+    }],
+    ['BalanceDepositExplain4', {
+        KOR: '귀하의 입금 주소는 자주 변경되지 않습니다. ' +
+        '모든 변경사항을, 당신의 공지 또는 이메일로 알려드립니다.',
+        ENG: 'Your deposit address won\'t be changed frequently.' +
+        'Any changes, we will inform you by announcement or email.',
+        CN: '您的存款地址不会经常更改。 如有任何更改，我们将通过公告或电子邮件通知您。',
+        JP: ''
+    }],
+    ['BalanceDepositExplain5', {
+        KOR: '컴퓨터와 브라우저의 보안을 유지하시고, 귀하의 정보가 변조되거나 유출되지 않도록하십시오.',
+        ENG: 'Please make sure that your computer and browser are secure ' +
+        'and your information is protected from being tampered or leaked.',
+        CN: '请确保您的计算机和浏览器安全，并保护您的信息不被篡改或泄露。',
+        JP: ''
+    }],
 
 
 
@@ -1292,8 +1363,8 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.EN;
- //let currentLang: Lang = checkLocale();
+// let currentLang: Lang = Lang.EN;
+ let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {
