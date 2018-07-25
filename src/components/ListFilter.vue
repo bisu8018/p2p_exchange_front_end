@@ -9,6 +9,9 @@
           <div  class=" statusChip" v-if="amount!=0" v-model="isAmout"
                   @input="removeAmount" >{{amount}}</div>
         </v-flex>
+        <div>
+          abc
+        </div>
         <v-flex xs2 pt-1 ><v-icon  @click.stop="isModal = true">search</v-icon></v-flex>
       </v-layout>
     </div>
