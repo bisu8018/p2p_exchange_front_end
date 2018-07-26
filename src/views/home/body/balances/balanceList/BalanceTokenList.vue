@@ -145,7 +145,12 @@
             {{copyURL}}
           </v-flex>
           <v-flex xs12  mt-3 mb-4>
-            <button class="color-blue">Copy</button>
+            <button>
+              <h5 slot="activator" class="color-blue"@click="onCopy()">
+                Copy
+              </h5>
+            </button>
+            <input type="text" :value="copyURL" id="depositAddress" class="getOut">
           </v-flex>
           <v-flex xs12 mt-2 mb-4>
             <img src="../../../../../assets/img/qr_code.png">
@@ -199,9 +204,6 @@
         props : {
             tokenlist : {},
         },
-        methods : {
-
-        },
         data: () => ({
             logoimg : '',
             showTransferModal : false,
@@ -227,6 +229,19 @@
             copyURL : '123456789abcdef',
 
         }),
+        methods : {
+            onCopy() {
+                console.log(document.querySelector('#depositAddress'));
+                let copyTemp = (document.querySelector('#depositAddress'));
+                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+                if (!isiOSDevice) {
+                    copyTemp.setAttribute('type', 'text');
+                    copyTemp.select();
+                }
+                document.execCommand('copy');
+            },
+        },
         mounted(){
             switch (this.tokenlist.logo){
                 case 'BTC':
@@ -287,5 +302,9 @@
     height: 1px;
     background-color: #d1d1d1;
     margin-bottom: 24px;
+  }
+  .getOut {
+    position: absolute;
+    left: -1000px;
   }
 </style>

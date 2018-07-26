@@ -51,19 +51,21 @@
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
           <v-layout row class="statusBox" mt-4a pr-2>
-            <v-flex xs11 text-xs-left>
-              <div  class="statusChip" >{{country}}</div>
-              <div  class="statusChip">{{currency}}</div>
-              <div  class=" statusChip">{{paymentMethod}}</div>
-              <div  class="statusChip " v-if="amount!=0" v-model="isAmout"
-                    @input="removeAmount" >{{amount}}</div>
-            </v-flex>
-            <v-flex xs1 pt-2 text-xs-center>
-              <!-- 필터 펼치기 버튼 -->
-              <button @click.stop="isModal = !isModal">
-                <i class="material-icons color-darkgray" >filter_list</i>
-              </button>
-            </v-flex>
+            <h6  class="statusChip" >{{country}}</h6>
+            <h6  class="statusChip">{{currency}}</h6>
+            <h6  class=" statusChip">{{paymentMethod}}</h6>
+            <!--amount 는 입력시에만 뜸-->
+            <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
+              <v-layout align-center row fill-height>
+                {{amount}}
+                <i class="h5 material-icons " @click="removeAmount">close</i>
+              </v-layout>
+            </h6>
+            <v-spacer></v-spacer>
+            <!-- 필터 펼치기 버튼 -->
+            <button @click.stop="isModal = !isModal">
+              <i class="material-icons color-darkgray" >filter_list</i>
+            </button>
           </v-layout>
 
           <!--필터링 card modal-->
@@ -177,8 +179,12 @@
             <h6  class="statusChip" >{{country}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
             <h6  class=" statusChip">{{paymentMethod}}</h6>
-            <h6  class="statusChip " v-if="amount!=0" v-model="isAmout"
-                  @input="removeAmount" >{{amount}}</h6>
+            <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
+              <v-layout align-center row fill-height>
+                {{amount}}
+                <i class="h5 material-icons " @click="removeAmount">close</i>
+              </v-layout>
+            </h6>
             <v-spacer></v-spacer>
             <button @click.stop="isModal = !isModal">
               <i class="material-icons color-darkgray">filter_list</i>
@@ -351,8 +357,8 @@
                 this.isModal = false; //modal 창 끄기.
             },
             removeAmount(){
-                location.reload();      // 새로고침으로 해놨는데, vuex도입시 수정할것.
                 this.amount = 0;
+            //  list를 새로 띄워주도록 구현해야함.
             },
         },
         computed: {
@@ -468,5 +474,6 @@
     color: #ffffff;
     margin-top: 7px;
     margin-bottom: 7px;
+
   }
 </style>
