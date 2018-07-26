@@ -76,7 +76,9 @@
           </avatar>
           </v-flex>
           <v-flex xs8 text-xs-left>
+            <h5 class="medium color-blue">
             {{user.email}} ( {{user.volumeTotal}} | 99%)
+            </h5>
             <img :src="rankSrc" class="userRank">
           </v-flex>
           <v-flex xs2 text-xs-center>
@@ -84,23 +86,45 @@
           </v-flex>
         </v-layout>
         <!-- Volume -->
-        <v-layout >
-          <v-flex xs3  offset-xs2 text-xs-left>{{$str("Available")}} :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
+        <v-layout medium>
+          <v-flex xs3  offset-xs2 text-xs-left>
+            <h5 class="color-darkgray">
+              {{$str("Available")}} :
+            </h5>
+          </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right>
+            <h5>{{user.volumeTotal}} {{token}}</h5>
+          </v-flex>
         </v-layout>
         <!-- Limits -->
-        <v-layout >
-          <v-flex xs3  offset-xs2 text-xs-left>{{$str("limits")}} :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
+        <v-layout  medium>
+          <v-flex xs3  offset-xs2 text-xs-left>
+            <h5 class=" color-darkgray">
+              {{$str("limits")}} :
+            </h5>
+          </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right>
+            <h5>{{user.limitMax}} {{currency}}</h5>
+          </v-flex>
         </v-layout>
         <!-- Price -->
-        <v-layout >
-          <v-flex xs3  offset-xs2 text-xs-left>{{$str("price")}} :</v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right> {{user.price}} {{currency}} </v-flex>
+        <v-layout medium>
+          <v-flex xs3  offset-xs2 text-xs-left>
+            <h5 class="color-darkgray">
+              {{$str("price")}} :
+            </h5>
+          </v-flex>
+          <v-flex xs5 offset-xs1 text-xs-right>
+            <h5 class=" bold color-orange-price">{{user.price}} {{currency}}</h5>
+          </v-flex>
         </v-layout>
         <!-- payment methods -->
         <v-layout>
-          <v-flex xs3  offset-xs2 text-xs-left> {{$str("payment")}}:</v-flex>
+          <v-flex xs3  offset-xs2 text-xs-left>
+            <h5 class="medium color-darkgray">
+              {{$str("payment")}}:
+            </h5>
+          </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
             <img src="../../../../../assets/img/method_bankaccount.png">
             <img src="../../../../../assets/img/method_alipay.png" class="ml-2">
@@ -108,17 +132,17 @@
           </v-flex>
         </v-layout>
         <v-layout mt-4>
-          <v-flex xs9 offset-xs2 text-xs-left>
+          <v-flex xs9 offset-xs2 text-xs-left >
             <div >
-              <input type="number" class="mobileInput textRightPlaceholder" name="toValue" v-model="toValue"
+              <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
                      :placeholder="currency">
             </div>
             <div class="mt-3">
-              <input type="number" class="mobileInput textRightPlaceholder" name="toValue" v-model="fromValue"
+              <input type="text" class="input textRightPlaceholder" name="toValue" v-model="fromValue"
                      :placeholder="token">
             </div>
             <div class="mt-3" v-if="tradeType =='SELL'">
-              <input type="number" class="mobileInput textLeftPlaceholder" name="toValue" v-model="tradePassword"
+              <input type="text" class="input textLeftPlaceholder" name="toValue" v-model="tradePassword"
                      :placeholder="pwPlaceholder">
             </div>
           </v-flex>
@@ -130,14 +154,16 @@
         </v-layout>
         <v-layout mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
-            {{$str("Payment_window_is_15minutes")}}
+            <h5 class="color-darkgray medium">{{$str("Payment_window_is_15minutes")}}</h5>
           </v-flex>
         </v-layout>
         <!--user Memo가 있을시-->
         <v-layout v-if="user.memo !== '' " mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
-            {{$str("userMemo")}}： <br>
-            {{user.memo}}
+            <h6 class="color-darkgray medium">
+              {{$str("userMemo")}}： <br>
+              {{user.memo}}
+            </h6>
           </v-flex>
         </v-layout>
       </div>
@@ -285,13 +311,15 @@
           </v-flex>
           <v-flex md3 text-md-right>
             <div v-if="tradeType =='SELL'">
-              <input type="text" class="input userInput textLeftPlaceholder"
-                     name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
-                     @blur="onChecktradePassword"
-                     v-bind:class="{'warning-border' : warning_tradePassword}"
-              >
-              <div class="warning-text-wrapper">
-                <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
+              <div class="p-relative">
+                <input type="number" class="input userInput textLeftPlaceholder"
+                       name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
+                       @blur="onChecktradePassword"
+                       v-bind:class="{'warning-border' : warning_tradePassword}"
+                >
+                <div class="warning-text-wrapper">
+                  <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
+                </div>
               </div>
             </div>
           </v-flex>
@@ -347,7 +375,6 @@
         },
         methods : {
             onChecktoValue(){
-                console.log('123');
                 if (this.toValue === "") {
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_toValue = true;
@@ -366,7 +393,7 @@
                 return true;
             },
             onChecktradePassword(){
-                if (this.tradePassword === "") {
+                if (this.tradePW === "") {
                     this.verify_warning_tradePassword = Vue.prototype.$str("warning_trade_password");
                     this.warning_tradePassword = true;
                     return false;
@@ -375,14 +402,20 @@
                 return true;
             },
             goTrade(){
-                switch (this.tradeType) {
-                    case 'BUY':
-                        this.$router.push("/buy");
-                        break;
+                if (this.onChecktoValue() && this.onCheckfromValue()) {
+                    switch (this.tradeType) {
+                        case 'BUY':
+                            this.$router.push("/buy");
+                            break;
 
-                    case 'SELL':
-                        this.$router.push("/sell");
-                        break;
+                        case 'SELL':
+                            //sell 모드 일때는 trade password를 추가로 검증해야함.
+                            if(this.onChecktradePassword()){
+                                console.log();
+                                this.$router.push("/sell");
+                                break;
+                            }
+                    }
                 }
             },
 
@@ -420,10 +453,6 @@
   }
   .mobileInput{
     height: 36px;
-    border-radius: 2px;
-
-    border: solid 1px #8d8d8d;
-    width: 100%;
 
   }
   .textRightPlaceholder::-webkit-input-placeholder{

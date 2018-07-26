@@ -1,5 +1,6 @@
 <template>
   <div>
+    <alert></alert>
     <v-layout row wrap mt-5>
       <!--header-->
       <v-flex md6 xs12 mb-4a pl-0 text-xs-left>
@@ -141,6 +142,7 @@
     import BalanceTokenList from "./balanceList/BalanceTokenList"
     import BalanceDetailList from "./balanceList/BalanceDetailList"
     import DatePicker from '@/components/DatePicker.vue';
+    import Alert from '@/components/Alert.vue';
     export default {
         name: "Balances",
         components: {
@@ -149,6 +151,7 @@
             BalanceTokenList,
             BalanceDetailList,
             DatePicker,
+            Alert,
         },
         data: () => ({
             currency : 'CNY',
