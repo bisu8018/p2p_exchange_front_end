@@ -27,40 +27,42 @@
           </div>
         </v-flex>
           <!-- BTC ALLB ETH  버튼 -->
-        <v-layout justify-space-between row coinselect-2 mt-4>
+        <v-layout justify-space-between row mt-4 color-darkgray  medium>
           <!-- < 화살표-->
           <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
           <!--BTC 버튼-->
-          <button class="text-darkgray"
-                v-bind:class="{'text-blue' : clicked[0].isBTC}"
-                @click="onMobileTokenClicked('BTC')">BTC
+          <button
+                v-bind:class="{'color-blue bold' : clicked[0].isBTC}"
+                @click="onMobileTokenClicked('BTC')"><h4>BTC</h4>
           </button>
           <!--ETH 버튼-->
-          <button class="text-darkgray"
-                v-bind:class="{'text-blue' : clicked[1].isETH}"
-                @click="onMobileTokenClicked('ETH')">ETH
+          <button
+                v-bind:class="{'color-blue bold' : clicked[1].isETH}"
+                @click="onMobileTokenClicked('ETH')"><h4>ETH</h4>
           </button>
           <!-- USDT 버튼 -->
-          <button class="text-darkgray"
-                v-bind:class="{'text-blue' : clicked[2].isUSDT}"
-                @click="onMobileTokenClicked('USDT')">USDT
+          <button
+                v-bind:class="{'color-blue bold' : clicked[2].isUSDT}"
+                @click="onMobileTokenClicked('USDT')"><h4>USDT</h4>
           </button>
           <!-- > 화살표 -->
           <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
         </v-layout>
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
-          <v-layout row class="statusBox" mt-4a>
-            <v-flex xs11 text-xs-left >
+          <v-layout row class="statusBox" mt-4a pr-2>
+            <v-flex xs11 text-xs-left>
               <div  class="statusChip" >{{country}}</div>
               <div  class="statusChip">{{currency}}</div>
               <div  class=" statusChip">{{paymentMethod}}</div>
               <div  class="statusChip " v-if="amount!=0" v-model="isAmout"
                     @input="removeAmount" >{{amount}}</div>
             </v-flex>
-            <v-flex xs1 pt-2 text-xs-center relative>
+            <v-flex xs1 pt-2 text-xs-center>
               <!-- 필터 펼치기 버튼 -->
-              <img src="../../../../../assets/img/searchBtn.png" @click.stop="isModal = !isModal">
+              <button @click.stop="isModal = !isModal">
+                <i class="material-icons color-darkgray" >filter_list</i>
+              </button>
             </v-flex>
           </v-layout>
 
@@ -85,13 +87,14 @@
               <!-- amount 셀렉터 -->
               <v-flex xs12  text-xs-left cardText>{{$str("amount")}}</v-flex>
               <v-flex xs12 >
-                <v-text-field v-bind:label="$str('How_much_you_want_to_trade?')" v-model="amount" :type="'number'" ></v-text-field>
+                <input type="text" class="input" v-model="amount"
+                       :placeholder="$str('How_much_you_want_to_trade?')">
               </v-flex>
             </v-layout>
             <!-- cancel, search 버튼-->
-            <v-flex text-xs-right>
-              <button class="common-rounded-flat-button common-text-hover" @click="isModal = false" >{{$str("cancel")}} </button>
-              <button class="common-rounded-button common-btn-hover" @click="onSearch" >{{$str("search")}} </button>
+            <v-flex text-xs-right mt-4>
+              <button class="btn-rounded-white text-white-hover" @click="isModal = false" >{{$str("cancel")}} </button>
+              <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >{{$str("search")}} </button>
             </v-flex>
           </div>
         </v-flex>
@@ -104,26 +107,28 @@
         <v-flex md3 pl-0 pr-0>
           <v-layout column>
               <v-layout row mb-3>
-                <v-flex md2 offset-md2 coinselect-1>{{$str("buy")}}</v-flex>
+                <v-flex md2 offset-md2 >
+                  <h4 class="bold">{{$str("buy")}}</h4>
+                </v-flex>
                 <v-flex md6></v-flex>
               </v-layout>
-              <v-layout justify-space-between row coinselect-2>
+              <v-layout justify-space-between row medium color-darkgray>
                 <!-- < 화살표-->
                   <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
                 <!--BTC 버튼-->
-                  <button class="text-darkgray"
-                        v-bind:class="{'text-blue' : clicked[0].isBTC && tradeStatus==='BUY'}"
-                        @click="setBuyInfo('BTC')">BTC
+                  <button
+                        v-bind:class="{'color-blue' : clicked[0].isBTC && tradeStatus==='BUY'}"
+                        @click="setBuyInfo('BTC')"><h4>BTC</h4>
                   </button>
                 <!-- ETH 버튼-->
-                  <button class="text-darkgray"
-                        v-bind:class="{'text-blue' : clicked[1].isETH && tradeStatus==='BUY'}"
-                        @click="setBuyInfo('ETH')">ETH
+                  <button
+                        v-bind:class="{'color-blue' : clicked[1].isETH && tradeStatus==='BUY'}"
+                          @click="setBuyInfo('ETH')"><h4>ETH</h4>
                   </button>
                 <!-- USDT 버튼-->
-                  <button class="text-darkgray"
-                        v-bind:class="{'text-blue' : clicked[2].isUSDT && tradeStatus==='BUY'}"
-                        @click="setBuyInfo('USDT')">USDT
+                  <button
+                        v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeStatus==='BUY'}"
+                          @click="setBuyInfo('USDT')"><h4>USDT</h4>
                   </button>
                 <!-- > 화살표-->
                   <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
@@ -139,22 +144,27 @@
         <v-flex md3 pl-0 pr-0>
           <v-layout column>
             <v-layout row mb-3>
-              <v-flex md2 offset-md2 coinselect-1>{{$str("sell")}}</v-flex>
+              <v-flex md2 offset-md2 bold>
+                <h4>{{$str("sell")}}</h4>
+              </v-flex>
               <v-flex md6></v-flex>
             </v-layout>
-            <v-layout justify-space-between row coinselect-2>
+            <v-layout justify-space-between row color-darkgray>
               <i class="material-icons md-24">keyboard_arrow_left</i>
               <!--BTC 버튼-->
-              <button class="text-darkgray"
-                    v-bind:class="{'text-blue' : clicked[0].isBTC && tradeStatus==='SELL'}"
-                    @click="setSellInfo('BTC')">BTC</button>
+              <button
+                    v-bind:class="{'color-blue' : clicked[0].isBTC && tradeStatus==='SELL'}"
+                    @click="setSellInfo('BTC')"><h4>BTC</h4>
+              </button>
               <!-- ETH 버튼-->
-              <button class="text-darkgray"
-                    v-bind:class="{'text-blue' : clicked[1].isETH && tradeStatus==='SELL'}"
-                    @click="setSellInfo('ETH')">ETH</button>
+              <button
+                    v-bind:class="{'color-blue' : clicked[1].isETH && tradeStatus==='SELL'}"
+                    @click="setSellInfo('ETH')"><h4>ETH</h4>
+              </button>
               <!-- USDT 버튼-->
-              <button class="text-darkgray" v-bind:class="{'text-blue' : clicked[2].isUSDT && tradeStatus==='SELL'}"
-                    @click="setSellInfo('USDT')">USDT</button>
+              <button  v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeStatus==='SELL'}"
+                    @click="setSellInfo('USDT')"><h4>USDT</h4>
+              </button>
               <i class="material-icons md-24">keyboard_arrow_right</i>
             </v-layout>
           </v-layout>
@@ -164,18 +174,15 @@
         <!--right filter-->
         <v-flex md4 offset-md1 pl-0 pr-0 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
-            <v-flex xs10 text-xs-left >
-              <div  class="statusChip" >{{country}}</div>
-              <div  class="statusChip">{{currency}}</div>
-              <div  class=" statusChip">{{paymentMethod}}</div>
-              <div  class="statusChip " v-if="amount!=0" v-model="isAmout"
-                    @input="removeAmount" >{{amount}}</div>
-            </v-flex>
-            <v-flex xs2 pt-2 text-xs-right relative>
-                <button>
-                  <img src="../../../../../assets/img/searchBtn.png" @click.stop="isModal = !isModal">
-                </button>
-            </v-flex>
+            <h6  class="statusChip" >{{country}}</h6>
+            <h6  class="statusChip">{{currency}}</h6>
+            <h6  class=" statusChip">{{paymentMethod}}</h6>
+            <h6  class="statusChip " v-if="amount!=0" v-model="isAmout"
+                  @input="removeAmount" >{{amount}}</h6>
+            <v-spacer></v-spacer>
+            <button @click.stop="isModal = !isModal">
+              <i class="material-icons color-darkgray">filter_list</i>
+            </button>
           </v-layout>
           <div class="cardModal" v-if="isModal">
             <v-layout row wrap>
@@ -197,13 +204,14 @@
               <!-- amount 셀렉터 -->
               <v-flex xs12  text-xs-left cardText>{{$str("amount")}}</v-flex>
               <v-flex xs12 >
-                <v-text-field v-bind:label="$str('How_much_you_want_to_trade?')" v-model="amount" :type="'number'" ></v-text-field>
+                <input type="text" class="input" v-model="amount"
+                       :placeholder="$str('How_much_you_want_to_trade?')">
               </v-flex>
             </v-layout>
             <!-- cancel, search 버튼-->
-            <v-flex text-xs-right >
-              <button class="common-rounded-flat-button common-text-hover" @click="isModal = false" >{{$str("cancel")}} </button>
-              <button class="common-rounded-button common-btn-hover" @click="onSearch" >{{$str("search")}} </button>
+            <v-flex text-xs-right mt-4>
+              <button class="btn-rounded-white text-white-hover" @click="isModal = false" >{{$str("cancel")}} </button>
+              <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >{{$str("search")}} </button>
             </v-flex>
           </div>
         </v-flex>
@@ -232,7 +240,7 @@
             country: 'China',
             currency: 'CNY',
             paymentMethod: 'All Payments',
-            amount : 0,
+            amount : '',
 
             clicked : [
                 {isBTC : true},
@@ -404,6 +412,7 @@
     min-height: 40px;
     border-radius: 2px;
     border: solid 1px #8d8d8d;
+    padding-right: 8px;
     width: 100%;
 
   }
@@ -416,7 +425,7 @@
     background-color: #ffffff;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     padding: 16px 8px 24px 8px;
-    height: 433px;
+
     width: 75%;
     left: 25%;
      top: 90px;
@@ -443,7 +452,7 @@
 
 
   .selectDivider{
-    border-left: solid 1px #d1d1d1;
+    border: solid 1px #d1d1d1;
     height: 56px;
     width: 2px;
     margin-left: auto;

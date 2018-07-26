@@ -125,6 +125,7 @@
   .footer p {
     color: #9294a6;
     font-size: 14px;
+    margin-bottom: 16px !important;
   }
 
   .footer a {

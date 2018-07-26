@@ -443,6 +443,16 @@
     }
 
     /* 폰트 사이즈, 웨이트 등 */
+
+
+    /*상하 가운데 정렬*/
+
+    .vertical-center {
+        align-items: center;
+        display: flex;
+    }
+
+
     /*태그*/
     h1 {
         font-size: 26px;
@@ -474,7 +484,9 @@
     p {
         font-size: 10px;
         line-height: 1.4em;
+        margin-bottom: 0 !important;
     }
+
 
     /*클래스*/
     .h1 {
@@ -540,9 +552,8 @@
     .warning-text-wrapper {
         position: absolute !important;
         bottom: 6px !important;
-        right: 0 !important;;
+        right: 0 !important;
     }
-
     /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
 
     .v-ripple__container {
@@ -640,7 +651,7 @@
     .v-dialog {
         margin: 16px !important;
         background: white;
-        width: 384px;
+        max-width: 384px;
         padding: 24px 16px 24px 16px;
     }
 
@@ -709,7 +720,6 @@
     .f-left {
         float: left;
     }
-
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
 
     /*<a class="tooltips">*/
