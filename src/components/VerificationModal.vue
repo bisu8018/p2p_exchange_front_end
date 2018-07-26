@@ -9,7 +9,7 @@
     <v-dialog v-model="show" persistent >
         <div>
             <div class="modal-subject-wrapper mb-3">
-                <div class="price-1 text-xs-left text-black">
+                <div class="h3 text-xs-left color-black bold">
                     {{$str("verification")}}
                 </div>
                 <v-spacer></v-spacer>
@@ -17,20 +17,20 @@
                     <v-icon  @click="onClose">close</v-icon>
             </div>
             <div>
-                <div class="modal-subject-2 text-black">
+                <div class="modal-subject-2 color-black">
                     {{$str("slideVerifyText")}}
                 </div>
                 <verify-slider v-on:passcallback="putVerified"></verify-slider>
-                <div class="absolute">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_verify_terms}">{{$str("verifySlider")}}</span>
+                <div class="p-absolute">
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{$str("verifySlider")}}</span>
                 </div>
             </div>
             <div class="text-xs-right mt-4">
                 <v-spacer></v-spacer>
-                <button @click="onClose" class="common-rounded-flat-button common-btn-hover mr-3">
+                <button @click="onClose" class="btn-rounded-white btn-blue-hover mr-3">
                     {{$str("cancel")}}
                 </button>
-                <button @click="onConfirm" class="common-rounded-button common-btn-hover">
+                <button @click="onConfirm" class="btn-rounded-blue common-btn-hover">
                     {{$str("confirm")}}
                 </button>
             </div>

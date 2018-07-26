@@ -1,11 +1,11 @@
 <template>
     <v-layout mt-5 mb-5 column>
         <div class="flex-divide mb-4">
-            <div class="text-darkgray caption text-xs-left mb-4">
+            <div class="color-darkgray h6 text-xs-left mb-4">
                 <!--{{order_number}} 주문번호-->
                 {{$str('orderText')}} : #{{orderNumber}}
             </div>
-            <div class="headline-2 text-black text-xs-left mb-4a line-height-1">
+            <div class="h1 bold color-black text-xs-left mb-3 line-height-1">
                 <!--{{ad_type}} buy/sell -->
                 <div>Sell
                     <!--{{volume}} 토큰량 -->
@@ -16,42 +16,42 @@
                 <!--{{email}} 이메일-->
                 <div>{{email}}</div>
             </div>
-            <div class="text-xs-left mb-4a">
-                <div class="text-black mb-3 ">
+            <div class="text-xs-left mb-4 line-height-1">
+                <div class="color-black mb-3 ">
                     {{$str('price')}} :
                     <!--{{price}} 가격 -->
-                    <span class="ml-3 subheading-2">{{price}}
+                    <span class="ml-3 h3">{{price}}
                         <!--{{currency}} 화폐단위-->  <!--{{currency}} 토큰종류-->
                         {{currency}} / {{token}}</span>
                 </div>
-                <div class="text-black">
+                <div class="color-black">
                     {{$str('amount')}} :
                     <!--{{price}} 가격 -->
-                    <span class="ml-3 subheading-2 text-price bold">{{price}}
+                    <span class="ml-3 h3 color-orange-price bold">{{price}}
                         <!--{{currency}} 화폐단위-->
                         {{currency}}</span>
                 </div>
             </div>
-
         </div>
-        <div class=" mb-4a">
+        <div class=" mb-4" v-if="status != 'cancel'">
             <!--알리페이 결제-->
             <div class="payment-wrapper mb-3 " v-if="alipay === 'Y'">
                 <div class="payment-wrapper width-half">
                     <div class="mr-2">
                         <img src="@/assets/img/method_alipay.png">
                     </div>
-                    <div class="text-darkgray">
+                    <div class="color-darkgray">
                         {{$str("alipayText")}}
                     </div>
                 </div>
-                <div class="text-xs-right width-half text-black">
+                <div class="text-xs-right width-half color-black">
                     <!--알리페이 정보-->
                     {{alipay_address}}
                 </div>
             </div>
-            <div class="text-xs-right mb-3">
-                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer">
+            <div class="text-xs-right mb-3 line-height-1">
+                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                <div class="d-inline-block color-black h6"> QR Code</div>
             </div>
             <!--위챗페이 결제-->
             <div class="payment-wrapper mb-3" v-if="wechat === 'Y'">
@@ -59,17 +59,18 @@
                     <div class="mr-2">
                         <img src="@/assets/img/method_wechatpay.png">
                     </div>
-                    <div class="text-darkgray">
+                    <div class="color-darkgray">
                         {{$str("wechatPayText")}}
                     </div>
                 </div>
-                <div class="text-xs-right width-half text-black">
+                <div class="text-xs-right width-half color-black">
                     <!--위챗페이정보-->
                     {{wechatpay_address}}
                 </div>
             </div>
             <div class="text-xs-right mb-3 ">
-                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer">
+                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                <div class="d-inline-block color-black h6"> QR Code</div>
             </div>
             <!--은행 계좌 결제-->
             <div class="payment-wrapper" v-if="bankAccount === 'Y'">
@@ -77,11 +78,11 @@
                     <div class="mr-2">
                         <img src="@/assets/img/method_bankaccount.png">
                     </div>
-                    <div class="text-darkgray">
+                    <div class="color-darkgray">
                         {{$str("bankAccountText")}}
                     </div>
                 </div>
-                <div class="text-xs-right width-half text-black">
+                <div class="text-xs-right width-half color-black">
                     <!--은행계좌 정보-->
                     {{bankaccount_address}}
                 </div>
@@ -89,25 +90,25 @@
         </div>
 
 
-        <div class="coinselect-1 text-black text-xs-left mb-5 line-height-1">
+        <div class="h4 bold color-black text-xs-left mb-4 line-height-1">
             <!--paying 상태 일때-->
-            <div class="mb-3" v-if="status === 'paying'">
+            <div class="mb-2" v-if="status === 'paying'">
                 {{$str("payingExplain1")}}
                 {{email}}
                 {{$str("payingExplain2")}}
-                <span class="text-price">{{price}} {{currency}}</span>
+                <span class="color-orange-price">{{price}} {{currency}}</span>
                 {{$str("payingExplain3")}}
                 <!--타이머 스크립트 작성 필요-->
-                <span class="text-success">{{paymentWindow}}</span>
+                <span class="color-green">{{paymentWindow}}</span>
                 {{$str("payingExplain4")}}
             </div>
 
             <!--confirm 상태 일때-->
-            <div class="mb-3" v-if="status === 'confirm'">
+            <div class="mb-2" v-if="status === 'confirm'">
                 {{$str("confirmgExplain1")}}
                 {{email}}
                 {{$str("confirmgExplain2")}}
-                <span class="text-price">{{price}} {{currency}}</span>
+                <span class="color-orange-price">{{price}} {{currency}}</span>
                 {{$str("confirmgExplain3")}}
 
             </div>
@@ -120,9 +121,8 @@
                 </span>
 
                 {{$str("referenceText")}} :
-                <div class="tooltips">
-                    <span slot="activator" class=" common-normal-bordered-button name bold pl-3 pr-3 ml-3 "
-                          @click="onCopy()">
+                <div class="c-pointer tooltip">
+                    <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy()">
                     <!--{{거래번호}}-->
                     {{reference}}
                     </span>
@@ -132,22 +132,22 @@
             </div>
         </div>
 
-        <div class="mb-4a" v-if="status != 'complete'">
+        <div class="mb-4" v-if="status != 'complete'">
             <!--paying process indicator (paying 상태 일때) -->
-            <span v-if="status === 'paying'" class="relative">
+            <span v-if="status === 'paying'" class="p-relative">
                 <input type="text" class="buying-process"
                        :value="$str('buyingIndicator')"
                        readonly>
-                <v-progress-circular indeterminate class="text-blue progress-circular"
+                <v-progress-circular indeterminate class="color-blue progress-circular"
                 ></v-progress-circular>
             </span>
 
             <!--거래 성사 버튼 (confirm 상태 일때) -->
             <span  v-if="status === 'confirm'">
-                <input type="button" class="common-normal-button common-btn-hover mb-4a"
+                <input type="button" class="btn-blue btn-blue-hover mb-4"
                        :value="$str('confirmRelease')" @click="onModal('confirm')">
                 <div class="text-xs-left">
-                    <input class="common-text-hover common-rounded-flat-button button-2" type="button"
+                    <input class="text-white-hover btn-white h5" type="button"
                            :value="$str('appeal')" @click="onModal('appeal')">
                 </div>
             </span>
@@ -162,11 +162,11 @@
             <!--채팅창-->
 
         </div>
-        <div class="caption text-xs-left text-darkgray line-height-1 mt-4a">
-            <p class="mb-2">
+        <div class="h6 text-xs-left color-darkgray line-height-1 mt-4">
+            <p class="mb-1">
                 {{$str('sellChecklist1')}}
             </p>
-            <p>
+            <p class="mb-1">
                 {{$str('sellChecklist2')}}
             </p>
             <p class="mb-0">

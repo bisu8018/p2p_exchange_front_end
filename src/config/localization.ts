@@ -653,7 +653,7 @@ const strings = new Map([
     }],
     ['wechatPayText', {
         KOR: '위챗페이',
-        ENG: 'Wechatpay',
+        ENG: 'Wechat',
         CN: '微信支付',
         JP: ''
     }],
@@ -816,18 +816,6 @@ const strings = new Map([
     ['warning_trade_password', {
         KOR: '거래 비밀번호를 입력해 주십시오',
         ENG: 'Please enter you trade password',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        JP: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
         CN: '',
         JP: ''
     }],
@@ -1122,9 +1110,9 @@ const strings = new Map([
         CN: '交易类型',
         JP: ''
     }],
-    ['NumberOfTransactions', {
+    ['transactionCount', {
         KOR: '거래 수',
-        ENG: 'Number of transactions',
+        ENG: 'Transaction Count',
         CN: '交易数量',
         JP: ''
     }],
@@ -1178,9 +1166,105 @@ const strings = new Map([
         JP: ''
     }],
     ['Export', {
-        KOR: 'Export',
+        KOR: '',
         ENG: 'Export',
-        CN: 'Export',
+        CN: '',
+        JP: ''
+    }],
+    ['orderFilterPlaceholder', {
+        KOR: '주문 날짜/상태/번호/통화',
+        ENG: 'Order Date/Status/Number/Currency',
+        CN: '订单日期/状态/编号/币种',
+        JP: ''
+    }],
+    ['date', {
+        KOR: '날짜',
+        ENG: 'Date',
+        CN: '日期',
+        JP: ''
+    }],
+    ['datePickerPlaceholder', {
+        KOR: '날짜를 선택해 주십시오',
+        ENG: 'Please select date',
+        CN: '',
+        JP: ''
+    }],
+    ['orderStatus', {
+        KOR: '주문 상태',
+        ENG: 'Order Status',
+        CN: '',
+        JP: ''
+    }],
+    ['unpaid', {
+        KOR: '미지불',
+        ENG: 'Unpaid',
+        CN: '',
+        JP: ''
+    }],
+    ['paid', {
+        KOR: '지불',
+        ENG: 'Paid',
+        CN: '',
+        JP: ''
+    }],
+    ['cancelled', {
+        KOR: '취소',
+        ENG: 'Cancelled',
+        CN: '',
+        JP: ''
+    }],
+    ['complete', {
+        KOR: '완료',
+        ENG: 'Complete',
+        CN: '',
+        JP: ''
+    }],
+    ['complaining', {
+        KOR: '이의제기',
+        ENG: 'Complaining',
+        CN: '',
+        JP: ''
+    }],
+    ['orderNo', {
+        KOR: '주문 번호',
+        ENG: 'No.',
+        CN: '',
+        JP: ''
+    }],
+    ['orderNoPlaceholder', {
+        KOR: '주문 번호를 입력해 주십시오',
+        ENG: 'Please enter Order number',
+        CN: '',
+        JP: ''
+    }],
+    ['orderType', {
+        KOR: '주문 종류',
+        ENG: 'Order type',
+        CN: '',
+        JP: ''
+    }],
+    ['general', {
+        KOR: '일반',
+        ENG: 'General',
+        CN: '',
+        JP: ''
+    }],
+    ['block', {
+        KOR: '대량',
+        ENG: 'Block',
+        CN: '',
+        JP: ''
+    }],
+    ['clear', {
+        KOR: '초기화',
+        ENG: 'Clear',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
         JP: ''
     }],
 
@@ -1266,7 +1350,7 @@ const strings = new Map([
     }],
     ['BalanceDepositExplain1-2', {
         KOR: '를 제외한 다른 디지털 자산을 예치하지 마십시오.',
-        ENG: 'to the above address',
+        ENG: 'to the above address.',
         CN: '到上述地址',
         JP: ''
     }],
@@ -1303,6 +1387,30 @@ const strings = new Map([
         ENG: 'Please make sure that your computer and browser are secure ' +
         'and your information is protected from being tampered or leaked.',
         CN: '请确保您的计算机和浏览器安全，并保护您的信息不被篡改或泄露。',
+        JP: ''
+    }],
+    ['Exchange_Account', {
+        KOR: '교환 계좌',
+        ENG: 'Exchange Account',
+        CN: '交换账户',
+        JP: ''
+    }],
+    ['Please_select_date', {
+        KOR: '날짜를 선택하세요',
+        ENG: 'Please select date',
+        CN: '请选择日期',
+        JP: ''
+    }],
+    ['clear', {
+        KOR: '초기화',
+        ENG: 'Clear',
+        CN: '删除所有',
+        JP: ''
+    }],
+    ['Date', {
+        KOR: '날짜',
+        ENG: 'Date',
+        CN: '日期',
         JP: ''
     }],
 
@@ -1363,8 +1471,8 @@ function checkLocale(): Lang {
   }
 }
 
-// let currentLang: Lang = Lang.EN;
- let currentLang: Lang = checkLocale();
+let currentLang: Lang = Lang.EN;
+ //let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {

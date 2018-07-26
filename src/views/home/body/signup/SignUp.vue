@@ -4,76 +4,76 @@
             <div class="mb-4a signup-flex">
                 <div class="pt-1">
                     <img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
-                <div class="title-2">{{$str("signupSubject")}}</div>
+                <div class="h2 bold">{{$str("signupSubject")}}</div>
             </div>
 
             <!--국가 select box-->
-            <div class="text-xs-left mb-2 text-black mt-1">{{$str("country")}}</div>
+            <div class="text-xs-left mb-2 color-black mt-1">{{$str("country")}}</div>
             <select-box></select-box>
 
             <!--Email 입력필드-->
-            <div class="text-xs-left mb-2 text-black mt-4">{{$str("email")}}</div>
+            <div class="text-xs-left mb-2 color-black mt-4">{{$str("email")}}</div>
             <div class="text-input-wrapper">
-                <input name="email" v-model="email" type="text" class="common-input mb-4"
+                <input name="email" v-model="email" type="text" class="input mb-4"
                        v-bind:class="{'warning-border' : warning_email}" @blur="onCheckEmail">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                 </div>
             </div>
 
             <!--인증코드 입력필드-->
-            <div class="text-xs-left mb-2 text-black">{{$str("emailVerificationCdoe")}}</div>
-            <div class="relative">
-                <input name="verificationCode" v-model="verificationCode" type="text" class="common-input mb-4"
+            <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCdoe")}}</div>
+            <div class="p-relative">
+                <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4"
                        autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
                        @blur="onCheckVerificationCode">
                 <span class="click-send-text" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_verification_code}"
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
                 </div>
             </div>
 
             <!--비밀번호 입력필드-->
-            <div class="text-xs-left mb-2 text-black">{{$str("password")}}</div>
+            <div class="text-xs-left mb-2 color-black">{{$str("password")}}</div>
             <div class="text-input-wrapper">
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
-                       class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
+                       class="input mb-4" :placeholder="$str('passwordPlaceholder')"
                        v-bind:class="{'warning-border' : warning_password}" @blur="onCheckPassword">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
                 </div>
             </div>
 
             <!--비밀번호 확인 입력필드-->
-            <div class="text-xs-left mb-2 text-black">{{$str("passwordConfirm")}}</div>
+            <div class="text-xs-left mb-2 color-black">{{$str("passwordConfirm")}}</div>
             <div class="text-input-wrapper">
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
-                       class="common-input mb-4" :placeholder="$str('passwordPlaceholder')"
+                       class="input mb-4" :placeholder="$str('passwordPlaceholder')"
                        v-bind:class="{'warning-border' : warning_password_confirm}" @blur="onCheckPasswordConfirm">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
                 </div>
             </div>
 
             <!--이용약관 체크박스-->
             <div class="mb-4 text-xs-left">
-                <label class="caption"><input id="termsCheckbox" type="checkbox" v-model="checkbox"
+                <label class="h6"><input id="termsCheckbox" type="checkbox" v-model="checkbox"
                                               @click="onCheckTerms()"
                                               class="mr-2">{{$str('termsLabel')}}</label>
-                <div class="absolute">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
+                <div class="p-absolute">
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
             </div>
 
             <!--로그인/ 회원가입 버튼-->
             <div class="signup-flex">
                 <v-flex mr-2 xs6>
-                    <button class="common-normal-button common-btn-hover" @click="onCheck">{{$str("signupText")}}</button>
+                    <button class="btn-blue btn-blue-hover" @click="onCheck">{{$str("signupText")}}</button>
                 </v-flex>
-                <v-flex text-xs-left xs6 caption>
-                    <div class="text-black">{{$str("haveAccount")}}</div>
-                    <div><a @click='goLogin' class="layer-text text-blue">{{$str("loginText")}}</a></div>
+                <v-flex text-xs-left xs6 h6>
+                    <div class="color-black">{{$str("haveAccount")}}</div>
+                    <div><a @click='goLogin' class="h6 color-blue text-white-hover">{{$str("loginText")}}</a></div>
                 </v-flex>
             </div>
         </v-flex>
