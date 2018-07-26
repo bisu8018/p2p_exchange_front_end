@@ -2,129 +2,142 @@
     <v-layout mt-5 mb-5 column>
         <!--***************      첫번째       *********-->
         <!--***************       섹션        *********-->
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide pb-4a mb-4a>
-            <div class="mb-4a pb-4a position-flex flex-divide">
-                <div class="title-2">{{message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject")}}</div>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide pb-4 mb-4>
+            <div class="mb-4 pb-4a display-flex flex-divide bold">
+                <div class="h2">{{message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject")}}</div>
             </div>
             <div>
-                <div class="price-1 text-black text-xs-left mb-4">{{$str('postAdIn')}}</div>
+                <div class="h3 bold color-black text-xs-left mb-4">{{$str('postAdIn')}}</div>
 
                 <!--국가 select box-->
-                <div class="text-xs-left mb-2 button-2 input-label text-black">{{$str("country")}}</div>
-                <div class="relative mb-4">
-                    <select class="common-selectbox caption" id="nationality" v-model="nationality">
+                <div class="text-xs-left mb-2 h5  color-black">{{$str("country")}}</div>
+                <div class="p-relative mb-3">
+                    <select class="comp-selectbox h6" id="nationality" v-model="nationality">
                         <option v-for="country in countries" v-bind:value="country.code">{{country.country}}</option>
                     </select>
-                    <v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>
+                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
 
                 <!--화폐 select box-->
-                <div class="text-xs-left mb-2 button-2 input-label text-black">{{$str("currency")}}</div>
-                <div class="relative mb-4">
-                    <select class="common-selectbox caption" id="currency" v-model="currency">
+                <div class="text-xs-left mb-2 h5  color-black">{{$str("currency")}}</div>
+                <div class="p-relative mb-3">
+                    <select class="comp-selectbox h6" id="currency" v-model="currency">
                         <option v-for="currency in currencies" v-bind:value="currency.currency">{{currency.currency}}
                         </option>
                     </select>
                 </div>
 
                 <!--buy/sell select box-->
-                <div class="text-xs-left mb-2 button-2 input-label text-black">{{$str("tradeType")}}</div>
-                <div class="relative mb-4">
-                    <select class="common-selectbox caption" v-model="tradeType">
+                <div class="text-xs-left mb-2 h5  color-black">{{$str("tradeType")}}</div>
+                <div class="p-relative mb-3">
+                    <select class="comp-selectbox h6" v-model="tradeType">
                         <option value="buy">{{$str("buyText")}}</option>
                         <option value="sell">{{$str("sellText")}}</option>
                     </select>
-                    <v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>
+                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
 
                 <!--코인 select box-->
-                <div class="text-xs-left mb-2 button-2 input-label text-black">{{$str("cryptoCurrency")}}</div>
-                <div class="relative">
-                    <select class="common-selectbox caption" id="coinType" v-model="coinType">
+                <div class="text-xs-left mb-2 h5  color-black">{{$str("cryptoCurrency")}}</div>
+                <div class="p-relative">
+                    <select class="comp-selectbox h6" id="coinType" v-model="coinType">
                         <option value="BTC">BTC</option>
                         <option value="ETH">ETH</option>
                         <option value="USDT">USDT</option>
                     </select>
-                    <v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>
+                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
             </div>
         </v-flex>
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide pb-4a mb-4a>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide pb-4 mb-4>
 
             <!--가격 유형 select box-->
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("priceType")}}</div>
-            <div class="relative mb-4">
-                <select class="common-selectbox caption" v-model="priceType">
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("priceType")}}</div>
+            <div class="p-relative mb-3">
+                <select class="comp-selectbox h6" v-model="priceType">
                     <option value="fixed">{{$str("fixedPrice")}}</option>
                     <option value="float">{{$str("floatPrice")}}</option>
                 </select>
-                <v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>
+                <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
             </div>
 
 
             <!--거래가격-->
-            <div class="text-xs-left mb-2 button- text-black input-label">{{$str("fixedPrice")}}</div>
-            <div class="price-input-wrapper mb-4a relative"  v-bind:class="{'warning-border' : warning_fixed_price}">
-                <input type="number" class="price-input" placeholder="0" v-model="priceValue" @keyup="onDeleteZero" @blur="onCheckFixedPrice">
-                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_fixed_price}">{{currency}}</div>
+            <div class="text-xs-left mb-2 button- color-black ">{{$str("fixedPrice")}}</div>
+            <div class="price-input-wrapper mb-4 p-relative" v-bind:class="{'warning-border' : warning_fixed_price}">
+                <input type="number" class="price-input" placeholder="0" v-model="priceValue" @keyup="onDeleteZero"
+                       @blur="onCheckFixedPrice">
+                <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_fixed_price}">
+                    {{currency}}
+                </div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_fixed_price}" >{{verify_warning_fixed_price}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_fixed_price}">{{verify_warning_fixed_price}}</span>
                 </div>
             </div>
 
             <!--환율 계산 표시-->
-            <div class="text-xs-left button-2 text-darkgray input-label">{{$str("priceText")}}</div>
+            <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
             <div class="price-clac-wrapper text-xs-left">
-                <div class="headline-2 mb-3">{{exchangeRateCalc()}} {{currency}}/{{coinType}}</div>
-                <div class="price-calculate text-darkgray">{{$str("marektPrice")}} : {{exchangeRateCalc()}}</div>
-                <div class="price-explain caption text-darkgray">{{$str("priceExplain")}}</div>
+                <div class="h1 bold mb-3">{{exchangeRateCalc()}} {{currency}}/{{coinType}}</div>
+                <div class="price-calculate color-darkgray">{{$str("marektPrice")}} : {{exchangeRateCalc()}}</div>
+                <div class="price-explain h6 color-darkgray">{{$str("priceExplain")}}</div>
             </div>
         </v-flex>
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4a pb-4a>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4 pb-4>
             <!--거래가 입력-->
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("volumeText")}}</div>
-            <div class="price-input-wrapper mb-3 relative" v-bind:class="{'warning-border' : warning_volume}">
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("volumeText")}}</div>
+            <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                 <input type="number" class="price-input" v-model="volumeValue" @blur="onCheckVolume"
                        :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + coinType">
-                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_volume}">{{coinType}}</div>
+                <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">{{coinType}}
+                </div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_volume}" >{{verify_warning_volume}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_volume}">{{verify_warning_volume}}</span>
                 </div>
             </div>
 
             <!--최소 한도 금액 입력-->
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("minLimit")}}</div>
-            <div class="price-input-wrapper mb-3 relative" v-bind:class="{'warning-border' : warning_min_limit}">
-                <input type="number" class="price-input" :placeholder="$str('minLimitPlaceholder')" @blur="onCheckMinLimit"
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("minLimit")}}</div>
+            <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_min_limit}">
+                <input type="number" class="price-input" :placeholder="$str('minLimitPlaceholder')"
+                       @blur="onCheckMinLimit"
                        v-model="minLimitValue">
-                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_min_limit}">{{currency}}</div>
+                <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
+                    {{currency}}
+                </div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_min_limit}" >{{verify_warning_min_limit}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_min_limit}">{{verify_warning_min_limit}}</span>
                 </div>
             </div>
 
             <!--최대 한도 금액 입력-->
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("maxLimit")}}</div>
-            <div class="price-input-wrapper mb-3 relative" v-bind:class="{'warning-border' : warning_max_limit}">
-                <input type="number" class="price-input" :placeholder="$str('maxLimitPlaceholder')"  @blur="onCheckMaxLimit"
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("maxLimit")}}</div>
+            <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_max_limit}">
+                <input type="number" class="price-input" :placeholder="$str('maxLimitPlaceholder')"
+                       @blur="onCheckMaxLimit"
                        v-model="maxLimitValue">
-                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_max_limit}">{{currency}}</div>
+                <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
+                    {{currency}}
+                </div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
                 </div>
             </div>
 
             <!--지불기간 입력-->
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("paymentWindow")}}</div>
-            <div class="price-input-wrapper mb-4a relative" v-bind:class="{'warning-border' : warning_payment_window}">
-                <input type="number" maxlength="3" class="price-input" :placeholder="$str('paymentWindowPlaceholder')" @blur="onCheckPaymentWindow"
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("paymentWindow")}}</div>
+            <div class="price-input-wrapper mb-4 p-relative" v-bind:class="{'warning-border' : warning_payment_window}">
+                <input type="number" maxlength="3" class="price-input" :placeholder="$str('paymentWindowPlaceholder')"
+                       @blur="onCheckPaymentWindow"
                        v-model="paymentWindowValue">
-                <div class="currency-indicator caption" v-bind:class="{'warning-indicator' : warning_payment_window}">{{$str("minuteText")}}</div>
+                <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_payment_window}">
+                    {{$str("minuteText")}}
+                </div>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_payment_window}" >{{verify_warning_payment_window}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_payment_window}">{{verify_warning_payment_window}}</span>
                 </div>
             </div>
-            <div class="text-xs-left text-darkgray line-height-1a">{{$str("paymentWindowExplain")}}</div>
+            <div class="text-xs-left color-darkgray line-height-1a">{{$str("paymentWindowExplain")}}</div>
         </v-flex>
 
 
@@ -134,48 +147,58 @@
 
             <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
             <!--알리페이 결제-->
-            <div class="text-xs-left position-flex mb-4a" v-if="alipay === 'Y'">
-                <div class="mr-3"><span @click="onToggle('alipay')"><toggle :toggle="alipayUse"  class="pointer"></toggle></span></div>
-                <div class="grid relative">
-                    <div class="align-center "><img src="@/assets/img/method_alipay.png"><span class="ml-2 text-darkgray absolute">{{$str("alipayText")}} : </span></div>
-                    <div>{{alipayInfo}}</div>
+            <div class="text-xs-left display-flex mb-4" v-if="alipay === 'Y'">
+                <div class="mr-3 "><span @click="onToggle('alipay')"><toggle :toggle="alipayUse"
+                                                                             class="c-pointer"></toggle></span></div>
+                <div class="d-grid p-relative">
+                    <div class="align-center "><img src="@/assets/img/method_alipay.png"><span
+                            class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
+                        <div class="d-inline-block">{{alipayInfo}}</div>
+                    </div>
                 </div>
             </div>
 
             <!--위챗페이 결제-->
-            <div class="text-xs-left position-flex mb-4a" v-if="wechatPay === 'Y'">
-                <div class="mr-3"><span @click="onToggle('wechatPay')"><toggle :toggle="wechatPayUse"  class="pointer"></toggle></span></div>
-                <div class="grid">
-                    <div class="align-center"><img src="@/assets/img/method_wechatpay.png"><span class="ml-2 text-darkgray absolute">{{$str("wechatPayText")}} : </span></div>
-                    <div>{{wechatPayInfo}}</div>
+            <div class="text-xs-left display-flex mb-4" v-if="wechatPay === 'Y'">
+                <div class="mr-3"><span @click="onToggle('wechatPay')"><toggle :toggle="wechatPayUse"
+                                                                               class="c-pointer"></toggle></span></div>
+                <div class="d-grid p-relative">
+                    <div class="align-center"><img src="@/assets/img/method_wechatpay.png"><span
+                            class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
+                        <div class="d-inline-block">{{wechatPayInfo}}</div>
+                    </div>
                 </div>
             </div>
 
             <!--은행 계좌 결제-->
-            <div class="text-xs-left position-flex mb-4a" v-if="bankAccount === 'Y'">
-                <div class="mr-3"><span @click="onToggle('bankAccount')"><toggle :toggle="bankAccountUse"  class="pointer"></toggle></span></div>
-                <div class="grid">
-                    <div class="align-center"><img src="@/assets/img/method_bankaccount.png"><span class="ml-2 text-darkgray absolute">{{$str("bankAccountText")}} : </span></div>
-                    <div>{{bankAccountInfo}}</div>
+            <div class="text-xs-left display-flex mb-4" v-if="bankAccount === 'Y'">
+                <div class="mr-3"><span @click="onToggle('bankAccount')"><toggle :toggle="bankAccountUse"
+                                                                                 class="c-pointer"></toggle></span>
+                </div>
+                <div class="d-grid p-relative">
+                    <div class="align-center"><img src="@/assets/img/method_bankaccount.png"><span
+                            class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
+                        <div class="d-inline-block">{{bankAccountInfo}}</div>
+                    </div>
                 </div>
             </div>
 
             <!--결제수단 새로고침-->
             <div>
-                <div @click="onRefresh" class="refresh-btn common-btn-hover button-2 common-rounded-button mb-4a">
+                <div @click="onRefresh" class="refresh-btn btn-blue-hover h5 btn-rounded-blue mb-4">
                     <i class="material-icons">sync</i>
                     <span class="refresh-btn-span">{{$str('refreshBtnText')}}</span>
                 </div>
             </div>
             <div class="payment-explain text-xs-left line-height-1a">
-                <span class="text-darkgray ">{{$str("paymentExplain")}}</span>
-                <a class="common-text-hover text-blue">{{$str("clickHereText")}}</a>
+                <span class="color-darkgray ">{{$str("paymentExplain")}}</span>
+                <a class="text-white-hover color-blue">{{$str("clickHereText")}}</a>
             </div>
         </v-flex>
 
         <!--자동 답글 입력-->
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4a pb-4a>
-            <div class="text-xs-left mb-2 input-label button-2 text-black">{{$str("autoReplyText")}}</div>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4 pb-4>
+            <div class="text-xs-left mb-2  h5 color-black">{{$str("autoReplyText")}}</div>
             <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('autoReplyPlaceholder')"
                           v-model="autoReplayValue"></textarea>
@@ -183,8 +206,8 @@
         </v-flex>
 
         <!--거래조항 입력-->
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4a pb-4a>
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("termsTransactionText")}}</div>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4 pb-4>
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("termsTransactionText")}}</div>
             <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('termsTransactionPlaceholder')"
                           v-model="termsTransactinValue"></textarea>
@@ -192,51 +215,62 @@
         </v-flex>
 
         <!--상대방 제한사항 입력-->
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4a pb-4a>
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("counterpartyFilterText")}}</div>
-            <div class="text-xs-left mb-2 caption text-darkgray input-label">{{$str("counterpartyFilterPlaceholder")}}
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4 pb-4>
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("counterpartyFilterText")}}</div>
+            <div class="text-xs-left mb-2 h6 color-darkgray ">{{$str("counterpartyFilterPlaceholder")}}
             </div>
-            <div class="mb-5 relative" >
-                <input class="common-input" type="text"  v-bind:class="{'warning-border' : warning_counterparty}"
-                       @blur="onCheckCounterparty" placeholder="0" v-model="counterpartyFilterValue" maxlength="3" >
+            <div class="mb-4 p-relative">
+                <input class="input" type="text" v-bind:class="{'warning-border' : warning_counterparty}"
+                       @blur="onCheckCounterparty" placeholder="0" v-model="counterpartyFilterValue" maxlength="3">
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_counterparty}">{{verify_warning_counterparty}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_counterparty}">{{verify_warning_counterparty}}</span>
                 </div>
             </div>
-            <div  class="text-xs-left mb-4a"><label><input type="checkbox"
-                                                           v-model="counterpartyCheckbox_first"/><span class="text-black ml-2">{{$str("counterpartyCheckbox1")}}</span></label>
+            <div class="text-xs-left mb-4"><label><input type="checkbox"
+                                                         v-model="counterpartyCheckbox_first"/><span
+                    class="color-black ml-2">{{$str("counterpartyCheckbox1")}}</span></label>
             </div>
-            <div class="text-xs-left mb-4a "><label><input type="checkbox" v-model="counterpartyCheckbox_second"/><span class="text-black ml-2">{{$str("counterpartyCheckbox2")}}</span></label>
+            <div class="text-xs-left mb-4 "><label><input type="checkbox" v-model="counterpartyCheckbox_second"/><span
+                    class="color-black ml-2">{{$str("counterpartyCheckbox2")}}</span></label>
             </div>
-            <div class="text-xs-left mb-5"><label><input type="checkbox"
-                                                    v-model="counterpartyCheckbox_third"/><span class="text-black ml-2">{{$str("counterpartyCheckbox3")}}</span></label>
+            <div class="text-xs-left mb-4"><label><input type="checkbox"
+                                                         v-model="counterpartyCheckbox_third"/><span
+                    class="color-black ml-2">{{$str("counterpartyCheckbox3")}}</span></label>
             </div>
-            <div class="text-xs-left caption text-darkgray">{{$str("counterpartyExplain")}}</div>
+            <div class="text-xs-left h6 color-darkgray">{{$str("counterpartyExplain")}}</div>
         </v-flex>
 
         <!--거래 비밀번호 비교 입력-->
-        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4a pb-4a>
-            <div class="text-xs-left mb-2 button-2 text-black input-label">{{$str("tradePwText")}}</div>
-            <div class="relative">
-                <input type="text"  v-bind:class="{'warning-border' : warning_trade_password}" class="common-input" :placeholder="$str('tradePwText')" v-model="tradePwValue" @blur="onCheckTradePassword"/>
+        <v-flex xs12 lg4 offset-lg4 wrap flex-divide mb-4 pb-4>
+            <div class="text-xs-left mb-2 h5 color-black ">{{$str("tradePwText")}}</div>
+            <div class="p-relative">
+                <input type="text" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
+                       :placeholder="$str('tradePwText')" v-model="tradePwValue" @blur="onCheckTradePassword"/>
                 <div class="warning-text-wrapper">
-                    <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_trade_password}" >{{verify_warning_trade_password}}</span>
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{verify_warning_trade_password}}</span>
                 </div>
             </div>
         </v-flex>
 
         <!--거래조항/이용약관-->
-        <v-flex xs12 lg4 offset-lg4 wrap  text-xs-left>
-            <div class="grid mb-4a">
-                <label class="mb-3">
-                    <input type="checkbox" v-model="agreeTerms" class="mr-3"/>{{$str("agreeTermsExplain")}}
-                </label>
-                <a class="ml-3 text-blue common-text-hover">《{{$str("termsTrading")}}》</a>
+        <v-flex xs12 lg4 offset-lg4 wrap text-xs-left>
+            <div class=" mb-4 display-flex">
+                <div >
+                    <label class="mb-3">
+                        <input type="checkbox" v-model="agreeTerms" class="mr-3"/>{{$str("agreeTermsExplain")}}
+                    </label>
+                    <div class="d-inline-block">
+                        <a class=" color-blue common-text-hover">《{{$str("termsTrading")}}》</a>
+                    </div>
+                </div>
             </div>
 
             <!--슬라이드 바 인증-->
-            <verify-slider v-on:passcallback="putVerified" class="mb-4a"></verify-slider>
-            <button @click='onCheck'   class="textBlue common-btn-hover common-normal-button">
+            <div class="verify-slider-wrapper mb-4">
+            <verify-slider v-on:passcallback="putVerified"></verify-slider>
+            </div>
+
+            <button @click='onCheck' class="color-blue btn-blue btn-blue-hover">
                 {{$str("postAdBtn")}}
             </button>
         </v-flex>
@@ -289,20 +323,20 @@
             isVerified: false,
             adType: "",
             exchangeRate: '2977.02',
-            warning_fixed_price : false,
-            warning_volume : false,
-            warning_min_limit : false,
-            warning_max_limit : false,
-            warning_payment_window : false,
-            warning_counterparty : false,
-            warning_trade_password : false,
-            verify_warning_fixed_price : "",
-            verify_warning_volume : "",
-            verify_warning_min_limit : "",
-            verify_warning_max_limit : "",
-            verify_warning_counterparty : "",
-            verify_warning_payment_window : "",
-            verify_warning_trade_password : "",
+            warning_fixed_price: false,
+            warning_volume: false,
+            warning_min_limit: false,
+            warning_max_limit: false,
+            warning_payment_window: false,
+            warning_counterparty: false,
+            warning_trade_password: false,
+            verify_warning_fixed_price: "",
+            verify_warning_volume: "",
+            verify_warning_min_limit: "",
+            verify_warning_max_limit: "",
+            verify_warning_counterparty: "",
+            verify_warning_payment_window: "",
+            verify_warning_trade_password: "",
             countries: [
                 {country: 'China', code: 'CN'},
                 {country: 'Singapore', code: 'SG'},
@@ -351,8 +385,8 @@
         },
         methods: {
             onCheck: function () {
-                if(this.onCheckPaymentWindow() && this.onCheckMaxLimit()&& this.onCheckMinLimit()&& this.onCheckVolume() && this.onCheckFixedPrice() && this.onCheckCounterparty()) {
-                   this.onPost();
+                if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() && this.onCheckFixedPrice() && this.onCheckCounterparty()) {
+                    this.onPost();
                 }
             },
             onPost: function () {
@@ -425,28 +459,28 @@
             },
             onDeleteZero() {
                 let temp = this.priceValue;
-                this.priceValue =  abUtils.toDeleteZero(temp);
+                this.priceValue = abUtils.toDeleteZero(temp);
             },
-            onCheckFixedPrice () {
+            onCheckFixedPrice() {
                 // 고정가격 체크
                 let priceValue = Number(this.priceValue)
-                if(priceValue === 0 || priceValue === undefined){
+                if (priceValue === 0 || priceValue === undefined) {
                     this.warning_fixed_price = true;
-                    this.verify_warning_fixed_price =  Vue.prototype.$str("warningFixedPricePlaceholder");
+                    this.verify_warning_fixed_price = Vue.prototype.$str("warningFixedPricePlaceholder");
                     return false;
                 }
                 this.warning_fixed_price = false;
                 return true;
             },
-            onCheckVolume () {
+            onCheckVolume() {
                 //거래수량 체크
                 let volumeValue = Number(this.volumeValue);
-                if(volumeValue === 0 || volumeValue === undefined){
+                if (volumeValue === 0 || volumeValue === undefined) {
                     this.warning_volume = true;
                     this.verify_warning_volume = Vue.prototype.$str("warningVolume");
                     return false;
                 }
-                if(volumeValue > this.balance){
+                if (volumeValue > this.balance) {
                     this.warning_volume = true;
                     this.verify_warning_volume = Vue.prototype.$str("lowBalance");
                     return false;
@@ -455,15 +489,16 @@
                 this.warning_volume = false;
                 return true;
             },
-            onCheckMinLimit(){
+            onCheckMinLimit() {
                 //최소금액 체크
-                let minLimitValue = Number(this.minLimitValue);console.log(minLimitValue);
-                if(minLimitValue === 0 || minLimitValue === undefined){
+                let minLimitValue = Number(this.minLimitValue);
+                console.log(minLimitValue);
+                if (minLimitValue === 0 || minLimitValue === undefined) {
                     this.verify_warning_min_limit = Vue.prototype.$str("warningMinLimit");
                     this.warning_min_limit = true;
                     return false;
                 }
-                if(minLimitValue < 100){
+                if (minLimitValue < 100) {
                     this.warning_min_limit = true;
                     this.verify_warning_min_limit = Vue.prototype.$str("atLeast");
                     return false;
@@ -471,15 +506,15 @@
                 this.warning_min_limit = false;
                 return true;
             },
-            onCheckMaxLimit(){
+            onCheckMaxLimit() {
                 //최대금액 체크
                 let maxLimitValue = Number(this.maxLimitValue);
-                if(maxLimitValue === 0 || maxLimitValue === undefined){
+                if (maxLimitValue === 0 || maxLimitValue === undefined) {
                     this.warning_max_limit = true;
                     this.verify_warning_max_limit = Vue.prototype.$str("warningMaxLimit");
                     return false;
                 }
-                if(maxLimitValue > 0.00){
+                if (maxLimitValue > 0.00) {
                     this.warning_volume = true;
                     this.verify_warning_max_limit = Vue.prototype.$str("atMost");
                     return false;
@@ -490,12 +525,12 @@
             onCheckPaymentWindow() {
                 //지불기간 체크
                 let paymentWindowValue = Number(this.paymentWindowValue);
-                if(paymentWindowValue === 0 || paymentWindowValue === undefined){
+                if (paymentWindowValue === 0 || paymentWindowValue === undefined) {
                     this.warning_payment_window = true;
                     this.verify_warning_payment_window = Vue.prototype.$str("warningPaymentWindow");
                     return false;
                 }
-                if(paymentWindowValue < 10 || paymentWindowValue > 20){
+                if (paymentWindowValue < 10 || paymentWindowValue > 20) {
                     this.warning_payment_window = true;
                     this.verify_warning_payment_window = Vue.prototype.$str("timeRange");
                     return false;
@@ -506,7 +541,7 @@
             onCheckCounterparty() {
                 //거래상대 조건 체크
                 let counterpartyFilterValue = Number(this.counterpartyFilterValue);
-                if(counterpartyFilterValue > 99){
+                if (counterpartyFilterValue > 99) {
                     this.warning_counterparty = true;
                     this.verify_warning_counterparty = Vue.prototype.$str("counterpartyWarning");
                     return false;
@@ -517,7 +552,7 @@
             onCheckTradePassword() {
                 //거래 비밀번호 체크
                 let tradePwValue = Number(this.tradePwValue);
-                if(tradePwValue === 0 || tradePwValue === undefined){
+                if (tradePwValue === 0 || tradePwValue === undefined) {
                     this.warning_trade_password = true;
                     this.verify_warning_trade_password = Vue.prototype.$str("warning_trade_password");
                     return false;
@@ -534,11 +569,7 @@
     }
 
     .line-height-1a {
-        line-height: 1.14;
-    }
-
-    .position-flex {
-        display: flex;
+        line-height: 1.2;
     }
 
     .common-textarea {
@@ -565,7 +596,11 @@
         font-size: 12px;
         font-weight: 500;
         width: 100%;
-        color: #9294a6;
+        color: #353535;
+    }
+
+    .display-flex {
+        display: flex;
     }
 
     .currency-indicator {
@@ -592,7 +627,11 @@
 
     /*높이 재조정*/
     .warning-text-wrapper {
-        top : 42px !important;
+        top: 42px !important;
+    }
+
+    .verify-slider-wrapper {
+        max-width: 290px;
     }
 
     /*warning indicator css */

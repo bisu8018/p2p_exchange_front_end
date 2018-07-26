@@ -47,7 +47,6 @@
         src: url(assets/font/notosans/NotoSansSC-Bold.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Bold.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Bold.otf) format('opentype');
     }
 
-
     /*material font*/
 
     @font-face {
@@ -82,7 +81,6 @@
         font-feature-settings: 'liga';
     }
 
-
     /* Rules for sizing the icon. */
 
     .material-icons.md-12 {
@@ -105,7 +103,6 @@
         font-size: 48px;
     }
 
-
     /* Rules for using icons as white on a dark background. */
 
     .material-icons.md-light {
@@ -116,9 +113,7 @@
         color: rgba(255, 255, 255, 0.3);
     }
 
-
     /* 초기화 태그 */
-
 
     /* http://meyerweb.com/eric/tools/css/reset/
        v2.0 | 20110126
@@ -214,7 +209,6 @@
         vertical-align: baseline;
     }
 
-
     /* HTML5 display-role reset for older browsers */
 
     article,
@@ -267,7 +261,6 @@
         font-weight: bold;
     }
 
-
     /* 웹에서 gutter 주기*/
 
     @media only screen and (min-width: 960px) {
@@ -276,7 +269,6 @@
             padding-right: 12px;
         }
     }
-
 
     /* mobile 에서 gutter 주기*/
 
@@ -294,7 +286,6 @@
         text-align: center;
         color: #353535;
     }
-
 
     /*placeholder CSS 설정*/
 
@@ -330,7 +321,6 @@
         letter-spacing: normal;
         color: #9294a6;
     }
-
 
     /*폰트 색깔*/
 
@@ -374,7 +364,6 @@
         color: #FFFFFF;
     }
 
-
     /* 백그라운드 색깔 */
 
     .bg-white {
@@ -388,7 +377,6 @@
     .bg-overlay {
         background-color: rgba(0, 0, 0, 0.45)
     }
-
 
     /* 마진, margin 설정*/
 
@@ -432,7 +420,6 @@
         margin: 64px !important;
     }
 
-
     /* 패딩, padding 설정 */
 
     .pb-4a {
@@ -454,7 +441,6 @@
     .pa-4a {
         padding: 32px;
     }
-
 
     /* 폰트 사이즈, 웨이트 등 */
     /*태그*/
@@ -489,6 +475,7 @@
         font-size: 10px;
         line-height: 1.4em;
     }
+
     /*클래스*/
     .h1 {
         font-size: 26px;
@@ -522,7 +509,6 @@
         line-height: 1.4em;
     }
 
-
     .normal {
         font-weight: 400;
     }
@@ -539,7 +525,6 @@
         line-height: 1 !important;
     }
 
-
     /* Warning 관련 */
 
     .warning-border {
@@ -555,17 +540,14 @@
     .warning-text-wrapper {
         position: absolute !important;
         bottom: 6px !important;
-        right: 0 !important;
-    ;
+        right: 0 !important;;
     }
-
 
     /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
 
     .v-ripple__container {
         opacity: 0;
     }
-
 
     /*button 공통 CSS*/
 
@@ -609,7 +591,6 @@
         color: #214ea1;
     }
 
-
     /*버튼 호버 CSS 설정*/
 
     .btn-blue-hover:hover {
@@ -628,7 +609,6 @@
         border-radius: 2px;
         background-color: #ffffff;
         border: solid 1px #8d8d8d;
-        color: #9294a6;
         padding-left: 12px;
         cursor: pointer;
     }
@@ -641,7 +621,6 @@
         top: 8px;
         pointer-events: none;
     }
-
 
     /*input text 필드 공통 CSS*/
 
@@ -656,7 +635,6 @@
         color: #353535;
     }
 
-
     /*vuetify dialog*/
 
     .v-dialog {
@@ -665,7 +643,6 @@
         width: 384px;
         padding: 24px 16px 24px 16px;
     }
-
 
     /* 포지션 */
 
@@ -684,7 +661,6 @@
     .p-static {
         position: static;
     }
-
 
     /* 디스플레이 관련 */
 
@@ -708,7 +684,6 @@
         display: inline-block;
     }
 
-
     /* 비지빌리티 */
 
     .v-visible {
@@ -719,25 +694,29 @@
         visibility: hidden;
     }
 
-
     /* 이 아이는 커서 */
 
     .c-pointer {
         cursor: pointer;
     }
 
+    /*float */
+
+    .f-right {
+        float: right;
+    }
+
+    .f-left {
+        float: left;
+    }
 
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
 
-
     /*<a class="tooltips">*/
-
 
     /*<img src="../../../../../assets/img/method_alipay.png">*/
 
-
     /*<span>Alipay</span>*/
-
 
     /*</a>*/
 
@@ -778,33 +757,23 @@
         z-index: 999;
     }
 
-
     /*vuetify 버튼 hover 시, color foggy 현상 방지*/
-
 
     /*.v-btn:before {*/
 
-
     /*opacity: 0 !important;*/
-
 
     /*border-radius: 3px !important;*/
 
-
     /*}*/
-
 
     /*.v-btn {*/
 
-
     /*height: 40px !important;*/
-
 
     /*border-radius: 3px !important;*/
 
-
     /*}*/
-
 
     /* 랜딩페이지 Carousel */
 

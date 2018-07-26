@@ -653,7 +653,7 @@ const strings = new Map([
     }],
     ['wechatPayText', {
         KOR: '위챗페이',
-        ENG: 'Wechatpay',
+        ENG: 'Wechat',
         CN: '微信支付',
         JP: ''
     }],
@@ -1110,9 +1110,9 @@ const strings = new Map([
         CN: '交易类型',
         JP: ''
     }],
-    ['NumberOfTransactions', {
+    ['transactionCount', {
         KOR: '거래 수',
-        ENG: 'Number of transactions',
+        ENG: 'Transaction Count',
         CN: '交易数量',
         JP: ''
     }],
@@ -1173,7 +1173,7 @@ const strings = new Map([
     }],
     ['orderFilterPlaceholder', {
         KOR: '주문 날짜/상태/번호/통화',
-        ENG: 'Oder Date/Status/Number/Currency',
+        ENG: 'Order Date/Status/Number/Currency',
         CN: '订单日期/状态/编号/币种',
         JP: ''
     }],
@@ -1189,21 +1189,75 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['orderStatus', {
+        KOR: '주문 상태',
+        ENG: 'Order Status',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['unpaid', {
+        KOR: '미지불',
+        ENG: 'Unpaid',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['paid', {
+        KOR: '지불',
+        ENG: 'Paid',
+        CN: '',
+        JP: ''
+    }],
+    ['cancelled', {
+        KOR: '취소',
+        ENG: 'Cancelled',
+        CN: '',
+        JP: ''
+    }],
+    ['complete', {
+        KOR: '완료',
+        ENG: 'Complete',
+        CN: '',
+        JP: ''
+    }],
+    ['complaining', {
+        KOR: '이의제기',
+        ENG: 'Complaining',
+        CN: '',
+        JP: ''
+    }],
+    ['orderNo', {
+        KOR: '주문 번호',
+        ENG: 'No.',
+        CN: '',
+        JP: ''
+    }],
+    ['orderNoPlaceholder', {
+        KOR: '주문 번호를 입력해 주십시오',
+        ENG: 'Please enter Order number',
+        CN: '',
+        JP: ''
+    }],
+    ['orderType', {
+        KOR: '주문 종류',
+        ENG: 'Order type',
+        CN: '',
+        JP: ''
+    }],
+    ['general', {
+        KOR: '일반',
+        ENG: 'General',
+        CN: '',
+        JP: ''
+    }],
+    ['block', {
+        KOR: '대량',
+        ENG: 'Block',
+        CN: '',
+        JP: ''
+    }],
+    ['clear', {
+        KOR: '초기화',
+        ENG: 'Clear',
         CN: '',
         JP: ''
     }],

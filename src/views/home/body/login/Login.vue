@@ -5,47 +5,47 @@
             <div>
                 <div class="mb-4a login-title">
                     <div class="pt-1"><img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
-                    <div class="title-2">{{$str("welcome")}}</div>
+                    <div class="h2 bold">{{$str("welcome")}}</div>
                 </div>
                 <form action="/signin" method="post" id="loginForm">
-                    <div class="text-xs-left mb-2 button-2 text-black">{{$str("email")}}</div>
-                    <div class="text-input-wrapper mb-4"><input type="text" class="common-input" name="email" v-model="email"
+                    <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
+                    <div class="p-relative mb-4"><input type="text" class="input" name="email" v-model="email"
                                                            @blur="onCheckEmail"
                                                            :placeholder="loginEmailPlaceholder"
                                                            v-bind:class="{'warning-border' : warning_email}">
                         <div class="warning-text-wrapper">
-                            <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                         </div>
                     </div>
-                    <div class="text-xs-left mb-2 button-2 text-black">{{$str("password")}}</div>
-                    <div class="text-input-wrapper mb-4">
-                        <input name="encryptedPassword" v-model="password" type="password" class="common-input"
+                    <div class="text-xs-left mb-2 h5 color-black">{{$str("password")}}</div>
+                    <div class="p-relative mb-4">
+                        <input name="encryptedPassword" v-model="password" type="password" class="input"
                                @blur="onCheckPassword"
                                :placeholder="loginPasswordPlaceholder"
                                v-bind:class="{'warning-border' : warning_password}">
                         <div class="warning-text-wrapper">
-                            <span class="hide-warning-text" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
                         </div>
                     </div>
 
-                    <div class="mb-4 verifySlider" v-if="email.length>0 && password.length>=8">
+                    <div class="mb-4 " v-if="email.length>0 && password.length>=8">
                         <!--<v-flex class="verifySlider" mb-4>-->
-                        <div class="text-xs-left mb-2 caption text-black">{{$str("verify")}}</div>
+                        <div class="text-xs-left mb-2 h6 color-black">{{$str("verify")}}</div>
                         <verify-slider v-on:passcallback="putVerified"></verify-slider>
                     </div>
                     <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
                 </form>
                 <!--go to the page 'find password' -->
-                <div class="goForgetPwdWrapper text-xs-left caption ">
-                    <span @click="goFindPassword" class="text-blue goForgetPwd button-2">{{$str("forgetPassword")}}</span>
+                <div class="goForgetPwdWrapper text-xs-left h6 ">
+                    <span @click="goFindPassword" class="color-blue goForgetPwd h5">{{$str("forgetPassword")}}</span>
                 </div>
-                <button  class="common-btn-hover common-normal-button" @click='onCheck'>
+                <button  class="btn-blue-hover btn-blue" @click='onCheck'>
                     {{$str("loginText")}}
                 </button>
                 <div class="mt-4a mb-4a orWrapper">
-                    <div class="orTextWrapper"><span class="orText caption">or</span></div>
+                    <div class="orTextWrapper"><span class="orText h6">or</span></div>
                 </div>
-                <button @click='goSignup' class="common-btn-hover common-normal-bordered-button">{{$str("signupText")}}
+                <button @click='goSignup' class="btn-blue-hover btn-white">{{$str("signupText")}}
                 </button>
             </div>
         </v-flex>
