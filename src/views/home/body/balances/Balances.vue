@@ -46,11 +46,9 @@
       <!--search filter -->
       <v-flex md4 xs12 p-relative>
         <v-layout row class="statusBox">
-            <h6 class="statusChip" >{{selectedTime}}</h6>
-            <h6 class="statusChip">{{selectedType}}</h6>
-            <h6 class=" statusChip">{{selectedToken}}</h6>
-            <h6 class="statusChip " v-if="amount!=0" v-model="isAmout"
-                 @input="removeAmount" >{{amount}}</h6>
+            <div class="statusChip" >{{selectedDate}}</div>
+            <div class="statusChip">{{selectedType}}</div>
+            <div class=" statusChip">{{selectedToken}}</div>
             <!-- 필터 펼치기 버튼 -->
             <v-spacer></v-spacer>
             <button @click.stop="isModal = !isModal">
@@ -62,13 +60,12 @@
         <div class="cardModal cardModalMobile"  v-if="isModal">
           <v-layout row wrap>
 
-            <v-flex xs12 text-xs-left cardText>{{$str("Date")}}</v-flex>
+            <v-flex xs12 text-xs-left cardText>{{$str("date")}}</v-flex>
             <!--date 셀렉터-->
             <v-flex xs12 >
-              <v-layout comp-selectbox p-relative>
-                <h6>{{$str('Please_select_date')}}</h6>
-                <i class="material-icons comp-selectbox-icon">calendar_today</i>
-              </v-layout>
+              <div>
+                <date-picker v-on:date="onDate" :clear="clear"></date-picker>
+              </div>
             </v-flex>
 
             <!-- Type 셀렉터-->
@@ -92,11 +89,21 @@
               </div>
             </v-flex>
           </v-layout>
-          <!-- cancel, search 버튼-->
+          <!-- clear, cancel, search 버튼-->
           <v-flex text-xs-right mt-4>
-            <button class="btn-rounded-white text-white-hover" @click="" >{{$str("clear")}} </button>
-            <button class="btn-rounded-white text-white-hover mr-3 ml-3" @click="isModal = false" >{{$str("cancel")}} </button>
-            <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >{{$str("search")}} </button>
+            <v-layout>
+              <button class="btn-rounded-white text-white-hover" @click="onClear" >
+                <h6>{{$str("clear")}}</h6>
+              </button>
+              <!--좌우 정렬을 위한 spacer.-->
+              <v-spacer></v-spacer>
+              <button class="btn-rounded-white text-white-hover mr-3" @click="isModal = false" >
+                <h6>{{$str("cancel")}}</h6>
+              </button>
+              <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >
+                <h6>{{$str("search")}}</h6>
+              </button>
+            </v-layout>
           </v-flex>
         </div>
       </v-flex>
@@ -109,7 +116,7 @@
       <v-layout mb-3 color-darkgray>
         <v-flex  md3 text-md-left>{{$str("Type")}}</v-flex>
         <v-flex  md3 text-md-left>{{$str("Coin")}}</v-flex>
-        <v-flex  md3 text-md-left>{{$str("time")}}</v-flex>
+        <v-flex  md3 text-md-left>{{$str("Date")}}</v-flex>
         <v-flex  md3 text-md-right>{{$str("amount")}}</v-flex>
       </v-layout>
       <v-divider></v-divider>
@@ -133,13 +140,15 @@
     import MainRepository from "../../../../vuex/MainRepository";
     import BalanceTokenList from "./balanceList/BalanceTokenList"
     import BalanceDetailList from "./balanceList/BalanceDetailList"
+    import DatePicker from '@/components/DatePicker.vue';
     export default {
         name: "Balances",
         components: {
             Pagination,
             ListFilter,
             BalanceTokenList,
-            BalanceDetailList
+            BalanceDetailList,
+            DatePicker,
         },
         data: () => ({
             currency : 'CNY',
@@ -149,9 +158,10 @@
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
-            selectedTime : 'Time',
+            selectedDate : 'Date',
             selectedType : 'Type',
             selectedToken: 'Coin',
+            clear: null,
             types : [
                 {name : 'Buy'},
                 {name : 'Sell'},
@@ -244,7 +254,18 @@
 
         },
         methods: {
+            onDate(value) {
+                this.selectedDate = value;
+            },
+            onClear() {
+                this.selectedDate = '';
+                this.selectedType = '';
+                this.selectedToken = '';
 
+            },
+            onSearch(){
+                this.isModal = false;
+            }
         }
 
 

@@ -487,6 +487,10 @@
         margin-bottom: 0 !important;
     }
 
+    button:focus {
+        outline:0;
+    }
+
 
     /*클래스*/
     .h1 {
