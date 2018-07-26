@@ -243,7 +243,7 @@
     });
 </script>
 
-<style scoped>
+<style >
     .selectbox-width {
         width: 100%;
     }

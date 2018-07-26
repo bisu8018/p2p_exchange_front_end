@@ -1,7 +1,7 @@
 <template>
     <v-layout row wrap>
         <v-flex pa-2 class="order-filter p-relative text-xs-left" md8>
-            <span class="color-darkgray  ">{{$str("orderFilterPlaceholder")}}</span>
+            <span class="color-darkgray  ">{{$str("adsFilterPlaceholder")}}</span>
             <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                @click.stop="isModal = !isModal">filter_list</i>
 
@@ -11,22 +11,7 @@
 
                 <!--달력-->
                 <div class="mb-4">
-                    <date-picker v-on:date="onDate" v-on:switch="clear = 'on'" :clear="clear" ></date-picker>
-                </div>
-
-                <!--주문 상태-->
-                <div class="text-xs-left text-black mb-2">{{$str("orderStatus")}}</div>
-                <div class="mb-4 p-relative">
-                    <select v-model="orderStatus" class="comp-selectbox h6">
-                        <option v-for="status in orderStatusList" v-bind:value="status.code">{{status.status}}</option>
-                    </select>
-                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
-                </div>
-
-                <!--주문 번호-->
-                <div class="text-xs-left text-black mb-2">{{$str("orderNo")}}</div>
-                <div class="mb-4">
-                    <input type="number" class="input" :placeholder='$str("orderNoPlaceholder")'>
+                    <date-picker v-on:date="onDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
                 </div>
 
                 <!--암호화폐 종류-->
@@ -40,16 +25,6 @@
                     <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
 
-                <!--주문 종류-->
-                <div class="text-xs-left text-black mb-2">{{$str("orderType")}}</div>
-                <div class="mb-4 p-relative">
-                    <select v-model="orderType" class="comp-selectbox h6">
-                        <option value="general">{{$str("general")}}</option>
-                        <option value="block">{{$str("block")}}</option>
-                    </select>
-                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
-                </div>
-
                 <!--거래 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("buySell")}}</div>
                 <div class="mb-4 p-relative">
@@ -59,6 +34,24 @@
                     </select>
                     <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
+
+                <!--광고 번호-->
+                <div class="text-xs-left text-black mb-2">{{$str("adsNo")}}</div>
+                <div class="mb-4">
+                    <input type="number" class="input" :placeholder='$str("adsNoPlaceholder")'>
+                </div>
+
+
+                <!--주문 종류-->
+                <div class="text-xs-left text-black mb-2">{{$str("adsType")}}</div>
+                <div class="mb-4 p-relative">
+                    <select v-model="adsType" class="comp-selectbox h6">
+                        <option value="general">{{$str("general")}}</option>
+                        <option value="block">{{$str("block")}}</option>
+                    </select>
+                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                </div>
+
 
                 <!--화폐 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("currency")}}</div>
@@ -84,13 +77,6 @@
                 </div>
             </div>
         </v-flex>
-
-        <!--데스크탑 환경에서만 표시 -->
-        <v-flex md4 pl-4 pr-0 v-if="!isMobile">
-            <button class="color-blue btn-white text-white-hover" >{{$str("Export")}}</button>
-        </v-flex>
-
-
     </v-layout>
 </template>
 
@@ -110,18 +96,10 @@
             clear: 'on',
             date: "",
             currency: '',
-            orderStatus: "",
             coinType: "",
-            orderType: "",
+            adsType: "",
             tradeType: "",
             orderNo: "",
-            orderStatusList: [
-                {status: Vue.prototype.$str("unpaid"), code: 'unpaid'},
-                {status: Vue.prototype.$str("paid"), code: 'paid'},
-                {status: Vue.prototype.$str("cancelled"), code: 'cancelled'},
-                {status: Vue.prototype.$str("complete"), code: 'complete'},
-                {status: Vue.prototype.$str("complaining"), code: 'complaining'},
-            ],
             //clear기능 때문에 공통 컴포넌트 사용 불가
             currencies: [
                 {currency: 'CNY'},
@@ -156,10 +134,9 @@
             },
             onClear() {
                 this.date = "";
-                this.orderStatus = "";
                 this.orderNo = "";
                 this.coinType = "";
-                this.orderType = "";
+                this.adsType = "";
                 this.tradeType = "";
                 this.currency = "";
                 this.clear = null;

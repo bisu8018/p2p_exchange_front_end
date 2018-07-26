@@ -563,7 +563,7 @@ const strings = new Map([
     }],
     ['priceExplain', {
         KOR: '고정가격은 시장에 따라 변동되지 않습니다',
-        ENG: 'Fixed prices do not fluctuate with the market',
+        ENG: 'Fixed prices do not fluctuate with the market.',
         CN: '固定价格不会随市场波动',
         JP: ''
     }],
@@ -593,7 +593,7 @@ const strings = new Map([
     }],
     ['paymentWindowExplain', {
         KOR: '구매자는 지불 기간 내에 지불금을 이체해야 합니다. 그러지 못할 경우 거래는 자동으로 취소됩니다',
-        ENG: 'Buyer should initiate the payment within the payment window. Otherwise the order will be cancelled automatically',
+        ENG: 'Buyer should initiate the payment within the payment window. Otherwise the order will be cancelled automatically.',
         CN: '买家需在付款期限内转账并点击确认付款按钮，超过时限该笔交易将自动取消，您可以依据不同交易方式来调整时限',
         JP: ''
     }],
@@ -701,7 +701,7 @@ const strings = new Map([
     }],
     ['termsTransactionPlaceholder', {
         KOR: '주문 시, 거래 조건이 상대방에게 표시됩니다',
-        ENG: 'Your trading terms will be displayed to each other when placing an order',
+        ENG: 'Your trading terms will be displayed to each other when placing an order.',
         CN: '您的交易条款会在下单时，向对方展示',
         JP: ''
     }],
@@ -1153,7 +1153,7 @@ const strings = new Map([
         CN: '订单号',
         JP: ''
     }],
-    ['AdsType', {
+    ['adsType', {
         KOR: '광고 종류',
         ENG: 'Ads Type',
         CN: '交易类型',
@@ -1173,7 +1173,7 @@ const strings = new Map([
     }],
     ['orderFilterPlaceholder', {
         KOR: '주문 날짜/상태/번호/통화',
-        ENG: 'Order Date/Status/Number/Currency',
+        ENG: 'Date/Status/Number/Currency',
         CN: '订单日期/状态/编号/币种',
         JP: ''
     }],
@@ -1261,13 +1261,63 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['noOrders', {
+        KOR: '주문 기록이 없습니다',
+        ENG: 'No more orders',
         CN: '',
         JP: ''
     }],
 
+    //My Ads
+
+    ['adsFilterPlaceholder', {
+        KOR: '생성날짜/통화/거래종류/광고번호',
+        ENG: 'Date / Currency / Type / Number',
+        CN: '创建时间/币种/交易类型/广告编号',
+        JP: ''
+    }],
+    ['buySell', {
+        KOR: '구입/판매',
+        ENG: 'Buy/Sell',
+        CN: '购买/出售',
+        JP: ''
+    }],
+    ['adsNo', {
+        KOR: '광고 번호',
+        ENG: 'No.',
+        CN: '',
+        JP: ''
+    }],
+    ['adsNoPlaceholder', {
+        KOR: '광고 번호를 입력해 주십시오',
+        ENG: 'Please enter Ads number',
+        CN: '',
+        JP: ''
+    }],
+    ['edit', {
+        KOR: '수정',
+        ENG: 'Edit',
+        CN: '',
+        JP: ''
+    }],
+    ['enable', {
+        KOR: '허용',
+        ENG: 'Enable',
+        CN: '',
+        JP: ''
+    }],
+    ['delete', {
+        KOR: '삭제',
+        ENG: 'Delete',
+        CN: '',
+        JP: ''
+    }],
+    ['share', {
+        KOR: '공유',
+        ENG: 'Share',
+        CN: '',
+        JP: ''
+    }],
 
     //Balance
     ['Details', {

@@ -168,7 +168,7 @@
         </div>
 
         <!--paid 설명-->
-        <div class="payment-explain-wrapper color-orange-price h6 line-height-1 text-xs-left pt-3 pb-3 pr-2 pl-2 mb-4a"
+        <div class="payment-explain-wrapper color-orange-price h6 line-height-1 text-xs-left pt-3 pb-3 pr-2 pl-2 mb-4"
              v-if="status === 'pending'">
             <div class="mr-2">
                 <i class="material-icons color-orange-price">info</i>

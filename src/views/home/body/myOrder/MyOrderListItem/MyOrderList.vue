@@ -8,7 +8,7 @@
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("TransactionType")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.exType}}</v-flex>
+        <v-flex xs5 text-xs-right><span class="mr-4 color-orange-price bold">{{orderlist.tradeType === "sell"? $str("sell") : $str("buy")}}</span>{{orderlist.exType}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("transactionCount")}}</v-flex>
@@ -34,8 +34,6 @@
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("TradingPartners")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue>{{orderlist.partner}}</v-flex>
       </v-layout>
-
-
     </div>
     <div v-else>
       <v-layout userList pt-4 >
@@ -58,16 +56,7 @@
     export default {
         name: "MyOrderList",
         props : {
-            orderNum: '',
-            exType : 0,
-            exNum : 0,
-            totalPrice : 0,
-            unitPrice : 0,
-            time: 0,
-            status : '',
-            partner : '',
             orderlist : {},
-            currency : ""
         },
         methods : {
 
