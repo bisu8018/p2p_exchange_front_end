@@ -125,7 +125,7 @@
         </v-layout>
         <v-layout mt-4a>
           <v-flex xs9 offset-xs2 text-xs-left>
-            <button class="common-normal-button" @click="">{{$str("confirm")}}</button>
+            <button class="btn-blue" @click="goTrade">{{$str("confirm")}}</button>
           </v-flex>
         </v-layout>
         <v-layout mt-4>
@@ -217,7 +217,7 @@
               </span>
             </v-layout>
           </v-flex>
-
+          <!--둘째줄-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
               {{user.volumeTotal}} {{currency}}
@@ -230,16 +230,43 @@
           <v-flex md4>
             <!-- 수평: 양쪽으로 벌리고, 수직: 가운데정렬-->
             <v-layout align-center justify-space-between row fill-height>
-            <input type="number" class="input userInput textRightPlaceholder" name="toValue" v-model="toValue"
-                   :placeholder="currency">
+              <!--to input-->
+              <div class="p-relative">
+                <input type="number" class="input userInput textRightPlaceholder"
+                       name="toValue" v-model="toValue" :placeholder="currency"
+                       @blur="onChecktoValue"
+                       v-bind:class="{'warning-border' : warning_toValue}"
+                >
+                <div class="warning-text-wrapper">
+                  <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
+                </div>
+              </div>
+              <!--가운데 아이콘-->
             <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
-            <input type="number" class="input userInput textRightPlaceholder" name="fromValue" v-model="fromValue"
-                   :placeholder="token">
+              <!--from input-->
+            <div class="p-relative">
+              <input type="number" class="input userInput textRightPlaceholder"
+                     name="fromValue" v-model="fromValue"
+                     :placeholder="token"
+                     @blur="onCheckfromValue"
+                     v-bind:class="{'warning-border' : warning_fromValue}"
+              >
+                <div class="warning-text-wrapper">
+                  <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
+                    {{verify_warning_fromValue}}</p>
+                </div>
+            </div>
             </v-layout>
           </v-flex>
           <v-flex md3 text-md-left>
-            <button class="btn-rounded-blue btn-blue-hover mr-3">{{$str("confirm")}} </button>
-            <button class="btn-rounded-white text-white-hover" @click="drawer = !drawer">{{$str("cancel")}} </button>
+            <!--confirm 버튼-->
+            <button class="btn-rounded-blue btn-blue-hover mr-3"
+                    @click="goTrade">{{$str("confirm")}}
+            </button>
+            <!--cancel 버튼-->
+            <button class="btn-rounded-white text-white-hover"
+                    @click="drawer = !drawer">{{$str("cancel")}}
+            </button>
           </v-flex>
         </v-layout>
         <v-layout row wrap tradeWebModal-secondRow>
@@ -258,8 +285,14 @@
           </v-flex>
           <v-flex md3 text-md-right>
             <div v-if="tradeType =='SELL'">
-              <input type="text" class="input userInput textLeftPlaceholder" name="tradePW" v-model="tradePW"
-                     :placeholder="pwPlaceholder">
+              <input type="text" class="input userInput textLeftPlaceholder"
+                     name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
+                     @blur="onChecktradePassword"
+                     v-bind:class="{'warning-border' : warning_tradePassword}"
+              >
+              <div class="warning-text-wrapper">
+                <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
+              </div>
             </div>
           </v-flex>
           <v-flex md2 text-md-right>
@@ -284,6 +317,7 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
     export default {
@@ -296,11 +330,15 @@
             tradePassword : '',
             token : 'BTC',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-            tradeType : 'BUY',  //살건지 팔건지 여부.
+            tradeType : 'SELL',  //살건지 팔건지 여부.
             tradePW : '',       // Trade Password
             rankSrc : '',
-
-
+            verify_warning_toValue: "",
+            verify_warning_fromValue: "",
+            verify_warning_tradePassword: "",
+            warning_toValue: false,
+            warning_fromValue: false,
+            warning_tradePassword: false,
 
         }),
         components:{Avatar},
@@ -308,6 +346,45 @@
             user: {},
         },
         methods : {
+            onChecktoValue(){
+                console.log('123');
+                if (this.toValue === "") {
+                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    this.warning_toValue = true;
+                    return false;
+                }
+                this.warning_toValue = false;
+                return true;
+            },
+            onCheckfromValue(){
+                if (this.fromValue === "") {
+                    this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    this.warning_fromValue = true;
+                    return false;
+                }
+                this.warning_fromValue = false;
+                return true;
+            },
+            onChecktradePassword(){
+                if (this.tradePassword === "") {
+                    this.verify_warning_tradePassword = Vue.prototype.$str("warning_trade_password");
+                    this.warning_tradePassword = true;
+                    return false;
+                }
+                this.warning_tradePassword = false;
+                return true;
+            },
+            goTrade(){
+                switch (this.tradeType) {
+                    case 'BUY':
+                        this.$router.push("/buy");
+                        break;
+
+                    case 'SELL':
+                        this.$router.push("/sell");
+                        break;
+                }
+            },
 
         },
         mounted(){
@@ -339,7 +416,7 @@
   }
   .userInput{
     border: solid 1px #b2b2b2;
-    width: 153px;
+    max-width: 153px;
   }
   .mobileInput{
     height: 36px;
@@ -359,7 +436,7 @@
 
   }
   .userRank{
-    width: 16px;
+    max-width: 16px;
     height: 18px;
     margin-left: 16px;
   }

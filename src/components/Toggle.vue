@@ -18,20 +18,21 @@
 <style scoped>
 
     .toggle-wrapper {
-        width: 60px;
-        height: 28px;
+        width: 48px;
+        height: 26px;
         background: #c8c8c8;
         border-radius: 17px;
         padding-top: 3px;
-        padding-left: 4px;
+        padding-left: 3px;
         display: inline-block;
+        vertical-align: middle;
     }
 
     .circle-button{
         background: white;
         border-radius: 17px;
-        width: 21px;
-        height: 21px;
+        width: 20px;
+        height: 20px;
     }
 
     .toggle-turn-on {

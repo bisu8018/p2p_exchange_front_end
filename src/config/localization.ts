@@ -307,6 +307,12 @@ const strings = new Map([
         CN: '买方付款时限为15分钟',
         JP: ''
     }],
+    ['Please_enter_a_vaild_number', {
+        KOR: '올바른 숫자를 입력하십시오.',
+        ENG: 'Please enter a vaild number',
+        CN: '请输入有效的号码',
+        JP: ''
+    }],
 
   //  header
   ['exchange', {

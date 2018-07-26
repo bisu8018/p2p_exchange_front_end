@@ -100,11 +100,17 @@
                                 <div>{{$str("Merchant")}}</div>
                             </button>
                         </v-flex>
+                        <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("MyPage")}}</div>
+                            </button>
+                        </v-flex>
                         <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
                             <button class="text-xs-left ml-3">
                                 <div>{{$str("LogOut")}}</div>
                             </button>
                         </v-flex>
+
 
 
                     </v-layout>

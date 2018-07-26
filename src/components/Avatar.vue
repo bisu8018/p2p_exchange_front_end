@@ -61,7 +61,7 @@
   }
   .loginCircle{
     position: relative;
-    top: -8px;
+    margin-top: -8px;
     left: 24px;
     height: 10px;
     width: 10px;
