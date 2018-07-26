@@ -1,5 +1,5 @@
 <template>
-    <v-layout pt-5 pb-5 >
+    <v-layout pt-5 pb-5>
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex">
                 <div class="pt-1">
@@ -13,7 +13,7 @@
 
             <!--Email 입력필드-->
             <div class="text-xs-left mb-2 color-black mt-4">{{$str("email")}}</div>
-            <div class="text-input-wrapper">
+            <div class="p-relative">
                 <input name="email" v-model="email" type="text" class="input mb-4"
                        v-bind:class="{'warning-border' : warning_email}" @blur="onCheckEmail">
                 <div class="warning-text-wrapper">
@@ -27,7 +27,7 @@
                 <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4"
                        autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
                        @blur="onCheckVerificationCode">
-                <span class="click-send-text" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
@@ -36,18 +36,19 @@
 
             <!--비밀번호 입력필드-->
             <div class="text-xs-left mb-2 color-black">{{$str("password")}}</div>
-            <div class="text-input-wrapper">
+            <div class="p-relative">
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
                        class="input mb-4" :placeholder="$str('passwordPlaceholder')"
                        v-bind:class="{'warning-border' : warning_password}" @blur="onCheckPassword">
                 <div class="warning-text-wrapper">
-                    <span class="d-none" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
+                    <span class="d-none"
+                          v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
                 </div>
             </div>
 
             <!--비밀번호 확인 입력필드-->
             <div class="text-xs-left mb-2 color-black">{{$str("passwordConfirm")}}</div>
-            <div class="text-input-wrapper">
+            <div class="p-relative">
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
                        class="input mb-4" :placeholder="$str('passwordPlaceholder')"
                        v-bind:class="{'warning-border' : warning_password_confirm}" @blur="onCheckPasswordConfirm">
@@ -59,8 +60,8 @@
             <!--이용약관 체크박스-->
             <div class="mb-4 text-xs-left">
                 <label class="h6"><input id="termsCheckbox" type="checkbox" v-model="checkbox"
-                                              @click="onCheckTerms()"
-                                              class="mr-2">{{$str('termsLabel')}}</label>
+                                         @click="onCheckTerms()"
+                                         class="mr-2">{{$str('termsLabel')}}</label>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
@@ -114,7 +115,8 @@
         }),
         methods: {
             // 전체 값 체크
-            onCheck() {this.showModal = true;
+            onCheck() {
+                this.showModal = true;
                 if (this.onCheckEmail() && this.onCheckVerificationCode() && this.onCheckPassword() && this.onCheckTerms()) {
                     this.showModal = true;
                 }
@@ -243,7 +245,7 @@
     });
 </script>
 
-<style >
+<style>
     .selectbox-width {
         width: 100%;
     }
@@ -257,7 +259,6 @@
         height: 24px;
     }
 
-
     .click-send-text {
         font-size: 12px;
         font-weight: 500;
@@ -265,7 +266,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #214ea1;
+        color: #c8c8c8;
         position: absolute;
         right: 11px;
         top: 10px;

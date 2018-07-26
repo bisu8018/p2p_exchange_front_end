@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <v-flex pa-2 class="order-filter p-relative text-xs-left" md8>
+        <v-flex pa-2 class="order-filter p-relative text-xs-left" m>
             <span class="color-darkgray  ">{{$str("adsFilterPlaceholder")}}</span>
             <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                @click.stop="isModal = !isModal">filter_list</i>

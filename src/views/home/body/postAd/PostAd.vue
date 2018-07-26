@@ -548,7 +548,7 @@
                 if(type === 'price'){
                     let temp = this.priceValue;
                     if(!abUtils.isDouble(temp)){
-                        return this.priceValue = null;
+                        return this.priceValue = "";
                     }
                     return this.priceValue = abUtils.toDeleteZero(temp);
                 }else if(type === 'volume'){
@@ -814,10 +814,6 @@
         margin-left: 5px;
     }
 
-    /*높이 재조정*/
-    .warning-text-wrapper {
-        top: 42px !important;
-    }
 
     .verify-slider-wrapper {
         max-width: 290px;

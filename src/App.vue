@@ -557,7 +557,9 @@
         position: absolute !important;
         bottom: 6px !important;
         right: 0 !important;
+        top: 42px !important;
     }
+
     /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
 
     .v-ripple__container {

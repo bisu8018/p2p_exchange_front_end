@@ -20,19 +20,19 @@
             <span v-else>
             <!-- Web 일때-->
                 <!-- 표의 header들 -->
-                <v-layout mb-3>
-                    <v-flex md1 text-md-left>{{$str("OrderNumber")}}</v-flex>
-                    <v-flex md2 text-md-left>{{$str("TransactionType")}}</v-flex>
-                    <v-flex md2 text-md-left>{{$str("transactionCount")}}</v-flex>
+                <v-layout mb-2 color-darkgray>
+                    <v-flex md1 text-md-left>{{$str("orderNo")}}</v-flex>
+                    <v-flex md2 text-md-left>{{$str("orderType")}}</v-flex>
+                    <v-flex md1 text-md-left>{{$str("volumeText")}}</v-flex>
                     <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
-                    <v-flex md1 text-md-left>{{$str("unitPrice")}}</v-flex>
-                    <v-flex md2 text-md-left>{{$str("time")}}</v-flex>
+                    <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
+                    <v-flex md3 text-md-left>{{$str("time")}}</v-flex>
                     <v-flex md1 text-md-left>{{$str("status")}}</v-flex>
-                    <v-flex md1 text-md-right>{{$str("TradingPartners")}}</v-flex>
+                    <v-flex md1 text-md-right>{{$str("counterparty")}}</v-flex>
                 </v-layout>
                 <v-divider></v-divider>
                 <!-- user item list들 10개씩 출력-->
-                <v-flex v-for="(orderlist) in orderLists" md12>
+                <v-flex v-for="(orderlist) in orderLists" >
                     <my-order-list
                             :orderlist="orderlist"
                     ></my-order-list>
@@ -60,7 +60,45 @@
         name: "MyOrder",
         components: {ListFilter, Pagination, MyOrderList, MyOrderFilter},
         data: () => ({
-            orderLists: [],
+            orderLists: [
+                {
+                    orderNum: '6517',
+                    exType: 'ETH',
+                    exNum: 66.0,
+                    totalPrice: 224,
+                    price: 44.0,
+                    time: '11:59:59',
+                    status: 'Complete',
+                    partner: 'haohao',
+                    currency: 'CNY',
+                    tradeType : 'sell'
+                },
+                {
+                    orderNum: '6517',
+                    exType: 'ETH',
+                    exNum: 66.0,
+                    totalPrice: 224,
+                    price: 44.0,
+                    time: '11:59:59',
+                    status: 'Complete',
+                    partner: 'haohao',
+                    currency: 'CNY',
+                    tradeType : 'sell'
+                },
+                {
+                    orderNum: '6517',
+                    exType: 'ETH',
+                    exNum: 66.0,
+                    totalPrice: 224,
+                    price: 44.0,
+                    time: '11:59:59',
+                    status: 'Complete',
+                    partner: 'haohao',
+                    currency: 'CNY',
+                    tradeType : 'buy'
+                },
+
+            ],
         }),
         created() {
 

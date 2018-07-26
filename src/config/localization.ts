@@ -1110,16 +1110,10 @@ const strings = new Map([
         CN: '订单号',
         JP: ''
     }],
-    ['TransactionType', {
+    ['orderType', {
         KOR: '거래 유형',
-        ENG: 'Transaction type',
+        ENG: 'Order type',
         CN: '交易类型',
-        JP: ''
-    }],
-    ['transactionCount', {
-        KOR: '거래 수',
-        ENG: 'Transaction Count',
-        CN: '交易数量',
         JP: ''
     }],
     ['TotalPrice', {
@@ -1128,21 +1122,15 @@ const strings = new Map([
         CN: '总价',
         JP: ''
     }],
-    ['unitPrice', {
-        KOR: '단가',
-        ENG: 'Unit price',
-        CN: '单价',
-        JP: ''
-    }],
     ['status', {
         KOR: '상태',
         ENG: 'Status',
         CN: '状态',
         JP: ''
     }],
-    ['TradingPartners', {
-        KOR: '교환 상대',
-        ENG: 'Trading partners',
+    ['counterparty', {
+        KOR: '거래자',
+        ENG: 'Counterparty',
         CN: '交易对象',
         JP: ''
     }],
@@ -1160,7 +1148,7 @@ const strings = new Map([
         JP: ''
     }],
     ['adsType', {
-        KOR: '광고 종류',
+        KOR: '광고유형',
         ENG: 'Ads Type',
         CN: '交易类型',
         JP: ''

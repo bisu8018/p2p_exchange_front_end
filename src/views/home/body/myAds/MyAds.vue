@@ -4,7 +4,7 @@
             <!--header-->
             <div class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</div>
             <v-spacer></v-spacer>
-            <v-flex md6 xs12>
+            <v-flex md4 xs12>
                 <my-ads-filter class="myOrderFilter"></my-ads-filter>
             </v-flex>
         </v-layout>
@@ -16,11 +16,12 @@
                     <my-ads-list :adslist="adslist"></my-ads-list>
                 </v-flex>
             </span>
-            <span v-else>
+
             <!-- Web 일때-->
-                <!-- 표의 header들 -->
-                <v-layout mb-3>
-                  <v-flex md1 text-md-left>{{$str("No")}}</v-flex>
+            <span v-else>
+                <!-- header -->
+                 <v-layout mb-2 color-darkgray>
+                  <v-flex md1 text-md-left>{{$str("orderNo")}}</v-flex>
                   <v-flex md2 text-md-left>{{$str("adsType")}}</v-flex>
                   <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
                   <v-flex md2 text-md-left>{{$str("limits")}}</v-flex>
@@ -30,7 +31,7 @@
                 </v-layout>
                 <v-divider></v-divider>
                 <!-- user ad list들 10개씩 출력-->
-                <v-flex v-for="(adslist,index) in adsLists" md12>
+                <v-flex v-for="(adslist,index) in adsLists" pl-0 pr-0>
                   <my-ads-list
                           :adslist="adslist"
                   ></my-ads-list>
@@ -60,7 +61,7 @@
             adsLists: [
                 {
                     no: '6517',
-                    adType: 'ETH',
+                    token: 'ETH',
                     amount: 6,
                     limits: 224,
                     price: 44.0,
@@ -71,7 +72,7 @@
                 },
                 {
                     no: '6518',
-                    adType: 'ETH',
+                    token: 'ETH',
                     amount: 2,
                     limits: 1000,
                     price: 44.0,
@@ -81,7 +82,7 @@
                 },
                 {
                     no: '6519',
-                    adType: 'BTC',
+                    token: 'BTC',
                     amount: 0.1,
                     limits: 100,
                     price: 44.0,
