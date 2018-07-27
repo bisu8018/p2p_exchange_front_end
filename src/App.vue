@@ -726,6 +726,17 @@
     .f-left {
         float: left;
     }
+
+    /*길이관련*/
+
+    .w-full {
+        width: 100%;
+    }
+
+    .w-half {
+        width: 50%;
+    }
+
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
 
     /*<a class="tooltips">*/

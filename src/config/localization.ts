@@ -943,13 +943,13 @@ const strings = new Map([
     }],
     ['buyingExplain3', {
         KOR: '가 영수증 발급 확인한 뒤에 전달 받게 될 것입니다.',
-        ENG: 'confirm receipt and',
+        ENG: 'confirm receipt and release, ',
         CN: '',
         JP: ''
     }],
     ['buyingExplain4', {
         KOR: '지불 참조 번호',
-        ENG: 'release, ',
+        ENG: ' ',
         CN: '',
         JP: ''
     }],
@@ -1204,12 +1204,6 @@ const strings = new Map([
     ['cancelled', {
         KOR: '취소',
         ENG: 'Cancelled',
-        CN: '',
-        JP: ''
-    }],
-    ['complete', {
-        KOR: '완료',
-        ENG: 'Complete',
         CN: '',
         JP: ''
     }],
@@ -1515,8 +1509,8 @@ function checkLocale(): Lang {
   }
 }
 
-let currentLang: Lang = Lang.EN;
- //let currentLang: Lang = checkLocale();
+//let currentLang: Lang = Lang.EN;
+ let currentLang: Lang = checkLocale();
 
 
 export function abGetLang (): Lang {

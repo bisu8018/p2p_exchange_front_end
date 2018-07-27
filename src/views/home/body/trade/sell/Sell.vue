@@ -1,20 +1,20 @@
 <template>
-    <v-layout mt-5 mb-5 column>
-        <div class="flex-divide mb-4">
-            <div class="color-darkgray h6 text-xs-left mb-4">
+    <div class="mt-5 mb-5 ">
+        <v-layout column mb-4 flex-divide>
+            <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
-                {{$str('orderText')}} : #{{orderNumber}}
+                Order : #{{orderNumber}}
+
             </div>
-            <div class="h1 bold color-black text-xs-left mb-3 line-height-1">
+            <div class="h1 bold color-black text-xs-left mb-3 line-height-1 ">
                 <!--{{ad_type}} buy/sell -->
-                <div>Sell
-                    <!--{{volume}} 토큰량 -->
-                    {{volumeTotal}}
-                    <!--{{token}} 토큰종류-->
-                    {{token}} To
-                </div>
+                Sell
+                <!--{{volume}} 토큰량 -->
+                {{volumeTotal}}
+                <!--{{token}} 토큰종류-->
+                {{token}} To
                 <!--{{email}} 이메일-->
-                <div>{{email}}</div>
+                <div class="d-inline-block">{{email}}</div>
             </div>
             <div class="text-xs-left mb-4 line-height-1">
                 <div class="color-black mb-3 ">
@@ -27,67 +27,77 @@
                 <div class="color-black">
                     {{$str('amount')}} :
                     <!--{{price}} 가격 -->
-                    <span class="ml-3 h3 color-orange-price bold">{{price}}
-                        <!--{{currency}} 화폐단위-->
+                    <div class="c-pointer tooltip d-inline-block">
+                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{price}}
+                     <!--{{currency}} 화폐단위-->
                         {{currency}}</span>
+                        <input type="text" :value="price" id="amountValue" class="referenceNum">
+                        <span class="tooltip-content">Copy</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class=" mb-4" v-if="status != 'cancel'">
+        </v-layout>
+        <v-layout wrap row v-if="status != 'cancel'" :class="{'mb-4' : isMobile()}">
             <!--알리페이 결제-->
-            <div class="payment-wrapper mb-3 " v-if="alipay === 'Y'">
-                <div class="payment-wrapper width-half">
-                    <div class="mr-2">
-                        <img src="@/assets/img/method_alipay.png">
-                    </div>
-                    <div class="color-darkgray">
+            <v-flex xs6 md2 mb-3 v-if="alipay === 'Y'">
+                <div class="text-xs-left vertical-center">
+                    <img src="@/assets/img/method_alipay.png">
+                    <span class="ml-2 color-darkgray">
                         {{$str("alipayText")}}
-                    </div>
+                    </span>
                 </div>
-                <div class="text-xs-right width-half color-black">
-                    <!--알리페이 정보-->
+            </v-flex>
+            <!--알리페이 정보-->
+            <v-flex xs6 md4 mb-3 v-if="alipay === 'Y'">
+                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
                     {{alipay_address}}
                 </div>
-            </div>
-            <div class="text-xs-right mb-3 line-height-1">
-                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                <div class="d-inline-block color-black h6"> QR Code</div>
-            </div>
+            </v-flex>
+            <!--알리페이 QR코드-->
+            <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="alipay === 'Y'">
+                <label @click="onQRcode('alipay')" class="c-pointer vertical-center d-block">
+                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                    <div class="d-inline-block color-black h6"> QR Code</div>
+                </label>
+            </v-flex>
             <!--위챗페이 결제-->
-            <div class="payment-wrapper mb-3" v-if="wechat === 'Y'">
-                <div class="payment-wrapper width-half">
-                    <div class="mr-2">
-                        <img src="@/assets/img/method_wechatpay.png">
-                    </div>
-                    <div class="color-darkgray">
+            <v-flex xs6 md2 mb-3 v-if="wechat === 'Y'">
+                <div class="text-xs-left vertical-center ">
+                    <img src="@/assets/img/method_wechatpay.png">
+                    <span class="ml-2 color-darkgray">
                         {{$str("wechatPayText")}}
-                    </div>
+                    </span>
                 </div>
-                <div class="text-xs-right width-half color-black">
-                    <!--위챗페이정보-->
+            </v-flex>
+            <!--위챗페이정보-->
+            <v-flex xs6 md4 mb-3 v-if="wechat === 'Y'">
+                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
                     {{wechatpay_address}}
                 </div>
-            </div>
-            <div class="text-xs-right mb-3 ">
-                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                <div class="d-inline-block color-black h6"> QR Code</div>
-            </div>
+            </v-flex>
+            <!--위챗페이 QR코드-->
+            <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
+                <label @click="onQRcode('wechat')" class="c-pointer vertical-center d-block">
+                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                    <div class="d-inline-block color-black h6"> QR Code</div>
+                </label>
+            </v-flex>
             <!--은행 계좌 결제-->
-            <div class="payment-wrapper" v-if="bankAccount === 'Y'">
-                <div class="payment-wrapper width-half">
-                    <div class="mr-2">
-                        <img src="@/assets/img/method_bankaccount.png">
-                    </div>
-                    <div class="color-darkgray">
+            <v-flex xs6 md2 mb-3 v-if="bankAccount === 'Y'">
+                <div class="text-xs-left vertical-center">
+                    <img src="@/assets/img/method_bankaccount.png">
+                    <span class="ml-2 color-darkgray">
                         {{$str("bankAccountText")}}
-                    </div>
+                    </span>
                 </div>
-                <div class="text-xs-right width-half color-black">
-                    <!--은행계좌 정보-->
+            </v-flex>
+            <!--은행계좌 정보-->
+            <v-flex xs6 md10 mb-3 v-if="bankAccount === 'Y'">
+                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
                     {{bankaccount_address}}
                 </div>
-            </div>
-        </div>
+            </v-flex>
+        </v-layout>
 
 
         <div class="h4 bold color-black text-xs-left mb-4 line-height-1">
@@ -132,8 +142,9 @@
             </div>
         </div>
 
-        <div class="mb-4" v-if="status != 'complete'">
-            <!--paying process indicator (paying 상태 일때) -->
+        <!--paying process indicator (paying 상태 일때) -->
+        <v-flex xs12 mb-4 v-if="status != 'complete'">
+            <v-flex md3>
             <span v-if="status === 'paying'" class="p-relative">
                 <input type="text" class="buying-process"
                        :value="$str('buyingIndicator')"
@@ -141,24 +152,19 @@
                 <v-progress-circular indeterminate class="color-blue progress-circular"
                 ></v-progress-circular>
             </span>
-
+            </v-flex>
+        </v-flex>
+        <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="status === 'confirm'">
             <!--거래 성사 버튼 (confirm 상태 일때) -->
-            <span  v-if="status === 'confirm'">
-                <input type="button" class="btn-blue btn-blue-hover mb-4"
-                       :value="$str('confirmRelease')" @click="onModal('confirm')">
-                <div class="text-xs-left">
-                    <input class="text-white-hover btn-white h5" type="button"
-                           :value="$str('appeal')" @click="onModal('appeal')">
-                </div>
-            </span>
-        </div>
+            <input type="button" class="btn-blue btn-blue-hover mb-4"
+                   :value="$str('confirmRelease')" @click="onModal('confirm')">
+        </v-flex>
 
         <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
         <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-else>
             <div><i class="material-icons check-icon">check_circle</i></div>
         </div>
         <div>
-
             <!--채팅창-->
 
         </div>
@@ -173,13 +179,21 @@
                 {{$str('sellChecklist3')}}
             </p>
         </div>
+
+        <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="status === 'confirm'">
+            <!--거래 성사 버튼 (confirm 상태 일때) -->
+                    <input class="text-white-hover btn-rounded-white h5" type="button"
+                           :value="$str('appeal')" @click="onModal('appeal')">
+        </v-flex>
+
         <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"></sell-modal>
-    </v-layout>
+    </div>
 </template>
 
 <script lang="ts">
     import Vue from 'vue';
     import SellModal from './sellModal/SellModal.vue';
+    import MainRepository from "../../../../../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'sell',
@@ -204,7 +218,7 @@
             paymentWindow: 15,
             reference: 453534,
             showModal: false,
-            status: 'confirm',     //paying -> confirm -> complete
+            status: 'complete',     //paying -> confirm -> complete
             modalType: '',
             appealCode: 977057
         }),
@@ -217,6 +231,9 @@
             }
         },
         methods: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
             onConfirm() {
                 // confirm
                 // post 작업 성공시
@@ -240,6 +257,13 @@
                 this.showModal = true;
                 this.modalType = type;
             },
+            onQRcode(type) {
+                if (type === "alipay") {
+                    console.log("alipay qr code");
+                } else {
+                    console.log("wechat qr code");
+                }
+            }
         },
 
     });
@@ -351,5 +375,9 @@
         line-height: 1.13;
     }
 
+    .flex {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
 
 </style>

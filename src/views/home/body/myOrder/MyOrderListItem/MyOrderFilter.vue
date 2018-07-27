@@ -87,7 +87,7 @@
 
         <!--데스크탑 환경에서만 표시 -->
         <v-flex md4 pl-4 pr-0 v-if="!isMobile">
-            <button class="color-blue btn-white text-white-hover" >{{$str("Export")}}</button>
+            <button class="color-blue btn-white btn-blue-hover" >{{$str("Export")}}</button>
         </v-flex>
 
 
