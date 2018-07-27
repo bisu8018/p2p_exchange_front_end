@@ -29,7 +29,7 @@
                     <p class="text-xs-left color-darkgray">*Using two-factor authentication is highly recommended.</p>
                     <v-divider class="mt-4 mb-4"></v-divider>
                     <v-layout wrap row>
-                        <v-flex xs8><img src="@/assets/img/mypage/email.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Email</h5><h5 class="mb-3 ml-4 pl-3">Bound</h5></v-flex>
+                        <v-flex xs8><div class="sprite-img ic-email f-left mr-3"></div><h5 class="color-darkgray mb-3">Email</h5><h5 class="mb-3 ml-4 pl-3">Bound</h5></v-flex>
                         <v-spacer></v-spacer>
                         <v-flex xs2 class="mt-3"><h6><a class="color-blue">Close</a></h6></v-flex>
 
@@ -40,7 +40,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row>
-                        <v-flex xs8><img src="@/assets/img/mypage/phone.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Phone</h5><h5 class="mb-3 ml-4 pl-3 color-darkgray">Unbound</h5></v-flex>
+                        <v-flex xs8><div class="sprite-img ic-phone f-left mr-3"></div><h5 class="color-darkgray mb-3">Phone</h5><h5 class="mb-3 ml-4 pl-3 color-darkgray">Unbound</h5></v-flex>
                         <v-spacer></v-spacer>
                         <v-flex xs2 class="mt-3"><h6><a class="color-blue">Bind</a></h6></v-flex>
 
@@ -52,18 +52,18 @@
 
 
                     <v-layout wrap row>
-                        <v-flex xs12><img src="@/assets/img/mypage/account.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Account</h5><h5 class="ml-4 pl-3 color-black">ab****@allblab.com</h5></v-flex>
+                        <v-flex xs12><div class="sprite-img ic-account f-left mr-3"></div><h5 class="color-darkgray mb-3">Account</h5><h5 class="ml-4 pl-3 color-black">ab****@allblab.com</h5></v-flex>
                     </v-layout>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
 
                     <v-layout wrap row>
-                        <v-flex xs12><img src="@/assets/img/mypage/account.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">UID</h5><h5 class="ml-4 pl-3 color-black">45276327</h5></v-flex>
+                        <v-flex xs12><div class="sprite-img ic-uid f-left mr-3"></div><h5 class="color-darkgray mb-3">UID</h5><h5 class="ml-4 pl-3 color-black">45276327</h5></v-flex>
                     </v-layout>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row>
-                        <v-flex xs8><img src="@/assets/img/mypage/phone.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Password</h5><h5 class="mb-3 ml-4 pl-3 color-black">******</h5></v-flex>
+                        <v-flex xs8><div class="sprite-img ic-password f-left mr-3"></div><h5 class="color-darkgray mb-3">Password</h5><h5 class="mb-3 ml-4 pl-3 color-black">******</h5></v-flex>
                         <v-spacer></v-spacer>
                         <v-flex xs2 class="mt-3"><h6><a class="color-blue">Modify</a></h6></v-flex>
 
@@ -72,7 +72,7 @@
 
 
                     <v-layout wrap row>
-                        <v-flex xs8><img src="@/assets/img/mypage/phone.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Trade Password</h5><h5 class="mb-3 ml-4 pl-3 color-black">******</h5></v-flex>
+                        <v-flex xs8><div class="sprite-img ic-password f-left mr-3"></div><h5 class="color-darkgray mb-3">Trade Password</h5><h5 class="mb-3 ml-4 pl-3 color-black">******</h5></v-flex>
                         <v-spacer></v-spacer>
                         <v-flex xs2 class="mt-3"><h6><a class="color-blue">Modify</a></h6></v-flex>
 
@@ -93,7 +93,7 @@
 
 
                     <v-layout wrap row>
-                        <v-flex xs8><img src="@/assets/img/mypage/phone.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">ID Verification</h5><h5 class="mb-3 ml-4 pl-3 color-black">未绑定, 36**********
+                        <v-flex xs8><div class="sprite-img ic-id f-left mr-3"></div><h5 class="color-darkgray mb-3">ID Verification</h5><h5 class="mb-3 ml-4 pl-3 color-black">未绑定, 36**********
                             51</h5></v-flex>
                         <v-spacer></v-spacer>
                         <v-flex xs2 class="mt-3"><h6 class="color-darkgray">Verified</h6></v-flex>
@@ -102,7 +102,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row>
-                        <v-flex xs8><img src="@/assets/img/mypage/phone.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Advanced Verification</h5><h5 class="mb-3 ml-4 pl-3 color-black">Verified</h5></v-flex>
+                        <v-flex xs8><div class="sprite-img ic-advanced f-left mr-3"></div><h5 class="color-darkgray mb-3">Advanced Verification</h5><h5 class="mb-3 ml-4 pl-3 color-black">Verified</h5></v-flex>
                         <v-spacer></v-spacer>
 
                     </v-layout>
@@ -122,7 +122,7 @@
 
 
                     <v-layout wrap row>
-                        <v-flex xs12><img src="@/assets/img/method_alipay.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Alipay</h5><h5 class="mb-3 ml-4 pl-3 color-black">18529612778 未绑定 Alipay
+                        <v-flex xs12><div class="sprite-img ic-alipay f-left mr-3"></div><h5 class="color-darkgray mb-3">Alipay</h5><h5 class="mb-3 ml-4 pl-3 color-black">18529612778 未绑定 Alipay
                             51</h5></v-flex>
                         <v-layout class="vertical-center">
                         <v-flex xs6 class="text-xs-right mr-4"><h6><a class="color-blue">Modify</a></h6></v-flex>
@@ -133,7 +133,7 @@
 
 
                     <v-layout wrap row>
-                        <v-flex xs12><img src="@/assets/img/method_wechatpay.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Wechatpay</h5><h5 class="mb-3 ml-4 pl-3 color-black">1852961277 未绑定 Wechatpay</h5></v-flex>
+                        <v-flex xs12><div class="sprite-img ic-wechatpay f-left mr-3"></div><h5 class="color-darkgray mb-3">Wechatpay</h5><h5 class="mb-3 ml-4 pl-3 color-black">1852961277 未绑定 Wechatpay</h5></v-flex>
                         <v-layout class="vertical-center">
                             <v-flex xs6 class="text-xs-right mr-4"><h6><a class="color-blue">Modify</a></h6></v-flex>
                             <v-flex xs6><toggle></toggle></v-flex>
@@ -144,7 +144,7 @@
 
 
                     <v-layout wrap row>
-                        <v-flex xs12><img src="@/assets/img/method_bankaccount.png" class="mypage-icon d-inline-block mr-3"><h5 class="color-darkgray mb-3">Bank Account</h5><h5 class="mb-3 ml-4 pl-3 color-black">6214856562128938 未绑定
+                        <v-flex xs12><div class="sprite-img ic-bank f-left mr-3"></div><h5 class="color-darkgray mb-3">Bank Account</h5><h5 class="mb-3 ml-4 pl-3 color-black">6214856562128938 未绑定
                             未绑定未 绑定未绑定未绑定</h5></v-flex>
                         <v-layout class="vertical-center">
                             <v-flex xs6 class="text-xs-right mr-4"><h6><a class="color-blue">Modify</a></h6></v-flex>
@@ -462,7 +462,7 @@
                     <p class="text-md-right color-darkgray">*Using two-factor authentication is highly recommended.</p>
                     <v-divider class="mt-4 mb-4"></v-divider>
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/email.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">Email</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-email f-left mr-3"></div><h5 class="color-darkgray">Email</h5></v-flex>
                         <v-flex md3><h5>Bound</h5></v-flex>
                         <v-flex md4><p class="color-darkgray">*Used to withdraw, retrieve password, change
                             security settings and verify while managing API.</p></v-flex>
@@ -471,7 +471,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/phone.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">Phone</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-phone f-left mr-3"></div><h5 class="color-darkgray">Phone</h5></v-flex>
                         <v-flex md3><h5 class="color-darkgray">Unbound</h5></v-flex>
                         <v-flex md4><p class="color-darkgray">*Used to withdraw, retrieve password, change
                             security settings and verify while managing API.</p></v-flex>
@@ -480,7 +480,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/account.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">Account</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-account f-left mr-3"></div><h5 class="color-darkgray">Account</h5></v-flex>
                         <v-flex md3><h5>ab***@allblab.com</h5></v-flex>
                         <v-flex md4></v-flex>
                         <v-flex md1></v-flex>
@@ -488,7 +488,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/uid.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">UID</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-uid f-left mr-3"></div><h5 class="color-darkgray">UID</h5></v-flex>
                         <v-flex md3><h5>45276327</h5></v-flex>
                         <v-flex md4></v-flex>
                         <v-flex md1></v-flex>
@@ -496,7 +496,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/password.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">Password</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-password f-left mr-3"></div><h5 class="color-darkgray">Password</h5></v-flex>
                         <v-flex md3><h5 class="color-darkgray">******</h5></v-flex>
                         <v-flex md4></v-flex>
                         <v-flex md1><h6><a class="color-blue">Modify</a></h6></v-flex>
@@ -504,7 +504,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/password.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">Trade Password</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-password f-left mr-3"></div><h5 class="color-darkgray">Trade Password</h5></v-flex>
                         <v-flex md3><h5 class="color-darkgray">*******</h5></v-flex>
                         <v-flex md4></v-flex>
                         <v-flex md1><h6><a class="color-blue">Reset</a></h6></v-flex>
@@ -520,7 +520,7 @@
                     </v-layout>
                     <v-divider class="mt-4 mb-4"></v-divider>
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/id.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">ID Verification</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-id f-left mr-3"></div><h5 class="color-darkgray">ID Verification</h5></v-flex>
                         <v-flex md3><h5 class="color-black">未绑定, 36**********51</h5></v-flex>
                         <v-flex md4></v-flex>
                         <v-flex md1><h6 class="color-darkgray">Verified</h6></v-flex>
@@ -528,7 +528,7 @@
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/mypage/advanced_id.png" class="mr-3 mypage-icon"><h5 class="color-darkgray">Advanced Verification</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-advanced f-left mr-3"></div><h5 class="color-darkgray">Advanced Verification</h5></v-flex>
                         <v-flex md3><h5 class="color-black">Verified</h5></v-flex>
                         <v-flex md4></v-flex>
                         <v-flex md1></v-flex>
@@ -545,7 +545,7 @@
                     </v-layout>
                     <v-divider class="mt-4 mb-4"></v-divider>
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/method_alipay.png"  class="mr-3 f-left"><h5 class="color-darkgray">Alipay</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-alipay f-left mr-3"></div><h5 class="color-darkgray">Alipay</h5></v-flex>
                         <v-flex md6><h5 class="color-black">18529612778 未绑定 Alipay</h5></v-flex>
                         <v-flex md1><h6><a class="color-blue">Modify</a></h6></v-flex>
                         <v-flex md1><toggle></toggle></v-flex>
@@ -553,7 +553,7 @@
 
                     <v-divider class="mt-4 mb-4"></v-divider>
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/method_wechatpay.png" class="mr-3 f-left"><h5 class="color-darkgray">Wechatpay</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-wechatpay f-left mr-3"></div><h5 class="color-darkgray">Wechatpay</h5></v-flex>
                         <v-flex md6><h5 class="color-black">1852961277 未绑定 Wechatpay</h5></v-flex>
                         <v-flex md1><h6><a class="color-blue">Modify</a></h6></v-flex>
                         <v-flex md1><toggle></toggle></v-flex>
@@ -561,7 +561,7 @@
 
                     <v-divider class="mt-4 mb-4"></v-divider>
                     <v-layout wrap row class="vertical-center">
-                        <v-flex md4><img src="@/assets/img/method_bankaccount.png" class="mr-3 f-left"><h5 class="color-darkgray">Bank Account</h5></v-flex>
+                        <v-flex md4><div class="sprite-img ic-bank f-left mr-3"></div><h5 class="color-darkgray">Bank Account</h5></v-flex>
                         <v-flex md6><h5 class="color-black">6214856562128938 未绑定 未绑定未 绑定未绑定未绑定</h5></v-flex>
                         <v-flex md1><h6><a class="color-blue">Modify</a></h6></v-flex>
                         <v-flex md1><toggle></toggle></v-flex>
@@ -766,11 +766,6 @@
 
 <style scoped>
 
-    .mypage-icon{
-        float: left;
-        width: 24px;
-
-    }
 
         .flex-pl-0 {
             padding-left: 0px;

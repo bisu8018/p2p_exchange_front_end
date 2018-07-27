@@ -804,4 +804,397 @@
     .application .v-carousel__controls {
         background: none;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*Sprite 이미지*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .ic-no-ad-lg {
+        background: 0px 0px;
+        width: 128px;
+        height: 150px;
+    }
+
+
+    .ic-merchant-ad-lg {
+        background: 0px -150px;
+        width: 128px;
+        height: 128px;
+    }
+
+
+    .ic-merchant-logo-lg {
+        background: -128px -150px;
+        width: 128px;
+        height: 128px;
+    }
+
+    .ic-merchant-service-lg {
+        background: -256px -150px;
+        width: 128px;
+        height: 128px;
+    }
+
+    .ic-merchant-ad-sm {
+        background: 0px -278px;
+        width: 90px;
+        height: 90px;
+    }
+
+
+    .ic-merchant-logo-sm {
+        background: -90px -278px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .ic-merchant-service-sm {
+        background: -180px -278px;
+        width: 90px;
+        height: 90px;
+    }
+
+
+    .ic-complete-lg {
+        background: 0px -368px;
+        width: 86px;
+        height: 86px;
+    }
+
+    .ic-appeal-lg {
+        background: -86px -368px;
+        width: 86px;
+        height: 86px;
+    }
+
+    .ic-cancel-lg {
+        background: -172px -368px;
+        width: 86px;
+        height: 86px;
+    }
+
+
+
+    .ic-no-ad-sm {
+        background: 0px -454px;
+        width: 76px;
+        height: 90px;
+    }
+
+    .ic-upload {
+        background: 0px -544px;
+        width: 34px;
+        height: 24px;
+    }
+
+    .ic-allb-lg {
+        background: 0px -568px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .ic-btc-lg {
+        background: -34px -568px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .ic-usdt-lg {
+        background: -68px -568px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .ic-eth-lg {
+        background: -102px -568px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .ic-watch {
+        background: -136px -568px;
+        width: 34px;
+        height: 34px;
+    }
+
+
+
+
+
+    .ic-logo {
+        background: -30px -602px;
+        width: 30px;
+        height: 24px;
+    }
+
+    .ic-logo-bl {
+        background: 0px -602px;
+        width: 30px;
+        height: 24px;
+    }
+
+    .ic-logo-otc {
+        background: -128px 0px;
+        width: 104px;
+        height: 18px;
+    }
+
+
+
+    .ic-allb-sm {
+        background: 0 -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+
+    .ic-btc-sm {
+        background: -24px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-eth-sm {
+        background: -48px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-usdt-sm {
+        background: -72px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-help {
+        background: -96px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-complete-sm {
+        background: -120px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-email {
+        background: -144px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-phone {
+        background: -168px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-account {
+        background: -192px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-uid {
+        background: -216px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-password {
+        background: -240px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-id {
+        background: -264px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-advanced {
+        background: -288px -626px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .ic-fix {
+        background: -312px -626px;
+        width: 16px;
+        height: 24px;
+    }
+
+
+
+    .ic-bank {
+        background: 0px -650px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .ic-alipay {
+        background: -20px -650px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .ic-wechatpay {
+        background: -40px -650px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .ic-info {
+        background: -60px -650px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .ic-slide {
+        background: -80px -650px;
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .ic-error {
+        background: 0px -670px;
+        width: 18px;
+        height: 16px;
+    }
+
+    .ic-chinese {
+        background: 0px -686px;
+        width: 18px;
+        height: 12px;
+    }
+
+    .ic-english {
+        background: -18px -686px;
+        width: 18px;
+        height: 12px;
+    }
+
+    .ic-korean {
+        background: -36px -686px;
+        width: 18px;
+        height: 12px;
+    }
+
+    .ic-success-lg {
+        background: 0px -698px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .ic-warning {
+        background: -18px -698px;
+        width: 19px;
+        height: 18px;
+    }
+
+
+    .ic-premium {
+        background: 0px -716px;
+        width: 16px;
+        height: 18px;
+    }
+
+    .ic-certified {
+        background: 0px -734px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .ic-success-sm {
+        background: -16px -734px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .ic-unpaid {
+        background: -32px -734px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .ic-cancel-sm {
+        background: -48px -734px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .ic-x {
+        background: 0px -750px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .ic-qr {
+        background: -14px -750px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .ic-ok {
+        background: 0px -765px;
+        width: 16px;
+        height: 16px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    .sprite-img {
+        background-size: 384px 772px;
+        background-image: url(./assets/img/sprite_x2.png);
+    }
+
+
+
+
+
 </style>
