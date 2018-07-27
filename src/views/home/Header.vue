@@ -6,7 +6,7 @@
                 <v-layout class="nav align-center">
                     <!--logo-->
                     <button @click="goMain()" class="ml-3">
-                        <img src="@/assets/img/logo_color.png" class="logo">
+                        <div class="sprite-img ic-logo"></div>
                     </button>
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
                     <v-spacer> </v-spacer>
@@ -122,7 +122,7 @@
                 <v-layout align-center row class="nav">
                     <!-- logo버튼-->
                     <button @click="goMain()" class="ml-4">
-                        <img src="@/assets/img/logo_color.png" class="logo">
+                        <div class="sprite-img ic-logo"></div>
                     </button>
                     <!-- TradeCenter버튼-->
 
@@ -164,18 +164,18 @@
                     <!-- 언어설정버튼 -->
                     <div class="dropdown mr-4a d-block">
                         <!-- 한국어-->
-                        <button v-if="currentLang=='KO'" class="dropbtn">
-                            <img src="@/assets/img/flag3.png">
+                        <button v-if="currentLang=='KO'" class="dropbtn vertical-center">
+                            <div class="sprite-img ic-korean f-left"></div>
                             <span class=" ml-2">한국어<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!-- 영어 -->
-                        <button v-else-if="currentLang=='EN'" class="dropbtn">
-                            <img src="@/assets/img/flag2.png">
+                        <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
+                            <div class="sprite-img ic-english f-left"></div>
                             <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!-- 중국어 -->
-                        <button v-else class="dropbtn">
-                            <img src="@/assets/img/flag1.png">
+                        <button v-else class="dropbtn  vertical-center">
+                            <div class="sprite-img ic-chinese f-left"></div>
                             <span class="ml-2">简体中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!--언어 설정시 dropdown box-->
@@ -303,10 +303,6 @@
         width: 100%;
     }
 
-    .logo {
-        width: 30px;
-        height: 24px;
-    }
 
     .dropDownMenu {
         z-index: 100;

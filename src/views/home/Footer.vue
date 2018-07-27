@@ -4,7 +4,7 @@
       <v-layout wrap row mt-4 mb-4 class="footerContainer">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 mt-4 class="footer-top">
-          <img class="mb-4a" src="@/assets/img/logo_OTC.png">
+          <div class="sprite-img ic-logo-otc mb-4a"></div>
         </v-flex>
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 mt-4 class="footer-top">
@@ -54,18 +54,18 @@
         <v-flex md6 xs12 mb-1 text-md-left>
           <div class="dropup">
             <!-- 한국어모드일때-->
-            <button v-if="currentLang=='KO'" class="dropbtn">
-              <img src="@/assets/img/flag3.png">
+            <button v-if="currentLang=='KO'" class="dropbtn vertical-center">
+              <div class="sprite-img ic-korean f-left"></div>
               <span class=" ml-2 ">한국어<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 영어모드일때 -->
-            <button v-else-if="currentLang=='EN'" class="dropbtn">
-              <img src="@/assets/img/flag2.png">
+            <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
+              <div class="sprite-img ic-english f-left"></div>
               <span class=" ml-2 " >English<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 중국어모드일때 -->
-            <button v-else class="dropbtn">
-              <img src="@/assets/img/flag1.png">
+            <button v-else class="dropbtn vertical-center">
+              <div class="sprite-img ic-chinese f-left"></div>
               <span class=" ml-2">简体中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!--언어 설정시 dropdown box-->
