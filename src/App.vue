@@ -650,6 +650,7 @@
         padding-right: 8px;
         font-size: 14px;
         color: #353535;
+        outline: none;
     }
 
     /*vuetify dialog*/
@@ -735,6 +736,12 @@
 
     .w-half {
         width: 50%;
+    }
+
+    /*아웃라인 없애기*/
+
+    .o-none {
+        outline: none;
     }
 
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
