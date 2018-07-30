@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 ">
+    <div class="mt-5 mb-5 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
@@ -77,7 +77,7 @@
             </v-flex>
             <!--위챗페이 QR코드-->
             <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
-                <label @click="onQRcode('wechat')" class="c-pointer vertical-center d-block">
+                <label @click="onQRcode('wechat')" class="c-pointer  d-block">
                     <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
                     <div class="d-inline-block color-black h6"> QR Code</div>
                 </label>
@@ -105,8 +105,8 @@
                   {{$str("cancelExplain")}}
               </div>
             </v-flex>
-            <v-flex xs12>
-                <v-flex xs12 md5 h4 bold color-black text-xs-left mb-4>
+            <v-flex xs12 mb-4>
+                <v-flex xs12 md5 h4 bold color-black text-xs-left >
                 <span v-if="status != 'cancel' && status === 'pending'" class="mb-3">
                     <!--pending 상태 일때-->
                     {{$str("paymentExplain1")}}
@@ -249,8 +249,17 @@
                 {{$str('transferChecklist3')}}
             </p>
         </div>
+
+        <!--buy modal-->
         <buy-modal :show="showModal" :type="modalType" v-on:paymentConfirm="onPaid" v-on:close="onClose"
                    v-on:cancel="onCancel" v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></buy-modal>
+
+        <div class="p-absolute" style="width: 330px; height: 570px; box-shadow: 1px 1px 8px 0 rgba(0,0,0,0.23); background: white; top:0px; right: 0px">
+            <div style="border-bottom: 1px solid #d1d1d1; height: 82px"></div>
+            <div style="border-bottom: 1px solid #d1d1d1; height: 424px"></div>
+            <div style="height: 62px"><input type="text" style="width: 100%; height: 100%"/></div>
+        </div>
+
     </div>
 </template>
 
