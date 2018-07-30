@@ -549,10 +549,6 @@
         line-height: 1 !important;
     }
 
-    .line-height-full {
-        line-height: 100% !important;
-    }
-
     /* Warning 관련 */
 
     .warning-border {
@@ -662,7 +658,6 @@
         padding-right: 8px;
         font-size: 14px;
         color: #353535;
-        outline: none;
     }
 
     /*vuetify dialog*/
@@ -748,12 +743,6 @@
 
     .w-half {
         width: 50%;
-    }
-
-    /*아웃라인 없애기*/
-
-    .o-none {
-        outline: none;
     }
 
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
@@ -851,9 +840,17 @@
     }
 
 
+    /*섹션 보더 그림자 더 퍼진거*/
 
+    .section-border-depth {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
 
-
+        -webkit-box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+    }
 
 
 

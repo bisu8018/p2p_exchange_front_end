@@ -1255,12 +1255,6 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['chatPlaceholder', {
-        KOR: '글 입력 후 엔터키를 눌러주십시오',
-        ENG: 'Type in and press enter',
-        CN: '',
-        JP: ''
-    }],
 
     //My Ads
 
@@ -1333,7 +1327,7 @@ const strings = new Map([
         JP: ''
     }],
     ['Type', {
-        KOR: '종류',
+        KOR: '예금',
         ENG: 'Type',
         CN: '类型',
         JP: ''
@@ -1455,18 +1449,6 @@ const strings = new Map([
         KOR: '날짜',
         ENG: 'Date',
         CN: '日期',
-        JP: ''
-    }],
-    ['Estimated_Value', {
-        KOR: '예상 금액',
-        ENG: 'Estimated Value',
-        CN: '估计的价值',
-        JP: ''
-    }],
-    ['Security_Deposit', {
-        KOR: '보증금',
-        ENG: 'Security Deposit',
-        CN: '保证金',
         JP: ''
     }],
 

@@ -4,22 +4,22 @@
     <div v-if="isMobile">
       <!--type-->
       <v-layout>
-        <v-flex xs6 text-xs-left>{{$str("Type")}} : </v-flex>
+        <v-flex xs6 text-xs-left>Type : </v-flex>
         <v-flex xs6 text-xs-left>{{detailList.type}}</v-flex>
       </v-layout>
       <!--coin-->
       <v-layout>
-        <v-flex xs6 text-xs-left>{{$str("Coin")}}:</v-flex>
+        <v-flex xs6 text-xs-left>Coin:</v-flex>
         <v-flex xs6 text-xs-left>{{detailList.coin}}</v-flex>
       </v-layout>
       <!-- time-->
       <v-layout>
-        <v-flex xs6 text-xs-left>{{$str("time")}}:</v-flex>
+        <v-flex xs6 text-xs-left>Time:</v-flex>
         <v-flex xs6 text-xs-left>{{detailList.time}}</v-flex>
       </v-layout>
       <!-- ammount -->
       <v-layout>
-        <v-flex xs6 text-xs-left>{{$str("amount")}}:</v-flex>
+        <v-flex xs6 text-xs-left>Amount:</v-flex>
         <v-flex xs6 text-xs-left>{{detailList.amount}} {{detailList.coin}}</v-flex>
       </v-layout>
     </div>
