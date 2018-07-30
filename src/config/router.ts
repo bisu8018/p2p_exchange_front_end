@@ -16,7 +16,7 @@ import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
 import Balances from '../views/home/body/balances/Balances.vue'
 import MyPage from '../views/home/body/myPage/MyPage.vue'
-import merchant from '../views/home/body/merchant/merchant.vue'
+import Merchant from '../views/home/body/merchant/Merchant.vue'
 
 
 Vue.use(Router)
@@ -106,7 +106,7 @@ export default new Router({
         {
             path: '/merchant',
             name: 'merchant',
-            component: merchant
+            component: Merchant,
         },
 
     ],

@@ -453,6 +453,14 @@
     }
 
 
+    /*좌우 가운데 정렬*/
+
+    .horizontal-center {
+        margin: 0 auto;
+    }
+
+
+
     /*태그*/
     h1 {
         font-size: 26px;
@@ -819,12 +827,17 @@
 
 
 
+    /*섹션 보더*/
 
 
-
-
-
-
+    .section-border {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+    }
 
 
 
