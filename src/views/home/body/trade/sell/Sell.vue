@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 ">
+    <div class="mt-5 mb-5 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->

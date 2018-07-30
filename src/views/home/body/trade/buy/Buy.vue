@@ -218,7 +218,7 @@
             </v-flex>
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
-            <v-flex xs6 md12 mb-4a text-md-left text-xs-left
+            <v-flex xs12 mb-4a text-md-left text-xs-left
                     v-if="status != 'paid' && status != 'cancel' && status !='appeal'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
