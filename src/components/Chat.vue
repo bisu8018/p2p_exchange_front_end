@@ -21,9 +21,9 @@
                 <i class="material-icons color-darkgray c-pointer">stay_current_portrait</i>
             </div>
         </div>
-        <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4">
+        <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
             <div v-for="data in message">
-                <div class="mb-3 display-flex" v-if="data.register_member_no === merchant_member_no">
+                <div class="mb-3 display-flex" v-if="data.register_member_no != member_no">
                     <div>
                         <avatar
                                 :name=data.email[0]
@@ -63,7 +63,8 @@
             </div>
         </div>
         <div class="pl-3 input-wrapper">
-            <input type="text" class="o-none chat-input" :placeholder="$str('chatPlaceholder')" v-on:keydown.enter="onPost()"/>
+            <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
+                   v-on:keydown.enter="onPost()" v-on:keyup.enter="scrollBottom()"/>
             <div class="pr-3"><i class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
             </div>
         </div>
@@ -77,10 +78,13 @@
 
     export default Vue.extend({
         name: 'chat',
+        data: () => ({
+            inputValue: "",
+        }),
         components: {
             Avatar
         },
-        props: ['email', 'transactionNum', 'isLogin', 'message', 'color', 'orderNumber','merchant_member_no'],
+        props: ['email', 'transactionNum', 'isLogin', 'message', 'color', 'orderNumber', 'member_no'],
         mounted: function () {
             this.$nextTick(function () {
                 this.loadData();
@@ -88,6 +92,9 @@
                     this.loadData();
                 }.bind(this), 30000);
             })
+        },
+        mounted () {
+            this.scrollBottom();
         },
         computed: {
             setChatDate() {
@@ -117,10 +124,23 @@
                 // data get 성공시 this.message.push();
             },
             onPost() {
-               // data post 작업 진행
+                // AXIOS post 작업 진행
+                var postMessage = {
+                    isLogin: true,
+                    color: 'red',
+                    email: 'Max',
+                    message: this.inputValue,
+                    register_member_no: this.member_no,
+                    register_datetime: '2018-07-30 14:01:00',
+                };
+                this.message.push(postMessage);
+                this.inputValue = "";
+            },
+            scrollBottom() {
+                var chatWrapper = document.getElementById("contentsWrapper");
+                chatWrapper.scrollTop = chatWrapper.scrollHeight;
             }
-        },
-
+        }
     })
 </script>
 
@@ -152,7 +172,8 @@
 
     .contents-wrapper {
         border-bottom: 1px solid #d1d1d1;
-        height: 424px
+        height: 424px;
+        overflow-y: scroll;
     }
 
     .chat-content-wrapper {
