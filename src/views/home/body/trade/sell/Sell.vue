@@ -234,7 +234,7 @@
             paymentWindow: 15,
             reference: 453534,
             showModal: false,
-            status: 'complete',     //paying -> confirm -> complete
+            status: 'paying',     //paying -> confirm -> complete
             modalType: '',
             appealCode: 977057,
             isLogin: true,

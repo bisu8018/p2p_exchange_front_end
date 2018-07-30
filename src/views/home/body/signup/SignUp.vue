@@ -68,11 +68,11 @@
             </div>
 
             <!--로그인/ 회원가입 버튼-->
-            <div class="signup-flex">
-                <v-flex mr-2 xs6>
+            <div class="signup-flex ">
+                <v-flex mr-2 xs6 padding-none>
                     <button class="btn-blue btn-blue-hover" @click="onCheck">{{$str("signupText")}}</button>
                 </v-flex>
-                <v-flex text-xs-left xs6 h6>
+                <v-flex text-xs-left xs6 h6 padding-none>
                     <div class="color-black">{{$str("haveAccount")}}</div>
                     <div><a @click='goLogin' class="h6 color-blue text-white-hover">{{$str("loginText")}}</a></div>
                 </v-flex>
@@ -271,6 +271,11 @@
         right: 11px;
         top: 10px;
         cursor: pointer;
+    }
+
+    .padding-none {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
     }
 
 </style>
