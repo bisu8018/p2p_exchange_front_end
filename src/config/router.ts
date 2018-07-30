@@ -18,7 +18,7 @@ import MyPage from '../views/home/body/myPage/MyPage.vue'
 import Merchant from '../views/home/body/merchant/Merchant.vue'
 
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     routes: [

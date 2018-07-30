@@ -549,6 +549,10 @@
         line-height: 1 !important;
     }
 
+    .line-height-full {
+        line-height: 100% !important;
+    }
+
     /* Warning 관련 */
 
     .warning-border {
