@@ -77,7 +77,7 @@
             </v-flex>
             <!--위챗페이 QR코드-->
             <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
-                <label @click="onQRcode('wechat')" class="c-pointer vertical-center d-block">
+                <label @click="onQRcode('wechat')" class="c-pointer  d-block">
                     <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
                     <div class="d-inline-block color-black h6"> QR Code</div>
                 </label>
@@ -164,18 +164,32 @@
         <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-else>
             <div><i class="material-icons check-icon">check_circle</i></div>
         </div>
-        <div>
-            <!--채팅창-->
-
-        </div>
-        <div class="h6 text-xs-left color-darkgray line-height-1 mt-4">
-            <p class="mb-1">
+        <!--데스크탑 환경에서 설명-->
+        <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
+            <p class="mb-1 h6 line-height-1">
                 {{$str('sellChecklist1')}}
             </p>
-            <p class="mb-1">
+            <p class="mb-1 h6 line-height-1">
                 {{$str('sellChecklist2')}}
             </p>
-            <p class="mb-0">
+            <p class="mb-0 h6 line-height-1">
+                {{$str('sellChecklist3')}}
+            </p>
+        </v-flex>
+        <div>
+            <!--채팅창-->
+            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
+        </div>
+
+        <!--모바일 환경에서 설명-->
+        <div class="h6 text-xs-left color-darkgray line-height-1 mt-4a" v-if="isMobile()">
+            <p class="mb-1 h6">
+                {{$str('sellChecklist1')}}
+            </p>
+            <p class="mb-1 h6">
+                {{$str('sellChecklist2')}}
+            </p>
+            <p class="mb-0 h6">
                 {{$str('sellChecklist3')}}
             </p>
         </div>
@@ -194,11 +208,13 @@
     import Vue from 'vue';
     import SellModal from './sellModal/SellModal.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
+    import Chat from "@/components/Chat.vue"
+
 
     export default Vue.extend({
         name: 'sell',
         components: {
-            SellModal
+            SellModal, Chat
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
@@ -220,7 +236,51 @@
             showModal: false,
             status: 'complete',     //paying -> confirm -> complete
             modalType: '',
-            appealCode: 977057
+            appealCode: 977057,
+            isLogin: true,
+            color: '#13b0cb',
+            transactionNum: 20,
+            merchant_member_no: 0,
+            message: [{
+                email : 'Charles',
+                color: '#13b0cb',
+                isLogin: true,
+                message_no: 0,
+                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
+                message_img_url: '',
+                register_member_no: 0,
+                register_datetime: '2018-07-30 13:00:00',
+            }, {
+                isLogin: true,
+                color: '#13b0cb',
+                email : 'Charles',
+                message_no: 1,
+                message: 'test1234',
+                message_img_url: '',
+                register_member_no: 0,
+                register_datetime: '2018-07-30 13:01:00',
+            }, {
+                isLogin: false,
+                color: 'red',
+                email : 'Max',
+                message_no: 2,
+                message: 'thank you!',
+                message_img_url: '',
+                register_member_no: 1,
+                register_datetime: '2018-07-30 13:10:00',
+            }, {
+                isLogin: true,
+                color: '#13b0cb',
+                email : 'Charles',
+                message_no: 3,
+                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
+                message_img_url: '',
+                register_member_no: 0,
+                register_datetime: '2018-07-30 13:12:00',
+            },
+            ]
+
+
         }),
         created() {
             // 유져 데이터 정보 get
@@ -274,28 +334,13 @@
         border-bottom: solid 1px #d1d1d1;
     }
 
-    .payment-wrapper {
-        display: flex;
-        line-height: 1;
-    }
-
     .payment-complete-wrapper {
         display: flex;
-        line-height: 1.14;
-    }
-
-    .width-half {
-        width: 50%;
     }
 
     .payment-explain-wrapper {
         border-radius: 2px;
         background: #f8f8fa;
-        display: flex;
-    }
-
-    .text-price {
-        color: #E25422 !important;
     }
 
     .buying-process {
@@ -342,10 +387,6 @@
         font-weight: 100;
     }
 
-    .tooltips {
-        cursor: pointer;
-    }
-
     .cancel-explain {
         border-radius: 3px;
         background-color: #f8f8fa;
@@ -379,5 +420,4 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
-
 </style>

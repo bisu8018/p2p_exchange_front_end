@@ -32,7 +32,7 @@
                         </avatar>
                     </div>
                     <div class="pl-2">
-                        <div class="h6 color-darkgray pb-2 text-xs-left">
+                        <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
                             {{getDate(data.register_datetime)}}
                             <!--<span>{{getDateTime('date')}}</span>-->
                         </div>
