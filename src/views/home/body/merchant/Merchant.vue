@@ -57,7 +57,7 @@
 </template>
 
 <script>
-ㄴ
+
     export default {
         name: "merchant",
 
