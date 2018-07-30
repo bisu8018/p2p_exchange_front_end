@@ -1255,6 +1255,12 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    ['chatPlaceholder', {
+        KOR: '글 입력 후 엔터키를 눌러주십시오',
+        ENG: 'Type in and press enter',
+        CN: '',
+        JP: ''
+    }],
 
     //My Ads
 

@@ -11,12 +11,11 @@ import GeneralAd from '../views/home/body/postAd/general/General.vue'
 import BlockAd from '../views/home/body/postAd/block/Block.vue'
 import Buy from '../views/home/body/trade/buy/Buy.vue'
 import Sell from '../views/home/body/trade/sell/Sell.vue'
-import PostAd from '../views/home/body/postAd/PostAd.vue'
 import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
 import Balances from '../views/home/body/balances/Balances.vue'
 import MyPage from '../views/home/body/myPage/MyPage.vue'
-import merchant from '../views/home/body/merchant/merchant.vue'
+import Merchant from '../views/home/body/merchant/Merchant.vue'
 
 
 Vue.use(Router)
@@ -106,7 +105,7 @@ export default new Router({
         {
             path: '/merchant',
             name: 'merchant',
-            component: merchant
+            component: Merchant,
         },
 
     ],

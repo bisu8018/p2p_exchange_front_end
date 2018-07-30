@@ -453,6 +453,14 @@
     }
 
 
+    /*좌우 가운데 정렬*/
+
+    .horizontal-center {
+        margin: 0 auto;
+    }
+
+
+
     /*태그*/
     h1 {
         font-size: 26px;
@@ -650,6 +658,7 @@
         padding-right: 8px;
         font-size: 14px;
         color: #353535;
+        outline: none;
     }
 
     /*vuetify dialog*/
@@ -737,6 +746,12 @@
         width: 50%;
     }
 
+    /*아웃라인 없애기*/
+
+    .o-none {
+        outline: none;
+    }
+
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
 
     /*<a class="tooltips">*/
@@ -819,12 +834,17 @@
 
 
 
+    /*섹션 보더*/
 
 
-
-
-
-
+    .section-border {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+    }
 
 
 

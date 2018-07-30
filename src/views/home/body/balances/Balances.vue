@@ -245,16 +245,6 @@
                     amount: 224,
                 },
             ],
-            alertList:[
-                {
-                    title: "Success!!",
-                    text: "A Success Message",
-                    type: "Success",
-                    timeout: true
-                }
-            ],
-
-
 
         }),
         created() {
@@ -281,8 +271,7 @@
             },
             onSearch(){
                 this.isModal = false;
-            },
-
+            }
         }
 
 

@@ -95,6 +95,7 @@
                                 <div>{{$str("UserCenter")}}</div>
                             </button>
                         </v-flex>
+
                         <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
                             <button class="text-xs-left ml-3">
                                 <div>{{$str("Merchant")}}</div>
@@ -147,7 +148,7 @@
                     <!-- 로그인시 내정보 버튼 -->
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
                     <!--MyPage-->
-                    <button class="button-2 mr-4a" @click="goMyPage()">{{$str("Merchant")}}</button>
+                    <button class="button-2 mr-4a" @click="goMerchant()">{{$str("Merchant")}}</button>
 
                   <!--MyPage-->
                   <button class="button-2 mr-4a" @click="goMyPage()">{{$str("MyPage")}}</button>
@@ -274,6 +275,9 @@
             },
             goBalances() {
                 this.$router.push("/balances");
+            },
+            goMerchant() {
+                this.$router.push("/merchant");
             },
 
             changeLang: function(userLang) {

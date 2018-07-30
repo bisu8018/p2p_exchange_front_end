@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 ">
+    <div class="mt-5 mb-5 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
@@ -77,7 +77,7 @@
             </v-flex>
             <!--위챗페이 QR코드-->
             <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
-                <label @click="onQRcode('wechat')" class="c-pointer vertical-center d-block">
+                <label @click="onQRcode('wechat')" class="c-pointer  d-block">
                     <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
                     <div class="d-inline-block color-black h6"> QR Code</div>
                 </label>
@@ -98,15 +98,15 @@
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout wrap row mb-4>
+        <v-layout wrap row >
             <v-flex xs12 md3>
-              <!--status cancel 일 시 설명 문구-->
-              <div class="cancel-explain mb-4" v-if="status ==='cancel'">
-                  {{$str("cancelExplain")}}
-              </div>
+                <!--status cancel 일 시 설명 문구-->
+                <div class="cancel-explain mb-4" v-if="status ==='cancel'">
+                    {{$str("cancelExplain")}}
+                </div>
             </v-flex>
-            <v-flex xs12>
-                <v-flex xs12 md5 h4 bold color-black text-xs-left mb-4>
+            <v-flex xs12 mb-4>
+                <v-flex xs12 md5 h4 bold color-black text-xs-left>
                 <span v-if="status != 'cancel' && status === 'pending'" class="mb-3">
                     <!--pending 상태 일때-->
                     {{$str("paymentExplain1")}}
@@ -174,7 +174,7 @@
 
 
             <!--buying process indicator buying 상태 일때-->
-            <v-flex xs12 mb-4 v-if="status === 'buying'" >
+            <v-flex xs12 mb-4 v-if="status === 'buying'">
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
@@ -186,7 +186,7 @@
             </v-flex>
 
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
-            <v-flex xs12 md12  mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'paid'">
+            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'paid'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3  ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
@@ -194,16 +194,17 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex  xs12 md12 mb-4  cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
+            <v-flex xs12 md12  mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
                 <i class="material-icons cancel-icon">cancel</i>
             </v-flex>
 
 
             <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
-            <v-flex xs6 md12 mb-4  cancel-icon-wrapper text-xs-left v-if="status === 'appeal'">
+            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'appeal'">
                 <i class="material-icons  warning-icon ">error</i>
             </v-flex>
 
+            <!--데스크탑 환경에서 설명-->
             <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
                 <p class="mb-1 h6 line-height-1">
                     {{$str('transferChecklist1')}}
@@ -236,8 +237,10 @@
 
         <div>
             <!--채팅창-->
-
+            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
         </div>
+
+        <!--모바일 환경에서 설명-->
         <div class="h6 text-xs-left color-darkgray line-height-1 mt-4a" v-if="isMobile()">
             <p class="mb-1 h6">
                 {{$str('transferChecklist1')}}
@@ -249,8 +252,11 @@
                 {{$str('transferChecklist3')}}
             </p>
         </div>
+
+        <!--buy modal-->
         <buy-modal :show="showModal" :type="modalType" v-on:paymentConfirm="onPaid" v-on:close="onClose"
                    v-on:cancel="onCancel" v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></buy-modal>
+
     </div>
 </template>
 
@@ -258,11 +264,13 @@
     import Vue from 'vue';
     import BuyModal from './buyModal/BuyModal.vue'
     import MainRepository from "../../../../../vuex/MainRepository";
+    import Chat from "@/components/Chat.vue"
+
 
     export default Vue.extend({
         name: 'buy',
         components: {
-            BuyModal
+            BuyModal, Chat
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
@@ -284,7 +292,51 @@
             showModal: false,
             status: 'appeal',     //pending -> buying -> paid   그리고   cancel, appeal
             modalType: '',
-            appealCode: 977057
+            appealCode: 977057,
+            isLogin: true,
+            color: '#13b0cb',
+            transactionNum: 20,
+            merchant_member_no: 0,
+            message: [{
+                email : 'Charles',
+                color: '#13b0cb',
+                isLogin: true,
+                message_no: 0,
+                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
+                message_img_url: '',
+                register_member_no: 0,
+                register_datetime: '2018-07-30 13:00:00',
+            }, {
+                isLogin: true,
+                color: '#13b0cb',
+                email : 'Charles',
+                message_no: 1,
+                message: 'test1234',
+                message_img_url: '',
+                register_member_no: 0,
+                register_datetime: '2018-07-30 13:01:00',
+            }, {
+                isLogin: false,
+                color: 'red',
+                email : 'Max',
+                message_no: 2,
+                message: 'thank you!',
+                message_img_url: '',
+                register_member_no: 1,
+                register_datetime: '2018-07-30 13:10:00',
+            }, {
+                isLogin: true,
+                color: '#13b0cb',
+                email : 'Charles',
+                message_no: 3,
+                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
+                message_img_url: '',
+                register_member_no: 0,
+                register_datetime: '2018-07-30 13:12:00',
+            },
+            ]
+
+
         }),
         created() {
             // 유져 데이터 정보 get
@@ -313,9 +365,9 @@
             },
             onCopy(type) {
                 let copyTemp;
-                if(type == 'reference' ){
+                if (type == 'reference') {
                     copyTemp = (document.querySelector('#referenceNum')as HTMLInputElement);
-                }else{
+                } else {
                     copyTemp = (document.querySelector('#amountValue')as HTMLInputElement);
                 }
 
