@@ -135,7 +135,7 @@
           <v-flex xs9 offset-xs2 text-xs-left >
             <div >
               <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
-                     :placeholder="currency">
+                     :placeholder="currency" @input="exchangeToken()">
             </div>
             <div class="mt-3">
               <input type="text" class="input textRightPlaceholder" name="toValue" v-model="fromValue"
@@ -260,7 +260,7 @@
               <div class="p-relative">
                 <input type="number" class="input userInput textRightPlaceholder"
                        name="toValue" v-model="toValue" :placeholder="currency"
-                       @blur="onChecktoValue"
+                       @blur="onChecktoValue" @input="exchangeToken()"
                        v-bind:class="{'warning-border' : warning_toValue}"
                 >
                 <div class="warning-text-wrapper">
@@ -358,7 +358,7 @@
             tradePassword : '',
             token : 'BTC',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-            tradeType : 'SELL',  //살건지 팔건지 여부.
+            tradeType : 'BUY',  //살건지 팔건지 여부.
             tradePW : '',       // Trade Password
             rankSrc : '',
             verify_warning_toValue: "",
@@ -436,6 +436,10 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
+            //toValue 입력시 token 가격으로 환전해 주는 함수.
+            exchangeToken(){
+                    this.fromValue = this.toValue / 9136884;  //7월30일짜 BTC 가격.
+            }
         },
 
     }
