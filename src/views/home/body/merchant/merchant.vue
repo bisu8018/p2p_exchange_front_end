@@ -10,27 +10,24 @@
 
         <v-layout wrap row>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
-                <div class="section-border-merchant pt-5 pb-5">
+                <div class="section-border-depth pt-5 pb-5">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">Advertising</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants are able to post
-                        advertisements, flexible and covenient to trade.</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants are able to post advertisements, flexible and covenient to trade.</h4>
                 </div>
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
-                <div class="section-border-merchant pt-5 pb-5">
+                <div class="section-border-depth pt-5 pb-5">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3 medium">Exclusive logo</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Verified merchants will have an
-                        exclusive logo to enhance reliability and trustworthiness.</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Verified merchants will have an exclusive logo to enhance reliability and trustworthiness.</h4>
                 </div>
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
-                <div class="section-border-merchant pt-5 pb-72">
+                <div class="section-border-depth pt-5 pb-72">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">One-to-one Service</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants will enjoy our
-                        one-to-one exclusive service.</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants will enjoy our one-to-one exclusive service.</h4>
                 </div>
             </v-flex>
 
@@ -54,10 +51,71 @@
             </v-flex>
         </v-layout>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </template>
 
 <script>
-ㄴ
+
+
     export default {
         name: "merchant",
 
@@ -70,15 +128,7 @@
         padding-bottom: 72px;
     }
 
-    .section-border-merchant {
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
 
-        -webkit-box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-        -moz-box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-    }
 
     .btn-apply {
         width: auto !important;
