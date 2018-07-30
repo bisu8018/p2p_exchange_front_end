@@ -142,7 +142,7 @@
     import BalanceTokenList from "./balanceList/BalanceTokenList"
     import BalanceDetailList from "./balanceList/BalanceDetailList"
     import DatePicker from '@/components/DatePicker.vue';
-    import Alert from '@/components/Alert.vue';
+    import Alert from '@/components/Alerts.vue';
     export default {
         name: "Balances",
         components: {
