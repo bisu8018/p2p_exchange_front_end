@@ -1333,7 +1333,7 @@ const strings = new Map([
         JP: ''
     }],
     ['Type', {
-        KOR: '예금',
+        KOR: '종류',
         ENG: 'Type',
         CN: '类型',
         JP: ''
@@ -1455,6 +1455,18 @@ const strings = new Map([
         KOR: '날짜',
         ENG: 'Date',
         CN: '日期',
+        JP: ''
+    }],
+    ['Estimated_Value', {
+        KOR: '예상 금액',
+        ENG: 'Estimated Value',
+        CN: '估计的价值',
+        JP: ''
+    }],
+    ['Security_Deposit', {
+        KOR: '보증금',
+        ENG: 'Security Deposit',
+        CN: '保证金',
         JP: ''
     }],
 

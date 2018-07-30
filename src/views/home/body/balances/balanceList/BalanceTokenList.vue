@@ -31,7 +31,7 @@
               <span>{{tokenlist.ExAvailable}} {{tokenlist.name}}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
-              <span class="color-darkgray">Frozen: </span>
+              <span class="color-darkgray">{{$str("Frozen")}}: </span>
               <span>{{tokenlist.ExFrozen}} {{tokenlist.name}}</span>
             </v-layout>
           </div>
