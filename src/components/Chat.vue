@@ -133,7 +133,12 @@
                     register_member_no: this.member_no,
                     register_datetime: '2018-07-30 14:01:00',
                 };
+
+                //post 성공시 작업 진행
                 this.message.push(postMessage);
+
+                //실패 시 alert 창 표출
+
                 this.inputValue = "";
             },
             scrollBottom() {

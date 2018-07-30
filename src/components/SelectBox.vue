@@ -1,14 +1,14 @@
 <template>
     <v-layout wrap align-center>
         <div  class="p-relative selectbox-width" >
-            <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="comp-selectbox h6">
-                <option v-for="country in countries" v-bind:value="country.code" >{{country.country}}</option>
+            <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="o-none comp-selectbox h6">
+                <option v-for="country in countries" class="o-none " v-bind:value="country.code" >{{country.country}}</option>
             </select>
-            <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="comp-selectbox">
-                <option v-for="currency in currencies" v-bind:value="currency.currency" >{{currency.currency}}</option>
+            <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="o-none comp-selectbox">
+                <option v-for="currency in currencies" class="o-none " v-bind:value="currency.currency" >{{currency.currency}}</option>
             </select>
-            <select v-else="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="comp-selectbox h6">
-                <option v-for="payment in payments" v-bind:value="payment.code" >{{payment.payment}}</option>
+            <select v-else="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="o-none comp-selectbox h6">
+                <option v-for="payment in payments" class="o-none " v-bind:value="payment.code" >{{payment.payment}}</option>
             </select>
             <v-icon class="comp-selectbox-icon">keyboard_arrow_down</v-icon>
         </div>

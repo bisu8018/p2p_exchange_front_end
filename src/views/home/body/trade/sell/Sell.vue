@@ -178,7 +178,7 @@
         </v-flex>
         <div>
             <!--채팅창-->
-            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
+            <chat :email="email" :member_no = "member_no" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -241,6 +241,7 @@
             color: '#13b0cb',
             transactionNum: 20,
             merchant_member_no: 0,
+            member_no : 1,
             message: [{
                 email : 'Charles',
                 color: '#13b0cb',
