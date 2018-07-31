@@ -1,3 +1,6 @@
+<!-- trade center와 userpage 에서 모두 사용. merchant 부분과 coin 부분만 다르기에-->
+<!-- props로 받아오는 값에서 coin 이 들어와야 하면 파라미터를 하나 더 주어, 이를 v-if로 판단해-->
+<!--merchant 용으로 사용-->
 <template>
   <div>
 
@@ -44,15 +47,15 @@
           <v-flex xs2></v-flex>
             <v-flex xs6 text-xs-left>
               <a class="tooltip">
-                <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
+                <div class="mr-2 sprite-img ic-bank f-left"></div>
                 <span class="BankTooltip tooltip-content">Bank account</span>
               </a>
               <a class="tooltip" >
-                <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+                <div class="mr-2 sprite-img ic-alipay f-left"></div>
                 <span class="tooltip-content">Alipay</span>
               </a>
               <a class="tooltip" >
-                <img class="mr-2" src="../../../../../assets/img/method_wechatpay.png">
+                <div class="mr-2 sprite-img ic-wechatpay f-left"></div>
                 <span class="tooltip-content">Wechatpay</span>
               </a>
             </v-flex>
@@ -81,6 +84,7 @@
             </h5>
             <img :src="rankSrc" class="userRank">
           </v-flex>
+
           <v-flex xs2 text-xs-center>
             <button><i class="material-icons" @click="drawer = false">close</i></button>
           </v-flex>
@@ -126,9 +130,9 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <img src="../../../../../assets/img/method_bankaccount.png">
-            <img src="../../../../../assets/img/method_alipay.png" class="ml-2">
-            <img src="../../../../../assets/img/method_wechatpay.png" class="ml-2">
+            <div class="ml-2 sprite-img ic-bank f-right"></div>
+            <div class="ml-2 sprite-img ic-alipay f-right"></div>
+            <div class="ml-2 sprite-img ic-wechatpay f-right"></div>
           </v-flex>
         </v-layout>
         <v-layout mt-4>
@@ -200,15 +204,16 @@
           <v-layout align-center >
             <!--payment method-->
             <a class="tooltip">
-              <img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">
+              <div class="sprite-img ic-bank mr-2"></div>
+              <!--<img class="mr-2" src="../../../../../assets/img/method_bankaccount.png">-->
               <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
             </a>
             <a class="tooltip">
-              <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
+              <div class="sprite-img ic-alipay mr-2"></div>
               <span class="tooltip-content">{{$str("alipayText")}}</span>
             </a>
             <a class="tooltip">
-              <img src="../../../../../assets/img/method_wechatpay.png">
+              <div class="sprite-img ic-wechatpay mr-2"></div>
               <span class="tooltip-content">{{$str("wechatPayText")}}</span>
             </a>
             <!--img와 button을 양쪽에 정렬시키기 위함.-->
@@ -299,14 +304,14 @@
           <v-flex md6 text-md-left>
             <div class="margin-left-74">
               <!--Bank account-->
-              <img class="mr-2"src="../../../../../assets/img/method_bankaccount.png">
-              <span class="mr-3">{{$str("bankAccountText")}}</span>
+              <div class="sprite-img ic-bank mr-2 f-left"></div>
+              <span class="mr-3 f-left">{{$str("bankAccountText")}}</span>
               <!--Alipay-->
-              <img class="mr-2" src="../../../../../assets/img/method_alipay.png">
-              <span class="mr-3">{{$str("alipayText")}}</span>
+              <div class="sprite-img ic-alipay mr-2 f-left"></div>
+              <span class="mr-3 f-left">{{$str("alipayText")}}</span>
               <!--WechatPay-->
-              <img class="mr-2"src="../../../../../assets/img/method_wechatpay.png">
-              <span class="mr-3">{{$str("wechatPayText")}}</span>
+              <div class="sprite-img ic-wechatpay mr-2 f-left"></div>
+              <span class="mr-3 f-left">{{$str("wechatPayText")}}</span>
             </div>
           </v-flex>
           <v-flex md3 text-md-right>

@@ -142,15 +142,15 @@
             {{tokenlist.name}} {{$str("Deposit_Address")}}
           </v-flex>
           <v-flex xs12>
-            {{copyURL}}
+            {{copyCode}}
           </v-flex>
           <v-flex xs12  mt-3 mb-4>
             <button>
-              <h5 slot="activator" class="color-blue"@click="onCopy()">
+              <h5 class="color-blue" @click.stop.prevent="onCopy()">
                 Copy
               </h5>
             </button>
-            <input type="text" :value="copyURL" id="depositAddress" class="getOut">
+            <input type="hidden" :value="copyCode" id="copy-code" >
           </v-flex>
           <v-flex xs12 mt-2 mb-4>
             <img src="../../../../../assets/img/qr_code.png">
@@ -226,21 +226,38 @@
                 {name : 'OTC Account'},
                 {name : 'Exchange Account'},
             ],
-            copyURL : '123456789abcdef',
+            copyCode : '123456789abcdef',
 
         }),
         methods : {
             onCopy() {
-                console.log(document.querySelector('#depositAddress'));
-                let copyTemp = (document.querySelector('#depositAddress'));
-                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+                let testingCodeToCopy = document.querySelector('#copy-code')
 
-                if (!isiOSDevice) {
-                    copyTemp.setAttribute('type', 'text');
-                    copyTemp.select();
+                testingCodeToCopy.setAttribute('type', 'text')
+                testingCodeToCopy.select()
+                try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    alert('Testing code was copied ' + msg);
+                } catch (err) {
+                    alert('Oops, unable to copy');
                 }
-                document.execCommand('copy');
+
+                /* unselect the range */
+                testingCodeToCopy.setAttribute('type', 'hidden')
+                window.getSelection().removeAllRanges()
+
+                // let copyTemp = (document.querySelector('#userURL'));
+                // let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+                //
+                // if (!isiOSDevice) {
+                //     copyTemp.setAttribute('type', 'text');
+                //     copyTemp.select();
+                // }
+                // document.execCommand('copy');
             },
+
+
         },
         mounted(){
             switch (this.tokenlist.logo){

@@ -10,7 +10,7 @@
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
-                    <v-divider></v-divider>
+                    <v-flex><v-divider></v-divider></v-flex>
                 </div>
             </div>
             <!-- Web 일때 -->
@@ -37,14 +37,14 @@
                         {{$str("control")}}
                     </v-flex>
                 </v-layout>
-                <v-divider></v-divider>
+                <v-flex><v-divider></v-divider></v-flex>
 
                 <!-- user item list들 10개씩 출력-->
                 <div v-for="user in users"  >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>
-                    <v-divider></v-divider>
+                    <v-flex><v-divider></v-divider></v-flex>
                 </div>
             </div>
             <!-- pagination -->
