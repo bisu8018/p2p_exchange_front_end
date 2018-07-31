@@ -174,7 +174,7 @@
 
 
             <!--buying process indicator buying 상태 일때-->
-            <v-flex xs12 mb-4 v-if="status === 'buying'">
+            <v-flex xs12 mb-4 v-if="status === 'buying'" >
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
@@ -186,7 +186,7 @@
             </v-flex>
 
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
-            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'paid'">
+            <v-flex xs12 md12  mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'paid'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3  ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
@@ -194,13 +194,13 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex xs12 md12  mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
+            <v-flex  xs12 md12 mb-4  cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
                 <i class="material-icons cancel-icon">cancel</i>
             </v-flex>
 
 
             <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
-            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'appeal'">
+            <v-flex xs6 md12 mb-4  cancel-icon-wrapper text-xs-left v-if="status === 'appeal'">
                 <i class="material-icons  warning-icon ">error</i>
             </v-flex>
 
@@ -218,7 +218,7 @@
             </v-flex>
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
-            <v-flex xs6 md12 mb-4a text-md-left text-xs-left
+            <v-flex xs12 mb-4a text-md-left text-xs-left
                     v-if="status != 'paid' && status != 'cancel' && status !='appeal'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
@@ -290,7 +290,7 @@
             paymentWindow: 15,
             reference: 453534,
             showModal: false,
-            status: 'appeal',     //pending -> buying -> paid   그리고   cancel, appeal
+            status: 'pending',     //pending -> buying -> paid   그리고   cancel, appeal
             modalType: '',
             appealCode: 977057,
             isLogin: true,
@@ -301,7 +301,7 @@
                 email : 'Charles',
                 color: '#13b0cb',
                 isLogin: true,
-                message_no: 0,
+                message_no: 1,
                 message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
                 message_img_url: '',
                 register_member_no: 0,
@@ -310,7 +310,7 @@
                 isLogin: true,
                 color: '#13b0cb',
                 email : 'Charles',
-                message_no: 1,
+                message_no: 0,
                 message: 'test1234',
                 message_img_url: '',
                 register_member_no: 0,
@@ -365,9 +365,9 @@
             },
             onCopy(type) {
                 let copyTemp;
-                if (type == 'reference') {
+                if(type == 'reference' ){
                     copyTemp = (document.querySelector('#referenceNum')as HTMLInputElement);
-                } else {
+                }else{
                     copyTemp = (document.querySelector('#amountValue')as HTMLInputElement);
                 }
 

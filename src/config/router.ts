@@ -19,7 +19,7 @@ import Merchant from '../views/home/body/merchant/Merchant.vue'
 import UserPage from '../views/home/body/tradeCenter/userPage/UserPage.vue'
 
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
     routes: [

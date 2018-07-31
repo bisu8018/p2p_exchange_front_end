@@ -851,9 +851,17 @@
     }
 
 
+    /*섹션 보더 그림자 더 퍼진거*/
 
+    .section-border-depth {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
 
-
+        -webkit-box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+    }
 
 
 

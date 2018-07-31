@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <alert></alert>
     <v-layout row wrap mt-5>
       <!--header-->
@@ -11,7 +10,7 @@
       <v-flex md6 xs12 text-xs-left text-md-right pr-0>
         <v-layout row wrap justify-space-between>
           <div class="mb-2">
-            <span class="color-darkgray mr-1">{{$str("Estimated_Value")}}：</span>
+            <span class="color-darkgray mr-1">Estimated Value：</span>
             <span >0.00000 BTC </span>
             <span >≈ 0.00000</span>
             <span class="ml-4 p-relative" >
@@ -23,7 +22,7 @@
           </div>
 
           <div class="mb-4a">
-            <span class="color-darkgray mr-2">{{$str("Security_Deposit")}}:</span>
+            <span class="color-darkgray mr-2">Security Deposit:</span>
             <span> 000000</span>
           </div>
         </v-layout>
@@ -144,8 +143,6 @@
     import BalanceDetailList from "./balanceList/BalanceDetailList"
     import DatePicker from '@/components/DatePicker.vue';
     import Alert from '@/components/Alerts.vue';
-
-
     export default {
         name: "Balances",
         components: {

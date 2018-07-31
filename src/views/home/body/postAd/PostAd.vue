@@ -97,10 +97,10 @@
                     <div class="text-xs-left mb-2 button- color-black ">{{$str("fixedPrice")}}</div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price}">
-                        <input type="text" class="price-input o-none" placeholder="0" v-model="priceValue"
+                        <input type="text" class="price-input" placeholder="0" v-model="priceValue"
                                @keyup="onNumberCheck('price')"
                                @blur="onCheckFixedPrice">
-                        <div class="currency-indicator h6 "
+                        <div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
                             {{currency}}
                         </div>
@@ -146,7 +146,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("volumeText")}}</div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
-                        <input type="text" class="o-none price-input" v-model="volumeValue" @blur="onCheckVolume" @keyup="onNumberCheck('volume')"
+                        <input type="text" class="price-input" v-model="volumeValue" @blur="onCheckVolume" @keyup="onNumberCheck('volume')"
                                :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + coinType">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
                             {{coinType}}
@@ -165,7 +165,7 @@
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("minLimit")}}</div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_min_limit}">
-                        <input type="text" class="o-none price-input" :placeholder="$str('minLimitPlaceholder')"
+                        <input type="text" class="price-input" :placeholder="$str('minLimitPlaceholder')"
                                @blur="onCheckMinLimit" @keyup="onNumberCheck('minLimit')"
                                v-model="minLimitValue">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
@@ -185,7 +185,7 @@
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("maxLimit")}}</div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_max_limit}">
-                        <input type="text" class="o-none price-input" :placeholder="$str('maxLimitPlaceholder')"
+                        <input type="text" class="price-input" :placeholder="$str('maxLimitPlaceholder')"
                                @blur="onCheckMaxLimit" @keyup="onNumberCheck('maxLimit')"
                                v-model="maxLimitValue">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
@@ -204,7 +204,7 @@
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("paymentWindow")}}</div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_payment_window}">
-                        <input type="text" maxlength="3" class="o-none price-input"
+                        <input type="text" maxlength="3" class="price-input"
                                :placeholder="$str('paymentWindowPlaceholder')"
                                @blur="onCheckPaymentWindow" @keyup="onNumberCheck('paymentWindow')"
                                v-model="paymentWindowValue">
@@ -305,7 +305,7 @@
                 <div>
                     <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{$str("autoReplyText")}}</div>
                     <div class="price-input-wrapper">
-                <textarea class="common-textarea o-none" :placeholder="$str('autoReplyPlaceholder')"
+                <textarea class="common-textarea" :placeholder="$str('autoReplyPlaceholder')"
                           v-model="autoReplayValue"></textarea>
                     </div>
                 </div>
@@ -325,7 +325,7 @@
                     <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{$str("termsTransactionText")}}
                     </div>
                     <div class="price-input-wrapper">
-                <textarea class="o-none common-textarea" :placeholder="$str('termsTransactionPlaceholder')"
+                <textarea class="common-textarea" :placeholder="$str('termsTransactionPlaceholder')"
                           v-model="termsTransactinValue"></textarea>
                     </div>
                 </div>

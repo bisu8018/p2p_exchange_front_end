@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 ">
+    <div class="mt-5 mb-5 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
@@ -178,7 +178,7 @@
         </v-flex>
         <div>
             <!--채팅창-->
-            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
+            <chat :email="email" :member_no = "member_no" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -234,13 +234,14 @@
             paymentWindow: 15,
             reference: 453534,
             showModal: false,
-            status: 'complete',     //paying -> confirm -> complete
+            status: 'paying',     //paying -> confirm -> complete
             modalType: '',
             appealCode: 977057,
             isLogin: true,
             color: '#13b0cb',
             transactionNum: 20,
             merchant_member_no: 0,
+            member_no : 1,
             message: [{
                 email : 'Charles',
                 color: '#13b0cb',

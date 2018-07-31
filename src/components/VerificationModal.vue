@@ -14,7 +14,7 @@
                 </div>
                 <v-spacer></v-spacer>
                     <!--아이콘 직접 import 필요 (해당 부분 kay 작업 중 2018-07-19)-->
-                    <v-icon  @click="onClose" c-pointer>close</v-icon>
+                    <v-icon  @click="onClose">close</v-icon>
             </div>
             <div>
                 <div class="modal-subject-2 color-black">
