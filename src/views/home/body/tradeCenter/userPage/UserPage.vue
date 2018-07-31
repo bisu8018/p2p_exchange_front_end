@@ -10,69 +10,80 @@
                 :color = merchant.color class="f-left mr-3">
           </avatar>
           <h5 class="ml-3">
-            {{merchant.email}}
+            <v-layout>
+              {{merchant.email}}
+              <h5 class="userRank sprite-img ic-premium"></h5>
+            </v-layout>
           </h5>
           <!--판매자 rank-->
           <h6 class="ml-3 color-darkgray">Created at: {{merchant.register_datetime}}</h6>
         </v-flex>
         <v-flex xs12><v-divider></v-divider></v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>Security deposit</v-flex>
-        <v-flex xs4 text-xs-right mt-3 mb-2>1 BTC</v-flex>
+        <v-flex xs4 text-xs-right mt-3 mb-2>{{merchant.security_deposit}} BTC</v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>Completion rate</v-flex>
-        <v-flex xs4 text-xs-right mb-2>{{merchant.tradeRate}}% </v-flex>
+        <v-flex xs4 text-xs-right mb-2>{{merchant.tradeRate}} % </v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>Trades</v-flex>
-        <v-flex xs4 text-xs-right mb-2>2667 Times</v-flex>
+        <v-flex xs4 text-xs-right mb-2>{{merchant.totalTrades}} Times</v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>Trades in 30days</v-flex>
-        <v-flex xs4 text-xs-right mb-2>641 Times</v-flex>
+        <v-flex xs4 text-xs-right mb-2>{{merchant.trades_inMonth}} Times</v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-3>Avg release</v-flex>
-        <v-flex xs4 text-xs-right mb-3>3.13 Min</v-flex>
+        <v-flex xs4 text-xs-right mb-3>{{merchant.Avg_release}} Min</v-flex>
         <v-flex xs12><v-divider></v-divider></v-flex>
 
-        <v-flex xs3 offset-xs2 text-xs-left>
-          <v-layout mt-4>
-          <h6>Email</h6>
-          <h6 class="ic-success-sm sprite-img ml-1"></h6>
+        <v-flex xs3 offset-xs2 text-xs-left mt-4>
+          <v-layout v-if="merchant.verifiedEmail">
+            <h6>Email</h6>
+            <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
-        <v-flex xs7 text-xs-right >
-          <v-layout justify-end mt-4>
-          <h6>ID Verification</h6>
-          <h6 class="ic-success-sm sprite-img ml-1 "></h6>
+        <v-flex xs7 text-xs-right mt-4>
+          <v-layout v-if="merchant.verifiedID" justify-end>
+            <h6>ID Verification</h6>
+            <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
-        <v-flex xs3 offset-xs2 text-xs-left>
-          <v-layout mt-3>
-          <h6>Phone</h6>
-          <h6 class="ic-success-sm sprite-img ml-1"></h6>
+        <v-flex xs3 offset-xs2 text-xs-left mt-3>
+          <v-layout v-if="merchant.verifiedPhone">
+            <h6>Phone</h6>
+            <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
-        <v-flex xs7 text-xs-right>
-          <v-layout justify-end mt-3>
-          <h6>Advanced Verification</h6>
-          <h6 class="ic-success-sm sprite-img ml-1 "></h6>
+        <v-flex xs7 text-xs-right mt-3>
+          <v-layout v-if="merchant.verifiedAdvanced" justify-end>
+            <h6>Advanced Verification</h6>
+            <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
       </v-layout>
+      <!--SELL-->
       <v-flex xs12 text-xs-left mt-5>
         <h3 class="bold">Online Sell</h3>
       </v-flex>
-      <div  v-for="user in users" >
-        <trade-list-item
+      <div  v-for="user in SellLists" >
+        <user-trade-item
                 :user="user"
-        ></trade-list-item>
+                :tradeType = "tradeType = 'SELL'"
+        ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
+      <!--Buy-->
       <v-flex text-xs-left mt-5>
         <h3 class="bold">Online Buy</h3>
       </v-flex>
-      <div  v-for="user in users">
-        <trade-list-item
+      <div  v-for="user in BuyLists">
+        <user-trade-item
                 :user="user"
-        ></trade-list-item>
+                :tradeType = "tradeType = 'BUY'"
+        ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
+      <v-flex text-xs-right color-darkgray mt-3 mb-5>
+        Do not want to trade with this user?<br>
+        <span class="color-blue" @click="showBlockModal = true"> Block this user</span>
+      </v-flex>
     </div>
-
+    <!--Web 일때-->
     <div v-else>
       <!--최 상단부 user정보-->
       <v-layout class="userWebList" align-center justify-center fill-height mt-5 mb-4>
@@ -91,49 +102,57 @@
           </v-layout>
         </v-flex>
         <v-flex md2 text-md-left >
-          <div>{{merchant.volumeTotal}}</div>
-          <div class="color-darkgray"> Security deposit</div>
+          <div>{{merchant.security_deposit}} BTC</div>
+          <div class="color-darkgray">{{$str("Security_Deposit")}} </div>
         </v-flex>
         <!--limits-->
         <v-flex md2 text-md-left >
           <div>{{merchant.tradeRate}} %</div>
-          <div class="color-darkgray"> Completion rate</div>
+          <div class="color-darkgray">{{$str("Completion_rate")}}</div>
         </v-flex>
         <v-flex md2 text-md-left >
-          <div>{{merchant.tradeRate}} Times</div>
-          <div class="color-darkgray">Trades</div>
+          <div>{{merchant.totalTrades}} {{$str("Times")}}</div>
+          <div class="color-darkgray">{{$str("Trades")}}</div>
         </v-flex>
         <v-flex md2 text-md-left >
-          <div>{{merchant.tradeRate}} Times</div>
-          <div class="color-darkgray">Trades in 30 days</div>
+          <div>{{merchant.trades_inMonth}} {{$str("Times")}}</div>
+          <div class="color-darkgray">{{$str("Trades_in_30_days")}}</div>
         </v-flex>
         <v-flex md1 text-md-right >
-          <div>{{merchant.tradeRate}} Min</div>
-          <div class="color-darkgray"> Avg release</div>
+          <div>{{merchant.Avg_release}} {{$str("Min")}}</div>
+          <div class="color-darkgray"> {{$str("Avg_release")}}</div>
         </v-flex>
       </v-layout>
       <v-flex><v-divider></v-divider></v-flex>
       <!--2번째 줄-->
       <v-layout mt-3 mb-4a>
         <v-flex md3 text-md-left>
-          <h6>Created at : {{merchant.register_datetime}}</h6>
+          <h6 class="color-darkgray">Created at : {{merchant.register_datetime}}</h6>
         </v-flex>
         <v-flex md9>
-          <v-layout justify-end>
-            <h6>Email</h6>
-            <h6 class="ic-success-sm sprite-img ml-1 mr-4"></h6>
-            <h6>Phone</h6>
-            <h6 class="ic-success-sm sprite-img ml-1 mr-4"></h6>
-            <h6>ID Verification</h6>
-            <h6 class="ic-success-sm sprite-img ml-1 mr-4"></h6>
-            <h6>Advanced Verification</h6>
-            <h6 class="ic-success-sm sprite-img ml-1"></h6>
+          <v-layout justify-end >
+            <div v-if="merchant.verifiedEmail">
+              <h6 class="veri_icon">{{$str("email")}}</h6>
+              <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
+            </div>
+            <div v-if="merchant.verifiedPhone">
+              <h6 class="veri_icon">{{$str("Phone")}}</h6>
+              <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
+            </div>
+            <div v-if="merchant.verifiedID">
+              <h6 class="veri_icon">{{$str("ID_Verification")}}</h6>
+              <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
+            </div>
+            <div v-if="merchant.verifiedAdvanced">
+              <h6 class="veri_icon">{{$str("Advanced_Verification")}}</h6>
+              <h6 class="ic-success-sm sprite-img ml-1 veri_icon"></h6>
+            </div>
           </v-layout>
         </v-flex>
       </v-layout>
       <!--Online Sell title-->
       <v-flex text-md-left mb-4 bold>
-        <h3>Online Sell</h3>
+        <h3>{{$str("Online_Sell")}}</h3>
       </v-flex>
       <!-- chart의 title들 -->
       <v-layout mb-3>
@@ -159,15 +178,16 @@
       <v-flex><v-divider></v-divider></v-flex>
 
       <!-- user item list들 10개씩 출력-->
-      <div v-for="user in users"  >
-        <trade-list-item
+      <div v-for="user in SellLists"  >
+        <user-trade-item
                 :user ="user"
-        ></trade-list-item>
+                :tradeType = "tradeType = 'SELL'"
+        ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
       <!--Online Buy title-->
       <v-flex text-md-left mb-4 mt-4a bold>
-        <h3>Online Buy</h3>
+        <h3>{{$str("Online_Buy")}}</h3>
       </v-flex>
       <!-- chart의 title들 -->
       <v-layout mb-3>
@@ -193,48 +213,75 @@
       <v-flex><v-divider></v-divider></v-flex>
 
       <!-- user item list들 10개씩 출력-->
-      <div v-for="user in users"  >
-        <trade-list-item
+      <div v-for="user in BuyLists"  >
+        <user-trade-item
                 :user ="user"
-        ></trade-list-item>
+                :tradeType = "tradeType = 'BUY'"
+        ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
       <v-flex text-md-right mt-3 mb-6>
-        Do not want to trade with this user?
-        <span class="color-blue"> Block this user</span>
+        {{$str("Do_not_want_to_trade_with_this_user?")}}
+        <span class="color-blue" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
       </v-flex>
     </div>
+
+    <v-dialog v-model="showBlockModal">
+      <v-layout row wrap>
+        <v-flex pl-3 pr-3 mb-4>
+          <h3 class="bold f-left">{{$str("Notice")}}</h3>
+          <button class="f-right"><i class="material-icons " @click="showBlockModal = false">close</i></button>
+        </v-flex>
+        <v-flex pl-3 pr-3 mb-4>
+          <h5 class="color-darkgray">{{$str("Block_user_explain")}}</h5>
+        </v-flex>
+        <v-flex pl-3 pr-3>
+          <v-layout justify-end>
+            <button class="btn-rounded-white text-white-hover" @click="showBlockModal = false">
+              <h6 >{{$str("cancel")}}</h6>
+            </button>
+            <button class="btn-rounded-blue btn-blue-hover">
+              <h6 >{{$str("confirm")}}</h6>
+            </button>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-dialog>
   </div>
 </template>
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
-    import TradeListItem from "../tradeListItem/TradeListItem.vue"
+    import UserTradeItem from "./userTradeItem/UserTradeItem"
     import Avatar from '@/components/Avatar.vue';
 
     export default {
         name: "UserPage",
-        components: {TradeListItem,Avatar,},
+        components: {UserTradeItem,Avatar,},
         data: () =>({
+            showBlockModal : false,
+            tradeType : "BUY",
             merchant:
                 {
                     email: 'Charles',
-                    volumeTotal: 119,
-                    register_datetime : '2017-12-13 15:08:28',
-                    limitMax: 66.0,
-                    price: 224,
-                    adType: 44.0,
-                    tradeRate: 99,
-                    memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
-                    '            If urgent, please message me on Telegram at +84963126446',
+                    rank : 1,
                     isLogin : true,
                     color : '#8869CA',
-                    rank : 1,
+                    security_deposit: 1,
+                    tradeRate: 98,
+                    totalTrades: 2667,
+                    trades_inMonth: 641,
+                    Avg_release: 3.13,
+                    register_datetime : '2017-12-13 15:08:28',
+                    verifiedEmail : true,
+                    verifiedID : true,
+                    verifiedPhone : true,
+                    verifiedAdvanced : true,
                 }
             ,
-            users: [
+            BuyLists: [
                 {
-                    email: 'Charles',
+                    Coin: 'BTC',
                     volumeTotal: 119,
                     limitMax: 66.0,
                     price: 224,
@@ -242,34 +289,66 @@
                     tradeRate: 99,
                     memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
                     '            If urgent, please message me on Telegram at +84963126446',
-                    isLogin : true,
-                    color : '#8869CA',
-                    rank : 1,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '789',
                 },
                 {
-                    email: 'Dean',
+                    Coin: 'ETH',
                     volumeTotal: 119,
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
-                    isLogin : false,
-                    color : '#E05543',
-                    rank : 2,
+                    bank_account : '',
+                    wechat_id : '456',
+                    alipay_id : '789',
+
                 },
                 {
-                    email: 'Jack',
+                    Coin: 'USDT',
                     volumeTotal: 119,
                     limitMax: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
                     memo: '',
-                    isLogin : false,
-                    color : '#E25422',
-                    rank : 1,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '',
+
                 },
+                {
+                    Coin: 'ALLB',
+                    volumeTotal: 119,
+                    limitMax: 66.0,
+                    price: 224,
+                    adType: 44.0,
+                    tradeRate: 99,
+                    memo: '',
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '',
+
+                },
+            ],
+            SellLists: [
+                {
+                    Coin: 'BTC',
+                    volumeTotal: 119,
+                    limitMax: 66.0,
+                    price: 224,
+                    adType: 44.0,
+                    tradeRate: 99,
+                    memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
+                    '            If urgent, please message me on Telegram at +84963126446',
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '789',
+
+                },
+
             ]
         }),
         computed: {
@@ -280,6 +359,8 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+        },
+        methods:{
         }
     }
 </script>
@@ -294,5 +375,9 @@
     max-width: 16px;
     height: 18px;
     margin-left: 16px;
+  }
+  .veri_icon{
+    position: relative;
+    display: inline-block;
   }
 </style>

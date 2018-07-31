@@ -31,7 +31,7 @@
               <span>{{tokenlist.ExAvailable}} {{tokenlist.name}}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
-              <span class="color-darkgray">Frozen: </span>
+              <span class="color-darkgray">{{$str("Frozen")}}: </span>
               <span>{{tokenlist.ExFrozen}} {{tokenlist.name}}</span>
             </v-layout>
           </div>
@@ -67,7 +67,7 @@
             {{$str("Transfer_to_Exchange_account_to_withdraw")}}
           </v-flex>
           <v-flex xs12 text-xs-left>
-            Coin
+            {{$str("Coin")}}
           </v-flex>
           <!-- 1. Coin select 창-->
           <v-flex xs12  mt-2 mb-4 >
@@ -80,9 +80,9 @@
               <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
             </div>
           </v-flex>
-          <v-flex xs4 text-xs-left>From</v-flex>
+          <v-flex xs4 text-xs-left>{{$str("From")}}</v-flex>
           <v-flex xs8 text-xs-right color-darkgray>
-            <h6>(OTC balance: 0.0000{{tokenlist.name}})</h6>
+            <h6>(OTC {{$str("Balances")}}: 0.0000{{tokenlist.name}})</h6>
           </v-flex>
           <!-- 2. From select 창-->
           <v-flex xs12 mt-2 mb-4>
@@ -93,7 +93,7 @@
               <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
             </div>
           </v-flex>
-          <v-flex xs4 text-xs-left>to</v-flex>
+          <v-flex xs4 text-xs-left>{{$str("To")}}</v-flex>
           <v-flex xs8 text-xs-right color-darkgray >
             <h6>(Exchange balance: 0.0000{{tokenlist.name}})</h6>
           </v-flex>
@@ -106,7 +106,7 @@
               <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
             </div>
           </v-flex>
-          <v-flex xs4 text-xs-left>Volume</v-flex>
+          <v-flex xs4 text-xs-left>{{$str("volume")}}</v-flex>
           <v-flex xs8 text-xs-right color-darkgray>
             <h6>(Exchange balance: 0.0000{{tokenlist.name}})</h6>
           </v-flex>

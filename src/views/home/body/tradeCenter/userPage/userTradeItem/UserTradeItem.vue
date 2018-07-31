@@ -1,3 +1,5 @@
+<!--TradeListItem과 대부분 같은 코드-->
+<!--merchant 부분만 조금 다름-->
 <template>
   <div>
 
@@ -6,88 +8,81 @@
       <!--거래 list -->
       <div>
         <!-- name-->
-        <v-layout mt-4>
-          <v-flex xs2 text-xs-left>
-            <avatar
-              :name = user.email[0]
-              :isLogin = user.isLogin
-              :color = user.color>
-            </avatar>
+        <!--userPage 일때-->
+        <v-layout  mt-4 align-center fill-height>
+          <v-flex xs2>
+            <h5 v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </h5>
+            <h5 v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </h5>
+            <h5 v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
+            <h5 v-else class="sprite-img ic-allb-lg"> </h5>
           </v-flex>
-
-          <v-flex xs10 text-xs-left color-blue>
-            {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
-            <!-- user의 rank 이미지-->
-            <img :src="rankSrc" class="ml-2">
+          <v-flex xs10 text-xs-left>
+            <span class="bold">{{user.Coin}}</span>
           </v-flex>
         </v-layout>
+
+
         <!-- Volume -->
         <v-layout>
-            <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
+          <v-flex xs2></v-flex>
+          <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
+          <v-flex xs6 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left color-darkgray>Limits :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
+          <v-flex xs4 text-xs-left color-darkgray>Limits :</v-flex>
+          <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left color-darkgray>Price :</v-flex>
-            <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
+          <v-flex xs4 text-xs-left color-darkgray>Price :</v-flex>
+          <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
           <v-flex xs2></v-flex>
-            <v-flex xs6 text-xs-left>
-              <v-layout>
-                <a class="tooltip" v-if="user.bank_account.length >0">
-                  <div class="mr-2 sprite-img ic-bank "></div>
-                  <span class="BankTooltip tooltip-content">Bank account</span>
-                </a>
-                <a class="tooltip" v-if="user.alipay_id.length >0">
-                  <div class="mr-2 sprite-img ic-alipay "></div>
-                  <span class="tooltip-content">Alipay</span>
-                </a>
-                <a class="tooltip" v-if="user.wechat_id.length >0">
-                  <div class="mr-2 sprite-img ic-wechatpay "></div>
-                  <span class="tooltip-content">Wechatpay</span>
-                </a>
-              </v-layout>
-            </v-flex>
-            <!--거래 버튼-->
-            <v-flex xs4 text-xs-right>
-              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-                {{tradeType}} {{token}}</button>
-            </v-flex>
+          <v-flex xs6 text-xs-left>
+            <a class="tooltip" v-if="user.bank_account.length >0">
+              <div class="mr-2 sprite-img ic-bank f-left"></div>
+              <span class="BankTooltip tooltip-content">Bank account</span>
+            </a>
+            <a class="tooltip" v-if="user.alipay_id.length >0">
+              <div class="mr-2 sprite-img ic-alipay f-left"></div>
+              <span class="tooltip-content">Alipay</span>
+            </a>
+            <a class="tooltip" v-if="user.wechat_id.length >0">
+              <div class="mr-2 sprite-img ic-wechatpay f-left"></div>
+              <span class="tooltip-content">Wechatpay</span>
+            </a>
+          </v-flex>
+          <!--거래 버튼-->
+          <v-flex xs4 text-xs-right>
+            <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+              {{tradeType}} {{token}}</button>
+          </v-flex>
         </v-layout>
       </div>
 
       <!--버튼 클릭시 거래를 위한 mobile modal-->
       <div v-if="drawer" class="mobileModal">
         <!-- name-->
-        <v-layout>
-          <v-flex xs2 pl-2>
-            <avatar
-                  :name = user.email[0]
-                  :isLogin = user.isLogin
-                  :color = user.color>
-          </avatar>
+        <v-layout mt-4 align-center fill-height>
+          <v-flex xs2 pl-2 >
+            <h5 v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </h5>
+            <h5 v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </h5>
+            <h5 v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
+            <h5 v-else class="sprite-img ic-allb-lg"> </h5>
           </v-flex>
           <v-flex xs8 text-xs-left>
-            <h5 class="medium color-blue">
-            {{user.email}} ( {{user.volumeTotal}} | 99%)
-            </h5>
-            <img :src="rankSrc" class="userRank">
+            <span class="bold">{{user.Coin}}</span>
           </v-flex>
-
           <v-flex xs2 text-xs-center>
             <button><i class="material-icons" @click="drawer = false">close</i></button>
           </v-flex>
         </v-layout>
+
         <!-- Volume -->
         <v-layout medium>
           <v-flex xs3  offset-xs2 text-xs-left>
@@ -161,7 +156,7 @@
             <!--trade PW. sell 일때만 활성화-->
             <div class="mt-3 p-relative" v-if="tradeType =='SELL'">
               <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
-                     :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
+                     :placeholder="pwPlaceholder" @blur="onChecktradePassword"
                      v-bind:class="{'warning-border' : warning_tradePassword}">
               <div class="warning-text-wrapper">
                 <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
@@ -195,20 +190,16 @@
 
     <!--Web 일때-->
     <div v-else class="p-relative">
-      <v-layout class="userWebList" align-center justify-center fill-height>
+      <v-layout v-if="!drawer" class="userWebList" align-center justify-center fill-height>
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
-          <v-layout  align-center>
-              <avatar
-              :name = user.email[0]
-              :isLogin = user.isLogin
-              :color = user.color>
-            </avatar>
-            <span class="ml-3 color-blue">
-              {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
-            </span>
-            <!--판매자 rank-->
-            <img :src="rankSrc" class="userRank">
+          <v-layout justify-start align-center>
+            <!--coin 종류에 따라 하나만 이미지 보여줌-->
+            <span v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </span>
+            <span v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </span>
+            <span v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </span>
+            <span v-else class="sprite-img ic-allb-lg"> </span>
+            <span class="ml-3 bold">{{user.Coin}}</span>
           </v-layout>
         </v-flex>
         <!--available-->
@@ -244,23 +235,16 @@
       </v-layout>
 
       <!--Buy 를 위한 modal-->
-      <div v-if="drawer" class="tradeWebModal">
+      <div v-else class="tradeWebModal">
         <v-layout row wrap>
           <v-flex md3 text-md-left >
             <v-layout pl-4 >
-              <!--avatar-->
-              <avatar
-                        :name = user.email[0]
-                        :isLogin = user.isLogin
-                        :color = user.color>
-              </avatar>
-
-              <!-- merchant 정보-->
+              <span v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </span>
+              <span v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </span>
+              <span v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </span>
+              <span v-else class="sprite-img ic-allb-lg"> </span>
               <span>
-                <span class="mr-2 ml-3 color-blue medium">
-                  {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
-                </span>
-                <img :src="rankSrc" class="userRank">
+                <span class="ml-3 bold">{{user.Coin}}</span>
                 <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
               </span>
             </v-layout>
@@ -290,20 +274,20 @@
                 </div>
               </div>
               <!--가운데 아이콘-->
-            <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
+              <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
               <!--from input-->
-            <div class="p-relative">
-              <input type="number" class="input userInput textRightPlaceholder"
-                     name="fromValue" v-model="fromValue"
-                     :placeholder="token"
-                     @blur="onCheckfromValue"
-                     v-bind:class="{'warning-border' : warning_fromValue}"
-              >
+              <div class="p-relative">
+                <input type="number" class="input userInput textRightPlaceholder"
+                       name="fromValue" v-model="fromValue"
+                       :placeholder="token"
+                       @blur="onCheckfromValue"
+                       v-bind:class="{'warning-border' : warning_fromValue}"
+                >
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                     {{verify_warning_fromValue}}</p>
                 </div>
-            </div>
+              </div>
             </v-layout>
           </v-flex>
           <v-flex md3 text-md-left>
@@ -341,7 +325,7 @@
             <div v-if="tradeType =='SELL'">
               <div class="p-relative">
                 <input type="number" class="input userInput textLeftPlaceholder"
-                       name="tradePW" v-model="tradePW" :placeholder="$str('tradePwText')"
+                       name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
                        @blur="onChecktradePassword"
                        v-bind:class="{'warning-border' : warning_tradePassword}"
                 >
@@ -374,17 +358,18 @@
 
 <script>
     import Vue from 'vue';
-    import MainRepository from "../../../../../vuex/MainRepository";
+    import MainRepository from "../../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
     export default {
-        name: "TradeListItem",
+        name: "UserTradeItem",
         data: () => ({
             drawer: false,
+            pwPlaceholder: 'Trade Password',
             toValue : '',
             fromValue : '',
+            tradePassword : '',
             token : 'BTC',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-            tradeType : 'SELL',
             tradePW : '',       // Trade Password
             rankSrc : '',
             verify_warning_toValue: "",
@@ -398,6 +383,10 @@
         components:{Avatar},
         props : {
             user: {},
+            tradeType : {         //살건지 팔건지 여부.
+                type: String,
+                default: 'SELL',
+            },
 
         },
         methods : {
@@ -448,16 +437,16 @@
 
         },
         mounted(){
-          switch (this.user.rank) {
-              case 1:
-                  this.rankSrc = require('../../../../../assets/img/rank_crown.png');
-                  break;
-              case 2:
-                  this.rankSrc = require('../../../../../assets/img/rank_diamond.png');
-                  break;
-              default:
-                  this.rankSrc = '';
-          }
+            switch (this.user.rank) {
+                case 1:
+                    this.rankSrc = require('../../../../../../assets/img/rank_crown.png');
+                    break;
+                case 2:
+                    this.rankSrc = require('../../../../../../assets/img/rank_diamond.png');
+                    break;
+                default:
+                    this.rankSrc = '';
+            }
         },
         computed : {
             isMobile(){
@@ -504,12 +493,10 @@
     min-height: 171px;
     background-color: #ffffff;
     width: 100%;
-    position: absolute;
     border-radius: 2px;
     padding-top: 24px;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     display: block;
-    z-index: 1;
   }
 
 

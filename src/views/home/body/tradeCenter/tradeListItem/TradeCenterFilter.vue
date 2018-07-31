@@ -8,11 +8,11 @@
           <div v-if="tradeStatus ==='BUY'">
             <!--buy가 활성화-->
             <div class="buyBtn mobileActiveBtn">
-              <button class="mobileActiveBtnText" @click="setBuyInfo('current')">Buy</button>
+              <button class="mobileActiveBtnText" @click="setBuyInfo('current')">{{$str("buy")}}</button>
             </div>
             <!--sell-->
             <div class="sellBtn mobileInactiveBtn">
-              <button class="mobileInactiveBtnText" @click="setSellInfo('current')"> Sell</button>
+              <button class="mobileInactiveBtnText" @click="setSellInfo('current')">{{$str("sell")}}</button>
             </div>
           </div>
           <div v-else>
@@ -109,10 +109,10 @@
         <v-flex md3 pl-0 pr-0>
           <v-layout column>
               <v-layout row mb-3>
-                <v-flex md2 offset-md2 >
+                <v-flex md3 offset-md2 text-md-left>
                   <h4 class="bold">{{$str("buy")}}</h4>
                 </v-flex>
-                <v-flex md6></v-flex>
+                <v-flex md5></v-flex>
               </v-layout>
               <v-layout justify-space-between row medium color-darkgray>
                 <!-- < 화살표-->
@@ -146,10 +146,10 @@
         <v-flex md3 pl-0 pr-0>
           <v-layout column>
             <v-layout row mb-3>
-              <v-flex md2 offset-md2 bold>
+              <v-flex md3 offset-md2 bold text-md-left>
                 <h4>{{$str("sell")}}</h4>
               </v-flex>
-              <v-flex md6></v-flex>
+              <v-flex md5></v-flex>
             </v-layout>
             <v-layout justify-space-between row color-darkgray>
               <i class="material-icons md-24">keyboard_arrow_left</i>
