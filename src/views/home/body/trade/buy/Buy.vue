@@ -41,7 +41,7 @@
             <!--알리페이 결제-->
             <v-flex xs6 md2 mb-3 v-if="alipay === 'Y'">
                 <div class="text-xs-left vertical-center">
-                    <img src="@/assets/img/method_alipay.png">
+                    <div class="sprite-img ic-alipay d-inline-block"></div>
                     <span class="ml-2 color-darkgray">
                         {{$str("alipayText")}}
                     </span>
@@ -63,7 +63,7 @@
             <!--위챗페이 결제-->
             <v-flex xs6 md2 mb-3 v-if="wechat === 'Y'">
                 <div class="text-xs-left vertical-center ">
-                    <img src="@/assets/img/method_wechatpay.png">
+                    <div class="sprite-img ic-wechatpay d-inline-block"></div>
                     <span class="ml-2 color-darkgray">
                         {{$str("wechatPayText")}}
                     </span>
@@ -85,7 +85,7 @@
             <!--은행 계좌 결제-->
             <v-flex xs6 md2 mb-3 v-if="bankAccount === 'Y'">
                 <div class="text-xs-left vertical-center">
-                    <img src="@/assets/img/method_bankaccount.png">
+                    <div class="sprite-img ic-bank d-inline-block"></div>
                     <span class="ml-2 color-darkgray">
                         {{$str("bankAccountText")}}
                     </span>
@@ -139,7 +139,7 @@
                       {{$str("buyingExplain4")}}
                   </span>
                     <span v-else-if="status === 'paid' || status === 'cancel'">
-                    {{$str("complete")}}
+                    {{$str("complete")}},
                     </span>
 
                     <!--status cancel 일 시 설명 문구-->
@@ -237,7 +237,7 @@
 
         <div>
             <!--채팅창-->
-            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
+            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber" :member_no="member_no"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -297,6 +297,7 @@
             color: '#13b0cb',
             transactionNum: 20,
             merchant_member_no: 0,
+            member_no: 1,
             message: [{
                 email : 'Charles',
                 color: '#13b0cb',

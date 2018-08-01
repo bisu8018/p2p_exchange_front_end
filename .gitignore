@@ -2,3 +2,5 @@
 /dist
 /.idea
 /.vscode
+/webpack.config.ts
+src/service/verification/

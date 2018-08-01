@@ -21,7 +21,7 @@
                             <option v-for="country in countries" v-bind:value="country.code">{{country.country}}
                             </option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
             </v-flex>
@@ -36,6 +36,7 @@
                                 {{currency.currency}}
                             </option>
                         </select>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
             </v-flex>
@@ -49,7 +50,7 @@
                             <option value="buy">{{$str("buyText")}}</option>
                             <option value="sell">{{$str("sellText")}}</option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
             </v-flex>
@@ -64,7 +65,7 @@
                             <option value="ETH">ETH</option>
                             <option value="USDT">USDT</option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
             </v-flex>
@@ -86,7 +87,7 @@
                             <option value="fixed">{{$str("fixedPrice")}}</option>
                             <option value="float">{{$str("floatPrice")}}</option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
             </v-flex>
@@ -146,7 +147,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("volumeText")}}</div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
-                        <input type="text" class="price-input" v-model="volumeValue" @blur="onCheckVolume" @keyup="onNumberCheck('volume')"
+                        <input type="text" class="price-input" v-model="volumeValue" @blur="onCheckVolume"
+                               @keyup="onNumberCheck('volume')"
                                :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + coinType">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
                             {{coinType}}
@@ -235,11 +237,11 @@
             <!--알리페이 결제-->
             <v-flex xs12 md8>
                 <div class="text-xs-left display-flex mb-4" v-if="alipay === 'Y'">
-                    <div class="mr-3 "><span @click="onToggle('alipay')"><toggle :toggle="alipayUse"
+                    <div class="mr-3 "><span @click="onToggle('alipay')"><toggle :toggle="alipay_toggle_use"
                                                                                  class="c-pointer"></toggle></span>
                     </div>
                     <div class="d-grid p-relative">
-                        <div class="align-center "><img src="@/assets/img/method_alipay.png"><span
+                        <div class="vertical-center "><div class="sprite-img ic-alipay d-inline-block"></div><span
                                 class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
                             <div class="d-inline-block">{{alipayInfo}}</div>
                         </div>
@@ -250,11 +252,11 @@
             <!--위챗페이 결제-->
             <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left display-flex mb-4" v-if="wechatPay === 'Y'">
-                    <div class="mr-3"><span @click="onToggle('wechatPay')"><toggle :toggle="wechatPayUse"
+                    <div class="mr-3"><span @click="onToggle('wechatPay')"><toggle :toggle="wechat_toggle_use"
                                                                                    class="c-pointer"></toggle></span>
                     </div>
                     <div class="d-grid p-relative">
-                        <div class="align-center"><img src="@/assets/img/method_wechatpay.png"><span
+                        <div class="vertical-center"><div class="sprite-img ic-wechatpay d-inline-block"></div><span
                                 class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
                             <div class="d-inline-block">{{wechatPayInfo}}</div>
                         </div>
@@ -263,13 +265,13 @@
             </v-flex>
 
             <!--은행 계좌 결제-->
-            <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4" v-if="bankAccount === 'Y'">
-                    <div class="mr-3"><span @click="onToggle('bankAccount')"><toggle :toggle="bankAccountUse"
+            <v-flex xs12 md8 offset-md4 >
+                <div class="text-xs-left display-flex mb-4 " v-if="bankAccount === 'Y'">
+                    <div class="mr-3 "><span @click="onToggle('bankAccount')"><toggle :toggle="bank_toggle_use"
                                                                                      class="c-pointer"></toggle></span>
                     </div>
                     <div class="d-grid p-relative">
-                        <div class="align-center"><img src="@/assets/img/method_bankaccount.png"><span
+                        <div class="vertical-center"><div class="sprite-img ic-bank d-inline-block"></div><span
                                 class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
                             <div class="d-inline-block">{{bankAccountInfo}}</div>
                         </div>
@@ -278,12 +280,13 @@
             </v-flex>
 
             <!--결제수단 새로고침-->
-            <v-flex xs12 md8 offset-md4>
-                <div @click="onRefresh" class="refresh-btn btn-blue-hover h5 btn-rounded-blue mb-4">
-                    <i class="material-icons">sync</i>
+            <v-flex xs12 md8 offset-md4 text-xs-left mb-4>
+                <span @click="onRefresh" class="p-relative refresh-btn btn-blue-hover h5 btn-rounded-blue c-pointer">
+                    <i class="material-icons refresh-icon">sync</i>
                     <span class="refresh-btn-span">{{$str('refreshBtnText')}}</span>
-                </div>
+                </span>
             </v-flex>
+
 
             <v-flex xs12 md8 offset-md4>
                 <div class="payment-explain text-xs-left line-height-1a">
@@ -359,17 +362,32 @@
             </v-flex>
             <v-flex xs12 md6 offset-md4>
                 <div>
-                    <div class="text-xs-left mb-4"><label><input type="checkbox"
-                                                                 v-model="counterpartyCheckbox_first"/><span
-                            class="color-black ml-2">{{$str("counterpartyCheckbox1")}}</span></label>
+                    <div class="text-xs-left mb-4 vertical-center">
+                        <input type="checkbox" id="first_condition_chkbox" v-model="counterpartyCheckbox_first"/>
+                        <label for="first_condition_chkbox">
+                            <span>
+                                <i class="material-icons">done</i>
+                            </span>
+                            <h5 class="d-inline-block">{{$str("counterpartyCheckbox1")}}</h5>
+                        </label>
                     </div>
-                    <div class="text-xs-left mb-4 "><label><input type="checkbox"
-                                                                  v-model="counterpartyCheckbox_second"/><span
-                            class="color-black ml-2">{{$str("counterpartyCheckbox2")}}</span></label>
+                    <div class="text-xs-left mb-4 ">
+                        <input type="checkbox" id="second_condition_chkbox" v-model="counterpartyCheckbox_second"/>
+                        <label for="second_condition_chkbox">
+                            <span>
+                                <i class="material-icons">done</i>
+                            </span>
+                            <h5 class="d-inline-block">{{$str("counterpartyCheckbox2")}}</h5>
+                        </label>
                     </div>
-                    <div class="text-xs-left mb-4"><label><input type="checkbox"
-                                                                 v-model="counterpartyCheckbox_third"/><span
-                            class="color-black ml-2">{{$str("counterpartyCheckbox3")}}</span></label>
+                    <div class="text-xs-left mb-4">
+                        <input type="checkbox" v-model="counterpartyCheckbox_third" id="third_condition_chkbox"/>
+                        <label for="third_condition_chkbox">
+                            <span>
+                                <i class="material-icons">done</i>
+                            </span>
+                            <h5 class="d-inline-block">{{$str("counterpartyCheckbox3")}}</h5>
+                        </label>
                     </div>
                     <div class="text-xs-left h6 color-darkgray">{{$str("counterpartyExplain")}}</div>
                 </div>
@@ -461,9 +479,9 @@
             alipay: "Y",
             wechatPay: "Y",
             bankAccount: "Y",
-            alipayUse: false,
-            wechatPayUse: false,
-            bankAccountUse: false,
+            alipay_toggle_use: false,
+            wechat_toggle_use: false,
+            bank_toggle_use: false,
             alipayInfo: "范鹏龙 , 18529612778 Alipay",
             wechatPayInfo: "范鹏龙 , 18529612778 Wechatpay",
             bankAccountInfo: "范鹏龙 , 6214856562128938 招商银行 珠海分行营业部",
@@ -545,33 +563,33 @@
         },
         methods: {
             onNumberCheck(type) {
-                if(type === 'price'){
+                if (type === 'price') {
                     let temp = this.priceValue;
-                    if(!abUtils.isDouble(temp)){
+                    if (!abUtils.isDouble(temp)) {
                         return this.priceValue = "";
                     }
                     return this.priceValue = abUtils.toDeleteZero(temp);
-                }else if(type === 'volume'){
+                } else if (type === 'volume') {
                     let temp = this.volumeValue;
-                    if(!abUtils.isDouble(temp)){
+                    if (!abUtils.isDouble(temp)) {
                         return this.volumeValue = "";
                     }
                     return this.volumeValue = abUtils.toDeleteZero(temp);
-                }else if(type === "minLimit"){
+                } else if (type === "minLimit") {
                     let temp = this.minLimitValue;
-                    if(!abUtils.isDouble(temp)){
+                    if (!abUtils.isDouble(temp)) {
                         return this.minLimitValue = "";
                     }
                     return this.minLimitValue = abUtils.toDeleteZero(temp);
-                }else if(type === "maxLimit"){
+                } else if (type === "maxLimit") {
                     let temp = this.maxLimitValue;
-                    if(!abUtils.isDouble(temp)){
+                    if (!abUtils.isDouble(temp)) {
                         return this.maxLimitValue = "";
                     }
                     return this.maxLimitValue = abUtils.toDeleteZero(temp);
-                }else if(type === "paymentWindow"){
+                } else if (type === "paymentWindow") {
                     let temp = this.paymentWindowValue;
-                    if(!abUtils.isDouble(temp)){
+                    if (!abUtils.isDouble(temp)) {
                         return this.paymentWindowValue = "";
                     }
                     return this.paymentWindowValue = abUtils.toDeleteZero(temp);
@@ -594,9 +612,9 @@
                     limit_min: this.minLimitValue,
                     limit_max: this.maxLimitValue,
                     paymentWindowValue: this.paymentWindowValue,
-                    alipayUse: this.alipayUse,               //NULL 값 허용
-                    wechatPayUse: this.wechatPayUse,         //최소 한개 필요 !!
-                    bankAccountUse: this.bankAccountUse,     //KYC 확인란에서 체크
+                    alipay_toggle_use: this.alipay_toggle_use,               //NULL 값 허용
+                    wechat_toggle_use: this.wechat_toggle_use,         //최소 한개 필요 !!
+                    bank_toggle_use: this.bank_toggle_use,     //KYC 확인란에서 체크
                     autoReplayValue: this.autoReplayValue,
                     termsTransactinValue: this.termsTransactinValue,
                     counterpartyFilterValue: this.counterpartyFilterValue,
@@ -627,22 +645,22 @@
             onToggle: function (type) {
                 // 결제수단 별 토글버튼 on/off 로직
                 if (type === 'alipay') {
-                    if (this.alipayUse === false) {
-                        this.alipayUse = true;
+                    if (this.alipay_toggle_use === false) {
+                        this.alipay_toggle_use = true;
                     } else {
-                        this.alipayUse = false;
+                        this.alipay_toggle_use = false;
                     }
                 } else if (type === 'wechatPay') {
-                    if (this.wechatPayUse === false) {
-                        this.wechatPayUse = true;
+                    if (this.wechat_toggle_use === false) {
+                        this.wechat_toggle_use = true;
                     } else {
-                        this.wechatPayUse = false;
+                        this.wechat_toggle_use = false;
                     }
                 } else {
-                    if (this.bankAccountUse === false) {
-                        this.bankAccountUse = true;
+                    if (this.bank_toggle_use === false) {
+                        this.bank_toggle_use = true;
                     } else {
-                        this.bankAccountUse = false;
+                        this.bank_toggle_use = false;
                     }
                 }
             },
@@ -803,17 +821,20 @@
     }
 
     .refresh-btn {
-        width: 106px;
-        display: flex;
-        padding-top: 7px;
-        padding-left: 12px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .refresh-icon {
+        top: 5px;
+        position: absolute;
+        left: 10px;
     }
 
     .refresh-btn-span {
         margin-top: 1px;
-        margin-left: 5px;
+        margin-left: 22px;
     }
-
 
     .verify-slider-wrapper {
         max-width: 290px;

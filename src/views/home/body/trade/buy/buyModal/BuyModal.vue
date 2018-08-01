@@ -8,7 +8,7 @@
                     $str("appeal"))}}
                 </div>
                 <v-spacer></v-spacer>
-                <i class="material-icons color-black" @click="onClose">close</i>
+                <i class="material-icons color-black c-pointer" @click="onClose">close</i>
             </div>
             <div class="line-height-1 modal-subject-2">
 
@@ -40,7 +40,7 @@
                     </div>
 
                     <!--이의제기 이유 selectbox-->
-                    <div class="relative mb-4">
+                    <div class="p-relative mb-4">
                         <select class="comp-selectbox h6" id="appealReasonSelectbox" v-model="appealReason">
                             <option value="notpay">The counterparty doesn’t pay</option>
                             <option value="notrelease">The counterparty doesn’t release</option>
@@ -48,7 +48,7 @@
                             <option value="cheating">Cheating</option>
                             <option value="other">Other</option>
                         </select>
-                           <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
                     </div>
                     <div class="text-xs-left color-black mb-2">
                        {{$str("details")}}

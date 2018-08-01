@@ -10,7 +10,7 @@
             <select v-else="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="o-none comp-selectbox h6">
                 <option v-for="payment in payments" class="o-none " v-bind:value="payment.code" >{{payment.payment}}</option>
             </select>
-            <v-icon class="comp-selectbox-icon">keyboard_arrow_down</v-icon>
+            <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
         </div>
     </v-layout>
 </template>

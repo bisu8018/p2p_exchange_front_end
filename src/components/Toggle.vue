@@ -37,7 +37,7 @@
 
     .toggle-turn-on {
         background: #316ee4;
-        padding-left: 35px;
+        padding-left: 25px;
     }
 
 

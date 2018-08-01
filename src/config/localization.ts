@@ -1581,6 +1581,211 @@ const strings = new Map([
         JP: ''
     }],
 
+    //My page
+    ['trades', {
+        KOR: '거래 수',
+        ENG: 'Trades',
+        CN: '总成单',
+        JP: ''
+    }],
+    ['times', {
+        KOR: '번',
+        ENG: 'Times',
+        CN: '次',
+        JP: ''
+    }],
+    ['avgRelease', {
+        KOR: '평균 릴리즈',
+        ENG: 'Avg Release',
+        CN: '平均放行',
+        JP: ''
+    }],
+    ['accountCreatedTime', {
+        KOR: '계정생성시간',
+        ENG: 'Account created at',
+        CN: '平均放行',
+        JP: ''
+    }],
+    ['noRecord', {
+        KOR: '거래 내역 없음',
+        ENG: 'No record of transactions',
+        CN: ' 尚未交易',
+        JP: ''
+    }],
+    ['accountSecurity', {
+        KOR: '계정 및 보안',
+        ENG: 'Account & Security',
+        CN: '账户与安全',
+        JP: ''
+    }],
+    ['securityLevel', {
+        KOR: '보안 등급',
+        ENG: 'Security Level',
+        CN: '安全等',
+        JP: ''
+    }],
+    ['securityExplain', {
+        KOR: '두가지 이상 인증 받는 것을 강력히 추천 드립니다.',
+        ENG: 'Using two-factor authentication is highly recommended.',
+        CN: '',
+        JP: ''
+    }],
+    ['emailSecurityExplain', {
+        KOR: 'API를 관리하는 동안 인출, 암호검색, 보안 설정 변경 그리고 인증에 사용 됩니다.',
+        ENG: 'Used to withdraw, retrieve password, change security settings and verify while managing API.',
+        CN: '',
+        JP: ''
+    }],
+    ['phone', {
+        KOR: '전화',
+        ENG: 'Phone',
+        CN: '手机',
+        JP: ''
+    }],
+    ['account', {
+        KOR: '계정',
+        ENG: 'Account',
+        CN: '帐户',
+        JP: ''
+    }],
+    ['idVerification', {
+        KOR: '신분증 인증',
+        ENG: 'ID Verification',
+        CN: '身份认证',
+        JP: ''
+    }],
+    ['idVerificationExplain', {
+        KOR: '최초 신분증 인증 후, 바꿀 수 없습니다.',
+        ENG: 'Once ID verification is completed, no changes may be made.',
+        CN: '',
+        JP: ''
+    }],
+    ['advancedVerification', {
+        KOR: '고급 인증',
+        ENG: 'Advanced Verification',
+        CN: '高级认证',
+        JP: ''
+    }],
+    ['paymentMethodExplain', {
+        KOR: '개인 보안상의 이유로 자신의 계정 만을 사용해야 합니다. 사용 가능한 결제 방법은 구매자에게 최대 3 개까지 표시됩니다.',
+        ENG: 'For personal security reasons, please only use your own account.Enabled payment instructions will be showen to the buyer,3 at most',
+        CN: '',
+        JP: ''
+    }],
+    ['modify', {
+        KOR: '수정',
+        ENG: 'Modify',
+        CN: '修改',
+        JP: ''
+    }],
+    ['addPayment', {
+        KOR: '새로운 결제수단 추가',
+        ENG: 'Add a new payment method',
+        CN: '点击添加支付方式',
+        JP: ''
+    }],
+    ['blockList', {
+        KOR: '차단 리스트',
+        ENG: 'Block List',
+        CN: '屏蔽名单',
+        JP: ''
+    }],
+    ['blockListExplain', {
+        KOR: '차단된 이용자는 당신과 거래할 수 없습니다.',
+        ENG: 'Users that you blocked will not be able to trade with you',
+        CN: '被屏蔽的用户将无法与您进行交易',
+        JP: ''
+    }],
+    ['history', {
+        KOR: '기록',
+        ENG: 'History',
+        CN: '',
+        JP: ''
+    }],
+    ['securitySettings', {
+        KOR: '보안 설정',
+        ENG: 'Security Settings',
+        CN: '',
+        JP: ''
+    }],
+    ['low', {
+        KOR: '저',
+        ENG: 'Low',
+        CN: '低',
+        JP: ''
+    }],
+    ['medium', {
+        KOR: '중',
+        ENG: 'Medium',
+        CN: '中',
+        JP: ''
+    }],
+    ['high', {
+        KOR: '고',
+        ENG: 'High',
+        CN: '高',
+        JP: ''
+    }],
+    ['bound', {
+        KOR: '연동',
+        ENG: 'Bound',
+        CN: '绑定',
+        JP: ''
+    }],
+    ['unbound', {
+        KOR: '미연동',
+        ENG: 'Unbound',
+        CN: '',
+        JP: ''
+    }],
+    ['turnOff', {
+        KOR: '해제',
+        ENG: 'Turn off',
+        CN: '',
+        JP: ''
+    }],
+    ['unverified', {
+        KOR: '미인증',
+        ENG: 'Unverified',
+        CN: '未认证',
+        JP: ''
+    }],
+    ['reset', {
+        KOR: '설정',
+        ENG: 'Reset',
+        CN: '设置',
+        JP: ''
+    }],
+    ['unblock', {
+        KOR: '차단해제',
+        ENG: 'Unblock',
+        CN: '',
+        JP: ''
+    }],
+    ['successful', {
+        KOR: '성공',
+        ENG: 'Successful',
+        CN: '成功',
+        JP: ''
+    }],
+    ['failed', {
+        KOR: '실패',
+        ENG: 'Failed',
+        CN: '失败',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
 //    Merchant
     ['Apply to be Merchant', {
         KOR: '판매자 신청',
