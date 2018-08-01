@@ -32,28 +32,43 @@
             </v-flex>
 
         </v-layout>
-
-        <v-layout>
-            <v-flex xs12 md12 class="text-md-center text-xs-center mt-4a">
-                <div>
-                    <label class="mb-3">
-                        <input type="checkbox" v-model="isAgree" class="mr-3">
-                        <span class="color-darkgray"> {{$str("agreeTermsExplain")}} </span>
-                        <button>
-                            <span class="color-blue">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
-                        </button>
-                    </label>
-                </div>
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex xs12 md12 class="mt-4 mb-6">
-                <button class="pl-4 pr-4 btn-apply " :class="{'btn-blue btn-blue-hover ': isAgree, 'inactive' : !isAgree}"
-                        @click="showDialog">
-                    {{$str("ApplyNow")}}
-                </button>
-            </v-flex>
-        </v-layout>
+        <!--merchant 등록을 안했을때 나오는 기본화면-->
+        <div v-if="!alreadySuccess">
+            <v-layout mt-4a mb-3 align-center justify-center row wrap>
+                    <div class=" p-relative vertical-center">
+                        <input type="checkbox" v-model="isAgree" id="termsCheckbox">
+                        <label for="termsCheckbox"><span><i class="material-icons">done</i></span></label>
+                        <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
+                    </div>
+                    <button>
+                        <span class="color-blue">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
+                    </button>
+            </v-layout>
+            <v-layout>
+                <v-flex xs12 md12 class="mb-6 mt-1">
+                    <!--위의 checkbox를 눌렀을때에만 버튼 활성화-->
+                    <button class="pl-4 pr-4 btn-apply " :class="{'btn-blue btn-blue-hover ': isAgree, 'inactive' : !isAgree}"
+                            @click="showDialog">
+                        {{$str("ApplyNow")}}
+                    </button>
+                </v-flex>
+            </v-layout>
+        </div>
+        <!-- 인증 제출을 이미 했을시 뜨는 화면-->
+        <div v-else>
+            <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
+                <v-flex xs12 md1 pr-3 pt-2 text-md-right>
+                    <i class="material-icons">schedule</i>
+                </v-flex>
+                <v-flex xs12 md4 text-md-left pl-0><h2>{{$str("Your application is under review.")}}</h2></v-flex>
+            </v-layout>
+            <v-layout justify-center mb-6>
+                <v-flex md5 xs12>
+                    <h4> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h4>
+                </v-flex>
+            </v-layout>
+        </div>
+        <!--첫번째로 뜨는 정보 입력 dialog-->
         <v-dialog v-model="showVeriModal" persistent>
             <v-layout row wrap>
                 <!--header-->
@@ -139,6 +154,7 @@
                 </v-flex>
             </v-layout>
         </v-dialog>
+        <!-- 정보 입력시 뜨는 공지창-->
         <v-dialog v-model="showSuccessModal" persistent>
             <v-layout row wrap>
                 <!--header-->
@@ -154,10 +170,7 @@
                     {{$str("We will complete the review within 2 working days")}}
                 </v-flex>
                 <v-flex xs12 text-xs-right>
-                    <button class="btn-rounded-white text-white-hover" @click="showSuccessModal = false" >
-                        <h6>{{$str("cancel")}}</h6>
-                    </button>
-                    <button class="btn-rounded-blue btn-blue-hover" @click="showSuccessModal = false">
+                    <button class="btn-rounded-blue btn-blue-hover" @click="showSuccessModal = false; alreadySuccess = true">
                         <h6>{{$str("confirm")}}</h6>
                     </button>
                 </v-flex>
@@ -176,6 +189,7 @@
             isAgree : false,
             showVeriModal : false,
             showSuccessModal : false,
+            alreadySuccess : false,
             FirstName : '',
             LastName : '',
             IDNum : '',

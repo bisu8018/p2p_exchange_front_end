@@ -767,7 +767,7 @@ const strings = new Map([
     }],
     ['agreeTermsExplain', {
         KOR: '본인은 이를 이해하고 준수할 것에 동의 합니다',
-        ENG: 'I have read and agree to the ',
+        ENG: 'I have read and agree to the',
         CN: '我已知晓并同意遵守',
         JP: ''
     }],
@@ -1911,6 +1911,25 @@ const strings = new Map([
         KOR: '여권 번호를 입력하십시오.',
         ENG: 'Please enter your passport number',
         CN: '请输入您的护照号码',
+        JP: ''
+    }],
+    ['Done', {
+        KOR: '확인',
+        ENG: 'Done',
+        CN: '完成',
+        JP: ''
+    }],
+    ['Your application is under review.', {
+        KOR: '귀하의 신청서를 검토 중입니다.',
+        ENG: 'Your application is under review.',
+        CN: '您的申请正在审核中。',
+        JP: ''
+    }],
+    ['Your application has been successfully submitted. We will complete the review within 2 working days.', {
+        KOR: '신청서가 성공적으로 제출되었습니다. 2일 이내에 ' +
+        '검토를 완료 할 것입니다.',
+        ENG: 'Your application has been successfully submitted. We will complete the review within 2 working days.',
+        CN: '您的申请已成功提交。 我们将在2个工作日内完成审核。',
         JP: ''
     }],
     ['Done', {
