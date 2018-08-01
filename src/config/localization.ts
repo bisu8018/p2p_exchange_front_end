@@ -1581,6 +1581,141 @@ const strings = new Map([
         JP: ''
     }],
 
+//    Merchant
+    ['Apply to be Merchant', {
+        KOR: '판매자 신청',
+        ENG: 'Apply to be Merchant',
+        CN: '申请成为商人',
+        JP: ''
+    }],
+    ['Advertising', {
+        KOR: '광고',
+        ENG: 'Advertising',
+        CN: '广告',
+        JP: ''
+    }],
+    ['Merchants are able to post advertisements, flexible and covenient to trade.', {
+        KOR: '판매자은 광고를 게시 할 수 있으며 유연하고 편리하게 거래 할 수 있습니다.',
+        ENG: 'Merchants are able to post advertisements, flexible and covenient to trade.',
+        CN: '商家可以发布广告，灵活方便交易。',
+        JP: ''
+    }],
+    ['Exclusive logo', {
+        KOR: '독점 로고',
+        ENG: 'Exclusive logo',
+        CN: '独家标志',
+        JP: ''
+    }],
+    ['Verified merchants will have an exclusive logo to enhance reliability and trustworthiness.', {
+        KOR: '확인 된 판매자는 신뢰도와 신뢰성을 높이기 위해 독점 로고를 보유하게됩니다.',
+        ENG: 'Verified merchants will have an exclusive logo to enhance reliability and trustworthiness.',
+        CN: '经过验证的商家将拥有独家徽标，以提高可靠性和可信度。',
+        JP: ''
+    }],
+    ['One-to-one Service', {
+        KOR: '일대일 서비스',
+        ENG: 'One-to-one Service',
+        CN: '一对一服务',
+        JP: ''
+    }],
+    ['Merchants will enjoy our one-to-one exclusive service.', {
+        KOR: '판매자들께선 저희의 일대일 전용 서비스를 즐길 수 있습니다.',
+        ENG: 'Merchants will enjoy our one-to-one exclusive service.',
+        CN: '商家将享受我们的一对一专属服务。',
+        JP: ''
+    }],
+    ['OTC Trading Terms and Conditions', {
+        KOR: 'OTC 거래 조건',
+        ENG: 'OTC Trading Terms and Conditions',
+        CN: '场外交易条款和条件',
+        JP: ''
+    }],
+    ['ApplyNow', {
+        KOR: '지금 신청',
+        ENG: 'Apply Now',
+        CN: '现在申请',
+        JP: ''
+    }],
+    ['For safety reasons, please complete the transaction information', {
+        KOR: '안전을 위해 거래 정보를 작성하십시오.',
+        ENG: 'For safety reasons, please complete the transaction information',
+        CN: '出于安全考虑，请填写交易信息',
+        JP: ''
+    }],
+    ['First Name', {
+        KOR: '이름',
+        ENG: 'First Name',
+        CN: '名字',
+        JP: ''
+    }],
+    ['Last Name', {
+        KOR: '성',
+        ENG: 'Last Name',
+        CN: '姓',
+        JP: ''
+    }],
+    ['Identification Number', {
+        KOR: '식별 번호',
+        ENG: 'Identification Number',
+        CN: '识别号码',
+        JP: ''
+    }],
+    ['e.g. Passport, ID or Driver\'s License', {
+        KOR: '예 : 여권, 신분증 또는 운전 면허증',
+        ENG: 'e.g. Passport, ID or Driver\'s License',
+        CN: '例如 护照，身份证或驾驶执照',
+        JP: ''
+    }],
+    ['Upload photo of identiication', {
+        KOR: '신분증 사진 업로드',
+        ENG: 'Upload photo of identiication',
+        CN: '上传身份证的照片',
+        JP: ''
+    }],
+    ['Your application is under review', {
+        KOR: '신청서를 검토 중입니다.',
+        ENG: 'Your application is under review',
+        CN: '您的申请正在审核中',
+        JP: ''
+    }],
+    ['Authentication has been successfully submitted.', {
+        KOR: '인증이 성공적으로 신청되었습니다.',
+        ENG: 'Authentication has been successfully submitted.',
+        CN: '身份验证已成功提交。',
+        JP: ''
+    }],
+    ['We will complete the review within 2 working days', {
+        KOR: '2 일 이내에 검토를 완료하겠습니다.',
+        ENG: 'We will complete the review within 2 working days',
+        CN: '我们将在2个工作日内完成审核',
+        JP: ''
+    }],
+    ['Please enter your first name', {
+        KOR: '이름을 입력하십시오',
+        ENG: 'Please enter your first name',
+        CN: '请输入您的名字',
+        JP: ''
+    }],
+    ['Please enter your last name', {
+        KOR: '당신의 성을 입력하세요',
+        ENG: 'Please enter your last name',
+        CN: '请输入您的姓氏',
+        JP: ''
+    }],
+    ['Please enter your passport number', {
+        KOR: '여권 번호를 입력하십시오.',
+        ENG: 'Please enter your passport number',
+        CN: '请输入您的护照号码',
+        JP: ''
+    }],
+    ['Done', {
+        KOR: '확인',
+        ENG: 'Done',
+        CN: '完成',
+        JP: ''
+    }],
+
+
 
 
 
