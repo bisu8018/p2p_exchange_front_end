@@ -10,7 +10,7 @@
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
-                    <v-divider></v-divider>
+                    <v-flex><v-divider></v-divider></v-flex>
                 </div>
             </div>
             <!-- Web 일때 -->
@@ -37,14 +37,14 @@
                         {{$str("control")}}
                     </v-flex>
                 </v-layout>
-                <v-divider></v-divider>
+                <v-flex><v-divider></v-divider></v-flex>
 
                 <!-- user item list들 10개씩 출력-->
                 <div v-for="user in users"  >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>
-                    <v-divider></v-divider>
+                    <v-flex><v-divider></v-divider></v-flex>
                 </div>
             </div>
             <!-- pagination -->
@@ -81,6 +81,9 @@
                     isLogin : true,
                     color : '#8869CA',
                     rank : 1,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '',
                 },
                 {
                     email: 'Dean',
@@ -93,6 +96,9 @@
                     isLogin : false,
                     color : '#E05543',
                     rank : 2,
+                    bank_account : '123',
+                    wechat_id : '',
+                    alipay_id : '789',
                 },
                 {
                     email: 'Jack',
@@ -105,6 +111,9 @@
                     isLogin : false,
                     color : '#E25422',
                     rank : 1,
+                    bank_account : '',
+                    wechat_id : '456',
+                    alipay_id : '789',
                 },
                 {
                     email: 'Jiny',
@@ -118,6 +127,9 @@
                     isLogin : true,
                     color : '#2799C9',
                     rank : 2,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '789',
                 },
                 {
                     email: 'Jun',
@@ -130,6 +142,9 @@
                     isLogin : true,
                     color : '#B0D63E',
                     rank : 3,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '789',
                 },
                 {
                     email: 'Kay',
@@ -143,6 +158,9 @@
                     isLogin : true,
                     color : '#394B50',
                     rank : 1,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '789',
                 },
                 {
                     email: 'Kevin',
@@ -155,6 +173,9 @@
                     isLogin : true,
                     color : '#BF4F79',
                     rank : 2,
+                    bank_account : '123',
+                    wechat_id : '',
+                    alipay_id : '',
                 },
                 {
                     email: 'Max',
@@ -167,6 +188,9 @@
                     isLogin : true,
                     color : '#8869CA',
                     rank : 3,
+                    bank_account : '',
+                    wechat_id : '',
+                    alipay_id : '789',
                 },
                 {
                     email: 'BK',
@@ -179,6 +203,9 @@
                     isLogin : true,
                     color : '#8869CA',
                     rank : 1,
+                    bank_account : '123',
+                    wechat_id : '',
+                    alipay_id : '',
                 },
                 {
                     email: 'Ryan',
@@ -191,6 +218,9 @@
                     isLogin : true,
                     color : '#8869CA',
                     rank : 1,
+                    bank_account : '123',
+                    wechat_id : '456',
+                    alipay_id : '',
                 },
                 {
                     email: 'Tom',
@@ -203,6 +233,9 @@
                     isLogin : true,
                     color : '#8869CA',
                     rank : 1,
+                    bank_account : '123',
+                    wechat_id : '',
+                    alipay_id : '789',
                 },
                 {
                     email: 'AB',
@@ -215,6 +248,9 @@
                     isLogin : true,
                     color : '#8869CA',
                     rank : 2,
+                    bank_account : '',
+                    wechat_id : '456',
+                    alipay_id : '789',
                 },
             ],
         }),
