@@ -322,6 +322,66 @@
         color: #9294a6;
     }
 
+
+    /*체크박스 CSS
+    이용법 :
+    <input type="checkbox" v-model="checkbox" id="termsCheckbox"> //실제 체크박스
+    <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel')}}</label> //스타일 체크박스
+       */
+
+    input[type="checkbox"] {
+        display:none;
+    }
+
+    input[type="checkbox"] + label {
+        color:#353535;
+        font-size: 12px;
+        align-items: center;
+        display: flex;
+    }
+
+    input[type="checkbox"] + label span {
+        display:inline-block;
+        width:20px;
+        height:20px;
+        margin-right: 8px;
+        vertical-align:middle;
+        background: white;
+        border: 1px solid #8d8d8d;
+        cursor:pointer;
+        border-radius: 2px;
+    }
+
+    input[type="checkbox"]:checked + label span {
+        border: 1px solid #214ea1;
+        font-size: 12px;
+        color: #214ea1;
+        font-weight: bold;
+    }
+
+    input[type="checkbox"]:hover + label span {
+        border: 1px solid #214ea1;
+    }
+
+    input[type="checkbox"] + label span i{
+        display: none;
+    }
+
+    input[type="checkbox"]:checked + label span i{
+        padding-top: 3px;
+        padding-left: 3px;
+        font-size: 12px;
+        color: #214ea1;
+        font-weight: bold;
+        display: inline-block;
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+
     /*폰트 색깔*/
 
     .color-black {
@@ -376,6 +436,10 @@
 
     .bg-overlay {
         background-color: rgba(0, 0, 0, 0.45)
+    }
+
+    .bg-blue {
+        background-color: #214ea1;
     }
 
     /* 마진, margin 설정*/
@@ -457,6 +521,20 @@
 
     .horizontal-center {
         margin: 0 auto;
+    }
+
+
+    /*텍스트 정렬*/
+    .ta-center{
+        text-align: center;
+    }
+
+    .ta-right{
+        text-align: right;
+    }
+
+    .ta-left{
+        text-align: left;
     }
 
 
@@ -649,6 +727,7 @@
         right: 8px;
         top: 8px;
         pointer-events: none;
+        color: #9294a6;
     }
 
     /*input text 필드 공통 CSS*/
@@ -714,6 +793,14 @@
         display: inline-block;
     }
 
+    .d-inherit {
+        display: inherit;
+    }
+
+    .d-contents {
+        display: contents;
+    }
+
     /* 비지빌리티 */
 
     .v-visible {
@@ -748,6 +835,14 @@
 
     .w-half {
         width: 50%;
+    }
+
+    .h-full {
+        height: 100%;
+    }
+
+    .h-half {
+        height: 50%;
     }
 
     /*아웃라인 없애기*/
@@ -867,22 +962,6 @@
 
 
     /*Sprite 이미지*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     .ic-no-ad-lg {
@@ -1219,15 +1298,6 @@
         width: 16px;
         height: 16px;
     }
-
-
-
-
-
-
-
-
-
 
 
 

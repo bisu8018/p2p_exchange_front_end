@@ -13,21 +13,24 @@
                 <div class="section-border-depth pt-5 pb-5">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">Advertising</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants are able to post advertisements, flexible and covenient to trade.</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants are able to post
+                        advertisements, flexible and covenient to trade.</h4>
                 </div>
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
                 <div class="section-border-depth pt-5 pb-5">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3 medium">Exclusive logo</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Verified merchants will have an exclusive logo to enhance reliability and trustworthiness.</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Verified merchants will have an
+                        exclusive logo to enhance reliability and trustworthiness.</h4>
                 </div>
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
                 <div class="section-border-depth pt-5 pb-72">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">One-to-one Service</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants will enjoy our one-to-one exclusive service.</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">Merchants will enjoy our
+                        one-to-one exclusive service.</h4>
                 </div>
             </v-flex>
 
@@ -35,9 +38,13 @@
 
         <v-layout>
             <v-flex xs12 md12 class="text-md-center text-xs-center mt-4a">
-                <div>
-                    <label class="mb-3">
-                        <input type="checkbox" v-model="agreeTerms" class="mr-3"/>{{$str("agreeTermsExplain")}}
+                <div class="d-contents">
+                    <input id="termsChkbox" type="checkbox" v-model="agreeTerms" class="mr-3"/>
+                    <label for="termsChkbox">
+                            <span>
+                                <i class="material-icons pl-0">done</i>
+                            </span>
+                        <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
                     </label>
                 </div>
             </v-flex>
@@ -51,74 +58,12 @@
             </v-flex>
         </v-layout>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </template>
 
+
 <script>
-
-
     export default {
         name: "merchant",
-
     }
 </script>
 
@@ -127,8 +72,6 @@
     .pb-72 {
         padding-bottom: 72px;
     }
-
-
 
     .btn-apply {
         width: auto !important;

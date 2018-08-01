@@ -7,7 +7,7 @@
                     {{type === 'confirm' ? $str("confirmRelease") : $str("appeal")}}
                 </div>
                 <v-spacer></v-spacer>
-                <i class="material-icons color-black" @click="onClose">close</i>
+                <i class="material-icons color-black c-pointer" @click="onClose">close</i>
             </div>
             <div class="line-height-1 modal-subject-2 mb-4" >
 

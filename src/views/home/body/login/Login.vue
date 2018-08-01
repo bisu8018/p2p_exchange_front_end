@@ -3,11 +3,11 @@
     <v-layout pt-5 pb-5>
         <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
             <div>
-                <div class="mb-4a login-title">
-                    <div class="pt-1"><img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
+                <div class="mb-4a login-title align-center">
+                    <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
                     <div class="h2 bold">{{$str("welcome")}}</div>
                 </div>
-                <form action="/signin" method="post" id="loginForm">
+                <form action="/login" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
                     <div class="p-relative mb-4"><input type="text" class="input" name="email" v-model="email"
                                                            @blur="onCheckEmail"

@@ -1,9 +1,8 @@
 <template>
     <v-layout pt-5 pb-5>
         <v-flex xs12 lg4 offset-lg4>
-            <div class="mb-4a signup-flex">
-                <div class="pt-1">
-                    <img class="iconLogo mr-2" src="@/assets/img/logo_black.png"></div>
+            <div class="mb-4a signup-flex align-center">
+                <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
                 <div class="h2 bold">{{$str("signupSubject")}}</div>
             </div>
 
@@ -59,9 +58,10 @@
 
             <!--이용약관 체크박스-->
             <div class="mb-4 text-xs-left">
-                <label class="h6"><input id="termsCheckbox" type="checkbox" v-model="checkbox"
-                                         @click="onCheckTerms()"
-                                         class="mr-2">{{$str('termsLabel')}}</label>
+                <input id="termsCheckbox" type="checkbox" v-model="checkbox"
+                       @click="onCheckTerms()"
+                       class="mr-2">
+                <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel')}}</label>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
@@ -88,12 +88,13 @@
     import AccountService from '@/service/account/AccountService';
     import SelectBox from '@/components/SelectBox.vue';
     import VerificationModal from '@/components/VerificationModal.vue';
+    import Alerts from '@/components/Alerts.vue';
     import MainRepository from "@/vuex/MainRepository";
 
     export default Vue.extend({
         name: 'home',
         components: {
-            SelectBox, VerificationModal
+            SelectBox, VerificationModal, Alerts
         },
         data: () => ({
             email: "",
@@ -277,5 +278,9 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
+
+
+
+
 
 </style>

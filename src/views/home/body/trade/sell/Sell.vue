@@ -127,7 +127,7 @@
                     {{$str("buyingExplain4")}}
                 </span>
                 <span v-if="status === 'complete'">
-                    {{$str("complete")}}
+                    {{$str("complete")}},
                 </span>
 
                 {{$str("referenceText")}} :
