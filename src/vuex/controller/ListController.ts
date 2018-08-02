@@ -9,17 +9,17 @@ export default class ListController {
         this.store = vuexStore
     }
 
-    setTotalTrade(tradeTotalInfo : number) {
-        this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeTotalInfo);
-
-    }
+    // setTotalTrade(tradeTotalInfo : number) {
+    //     this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeTotalInfo);
+    //
+    // }
     // setTotalTrade(tradeTotalInfo : Trade[]) {
     //     this.store.dispatch(VuexTypes.SET_TRADEVIEW_DATA, tradeTotalInfo);
     //
     // }
-    getTotalTrade() {
-        return this.store.state.trade.tradeTotalInfo;
-    }
+    // getTotalTrade() {
+    //     return this.store.state.trade.tradeTotalInfo;
+    // }
 
     setSelectTrade(tradeSelectInfo : Trade[]) {
         this.store.dispatch(VuexTypes.SET_SELECTTRADEVIEW_DATA, tradeSelectInfo);
@@ -29,20 +29,20 @@ export default class ListController {
         return this.store.state.trade.tradeSelectInfo;
     }
 
-    setToken(token: string) {
-        this.store.dispatch(VuexTypes.SET_TOKEN_DATA, token);
+    setCryptocurrency(cryptocurrency: string) {
+        this.store.dispatch(VuexTypes.SET_CRYPTOCURRENCY_DATA, cryptocurrency);
     }
 
-    getToken() {
-        return this.store.state.trade.token;
+    getCryptocurrency() {
+        return this.store.state.trade.cryptocurrency;
     }
 
-    setAdType(adType: string) {
-        this.store.dispatch(VuexTypes.SET_ADTYPE_DATA, adType);
+    setTradeType(tradeType: string) {
+        this.store.dispatch(VuexTypes.SET_TRADETYPE_DATA, tradeType);
     }
 
-    getAdType() {
-        return this.store.state.trade.adType;
+    getTradeType() {
+        return this.store.state.trade.tradeType;
     }
 
     setLimitMin(limitMin: number) {

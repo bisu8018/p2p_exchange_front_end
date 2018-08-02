@@ -2,6 +2,9 @@ import {Store} from "vuex";
 import SelectBoxController from "@/vuex/controller/SelectBoxController";
 import StateController from "@/vuex/controller/StateController";
 import ListController from "@/vuex/controller/ListController";
+import MerchantController from "@/vuex/controller/MerchantController";
+import PaginationController from "@/vuex/controller/PaginationController";
+
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
 import Trade from "@/vuex/model/Trade";
@@ -13,6 +16,8 @@ import {toASCII} from "punycode";
 let selectBoxController: SelectBoxController;
 let listController : ListController;
 let stateController: StateController;
+let merchantController: MerchantController;
+let paginationController: PaginationController;
 
 let store: Store<any>;
 let instance: any;
@@ -24,7 +29,8 @@ export default {
         selectBoxController = new SelectBoxController(store);
         stateController = new StateController(store);
         listController = new ListController(store);
-
+        paginationController = new PaginationController(store);
+        merchantController = new MerchantController(store);
 
 
         // 자기 참조할 때 씀
@@ -90,54 +96,106 @@ export default {
     },
 
     TradeView: {
-        controller(): ListController{
+        controller(): ListController {
             return listController
         },
-        // 총 페이지네이션 수 SET
-        setTotalTradeView (token: string, adType: string, country: string, currency: string, limitMin: number, paymentMethod: string) {
-            TradeService.tradeView.tradeTotalInfo(token, adType, country, currency, limitMin, paymentMethod, function(data) {
-                // data 형태 number
-                listController.setTotalTrade(data);
-            });
-        },
-        // 총 페이지네이션 수 GET
-        getTotalTradeView () {
-            return listController.getTotalTrade();
-        },
+
         // 리스트 페이지 SET
-        setSelectPage(page : number) {
+        setSelectPage() {
             // Vuex Value GET
-            let token = listController.getToken();
-            let adType = listController.getAdType();
-            let country = selectBoxController.getCountry();
+            let page = paginationController.getPage();
+            let cryptocurrency = listController.getCryptocurrency();
+            let tradeType = listController.getTradeType();
+            let nationality = selectBoxController.getCountry();
             let currency = selectBoxController.getCurrency();
             let limitMin = listController.getLimitMin();
             let paymentMethod = selectBoxController.getPayment();
 
-            TradeService.tradeView.tradePageInfo(page, token, adType, country, currency, limitMin, paymentMethod, function(data) {
+            TradeService.tradeView.tradePageInfo(page, cryptocurrency, tradeType, nationality, currency, limitMin, paymentMethod, function (data) {
                 let tradeList: Trade[] = [];
-                for(let key in data) {
-                    let trade : Trade = new Trade(data[key]);
+                for (let key in data) {
+                    let trade: Trade = new Trade(data[key]);
                     tradeList.push(trade);
                 }
                 //리스트 형태 SET
                 listController.setSelectTrade(tradeList);
             });
         },
-        // 리스트 페이지 GET ? 필요한가?
-        getSelectPage () {
+        getSelectPage() {
             return listController.getSelectTrade();
         },
+
         // Token AdType Vuex
-        setTokenAndAdType (token: string, adType: string) {
-            listController.setToken(token);
-            listController.setAdType(adType);
+        // tradecenter 왼쪽 필터
+        setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
+            listController.setCryptocurrency(cryptocurrency);
+            listController.setTradeType(tradeType);
+            instance.Pagination.setPage(1);          //page는 1로 초기화
+            instance.TradeView.setSelectPage();      //필터에 맞게 화면 재구성
         },
+        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: number){
+            instance.SelectBox.controller().setCountry(nationality);
+            instance.SelectBox.controller().setPayment(paymentMethod);
+            instance.SelectBox.controller().setCurrency(currency);
+            instance.TradeView.controller().setLimitMin(amount);
+            instance.Pagination.setPage(1);         //page는 1로 초기화
+            instance.TradeView.setSelectPage();     //필터에 맞게 화면 재구성
+        },
+        // 총 페이지네이션 수 SET
+        // setTotalTradeView(cryptocurrency: string, tradeType: string, nationality: string, currency: string, limitMin: number, paymentMethod: string, page: number, size: number,) {
+        //     TradeService.tradeView.tradeTotalInfo(cryptocurrency, tradeType, nationality, currency, limitMin, paymentMethod, page, size, function (data) {
+        //         // data 형태 number
+        //         listController.setTotalTrade(data);
+        //     });
+        // },
+        // 총 페이지네이션 수 GET
+        // getTotalTradeView() {
+        //     return listController.getTotalTrade();
+        // },
 
     },
     SelectBox: {
-        controller() : SelectBoxController{
-          return selectBoxController
+        controller(): SelectBoxController {
+            return selectBoxController
         },
-    }
+    },
+
+    Pagination: {
+        controller(): PaginationController {
+            return paginationController
+        },
+        getPage() {
+            return paginationController.getPage();
+        },
+        getTotalCount() {
+            return paginationController.getTotalCount();
+        },
+        setPage(page: number, size : number, type : string) {
+            paginationController.setPage(page);
+            switch (type) {
+                case 'tradecenter':
+                    instance.TradeView.setSelectPage(); //자기 참조시 instance 사용.
+                    break;
+
+                case 'MyAds':
+
+                    break;
+                default :
+
+                    break;
+            }
+
+        },
+
+    },
+    Merchant: {
+        controller(): MerchantController {
+            return merchantController
+        },
+        // setMerchant (name: string) {
+        //     MerchantController.setMerchant(name);
+        // //    여기까지 선언하다 막힘.
+        // },
+    },
+
 }

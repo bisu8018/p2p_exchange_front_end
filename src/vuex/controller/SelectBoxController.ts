@@ -9,8 +9,8 @@ export default class SelectBoxController {
     }
 
     // select box country
-    setCountry(country: string){
-        this.store.dispatch(VuexTypes.SET_COUNTRY_DATA, country);
+    setCountry(nationality: string){
+        this.store.dispatch(VuexTypes.SET_COUNTRY_DATA, nationality);
     }
 
     getCountry() {

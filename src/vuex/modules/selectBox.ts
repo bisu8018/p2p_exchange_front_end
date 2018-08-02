@@ -5,7 +5,7 @@ const mutations = {
     // -                   현재 상태                             -
     // 초기화 완료
     [VuexTypes.SET_COUNTRY_DATA](state: any, country: string) {
-        state.getCountry = country;
+        state.nationality = country;
     },
     [VuexTypes.SET_CURRENCY_DATA](state: any, currency: string) {
         state.getCurrency = currency;
@@ -34,13 +34,13 @@ const getters = {};
 
 
 //Country Selectbox
-let getCountry: string = 'ALL';
+let nationality: string = 'ALL';
 let getCurrency: string = 'CNY';
 let getPayment: string = 'ALL';
 
 const state = {
     //Country Check
-    getCountry: getCountry,
+    nationality: nationality,
     getCurrency: getCurrency,
     getPayment: getPayment
 };
