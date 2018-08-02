@@ -50,28 +50,33 @@
                                 <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_email">{{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
-                            <v-spacer></v-spacer>
-                            <v-flex xs2 class="mt-3">
-                                <h6>
-                                    <a class="color-blue text-white-hover c-pointer" v-if="!user.kyc_email">{{$str('bound')}}</a>
-                                    <a class="color-darkgray text-white-hover c-pointer" v-else>{{$str('turnOff')}}</a>
+                            <v-flex xs4 class="mt-3  pr-3 text-xs-right">
+                                <h6 v-if="!user.kyc_email">
+                                    <a class="color-blue text-white-hover c-pointer" >{{$str('bound')}}</a>
+                                </h6>
+                                <h6  v-else>
+                                        <a class="color-darkgray text-white-hover c-pointer" v-if="user.mail_status === 'activatied'">{{$str('turnOff')}}</a>
+                                        <a class="color-blue text-white-hover c-pointer" v-else>{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
                         <v-layout wrap row>
-                            <v-flex xs8>
+                            <v-flex xs5>
                                 <div class="sprite-img ic-phone f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">{{$str('phone')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_phone">{{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
-                            <v-spacer></v-spacer>
-                            <v-flex xs2 class="mt-3">
-                                <h6>
-                                    <a class="color-blue" v-if="!user.kyc_phone">{{$str('bound')}}</a>
-                                    <a class="color-darkgray text-white-hover c-pointer" v-else>{{$str('turnOff')}}</a>
+                            <v-flex xs7 class="mt-3  pr-3 text-xs-right">
+                                <h6 v-if="!user.kyc_phone">
+                                    <a class="color-blue" >{{$str('bound')}}</a>
+                                </h6>
+                                <h6 v-else>
+                                    <a class="color-darkgray text-white-hover c-pointer mr-3" @click="goChangePassword">{{$str('changePhone')}}</a>
+                                    <a class="color-darkgray text-white-hover c-pointer" v-if="user.phone_status === 'activatied'">{{$str('turnOff')}}</a>
+                                    <a class="color-blue text-white-hover c-pointer" v-else>{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -97,10 +102,9 @@
                             <v-flex xs8>
                                 <div class="sprite-img ic-password f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">{{$str('password')}}</h5><h5
-                                    class="mb-3 ml-4 pl-3 color-black">
+                                    class="ml-4 pl-3 color-black">
                                 ******</h5></v-flex>
-                            <v-spacer></v-spacer>
-                            <v-flex xs2 class="mt-3"><h6><a class="color-blue text-white-hover c-pointer">{{$str('modify')}}</a>
+                            <v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a class="color-blue text-white-hover c-pointer">{{$str('modify')}}</a>
                             </h6></v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
@@ -111,8 +115,7 @@
                                 <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.trade_pwd_own">{{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
-                            <v-spacer></v-spacer>
-                            <v-flex xs2 class="mt-3"><h6><a class="color-blue text-white-hover c-pointer">{{$str('reset')}}</a>
+                            <v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a class="color-blue text-white-hover c-pointer">{{$str('reset')}}</a>
                             </h6></v-flex>
                         </v-layout>
                     </div>
@@ -134,10 +137,9 @@
                                 <h5 class="mb-3 ml-4 pl-3 color-black">{{user.kyc_id === 'y'?
                                     $str('verifySliderSuccess') : $str('unverified')}}</h5>
                             </v-flex>
-                            <v-spacer></v-spacer>
-                            <v-flex xs2 class="mt-3">
-                                <a class="color-blue c-pointer" v-if="!user.kyc_id">{{$str('verify')}}</a>
-                                <span class="color-darkgray " v-else>{{$str('verifySliderSuccess')}}</span>
+                            <v-flex xs4 class="mt-3 pr-2 text-xs-right">
+                                <a class="color-blue c-pointer h6" v-if="!user.kyc_id">{{$str('verify')}}</a>
+                                <span class="color-darkgray h6" v-else>{{$str('verifySliderSuccess')}}</span>
                             </v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
@@ -148,10 +150,9 @@
                                 <h5 class="mb-3 ml-4 pl-3 color-black">{{user.kyc_id_advanced === 'y'? $str('verified')
                                     : $str('unverified')}}</h5>
                             </v-flex>
-                            <v-spacer></v-spacer>
-                            <v-flex xs2 class="mt-3">
-                                <a class="color-blue text-white-hover c-pointer" v-if="user.kyc_id_advanced === 'n'">{{$str('verify')}}</a>
-                                <span class="color-darkgray " v-else>--</span>
+                            <v-flex xs4 class="mt-3 pr-2 text-xs-right">
+                                <a class="color-blue text-white-hover h6 c-pointer" v-if="user.kyc_id_advanced === 'n'">{{$str('verify')}}</a>
+                                <span class="color-darkgray h6" v-else>--</span>
                             </v-flex>
                         </v-layout>
                     </div>
@@ -221,7 +222,9 @@
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
                         <v-layout wrap row class="vertical-center">
-                            <v-flex md12><h5 class="text-xs-center"><a class="color-blue text-white-hover c-pointer">{{$str('addPayment')}}</a>
+                            <v-flex md12>
+                                <h5 class="text-xs-center">
+                                    <a class="color-blue text-white-hover c-pointer" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
                             </h5></v-flex>
                         </v-layout>
                     </div>
@@ -235,12 +238,12 @@
                             <h6 class="color-darkgray mt-3">{{$str('blockListExplain')}}</h6>
                         </v-layout>
                         <v-layout wrap row class="vertical-center flex-divide-top" v-for="block in block_list">
-                            <v-flex xs10 class="vertical-center">
+                            <v-flex xs8 class="vertical-center">
                                 <avatar :name=block.nick_name[0]
                                         :isLogin=block.isLogin
                                         :color=block.color class="mr-3 f-left"></avatar>
                                 <h5 class="color-blue text-white-hover c-pointer">{{block.nick_name}}</h5></v-flex>
-                            <v-flex xs2><h6><a class="color-blue text-white-hover c-pointer">{{$str('unblock')}}</a>
+                            <v-flex xs4 text-xs-right  pr-3><h6><a class="color-blue text-white-hover c-pointer">{{$str('unblock')}}</a>
                             </h6></v-flex>
                         </v-layout>
                     </div>
@@ -601,6 +604,10 @@
                 </v-flex>
             </v-layout>
         </div>
+
+        <!--결제수단 추가 모달-->
+        <my-page-modal :show="showModal" :type="modalType" v-on:close="onClose"  v-on:paymentMethod="getPaymentMethod"></my-page-modal>
+
     </div>
 </template>
 
@@ -610,14 +617,19 @@
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
+    import MyPageModal from './myPageItem/MyPagetModal.vue';
 
     export default {
         name: "MyPage",
-        components: {BigAvatar, Avatar, Pagination, Toggle},
+        components: {BigAvatar, Avatar, Pagination, Toggle, MyPageModal},
         data: () => ({
             selection_login : true,
             selection_security : false,
+            showModal : false,
+            modalType : '',
             user: {
+                mail_status : 'activatied',
+                phone_status : 'deactivated',
                 member_no: 1,
                 uid: 15198155,
                 nick_name: 'King',
@@ -716,6 +728,14 @@
             },
         },
         methods: {
+            onModal(type) {
+                this.showModal = true;
+                this.modalType = type;
+            },
+            onClose() {
+                this.showModal = false;
+                this.modalType = '';
+            },
             getDate(date) {
                 let dateTime = String(date).split(' ');
                 return dateTime[0];
@@ -756,7 +776,26 @@
                     this.selection_login = false;
                     this.selection_security = true;
                 }
-            }
+            },
+            //결제수단 추가 모달 data get 및 결제수단 표시 설정
+            getPaymentMethod(value) {
+                // 결제수단 정보 AXIOS GET
+
+                //하기 코드 미사용 가능성 존재
+                if(value === 'alipay'){
+                    this.alipay_use = 'y';
+                }else if(value === 'wechat'){
+                    this.wechat_use = 'y';
+                }else{
+                    this.bank_use = 'y';
+                }
+
+                this.showModal = false;
+
+            },
+            goChangePassword() {
+                this.$router.push("/changePassword");
+            },
         }
 
 

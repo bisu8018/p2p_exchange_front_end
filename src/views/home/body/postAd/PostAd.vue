@@ -60,7 +60,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{$str("cryptoCurrency")}}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="coinType" v-model="coinType">
+                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
                             <option value="BTC">BTC</option>
                             <option value="ETH">ETH</option>
                             <option value="USDT">USDT</option>
@@ -98,9 +98,10 @@
                     <div class="text-xs-left mb-2 button- color-black ">{{$str("fixedPrice")}}</div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price}">
-                        <input type="text" class="price-input" placeholder="0" v-model="priceValue"
+                        <input type="text" class="price-input" placeholder="0" v-model="fixedPrice"
                                @keyup="onNumberCheck('price')"
-                               @blur="onCheckFixedPrice">
+                               @blur="onNumberCheck('price')"
+                        >
                         <div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
                             {{currency}}
@@ -117,7 +118,7 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3">{{exchangeRateCalc()}} {{currency}}/{{coinType}}</div>
+                        <div class="h1 bold mb-3">{{exchangeRateCalc()}} {{currency}}/{{cryptocurrency}}</div>
                     </div>
                 </div>
             </v-flex>
@@ -147,11 +148,12 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("volumeText")}}</div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
-                        <input type="text" class="price-input" v-model="volumeValue" @blur="onCheckVolume"
+                        <input type="text" class="price-input" v-model="volume"
+                               @blur="onNumberCheck('volume')"
                                @keyup="onNumberCheck('volume')"
-                               :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + coinType">
+                               :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + cryptocurrency">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
-                            {{coinType}}
+                            {{cryptocurrency}}
                         </div>
                         <div class="warning-text-wrapper">
                     <span class="d-none"
@@ -168,8 +170,9 @@
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_min_limit}">
                         <input type="text" class="price-input" :placeholder="$str('minLimitPlaceholder')"
-                               @blur="onCheckMinLimit" @keyup="onNumberCheck('minLimit')"
-                               v-model="minLimitValue">
+                               @blur="onNumberCheck('minLimit')"
+                               @keyup="onNumberCheck('minLimit')"
+                               v-model="minLimit">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
                             {{currency}}
                         </div>
@@ -188,8 +191,9 @@
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_max_limit}">
                         <input type="text" class="price-input" :placeholder="$str('maxLimitPlaceholder')"
-                               @blur="onCheckMaxLimit" @keyup="onNumberCheck('maxLimit')"
-                               v-model="maxLimitValue">
+                               @blur="onNumberCheck('maxLimit')"
+                               @keyup="onNumberCheck('maxLimit')"
+                               v-model="maxLimit">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
                             {{currency}}
                         </div>
@@ -208,8 +212,9 @@
                          v-bind:class="{'warning-border' : warning_payment_window}">
                         <input type="text" maxlength="3" class="price-input"
                                :placeholder="$str('paymentWindowPlaceholder')"
-                               @blur="onCheckPaymentWindow" @keyup="onNumberCheck('paymentWindow')"
-                               v-model="paymentWindowValue">
+                               @blur="onNumberCheck('paymentWindow')"
+                               @keyup="onNumberCheck('paymentWindow')"
+                               v-model="paymentWindow">
                         <div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_payment_window}">
                             {{$str("minuteText")}}
@@ -309,7 +314,7 @@
                     <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{$str("autoReplyText")}}</div>
                     <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('autoReplyPlaceholder')"
-                          v-model="autoReplayValue"></textarea>
+                          v-model="autoReplay"></textarea>
                     </div>
                 </div>
             </v-flex>
@@ -329,7 +334,7 @@
                     </div>
                     <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('termsTransactionPlaceholder')"
-                          v-model="termsTransactinValue"></textarea>
+                          v-model="termsOfTransaction"></textarea>
                     </div>
                 </div>
             </v-flex>
@@ -351,7 +356,9 @@
                     </div>
                     <div class="mb-4 p-relative">
                         <input class="input" type="text" v-bind:class="{'warning-border' : warning_counterparty}"
-                               @blur="onCheckCounterparty" placeholder="0" v-model="counterpartyFilterValue"
+                               @blur="onNumberCheck('counterParty')"
+                               @keyup="onNumberCheck('counterParty')"
+                               placeholder="0" v-model="counterpartyFilterTradeCount "
                                maxlength="3">
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_counterparty}">{{verify_warning_counterparty}}</span>
@@ -406,8 +413,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{$str("tradePwText")}}</div>
                     <div class="p-relative">
-                        <input type="text" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
-                               :placeholder="$str('tradePwText')" v-model="tradePwValue" @blur="onCheckTradePassword"/>
+                        <input type="password" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
+                               :placeholder="$str('tradePwText')" v-model="tradePassword" @blur="onCheckTradePassword"/>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{verify_warning_trade_password}}</span>
                         </div>
@@ -463,39 +470,40 @@
         name: 'postAd',
         props: ['message'],
         data: () => ({
-            price: "",
-            currency: "CNY",
-            coin: "",
-            balance: 200,
-            tradeType: "buy",
             nationality: "CN",
-            coinType: "BTC",
-            priceType: "fixed",
-            priceValue: "",
-            volumeValue: "",
-            minLimitValue: "",
-            maxLimitValue: "",
-            paymentWindowValue: "",
-            alipay: "Y",
-            wechatPay: "Y",
-            bankAccount: "Y",
+            currency: "CNY",
+            tradeType: "buy",
+            cryptocurrency: "BTC",
+            priceType: "fixedprice",
+            fixedPrice: "",
+            volume: "",
+            minLimit: "",
+            maxLimit: "",
+            paymentWindow: "",
             alipay_toggle_use: false,
             wechat_toggle_use: false,
             bank_toggle_use: false,
-            alipayInfo: "范鹏龙 , 18529612778 Alipay",
-            wechatPayInfo: "范鹏龙 , 18529612778 Wechatpay",
-            bankAccountInfo: "范鹏龙 , 6214856562128938 招商银行 珠海分行营业部",
-            autoReplayValue: "",
-            termsTransactinValue: "",
-            counterpartyFilterValue: "",
+            autoReplay: "",
+            termsOfTransaction: "",
+            counterpartyFilterTradeCount : "",
             counterpartyCheckbox_first: false,
             counterpartyCheckbox_second: false,
             counterpartyCheckbox_third: false,
-            tradePwValue: "",
+            tradePassword: "",
             agreeTerms: false,
-            isVerified: false,
-            adType: "",
+            memberNo: '',
+            adType: "piece",
+
+            balance: 200,
+            alipay: "Y",
+            wechatPay: "Y",
+            bankAccount: "Y",
+            alipayInfo: "范鹏龙 , 18529612778 Alipay",
+            wechatPayInfo: "范鹏龙 , 18529612778 Wechatpay",
+            bankAccountInfo: "范鹏龙 , 6214856562128938 招商银行 珠海分行营业部",
             exchangeRate: '2977.02',
+
+            isVerified: false,
             warning_fixed_price: false,
             warning_volume: false,
             warning_min_limit: false,
@@ -564,35 +572,55 @@
         methods: {
             onNumberCheck(type) {
                 if (type === 'price') {
-                    let temp = this.priceValue;
-                    if (!abUtils.isDouble(temp)) {
-                        return this.priceValue = "";
+                    this.onCheckFixedPrice();
+                    let temp = this.fixedPrice;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.fixedPrice = "";
                     }
-                    return this.priceValue = abUtils.toDeleteZero(temp);
+                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                        return this.fixedPrice = abUtils.toDeleteZero(temp);
+                    }
                 } else if (type === 'volume') {
-                    let temp = this.volumeValue;
-                    if (!abUtils.isDouble(temp)) {
-                        return this.volumeValue = "";
+                    this.onCheckVolume();
+                    let temp = this.volume;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.volume = "";
                     }
-                    return this.volumeValue = abUtils.toDeleteZero(temp);
+                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                        return this.volume = abUtils.toDeleteZero(temp);
+                    }
                 } else if (type === "minLimit") {
-                    let temp = this.minLimitValue;
-                    if (!abUtils.isDouble(temp)) {
-                        return this.minLimitValue = "";
+                    this.onCheckMinLimit();
+                    let temp = this.minLimit;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.minLimit = "";
                     }
-                    return this.minLimitValue = abUtils.toDeleteZero(temp);
+                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                        return this.minLimit = abUtils.toDeleteZero(temp);
+                    }
                 } else if (type === "maxLimit") {
-                    let temp = this.maxLimitValue;
-                    if (!abUtils.isDouble(temp)) {
-                        return this.maxLimitValue = "";
+                    this.onCheckMaxLimit();
+                    let temp = this.maxLimit;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.maxLimit = "";
                     }
-                    return this.maxLimitValue = abUtils.toDeleteZero(temp);
+                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                        return this.maxLimit = abUtils.toDeleteZero(temp);
+                    }
                 } else if (type === "paymentWindow") {
-                    let temp = this.paymentWindowValue;
-                    if (!abUtils.isDouble(temp)) {
-                        return this.paymentWindowValue = "";
+                    this.onCheckPaymentWindow();
+                    let temp = this.paymentWindow;
+                    if (!abUtils.isInteger(temp)) {
+                        return this.paymentWindow = "";
                     }
-                    return this.paymentWindowValue = abUtils.toDeleteZero(temp);
+                    return this.paymentWindow = abUtils.toDeleteZero(temp);
+                } else if (type === "counterParty") {
+                    this.onCheckCounterparty();
+                    let temp = this.counterpartyFilterTradeCount;
+                    if (!abUtils.isInteger(temp)) {
+                        return this.counterpartyFilterTradeCount = "";
+                    }
+                    return this.counterpartyFilterTradeCount = abUtils.toDeleteZero(temp);
                 }
             },
             onCheck: function () {
@@ -601,29 +629,42 @@
                 }
             },
             onPost: function () {
+                //결제수단 토글 object 화
+                let alipayToggle = this.alipay_toggle_use ? 'y' : 'n';
+                let wechatToggle = this.wechat_toggle_use ? 'y' : 'n';
+                let bankToggle = this.bank_toggle_use ? 'y' : 'n';
+
+
+                var paymentMethodsArr = {
+                  'alipay' :   alipayToggle,
+                  'wechat' :   wechatToggle,
+                  'bank' :   bankToggle,
+                };
+
+                var paymentMethods = JSON.stringify(paymentMethodsArr);
+
                 AdService.AD.postAD({
-                    country: MainRepository.SelectBox.controller().getCountry(),
-                    currency: MainRepository.SelectBox.controller().getCurrency(),
-                    ad_type: this.tradeType,
-                    token: this.coinType,
+                    nationality: this.nationality,
+                    currency: this.currency,
+                    tradeType: this.tradeType,
+                    cryptocurrency: this.cryptocurrency,
                     priceType: this.priceType,
-                    price: this.priceValue,
-                    volume_total: this.volumeValue,
-                    limit_min: this.minLimitValue,
-                    limit_max: this.maxLimitValue,
-                    paymentWindowValue: this.paymentWindowValue,
-                    alipay_toggle_use: this.alipay_toggle_use,               //NULL 값 허용
-                    wechat_toggle_use: this.wechat_toggle_use,         //최소 한개 필요 !!
-                    bank_toggle_use: this.bank_toggle_use,     //KYC 확인란에서 체크
-                    autoReplayValue: this.autoReplayValue,
-                    termsTransactinValue: this.termsTransactinValue,
-                    counterpartyFilterValue: this.counterpartyFilterValue,
-                    counterpartyCheckbox_first: this.counterpartyCheckbox_first,
-                    counterpartyCheckbox_second: this.counterpartyCheckbox_second,
-                    counterpartyCheckbox_third: this.counterpartyCheckbox_third,
-                    blocktrade: this.adType,
-                    tradePwValue: this.tradePwValue,
-                    agreeTerms: this.agreeTerms
+                    fixedPrice: Number(this.fixedPrice),
+                    volume: Number(this.volume),
+                    minLimit: Number(this.minLimit),
+                    maxLimit: Number(this.maxLimit),
+                    paymentWindow: Number(this.paymentWindow),
+                    paymentMethods : paymentMethods,
+                    autoReplay: this.autoReplay,
+                    termsOfTransaction: this.termsOfTransaction,
+                    counterpartyFilterTradeCount : this.counterpartyFilterTradeCount,
+                    counterpartyFilterAdvancedVerificationYn: this.counterpartyCheckbox_first,
+                    counterpartyFilterDoNotOtherMerchantsYn: this.counterpartyCheckbox_second,
+                    counterpartyFilterMobileVerificationYn: this.counterpartyCheckbox_third,
+                    tradepassword: this.tradePassword,
+                    termsAgreeYn : this.agreeTerms,
+                    memberNo: Number(this.memberNo),
+                    type: this.adType,
                 }, function (error) {
                     if (!error) {
                         //console.log("success");
@@ -670,8 +711,8 @@
             },
             onCheckFixedPrice() {
                 // 고정가격 체크
-                let priceValue = Number(this.priceValue)
-                if (priceValue === 0 || priceValue === undefined) {
+                let fixedPrice = Number(this.fixedPrice)
+                if (fixedPrice === 0 || fixedPrice === undefined) {
                     this.warning_fixed_price = true;
                     this.verify_warning_fixed_price = Vue.prototype.$str("warningFixedPricePlaceholder");
                     return false;
@@ -681,13 +722,13 @@
             },
             onCheckVolume() {
                 //거래수량 체크
-                let volumeValue = Number(this.volumeValue);
-                if (volumeValue === 0 || volumeValue === undefined) {
+                let volume = Number(this.volume);
+                if (volume === 0 || volume === undefined) {
                     this.warning_volume = true;
                     this.verify_warning_volume = Vue.prototype.$str("warningVolume");
                     return false;
                 }
-                if (volumeValue > this.balance) {
+                if (volume > this.balance) {
                     this.warning_volume = true;
                     this.verify_warning_volume = Vue.prototype.$str("lowBalance");
                     return false;
@@ -698,14 +739,13 @@
             },
             onCheckMinLimit() {
                 //최소금액 체크
-                let minLimitValue = Number(this.minLimitValue);
-                console.log(minLimitValue);
-                if (minLimitValue === 0 || minLimitValue === undefined) {
+                let minLimit = Number(this.minLimit);
+                if (minLimit === 0 || minLimit === undefined) {
                     this.verify_warning_min_limit = Vue.prototype.$str("warningMinLimit");
                     this.warning_min_limit = true;
                     return false;
                 }
-                if (minLimitValue < 100) {
+                if (minLimit < 100) {
                     this.warning_min_limit = true;
                     this.verify_warning_min_limit = Vue.prototype.$str("atLeast");
                     return false;
@@ -715,14 +755,14 @@
             },
             onCheckMaxLimit() {
                 //최대금액 체크
-                let maxLimitValue = Number(this.maxLimitValue);
-                if (maxLimitValue === 0 || maxLimitValue === undefined) {
+                let maxLimit = Number(this.maxLimit);
+                if (maxLimit === undefined) {
                     this.warning_max_limit = true;
                     this.verify_warning_max_limit = Vue.prototype.$str("warningMaxLimit");
                     return false;
                 }
-                if (maxLimitValue > 0.00) {
-                    this.warning_volume = true;
+                if (maxLimit > 0.00) {
+                    this.warning_max_limit = true;
                     this.verify_warning_max_limit = Vue.prototype.$str("atMost");
                     return false;
                 }
@@ -731,13 +771,13 @@
             },
             onCheckPaymentWindow() {
                 //지불기간 체크
-                let paymentWindowValue = Number(this.paymentWindowValue);
-                if (paymentWindowValue === 0 || paymentWindowValue === undefined) {
+                let paymentWindow = Number(this.paymentWindow);
+                if (paymentWindow === 0 || paymentWindow === undefined) {
                     this.warning_payment_window = true;
                     this.verify_warning_payment_window = Vue.prototype.$str("warningPaymentWindow");
                     return false;
                 }
-                if (paymentWindowValue < 10 || paymentWindowValue > 20) {
+                if (paymentWindow < 10 || paymentWindow > 20) {
                     this.warning_payment_window = true;
                     this.verify_warning_payment_window = Vue.prototype.$str("timeRange");
                     return false;
@@ -747,8 +787,8 @@
             },
             onCheckCounterparty() {
                 //거래상대 조건 체크
-                let counterpartyFilterValue = Number(this.counterpartyFilterValue);
-                if (counterpartyFilterValue > 99) {
+                let counterpartyFilterTradeCount  = Number(this.counterpartyFilterTradeCount );
+                if (counterpartyFilterTradeCount  > 99) {
                     this.warning_counterparty = true;
                     this.verify_warning_counterparty = Vue.prototype.$str("counterpartyWarning");
                     return false;
@@ -758,8 +798,8 @@
             },
             onCheckTradePassword() {
                 //거래 비밀번호 체크
-                let tradePwValue = Number(this.tradePwValue);
-                if (tradePwValue === 0 || tradePwValue === undefined) {
+                let tradePassword = Number(this.tradePassword);
+                if (tradePassword === 0 || tradePassword === undefined) {
                     this.warning_trade_password = true;
                     this.verify_warning_trade_password = Vue.prototype.$str("warning_trade_password");
                     return false;

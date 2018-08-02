@@ -748,7 +748,7 @@ const strings = new Map([
         JP: ''
     }],
     ['counterpartyCheckbox3', {
-        KOR: '다른 사람과 거래하지 말아야 합니다',
+        KOR: '상대방은 다른 사람과 거래하지 말아야 합니다',
         ENG: 'Do not trade with other merchants',
         CN: '不和其他商家交易',
         JP: ''
@@ -1744,6 +1744,12 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    ['turnOn', {
+        KOR: '동작',
+        ENG: 'Turn On',
+        CN: '',
+        JP: ''
+    }],
     ['unverified', {
         KOR: '미인증',
         ENG: 'Unverified',
@@ -1772,6 +1778,192 @@ const strings = new Map([
         KOR: '실패',
         ENG: 'Failed',
         CN: '失败',
+        JP: ''
+    }],
+    ['changePhone', {
+        KOR: '수정',
+        ENG: 'Change',
+        CN: '',
+        JP: ''
+    }],
+    ['paymentMethodSelectboxPlaceholder', {
+        KOR: '결제수단을 선태하여 주십시오',
+        ENG: 'Please choose a paymnet method',
+        CN: '',
+        JP: ''
+    }],
+    ['namePlaceholder', {
+        KOR: '당신의 실제 이름을 입력해 주십시오',
+        ENG: 'Please enter your real name',
+        CN: '',
+        JP: ''
+    }],
+    ['name', {
+        KOR: '성명',
+        ENG: 'Name',
+        CN: '',
+        JP: ''
+    }],
+    ['alipayPlaceholder', {
+        KOR: '알리페이를 입력해 주십시오',
+        ENG: 'Please input Alipay',
+        CN: '',
+        JP: ''
+    }],
+    ['wechatPlaceholder', {
+        KOR: '위챗페이를 입력해 주십시오',
+        ENG: 'Please input Wechat',
+        CN: '',
+        JP: ''
+    }],
+    ['bankPlaceholder', {
+        KOR: '은행 계좌를 입력해 주십시오',
+        ENG: 'Please input Bank Account',
+        CN: '',
+        JP: ''
+    }],
+    ['qrCode', {
+        KOR: 'QR 코드',
+        ENG: 'QR Code',
+        CN: '',
+        JP: ''
+    }],
+    ['alipayQrCodeExplain', {
+        KOR: '당신의 알리페이 QR코드 이미지를 업로드 해주십시오 ',
+        ENG: 'Please upload your Alipay receipt QR code image ',
+        CN: '',
+        JP: ''
+    }],
+    ['tradePwPlaceholder', {
+        KOR: '거래 비밀번호를 입력해 주십시오',
+        ENG: 'Please enter your trade password',
+        CN: '',
+        JP: ''
+    }],
+    ['bankName', {
+        KOR: '은행 이름',
+        ENG: 'Bank Name',
+        CN: '',
+        JP: ''
+    }],
+    ['branchInfo', {
+        KOR: '추가 정보(선택사항)',
+        ENG: 'Branch Info(Oprional)',
+        CN: '',
+        JP: ''
+    }],
+    ['bankNamePlaceholder', {
+        KOR: '은행 이름을 입력해 주십시오',
+        ENG: 'Please enter bank name',
+        CN: '',
+        JP: ''
+    }],
+    ['branchInfoPlaceholder', {
+        KOR: '추가 정보를 입력해 주십시오',
+        ENG: 'Please enter branch information',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_name', {
+        KOR: '이름을 입력해 주십시오',
+        ENG: 'Please enter your real name',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_alipay', {
+        KOR: '알리페이를 입력해 주십시오',
+        ENG: 'Please enter your alipay',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_wechat', {
+        KOR: '위챗을 입력해 주십시오',
+        ENG: 'Please enter your wechat',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_bank', {
+        KOR: '은행 이름을 입력해 주십시오',
+        ENG: 'Please enter bank name',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_bank_account', {
+        KOR: '은행 계좌를 입력해 주십시오',
+        ENG: 'Please enter bank account',
+        CN: '',
+        JP: ''
+    }],
+    ['changePassword', {
+        KOR: '비밀번호 변경',
+        ENG: 'Change password',
+        CN: '',
+        JP: ''
+    }],
+    ['oldPassword', {
+        KOR: '이전 비밀번호',
+        ENG: 'Old password',
+        CN: '',
+        JP: ''
+    }],
+    ['newPassword', {
+        KOR: '새로운 비밀번호',
+        ENG: 'New password',
+        CN: '',
+        JP: ''
+    }],
+    ['changePasswordExplain', {
+        KOR: '한번 비밀번호를 변경하게 되면, 24시간 동안 입금을 할 수 없습니다.',
+        ENG: 'The withdrawal will be disabled in 24 hours once password is changed.',
+        CN: '',
+        JP: ''
+    }],
+    ['change', {
+        KOR: '수정',
+        ENG: 'Change',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
         JP: ''
     }],
     ['', {

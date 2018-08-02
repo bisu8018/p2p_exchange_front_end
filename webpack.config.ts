@@ -5,7 +5,7 @@ module.exports = {
         main: './src/main.ts',
     },
     output: {
-        path: '/dist',
+        path: '/test/dist',
         filename: '[name].js',
         publicPath: '/',
     },

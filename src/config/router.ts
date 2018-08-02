@@ -17,6 +17,7 @@ import Balances from '../views/home/body/balances/Balances.vue'
 import MyPage from '../views/home/body/myPage/MyPage.vue'
 import Merchant from '../views/home/body/merchant/Merchant.vue'
 import UserPage from '../views/home/body/tradeCenter/userPage/UserPage.vue'
+import ChangePassword from '../views/home/body/myPage/additionalVue/ChangePassword.vue'
 
 
 Vue.use(Router)
@@ -112,6 +113,11 @@ export default new Router({
             path: '/userpage',
             name: 'userpage',
             component: UserPage,
+        },
+        {
+            path: '/changePassword',
+            name: 'changePassword',
+            component: ChangePassword,
         },
 
     ],

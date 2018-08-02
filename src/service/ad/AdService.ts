@@ -16,7 +16,7 @@ export default {
                 })
         },
         postAD: function (data: any, callback: any) {
-            AxiosService._requestWithBody('/postAD', 'POST', data ,
+            AxiosService._requestWithBody('ad', 'POST', data ,
                 function (data: any) {
                 callback(data)
                 },
