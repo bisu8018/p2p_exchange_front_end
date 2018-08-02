@@ -800,8 +800,9 @@
                 // phone 인증 정보 AXIOS GET
                 this.showModal = false;
             },
-            goTurnOff() {
-                this.$router.push("/turnOff");
+            goEmailTurnOff() {
+                    this.$router.push("/emailTurnOff");
+
             }
         }
 

@@ -5,7 +5,7 @@
             <div>
                 <div class="mb-3 login-title align-center">
                     <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                    <div class="h2 bold">{{$str("turnOff")}}</div>
+                    <div class="h2 bold">{{$str("emailTurnOff")}}</div>
                 </div>
                 <div class="color-darkgray mb-4 text-xs-left">
                     {{$str("changePasswordExplain")}}

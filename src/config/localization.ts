@@ -1960,9 +1960,9 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['emailTurnOff', {
+        KOR: '이메일 비활성화',
+        ENG: 'Email turn off',
         CN: '',
         JP: ''
     }],
