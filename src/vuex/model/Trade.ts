@@ -1,23 +1,29 @@
 export default class Trade {
-    idx: number;
-    email: string;
-    price: number;
-    volumeTotal : number;
+    cryptocurrency: string;
+    tradeType : string;
+    nationality : string;
+    currency: string;
+    paymentMethod: string;
+    limitMin: number;
+    size : number;
     limitMax : number;
-    adType : string;
-    token: string;
+
 
     constructor (data: any) {
-        this.idx = Number(data.idx) || -1;
-        this.email = data.email;
-        this.price = data.price || '';
-        this.volumeTotal = data.volumeTotal || '';
+        this.cryptocurrency = data.cryptocurrency;
+        this.tradeType = data.tradeType;
+        this.nationality = data.nationality;
+        this.currency = data.currency;
+        this.limitMin = Number(data.limitMin) || -1;
+        this.size = data.size || '';
         this.limitMax = data.limitMax || '';
-        this.adType = data.adType;
-        this.token = data.token;
+        this.paymentMethod = data.paymentMethod || '';
+
     }
 
     isNull (): boolean {
-        return (this.idx === undefined || this.idx === -1)
+        return (this.cryptocurrency === undefined || this.cryptocurrency === '')
     }
 }
+
+

@@ -205,7 +205,7 @@
               :color = user.color>
             </avatar>
             <span class="ml-3 color-blue">
-              {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+              <button @click="goUserPage">{{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)</button>
             </span>
             <!--판매자 rank-->
             <img :src="rankSrc" class="userRank">
@@ -445,6 +445,9 @@
                     }
                 }
             },
+            goUserPage(){
+                this.$router.push("/userpage");
+            }
 
         },
         mounted(){

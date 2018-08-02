@@ -5,7 +5,7 @@
       <v-layout row wrap v-if="isMobile" >
         <!-- buy sell 버튼 -->
         <v-flex xs12>
-          <div v-if="tradeStatus ==='BUY'">
+          <div v-if="tradeType ==='BUY'">
             <!--buy가 활성화-->
             <div class="buyBtn mobileActiveBtn">
               <button class="mobileActiveBtnText" @click="setBuyInfo('current')">{{$str("buy")}}</button>
@@ -119,17 +119,17 @@
                   <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
                 <!--BTC 버튼-->
                   <button
-                        v-bind:class="{'color-blue' : clicked[0].isBTC && tradeStatus==='BUY'}"
+                        v-bind:class="{'color-blue' : clicked[0].isBTC && tradeType==='BUY'}"
                         @click="setBuyInfo('BTC')"><h4>BTC</h4>
                   </button>
                 <!-- ETH 버튼-->
                   <button
-                        v-bind:class="{'color-blue' : clicked[1].isETH && tradeStatus==='BUY'}"
+                        v-bind:class="{'color-blue' : clicked[1].isETH && tradeType==='BUY'}"
                           @click="setBuyInfo('ETH')"><h4>ETH</h4>
                   </button>
                 <!-- USDT 버튼-->
                   <button
-                        v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeStatus==='BUY'}"
+                        v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeType==='BUY'}"
                           @click="setBuyInfo('USDT')"><h4>USDT</h4>
                   </button>
                 <!-- > 화살표-->
@@ -155,16 +155,16 @@
               <i class="material-icons md-24">keyboard_arrow_left</i>
               <!--BTC 버튼-->
               <button
-                    v-bind:class="{'color-blue' : clicked[0].isBTC && tradeStatus==='SELL'}"
+                    v-bind:class="{'color-blue' : clicked[0].isBTC && tradeType==='SELL'}"
                     @click="setSellInfo('BTC')"><h4>BTC</h4>
               </button>
               <!-- ETH 버튼-->
               <button
-                    v-bind:class="{'color-blue' : clicked[1].isETH && tradeStatus==='SELL'}"
+                    v-bind:class="{'color-blue' : clicked[1].isETH && tradeType==='SELL'}"
                     @click="setSellInfo('ETH')"><h4>ETH</h4>
               </button>
               <!-- USDT 버튼-->
-              <button  v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeStatus==='SELL'}"
+              <button  v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeType==='SELL'}"
                     @click="setSellInfo('USDT')"><h4>USDT</h4>
               </button>
               <i class="material-icons md-24">keyboard_arrow_right</i>
@@ -254,47 +254,38 @@
                 {isUSDT : false},
             ],
 
-            tradeStatus : 'BUY',
+            tradeType : 'BUY',
             tradeCoin: 'BTC',
 
         }),
         methods : {
             setBuyInfo(item){
-                this.tradeStatus = "BUY";
+                this.tradeType = "BUY";
+                //스타일을 위한 class binding을 위한 함수.
                 this.setTokenStyle(item);
-                //default data
-                this.country = MainRepository.SelectBox.controller().getCountry();
-                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-                this.currency = MainRepository.SelectBox.controller().getCurrency();
-                this.amount = MainRepository.TradeView.controller().getLimitMin();
 
-                if(item =="current"){ //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
+                if(item =="current"){ //mobile 버전에서 그냥 buy 버튼만 누룰시 현재 token을 유지
+                    MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
                 else{
                     this.tradeCoin = item;
-                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount, this.paymentMethod);
-                    MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
-                    MainRepository.TradeView.setSelectPage(0);
+                    //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeType, this.country, this.currency, this.amount, this.paymentMethod);
+                    MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
 
             },
             setSellInfo(item){
-                this.tradeStatus = "SELL";
+                this.tradeType = "SELL";
                 this.setTokenStyle(item);
                 //default data
-                this.country = MainRepository.SelectBox.controller().getCountry();
-                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-                this.currency = MainRepository.SelectBox.controller().getCurrency();
-                this.amount = MainRepository.TradeView.controller().getLimitMin();
 
                 if(item =='current'){     //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
-
+                    MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
                 else{
                     this.tradeCoin =item;
-                    MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount, this.paymentMethod);
-                    MainRepository.TradeView.setTokenAndAdType(this.tradeCoin, this.tradeStatus);
-                    MainRepository.TradeView.setSelectPage(0);
+                    //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeType, this.country, this.currency, this.amount, this.paymentMethod);
+                    MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
 
             },
@@ -321,7 +312,7 @@
             },
             //모바일에서 token 변화를 눌렀을시
             onMobileTokenClicked(item){
-              if(this.tradeStatus == 'BUY'){
+              if(this.tradeType == 'BUY'){
                   this.setBuyInfo(item);
               }
               else{
@@ -338,26 +329,26 @@
 
             },
             onSearch(){
-                // search 누르면 뭐할지 여기에 기입.
-                this.country = MainRepository.SelectBox.controller().getCountry();
-                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-                this.currency = MainRepository.SelectBox.controller().getCurrency();
-
-                console.log("search country data:" + this.country);
-                console.log("search currency data:" + this.currency);
-                console.log("search amount data:" + this.amount);
-                MainRepository.SelectBox.controller().setCountry(this.country);
-                MainRepository.SelectBox.controller().setCurrency(this.currency);
-                MainRepository.SelectBox.controller().setPayment(this.paymentMethod);
-                MainRepository.TradeView.controller().setLimitMin(this.amount);
-
-                MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeStatus, this.country, this.currency, this.amount, this.paymentMethod);
-                MainRepository.TradeView.setSelectPage(0);
+                //입력된 정보들을 vuex로 set 시킴.
+                MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
+//                 this.country = MainRepository.SelectBox.controller().getCountry();
+//                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
+//                 this.currency = MainRepository.SelectBox.controller().getCurrency();
+// l
+//                 console.log("search country data:" + this.country);
+//                 console.log("search currency data:" + this.currency);
+//                 console.log("search amount data:" + this.amount);
+//                 MainRepository.SelectBox.controller().setCountry(this.country);
+//                 MainRepository.SelectBox.controller().setCurrency(this.currency);
+//                 MainRepository.SelectBox.controller().setPayment(this.paymentMethod);
+//                 MainRepository.TradeView.controller().setLimitMin(this.amount);
+//                 MainRepository.TradeView.setSelectPage(0);
 
                 this.isModal = false; //modal 창 끄기.
             },
             removeAmount(){
                 this.amount = 0;
+                MainRepository.TradeView.controller().setLimitMin(0);
             //  list를 새로 띄워주도록 구현해야함.
             },
         },

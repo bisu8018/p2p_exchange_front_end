@@ -48,8 +48,10 @@
                 </div>
             </div>
             <!-- pagination -->
-            <Pagination></Pagination>
-
+            <Pagination
+                    :size="pageSize"
+                    :type="type"
+            ></Pagination>
         </div>
     </div>
 </template>
@@ -67,7 +69,8 @@
         props: ['message'],             // generalTrade와 blockTrade를 구분하기 위해
         components: {Pagination, TradeListItem, TradeCenterFilter},
         data: () => ({
-            page : 1,
+            pageSize : 10,              //한 page에 몇개씩 item을 보여줄건가.
+            type : "tradecenter",       //pagination을 위해.
             users: [
                 {
                     email: 'Charles',
@@ -256,13 +259,11 @@
         }),
         created() {
             if(this.message == "general"){
-                console.log("General Created");
-                MainRepository.TradeView.setSelectPage(0);
-                console.log(MainRepository.TradeView.setSelectPage(0));
+                MainRepository.TradeView.setSelectPage();
+                console.log(MainRepository.TradeView.setSelectPage());
             }else {
-                console.log("Block Created");
-                MainRepository.TradeView.setSelectPage(0);
-                console.log(MainRepository.TradeView.setSelectPage(0));
+                MainRepository.TradeView.setSelectPage();
+                console.log(MainRepository.TradeView.setSelectPage());
             }
 
         },
