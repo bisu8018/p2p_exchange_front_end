@@ -617,7 +617,7 @@
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
-    import MyPageModal from './myPageItem/MyPagetModal.vue';
+    import MyPageModal from './myPageItem/MyPageModal.vue';
 
     export default {
         name: "MyPage",

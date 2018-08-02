@@ -8,40 +8,50 @@
                     <div class="h2 bold">{{$str("emailTurnOff")}}</div>
                 </div>
                 <div class="color-darkgray mb-4 text-xs-left">
-                    {{$str("changePasswordExplain")}}
+                    {{$str("emailTurnOffExplain")}}
                 </div>
-                <div class="text-xs-left mb-2 h5 color-black">{{$str("oldPassword")}}</div>
-                <div class="p-relative mb-4">
-                    <input type="password" class="input" v-model="old_password"
-                           @keyup="onCheckOldPassword"
-                           v-bind:class="{'warning-border' : warning_old_password}">
-                    <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_old_password}">{{$str('passwordValue')}}</span>
+                <!--******************************************
+                                    TURN ON
+                 ******************************************-->
+                <div v-else-if="type === 'phoneTurnOn'">
+                    <!--전화 번호 입력-->
+                    <div class="mb-4">
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("phoneNumber")}}
+                        </div>
+                        <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                    </div>
+
+                    <!--문자인증-->
+                    <div class="mb-4">
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("SMSverification")}}
+                        </div>
+                        <div class="p-relative">
+                            <input type="text" class="input" v-model="SMSverificationCdoe" maxlength="12">
+                            <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="text-xs-left mb-2 h5 color-black">{{$str("newPassword")}}</div>
-                <div class="p-relative mb-4">
-                    <input v-model="new_password" type="password" class="input"
-                           @keyup="onCheckNewPassword"
-                           v-bind:class="{'warning-border' : warning_new_password_border}">
-                    <div class="warning-text-wrapper">
-                           <span class="d-none"
-                                 v-bind:class="{'warning-text' : warning_new_password}">{{$str('passwordValue')}}</span>
-                        <span class="d-none"
-                              v-bind:class="{'warning-text' : warning_new_password_char_first,'warning-characters' : warning_new_password_char_second}">{{$str('warningPasswordCharacters')}}</span>
-                        <span class="d-none"
-                              v-bind:class="{'warning-text' : warning_new_password_num_first,'warning-characters' : warning_new_password_num_second}">/ {{$str('passwordForm')}}</span>
+                <div v-else-if="type === 'emailTurnOn'">
+                    <!--이메일 입력-->
+                    <div class="mb-4">
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("phoneNumber")}}
+                        </div>
+                        <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
                     </div>
-                </div>
 
-                <div class="text-xs-left mb-2 h5 color-black">{{$str("passwordConfirm")}}</div>
-                <div class="p-relative mb-4">
-                    <input v-model="confirm_password" type="password" class="input"
-                           @keyup="onCheckPasswordConfirm"
-                           v-bind:class="{'warning-border' : warning_confirm_password}">
-                    <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
+                    <!--이메일인증-->
+                    <div class="mb-4">
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("emailVerification")}}
+                        </div>
+                        <div class="p-relative">
+                            <input type="text" class="input" v-model="SMSverificationCdoe" maxlength="12">
+                            <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="text-xs-right">
@@ -58,21 +68,10 @@
     import {abUtils} from '@/common/utils';
 
     export default {
-        name: 'changePassword',
+        name: 'emailTurnOff',
         data: function () {
             return {
-                old_password: '',
-                new_password: '',
-                confirm_password: '',
-                verify_warning_new_password: "",
-                warning_old_password: false,
-                warning_new_password: false,
-                warning_confirm_password: false,
-                warning_new_password_char_first: false,
-                warning_new_password_char_second: false,
-                warning_new_password_num_first: false,
-                warning_new_password_num_second: false,
-                warning_new_password_border: false,
+
             }
         },
         methods: {
@@ -91,66 +90,6 @@
                     this.onChange();
                 }
             },
-            onCheckOldPassword() {
-                //old password null
-                if (this.old_password === "") {
-                    this.warning_old_password = true;
-                    return false;
-                }
-                this.warning_old_password = false;
-                return true;
-            },
-            onCheckNewPassword() {
-                //new password null
-                if (this.new_password === "") {
-                    this.warning_new_password_char_first = false;
-                    this.warning_new_password_char_second = false;
-                    this.warning_new_password_num_first = false;
-                    this.warning_new_password_num_second = false;
-                    this.warning_new_password = true;
-                    this.warning_new_password_border = true;
-                    return false;
-                }
-                if (this.new_password.length < 8 || this.new_password.length > 20 || !abUtils.isPasswd(this.new_password)){
-
-                    this.warning_new_password_border = true;
-                    this.warning_new_password = false;
-                    // 8-20 자
-                    if (this.new_password.length < 8 || this.new_password.length > 20) {
-                        this.warning_new_password_char_first = true;
-                        this.warning_new_password_char_second = false;
-                    } else {
-                        this.warning_new_password_char_first = true;
-                        this.warning_new_password_char_second = true;
-                    }
-                    // 비밀번호 양식
-                    if (!abUtils.isPasswd_ignoreLength(this.new_password)) {
-                        this.warning_new_password_num_first = true;
-                        this.warning_new_password_num_second = false;
-                    } else {
-                        this.warning_new_password_num_first = true;
-                        this.warning_new_password_num_second = true;
-                    }
-                    return false;
-                }
-                this.warning_new_password_border = false;
-                this.warning_new_password = false;
-                this.warning_new_password_char_first = false;
-                this.warning_new_password_char_second = false;
-                this.warning_new_password_num_first = false;
-                this.warning_new_password_num_second = false;
-                return true;
-
-            },
-            onCheckPasswordConfirm() {
-                //confirm password null
-                if (this.new_password != this.confirm_password) {
-                    this.warning_confirm_password = true;
-                    return false;
-                }
-                this.warning_confirm_password = false;
-                return true;
-            }
         }
     }
 </script>

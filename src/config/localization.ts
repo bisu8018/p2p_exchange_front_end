@@ -1966,9 +1966,9 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['emailTurnOffExplain', {
+        KOR: '이메일 인증이 비활성화 되면, 24시간 동안 입금 하실 수 없습니다.',
+        ENG: 'The withdrawal will be disabled in next 24 hours once email authentication is  turned off.',
         CN: '',
         JP: ''
     }],
