@@ -4,8 +4,8 @@
             <div class="modal-subject-wrapper mb-3">
                 <div class="h3 text-xs-left color-black bold">
                     <!--type에 따른 제목 변경-->
-                    {{type === 'addPayment' ? $str("addPayment") : (type === 'cancel' || type ==='cancelAppeal' ?
-                    $str("confirm") :
+                    {{type === 'addPayment' ? $str("addPayment") : (type === 'emailTurnOn' || type ==='phoneTurnOn' ?
+                    $str("turnOn") :
                     $str("appeal"))}}
                 </div>
                 <v-spacer></v-spacer>
@@ -31,116 +31,170 @@
                 </span>
             </div>
 
-            <!--실명 입력-->
-            <div class="mb-4" v-if="paymentMethod != ''">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("name")}}
-                </div>
-                <div class="p-relative">
-                    <input type="text" class="input" :placeholder="$str('namePlaceholder')" v-model="realName"
-                           v-bind:class="{'warning-border' : warning_name}" @blur="onCheckName">
-                    <div class="warning-text-wrapper">
+
+            <!--******************************************
+                            ADD PAYMENT
+            ******************************************-->
+
+            <div v-if="type === 'addPayment'">
+                <!--실명 입력-->
+                <div class="mb-4" v-if="paymentMethod != ''">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("name")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" :placeholder="$str('namePlaceholder')" v-model="realName"
+                               v-bind:class="{'warning-border' : warning_name}" @keyup="onCheckName">
+                        <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_name}">{{verify_warning_name}}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!--알리페이-->
-            <div class="mb-4" v-if="paymentMethod === 'alipay'">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("alipayText")}}
-                </div>
-                <div class="p-relative">
-                    <input type="text" class="input" :placeholder="$str('alipayPlaceholder')" v-model="alipay"
-                           v-bind:class="{'warning-border' : warning_alipay}" @blur="onCheckAlipay">
-                    <div class="warning-text-wrapper">
+                <!--알리페이-->
+                <div class="mb-4" v-if="paymentMethod === 'alipay'">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("alipayText")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" :placeholder="$str('alipayPlaceholder')" v-model="alipay"
+                               v-bind:class="{'warning-border' : warning_alipay}" @keyup="onCheckAlipay">
+                        <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_alipay}">{{verify_warning_alipay}}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!--위챗페이-->
-            <div class="mb-4" v-if="paymentMethod === 'wechat'">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("wechatPayText")}}
-                </div>
-                <div class="p-relative">
-                    <input type="text" class="input" :placeholder="$str('wechatPlaceholder')" v-model="wechat"
-                           v-bind:class="{'warning-border' : warning_wechat}" @blur="onCheckWechat">
-                    <div class="warning-text-wrapper">
+                <!--위챗페이-->
+                <div class="mb-4" v-if="paymentMethod === 'wechat'">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("wechatPayText")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" :placeholder="$str('wechatPlaceholder')" v-model="wechat"
+                               v-bind:class="{'warning-border' : warning_wechat}" @keyup="onCheckWechat">
+                        <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_wechat}">{{verify_warning_wechat}}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
-            <!--은행이름-->
-            <div class="mb-4" v-if="paymentMethod === 'bank'">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("bankName")}}
-                </div>
-                <div class="p-relative">
-                    <input type="text" class="input" :placeholder="$str('bankNamePlaceholder')" v-model="bank"
-                           v-bind:class="{'warning-border' : warning_bank}" @blur="onCheckBank">
-                    <div class="warning-text-wrapper">
+                <!--은행이름-->
+                <div class="mb-4" v-if="paymentMethod === 'bank'">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("bankName")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" :placeholder="$str('bankNamePlaceholder')" v-model="bank"
+                               v-bind:class="{'warning-border' : warning_bank}" @keyup="onCheckBank">
+                        <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_bank}">{{verify_warning_bank}}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!--은행정보-->
-            <div class="mb-4" v-if="paymentMethod === 'bank'">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("branchInfo")}}
+                <!--은행정보-->
+                <div class="mb-4" v-if="paymentMethod === 'bank'">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("branchInfo")}}
+                    </div>
+                    <input type="text" class="input" :placeholder="$str('branchInfoPlaceholder')" v-model="branchInfo">
                 </div>
-                <input type="text" class="input" :placeholder="$str('branchInfoPlaceholder')" v-model="branchInfo">
-            </div>
 
-            <!--은행계좌-->
-            <div class="mb-4" v-if="paymentMethod === 'bank'">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("bankAccountText")}}
-                </div>
-                <div class="p-relative">
-                    <input type="text" class="input" :placeholder="$str('bankPlaceholder')" v-model="bankAccount"
-                           v-bind:class="{'warning-border' : warning_bank_accout}" @blur="onCheckBankAccount">
-                    <div class="warning-text-wrapper">
+                <!--은행계좌-->
+                <div class="mb-4" v-if="paymentMethod === 'bank'">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("bankAccountText")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" :placeholder="$str('bankPlaceholder')" v-model="bankAccount"
+                               v-bind:class="{'warning-border' : warning_bank_accout}" @keyup="onCheckBankAccount">
+                        <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_bank_accout}">{{verify_warning_bank_account}}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!--QR코드-->
-            <div class="mb-4" v-if="paymentMethod === 'alipay' || paymentMethod === 'wechat'">
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("qrCode")}}
-                </div>
-                <div class="textarea-style pa-4">
-                    <div class="d-inline-block">
-                        <div class="sprite-img ic-upload"></div>
+                <!--QR코드-->
+                <div class="mb-4" v-if="paymentMethod === 'alipay' || paymentMethod === 'wechat'">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("qrCode")}}
                     </div>
-                    <div class="color-darkgray h6">
-                        {{$str('alipayQrCodeExplain')}} (*.jpg / *.png / *.jpeg)
+                    <div class="textarea-style pa-4">
+                        <div class="d-inline-block">
+                            <div class="sprite-img ic-upload"></div>
+                        </div>
+                        <div class="color-darkgray h6">
+                            {{$str('alipayQrCodeExplain')}} (*.jpg / *.png / *.jpeg)
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!--거래 비밀번호 입력-->
-            <div class="mb-4" v-if="paymentMethod != ''" >
-                <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("tradePwText")}}
-                </div>
-                <div class="p-relative">
-                    <input type="text" class="input" :placeholder="$str('tradePwPlaceholder')" v-model="tradePassword"
-                           v-bind:class="{'warning-border' : warning_trade_password}" @blur="onCheckTradePassword">
-                    <div class="warning-text-wrapper">
+                <!--거래 비밀번호 입력-->
+                <div class="mb-4" v-if="paymentMethod != ''">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("tradePwText")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" :placeholder="$str('tradePwPlaceholder')"
+                               v-model="tradePassword"
+                               v-bind:class="{'warning-border' : warning_trade_password}" @keyup="onCheckTradePassword">
+                        <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_trade_password}">{{verify_warning_trade_password}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--******************************************
+                          TURN ON
+          ******************************************-->
+            <div v-else-if="type === 'phoneTurnOn'">
+                <!--전화 번호 입력-->
+                <div class="mb-4">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("phoneNumber")}}
+                    </div>
+                    <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                </div>
+
+                <!--문자인증-->
+                <div class="mb-4">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("SMSverification")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" v-model="SMSverificationCdoe" maxlength="12">
+                        <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div v-else-if="type === 'emailTurnOn'">
+                <!--이메일 입력-->
+                <div class="mb-4">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("phoneNumber")}}
+                    </div>
+                    <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                </div>
+
+                <!--이메일인증-->
+                <div class="mb-4">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("emailVerification")}}
+                    </div>
+                    <div class="p-relative">
+                        <input type="text" class="input" v-model="SMSverificationCdoe" maxlength="12">
+                        <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                     </div>
                 </div>
             </div>
@@ -152,9 +206,17 @@
                     {{$str("cancel")}}
                 </button>
 
+                <!--결제수단 추가 확인 버튼-->
                 <span v-if="type === 'addPayment'">
                     <button @click="onComplete" class="h6 btn-rounded-blue btn-blue-hover">
                         {{$str("complete")}}
+                    </button>
+                </span>
+                
+                <!--turn on 확인 버튼-->
+                <span v-if="type === 'emailTurnOn' || type === 'phoneTurnOn'">
+                    <button @click="onConfirmTurnOn" class="h6 btn-rounded-blue btn-blue-hover">
+                        {{$str("confirm")}}
                     </button>
                 </span>
             </div>
@@ -165,8 +227,8 @@
     import Vue from 'vue';
 
     export default {
-        name: 'addPaymentModal',
-        props: ['show', 'type'],
+        name: 'myPageModal',
+        props: ['show', 'type', 'phoneNo'],
         data() {
             return {
                 paymentMethod: "",
@@ -190,6 +252,13 @@
                 verify_warning_bank: Vue.prototype.$str('warning_bank'),
                 verify_warning_bank_account: Vue.prototype.$str('warning_name'),
                 verify_warning_trade_password: Vue.prototype.$str('warning_trade_password'),
+                SMSverificationCdoe: '',
+            }
+        },
+        computed: {
+            serPhoneNumber: function () {
+                var phoneNumber = this.phoneNo.substr(0, 3) + '****' + this.phoneNo.substr(7, 5);
+                return phoneNumber;
             }
         },
         methods: {
@@ -215,53 +284,63 @@
                 return true;
             },
             onCheckAlipay: function () {
-                if(this.paymentMethod === 'alipay') {
+                if (this.paymentMethod === 'alipay') {
                     if (this.alipay === '') {
                         this.warning_alipay = true;
                         return false;
                     }
-                     this.warning_alipay = false;
+                    this.warning_alipay = false;
                 }
                 return true;
             },
             onCheckWechat: function () {
-                if(this.paymentMethod === 'wechat') {
-                if (this.wechat === '') {
-                     this.warning_wechat = true;
-                    return false;
-                }
-                 this.warning_wechat = false;
+                if (this.paymentMethod === 'wechat') {
+                    if (this.wechat === '') {
+                        this.warning_wechat = true;
+                        return false;
+                    }
+                    this.warning_wechat = false;
                 }
                 return true;
             },
             onCheckBank: function () {
-                if(this.paymentMethod === 'bank') {
+                if (this.paymentMethod === 'bank') {
                     if (this.bank === '') {
-                         this.warning_bank = true;
+                        this.warning_bank = true;
                         return false;
                     }
-                     this.warning_bank = false;
+                    this.warning_bank = false;
                 }
                 return true;
             },
             onCheckBankAccount: function () {
-                if(this.paymentMethod === 'bank') {
+                if (this.paymentMethod === 'bank') {
                     if (this.bankAccount === '') {
-                         this.warning_bank_accout = true;
+                        this.warning_bank_accout = true;
                         return false;
                     }
-                     this.warning_bank_accout = false;
+                    this.warning_bank_accout = false;
                 }
                 return true;
             },
             onCheckTradePassword: function () {
-                if (this.tradePassword === '') {console.log(1);
-                     this.warning_trade_password = true;
+                if (this.tradePassword === '') {
+                    console.log(1);
+                    this.warning_trade_password = true;
                     return false;
                 }
-                 this.warning_trade_password = false;
+                this.warning_trade_password = false;
                 return true;
             },
+            sendVerificationCode: function () {
+                // 문자 전송 코드
+            },
+            onConfirmTurnOn: function () {
+                //AXIOS POST
+
+                // 성공후
+                this.$emit('turnon');
+            }
         },
     }
 </script>

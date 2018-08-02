@@ -35,7 +35,7 @@ const strings = new Map([
     }],
     ['passwordValue', {
         KOR: '비밀번호를 입력해 주십시오.',
-        ENG: 'Pleaes enter password value.',
+        ENG: 'Please enter password.',
         CN: '请输入密码',
         JP: ''
     }],
@@ -979,7 +979,7 @@ const strings = new Map([
     }],
     ['complete', {
         KOR: '완료, ',
-        ENG: 'Complete, ',
+        ENG: 'Complete',
         CN: '已完成',
         JP: ''
     }],
@@ -1739,13 +1739,13 @@ const strings = new Map([
         JP: ''
     }],
     ['turnOff', {
-        KOR: '해제',
+        KOR: '비활성화',
         ENG: 'Turn off',
         CN: '',
         JP: ''
     }],
     ['turnOn', {
-        KOR: '동작',
+        KOR: '활성화',
         ENG: 'Turn On',
         CN: '',
         JP: ''
@@ -1865,32 +1865,32 @@ const strings = new Map([
         JP: ''
     }],
     ['warning_name', {
-        KOR: '이름을 입력해 주십시오',
-        ENG: 'Please enter your real name',
+        KOR: '이름을 입력해 주십시오.',
+        ENG: 'Please enter your real name.',
         CN: '',
         JP: ''
     }],
     ['warning_alipay', {
-        KOR: '알리페이를 입력해 주십시오',
-        ENG: 'Please enter your alipay',
+        KOR: '알리페이를 입력해 주십시오.',
+        ENG: 'Please enter your alipay.',
         CN: '',
         JP: ''
     }],
     ['warning_wechat', {
-        KOR: '위챗을 입력해 주십시오',
-        ENG: 'Please enter your wechat',
+        KOR: '위챗을 입력해 주십시오.',
+        ENG: 'Please enter your wechat.',
         CN: '',
         JP: ''
     }],
     ['warning_bank', {
-        KOR: '은행 이름을 입력해 주십시오',
-        ENG: 'Please enter bank name',
+        KOR: '은행 이름을 입력해 주십시오.',
+        ENG: 'Please enter bank name.',
         CN: '',
         JP: ''
     }],
     ['warning_bank_account', {
-        KOR: '은행 계좌를 입력해 주십시오',
-        ENG: 'Please enter bank account',
+        KOR: '은행 계좌를 입력해 주십시오.',
+        ENG: 'Please enter bank account.',
         CN: '',
         JP: ''
     }],
@@ -1924,39 +1924,39 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warningNewPassword', {
+        KOR: '새로운 비밀번호를 입력해 주십시오.',
+        ENG: 'Please enter new password.',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warningPasswordCharacters', {
+        KOR: '8-20 자',
+        ENG: '8-20 characters',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warningPasswordNumber', {
+        KOR: '숫자만 입력할 수 없습니다',
+        ENG: 'Can not be pure numbers',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['phoneNumber', {
+        KOR: '전화번호',
+        ENG: 'Phone Number',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['SMSverification', {
+        KOR: 'SMS 인증코드',
+        ENG: 'SMS verification code',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['emailVerification', {
+        KOR: '이메일 인증코드',
+        ENG: 'Email verification code',
         CN: '',
         JP: ''
     }],

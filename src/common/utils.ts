@@ -54,6 +54,25 @@ export var abUtils = {
      }
     return true;
   },
+  // 비밀번호 (길이체크 X)
+  isPasswd_ignoreLength: function (passwd: any) {
+    let pw = passwd;
+    let num = pw.search(/[0-9]/g);
+    let eng = pw.search(/[a-z]/ig);
+    let spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+    // 공백 체크
+    if(pw.search(/₩s/) != -1){
+      return false;
+    }
+
+    // 영문/숫자/특수문자 필수
+     if (num < 0 || eng < 0 || spe < 0){
+       return false;
+     }
+    return true;
+  },
+
   // 날짜
   isDate: function (input: any) {
     let regExp = /^(20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;

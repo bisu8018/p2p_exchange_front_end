@@ -55,8 +55,8 @@
                                     <a class="color-blue text-white-hover c-pointer" >{{$str('bound')}}</a>
                                 </h6>
                                 <h6  v-else>
-                                        <a class="color-darkgray text-white-hover c-pointer" v-if="user.mail_status === 'activatied'">{{$str('turnOff')}}</a>
-                                        <a class="color-blue text-white-hover c-pointer" v-else>{{$str('turnOn')}}</a>
+                                        <a class="color-darkgray text-white-hover c-pointer" v-if="user.mail_status === 'activatied'" @click="goTurnOff('email')">{{$str('turnOff')}}</a>
+                                        <a class="color-blue text-white-hover c-pointer" v-else @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -74,9 +74,9 @@
                                     <a class="color-blue" >{{$str('bound')}}</a>
                                 </h6>
                                 <h6 v-else>
-                                    <a class="color-darkgray text-white-hover c-pointer mr-3" @click="goChangePassword">{{$str('changePhone')}}</a>
-                                    <a class="color-darkgray text-white-hover c-pointer" v-if="user.phone_status === 'activatied'">{{$str('turnOff')}}</a>
-                                    <a class="color-blue text-white-hover c-pointer" v-else>{{$str('turnOn')}}</a>
+                                    <a class="color-darkgray text-white-hover c-pointer mr-3" >{{$str('changePhone')}}</a>
+                                    <a class="color-darkgray text-white-hover c-pointer" v-if="user.phone_status === 'activatied'" @click="goTurnOff('phone')">{{$str('turnOff')}}</a>
+                                    <a class="color-blue text-white-hover c-pointer" @click="onModal('phoneTurnOn')"  v-else>{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -104,7 +104,7 @@
                                 <h5 class="color-darkgray mb-3">{{$str('password')}}</h5><h5
                                     class="ml-4 pl-3 color-black">
                                 ******</h5></v-flex>
-                            <v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a class="color-blue text-white-hover c-pointer">{{$str('modify')}}</a>
+                            <v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a @click="goChangePassword" class="color-blue text-white-hover c-pointer">{{$str('modify')}}</a>
                             </h6></v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
@@ -606,7 +606,7 @@
         </div>
 
         <!--결제수단 추가 모달-->
-        <my-page-modal :show="showModal" :type="modalType" v-on:close="onClose"  v-on:paymentMethod="getPaymentMethod"></my-page-modal>
+        <my-page-modal :show="showModal" :type="modalType" :phoneNo="user.phone_no" v-on:close="onClose"  v-on:paymentMethod="getPaymentMethod" v-on:turnon = "onTurnOn"></my-page-modal>
 
     </div>
 </template>
@@ -653,7 +653,7 @@
                 apipay_address: '18529612778 未绑定 Alipay',
                 wechat_address: '1852961277 未绑定 Wechatpay',
                 bank_address: '6214856562128938 未绑定 未绑定未 绑定未绑定未绑定',
-                phone_no: '010-4878-9415',
+                phone_no: '01048789415',
                 email: 'Charles',
                 trade_pwd_own: 'y',
                 isLogin: true,
@@ -796,6 +796,13 @@
             goChangePassword() {
                 this.$router.push("/changePassword");
             },
+            onTurnOn() {
+                // phone 인증 정보 AXIOS GET
+                this.showModal = false;
+            },
+            goTurnOff() {
+                this.$router.push("/turnOff");
+            }
         }
 
 
@@ -804,9 +811,10 @@
 
 <style scoped>
 
+
+
     .flex-pl-0 {
         padding-left: 0px;
-
     }
 
     .flex-divide-top {
