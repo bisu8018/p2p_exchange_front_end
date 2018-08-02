@@ -13,13 +13,13 @@
                 <!--******************************************
                                     TURN ON
                  ******************************************-->
-                <div v-else-if="type === 'phoneTurnOn'">
+                <div >
                     <!--전화 번호 입력-->
                     <div class="mb-4">
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("phoneNumber")}}
                         </div>
-                        <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                        <div class="input-disabled  vertical-center disabled">{{setPhoneNumber}}</div>
                     </div>
 
                     <!--문자인증-->
@@ -34,13 +34,13 @@
                     </div>
                 </div>
 
-                <div v-else-if="type === 'emailTurnOn'">
+                <div>
                     <!--이메일 입력-->
                     <div class="mb-4">
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("phoneNumber")}}
                         </div>
-                        <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                        <div class="input-disabled  vertical-center disabled">{{setPhoneNumber}}</div>
                     </div>
 
                     <!--이메일인증-->
@@ -69,9 +69,16 @@
 
     export default {
         name: 'emailTurnOff',
+        props: ['phoneNo'],
         data: function () {
             return {
 
+            }
+        },
+        computed: {
+            setPhoneNumber: function () {
+                var phoneNumber = this.phoneNo.substr(0, 3) + '****' + this.phoneNo.substr(7, 5);
+                return phoneNumber;
             }
         },
         methods: {

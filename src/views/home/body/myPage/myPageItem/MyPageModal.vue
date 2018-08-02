@@ -163,7 +163,7 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("phoneNumber")}}
                     </div>
-                    <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                    <div class="input-disabled  vertical-center disabled">{{setPhoneNumber}}</div>
                 </div>
 
                 <!--문자인증-->
@@ -184,7 +184,7 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("phoneNumber")}}
                     </div>
-                    <div class="input-disabled  vertical-center disabled">{{serPhoneNumber}}</div>
+                    <div class="input-disabled  vertical-center disabled">{{setPhoneNumber}}</div>
                 </div>
 
                 <!--이메일인증-->
@@ -237,7 +237,6 @@
                 wechat: "",
                 bank: "",
                 tradePassword: "",
-                bank: "",
                 branchInfo: "",
                 bankAccount: "",
                 warning_name: false,
@@ -256,7 +255,7 @@
             }
         },
         computed: {
-            serPhoneNumber: function () {
+            setPhoneNumber: function () {
                 var phoneNumber = this.phoneNo.substr(0, 3) + '****' + this.phoneNo.substr(7, 5);
                 return phoneNumber;
             }
