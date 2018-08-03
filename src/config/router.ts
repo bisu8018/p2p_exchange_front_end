@@ -18,6 +18,7 @@ import MyPage from '../views/home/body/myPage/MyPage.vue'
 import Merchant from '../views/home/body/merchant/Merchant.vue'
 import UserPage from '../views/home/body/tradeCenter/userPage/UserPage.vue'
 import ChangePassword from '../views/home/body/myPage/additionalVue/ChangePassword.vue'
+import TurnOff from '../views/home/body/myPage/additionalVue/EmailTurnOff.vue'
 
 
 Vue.use(Router)
@@ -118,6 +119,11 @@ export default new Router({
             path: '/changePassword',
             name: 'changePassword',
             component: ChangePassword,
+        },
+        {
+            path: '/turnOff',
+            name: 'turnOff',
+            component: TurnOff,
         },
 
     ],

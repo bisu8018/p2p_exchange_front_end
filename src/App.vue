@@ -744,6 +744,38 @@
         outline: none;
     }
 
+    .input-disabled {
+        height: 40px;
+        border-radius: 2px;
+        border: solid 1px #8d8d8d;
+        background: #f8f8fa;
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 12px;
+        color: #8d8d8d;
+        outline: none;
+    }
+
+
+    /*인증코드 전달 버튼*/
+    /*<span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>*/
+
+    .click-send-text {
+        font-size: 12px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #c8c8c8;
+        position: absolute;
+        right: 11px;
+        top: 10px;
+        cursor: pointer;
+    }
+
+
     /*vuetify dialog*/
 
     .v-dialog {

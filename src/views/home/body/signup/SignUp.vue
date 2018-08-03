@@ -14,7 +14,7 @@
             <div class="text-xs-left mb-2 color-black mt-4">{{$str("email")}}</div>
             <div class="p-relative">
                 <input name="email" v-model="email" type="text" class="input mb-4"
-                       v-bind:class="{'warning-border' : warning_email}" @blur="onCheckEmail">
+                       v-bind:class="{'warning-border' : warning_email}" @keyup="onCheckEmail">
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                 </div>
@@ -25,7 +25,7 @@
             <div class="p-relative">
                 <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4"
                        autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
-                       @blur="onCheckVerificationCode">
+                       @keyup="onCheckVerificationCode">
                 <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
@@ -38,7 +38,7 @@
             <div class="p-relative">
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
                        class="input mb-4" :placeholder="$str('passwordPlaceholder')"
-                       v-bind:class="{'warning-border' : warning_password}" @blur="onCheckPassword">
+                       v-bind:class="{'warning-border' : warning_password}" @keyup="onCheckPassword">
                 <div class="warning-text-wrapper">
                     <span class="d-none"
                           v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
@@ -50,7 +50,7 @@
             <div class="p-relative">
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
                        class="input mb-4" :placeholder="$str('passwordPlaceholder')"
-                       v-bind:class="{'warning-border' : warning_password_confirm}" @blur="onCheckPasswordConfirm">
+                       v-bind:class="{'warning-border' : warning_password_confirm}" @keyup="onCheckPasswordConfirm">
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
                 </div>
@@ -260,19 +260,6 @@
         height: 24px;
     }
 
-    .click-send-text {
-        font-size: 12px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #c8c8c8;
-        position: absolute;
-        right: 11px;
-        top: 10px;
-        cursor: pointer;
-    }
 
     .padding-none {
         padding-left: 0px !important;

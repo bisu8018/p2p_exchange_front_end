@@ -100,7 +100,6 @@
                          v-bind:class="{'warning-border' : warning_fixed_price}">
                         <input type="text" class="price-input" placeholder="0" v-model="fixedPrice"
                                @keyup="onNumberCheck('price')"
-                               @blur="onNumberCheck('price')"
                         >
                         <div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
@@ -149,7 +148,6 @@
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("volumeText")}}</div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                         <input type="text" class="price-input" v-model="volume"
-                               @blur="onNumberCheck('volume')"
                                @keyup="onNumberCheck('volume')"
                                :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + cryptocurrency">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
@@ -170,7 +168,6 @@
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_min_limit}">
                         <input type="text" class="price-input" :placeholder="$str('minLimitPlaceholder')"
-                               @blur="onNumberCheck('minLimit')"
                                @keyup="onNumberCheck('minLimit')"
                                v-model="minLimit">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
@@ -191,7 +188,6 @@
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_max_limit}">
                         <input type="text" class="price-input" :placeholder="$str('maxLimitPlaceholder')"
-                               @blur="onNumberCheck('maxLimit')"
                                @keyup="onNumberCheck('maxLimit')"
                                v-model="maxLimit">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
@@ -212,7 +208,6 @@
                          v-bind:class="{'warning-border' : warning_payment_window}">
                         <input type="text" maxlength="3" class="price-input"
                                :placeholder="$str('paymentWindowPlaceholder')"
-                               @blur="onNumberCheck('paymentWindow')"
                                @keyup="onNumberCheck('paymentWindow')"
                                v-model="paymentWindow">
                         <div class="currency-indicator h6"
@@ -356,7 +351,6 @@
                     </div>
                     <div class="mb-4 p-relative">
                         <input class="input" type="text" v-bind:class="{'warning-border' : warning_counterparty}"
-                               @blur="onNumberCheck('counterParty')"
                                @keyup="onNumberCheck('counterParty')"
                                placeholder="0" v-model="counterpartyFilterTradeCount "
                                maxlength="3">

@@ -11,39 +11,43 @@
                     {{$str("changePasswordExplain")}}
                 </div>
                 <div class="text-xs-left mb-2 h5 color-black">{{$str("oldPassword")}}</div>
-                <div class="p-relative mb-4"><input type="text" class="input" v-model="old_password"
-                                                    :placeholder="loginEmailPlaceholder"
-                                                    v-bind:class="{'warning-border' : warning_old_password}">
+                <div class="p-relative mb-4">
+                    <input type="password" class="input" v-model="old_password"
+                           @keyup="onCheckOldPassword"
+                           v-bind:class="{'warning-border' : warning_old_password}">
                     <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_old_password}">{{verify_warning_old_password}}</span>
+                        <span class="d-none" v-bind:class="{'warning-text' : warning_old_password}">{{$str('passwordValue')}}</span>
                     </div>
                 </div>
 
                 <div class="text-xs-left mb-2 h5 color-black">{{$str("newPassword")}}</div>
                 <div class="p-relative mb-4">
                     <input v-model="new_password" type="password" class="input"
-                           @blur="onCheckPassword"
-                           :placeholder="loginPasswordPlaceholder"
-                           v-bind:class="{'warning-border' : warning_new_password}">
+                           @keyup="onCheckNewPassword"
+                           v-bind:class="{'warning-border' : warning_new_password_border}">
                     <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_new_password}">{{verify_warning_new_password}}</span>
+                           <span class="d-none"
+                                 v-bind:class="{'warning-text' : warning_new_password}">{{$str('passwordValue')}}</span>
+                        <span class="d-none"
+                              v-bind:class="{'warning-text' : warning_new_password_char_first,'warning-characters' : warning_new_password_char_second}">{{$str('warningPasswordCharacters')}}</span>
+                        <span class="d-none"
+                              v-bind:class="{'warning-text' : warning_new_password_num_first,'warning-characters' : warning_new_password_num_second}">/ {{$str('passwordForm')}}</span>
                     </div>
                 </div>
 
                 <div class="text-xs-left mb-2 h5 color-black">{{$str("passwordConfirm")}}</div>
                 <div class="p-relative mb-4">
                     <input v-model="confirm_password" type="password" class="input"
-                           @blur="onCheckPasswordConfirm"
-                           :placeholder="loginPasswordPlaceholder"
+                           @keyup="onCheckPasswordConfirm"
                            v-bind:class="{'warning-border' : warning_confirm_password}">
                     <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{verify_warning_confirm_password}}</span>
+                        <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
                     </div>
                 </div>
-               <div>
-                   <button class="btn-blue">{{$str('change')}}</button>
-                   <button class="btn-white">{{$str('cancel')}}</button>
-               </div>
+                <div class="text-xs-right">
+                    <button class="btn-white btn-blue-hover button-style" @click="goMyPage">{{$str('cancel')}}</button>
+                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onCheck">{{$str('change')}}</button>
+                </div>
             </div>
         </v-flex>
     </v-layout>
@@ -51,7 +55,6 @@
 
 <script>
     import Vue from 'vue';
-    import VerifySlider from "@/components/VerifySlider";
     import {abUtils} from '@/common/utils';
 
     export default {
@@ -61,51 +64,92 @@
                 old_password: '',
                 new_password: '',
                 confirm_password: '',
-                isVerified: false,
-                verify_warning_old_password: "",
                 verify_warning_new_password: "",
-                verify_warning_confirm_password: "",
-                verify_warning_slider: "",
-                loginEmailPlaceholder: Vue.prototype.$str("loginEmailPlaceholder"),
-                loginPasswordPlaceholder: Vue.prototype.$str("loginPasswordPlaceholder"),
-
                 warning_old_password: false,
                 warning_new_password: false,
                 warning_confirm_password: false,
-                warning_slider: false,
+                warning_new_password_char_first: false,
+                warning_new_password_char_second: false,
+                warning_new_password_num_first: false,
+                warning_new_password_num_second: false,
+                warning_new_password_border: false,
             }
         },
-        components: {
-            VerifySlider,
-        },
         methods: {
+            goMyPage() {
+                this.$router.push("/myPage");
+            },
             onChange() {
-                //Send Email verification codes to Server
+                // AXIOS post 작업 진행
+
+                // 성공후 push
+                goMyPage();
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
-                if (this.onCheckPassword()) {
+                if (this.onCheckOldPassword() && this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
                     this.onChange();
                 }
             },
-            onCheckPassword() {
-                //email null
-                if (this.email === "") {
-                    this.verify_warning_email = Vue.prototype.$str("emailValue");
-                    this.warning_email = true;
+            onCheckOldPassword() {
+                //old password null
+                if (this.old_password === "") {
+                    this.warning_old_password = true;
                     return false;
                 }
-                //email form
-                if (!abUtils.isEmail(this.email)) {
-                    this.verify_warning_email = Vue.prototype.$str("emailForm");
-                    this.warning_email = true;
-                    return false;
-                }
-                this.warning_email = false;
+                this.warning_old_password = false;
                 return true;
             },
-            onCheckPasswordConfirm() {
+            onCheckNewPassword() {
+                //new password null
+                if (this.new_password === "") {
+                    this.warning_new_password_char_first = false;
+                    this.warning_new_password_char_second = false;
+                    this.warning_new_password_num_first = false;
+                    this.warning_new_password_num_second = false;
+                    this.warning_new_password = true;
+                    this.warning_new_password_border = true;
+                    return false;
+                }
+                if (this.new_password.length < 8 || this.new_password.length > 20 || !abUtils.isPasswd(this.new_password)){
 
+                    this.warning_new_password_border = true;
+                    this.warning_new_password = false;
+                    // 8-20 자
+                    if (this.new_password.length < 8 || this.new_password.length > 20) {
+                        this.warning_new_password_char_first = true;
+                        this.warning_new_password_char_second = false;
+                    } else {
+                        this.warning_new_password_char_first = true;
+                        this.warning_new_password_char_second = true;
+                    }
+                    // 비밀번호 양식
+                    if (!abUtils.isPasswd_ignoreLength(this.new_password)) {
+                        this.warning_new_password_num_first = true;
+                        this.warning_new_password_num_second = false;
+                    } else {
+                        this.warning_new_password_num_first = true;
+                        this.warning_new_password_num_second = true;
+                    }
+                    return false;
+                }
+                this.warning_new_password_border = false;
+                this.warning_new_password = false;
+                this.warning_new_password_char_first = false;
+                this.warning_new_password_char_second = false;
+                this.warning_new_password_num_first = false;
+                this.warning_new_password_num_second = false;
+                return true;
+
+            },
+            onCheckPasswordConfirm() {
+                //confirm password null
+                if (this.new_password != this.confirm_password) {
+                    this.warning_confirm_password = true;
+                    return false;
+                }
+                this.warning_confirm_password = false;
+                return true;
             }
         }
     }
@@ -116,50 +160,23 @@
         height: 24px;
     }
 
-    .login-title {
-        display: flex;
-    }
-
     .card-flex {
         border-radius: 3px;
         border: solid 1px #8d8d8d;
         padding-bottom: 40px !important;
     }
 
-    .orWrapper {
-        border-bottom: 1px solid #d1d1d1;
-        position: relative;
+    .login-title {
+        display: flex;
     }
 
-    .orTextWrapper {
-        width: 100%;
-        position: absolute;
-        top: -10px;
+    .button-style {
+        width: 96px;
     }
 
-    .orText {
-        background: white;
-        padding-left: 15px;
-        padding-right: 15px;
-        color: #9294a6;
+    .warning-characters {
+        color: #71aa3a !important;
+        font-size: 10px;
+        display: block !important;
     }
-
-    .goForgetPwd {
-        cursor: pointer;
-    }
-
-    .goForgetPwdWrapper {
-        margin-bottom: 9px !important;
-    }
-
-    .goForgetPwd:hover {
-        color: #316ee4 !important;
-    }
-
-    /*verify slider warning CSS*/
-    /*.warning-text-slider-wrapper {
-        position: absolute;
-        bottom: -16px;
-        right: 0;
-    }*/
 </style>
