@@ -29,7 +29,7 @@
         },
         computed: {
             pages () {
-                return Math.ceil(MainRepository.Pagination.getTotalCount()/ this.size);
+                //return Math.ceil(MainRepository.Pagination.getTotalCount()/ this.size);
                 // console.log("Make page:" + Math.ceil(MainRepository.TradeView.getTotalTradeView() / 10));
                 //return Math.ceil(MainRepository.TradeView.getTotalTradeView()/ this.page);
             },

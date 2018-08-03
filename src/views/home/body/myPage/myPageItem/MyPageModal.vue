@@ -182,9 +182,9 @@
                 <!--이메일 입력-->
                 <div class="mb-4">
                     <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("phoneNumber")}}
+                        {{$str("email")}}
                     </div>
-                    <div class="input-disabled  vertical-center disabled">{{setPhoneNumber}}</div>
+                    <div class="input-disabled  vertical-center disabled">{{setEmail}}</div>
                 </div>
 
                 <!--이메일인증-->
@@ -228,7 +228,7 @@
 
     export default {
         name: 'myPageModal',
-        props: ['show', 'type', 'phoneNo'],
+        props: ['show', 'type', 'phoneNo' , 'email'],
         data() {
             return {
                 paymentMethod: "",
@@ -252,12 +252,21 @@
                 verify_warning_bank_account: Vue.prototype.$str('warning_name'),
                 verify_warning_trade_password: Vue.prototype.$str('warning_trade_password'),
                 SMSverificationCdoe: '',
+                user: {
+                    member_no : 0,
+                    email : 'test@naver.com'
+                }
             }
         },
         computed: {
             setPhoneNumber: function () {
-                var phoneNumber = this.phoneNo.substr(0, 3) + '****' + this.phoneNo.substr(7, 5);
-                return phoneNumber;
+                var phoneValue = this.phoneNo.substr(0, 3) + '****' + this.phoneNo.substr(7, 5);
+                return phoneValue;
+            },
+            setEmail: function () {
+                var emailValue = this.email.split('@')[0];
+                console.log(emailValue);
+                return emailValue;
             }
         },
         methods: {
@@ -339,7 +348,7 @@
 
                 // 성공후
                 this.$emit('turnon');
-            }
+            },
         },
     }
 </script>
@@ -361,6 +370,17 @@
         border: solid 1px #8d8d8d;
         padding: 8px;
         resize: none;
+    }
+
+    .comp-selectbox {
+        /*셀렉박스 공통 CSS*/
+        width: 100%;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        border: solid 1px #8d8d8d;
+        padding-left: 12px;
+        cursor: pointer;
     }
 
 

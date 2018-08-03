@@ -1972,6 +1972,54 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    ['linkPhone', {
+        KOR: '휴대폰 연동',
+        ENG: 'Link mobile phone',
+        CN: '',
+        JP: ''
+    }],
+    ['linkEmail', {
+        KOR: '이메일 연동',
+        ENG: 'Link email',
+        CN: '',
+        JP: ''
+    }],
+    ['bind', {
+        KOR: '연동하기',
+        ENG: 'Bind',
+        CN: '',
+        JP: ''
+    }],
+    ['link', {
+        KOR: '연동하기',
+        ENG: 'Link',
+        CN: '',
+        JP: ''
+    }],
+    ['resetTradePassword', {
+        KOR: '거래 비밀번호 초기화',
+        ENG: 'Reset Trade Password',
+        CN: '',
+        JP: ''
+    }],
+    ['confirmTradePassword', {
+        KOR: '거래 비밀번호 확인',
+        ENG: 'Confirm trade password',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',

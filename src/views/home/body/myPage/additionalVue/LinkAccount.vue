@@ -1,0 +1,166 @@
+<template>
+    <!--Vertical, horizontal alignment-->
+    <v-layout pt-5 pb-5>
+        <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
+            <div>
+                <div class="mb-4a login-title align-center">
+                    <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
+                    <div class="h2 bold">{{type === 'email' ? $str("linkEmail") : $str("linkPhone")}}</div>
+                </div>
+                <div v-if="type === 'phone'">
+                    <!--전화 번호 입력-->
+                    <div class="mb-4">
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("phoneNumber")}}
+                        </div>
+                        <div class="p-relative phone-wrapper">
+                        <select-box :selectBoxType ="'phone'" v-on:number="setCode" class="selectbox-width"></select-box>
+                        <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
+                        </div>
+                    </div>
+
+                    <!--문자인증-->
+                    <div class="mb-4">
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("SMSverification")}}
+                        </div>
+                        <div class="p-relative">
+                            <input type="text" class="input" v-model="SMSVerificationCdoe" maxlength="12">
+                            <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--이메일 연동은 회원가입 시 이뤄지기에 현재 미사용-->
+                <!--<div v-else>-->
+                    <!--&lt;!&ndash;이메일 입력&ndash;&gt;-->
+                    <!--<div class="mb-4">-->
+                        <!--<div class=" color-black  mb-2 text-xs-left">-->
+                            <!--{{$str("email")}}-->
+                        <!--</div>-->
+                        <!--<div class="input-disabled  vertical-center disabled">{{setEmail}}</div>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;이메일인증&ndash;&gt;-->
+                    <!--<div class="mb-4">-->
+                        <!--<div class=" color-black  mb-2 text-xs-left">-->
+                            <!--{{$str("emailVerification")}}-->
+                        <!--</div>-->
+                        <!--<div class="p-relative">-->
+                            <!--<input type="text" class="input" v-model="emailVerificationCdoe" maxlength="12">-->
+                            <!--<span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="text-xs-right">
+                    <button class="btn-white btn-blue-hover button-style" @click="goMyPage">{{$str('cancel')}}</button>
+                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onLink">{{$str('link')}}</button>
+                </div>
+            </div>
+        </v-flex>
+    </v-layout>
+</template>
+
+<script>
+    import {abUtils} from '@/common/utils';
+    import SelectBox from "../../../../../components/SelectBox";
+
+    export default {
+        name: 'linkAccount',
+        components: {SelectBox},
+        data: function () {
+            return {
+                type : '',
+                phone_number : '',
+                code_number : '0086',
+                user : {
+                    member_no : 0,
+                },
+                SMSVerificationCdoe : '',
+                emailVerificationCdoe : ''
+
+            }
+        },
+        created () {
+            window.scrollTo(0,0);
+            var url = location.href;
+            var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+            this.type = parameters[0];
+        },
+        methods: {
+            goMyPage() {
+                this.$router.push("/myPage");
+            },
+            onLink() {
+                // type 별로 AXIOS post 작업 진행
+
+                // 성공후 push
+                this.goMyPage();
+            },
+            setCode(value) {
+                //console.log(value);
+                this.code_number = value;
+            },
+            sendVerificationCode() {
+                //문자 또는 메일 전송
+                //console.log(this.code_number + this.phone_number);
+            },
+        }
+    }
+</script>
+<style>
+    .iconLogo {
+        width: 30px;
+        height: 24px;
+    }
+
+    .card-flex {
+        border-radius: 3px;
+        border: solid 1px #8d8d8d;
+        padding-bottom: 40px !important;
+    }
+
+    .login-title {
+        display: flex;
+    }
+
+    .button-style {
+        width: 96px;
+    }
+
+    .input-phone {
+        border: none;
+        font-size: 12px;
+    }
+
+    .warning-characters {
+        color: #71aa3a !important;
+        font-size: 10px;
+        display: block !important;
+    }
+
+    .selectbox-width {
+        width: 80px;
+        left: 0;
+        bottom: 0;
+    }
+
+    .comp-selectbox{
+        padding-left: 8px;
+        border: none;
+        border-right: solid 1px #8d8d8d;
+        border-radius: 0;
+    }
+
+    .comp-selectbox-icon {
+        right: 3px;
+        top: 11px;
+        font-size: 20px;
+
+    }
+
+    .phone-wrapper {
+        display: flex;
+        border: solid 1px #8d8d8d;
+    }
+</style>

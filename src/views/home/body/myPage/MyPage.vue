@@ -47,7 +47,7 @@
                             <v-flex xs8>
                                 <div class="sprite-img ic-email f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">{{$str('email')}}</h5>
-                                <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_email">{{$str('bound')}}</h5>
+                                <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_email === 'y'">{{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
                             <v-flex xs4 class="mt-3  pr-3 text-xs-right">
@@ -55,8 +55,8 @@
                                     <a class="color-blue text-white-hover c-pointer" >{{$str('bound')}}</a>
                                 </h6>
                                 <h6  v-else>
-                                        <a class="color-darkgray text-white-hover c-pointer" v-if="user.mail_status === 'activatied'" @click="goTurnOff('email')">{{$str('turnOff')}}</a>
-                                        <a class="color-blue text-white-hover c-pointer" v-else @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
+                                        <a class="color-darkgray text-white-hover c-pointer" v-if="user.mail_status === 'activatied' && user.phone_status === 'activatied' && user.kyc_phone === 'y'&& user.kyc_email === 'y'" @click="goTurnOff">{{$str('turnOff')}}</a>
+                                        <a class="color-blue text-white-hover c-pointer" v-else-if="user.mail_status === 'deactivatied'&& user.kyc_email === 'y' " @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -66,7 +66,7 @@
                             <v-flex xs5>
                                 <div class="sprite-img ic-phone f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">{{$str('phone')}}</h5>
-                                <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_phone">{{$str('bound')}}</h5>
+                                <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_phone === 'y'" >{{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
                             <v-flex xs7 class="mt-3  pr-3 text-xs-right">
@@ -74,9 +74,10 @@
                                     <a class="color-blue" >{{$str('bound')}}</a>
                                 </h6>
                                 <h6 v-else>
-                                    <a class="color-darkgray text-white-hover c-pointer mr-3" >{{$str('changePhone')}}</a>
-                                    <a class="color-darkgray text-white-hover c-pointer" v-if="user.phone_status === 'activatied'" @click="goTurnOff('phone')">{{$str('turnOff')}}</a>
-                                    <a class="color-blue text-white-hover c-pointer" @click="onModal('phoneTurnOn')"  v-else>{{$str('turnOn')}}</a>
+                                    <a class="color-blue text-white-hover c-pointer " v-if="user.kyc_phone === 'n'" @click="goLink('phone')">{{$str('bind')}}</a>
+                                    <a class="color-darkgray text-white-hover c-pointer" v-if="user.kyc_phone === 'y'">{{$str('changePhone')}}</a>
+                                    <a class="color-darkgray text-white-hover c-pointer ml-3" v-if="user.mail_status === 'activatied' && user.phone_status === 'activatied' && user.kyc_phone === 'y'&& user.kyc_email === 'y'">{{$str('turnOff')}}</a>
+                                    <a class="color-blue text-white-hover c-pointer ml-3" @click="onModal('phoneTurnOn')"  v-else-if="user.kyc_phone === 'y' && user.phone_status === 'deactivatied'">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -115,7 +116,7 @@
                                 <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.trade_pwd_own">{{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
-                            <v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a class="color-blue text-white-hover c-pointer">{{$str('reset')}}</a>
+                            <v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a class="color-blue text-white-hover c-pointer" @click="goReset">{{$str('reset')}}</a>
                             </h6></v-flex>
                         </v-layout>
                     </div>
@@ -606,7 +607,7 @@
         </div>
 
         <!--결제수단 추가 모달-->
-        <my-page-modal :show="showModal" :type="modalType" :phoneNo="user.phone_no" v-on:close="onClose"  v-on:paymentMethod="getPaymentMethod" v-on:turnon = "onTurnOn"></my-page-modal>
+        <my-page-modal :show="showModal" :type="modalType" :phoneNo="user.phone_no" :email="user.email" v-on:close="onClose"  v-on:paymentMethod="getPaymentMethod" v-on:turnon = "onTurnOn"></my-page-modal>
 
     </div>
 </template>
@@ -654,7 +655,7 @@
                 wechat_address: '1852961277 未绑定 Wechatpay',
                 bank_address: '6214856562128938 未绑定 未绑定未 绑定未绑定未绑定',
                 phone_no: '01048789415',
-                email: 'Charles',
+                email: 'Charles@naver.com',
                 trade_pwd_own: 'y',
                 isLogin: true,
                 color: '#8869CA',
@@ -800,9 +801,27 @@
                 // phone 인증 정보 AXIOS GET
                 this.showModal = false;
             },
-            goEmailTurnOff() {
-                    this.$router.push("/emailTurnOff");
+            goTurnOff(type) {
+                var url = "/turnOff";
+                if(type === 'email'){
+                    url += '?email';
+                }else{
+                    url += '?phone';
+                }
+                this.$router.push(url);
 
+            },
+            goLink(type) {
+                var url = "/linkAccount";
+                if(type === 'email'){
+                    url += '?email';
+                }else{
+                    url += '?phone';
+                }
+                this.$router.push(url);
+            },
+            goReset() {
+                this.$router.push('/resetTradePassword');
             }
         }
 
@@ -811,9 +830,6 @@
 </script>
 
 <style scoped>
-
-
-
     .flex-pl-0 {
         padding-left: 0px;
     }
