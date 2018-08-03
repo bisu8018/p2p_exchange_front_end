@@ -54,7 +54,6 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import {abUtils} from '@/common/utils';
 
     export default {
@@ -74,6 +73,9 @@
                 warning_new_password_num_second: false,
                 warning_new_password_border: false,
             }
+        },
+        created () {
+            window.scrollTo(0,0);
         },
         methods: {
             goMyPage() {

@@ -7,8 +7,11 @@
             <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="o-none comp-selectbox">
                 <option v-for="currency in currencies" class="o-none " v-bind:value="currency.currency" >{{currency.currency}}</option>
             </select>
-            <select v-else="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="o-none comp-selectbox h6">
+            <select v-else-if="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="o-none comp-selectbox h6">
                 <option v-for="payment in payments" class="o-none " v-bind:value="payment.code" >{{payment.payment}}</option>
+            </select>
+            <select v-else-if="selectBoxType === 'phone'"  v-model="selectedPhone" @change="setPhone" class="o-none comp-selectbox h6">
+                <option v-for="phone in phones" class="o-none " v-bind:value="phone.code" >{{phone.code}}</option>
             </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
         </div>
@@ -20,11 +23,12 @@
         name: 'selectBox',
         props : {
             'selectBoxType' : {type:String, default:'country'}
-        },      //country, currency, payment
+        },      //country, currency, payment, phone
         data: () => ({
             selectedCountry: 'ALL',
             selectedCurrency: 'CNY',
             selectedPayment: 'ALL',
+            selectedPhone: '0086',
             countries: [
                 {country: 'All countries', code: 'ALL'},
                 {country: 'China', code: 'CN'},
@@ -71,20 +75,31 @@
                 {payment : 'Alipay', code : 'ALI'},
                 {payment : 'Wechat', code : 'WCH'},
             ],
+            phones : [
+                {code : '0086', nation : 'China'},
+                {code : '00852', nation : 'Hong Kong(China)'},
+                {code : '00886', nation : 'Taiwan(China)'},
+                {code : '0081', nation : 'Japan'},
+                {code : '0082', nation : 'Korea'},
+                {code : '0044', nation : 'United Kingdom'},
+            ]
         }),
         methods: {
             setCountry() {
-                console.log("selectedCountry: " + this.selectedCountry);
+                //console.log("selectedCountry: " + this.selectedCountry);
                 MainRepository.SelectBox.controller().setCountry(this.selectedCountry);
                 //console.log("setCountry:" + MainRepository.SelectBox.controller().setCountry(this.selectedCountry));
             }, setCurrency() {
-                console.log("selectedCurrency: " + this.selectedCurrency);
+                //console.log("selectedCurrency: " + this.selectedCurrency);
                 MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency);
                 //console.log("setCurrency:" + MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency));
             }, setPayment() {
-                console.log("selectedPayment:" + this.selectedPayment)
+                //console.log("selectedPayment:" + this.selectedPayment)
                 MainRepository.SelectBox.controller().setPayment(this.selectedPayment);
                 console.log("setPayment:" + MainRepository.SelectBox.controller().setPayment(this.selectedPayment));
+            }, setPhone() {
+                this.$emit('number',this.selectedPhone);
+
             }
         }
     }

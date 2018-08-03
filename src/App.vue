@@ -768,7 +768,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #c8c8c8;
+        color: #214ea1;
         position: absolute;
         right: 11px;
         top: 10px;
