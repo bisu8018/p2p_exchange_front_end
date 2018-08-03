@@ -23,6 +23,8 @@
             },
         },
         created() {
+            MainRepository.Pagination.setPage(1, this.size, this.type );        //시작할땐 무조건 1page로.
+
 
             // MainRepository.TradeView.setTotalTradeView(this.token, this.adType, this.country, this.currency, this.amount, this.payment);
             //return MainRepository.TradeView.getTotalTradeView();

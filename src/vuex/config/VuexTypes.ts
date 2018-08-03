@@ -28,10 +28,12 @@ export enum VuexTypes {
     //======================================
     //              TradeView
     // =====================================
-    SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
+    //SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
     SET_SELECTTRADEVIEW_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
-    SET_CRYPTOCURRENCY_DATA = 'trade/SET_CRYPTOCURRENCY_DATA',
-    SET_TRADETYPE_DATA = 'trade/SET_TRADETYPE_DATA',
+    //SET_CRYPTOCURRENCY_DATA = 'trade/SET_CRYPTOCURRENCY_DATA',
+    //SET_TRADETYPE_DATA = 'trade/SET_TRADETYPE_DATA',
+    UPDATE_SELECTTRADEVIEW_DATA = 'trade/UPDATE_SELECTTRADEVIEW_DATA',
+
 
     SET_PAGE_DATA = 'trade/SET_PAGE_DATA',
     SET_TOTALCOUNT_DATA = 'trade/SET_TOTALCOUNT_DATA',
@@ -39,7 +41,7 @@ export enum VuexTypes {
     //              TradeFilter
     // =====================================
     // amount == limitMin
-    SET_LIMITMIN_DATA = 'trade/SET_LIMITMIN_DATA',
+    //SET_LIMITMIN_DATA = 'trade/SET_LIMITMIN_DATA',
 
     //======================================
     //              Merchant
