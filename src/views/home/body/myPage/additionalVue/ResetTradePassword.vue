@@ -7,9 +7,9 @@
                     <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
                     <div class="h2 bold text-xs-left subject-wrapper">{{$str("resetTradePassword")}}</div>
                 </div>
-                <div class="text-xs-left mb-2 h5 color-black">{{$str("newPassword")}}</div>
 
                 <!--새로운 비밀번호-->
+                <div class="text-xs-left mb-2 h5 color-black">{{$str("newTradePassword")}}</div>
                 <div class="p-relative mb-4">
                     <input v-model="new_password" type="password" class="input"
                            @keyup="onCheckNewPassword" maxlength="24"

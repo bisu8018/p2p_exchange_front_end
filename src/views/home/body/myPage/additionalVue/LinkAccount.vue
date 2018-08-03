@@ -108,7 +108,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .iconLogo {
         width: 30px;
         height: 24px;

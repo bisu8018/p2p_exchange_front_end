@@ -2008,9 +2008,51 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['nickNameTradePassword', {
+        KOR: '닉네임 & 거래 비밀번호',
+        ENG: 'Nickname & Trade Password',
+        CN: '',
+        JP: ''
+    }],
+    ['nickNameExplain', {
+        KOR: '안전을 위하여 하기 거래 정보를 모두 입력해 주시기 바랍니다.',
+        ENG: 'For safety reasons, please complete the transaction information',
+        CN: '',
+        JP: ''
+    }],
+    ['newTradePassword', {
+        KOR: '새로운 거래 비밀번호',
+        ENG: 'New Trade Password',
+        CN: '',
+        JP: ''
+    }],
+    ['nickName', {
+        KOR: '닉네임',
+        ENG: 'Nickname',
+        CN: '',
+        JP: ''
+    }],
+    ['nickNamePlaceholder', {
+        KOR: '실명을 입력하지 마십시오. 변경 할 수 없습니다.',
+        ENG: 'Do not use your real name, can not be changed',
+        CN: '',
+        JP: ''
+    }],
+    ['warning_nick_name', {
+        KOR: '닉네임을 입력해 주십시오.',
+        ENG: 'Please enter you nickname.',
+        CN: '',
+        JP: ''
+    }],
+    ['nickNameTradePasswordPlaceholder', {
+        KOR: '당신의 자산을 보호해줍니다.',
+        ENG: 'To protect your asset',
+        CN: '',
+        JP: ''
+    }],
+    ['nickNameConfirmPasswordPlaceholder', {
+        KOR: '거래 비밀번호를 다시 한번 입력해 주십시오.',
+        ENG: 'Please confirm trade password.',
         CN: '',
         JP: ''
     }],
