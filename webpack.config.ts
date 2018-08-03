@@ -17,7 +17,7 @@ module.exports = {
                 presets: [
                     [
                         '@babel/preset-env', {
-                        targets: { node: 'current' }, // 노드일 경우만
+                        targets: {node: 'current'}, // 노드일 경우만
                         modules: 'false'
                     }
                     ],
@@ -25,22 +25,11 @@ module.exports = {
                     '@babel/preset-stage-0'
                 ],
             },
-            exclude: ['/node_modules'],
-        },
-            {
-                test: /\.jsx?$/,
-                enforce: "pre",
-                loader: "eslint-loader",
-                exclude: /node_modules/,
-                options: {
-                    emitWarning: true,
-                    configFile: "./.eslintrc.json"
-                }
-            },
-            {
-                test: /\.ts$/,
-                use: ['ts-loader']
+            exclude: ['/node_modules/'],
+            query: {
+                presets: ['es2015']
             }
+        },
         ],
     },
     plugins: [],

@@ -457,6 +457,7 @@
     import Toggle from '../../../../components/Toggle.vue';
     import VerifySlider from "../../../../components/VerifySlider.vue";
     import AdService from "../../../../service/ad/AdService";
+    import Common from "../../../../service/common/CommonService";
     import MainRepository from "../../../../vuex/MainRepository";
     import {abUtils} from "../../../../common/utils";
 
@@ -557,6 +558,11 @@
         },
         created() {
             //환율 및 유져 정보 get 필요
+            Common.info.getMarketPrice(function(result,event,data) {
+                console.log(result);
+                console.log(event);
+                console.log(data);
+            });
         },
         computed: {
             isMobile() {
