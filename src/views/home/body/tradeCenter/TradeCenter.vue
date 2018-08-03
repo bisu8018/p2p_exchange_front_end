@@ -270,15 +270,15 @@
             ],
         }),
         created() {
+
             if(this.message == "general"){
-                MainRepository.TradeView.setSelectPage();
+                MainRepository.TradeView.initPage();
             }else {
-                MainRepository.TradeView.setSelectPage();
+                MainRepository.TradeView.initPage();
             }
         },
         computed: {
             dataInfo(){
-                console.log(MainRepository.TradeView.getSelectPage());
                 return MainRepository.TradeView.getSelectPage();
             },
             isMobile() {

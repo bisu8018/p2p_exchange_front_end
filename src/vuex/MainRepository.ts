@@ -100,26 +100,38 @@ export default {
             return listController
         },
 
-        // 리스트 페이지 SET
-        setSelectPage() {
-            // Vuex Value GET
-            let page = paginationController.getPage();
-            let cryptocurrency = listController.getCryptocurrency();
-            let tradeType = listController.getTradeType();
-            let nationality = selectBoxController.getCountry();
-            let currency = selectBoxController.getCurrency();
-            let limitMin = listController.getLimitMin();
-            let paymentMethod = selectBoxController.getPayment();
+        initPage(){
+            var tempArr = {
+                page :   '1', //paginationController.getPage(),
+                cryptocurrency : 'BTC',  //listController.getCryptocurrency(),
+                tradeType :   'buy', //listController.getTradeType(),
+                nationality : 'ALL',  //selectBoxController.getCountry(),
+                currency :  'CNY', //selectBoxController.getCurrency(),
+                limitMin :  0, //listController.getLimitMin(),
+                paymentMethod :  'ALL', //selectBoxController.getPayment(),
+            };
+            //이 위까지 어차피 axios로 받아와할듯.
 
-            TradeService.tradeView.tradePageInfo(page, cryptocurrency, tradeType, nationality, currency, limitMin, paymentMethod, function (data) {
-                let tradeList: Trade[] = [];
-                for (let key in data) {
-                    let trade: Trade = new Trade(data[key]);
-                    tradeList.push(trade);
-                }
-                //리스트 형태 SET
-                listController.setSelectTrade(tradeList);
-            });
+            let tradeInfo = new Trade(tempArr);
+            // var nextArr = JSON.stringify(tradeInfo)
+            // console.log(nextArr)
+            listController.setSelectTrade(tradeInfo);
+
+        },
+
+        // 리스트 페이지 SET
+        updateSelectPage(data) {
+
+            listController.updateSelectTrade(data);
+            // TradeService.tradeView.tradePageInfo(page, cryptocurrency, tradeType, nationality, currency, limitMin, paymentMethod, function (data) {
+            //     let tradeList: Trade[] = data;
+            //     // for (let key in data) {
+            //     //     let trade: Trade = new Trade(data[key]);
+            //     //     tradeList.push(trade);
+            //     // }
+            //     //리스트 형태 SET
+            //     listController.setSelectTrade(tradeList);
+            // });
         },
         getSelectPage() {
             return listController.getSelectTrade();
@@ -128,31 +140,24 @@ export default {
         // Token AdType Vuex
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
-            listController.setCryptocurrency(cryptocurrency);
-            listController.setTradeType(tradeType);
+            var LeftFilterArr = {
+                cryptocurrency : cryptocurrency,
+                tradeType :   tradeType,
+                page : 1,
+            };
             instance.Pagination.setPage(1);          //page는 1로 초기화
-            instance.TradeView.setSelectPage();      //필터에 맞게 화면 재구성
+            instance.TradeView.updateSelectPage(LeftFilterArr);      //필터에 맞게 화면 재구성
         },
         setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: number){
-            // instance.SelectBox.controller().setCountry(nationality);
-            // instance.SelectBox.controller().setPayment(paymentMethod);
-            // instance.SelectBox.controller().setCurrency(currency);
-            instance.TradeView.controller().setLimitMin(amount);
+            var RightFilterArr = {
+                nationality : nationality,
+                paymentMethod :   paymentMethod,
+                currency : currency,
+                minLimit : amount,
+            };
             instance.Pagination.setPage(1);         //page는 1로 초기화
-            instance.TradeView.setSelectPage();     //필터에 맞게 화면 재구성
+            instance.TradeView.updateSelectPage(RightFilterArr);     //필터에 맞게 화면 재구성
         },
-        // 총 페이지네이션 수 SET
-        // setTotalTradeView(cryptocurrency: string, tradeType: string, nationality: string, currency: string, limitMin: number, paymentMethod: string, page: number, size: number,) {
-        //     TradeService.tradeView.tradeTotalInfo(cryptocurrency, tradeType, nationality, currency, limitMin, paymentMethod, page, size, function (data) {
-        //         // data 형태 number
-        //         listController.setTotalTrade(data);
-        //     });
-        // },
-        // 총 페이지네이션 수 GET
-        // getTotalTradeView() {
-        //     return listController.getTotalTrade();
-        // },
-
     },
     SelectBox: {
         controller(): SelectBoxController {
@@ -174,7 +179,7 @@ export default {
             paginationController.setPage(page);
             switch (type) {
                 case 'tradecenter':                         //tradecenter page 일때.
-                    instance.TradeView.setSelectPage();
+                    instance.TradeView.updateSelectPage({page : page});
                     break;
 
                 case 'MyAds':
