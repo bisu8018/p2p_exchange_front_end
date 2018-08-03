@@ -348,7 +348,7 @@
             },
             removeAmount(){
                 this.amount = 0;
-                MainRepository.TradeView.controller().setLimitMin(0);
+                MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
             //  list를 새로 띄워주도록 구현해야함.
             },
         },

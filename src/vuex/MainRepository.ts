@@ -134,9 +134,9 @@ export default {
             instance.TradeView.setSelectPage();      //필터에 맞게 화면 재구성
         },
         setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: number){
-            instance.SelectBox.controller().setCountry(nationality);
-            instance.SelectBox.controller().setPayment(paymentMethod);
-            instance.SelectBox.controller().setCurrency(currency);
+            // instance.SelectBox.controller().setCountry(nationality);
+            // instance.SelectBox.controller().setPayment(paymentMethod);
+            // instance.SelectBox.controller().setCurrency(currency);
             instance.TradeView.controller().setLimitMin(amount);
             instance.Pagination.setPage(1);         //page는 1로 초기화
             instance.TradeView.setSelectPage();     //필터에 맞게 화면 재구성
@@ -173,8 +173,8 @@ export default {
         setPage(page: number, size : number, type : string) {
             paginationController.setPage(page);
             switch (type) {
-                case 'tradecenter':
-                    instance.TradeView.setSelectPage(); //자기 참조시 instance 사용.
+                case 'tradecenter':                         //tradecenter page 일때.
+                    instance.TradeView.setSelectPage();
                     break;
 
                 case 'MyAds':

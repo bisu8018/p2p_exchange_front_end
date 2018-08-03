@@ -74,8 +74,9 @@
             users: [
                 {
                     email: 'Charles',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -90,8 +91,9 @@
                 },
                 {
                     email: 'Dean',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -105,8 +107,9 @@
                 },
                 {
                     email: 'Jack',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -120,8 +123,9 @@
                 },
                 {
                     email: 'Jiny',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -136,8 +140,9 @@
                 },
                 {
                     email: 'Jun',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -151,8 +156,9 @@
                 },
                 {
                     email: 'Kay',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -167,8 +173,9 @@
                 },
                 {
                     email: 'Kevin',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -182,8 +189,9 @@
                 },
                 {
                     email: 'Max',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -197,8 +205,9 @@
                 },
                 {
                     email: 'BK',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -212,8 +221,9 @@
                 },
                 {
                     email: 'Ryan',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -227,8 +237,9 @@
                 },
                 {
                     email: 'Tom',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -242,8 +253,9 @@
                 },
                 {
                     email: 'AB',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
+                    volume: 119,
+                    minLimit: 56.0,
+                    maxLimit: 66.0,
                     price: 224,
                     adType: 44.0,
                     tradeRate: 99,
@@ -260,12 +272,9 @@
         created() {
             if(this.message == "general"){
                 MainRepository.TradeView.setSelectPage();
-                console.log(MainRepository.TradeView.setSelectPage());
             }else {
                 MainRepository.TradeView.setSelectPage();
-                console.log(MainRepository.TradeView.setSelectPage());
             }
-
         },
         computed: {
             dataInfo(){

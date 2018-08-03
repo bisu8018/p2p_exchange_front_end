@@ -16,7 +16,7 @@
           </v-flex>
 
           <v-flex xs10 text-xs-left color-blue>
-            {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+            {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
             <!-- user의 rank 이미지-->
             <img :src="rankSrc" class="ml-2">
           </v-flex>
@@ -24,19 +24,19 @@
         <!-- Volume -->
         <v-layout>
             <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
+            <v-flex xs4 text-xs-left color-darkgray>{{$str("Available")}} :</v-flex>
+            <v-flex xs6 text-xs-right> {{user.volume}} {{token}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left color-darkgray>Limits :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
+            <v-flex xs4 text-xs-left color-darkgray>{{$str("limits")}} :</v-flex>
+            <v-flex xs6 text-xs-right> {{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
-            <v-flex xs4 text-xs-left color-darkgray>Price :</v-flex>
+            <v-flex xs4 text-xs-left color-darkgray>{{$str("price")}} :</v-flex>
             <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
@@ -79,7 +79,7 @@
           </v-flex>
           <v-flex xs8 text-xs-left>
             <h5 class="medium color-blue">
-            {{user.email}} ( {{user.volumeTotal}} | 99%)
+            {{user.email}} ( {{user.volume}} | 99%)
             </h5>
             <img :src="rankSrc" class="userRank">
           </v-flex>
@@ -96,7 +96,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.volumeTotal}} {{token}}</h5>
+            <h5>{{user.volume}} {{token}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -107,7 +107,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.limitMax}} {{currency}}</h5>
+            <h5>{{user.minLimit}}-{{user.maxLimit}} {{currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Price -->
@@ -205,16 +205,16 @@
               :color = user.color>
             </avatar>
             <span class="ml-3 color-blue">
-              <button @click="goUserPage">{{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)</button>
+              <button @click="goUserPage">{{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
             </span>
             <!--판매자 rank-->
             <img :src="rankSrc" class="userRank">
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volumeTotal}} {{token}} </v-flex>
+        <v-flex md2 text-md-left >{{user.volume}} {{token}} </v-flex>
         <!--limits-->
-        <v-flex md2 text-md-left >{{user.limitMax}} {{currency}} </v-flex>
+        <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         <!--price-->
         <v-flex md2 text-md-left color-orange-price bold>{{user.price}} {{token}} </v-flex>
         <!-- payment method-->
@@ -258,20 +258,20 @@
               <!-- merchant 정보-->
               <span>
                 <span class="mr-2 ml-3 color-blue medium">
-                  {{user.email}} ( {{user.volumeTotal}} | {{user.tradeRate}}%)
+                  {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
                 </span>
                 <img :src="rankSrc" class="userRank">
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{token}}</div>
               </span>
             </v-layout>
           </v-flex>
           <!--둘째줄-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
-              {{user.volumeTotal}} {{currency}}
+              {{user.volume}} {{currency}}
             </div>
             <div class="medium">
-              {{user.volumeTotal}} {{currency}}
+              {{user.volume}} {{currency}}
             </div>
           </v-flex>
 
