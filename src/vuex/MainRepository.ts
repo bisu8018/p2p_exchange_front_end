@@ -150,9 +150,9 @@ export default {
         },
         setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: number){
             var RightFilterArr = {
-                nationality : nationality,
-                paymentMethod :   paymentMethod,
-                currency : currency,
+                nationality : instance.SelectBox.controller().getCountry(),
+                paymentMethod : instance.SelectBox.controller().getPayment(),
+                currency : instance.SelectBox.controller().getCurrency(),
                 minLimit : amount,
             };
             instance.Pagination.setPage(1);         //page는 1로 초기화

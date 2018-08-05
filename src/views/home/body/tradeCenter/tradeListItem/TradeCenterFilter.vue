@@ -331,6 +331,11 @@
             onSearch(){
                 //입력된 정보들을 vuex로 set 시킴.
                 MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
+
+
+                this.country =  MainRepository.SelectBox.controller().getCountry();
+                this.currency = MainRepository.SelectBox.controller().getCurrency();
+                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
 //                 this.country = MainRepository.SelectBox.controller().getCountry();
 //                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
 //                 this.currency = MainRepository.SelectBox.controller().getCurrency();

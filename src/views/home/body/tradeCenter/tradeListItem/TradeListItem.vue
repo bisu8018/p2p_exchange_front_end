@@ -46,22 +46,32 @@
               <v-layout>
                 <a class="tooltip" v-if="user.bank_account.length >0">
                   <div class="mr-2 sprite-img ic-bank "></div>
+                  <!--tooltip-->
                   <span class="BankTooltip tooltip-content">Bank account</span>
                 </a>
                 <a class="tooltip" v-if="user.alipay_id.length >0">
                   <div class="mr-2 sprite-img ic-alipay "></div>
+                  <!--tooltip-->
                   <span class="tooltip-content">Alipay</span>
                 </a>
                 <a class="tooltip" v-if="user.wechat_id.length >0">
                   <div class="mr-2 sprite-img ic-wechatpay "></div>
+                  <!--tooltip-->
                   <span class="tooltip-content">Wechatpay</span>
                 </a>
               </v-layout>
             </v-flex>
             <!--거래 버튼-->
             <v-flex xs4 text-xs-right>
-              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-                {{tradeType}} {{token}}</button>
+              <div v-if="can_not_trade">
+                <h6 class="color-darkgray"> Need to</h6>
+                <h6 class="color-blue">{{do_not_trade_message}}</h6>
+              </div>
+              <div v-else>
+                <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+                  <h5>{{tradeType}} {{token}}</h5>
+                </button>
+              </div>
             </v-flex>
         </v-layout>
       </div>
@@ -236,9 +246,15 @@
             <!--img와 button을 양쪽에 정렬시키기 위함.-->
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
-            <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-              <h5>{{tradeType}} {{token}}</h5>
-            </button>
+            <div v-if="can_not_trade">
+              <h6 class="color-darkgray"> Need to</h6>
+              <h6 class="color-blue">{{do_not_trade_message}}</h6>
+            </div>
+            <div v-else>
+              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+                <h5>{{tradeType}} {{token}}</h5>
+              </button>
+            </div>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -382,14 +398,16 @@
             drawer: false,
             toValue : '',
             fromValue : '',
-            token : 'BTC',      //현재 거래하고자 하는 coin
-            currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-            tradeType : 'SELL',
+            // token : 'BTC',      //현재 거래하고자 하는 coin
+            // currency : 'CNY',   //현재 사용하고자 하는 화폐단위
+            // tradeType : 'SELL',
             tradePW : '',       // Trade Password
             rankSrc : '',
             verify_warning_toValue: "",
             verify_warning_fromValue: "",
             verify_warning_tradePassword: "",
+            do_not_trade_message: "",
+            can_not_trade : false,
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
@@ -450,7 +468,26 @@
             }
 
         },
+        created(){
+            //  trade를 막는 filter. 차후 백단 연결시 수정필요.
+            //  mobile 인증 안했을때
+            if(!this.user.counterpartyFilterMobileVerificationYn){
+                this.do_not_trade_message += 'verify phone'
+                this.can_not_trade = true;
+            }
+            // advanced 인증 안했을때.
+            if(!this.user.counterpartyFilterAdvancedVerificationYn){
+                if(!this.do_not_trade_message == ''){
+                    this.do_not_trade_message +='/ '
+                }
+                this.do_not_trade_message += 'adv. verification'
+                this.can_not_trade = true;
+            }
+
+        },
         mounted(){
+
+
           switch (this.user.rank) {
               case 1:
                   this.rankSrc = require('../../../../../assets/img/rank_crown.png');
@@ -466,6 +503,16 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
+            tradeType(){
+                return MainRepository.TradeView.getSelectPage().tradeType
+            },
+            token(){
+                return MainRepository.TradeView.getSelectPage().cryptocurrency
+            },
+            currency(){
+                return MainRepository.TradeView.getSelectPage().currency
+            }
+
         },
 
     }
