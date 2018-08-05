@@ -14,7 +14,7 @@ export default class SelectBoxController {
     }
 
     getCountry() {
-        return this.store.state.selectBox.getCountry;
+        return this.store.state.selectBox.nationality;
     }
 
     // select box currency
