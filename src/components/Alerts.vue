@@ -61,6 +61,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                         this.showErrorMessage("Error", "A Error Message")
                         break
                     case 4 :
+                        this.showWarningMessage("Notice", "Please enter account")
                         break
                     case 5 :
                         break
