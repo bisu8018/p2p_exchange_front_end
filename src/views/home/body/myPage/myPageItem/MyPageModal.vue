@@ -338,7 +338,7 @@
                 if (type === 'payment') {
                     this.$emit('paymentMethod');
                 } else if (type === 'nickName') {
-                    this.$emit('nickName');
+                    this.$emit('nickName', this.user.nick_name);
                 }
             },
             onNickNameCheck() {

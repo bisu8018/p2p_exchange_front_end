@@ -371,7 +371,7 @@
                 <!--***************       섹션        *********-->
                 <v-flex md3 text-md-left text-xs-left>
                     <big-avatar
-                            :name=user.email[0]
+                            :name=user.nick_name[0]
                             :isLogin=user.isLogin
                             :color=user.color class="f-left mr-3">
                     </big-avatar>
@@ -879,7 +879,8 @@
             goReset() {
                 this.$router.push('/resetTradePassword');
             },
-            getNickName() {
+            getNickName(value) {
+                this.user.nick_name = value;
                 // 전체 정보 AXIOS GET 성공 후 진행
                 this.showModal = false;
             }
