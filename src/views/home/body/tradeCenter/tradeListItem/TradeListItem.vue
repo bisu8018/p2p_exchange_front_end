@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!-- mobile 일때-->
     <div v-if="isMobile" class="p-relative">
       <!--거래 list -->
@@ -75,9 +74,42 @@
             </v-flex>
         </v-layout>
       </div>
-
+      <!-- Nicname 설정을 안했을경우 띄움-->
+      <div v-if="drawer&& !setNickName" class="mobileModal">
+        <v-layout>
+          <v-flex xs2 pl-2>
+            <avatar
+                    :name = user.email[0]
+                    :isLogin = user.isLogin
+                    :color = user.color>
+            </avatar>
+          </v-flex>
+          <v-flex xs10 text-xs-left mb-4>
+            <h5 class="medium color-blue">
+              {{user.email}} ( {{user.volume}} | 99%)
+              <img :src="rankSrc" class="userRank">
+            </h5>
+            <h5 class="color-darkgray medium">
+              {{$str("Available")}}  {{user.volume}} {{token}}
+            </h5>
+          </v-flex>
+        </v-layout>
+        <v-layout >
+          <v-flex xs7  offset-xs2 text-xs-left>
+              <span class="color-darkgray">
+                {{$str("You need to complete the necessary transaction information.")}}
+              </span>
+              <span class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+          </v-flex>
+        </v-layout>
+        <v-layout mt-4a>
+          <v-flex xs4 offset-xs8 >
+            <button class="btn-white text-white-hover" @click="drawer = false">{{$str("cancel")}}</button>
+          </v-flex>
+        </v-layout>
+      </div>
       <!--버튼 클릭시 거래를 위한 mobile modal-->
-      <div v-if="drawer" class="mobileModal">
+      <div v-else-if="drawer" class="mobileModal">
         <!-- name-->
         <v-layout>
           <v-flex xs2 pl-2>
@@ -199,9 +231,7 @@
           </v-flex>
         </v-layout>
       </div>
-
     </div>
-
 
     <!--Web 일때-->
     <div v-else class="p-relative">
@@ -258,9 +288,42 @@
           </v-layout>
         </v-flex>
       </v-layout>
-
-      <!--Buy 를 위한 modal-->
-      <div v-if="drawer" class="tradeWebModal">
+      <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
+      <div v-if="drawer && !setNickName" class="tradeWebModal">
+        <v-layout row wrap >
+          <v-flex md3 text-md-left >
+            <v-layout pl-4 >
+              <!--avatar-->
+              <avatar
+                      :name = user.email[0]
+                      :isLogin = user.isLogin
+                      :color = user.color>
+              </avatar>
+              <!-- merchant 정보-->
+              <span>
+                <span class="mr-2 ml-3 color-blue medium">
+                  {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                </span>
+                <img :src="rankSrc" class="userRank">
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{token}}</div>
+              </span>
+            </v-layout>
+          </v-flex>
+          <v-flex md9>
+            <!--수직, 수평가운데 정렬.-->
+            <v-layout row  align-center fill-height justify-end pr-4>
+              <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
+              <h5 class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</h5>
+              <v-divider class="mx-3" inset vertical></v-divider>
+              <button class="btn-rounded-white text-white-hover"
+                      @click="drawer = !drawer">{{$str("cancel")}}
+              </button>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </div>
+      <!--trade가 가능한 modal click은 했고, setNickName이 true 일때-->
+      <div v-else-if="drawer" class="tradeWebModal">
         <v-layout row wrap>
           <v-flex md3 text-md-left >
             <v-layout pl-4 >
@@ -385,6 +448,11 @@
         </v-layout>
       </div>
     </div>
+    <!--nickname설정을 위한 modal-->
+    <nick-name-modal
+            :show = showNickNameModal
+            v-on:close="closeNicknameModal"
+    ></nick-name-modal>
   </div>
 </template>
 
@@ -392,8 +460,10 @@
     import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
+    import NickNameModal from '@/components/NickNameModal.vue';
     export default {
         name: "TradeListItem",
+        components:{Avatar, NickNameModal},
         data: () => ({
             drawer: false,
             toValue : '',
@@ -406,14 +476,15 @@
             verify_warning_toValue: "",
             verify_warning_fromValue: "",
             verify_warning_tradePassword: "",
-            do_not_trade_message: "",
-            can_not_trade : false,
+            do_not_trade_message: "",         // trade 충족이 안돼면 어떤 이유인지 알려주는 string.
+            can_not_trade : false,            //merchant가 올린 요건이 충족 안될경우 true로 trade버튼을 가려줌.
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
+            setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
+            showNickNameModal : false,        //nickname modal을 띄울려면 true로.
 
         }),
-        components:{Avatar},
         props : {
             user: {},
 
@@ -465,6 +536,9 @@
             },
             goUserPage(){
                 this.$router.push("/userpage");
+            },
+            closeNicknameModal(){
+                this.showNickNameModal = false;
             }
 
         },
@@ -511,7 +585,7 @@
             },
             currency(){
                 return MainRepository.TradeView.getSelectPage().currency
-            }
+            },
 
         },
 

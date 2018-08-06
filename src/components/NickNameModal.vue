@@ -74,7 +74,7 @@
 
     export default {
         name: 'nickNameModal',
-        props: ['show', 'type'],
+        props: ['show',],
         data() {
             return {
                 user: {
@@ -82,6 +82,7 @@
                     email: 'test@naver.com',
                     nick_name: '',
                 },
+                type : 'nickName',
 
                 // 닉네임 & 거래 비밀번호
                 new_password: '',

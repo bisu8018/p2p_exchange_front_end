@@ -32,17 +32,17 @@
           <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
           <!--BTC 버튼-->
           <button
-                v-bind:class="{'color-blue bold' : clicked[0].isBTC}"
+                v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"
                 @click="onMobileTokenClicked('BTC')"><h4>BTC</h4>
           </button>
           <!--ETH 버튼-->
           <button
-                v-bind:class="{'color-blue bold' : clicked[1].isETH}"
+                v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"
                 @click="onMobileTokenClicked('ETH')"><h4>ETH</h4>
           </button>
           <!-- USDT 버튼 -->
           <button
-                v-bind:class="{'color-blue bold' : clicked[2].isUSDT}"
+                v-bind:class="{'color-blue bold underline' : clicked[2].isUSDT}"
                 @click="onMobileTokenClicked('USDT')"><h4>USDT</h4>
           </button>
           <!-- > 화살표 -->
@@ -119,17 +119,17 @@
                   <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
                 <!--BTC 버튼-->
                   <button
-                        v-bind:class="{'color-blue' : clicked[0].isBTC && tradeType==='BUY'}"
+                        v-bind:class="{'color-blue underline' : clicked[0].isBTC && tradeType==='BUY'}"
                         @click="setBuyInfo('BTC')"><h4>BTC</h4>
                   </button>
                 <!-- ETH 버튼-->
                   <button
-                        v-bind:class="{'color-blue' : clicked[1].isETH && tradeType==='BUY'}"
+                        v-bind:class="{'color-blue underline' : clicked[1].isETH && tradeType==='BUY'}"
                           @click="setBuyInfo('ETH')"><h4>ETH</h4>
                   </button>
                 <!-- USDT 버튼-->
                   <button
-                        v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeType==='BUY'}"
+                        v-bind:class="{'color-blue underline' : clicked[2].isUSDT && tradeType==='BUY'}"
                           @click="setBuyInfo('USDT')"><h4>USDT</h4>
                   </button>
                 <!-- > 화살표-->
@@ -155,16 +155,16 @@
               <i class="material-icons md-24">keyboard_arrow_left</i>
               <!--BTC 버튼-->
               <button
-                    v-bind:class="{'color-blue' : clicked[0].isBTC && tradeType==='SELL'}"
+                    v-bind:class="{'color-blue underline' : clicked[0].isBTC && tradeType==='SELL'}"
                     @click="setSellInfo('BTC')"><h4>BTC</h4>
               </button>
               <!-- ETH 버튼-->
               <button
-                    v-bind:class="{'color-blue' : clicked[1].isETH && tradeType==='SELL'}"
+                    v-bind:class="{'color-blue underline' : clicked[1].isETH && tradeType==='SELL'}"
                     @click="setSellInfo('ETH')"><h4>ETH</h4>
               </button>
               <!-- USDT 버튼-->
-              <button  v-bind:class="{'color-blue' : clicked[2].isUSDT && tradeType==='SELL'}"
+              <button  v-bind:class="{'color-blue underline' : clicked[2].isUSDT && tradeType==='SELL'}"
                     @click="setSellInfo('USDT')"><h4>USDT</h4>
               </button>
               <i class="material-icons md-24">keyboard_arrow_right</i>
@@ -404,6 +404,10 @@
     position: absolute;
     left: 20px;
     bottom: -8px;
+  }
+
+  .underline{
+    border-bottom: 1px solid currentColor
   }
 
   .cardText{

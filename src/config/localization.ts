@@ -313,6 +313,24 @@ const strings = new Map([
         CN: '请输入有效的号码',
         JP: ''
     }],
+    ['Before you start trading, you need to complete the necessary transaction information.', {
+        KOR: '거래를 시작하기 전에 필요한 거래 정보를 등록해야합니다.',
+        ENG: 'Before you start trading, you need to complete the necessary transaction information.',
+        CN: '在开始交易之前，您需要完成必要的交易信息',
+        JP: ''
+    }],
+    ['Set up now.', {
+        KOR: '지금 설정',
+        ENG: 'Set up now.',
+        CN: '立即设置。',
+        JP: ''
+    }],
+    ['You need to complete the necessary transaction information.', {
+        KOR: '필요한 거래 정보를 등록해야합니다.',
+        ENG: 'You need to complete the necessary transaction information.',
+        CN: '您需要完成必要的交易信息。',
+        JP: ''
+    }],
 
   //  header
   ['exchange', {

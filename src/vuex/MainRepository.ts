@@ -104,7 +104,7 @@ export default {
             var tempArr = {
                 page :   '1', //paginationController.getPage(),
                 cryptocurrency : 'BTC',  //listController.getCryptocurrency(),
-                tradeType :   'buy', //listController.getTradeType(),
+                tradeType :   'BUY', //listController.getTradeType(),
                 nationality : 'ALL',  //selectBoxController.getCountry(),
                 currency :  'CNY', //selectBoxController.getCurrency(),
                 limitMin :  0, //listController.getLimitMin(),
