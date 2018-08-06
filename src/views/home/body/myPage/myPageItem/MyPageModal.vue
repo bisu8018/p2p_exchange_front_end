@@ -218,7 +218,7 @@
                         {{$str("SMSverification")}}
                     </div>
                     <div class="p-relative">
-                        <input type="text" class="input" v-model="SMSverificationCdoe" maxlength="12">
+                        <input type="text" class="input" v-model="SMSverificationCode" maxlength="12">
                         <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                     </div>
                 </div>
@@ -239,7 +239,7 @@
                         {{$str("emailVerification")}}
                     </div>
                     <div class="p-relative">
-                        <input type="text" class="input" v-model="SMSverificationCdoe" maxlength="12">
+                        <input type="text" class="input" v-model="SMSverificationCode" maxlength="12">
                         <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                     </div>
                 </div>
@@ -307,7 +307,7 @@
                 verify_warning_bank: Vue.prototype.$str('warning_bank'),
                 verify_warning_bank_account: Vue.prototype.$str('warning_name'),
                 verify_warning_trade_password: Vue.prototype.$str('warning_trade_password'),
-                SMSverificationCdoe: '',
+                SMSverificationCode: '',
 
                 // 닉네임 & 거래 비밀번호
                 new_password: '',

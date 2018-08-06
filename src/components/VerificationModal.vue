@@ -66,7 +66,7 @@
             },
             onClose: function () {
                 this.$emit('close');
-            }
+            },
         },
     }
 </script>

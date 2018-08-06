@@ -75,9 +75,9 @@ const strings = new Map([
         CN: '账户名',
         JP: ''
     }],
-    ['emailVerificationCdoe', {
+    ['emailVerificationCode', {
         KOR: '이메일 인증 코드',
-        ENG: 'Email Verification Cdoe',
+        ENG: 'Email Verification Code',
         CN: '手机验证码',
         JP: ''
     }],

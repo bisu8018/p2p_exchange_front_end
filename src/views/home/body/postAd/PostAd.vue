@@ -17,11 +17,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{$str("country")}}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select class="comp-selectbox h6" id="nationality" v-model="nationality">
-                            <option v-for="country in countries" v-bind:value="country.code">{{country.country}}
-                            </option>
-                        </select>
-                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'signupCountry'"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -31,12 +27,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{$str("currency")}}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select class="comp-selectbox h6" id="currency" v-model="currency">
-                            <option v-for="currency in currencies" v-bind:value="currency.currency">
-                                {{currency.currency}}
-                            </option>
-                        </select>
-                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'currency'"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -103,7 +94,7 @@
                         >
                         <div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
-                            {{currency}}
+                            {{getCurrency}}
                         </div>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_fixed_price}">{{verify_warning_fixed_price}}</span>
@@ -117,7 +108,7 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3">{{exchangeRateCalc()}} {{currency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3">{{exchangeRateCalc()}} {{getCurrency}}/{{cryptocurrency}}</div>
                     </div>
                 </div>
             </v-flex>
@@ -171,7 +162,7 @@
                                @keyup="onNumberCheck('minLimit')"
                                v-model="minLimit">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
-                            {{currency}}
+                            {{getCurrency}}
                         </div>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_min_limit}">{{verify_warning_min_limit}}</span>
@@ -191,7 +182,7 @@
                                @keyup="onNumberCheck('maxLimit')"
                                v-model="maxLimit">
                         <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
-                            {{currency}}
+                            {{getCurrency}}
                         </div>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
@@ -465,7 +456,6 @@
         name: 'postAd',
         props: ['message'],
         data: () => ({
-            nationality: "CN",
             currency: "CNY",
             tradeType: "buy",
             cryptocurrency: "BTC",
@@ -488,7 +478,6 @@
             agreeTerms: false,
             memberNo: '',
             adType: "piece",
-
             balance: 200,
             alipay: "Y",
             wechatPay: "Y",
@@ -513,45 +502,6 @@
             verify_warning_counterparty: "",
             verify_warning_payment_window: "",
             verify_warning_trade_password: "",
-            countries: [
-                {country: 'China', code: 'CN'},
-                {country: 'Singapore', code: 'SG'},
-                {country: 'India', code: 'IN'},
-                {country: 'Vietnam', code: 'VN'},
-                {country: 'Canada', code: 'CA'},
-                {country: 'Australia', code: 'AU'},
-                {country: 'Korea', code: 'KR'},
-                {country: 'Switzerland', code: 'CH'},
-                {country: 'Netherlands', code: 'NL'},
-                {country: 'Taiwan', code: 'TW'},
-                {country: 'Russia', code: 'RU'},
-                {country: 'United Kingdom', code: 'UK'},
-                {country: 'Hong Kong(china)', code: 'HK'},
-                {country: 'Nigeria', code: 'NG'},
-                {country: 'Indonesia', code: 'ID'},
-                {country: 'Philippines', code: 'PH'},
-                {country: 'Cambodia', code: 'KH'}
-            ],
-            currencies: [
-                {currency: 'CNY'},
-                {currency: 'USD'},
-                {currency: 'SGD'},
-                {currency: 'INR'},
-                {currency: 'VND'},
-                {currency: 'CAD'},
-                {currency: 'AUD'},
-                {currency: 'KRW'},
-                {currency: 'CHF'},
-                {currency: 'TWD'},
-                {currency: 'RUB'},
-                {currency: 'GBP'},
-                {currency: 'HKD'},
-                {currency: 'EUR'},
-                {currency: 'NGN'},
-                {currency: 'IDR'},
-                {currency: 'PHP'},
-                {currency: 'KHR'},
-            ],
         }),
         components: {
             SelectBox, VerifySlider, Toggle
@@ -568,6 +518,9 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            getCurrency() {
+                return  MainRepository.SelectBox.controller().getCurrency()
+            }
         },
         methods: {
             onNumberCheck(type) {
@@ -644,7 +597,7 @@
                 var paymentMethods = JSON.stringify(paymentMethodsArr);
 
                 AdService.AD.postAD({
-                    nationality: this.nationality,
+                    nationality: MainRepository.SelectBox.controller().getCountry(),
                     currency: this.currency,
                     tradeType: this.tradeType,
                     cryptocurrency: this.cryptocurrency,

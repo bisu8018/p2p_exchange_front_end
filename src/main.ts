@@ -13,11 +13,11 @@ const store = new Vuex.Store(vuexStore)
 const router = configRouter
 sync(store, router)
 
-const event = function event(Vue: any) {
+/*const event = function event(Vue: any) {
     Vue.prototype.$eventBus = Vue.$eventBus = new Vue();
-};
+};*/
 
-Vue.use(event);
+//Vue.use(event);
 
 new Vue({
   router,

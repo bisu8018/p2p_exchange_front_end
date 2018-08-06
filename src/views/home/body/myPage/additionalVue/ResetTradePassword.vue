@@ -37,7 +37,7 @@
                             {{$str("emailVerification")}}
                         </div>
                         <div class="p-relative">
-                            <input type="text" class="input" v-model="emailVerificationCdoe" maxlength="12">
+                            <input type="text" class="input" v-model="emailVerificationCode" maxlength="12">
                             <span class="click-send-text text-white-hover" @click="sendEmailVerificationCode">{{$str("clickToSend")}}</span>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             {{$str("SMSverification")}}
                         </div>
                         <div class="p-relative">
-                            <input type="text" class="input" v-model="SMSVerificationCdoe" maxlength="12">
+                            <input type="text" class="input" v-model="SMSVerificationCode" maxlength="12">
                             <span class="click-send-text text-white-hover" @click="sendSMSVerificationCode">{{$str("clickToSend")}}</span>
                         </div>
                     </div>
@@ -76,8 +76,8 @@
                     phoneNo: '01012341234',
                     email: 'test@naver.com'
                 },
-                SMSVerificationCdoe: '',
-                emailVerificationCdoe: '',
+                SMSVerificationCode: '',
+                emailVerificationCode: '',
                 new_password: '',
                 confirm_password: '',
                 warning_password: "",

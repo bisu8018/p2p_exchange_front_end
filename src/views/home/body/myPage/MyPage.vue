@@ -685,7 +685,7 @@
                 phone_status: 'deactivated',
                 member_no: 1,
                 uid: 15198155,
-                nick_name: 'Bruce',
+                nick_name: '',
                 real_name: 'Kay',
                 id_no: '36**********51',
                 trade_no: 408125,

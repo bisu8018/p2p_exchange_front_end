@@ -4,26 +4,8 @@ import MainRepository from "@/vuex/MainRepository";
 
 export default {
     Account: {
-        login: function (userName: string, passwd: string, callback: any) {
-            let user = new User('');
-            // vuex 로 유저 넣기
-            /*MainRepository.User.controller().setUser(user);
-            */
-            //callback();
-
-            let data = '';
-
-            AxiosService._requestWithBody('/signin', 'GET', '' ,
-                function (data: any) {
-
-                    callback(data);
-                },
-                function () {
-
-                })
-        },
         signup: function (data: any, callback: any) {
-            AxiosService._requestWithBody('signup', 'POST', data ,
+            AxiosService._requestWithBody('member', 'POST', data ,
                 function (data: any) {
                 callback(data)
                 },
@@ -31,7 +13,7 @@ export default {
                 })
         },
         sendVerificationCode: function (data: any, callback: any) {
-            AxiosService._requestWithBody('sendValidationCode', 'POST', data ,
+            AxiosService._requestWithUrlPram('signUpVerification', 'POST', data ,
                 function (data: any) {
                     callback(data)
                 },

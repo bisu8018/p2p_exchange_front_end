@@ -8,7 +8,7 @@
 
             <!--국가 select box-->
             <div class="text-xs-left mb-2 color-black mt-1">{{$str("country")}}</div>
-            <select-box></select-box>
+            <select-box :selectBoxType="'signupCountry'"></select-box>
 
             <!--Email 입력필드-->
             <div class="text-xs-left mb-2 color-black mt-4">{{$str("email")}}</div>
@@ -21,7 +21,7 @@
             </div>
 
             <!--인증코드 입력필드-->
-            <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCdoe")}}</div>
+            <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCode")}}</div>
             <div class="p-relative">
                 <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4"
                        autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
@@ -78,7 +78,7 @@
                 </v-flex>
             </div>
         </v-flex>
-        <verification-modal :show="showModal" v-on:verifyConfirm="onSignup" v-on:close="onClose"></verification-modal>
+        <verification-modal ref="child" :show="showModal" v-on:verifyConfirm="onSignup" v-on:close="onClose"></verification-modal>
     </v-layout>
 </template>
 
@@ -90,7 +90,6 @@
     import VerificationModal from '@/components/VerificationModal.vue';
     import Alerts from '@/components/Alerts.vue';
     import MainRepository from "@/vuex/MainRepository";
-
     export default Vue.extend({
         name: 'home',
         components: {
@@ -207,14 +206,14 @@
                 AccountService.Account.signup({
                     country: MainRepository.SelectBox.controller().getCountry(),
                     email: this.email,
-                    encryptedPassword: this.password,
-                    verificationCode: this.verificationCode
+                    encryptedPassword : this.password,
+                    code : this.verificationCode
                 }, function (error) {
                     if (!error) {
                         //console.log("success");
-                        alert("Thank you");
-                        location.href = "/abMain";
-
+                        //성공 alert 추가
+                        console.log("LOGIN COMPLETE");
+                        location.href = "/login";
                     } else {
                         console.log("POST ERROR ::::::: " + error);
                     }

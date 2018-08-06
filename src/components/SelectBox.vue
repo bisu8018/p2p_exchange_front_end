@@ -1,10 +1,13 @@
 <template>
     <v-layout wrap align-center>
         <div  class="p-relative selectbox-width" >
-            <select v-if="selectBoxType === 'country'"  v-model="selectedCountry" @change="setCountry" class="o-none comp-selectbox h6">
+            <select v-if="selectBoxType === 'country' "  v-model="selectedCountry" @change="setCountry('normal')" class="o-none comp-selectbox h6">
                 <option v-for="country in countries" class="o-none " v-bind:value="country.code" >{{country.country}}</option>
             </select>
-            <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="o-none comp-selectbox">
+            <select v-if="selectBoxType === 'signupCountry' "  v-model="selectedCountry_signup" @change="setCountry('signup')" class="o-none comp-selectbox h6">
+                <option v-for="country in signupCountries" class="o-none " v-bind:value="country.code" >{{country.country}}</option>
+            </select>
+            <select v-else-if="selectBoxType === 'currency'"  v-model="selectedCurrency" @change="setCurrency" class="o-none comp-selectbox h6">
                 <option v-for="currency in currencies" class="o-none " v-bind:value="currency.currency" >{{currency.currency}}</option>
             </select>
             <select v-else-if="selectBoxType === 'payment'"  v-model="selectedPayment" @change="setPayment" class="o-none comp-selectbox h6">
@@ -26,9 +29,29 @@
         },      //country, currency, payment, phone
         data: () => ({
             selectedCountry: 'ALL',
+            selectedCountry_signup: 'CN',
             selectedCurrency: 'CNY',
             selectedPayment: 'ALL',
             selectedPhone: '0086',
+            signupCountries: [
+                {country: 'China', code: 'CN'},
+                {country: 'Singapore', code: 'SG'},
+                {country: 'India', code: 'IN'},
+                {country: 'Vietnam', code: 'VN'},
+                {country: 'Canada', code: 'CA'},
+                {country: 'Australia', code: 'AU'},
+                {country: 'Korea', code: 'KR'},
+                {country: 'Switzerland', code: 'CH'},
+                {country: 'Netherlands', code: 'NL'},
+                {country: 'Taiwan', code: 'TW'},
+                {country: 'Russia', code: 'RU'},
+                {country: 'United Kingdom', code: 'UK'},
+                {country: 'Hong Kong(china)', code: 'HK'},
+                {country: 'Nigeria', code: 'NG'},
+                {country: 'Indonesia', code: 'ID'},
+                {country: 'Philippines', code: 'PH'},
+                {country: 'Cambodia', code: 'KH'}
+            ],
             countries: [
                 {country: 'All countries', code: 'ALL'},
                 {country: 'China', code: 'CN'},
@@ -85,9 +108,13 @@
             ]
         }),
         methods: {
-            setCountry() {
+            setCountry(type) {
+                if(type === 'normal'){
+                    MainRepository.SelectBox.controller().setCountry(this.selectedCountry);
+                }else{
+                    MainRepository.SelectBox.controller().setCountry(this.selectedCountry_signup);
+                }
                 //console.log("selectedCountry: " + this.selectedCountry);
-                MainRepository.SelectBox.controller().setCountry(this.selectedCountry);
                 //console.log("setCountry:" + MainRepository.SelectBox.controller().setCountry(this.selectedCountry));
             }, setCurrency() {
                 //console.log("selectedCurrency: " + this.selectedCurrency);
