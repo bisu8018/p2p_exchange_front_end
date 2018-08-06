@@ -1,14 +1,11 @@
+<!--사용법. created에 case를 추가하고 쓰고자 하는 vue 파일의 메서드에
+showWarning(){ this.$eventBus.$emit('showAlert', 2); }
+ 과 같이 선언하시면 됩니다.-->
 <template>
-  <div>
-    <!--아래와 같이 함수 실행시 동작.-->
-    <!--<button class="color-green" @click="showSuccessMessage">Show Success Message</button>-->
-    <!--<button class="color-orange" @click="showWarningMessage">Show warning Message</button>-->
-    <!--<button class="color-red" @click="showErrorMessage">Show Error Message</button>-->
     <div class="notifications">
       <notification v-for="notification in notifications" :notification="notification" @close-notification="removeNotification" transition="fade">
       </notification>
     </div>
-  </div>
 </template>
 
 <script>
@@ -51,23 +48,47 @@
                 notifications: NotificationStore.state
             }
         },
+        created() {
+            this.$eventBus.$on('showAlert', (param) => {
+                switch (param) {
+                    case 1 :
+                        this.showSuccessMessage("Success", "A Success Message")
+                        break
+                    case 2 :
+                        this.showWarningMessage("Warning", "A Waring Message")
+                        break
+                    case 3 :
+                        this.showErrorMessage("Error", "A Error Message")
+                        break
+                    case 4 :
+                        break
+                    case 5 :
+                        break
+
+                    default :
+                        break
+
+                }
+            })
+
+        },
         methods: {
             removeNotification: function (notification) {
                 NotificationStore.removeNotification(notification)
             },
-            showSuccessMessage: function () {
+            showSuccessMessage: function (title, text) {
                 NotificationStore.addNotification({
-                    title: "Success!!",
-                    text: "A Success Message",
+                    title: title,
+                    text: text,
                     type: "Success",
                     timeout: true
                 });
 
             },
-            showWarningMessage: function () {
+            showWarningMessage: function (title,text) {
                 NotificationStore.addNotification({
-                    title: "Warning",
-                    text: "An Warning Message,",
+                    title: title,
+                    text: text,
                     type: "Warning",
                     timeout: true
                     // timeout not specified - defaults to true
@@ -75,15 +96,20 @@
                 });
 
             },
-            showErrorMessage: function () {
+            showErrorMessage: function (title,text) {
                 NotificationStore.addNotification({
-                    title: "Error",
-                    text: "Error message",
+                    title: title,
+                    text: text,
                     type: "Error",
-                    timeout: true // won't disappear on it's own
+                    timeout: true
                 });
 
             },
+        },
+        beforeDestroy() {
+            //다른 화면 갔다가 돌아왔을때 창이 refresh 되어있기 위함.
+            NotificationStore.state = [];
+            this.$eventBus.$off('showAlert');
         }
     }
 </script>

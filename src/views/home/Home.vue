@@ -2,6 +2,7 @@
   <v-app>
     <abHeader></abHeader>
     <v-content class="bg-white mt-6">
+      <alert></alert>
       <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
         <router-view></router-view>
       </div>
@@ -15,12 +16,14 @@
     import MainRepository from "../../vuex/MainRepository";
     import AbHeader from "./Header.vue"
     import AbFooter from "./Footer.vue"
+    import Alert from './../../components/Alerts.vue';
 
     export default Vue.extend({
         name: 'home',
         components: {
             AbHeader,
-            AbFooter
+            AbFooter,
+            Alert,
         },
         data() {
             return {

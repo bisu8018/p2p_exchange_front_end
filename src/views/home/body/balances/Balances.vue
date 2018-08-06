@@ -1,6 +1,5 @@
 <template>
   <div>
-    <alert></alert>
     <v-layout row wrap mt-5>
       <!--header-->
       <v-flex md6 xs12 mb-4a pl-0 text-xs-left>
@@ -10,7 +9,7 @@
       <v-flex md6 xs12 text-xs-left text-md-right pr-0>
         <v-layout row wrap justify-space-between>
           <div class="mb-2">
-            <span class="color-darkgray mr-1">{{$str("Estimated_Value")}}：</span>
+            <span class="color-darkgray mr-1" @click="onWarning">{{$str("Estimated_Value")}}：</span>
             <span >0.00000 BTC </span>
             <span >≈ 0.00000</span>
             <span class="ml-4 p-relative" >
@@ -142,7 +141,7 @@
     import BalanceTokenList from "./balanceList/BalanceTokenList"
     import BalanceDetailList from "./balanceList/BalanceDetailList"
     import DatePicker from '@/components/DatePicker.vue';
-    import Alert from '@/components/Alerts.vue';
+    import Alerts from '@/components/Alerts.vue';
     export default {
         name: "Balances",
         components: {
@@ -151,9 +150,10 @@
             BalanceTokenList,
             BalanceDetailList,
             DatePicker,
-            Alert,
+            Alerts,
         },
         data: () => ({
+            alertStatus : '',
             currency : 'CNY',
             isAmout : true,
             isModal: false,
@@ -268,7 +268,11 @@
             },
             onSearch(){
                 this.isModal = false;
+            },
+            onWarning(){
+                this.$eventBus.$emit('showAlert', 2);
             }
+
         }
 
 
