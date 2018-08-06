@@ -4,7 +4,7 @@ import AbMain from '../views/home/body/Main.vue'
 import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
-//import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
+import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
 import TradeCenter from '../views/home/body/tradeCenter/general/General.vue'
 import BlockTrade from '../views/home/body/tradeCenter/block/Block.vue'
 import GeneralAd from '../views/home/body/postAd/general/General.vue'
@@ -55,7 +55,7 @@ export default new Router({
         {
             path: '/findPassword',
             name: 'findPassword',
-            //component: FindPassword
+            component: FindPassword
         },
         {
             path: '/tradeCenter',

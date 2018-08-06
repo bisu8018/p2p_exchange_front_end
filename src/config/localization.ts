@@ -197,6 +197,36 @@ const strings = new Map([
         CN: '验证成功',
         JP: ''
     }],
+    ['resetLoginPassword', {
+        KOR: '비밀번호 재설정',
+        ENG: 'Reset Login password',
+        CN: '',
+        JP: ''
+    }],
+    ['resetPasswordExplain', {
+        KOR: '비밀번호 재설정 후, 24시간 동안 입금을 할 수 없습니다.',
+        ENG: 'The withdrawal will be disabled in 24 hours once password is reset.',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        JP: ''
+    }],
     //Trade Center
 
     ['currency', {
