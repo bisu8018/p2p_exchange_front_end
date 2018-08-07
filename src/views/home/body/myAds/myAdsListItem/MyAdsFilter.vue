@@ -1,9 +1,53 @@
 <template>
     <v-layout row wrap>
-        <v-flex pa-2 class="order-filter p-relative text-xs-left" m>
-            <span class="color-darkgray  ">{{$str("adsFilterPlaceholder")}}</span>
-            <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
-               @click.stop="isModal = !isModal">filter_list</i>
+        <v-flex xs12 md12 >
+            <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
+                <div class="color-darkgray  p-relative  ma-2 d-inline-block"
+                      v-if=" date === '' && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
+                <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
+                   @click.stop="isModal = !isModal">filter_list</i>
+
+
+            <!--chips-->
+            <div class="mr-5 chip-wrapper d-inline-block">
+                <h6 class="statusChip" v-if="date != ''">
+                    <v-layout align-center row fill-height >
+                        {{date}}
+                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                    </v-layout>
+                </h6>
+                <h6 class="statusChip" v-if="coinType != ''">
+                    <v-layout align-center row fill-height>
+                        {{coinType}}
+                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                    </v-layout>
+                </h6>
+                <h6 class="statusChip" v-if="tradeType != ''">
+                    <v-layout align-center row fill-height>
+                        {{tradeType}}
+                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                    </v-layout>
+                </h6>
+                <h6 class="statusChip" v-if="orderNo != ''">
+                    <v-layout align-center row fill-height>
+                        {{orderNo}}
+                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                    </v-layout>
+                </h6>
+                <h6 class="statusChip" v-if="adsType != ''">
+                    <v-layout align-center row fill-height>
+                        {{adsType}}
+                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                    </v-layout>
+                </h6>
+                <h6 class="statusChip" v-if="currency != ''">
+                    <v-layout align-center row fill-height>
+                        {{currency}}
+                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                    </v-layout>
+                </h6>
+            </div>
+
 
             <!--filter-->
             <div class="card-modal card-modal-mobile pr-3 pl-3" v-if="isModal">
@@ -17,7 +61,7 @@
                 <!--암호화폐 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("Coin")}}</div>
                 <div class="mb-4 p-relative">
-                    <select v-model="coinType" class="comp-selectbox h6">
+                    <select v-model="modal_coinType" class="comp-selectbox h6">
                         <option value="BTC">BTC</option>
                         <option value="ETH">ETH</option>
                         <option value="USDT">USDT</option>
@@ -28,7 +72,7 @@
                 <!--거래 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("buySell")}}</div>
                 <div class="mb-4 p-relative">
-                    <select v-model="tradeType" class="comp-selectbox h6">
+                    <select v-model="modal_tradeType" class="comp-selectbox h6">
                         <option value="buy">{{$str("buy")}}</option>
                         <option value="sell">{{$str("sell")}}</option>
                     </select>
@@ -45,7 +89,7 @@
                 <!--주문 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("adsType")}}</div>
                 <div class="mb-4 p-relative">
-                    <select v-model="adsType" class="comp-selectbox h6">
+                    <select v-model="modal_adsType" class="comp-selectbox h6">
                         <option value="general">{{$str("general")}}</option>
                         <option value="block">{{$str("block")}}</option>
                     </select>
@@ -56,7 +100,7 @@
                 <!--화폐 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("currency")}}</div>
                 <div class="mb-4 p-relative">
-                    <select v-model="currency" class="comp-selectbox h6">
+                    <select v-model="modal_currency" class="comp-selectbox h6">
                         <option v-for="currency in currencies" v-bind:value="currency.currency">{{currency.currency}}
                         </option>
                     </select>
@@ -71,10 +115,11 @@
                     <button class="btn-rounded-blue btn-blue-hoverhover h6 f-right" @click="onSearch">
                         {{$str("search")}}
                     </button>
-                    <button class="btn-rounded-white text-white-hover h6 mr-3 f-right" @click="isModal = false">
+                    <button class="btn-rounded-white text-white-hover h6 mr-3 f-right" @click="onCancel">
                         {{$str("cancel")}}
                     </button>
                 </div>
+            </div>
             </div>
         </v-flex>
     </v-layout>
@@ -84,6 +129,7 @@
     import Vue from 'vue';
     import MainRepository from '../../../../../vuex/MainRepository';
     import DatePicker from '@/components/DatePicker.vue';
+    import {abUtils} from "@/common/utils";
 
     export default Vue.extend({
         name: "myOrder-filter",
@@ -95,11 +141,17 @@
             menu: false,
             clear: 'on',
             date: "",
-            currency: '',
             coinType: "",
-            adsType: "",
             tradeType: "",
             orderNo: "",
+            adsType: "",
+            currency: '',
+            modal_date: "",
+            modal_coinType: "",
+            modal_tradeType: "",
+            modal_orderNo: "",
+            modal_adsType: "",
+            modal_currency: '',
             //clear기능 때문에 공통 컴포넌트 사용 불가
             currencies: [
                 {currency: 'CNY'},
@@ -127,19 +179,40 @@
         }),
         methods: {
             onDate(value) {
-                this.date = value;
+                this.modal_date = value;
             },
             onSearch() {
-                // search 누르면 뭐할지 여기에 기입.
+                // AXIOS GET 작업 진행
+                this.date = this.modal_date;
+                this.coinType = this.modal_coinType;
+                this.tradeType = this.modal_tradeType;
+                this.orderNo = this.modal_orderNo;
+                this.adsType = this.modal_adsType;
+                this.currency = this.modal_currency;
             },
             onClear() {
-                this.date = "";
-                this.orderNo = "";
-                this.coinType = "";
-                this.adsType = "";
-                this.tradeType = "";
-                this.currency = "";
+                this.modal_date = "";
+                this.modal_coinType = "";
+                this.modal_tradeType = "";
+                this.modal_orderNo = "";
+                this.modal_adsType = "";
+                this.modal_currency = "";
                 this.clear = null;
+            },
+            onCancel() {
+                this.isModal = false;
+                this.modal_date = "";
+                this.modal_coinType = "";
+                this.modal_tradeType = "";
+                this.modal_orderNo = "";
+                this.modal_adsType = "";
+                this.modal_currency = "";
+            },
+            // 자연수 체크
+            onCheckNum() {
+                if (!abUtils.isNaturalNumber(this.orderNo)) {
+                    this.orderNo = "";
+                }
             },
         },
         computed: {
@@ -151,16 +224,17 @@
 </script>
 
 <style scoped>
-    .export-btn {
-        border-radius: 3px;
-        border: solid 1px #214ea1;
-        width: 100%;
-        height: 40px;
+    .close-icons {
+        margin-top: 2px;
+    }
+    .chip-wrapper {
+        padding-top: 6px;
     }
 
     .order-filter {
         height: 40px;
         border: solid 1px #8d8d8d;
+        min-width: 376px;
     }
 
     .card-modal {
@@ -170,10 +244,6 @@
         box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
         padding: 16px 8px 24px 8px;
         min-height: 200px;
-        width: 75%;
-        left: 25%;
-        top: 54px;
-
     }
 
     .card-modal:after {
@@ -204,5 +274,21 @@ mobile에서만 추가 선언.*/
 
     .input {
         width: 100%;
+    }
+
+    .statusChip {
+        height: 26px;
+        border-radius: 2px;
+        background-color: #9294a6;
+        padding: 4px 8px 4px 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 6px;
+    }
+
+    .flex {
+        padding-left: 0px;
+        padding-right: 0px;
     }
 </style>

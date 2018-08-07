@@ -1226,8 +1226,8 @@ const strings = new Map([
         JP: ''
     }],
     ['orderFilterPlaceholder', {
-        KOR: '주문 날짜/상태/번호/통화',
-        ENG: 'Date/Status/Number/Currency',
+        KOR: '주문 날짜 / 상태 / 번호 / 통화',
+        ENG: 'Date / Status / Number / Currency',
         CN: '订单日期/状态/编号/币种',
         JP: ''
     }],

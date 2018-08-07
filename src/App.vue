@@ -849,6 +849,10 @@
         display: inline;
     }
 
+    .d-inline-table {
+        display: inline-table;
+    }
+
     .d-inline-block {
         display: inline-block;
     }

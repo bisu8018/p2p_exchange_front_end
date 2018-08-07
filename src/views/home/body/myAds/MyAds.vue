@@ -4,7 +4,7 @@
             <!--header-->
             <div class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</div>
             <v-spacer></v-spacer>
-            <v-flex md4 xs12>
+            <v-flex md10 xs12>
                 <my-ads-filter class="myOrderFilter"></my-ads-filter>
             </v-flex>
         </v-layout>
