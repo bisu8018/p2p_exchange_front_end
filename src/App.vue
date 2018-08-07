@@ -775,6 +775,34 @@
         cursor: pointer;
     }
 
+    /*타이머*/
+    .timer{
+        font-size: 12px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #9294a6;
+        position: absolute;
+        right: 11px;
+        top: 10px;
+    }
+
+    /*인증코드 인증 성공*/
+    .code-verified {
+        font-size: 12px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #214ea1;
+        position: absolute;
+        right: 11px;
+        top: 10px;
+    }
+
 
     /*vuetify dialog*/
 

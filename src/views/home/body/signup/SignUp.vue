@@ -3,7 +3,7 @@
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex align-center">
                 <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                <div class="h2 bold">{{$str("signupSubject")}}</div>
+                <div class="h2 bold" >{{$str("signupSubject")}}</div>
             </div>
 
             <!--국가 select box-->
@@ -23,10 +23,14 @@
             <!--인증코드 입력필드-->
             <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCode")}}</div>
             <div class="p-relative">
-                <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4"
+                <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4" maxlength="7"
                        autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
                        @keyup="onCheckVerificationCode">
-                <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                <span class="click-send-text text-white-hover" @click="sendVerificationCode"
+                      v-if="verifyStatus === 'unverified'">{{$str("clickToSend")}}</span>
+                <span class="timer" @click="sendVerificationCode"
+                      v-else-if="verifyStatus === 'verifying'">{{$str('timerExplain1')}}  {{tmpTime}}  {{$str('timerExplain2')}}</span>
+                <span class="code-verified " @click="sendVerificationCode" v-else>{{$str("verifySliderSuccess")}}</span>
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
@@ -58,7 +62,7 @@
 
             <!--이용약관 체크박스-->
             <div class="mb-4 text-xs-left">
-                <input id="termsCheckbox" type="checkbox" v-model="checkbox"
+                <input id="termsCheckbox" type="checkbox" v-model="termsAgreeYn"
                        @click="onCheckTerms()"
                        class="mr-2">
                 <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel')}}</label>
@@ -78,7 +82,8 @@
                 </v-flex>
             </div>
         </v-flex>
-        <verification-modal ref="child" :show="showModal" v-on:verifyConfirm="onSignup" v-on:close="onClose"></verification-modal>
+        <verification-modal ref="child" :show="showModal" v-on:verifyConfirm="onSignup"
+                            v-on:close="onClose"></verification-modal>
     </v-layout>
 </template>
 
@@ -90,16 +95,19 @@
     import VerificationModal from '@/components/VerificationModal.vue';
     import Alerts from '@/components/Alerts.vue';
     import MainRepository from "@/vuex/MainRepository";
+
     export default Vue.extend({
         name: 'home',
         components: {
             SelectBox, VerificationModal, Alerts
         },
         data: () => ({
+            tmpTime: 60,
             email: "",
             password: "",
             passwordConfirm: "",
-            checkbox: false,
+            termsAgreeYn: false,
+            verifyStatus: 'unverified',        //unverified -> verifying -> verified
             verify_warning_email: "",
             verify_warning_verification_code: "",
             verify_warning_password: "",
@@ -114,10 +122,21 @@
             showModal: false
         }),
         methods: {
+            // 시간 타이머 설정
+            getTimer() {
+                window.setInterval(() => {
+                    if (this.tmpTime > 0) {
+                        this.tmpTime--
+                    } else {
+                        clearInterval(this.tmpTime);
+                        this.verifyStatus = 'unverified';
+                        this.tmpTime= 60;
+                    }
+                }, 1000)
+            },
             // 전체 값 체크
             onCheck() {
-                this.showModal = true;
-                if (this.onCheckEmail() && this.onCheckVerificationCode() && this.onCheckPassword() && this.onCheckTerms()) {
+                if (this.onCheckEmail() && this.onCheckVerificationCode() && this.onCheckPassword() && this.onCheckTerms() && this.verifyStatus === 'verified') {
                     this.showModal = true;
                 }
             },
@@ -144,6 +163,8 @@
                     this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
                     this.warning_verification_code = true;
                     return false;
+                } else if (this.verificationCode.length >= 6) {
+                    this.checkVerificationCode();
                 }
                 this.warning_verification_code = false;
                 return true;
@@ -204,10 +225,16 @@
             onSignup() {
                 //Send Email verification codes to Server
                 AccountService.Account.signup({
-                    country: MainRepository.SelectBox.controller().getCountry(),
+                    bgColor: '',
                     email: this.email,
-                    encryptedPassword : this.password,
-                    code : this.verificationCode
+                    encryptedPassword: this.password,
+                    membershipLevel: 'none',
+                    nationality: MainRepository.SelectBox.controller().getCountry(),
+                    //nickname : '',
+                    //phoneNumber : '',
+                    role: 'ROLE_CUSTOMER',
+                    termsAgreeYn: this.termsAgreeYn,
+                    tradePassword: ''
                 }, function (error) {
                     if (!error) {
                         //console.log("success");
@@ -232,14 +259,30 @@
                 if (this.onCheckEmail() === true) {
                     AccountService.Account.sendVerificationCode({
                         email: this.email
-                    }, function (error) {
+                    }, function (this: any, error) {
                         if (!error) {
                             console.log("code send success");
+                            this.verifyStatus = 'verifying';
+                            this.getTimer();
                         } else {
-                            console.log("POST ERROR ::::::: " + error);
+                            console.log("ERROR ::::::: " + error);
                         }
                     })
                 }
+            },
+            //인증코드 체크
+            checkVerificationCode() {
+                AccountService.Account.checkVerificationCode({
+                    email: this.email,
+                    code: this.verificationCode
+                }, function (this: any, error) {
+                    if (!error) {
+                        console.log("code check success");
+                        this.verifyStatus = 'verified';
+                    } else {
+                        console.log("ERROR ::::::: " + error);
+                    }
+                })
             }
         }
     });
@@ -259,14 +302,10 @@
         height: 24px;
     }
 
-
     .padding-none {
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
-
-
-
 
 
 </style>

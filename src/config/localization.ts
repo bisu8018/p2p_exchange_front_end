@@ -209,9 +209,9 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['submit', {
+        KOR: '전송',
+        ENG: 'Submit',
         CN: '',
         JP: ''
     }],
@@ -2086,15 +2086,15 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
+    ['timerExplain1', {
         KOR: '',
-        ENG: '',
+        ENG: 'Retry after',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['timerExplain2', {
+        KOR: '초 후에 재시도 해주십시오',
+        ENG: 'seconds',
         CN: '',
         JP: ''
     }],

@@ -19,6 +19,14 @@ export default {
                 },
                 function () {
                 })
+        },
+        checkVerificationCode: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('signUpVerification', 'PUT', data ,
+                function (data: any) {
+                    callback(data)
+                },
+                function () {
+                })
         }
     }
 }
