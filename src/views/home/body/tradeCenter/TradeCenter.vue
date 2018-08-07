@@ -1,5 +1,15 @@
 <template>
     <div>
+        <!--nickname 설정 안했을때 나오는 안내문구-->
+        <v-layout v-if="tradeLevel == 'low'" row wrap nickname-setUp>
+            <h6>{{$str("Before you start trading, you need to complete the necessary transaction information.")}}&nbsp;</h6>
+            <h6 class="color-blue" @click="setNickName = true">{{$str("Set up now.")}}</h6>
+        </v-layout>
+        <nick-name-modal
+                v-if="setNickName"
+                :show = setNickName
+                v-on:close="closeNicknameModal"
+        ></nick-name-modal>
         <!-- 상단의 list filter -->
         <trade-center-filter></trade-center-filter>
         <!--본 list들-->
@@ -62,15 +72,18 @@
     import TradeListItem from "./tradeListItem/TradeListItem.vue"
     import TradeCenterFilter from './tradeListItem/TradeCenterFilter.vue';
     import Pagination from '@/components/Pagination.vue';
+    import NickNameModal from '@/components/NickNameModal.vue';
 
 
     export default Vue.extend({
         name: 'TradeCenter',
         props: ['message'],             // generalTrade와 blockTrade를 구분하기 위해
-        components: {Pagination, TradeListItem, TradeCenterFilter},
+        components: {Pagination, TradeListItem, TradeCenterFilter, NickNameModal},
         data: () => ({
             pageSize : 10,              //한 page에 몇개씩 item을 보여줄건가.
             type : "tradecenter",       //pagination을 위해.
+            tradeLevel : 'low',
+            setNickName : false,
             users: [
                 {
                     email: 'Charles',
@@ -322,11 +335,34 @@
             },
         },
         methods: {
-
+            closeNicknameModal(){
+             this.setNickName = false;
+            }
         }
     });
 </script>
 
 <style scoped>
+    /*web 일때*/
+    @media only screen and (min-width: 960px) {
+        .nickname-setUp{
+            padding-top: 14px;
+            padding-bottom: 14px;
+            border-radius: 2px;
+            background-color: #f8f8fa;
+            padding-left : 24px;
+            margin-top : 48px;
+        }
+    }
+    /*mobile 일때*/
+    @media only screen and (max-width: 959px) {
+        .nickname-setUp{
+            border-radius: 2px;
+            background-color: #f8f8fa;
+            padding: 8px 8px 16px 8px;
+            text-align: left;
+            margin-top : 16px;
+        }
+    }
 
 </style>
