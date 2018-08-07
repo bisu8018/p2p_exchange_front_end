@@ -13,44 +13,44 @@
                 <h6 class="statusChip" v-if="date != ''">
                     <v-layout align-center row fill-height >
                         {{date}}
-                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('date')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="coinType != ''">
                     <v-layout align-center row fill-height>
                         {{coinType}}
-                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('coinType')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="tradeType != ''">
                     <v-layout align-center row fill-height>
                         {{tradeType}}
-                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('tradeType')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="orderNo != ''">
                     <v-layout align-center row fill-height>
                         {{orderNo}}
-                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('orderNo')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="adsType != ''">
                     <v-layout align-center row fill-height>
                         {{adsType}}
-                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('adsType')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="currency != ''">
                     <v-layout align-center row fill-height>
                         {{currency}}
-                        <i class="h5 material-icons ml-2 close-icons">close</i>
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('currency')">close</i>
                     </v-layout>
                 </h6>
             </div>
 
 
             <!--filter-->
-            <div class="card-modal card-modal-mobile pr-3 pl-3" v-if="isModal">
+            <div class="card-modal card-modal-mobile pr-3 pl-3 mt-3" v-if="isModal">
                 <div class="text-xs-left text-black mb-2">{{$str("date")}}</div>
 
                 <!--달력-->
@@ -214,6 +214,22 @@
                     this.orderNo = "";
                 }
             },
+            // 칩 x버튼 눌렀을 시 삭제
+            chipDelete (type) {
+                if(type === 'date'){
+                    this.date = '';
+                }else if(type === 'modal_orderNo'){
+                    this.modal_orderNo = '';
+                }else if(type === 'modal_coinType'){
+                    this.modal_coinType = '';
+                }else if(type === 'modal_adsType'){
+                    this.modal_adsType = '';
+                }else if(type === 'modal_tradeType'){
+                    this.modal_tradeType = '';
+                }else if(type === 'modal_currency'){
+                    this.modal_currency = '';
+                }
+            }
         },
         computed: {
             isMobile() {

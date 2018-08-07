@@ -51,7 +51,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{$str("cryptoCurrency")}}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
+                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency" >
                             <option value="BTC">BTC</option>
                             <option value="ETH">ETH</option>
                             <option value="USDT">USDT</option>
@@ -75,8 +75,8 @@
                     <div class="text-xs-left mb-2 h5 color-black ">{{$str("priceType")}}</div>
                     <div class="p-relative mb-3">
                         <select class="comp-selectbox h6" v-model="priceType">
-                            <option value="fixed">{{$str("fixedPrice")}}</option>
-                            <option value="float">{{$str("floatPrice")}}</option>
+                            <option value="fixedprice">{{$str("fixedPrice")}}</option>
+                            <option value="floatprice">{{$str("floatPrice")}}</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -86,16 +86,22 @@
             <!--거래가격-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 button- color-black ">{{$str("fixedPrice")}}</div>
+                    <div class="text-xs-left mb-2 button- color-black ">
+                        <div class="cs-red-asterisk" v-if="!isMobile">*</div>
+                        {{$str("fixedPrice")}}
+                    </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price}">
                         <input type="text" class="price-input" placeholder="0" v-model="fixedPrice"
                                @keyup="onNumberCheck('price')"
                         >
-                        <div class="currency-indicator h6"
-                             v-bind:class="{'warning-indicator' : warning_fixed_price}">
+                        <div class="border-indicator h6">
                             {{getCurrency}}
                         </div>
+                        <!--<div class="currency-indicator h6"
+                             v-bind:class="{'warning-indicator' : warning_fixed_price}">
+                            {{getCurrency}}
+                        </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_fixed_price}">{{verify_warning_fixed_price}}</span>
                         </div>
@@ -108,7 +114,7 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3">{{exchangeRateCalc()}} {{getCurrency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3">{{Math.floor(getMarketPrice*fixedPrice*100)/100}} {{getCurrency}}/{{cryptocurrency}}</div>
                     </div>
                 </div>
             </v-flex>
@@ -118,7 +124,7 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
                     <div class="price-calculate color-darkgray">{{$str("marektPrice")}} :
-                        {{exchangeRateCalc()}}
+                        {{getMarketPrice}} {{getCurrency}}/{{cryptocurrency}}
                     </div>
                     <div class="price-explain color-darkgray">{{$str("priceExplain")}}</div>
                 </div>
@@ -136,14 +142,20 @@
             <!--거래가 입력-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black ">{{$str("volumeText")}}</div>
+                    <div class="text-xs-left mb-2 h5 color-black ">
+                        <div class="cs-red-asterisk" v-if="!isMobile">*</div>
+                        {{$str("volumeText")}}
+                    </div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                         <input type="text" class="price-input" v-model="volume"
-                               @keyup="onNumberCheck('volume')"
+                               @keyup="onNumberCheck(volume)" ref="volume"
                                :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + cryptocurrency">
-                        <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
+                        <div class="border-indicator h6">
                             {{cryptocurrency}}
                         </div>
+                        <!--<div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
+                            {{cryptocurrency}}
+                        </div>-->
                         <div class="warning-text-wrapper">
                     <span class="d-none"
                           v-bind:class="{'warning-text' : warning_volume}">{{verify_warning_volume}}</span>
@@ -155,15 +167,21 @@
             <!--최소 한도 금액 입력-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black ">{{$str("minLimit")}}</div>
+                    <div class="text-xs-left mb-2 h5 color-black ">
+                        <div class="cs-red-asterisk" v-if="!isMobile">*</div>
+                        {{$str("minLimit")}}
+                    </div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_min_limit}">
-                        <input type="text" class="price-input" :placeholder="$str('minLimitPlaceholder')"
+                        <input type="text" class="price-input" :placeholder="$str('minLimitPlaceholder') + getMinLimit"
                                @keyup="onNumberCheck('minLimit')"
                                v-model="minLimit">
-                        <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
+                        <div class="border-indicator h6">
                             {{getCurrency}}
                         </div>
+                        <!--    <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
+                                {{getCurrency}}
+                            </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_min_limit}">{{verify_warning_min_limit}}</span>
                         </div>
@@ -175,15 +193,21 @@
             <!--최대 한도 금액 입력-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black ">{{$str("maxLimit")}}</div>
+                    <div class="text-xs-left mb-2 h5 color-black ">
+                        <div class="cs-red-asterisk" v-if="!isMobile">*</div>
+                        {{$str("maxLimit")}}
+                    </div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_max_limit}">
                         <input type="text" class="price-input" :placeholder="$str('maxLimitPlaceholder')"
                                @keyup="onNumberCheck('maxLimit')"
                                v-model="maxLimit">
-                        <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
+                        <div class="border-indicator h6">
                             {{getCurrency}}
                         </div>
+                        <!--  <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
+                              {{getCurrency}}
+                          </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
                         </div>
@@ -194,17 +218,23 @@
             <!--지불기간 입력-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black ">{{$str("paymentWindow")}}</div>
+                    <div class="text-xs-left mb-2 h5 color-black ">
+                        <div class="cs-red-asterisk" v-if="!isMobile">*</div>
+                        {{$str("paymentWindow")}}
+                    </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_payment_window}">
                         <input type="text" maxlength="3" class="price-input"
                                :placeholder="$str('paymentWindowPlaceholder')"
                                @keyup="onNumberCheck('paymentWindow')"
                                v-model="paymentWindow">
-                        <div class="currency-indicator h6"
-                             v-bind:class="{'warning-indicator' : warning_payment_window}">
+                        <div class="border-indicator h6">
                             {{$str("minuteText")}}
                         </div>
+                        <!--  <div class="currency-indicator h6"
+                               v-bind:class="{'warning-indicator' : warning_payment_window}">
+                              {{$str("minuteText")}}
+                          </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_payment_window}">{{verify_warning_payment_window}}</span>
                         </div>
@@ -232,8 +262,10 @@
                                                                                  class="c-pointer"></toggle></span>
                     </div>
                     <div class="d-grid p-relative">
-                        <div class="vertical-center "><div class="sprite-img ic-alipay d-inline-block"></div><span
-                                class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
+                        <div class="vertical-center ">
+                            <div class="sprite-img ic-alipay d-inline-block"></div>
+                            <span
+                                    class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
                             <div class="d-inline-block">{{alipayInfo}}</div>
                         </div>
                     </div>
@@ -247,8 +279,10 @@
                                                                                    class="c-pointer"></toggle></span>
                     </div>
                     <div class="d-grid p-relative">
-                        <div class="vertical-center"><div class="sprite-img ic-wechatpay d-inline-block"></div><span
-                                class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
+                        <div class="vertical-center">
+                            <div class="sprite-img ic-wechatpay d-inline-block"></div>
+                            <span
+                                    class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
                             <div class="d-inline-block">{{wechatPayInfo}}</div>
                         </div>
                     </div>
@@ -256,14 +290,16 @@
             </v-flex>
 
             <!--은행 계좌 결제-->
-            <v-flex xs12 md8 offset-md4 >
+            <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left display-flex mb-4 " v-if="bankAccount === 'Y'">
                     <div class="mr-3 "><span @click="onToggle('bankAccount')"><toggle :toggle="bank_toggle_use"
-                                                                                     class="c-pointer"></toggle></span>
+                                                                                      class="c-pointer"></toggle></span>
                     </div>
                     <div class="d-grid p-relative">
-                        <div class="vertical-center"><div class="sprite-img ic-bank d-inline-block"></div><span
-                                class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
+                        <div class="vertical-center">
+                            <div class="sprite-img ic-bank d-inline-block"></div>
+                            <span
+                                    class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
                             <div class="d-inline-block">{{bankAccountInfo}}</div>
                         </div>
                     </div>
@@ -456,7 +492,6 @@
         name: 'postAd',
         props: ['message'],
         data: () => ({
-            currency: "CNY",
             tradeType: "buy",
             cryptocurrency: "BTC",
             priceType: "fixedprice",
@@ -470,7 +505,7 @@
             bank_toggle_use: false,
             autoReplay: "",
             termsOfTransaction: "",
-            counterpartyFilterTradeCount : "",
+            counterpartyFilterTradeCount: "",
             counterpartyCheckbox_first: false,
             counterpartyCheckbox_second: false,
             counterpartyCheckbox_third: false,
@@ -487,6 +522,7 @@
             bankAccountInfo: "范鹏龙 , 6214856562128938 招商银行 珠海分行营业部",
             exchangeRate: '2977.02',
 
+
             isVerified: false,
             warning_fixed_price: false,
             warning_volume: false,
@@ -502,13 +538,70 @@
             verify_warning_counterparty: "",
             verify_warning_payment_window: "",
             verify_warning_trade_password: "",
+
+            // 후오비 정책
+            officialMinLimit: [
+                {currency: 'CNY', minLimit: 100 },
+                {currency: 'USD', minLimit: 15 },
+                {currency: 'SGD', minLimit: 20 },
+                {currency: 'INR', minLimit: 1000 },
+                {currency: 'VND', minLimit: 350000 },
+                {currency: 'CAD', minLimit: 20 },
+                {currency: 'CNY', minLimit: 20 },
+                {currency: 'KRW', minLimit: 15000 },
+                {currency: 'CHF', minLimit: 15 },
+                {currency: 'TWD', minLimit: 500 },
+                {currency: 'RUB', minLimit: 1000 },
+                {currency: 'GBP', minLimit: 10 },
+                {currency: 'HKD', minLimit: 100 },
+                {currency: 'EUR', minLimit: 10 },
+                {currency: 'NGN', minLimit: 5000 },
+                {currency: 'IDR', minLimit: 200000 },
+                {currency: 'PHP', minLimit: 1000 },
+                {currency: 'KHR', minLimit: 60000 },
+            ],
+
+            marketPrice: {
+                0: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "CAD", price: 9052.0784189057},
+                1: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "CHF", price: 6942.6038282769},
+                2: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "CNY", price: 47697.4828673597},
+                3: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "EUR", price: 6024.4459626844},
+                4: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "GBP", price: 5379.5930372738},
+                5: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "HKD", price: 54740.8405859423},
+                6: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "IDR", price: 99791846.84730938},
+                7: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "INR", price: 479511.0714627694},
+                8: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "KRW", price: 7831748.927704704},
+                9: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "NGN", price: 2509601.743459733},
+                10: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "PHP", price: 369220.517038513},
+                11: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "RUB", price: 443607.0654407606},
+                12: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "SGD", price: 9531.2823021323},
+                13: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "TWD", price: 213220.4646150297},
+                14: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "USD", price: 6973.82599128},
+                15: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "VND", price: 161215878.66616184},
+                16: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "CAD", price: 527.8047680976},
+                17: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "CHF", price: 404.8753670717},
+                18: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "CNY", price: 2781.6765258361},
+                19: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "EUR", price: 351.3306867102},
+                20: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "GBP", price: 313.7244698872},
+                21: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "HKD", price: 3192.3495095283},
+                22: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "IDR", price: 5819612.010483851},
+                23: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "INR", price: 27959.1291813234},
+                24: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "KRW", price: 456863.0631519533},
+                25: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "NGN", price: 146353.7243690491},
+                26: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "PHP", price: 21532.0211355756},
+                27: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "RUB", price: 25870.0594039978},
+                28: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "SGD", price: 555.7459858769},
+                29: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "TWD", price: 12434.4865433065},
+                30: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "USD", price: 406.841856852},
+                31: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "VND", price: 9399534.972564604}
+            }
         }),
         components: {
             SelectBox, VerifySlider, Toggle
         },
         created() {
             //환율 및 유져 정보 get 필요
-            Common.info.getMarketPrice(function(result,event,data) {
+            Common.info.getMarketPrice(function (result, event, data) {
                 console.log(result);
                 console.log(event);
                 console.log(data);
@@ -519,10 +612,41 @@
                 return MainRepository.State.isMobile();
             },
             getCurrency() {
-                return  MainRepository.SelectBox.controller().getCurrency()
+                return MainRepository.SelectBox.controller().getCurrency()
+            },
+            getMarketPrice(this:any) {
+                let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
+                let tmp_cryptoCurrency;
+                if(this.cryptocurrency === 'ETH'){
+                    tmp_cryptoCurrency = 'ethereum';
+                }else{
+                    tmp_cryptoCurrency = 'bitcoin';
+                }
+                for(var i = 0; i < Object.keys(this.marketPrice).length  ; i++){
+                    if(this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency && this.marketPrice[i].currency === tmp_currency){
+                        //console.log(this.marketPrice[i]);
+                        let tmp_price = this.marketPrice[i].price;
+                        tmp_price = Math.floor(tmp_price*100)/100
+                        return  tmp_price;
+                        break;
+                    }
+                }
+            },
+            getMinLimit(this:any) {
+                let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
+                for(var i = 0; i < Object.keys(this.officialMinLimit).length  ; i++){
+                    if(this.officialMinLimit[i].currency === tmp_currency){
+                        let tmp_minLimit = this.officialMinLimit[i].minLimit;
+                        return  tmp_minLimit;
+                        break;
+                    }
+                }
             }
         },
         methods: {
+            test_first(value) {
+                console.log(value);
+            },
             onNumberCheck(type) {
                 if (type === 'price') {
                     this.onCheckFixedPrice();
@@ -530,7 +654,7 @@
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.fixedPrice = "";
                     }
-                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.fixedPrice = abUtils.toDeleteZero(temp);
                     }
                 } else if (type === 'volume') {
@@ -539,7 +663,7 @@
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.volume = "";
                     }
-                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.volume = abUtils.toDeleteZero(temp);
                     }
                 } else if (type === "minLimit") {
@@ -548,7 +672,7 @@
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.minLimit = "";
                     }
-                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.minLimit = abUtils.toDeleteZero(temp);
                     }
                 } else if (type === "maxLimit") {
@@ -557,7 +681,7 @@
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.maxLimit = "";
                     }
-                    if(Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1){
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.maxLimit = abUtils.toDeleteZero(temp);
                     }
                 } else if (type === "paymentWindow") {
@@ -589,16 +713,16 @@
 
 
                 var paymentMethodsArr = {
-                  'alipay' :   alipayToggle,
-                  'wechat' :   wechatToggle,
-                  'bank' :   bankToggle,
+                    'alipay': alipayToggle,
+                    'wechat': wechatToggle,
+                    'bank': bankToggle,
                 };
 
                 var paymentMethods = JSON.stringify(paymentMethodsArr);
 
                 AdService.AD.postAD({
                     nationality: MainRepository.SelectBox.controller().getCountry(),
-                    currency: this.currency,
+                    currency: MainRepository.SelectBox.controller().getCurrency(),
                     tradeType: this.tradeType,
                     cryptocurrency: this.cryptocurrency,
                     priceType: this.priceType,
@@ -607,15 +731,15 @@
                     minLimit: Number(this.minLimit),
                     maxLimit: Number(this.maxLimit),
                     paymentWindow: Number(this.paymentWindow),
-                    paymentMethods : paymentMethods,
+                    paymentMethods: paymentMethods,
                     autoReplay: this.autoReplay,
                     termsOfTransaction: this.termsOfTransaction,
-                    counterpartyFilterTradeCount : this.counterpartyFilterTradeCount,
+                    counterpartyFilterTradeCount: this.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: this.counterpartyCheckbox_first,
                     counterpartyFilterDoNotOtherMerchantsYn: this.counterpartyCheckbox_second,
                     counterpartyFilterMobileVerificationYn: this.counterpartyCheckbox_third,
                     tradepassword: this.tradePassword,
-                    termsAgreeYn : this.agreeTerms,
+                    termsAgreeYn: this.agreeTerms,
                     memberNo: Number(this.memberNo),
                     type: this.adType,
                 }, function (error) {
@@ -698,7 +822,7 @@
                     this.warning_min_limit = true;
                     return false;
                 }
-                if (minLimit < 100) {
+                if (minLimit < this.getMinLimit) {
                     this.warning_min_limit = true;
                     this.verify_warning_min_limit = Vue.prototype.$str("atLeast");
                     return false;
@@ -708,13 +832,14 @@
             },
             onCheckMaxLimit() {
                 //최대금액 체크
+                let minLimit = Number(this.minLimit);
                 let maxLimit = Number(this.maxLimit);
                 if (maxLimit === undefined) {
                     this.warning_max_limit = true;
                     this.verify_warning_max_limit = Vue.prototype.$str("warningMaxLimit");
                     return false;
                 }
-                if (maxLimit > 0.00) {
+                if (maxLimit <= minLimit) {
                     this.warning_max_limit = true;
                     this.verify_warning_max_limit = Vue.prototype.$str("atMost");
                     return false;
@@ -740,8 +865,8 @@
             },
             onCheckCounterparty() {
                 //거래상대 조건 체크
-                let counterpartyFilterTradeCount  = Number(this.counterpartyFilterTradeCount );
-                if (counterpartyFilterTradeCount  > 99) {
+                let counterpartyFilterTradeCount = Number(this.counterpartyFilterTradeCount);
+                if (counterpartyFilterTradeCount > 99) {
                     this.warning_counterparty = true;
                     this.verify_warning_counterparty = Vue.prototype.$str("counterpartyWarning");
                     return false;
@@ -759,13 +884,18 @@
                 }
                 this.warning_trade_password = false;
                 return true;
-            }
+            },
+
         }
     });
 </script>
 <style scoped>
     .selectbox-width {
         width: 100% !important;
+    }
+
+    .warning-text {
+        text-align: right;
     }
 
     .line-height-1a {
@@ -797,6 +927,7 @@
         font-weight: 500;
         width: 100%;
         color: #353535;
+        outline: none;
     }
 
     .display-flex {
@@ -811,6 +942,15 @@
         background-color: #8d8d8d;
         padding-left: 19px;
         padding-right: 19px;
+    }
+
+    .border-indicator {
+        height: 40px;
+        font-weight: 500;
+        padding-top: 10px;
+        color: #353535;
+        padding-left: 14px;
+        padding-right: 14px;
     }
 
     .refresh-btn {

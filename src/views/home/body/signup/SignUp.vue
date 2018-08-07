@@ -26,11 +26,11 @@
                 <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4" maxlength="7"
                        autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
                        @keyup="onCheckVerificationCode">
-                <span class="click-send-text text-white-hover" @click="sendVerificationCode"
+                <span class="cs-click-send text-white-hover" @click="sendVerificationCode"
                       v-if="verifyStatus === 'unverified'">{{$str("clickToSend")}}</span>
-                <span class="timer" @click="sendVerificationCode"
+                <span class="cs-timer" @click="sendVerificationCode"
                       v-else-if="verifyStatus === 'verifying'">{{$str('timerExplain1')}}  {{tmpTime}}  {{$str('timerExplain2')}}</span>
-                <span class="code-verified " @click="sendVerificationCode" v-else>{{$str("verifySliderSuccess")}}</span>
+                <span class="cs-code-verified " @click="sendVerificationCode" v-else>{{$str("verifySliderSuccess")}}</span>
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
@@ -159,15 +159,17 @@
             },
             // 인증코드 체크
             onCheckVerificationCode() {
-                if (this.verificationCode === "") {
-                    this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
-                    this.warning_verification_code = true;
-                    return false;
-                } else if (this.verificationCode.length >= 6) {
-                    this.checkVerificationCode();
+                if(this.verifyStatus === 'unverified') {
+                    if (this.verificationCode === "") {
+                        this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
+                        this.warning_verification_code = true;
+                        return false;
+                    } else if (this.verificationCode.length >= 6) {
+                        this.checkVerificationCode();
+                    }
+                    this.warning_verification_code = false;
+                    return true;
                 }
-                this.warning_verification_code = false;
-                return true;
             },
             // 비밀번호 체크
             onCheckPassword() {

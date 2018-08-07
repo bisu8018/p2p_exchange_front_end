@@ -35,13 +35,13 @@ const strings = new Map([
     }],
     ['passwordValue', {
         KOR: '비밀번호를 입력해 주십시오.',
-        ENG: 'Please enter password.',
+        ENG: 'Enter password.',
         CN: '请输入密码',
         JP: ''
     }],
     ['passwordDigit', {
         KOR: '최소 8자를 입력해 주세요.',
-        ENG: 'Please enter at least eight digits.',
+        ENG: 'Enter at least eight digits.',
         CN: '密码为8个字以上',
         JP: ''
     }],
@@ -59,7 +59,7 @@ const strings = new Map([
     }],
     ['acceptConditions', {
         KOR: '이용약관에 동의해 주십시오.',
-        ENG: 'Please accept the terms and conditions.',
+        ENG: 'Accept the terms and conditions.',
         CN: '请同意使用条款',
         JP: ''
     }],
@@ -163,7 +163,7 @@ const strings = new Map([
     }],
     ['verifySlider', {
         KOR: '슬라이드 바 인증을 부탁드립니다.',
-        ENG: 'Please certify slide bar',
+        ENG: 'Certify slide bar',
         CN: '请滑动验证',
         JP: ''
     }],
@@ -175,19 +175,19 @@ const strings = new Map([
     }],
     ['loginEmailPlaceholder', {
         KOR: '이메일을 입력해주세요',
-        ENG: 'Please enter your email address',
+        ENG: 'Enter your email address',
         CN: '账号为邮箱',
         JP: ''
     }],
     ['loginPasswordPlaceholder', {
         KOR: '비밀번호를 입력해주세요',
-        ENG: 'Please enter your password',
+        ENG: 'Enter your password',
         CN: '请输入密码',
         JP: ''
     }],
     ['verifySliderPlaceholder', {
         KOR: '인증을 위해 슬라이드해 주십시오',
-        ENG: 'Please slide to verify',
+        ENG: 'Slide to verify',
         CN: '请按住滑块，拖动到最右边',
         JP: ''
     }],
@@ -339,7 +339,7 @@ const strings = new Map([
     }],
     ['Please_enter_a_vaild_number', {
         KOR: '올바른 숫자를 입력하십시오.',
-        ENG: 'Please enter a vaild number',
+        ENG: 'Enter a vaild number',
         CN: '请输入有效的号码',
         JP: ''
     }],
@@ -581,31 +581,31 @@ const strings = new Map([
     }],
     ['warningFixedPricePlaceholder', {
         KOR: '수를 입력해 주십시오',
-        ENG: 'Please enter a number',
+        ENG: 'Enter a number',
         CN: '',
         JP: ''
     }],
     ['warningVolume', {
         KOR: '거래수량을 입력해 주십시오',
-        ENG: 'Please enter volume',
+        ENG: 'Enter volume',
         CN: '',
         JP: ''
     }],
     ['warningMinLimit', {
         KOR: '최소액을 입력해 주십시오',
-        ENG: 'Please enter Min.limit',
+        ENG: 'Enter Min.limit',
         CN: '',
         JP: ''
     }],
     ['warningMaxLimit', {
         KOR: '최대액을 입력해 주십시오',
-        ENG: 'Please enter Max.limit',
+        ENG: 'Enter Max.limit',
         CN: '',
         JP: ''
     }],
     ['warningPaymentWindow', {
         KOR: '지불기간을 입력해 주십시오',
-        ENG: 'Please enter the payment window',
+        ENG: 'Enter the payment window',
         CN: '',
         JP: ''
     }],
@@ -683,7 +683,7 @@ const strings = new Map([
     }],
     ['volumePlaceholderWeb', {
         KOR: '거래 금액을 입력하십시오',
-        ENG: 'Please enter volume',
+        ENG: 'Enter volume',
         CN: '请输入交易数量',
         JP: ''
     }],
@@ -694,9 +694,9 @@ const strings = new Map([
         JP: ''
     }],
     ['minLimitPlaceholder', {
-        KOR: '최소 100',
-        ENG: 'at least 100',
-        CN: '最小为100',
+        KOR: '최소 ',
+        ENG: 'at least ',
+        CN: '最小为 ',
         JP: ''
     }],
     ['maxLimitPlaceholder', {
@@ -857,19 +857,19 @@ const strings = new Map([
     }],
     ['atLeast', {
         KOR: '한도금액 이상으로 입력해 주십시오',
-        ENG: 'Please enter greater than or equal to limit',
+        ENG: 'Enter greater than or equal to limit',
         CN: '请输入限度以上的金额',
         JP: ''
     }],
     ['atMost', {
         KOR: '한도금액 이하로 입력해 주십시오',
-        ENG: 'Please enter less than or equal to limit',
+        ENG: 'Enter less than or equal to limit',
         CN: '请输入限度以下的金额',
         JP: ''
     }],
     ['timeRange', {
         KOR: '범위 시간 내로 입력해 주십시오',
-        ENG: 'Please enter within the range of time',
+        ENG: 'Enter within the range of time',
         CN: '请输入范围时间内',
         JP: ''
     }],
@@ -881,7 +881,7 @@ const strings = new Map([
     }],
     ['warning_trade_password', {
         KOR: '거래 비밀번호를 입력해 주십시오',
-        ENG: 'Please enter you trade password',
+        ENG: 'enter you trade password',
         CN: '',
         JP: ''
     }],
@@ -1093,7 +1093,7 @@ const strings = new Map([
     }],
     ['detailsPlaceholder', {
         KOR: '이의제기 사유의 상세내용을 입력해 주십시오',
-        ENG: 'Please enter the details of appeal reasons',
+        ENG: 'Enter the details of appeal reasons',
         CN: '',
         JP: ''
     }],
@@ -1239,7 +1239,7 @@ const strings = new Map([
     }],
     ['datePickerPlaceholder', {
         KOR: '날짜를 선택해 주십시오',
-        ENG: 'Please select date',
+        ENG: 'Select date',
         CN: '',
         JP: ''
     }],
@@ -1281,7 +1281,7 @@ const strings = new Map([
     }],
     ['orderNoPlaceholder', {
         KOR: '주문 번호를 입력해 주십시오',
-        ENG: 'Please enter Order number',
+        ENG: 'Enter Order number',
         CN: '',
         JP: ''
     }],
@@ -1344,7 +1344,7 @@ const strings = new Map([
     }],
     ['adsNoPlaceholder', {
         KOR: '광고 번호를 입력해 주십시오',
-        ENG: 'Please enter Ads number',
+        ENG: 'Enter Ads number',
         CN: '',
         JP: ''
     }],
@@ -1501,7 +1501,7 @@ const strings = new Map([
     }],
     ['Please_select_date', {
         KOR: '날짜를 선택하세요',
-        ENG: 'Please select date',
+        ENG: 'Select date',
         CN: '请选择日期',
         JP: ''
     }],
@@ -1836,13 +1836,13 @@ const strings = new Map([
     }],
     ['paymentMethodSelectboxPlaceholder', {
         KOR: '결제수단을 선태하여 주십시오',
-        ENG: 'Please choose a paymnet method',
+        ENG: 'Choose a paymnet method',
         CN: '',
         JP: ''
     }],
     ['namePlaceholder', {
         KOR: '당신의 실제 이름을 입력해 주십시오',
-        ENG: 'Please enter your real name',
+        ENG: 'Enter your real name',
         CN: '',
         JP: ''
     }],
@@ -1854,19 +1854,19 @@ const strings = new Map([
     }],
     ['alipayPlaceholder', {
         KOR: '알리페이를 입력해 주십시오',
-        ENG: 'Please input Alipay',
+        ENG: 'Input Alipay',
         CN: '',
         JP: ''
     }],
     ['wechatPlaceholder', {
         KOR: '위챗페이를 입력해 주십시오',
-        ENG: 'Please input Wechat',
+        ENG: 'Input Wechat',
         CN: '',
         JP: ''
     }],
     ['bankPlaceholder', {
         KOR: '은행 계좌를 입력해 주십시오',
-        ENG: 'Please input Bank Account',
+        ENG: 'Input Bank Account',
         CN: '',
         JP: ''
     }],
@@ -1878,13 +1878,13 @@ const strings = new Map([
     }],
     ['alipayQrCodeExplain', {
         KOR: '당신의 알리페이 QR코드 이미지를 업로드 해주십시오 ',
-        ENG: 'Please upload your Alipay receipt QR code image ',
+        ENG: 'Upload your Alipay receipt QR code image ',
         CN: '',
         JP: ''
     }],
     ['tradePwPlaceholder', {
         KOR: '거래 비밀번호를 입력해 주십시오',
-        ENG: 'Please enter your trade password',
+        ENG: 'Enter your trade password',
         CN: '',
         JP: ''
     }],
@@ -1902,43 +1902,43 @@ const strings = new Map([
     }],
     ['bankNamePlaceholder', {
         KOR: '은행 이름을 입력해 주십시오',
-        ENG: 'Please enter bank name',
+        ENG: 'Enter bank name',
         CN: '',
         JP: ''
     }],
     ['branchInfoPlaceholder', {
         KOR: '추가 정보를 입력해 주십시오',
-        ENG: 'Please enter branch information',
+        ENG: 'Enter branch information',
         CN: '',
         JP: ''
     }],
     ['warning_name', {
         KOR: '이름을 입력해 주십시오.',
-        ENG: 'Please enter your real name.',
+        ENG: 'Enter your real name.',
         CN: '',
         JP: ''
     }],
     ['warning_alipay', {
         KOR: '알리페이를 입력해 주십시오.',
-        ENG: 'Please enter your alipay.',
+        ENG: 'Enter your alipay.',
         CN: '',
         JP: ''
     }],
     ['warning_wechat', {
         KOR: '위챗을 입력해 주십시오.',
-        ENG: 'Please enter your wechat.',
+        ENG: 'Enter your wechat.',
         CN: '',
         JP: ''
     }],
     ['warning_bank', {
         KOR: '은행 이름을 입력해 주십시오.',
-        ENG: 'Please enter bank name.',
+        ENG: 'Enter bank name.',
         CN: '',
         JP: ''
     }],
     ['warning_bank_account', {
         KOR: '은행 계좌를 입력해 주십시오.',
-        ENG: 'Please enter bank account.',
+        ENG: 'Enter bank account.',
         CN: '',
         JP: ''
     }],
@@ -1974,7 +1974,7 @@ const strings = new Map([
     }],
     ['warningNewPassword', {
         KOR: '새로운 비밀번호를 입력해 주십시오.',
-        ENG: 'Please enter new password.',
+        ENG: 'Enter new password.',
         CN: '',
         JP: ''
     }],
@@ -2088,7 +2088,7 @@ const strings = new Map([
     }],
     ['warning_nick_name', {
         KOR: '닉네임을 입력해 주십시오.',
-        ENG: 'Please enter you nickname.',
+        ENG: 'Enter you nickname.',
         CN: '',
         JP: ''
     }],
@@ -2100,7 +2100,7 @@ const strings = new Map([
     }],
     ['nickNameConfirmPasswordPlaceholder', {
         KOR: '거래 비밀번호를 다시 한번 입력해 주십시오.',
-        ENG: 'Please confirm trade password.',
+        ENG: 'Confirm trade password.',
         CN: '',
         JP: ''
     }],
@@ -2227,19 +2227,19 @@ const strings = new Map([
     }],
     ['Please enter your first name', {
         KOR: '이름을 입력하십시오',
-        ENG: 'Please enter your first name',
+        ENG: 'Enter your first name',
         CN: '请输入您的名字',
         JP: ''
     }],
     ['Please enter your last name', {
         KOR: '당신의 성을 입력하세요',
-        ENG: 'Please enter your last name',
+        ENG: 'Enter your last name',
         CN: '请输入您的姓氏',
         JP: ''
     }],
     ['Please enter your passport number', {
         KOR: '여권 번호를 입력하십시오.',
-        ENG: 'Please enter your passport number',
+        ENG: 'Enter your passport number',
         CN: '请输入您的护照号码',
         JP: ''
     }],

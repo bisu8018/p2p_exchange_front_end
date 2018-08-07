@@ -416,6 +416,10 @@
         color: #E62A2B;
     }
 
+    .color-red-error {
+        color: #BF2324;
+    }
+
     .color-green {
         color: #71AA3A;
     }
@@ -730,6 +734,7 @@
         color: #9294a6;
     }
 
+
     /*input text 필드 공통 CSS*/
 
     .input {
@@ -759,9 +764,11 @@
 
 
     /*인증코드 전달 버튼*/
-    /*<span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>*/
+    /*
+    <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+    */
 
-    .click-send-text {
+    .cs-click-send {
         font-size: 12px;
         font-weight: 500;
         font-style: normal;
@@ -776,7 +783,7 @@
     }
 
     /*타이머*/
-    .timer{
+    .cs-timer{
         font-size: 12px;
         font-weight: 500;
         font-style: normal;
@@ -790,7 +797,7 @@
     }
 
     /*인증코드 인증 성공*/
-    .code-verified {
+    .cs-code-verified {
         font-size: 12px;
         font-weight: 500;
         font-style: normal;
@@ -801,6 +808,15 @@
         position: absolute;
         right: 11px;
         top: 10px;
+    }
+
+    /*중요 별표 **  (important asterisk)*/
+    /*       <div class="cs-red-asterisk">*</div>        */
+    .cs-red-asterisk {
+        display: inline-block;
+        margin-right: 4px;
+        font-weight: bold;
+        color : #bf2324;
     }
 
 

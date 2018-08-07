@@ -89,10 +89,10 @@
             },
             onLogin() {
                 //Send Email verification codes to Server
-                //document.getElementById("loginForm").submit();
+                document.getElementById("loginForm").submit();
 
                 // 로그인 에러시
-                this.showWarning;
+                //this.showWarning;
             },
             putVerified: function () {
                 this.isVerified = true;

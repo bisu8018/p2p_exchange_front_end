@@ -12,43 +12,43 @@
                     <h6 class="statusChip" v-if="date != ''">
                         <v-layout align-center row fill-height >
                             {{date}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('date')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="orderStatus != ''">
                         <v-layout align-center row fill-height>
                             {{orderStatus}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('orderStatus')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="orderNo != ''">
                         <v-layout align-center row fill-height>
                             {{orderNo}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('orderNo')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="coinType != ''">
                         <v-layout align-center row fill-height>
                             {{coinType}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('coinType')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="orderType != ''">
                         <v-layout align-center row fill-height>
                             {{orderType}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('orderType')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="tradeType != ''">
                         <v-layout align-center row fill-height>
                             {{tradeType}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('tradeType')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="currency != ''">
                         <v-layout align-center row fill-height>
                             {{currency}}
-                            <i class="h5 material-icons ml-2 close-icons">close</i>
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('currency')">close</i>
                         </v-layout>
                     </h6>
                 </div>
@@ -249,6 +249,24 @@
                     this.orderNo = "";
                 }
             },
+            // 칩 x버튼 눌렀을 시 삭제
+            chipDelete (type) {
+                if(type === 'date'){
+                    this.date = '';
+                }else if(type === 'orderStatus'){
+                    this.orderStatus = '';
+                }else if(type === 'modal_orderNo'){
+                    this.modal_orderNo = '';
+                }else if(type === 'modal_coinType'){
+                    this.modal_coinType = '';
+                }else if(type === 'modal_orderType'){
+                    this.modal_orderType = '';
+                }else if(type === 'modal_tradeType'){
+                    this.modal_tradeType = '';
+                }else if(type === 'modal_currency'){
+                    this.modal_currency = '';
+                }
+            }
         },
         computed: {
             isMobile() {

@@ -29,7 +29,7 @@
                         </div>
                         <div class="p-relative">
                             <input type="text" class="input" v-model="SMSVerificationCode" maxlength="12">
-                            <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                            <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="p-relative">
                             <input type="text" class="input" v-model="emailVerificationCode" maxlength="12">
-                            <span class="click-send-text text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
+                            <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
                         </div>
                     </div>
                 </div>
