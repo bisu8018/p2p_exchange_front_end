@@ -1882,6 +1882,12 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    ['wechatQrCodeExplain', {
+        KOR: '당신의 위챗페이 QR코드 이미지를 업로드 해주십시오 ',
+        ENG: 'Upload your Wechat receipt QR code image ',
+        CN: '',
+        JP: ''
+    }],
     ['tradePwPlaceholder', {
         KOR: '거래 비밀번호를 입력해 주십시오',
         ENG: 'Enter your trade password',

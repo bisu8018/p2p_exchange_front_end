@@ -9,7 +9,7 @@
                     $str("nickNameTradePassword"))}}
                 </div>
                 <v-spacer></v-spacer>
-                <i class="material-icons color-black c-pointer" @click="onClose"  v-if="type != 'nickName' ">close</i>
+                <i class="material-icons color-black c-pointer" @click="onClose" v-if="type != 'nickName' ">close</i>
             </div>
 
             <!--******************************************
@@ -40,7 +40,8 @@
                 <div class="text-xs-left mb-2 h5 color-black">{{$str("tradePwText")}}</div>
                 <div class="p-relative mb-4">
                     <input v-model="new_password" type="password" class="input"
-                           @keyup="onCheckNewPassword" maxlength="24" :placeholder="$str('nickNameTradePasswordPlaceholder')"
+                           @keyup="onCheckNewPassword" maxlength="24"
+                           :placeholder="$str('nickNameTradePasswordPlaceholder')"
                            v-bind:class="{'warning-border' : warning_new_password}">
                     <div class="warning-text-wrapper">
                             <span class="d-none"
@@ -52,7 +53,8 @@
                 <div class="text-xs-left mb-2 h5 color-black">{{$str("confirmTradePassword")}}</div>
                 <div class="p-relative mb-4">
                     <input v-model="confirm_password" type="password" class="input"
-                           @keyup="onCheckPasswordConfirm" maxlength="24" :placeholder="$str('nickNameConfirmPasswordPlaceholder')"
+                           @keyup="onCheckPasswordConfirm" maxlength="24"
+                           :placeholder="$str('nickNameConfirmPasswordPlaceholder')"
                            v-bind:class="{'warning-border' : warning_confirm_password}">
                     <div class="warning-text-wrapper">
                         <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
@@ -169,17 +171,31 @@
 
                 <!--QR코드-->
                 <div class="mb-4" v-if="paymentMethod === 'alipay' || paymentMethod === 'wechat'">
+
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("qrCode")}}
                     </div>
-                    <div class="textarea-style pa-4">
-                        <div class="d-inline-block">
-                            <div class="sprite-img ic-upload"></div>
+                    <label>
+                        <div class="textarea-style ">
+                            <div v-if="file === ''" class="ma-4a">
+                                <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" class="d-none"/>
+                                <div class="d-inline-block mt-2">
+                                    <div class="sprite-img ic-upload"></div>
+                                </div>
+                                <div class="color-darkgray h6">
+                                    {{paymentMethod === 'wechat' ? $str('wechatQrCodeExplain') : $str('alipayQrCodeExplain') }} (*.jpg / *.png / *.jpeg)
+                                </div>
+                            </div>
+                            <div v-else class="text-xs-center p-relative">
+                                <img :src="image" class="attachment-img-style">
+                                <span class="text-white-hover color-blue c-pointer vertical-center image-delete" @click="deleteFile()">
+                                    {{$str('delete')}}
+                                    <i class="material-icons ">close</i>
+                                </span>
+
+                            </div>
                         </div>
-                        <div class="color-darkgray h6">
-                            {{$str('alipayQrCodeExplain')}} (*.jpg / *.png / *.jpeg)
-                        </div>
-                    </div>
+                    </label>
                 </div>
 
                 <!--거래 비밀번호 입력-->
@@ -248,7 +264,7 @@
 
             <div class="text-xs-right">
                 <v-spacer></v-spacer>
-                <button @click="onClose" class="h6 btn-rounded-white text-white-hover mr-3"  v-if="type != 'nickName' ">
+                <button @click="onClose" class="h6 btn-rounded-white text-white-hover mr-3" v-if="type != 'nickName' ">
                     {{$str("cancel")}}
                 </button>
 
@@ -316,6 +332,10 @@
                 warning_new_password: "",
                 warning_confirm_password: "",
                 warning_nick_name: "",
+
+                //파일 첨부
+                file: '',
+                image: ''
             }
         },
         computed: {
@@ -330,6 +350,18 @@
             }
         },
         methods: {
+            handleFileUpload() {
+                //첨부파일 사진 등록 및
+                this.file = this.$refs.file.files[0];
+                let image = new Image();
+                let reader = new FileReader();
+                let vm = this;
+
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(this.file);
+            },
             onClose: function () {
                 this.$emit('close');
             },
@@ -343,7 +375,7 @@
             },
             onNickNameCheck() {
                 // 닉네임 && 거래 비밀번호 전체 검사
-                if (this.onCheckNickName() && this.onCheckNewPassword() && this.onCheckPasswordConfirm() ) {
+                if (this.onCheckNickName() && this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
                     this.onComplete('nickName');
                 }
             },
@@ -457,6 +489,15 @@
                     this.warning_nick_name = false;
                     return true;
                 }
+            },
+            // 첨부파일 서버 전송
+            submitFile() {
+                let formData = new FormData();
+                formData.append('file', this.file);
+            },
+            deleteFile() {
+                this.file = '';
+                this.image = '';
             }
         },
     }
@@ -474,10 +515,9 @@
 
     .textarea-style {
         width: 100%;
-        height: 109px;
+        height: 152px;
         border-radius: 2px;
         border: solid 1px #8d8d8d;
-        padding: 8px;
         resize: none;
     }
 
@@ -490,6 +530,18 @@
         border: solid 1px #8d8d8d;
         padding-left: 12px;
         cursor: pointer;
+    }
+
+    .attachment-img-style {
+        height: 105px;
+        margin-top: 22px;
+    }
+
+    .image-delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 9px;
     }
 
 
