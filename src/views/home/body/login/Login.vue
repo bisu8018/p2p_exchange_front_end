@@ -9,7 +9,7 @@
                 </div>
                 <form action="/login" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
-                    <div class="p-relative mb-4"><input type="text" class="input" name="email" v-model="email"
+                    <div class="p-relative mb-4"><input type="text" class="input" name="username" v-model="email"
                                                            @keyup="onCheckEmail"
                                                            :placeholder="loginEmailPlaceholder"
                                                            v-bind:class="{'warning-border' : warning_email}">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("password")}}</div>
                     <div class="p-relative mb-4">
-                        <input name="encryptedPassword" v-model="password" type="password" class="input"
+                        <input name="password" v-model="password" type="password" class="input"
                                @keyup="onCheckPassword"
                                :placeholder="loginPasswordPlaceholder"
                                v-bind:class="{'warning-border' : warning_password}">

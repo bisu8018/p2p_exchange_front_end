@@ -3,7 +3,7 @@
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex align-center">
                 <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                <div class="h2 bold" >{{$str("signupSubject")}}</div>
+                <div class="h2 bold">{{$str("signupSubject")}}</div>
             </div>
 
             <!--국가 select box-->
@@ -29,8 +29,9 @@
                 <span class="cs-click-send text-white-hover" @click="sendVerificationCode"
                       v-if="verifyStatus === 'unverified'">{{$str("clickToSend")}}</span>
                 <span class="cs-timer" @click="sendVerificationCode"
-                      v-else-if="verifyStatus === 'verifying'">{{$str('timerExplain1')}}  {{tmpTime}}  {{$str('timerExplain2')}}</span>
-                <span class="cs-code-verified " @click="sendVerificationCode" v-else>{{$str("verifySliderSuccess")}}</span>
+                      v-else-if="verifyStatus === 'verifying'">{{$str('timerExplain1')}}  {{setTime}}  {{$str('timerExplain2')}}</span>
+                <span class="cs-code-verified " @click="sendVerificationCode"
+                      v-else>{{$str("verifySliderSuccess")}}</span>
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
                     >{{verify_warning_verification_code}}</span>
@@ -102,7 +103,7 @@
             SelectBox, VerificationModal, Alerts
         },
         data: () => ({
-            tmpTime: 60,
+            setTime: 60,
             email: "",
             password: "",
             passwordConfirm: "",
@@ -124,19 +125,22 @@
         methods: {
             // 시간 타이머 설정
             getTimer() {
-                window.setInterval(() => {
-                    if (this.tmpTime > 0) {
-                        this.tmpTime--
+                var start = setInterval(() => {
+                    if (this.setTime > 0) {
+                        this.setTime--;
                     } else {
-                        clearInterval(this.tmpTime);
+                        clearInterval(start);
                         this.verifyStatus = 'unverified';
-                        this.tmpTime= 60;
+                        this.setTime = 5;
                     }
-                }, 1000)
+                }, 1000);
+            },
+            verifyComplete() {
+                this.verifyStatus = 'verified';
             },
             // 전체 값 체크
             onCheck() {
-                if (this.onCheckEmail() && this.onCheckVerificationCode() && this.onCheckPassword() && this.onCheckTerms() && this.verifyStatus === 'verified') {
+                if (this.onCheckEmail() && this.onCheckVerificationCode() && this.onCheckPassword() && this.onCheckTerms()) {
                     this.showModal = true;
                 }
             },
@@ -159,7 +163,7 @@
             },
             // 인증코드 체크
             onCheckVerificationCode() {
-                if(this.verifyStatus === 'unverified') {
+                if (this.verifyStatus === 'verifying') {
                     if (this.verificationCode === "") {
                         this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
                         this.warning_verification_code = true;
@@ -167,9 +171,10 @@
                     } else if (this.verificationCode.length >= 6) {
                         this.checkVerificationCode();
                     }
-                    this.warning_verification_code = false;
-                    return true;
                 }
+                this.warning_verification_code = false;
+                return true;
+
             },
             // 비밀번호 체크
             onCheckPassword() {
@@ -225,6 +230,7 @@
             },
             // 회원가입
             onSignup() {
+                let self = this;
                 //Send Email verification codes to Server
                 AccountService.Account.signup({
                     bgColor: '',
@@ -241,8 +247,9 @@
                     if (!error) {
                         //console.log("success");
                         //성공 alert 추가
-                        console.log("LOGIN COMPLETE");
-                        location.href = "/login";
+
+                        // self.showWarning(1);
+                        //location.href = "/abMain";
                     } else {
                         console.log("POST ERROR ::::::: " + error);
                     }
@@ -258,14 +265,16 @@
             },
             // 인증 코드 이메일 전송
             sendVerificationCode() {
+                this.verifyStatus = 'verifying';
+                this.getTimer();
                 if (this.onCheckEmail() === true) {
+                    let self = this;
                     AccountService.Account.sendVerificationCode({
                         email: this.email
-                    }, function (this: any, error) {
+                    }, function (error) {
                         if (!error) {
-                            console.log("code send success");
-                            this.verifyStatus = 'verifying';
-                            this.getTimer();
+                            self.verifyStatus = 'verifying';
+                            self.getTimer();
                         } else {
                             console.log("ERROR ::::::: " + error);
                         }
@@ -274,18 +283,22 @@
             },
             //인증코드 체크
             checkVerificationCode() {
+                let self = this;
                 AccountService.Account.checkVerificationCode({
                     email: this.email,
                     code: this.verificationCode
-                }, function (this: any, error) {
+                }, function (error) {
                     if (!error) {
                         console.log("code check success");
-                        this.verifyStatus = 'verified';
+                        self.verifyStatus = 'verified';
                     } else {
                         console.log("ERROR ::::::: " + error);
                     }
                 })
-            }
+            },
+            /*showWarning(code) {
+                this.$eventBus.$emit('showAlert', code);
+            }*/
         }
     });
 </script>
