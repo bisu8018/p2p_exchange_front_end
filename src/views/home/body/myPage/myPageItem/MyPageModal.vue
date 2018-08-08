@@ -175,24 +175,30 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("qrCode")}}
                     </div>
-                    <label>
-                        <div class="textarea-style ">
+                    <label class="">
+                        <div class="textarea-style p-relative" v-bind:class="{'warning-border' : warning_attachment_file}">
                             <div v-if="file === ''" class="ma-4a">
-                                <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" class="d-none"/>
+                                <input type="file" id="file" ref="file" v-on:change="onCheckAttachmentFile()"
+                                       class="d-none"/>
                                 <div class="d-inline-block mt-2">
                                     <div class="sprite-img ic-upload"></div>
                                 </div>
                                 <div class="color-darkgray h6">
-                                    {{paymentMethod === 'wechat' ? $str('wechatQrCodeExplain') : $str('alipayQrCodeExplain') }} (*.jpg / *.png / *.jpeg)
+                                    {{paymentMethod === 'wechat' ? $str('wechatQrCodeExplain') :
+                                    $str('alipayQrCodeExplain') }} (*.jpg / *.png / *.jpeg)
                                 </div>
                             </div>
                             <div v-else class="text-xs-center p-relative">
                                 <img :src="image" class="attachment-img-style">
-                                <span class="text-white-hover color-blue c-pointer vertical-center image-delete" @click="deleteFile()">
+                                <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
+                                      @click="deleteFile()">
                                     {{$str('delete')}}
                                     <i class="material-icons ">close</i>
                                 </span>
-
+                            </div>
+                            <div class="warning-text-wrapper">
+                                <span class="d-none"
+                                      v-bind:class="{'warning-text' : warning_attachment_file}">{{verify_warning_attachment_file}}</span>
                             </div>
                         </div>
                     </label>
@@ -317,12 +323,14 @@
                 warning_bank: false,
                 warning_bank_accout: false,
                 warning_trade_password: false,
+                warning_attachment_file : false,
                 verify_warning_name: Vue.prototype.$str('warning_name'),
                 verify_warning_alipay: Vue.prototype.$str('warning_alipay'),
                 verify_warning_wechat: Vue.prototype.$str('warning_wechat'),
                 verify_warning_bank: Vue.prototype.$str('warning_bank'),
                 verify_warning_bank_account: Vue.prototype.$str('warning_name'),
                 verify_warning_trade_password: Vue.prototype.$str('warning_trade_password'),
+                verify_warning_attachment_file: '',
                 SMSverificationCode: '',
 
                 // 닉네임 & 거래 비밀번호
@@ -335,7 +343,7 @@
 
                 //파일 첨부
                 file: '',
-                image: ''
+                image: '',
             }
         },
         computed: {
@@ -350,9 +358,33 @@
             }
         },
         methods: {
+            onCheckAttachmentFile() {
+                //첨부파일 타입, 확장자, 용량 체크
+                let fileInfo = this.$refs.file.files[0];
+                //let fileType = fileInfo.type.split("/")[0];
+                let fileExtension = fileInfo.type.split("/")[1];
+                let fileSize = fileInfo.size;
+                if (fileExtension != 'jpg' && fileExtension != 'png' && fileExtension != 'jpeg') {
+                    this.warning_attachment_file = true;
+                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileType');
+
+                    return false;
+                }
+                if (fileSize > 5000) {
+                    this.warning_attachment_file = true;
+                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileSize');
+
+                    return false;
+                }
+                this.warning_attachment_file = false;
+                return true;
+                this.handleFileUpload();
+
+            },
             handleFileUpload() {
-                //첨부파일 사진 등록 및
+                //첨부파일 사진 등록 및 출력
                 this.file = this.$refs.file.files[0];
+                console.log(this.file);
                 let image = new Image();
                 let reader = new FileReader();
                 let vm = this;
@@ -544,5 +576,8 @@
         margin: 9px;
     }
 
+    .warning-text-wrapper {
+        top : 153px !important;
+    }
 
 </style>

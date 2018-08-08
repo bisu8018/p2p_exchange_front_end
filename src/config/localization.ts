@@ -215,15 +215,15 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warningAttachmentFileType', {
+        KOR: '이미지 파일로 업로드 해주십시오.',
+        ENG: 'Uload only an image file.',
         CN: '',
         JP: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warningAttachmentFileSize', {
+        KOR: '5MB 이하 파일로 업로드 해주십시오.',
+        ENG: 'Upload less than 5MB.',
         CN: '',
         JP: ''
     }],
