@@ -1,5 +1,5 @@
 import AxiosService from "@/service/AxiosService";
-import User from "@/vuex/model/User";
+import User from "@/vuex/model/Account";
 import MainRepository from "@/vuex/MainRepository";
 
 export default {

@@ -9,7 +9,7 @@
                         <div class="sprite-img ic-logo"></div>
                     </button>
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
-                    <v-spacer> </v-spacer>
+                    <v-spacer></v-spacer>
                     <!--햄버거 bar-->
                     <div class="mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
@@ -48,14 +48,16 @@
                                 <v-flex xs12 class="verticalcentertext" @click="goPostGeneralAd">
                                     <button class="text-xs-left ml-5">
                                         <div flat>
-                                            {{$str("Post_General_AD")}}</div>
+                                            {{$str("Post_General_AD")}}
+                                        </div>
                                     </button>
                                 </v-flex>
                                 <!--post block AD-->
                                 <v-flex xs12 class="verticalcentertext" @click="goPostBlockAd">
                                     <button class="text-xs-left ml-5">
                                         <div>
-                                            {{$str("Post_Block_AD")}}</div>
+                                            {{$str("Post_Block_AD")}}
+                                        </div>
                                     </button>
                                 </v-flex>
                             </div>
@@ -113,7 +115,6 @@
                         </v-flex>
 
 
-
                     </v-layout>
                 </div>
             </div>
@@ -134,12 +135,15 @@
                     <!-- default post AD 버튼-->
                     <div class="dropdown">
                         <button class="ml-4a dropbtn">{{$str("postAd")}}</button>
-                        <div class="dropdown-content pl-3 pt-3 pr-3" style="min-width: 140px;">
-                            <button class="mb-3 text-md-left" @click="goPostGeneralAd">{{$str("Post_General_AD")}}</button>
-                            <button class="mb-3 text-md-left" @click="goPostBlockAd">{{$str("Post_Block_AD")}}</button>
+                        <div class="dropdown-content " style="min-width: 140px;">
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostGeneralAd">
+                                {{$str("Post_General_AD")}}
+                            </div>
+                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostBlockAd">
+                                {{$str("Post_Block_AD")}}
+                            </div>
                         </div>
                     </div>
-
 
 
                     <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
@@ -147,17 +151,11 @@
 
                     <!-- 로그인시 내정보 버튼 -->
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
-                    <!--MyPage-->
-                    <button class="button-2 mr-4a" @click="goMerchant()">{{$str("Merchant")}}</button>
 
-                  <!--MyPage-->
-                  <button class="button-2 mr-4a" @click="goMyPage()">{{$str("MyPage")}}</button>
                     <!--MyOrder-->
                     <button class="button-2 mr-4a" @click="goMyOrder()">{{$str("MyOrder")}}</button>
                     <!--Balances -->
                     <button class="button-2 mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
-                    <!-- My Ads-->
-                    <button class="button-2 mr-4a" @click="goMyAds()">{{$str("MyAds")}}</button>
                     <!--내 정보 끝-->
 
 
@@ -165,12 +163,40 @@
                     <button class="button-2 mr-4a" @click="goLogin()">{{$str("loginText")}}</button>
                     <!-- signup 버튼-->
                     <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
+
+                    <!--아바타 (로그인 시 출력)-->
+                    <div class="mr-4a mt-2 dropdown c-pointer d-block">
+                        <div class="verticalcentertext dropbtn" @click="goMyPage">
+                            <avatar
+                                    :name="'T'"
+                                    :isLogin="true"
+                                    :color="'#13b0cb'" class=" mr-1 ">
+                            </avatar>
+                            <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+                        </div>
+                        <div class="dropdown-content" >
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
+                                {{$str("MyPage")}}
+                            </div>
+                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyAds">
+                                {{$str("MyAds")}}
+                            </div>
+                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
+                                {{$str("Merchant")}}
+                            </div>
+                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
+                                {{$str("LogOut")}}
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- 언어설정버튼 -->
                     <div class="dropdown mr-4a d-block">
                         <!-- 한국어-->
                         <button v-if="currentLang=='KO'" class="dropbtn vertical-center">
                             <div class="sprite-img ic-korean f-left"></div>
-                            <span class=" ml-2">한국어<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                            <span class=" ml-2">한국어<i
+                                    class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!-- 영어 -->
                         <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
@@ -180,14 +206,19 @@
                         <!-- 중국어 -->
                         <button v-else class="dropbtn  vertical-center">
                             <div class="sprite-img ic-chinese f-left"></div>
-                            <span class="ml-2">简体中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                            <span class="ml-2">简体中文<i
+                                    class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!--언어 설정시 dropdown box-->
                         <div class="dropdown-content">
                             <!-- 내 정보 list 버튼-->
-                            <button class=" pl-3 mt-3 mb-3 text-md-left" @click="changeLang('KO')">한국어</button>
-                            <button class=" pl-3 mb-3 text-md-left" @click="changeLang('ZH')">简体中文</button>
-                            <button class=" pl-3 mb-3 text-md-left" @click="changeLang('EN')">English</button>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+                            </div>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
+                            </div>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">
+                                English
+                            </div>
                         </div>
                     </div>
                 </v-layout>
@@ -200,6 +231,8 @@
 
 <script lang="ts">
     import Vue from 'vue';
+    import Avatar from '@/components/Avatar.vue';
+
     import {
         abGetLang,
         abSetLang
@@ -208,6 +241,7 @@
 
     export default Vue.extend({
         name: 'abHeader',
+        components: {Avatar},
         data: () => ({
             title: 'header',
             drawer: false,
@@ -264,7 +298,7 @@
                         break;
                 }
             },
-            goMyPage(){
+            goMyPage() {
                 this.$router.push("/myPage");
             },
             goMyOrder() {
@@ -280,7 +314,7 @@
                 this.$router.push("/merchant");
             },
 
-            changeLang: function(userLang) {
+            changeLang: function (userLang) {
                 abSetLang(userLang);
                 this.currentLang = userLang
             },
@@ -309,7 +343,6 @@
         z-index: 999;
         width: 100%;
     }
-
 
     .dropDownMenu {
         z-index: 100;
@@ -341,7 +374,7 @@
 
     .dropbtn {
         padding-top: 22px;
-        padding-bottom: 22px;
+        padding-bottom: 21px;
         border: none;
     }
 
@@ -359,6 +392,7 @@
         border-radius: 2px;
         font-weight: 400;
         background-color: white;
+        top: 64px;
     }
 
     .dropdown-content a {
