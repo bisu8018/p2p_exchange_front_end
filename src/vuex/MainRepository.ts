@@ -1,20 +1,21 @@
 import {Store} from "vuex";
 import SelectBoxController from "@/vuex/controller/SelectBoxController";
 import StateController from "@/vuex/controller/StateController";
-import ListController from "@/vuex/controller/ListController";
+import TradeListController from "@/vuex/controller/TradeListController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
 
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
-import Trade from "@/vuex/model/Trade";
+import TradeFilter from "@/vuex/model/TradeFilter";
+import TradeItem from "@/vuex/model/TradeItem";
 import TradeService from "@/service/trade/TradeService";
 import {AxiosInstance} from "axios";
 import {toASCII} from "punycode";
 
 
 let selectBoxController: SelectBoxController;
-let listController : ListController;
+let tradelistController : TradeListController;
 let stateController: StateController;
 let merchantController: MerchantController;
 let paginationController: PaginationController;
@@ -28,7 +29,7 @@ export default {
         store = vuexStore;
         selectBoxController = new SelectBoxController(store);
         stateController = new StateController(store);
-        listController = new ListController(store);
+        tradelistController = new TradeListController(store);
         paginationController = new PaginationController(store);
         merchantController = new MerchantController(store);
 
@@ -96,66 +97,117 @@ export default {
     },
 
     TradeView: {
-        controller(): ListController {
-            return listController
+        controller(): TradeListController {
+            return tradelistController
         },
 
         initPage(){
-            var tempArr = {
-                page :   '1', //paginationController.getPage(),
-                cryptocurrency : 'BTC',  //listController.getCryptocurrency(),
-                tradeType :   'BUY', //listController.getTradeType(),
-                nationality : 'ALL',  //selectBoxController.getCountry(),
-                currency :  'CNY', //selectBoxController.getCurrency(),
-                limitMin :  0, //listController.getLimitMin(),
-                paymentMethod :  'ALL', //selectBoxController.getPayment(),
-            };
-            //이 위까지 어차피 axios로 받아와할듯.
+            //page 켜졌을때 default로 생성.
+            TradeService.tradeView.tradePage({
+                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
+                tradeType :   tradelistController.getTradeFilter().tradeType,
+                nationality : tradelistController.getTradeFilter().nationality,
+                currency :  tradelistController.getTradeFilter().currency,
+                minLimit :  tradelistController.getTradeFilter().minLimit,
+                paymentMethod :  tradelistController.getTradeFilter().paymentMethod,
+                page :   tradelistController.getTradeFilter().page,
+                size : tradelistController.getTradeFilter().size,
+            }, function (data) {
+                //전체 item 갯수 pagination에 넣어주기.
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
 
-            let tradeInfo = new Trade(tempArr);
-            // var nextArr = JSON.stringify(tradeInfo)
-            // console.log(nextArr)
-            listController.setSelectTrade(tradeInfo);
-
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let tradeList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    tradeList.push(itemList);
+                }
+                tradelistController.setTradeItems(tradeList);
+            })
         },
 
         // 리스트 페이지 SET
         updateSelectPage(data) {
+            //바뀐 data update해주기.
+            tradelistController.updateTradeFilter(data);
+            TradeService.tradeView.tradePage({
+                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
+                tradeType :   tradelistController.getTradeFilter().tradeType,
+                nationality : tradelistController.getTradeFilter().nationality,
+                currency :  tradelistController.getTradeFilter().currency,
+                minLimit :  tradelistController.getTradeFilter().minLimit,
+                paymentMethod :  tradelistController.getTradeFilter().paymentMethod,
+                page :   tradelistController.getTradeFilter().page,
+                size : tradelistController.getTradeFilter().size,
+            }, function (data) {
+                //전체 item 갯수 pagination에 넣어주기.
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
 
-            listController.updateSelectTrade(data);
-            // TradeService.tradeView.tradePageInfo(page, cryptocurrency, tradeType, nationality, currency, limitMin, paymentMethod, function (data) {
-            //     let tradeList: Trade[] = data;
-            //     // for (let key in data) {
-            //     //     let trade: Trade = new Trade(data[key]);
-            //     //     tradeList.push(trade);
-            //     // }
-            //     //리스트 형태 SET
-            //     listController.setSelectTrade(tradeList);
-            // });
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let tradeList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    tradeList.push(itemList);
+                }
+                tradelistController.setTradeItems(tradeList);
+
+            })
+
+        },
+        getSelectFilter() {
+            return tradelistController.getTradeFilter();
         },
         getSelectPage() {
-            return listController.getSelectTrade();
+            return tradelistController.getTradeItems();
         },
 
-        // Token AdType Vuex
+        // cryptocurrency & tradeType
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
+            //fullname으로 변환
+            switch (cryptocurrency) {
+                case 'BTC':
+                    cryptocurrency = 'bitcoin'
+                    break;
+
+                case 'ETH':
+                    cryptocurrency = 'ethereum'
+                    break;
+            }
+            //소문자 변환
+            tradeType = tradeType.toLowerCase()
+
             var LeftFilterArr = {
                 cryptocurrency : cryptocurrency,
                 tradeType :   tradeType,
-                page : 1,
+                page : 1,                           //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
             };
-            instance.Pagination.setPage(1);          //page는 1로 초기화
+            //page는 1로 초기화
+            instance.Pagination.setPage(1,);
             instance.TradeView.updateSelectPage(LeftFilterArr);      //필터에 맞게 화면 재구성
         },
-        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: number){
+        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string){
+            //amount 에 들어간 값이 없을때
+            if(amount ==''){
+                amount = '-1'
+            }
+            //amount 는 filter에서 minLImit과 같음.
+            let minLimit = Number(amount);
             var RightFilterArr = {
                 nationality : instance.SelectBox.controller().getCountry(),
-                paymentMethod : instance.SelectBox.controller().getPayment(),
+                paymentMethod : '{"alipay":"y","wechat":"y","bank":"n"}',
                 currency : instance.SelectBox.controller().getCurrency(),
-                minLimit : amount,
+                minLimit : minLimit,
+                page: 1,
             };
-            instance.Pagination.setPage(1);         //page는 1로 초기화
+            console.log(RightFilterArr);
+            instance.Pagination.setPage(1,);//page는 1로 초기화
             instance.TradeView.updateSelectPage(RightFilterArr);     //필터에 맞게 화면 재구성
         },
     },
@@ -165,6 +217,9 @@ export default {
         },
     },
 
+    // /*  Pagination 사용법
+    //     view에서 paginiation을 직접 누르는 게 아닌, 다른 요인으로 pagination을 1페이지로 돌리고 싶을시엔
+    //     Paginatin.setPage(1); 만 선언할것.   */
     Pagination: {
         controller(): PaginationController {
             return paginationController
@@ -176,18 +231,22 @@ export default {
             return paginationController.getTotalCount();
         },
         setPage(page: number, size : number, type : string) {
+            //현재 page set
             paginationController.setPage(page);
-            switch (type) {
-                case 'tradecenter':                         //tradecenter page 일때.
-                    instance.TradeView.updateSelectPage({page : page});
-                    break;
+            //pagination에서 직접버튼을 눌렀을때만 아래의 case 따라 page update 시켜줌.
+            if(type !==''){
+                switch (type) {
+                    case 'tradecenter':     //tradecenter page 일때.
+                        instance.TradeView.updateSelectPage({page : page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
+                        break;
 
-                case 'MyAds':
+                    case 'MyAds':
 
-                    break;
-                default :
+                        break;
+                    default :
 
-                    break;
+                        break;
+                }
             }
 
         },

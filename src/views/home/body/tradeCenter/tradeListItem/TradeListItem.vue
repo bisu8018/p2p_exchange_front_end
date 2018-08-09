@@ -36,7 +36,7 @@
         <v-layout mb-3>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left color-darkgray>{{$str("price")}} :</v-flex>
-            <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
+            <v-flex xs6 text-xs-right bold color-orange-price> {{user.fixedPrice}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -160,7 +160,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5 class=" bold color-orange-price">{{user.price}} {{currency}}</h5>
+            <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- payment methods -->
@@ -222,11 +222,11 @@
           </v-flex>
         </v-layout>
         <!--user Memo가 있을시-->
-        <v-layout v-if="user.memo !== '' " mt-4>
+        <v-layout v-if="user.termsOfTransaction !== '' " mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
             <h6 class="color-darkgray medium">
               {{$str("userMemo")}}： <br>
-              {{user.memo}}
+              {{user.termsOfTransaction}}
             </h6>
           </v-flex>
         </v-layout>
@@ -256,7 +256,7 @@
         <!--limits-->
         <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left color-orange-price bold>{{user.price}} {{token}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{user.fixedPrice}} {{token}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -439,10 +439,10 @@
 
         <!-- 판매자가 남긴 요구 메모가 있을시-->
         <v-layout >
-          <v-flex md12 mt-5 mb-5 v-if="user.memo !== '' " margin-left-74 mr-4 text-md-left>
+          <v-flex md12 mt-5 mb-5 v-if="user.termsOfTransaction !== '' " margin-left-74 mr-4 text-md-left>
             <h6 class="color-darkgray">
               {{$str("userMemo")}}： <br>
-              {{user.memo}}
+              {{user.termsOfTransaction}}
             </h6>
           </v-flex>
         </v-layout>
@@ -468,9 +468,6 @@
             drawer: false,
             toValue : '',
             fromValue : '',
-            // token : 'BTC',      //현재 거래하고자 하는 coin
-            // currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-            // tradeType : 'SELL',
             tradePW : '',       // Trade Password
             rankSrc : '',
             verify_warning_toValue: "",
@@ -484,9 +481,11 @@
             setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
 
+
         }),
         props : {
             user: {},
+
 
         },
         methods : {
@@ -578,13 +577,13 @@
                 return MainRepository.State.isMobile();
             },
             tradeType(){
-                return MainRepository.TradeView.getSelectPage().tradeType
+                return MainRepository.TradeView.getSelectFilter().tradeType
             },
             token(){
-                return MainRepository.TradeView.getSelectPage().cryptocurrency
+                return MainRepository.TradeView.getSelectFilter().cryptocurrency
             },
             currency(){
-                return MainRepository.TradeView.getSelectPage().currency
+                return MainRepository.TradeView.getSelectFilter().currency
             },
 
         },

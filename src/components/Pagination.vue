@@ -23,23 +23,24 @@
             },
         },
         created() {
-            MainRepository.Pagination.setPage(1, this.size, this.type );        //시작할땐 무조건 1page로.
+            MainRepository.Pagination.setPage(1, this.size, this.type );  //시작할땐 무조건 1page로.
 
-
-            // MainRepository.TradeView.setTotalTradeView(this.token, this.adType, this.country, this.currency, this.amount, this.payment);
-            //return MainRepository.TradeView.getTotalTradeView();
         },
         computed: {
             pages () {
-                //return Math.ceil(MainRepository.Pagination.getTotalCount()/ this.size);
-                // console.log("Make page:" + Math.ceil(MainRepository.TradeView.getTotalTradeView() / 10));
-                //return Math.ceil(MainRepository.TradeView.getTotalTradeView()/ this.page);
+                //다른filter에 의해 page가 1페이지 등으로 돌아갔을때 현재 페이지를 업데이트해줌
+                let currentclicked = Number(MainRepository.Pagination.getPage());
+                this.currentPage = currentclicked;
+                // filter에 의해 전체 item 갯수가 달라질경우 전체 페이지수를 업데이트해줌
+                let totalItems = Number(MainRepository.Pagination.getTotalCount());
+                let totalPage = Math.ceil(totalItems/ this.size);
+                return totalPage;
             },
         },
         methods: {
             onChanged() {
-            // console.log("pageChange");
-            return MainRepository.Pagination.setPage(this.currentPage, this.size, this.type);
+                //버튼 클릭으로 페이지 전환시 페이지 번호를 set 해줌.
+                return MainRepository.Pagination.setPage(this.currentPage, this.size, this.type);
             }
         },
     });

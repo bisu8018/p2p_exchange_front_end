@@ -179,7 +179,7 @@
             <h6  class="statusChip" >{{country}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
             <h6  class=" statusChip">{{paymentMethod}}</h6>
-            <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
+            <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
               <v-layout align-center row fill-height>
                 {{amount}}
                 <i class="h5 material-icons " @click="removeAmount">close</i>
@@ -352,9 +352,9 @@
                 this.isModal = false; //modal 창 끄기.
             },
             removeAmount(){
-                this.amount = 0;
+                this.amount = '';
+                //amount를 default로 초기화 시키고, 다시 list호출.
                 MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
-            //  list를 새로 띄워주도록 구현해야함.
             },
         },
         computed: {

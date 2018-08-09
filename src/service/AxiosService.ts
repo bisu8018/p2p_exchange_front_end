@@ -7,7 +7,7 @@ export default {
   },
   getRootUrl: function () {
     if (window.location.hostname == 'localhost') {
-      return window.location.protocol + '//' + window.location.hostname + ':' + '8080' //window.location.port
+      return window.location.protocol + '//' + '13.125.249.179' + ':' + '8080' //window.location.port
     } else {
       return window.location.protocol + '//' + window.location.hostname
     }
@@ -33,9 +33,9 @@ export default {
     })
       .then((response) => {
         if (this.DEBUG()) {
-          console.log('성공\nurl: ' + url + '\nres:\n' + JSON.stringify(response.data.data))
+          console.log('성공\nurl: ' + url + '\nres:\n' + JSON.stringify(response.data))
         }
-        success(response.data.data)
+        success(response.data)
       })
       .catch((error) => {
         if (error.response) {
@@ -82,7 +82,6 @@ export default {
   _requestWithUrlPram: function (url: string, type: string, data: any, success: any, failure: any) {
     data = data || {};
     let prams = qs.stringify(data);
-
     this._request(
       url + '?' + prams,
       type,

@@ -1,4 +1,4 @@
-export default class Trade {
+export default class TradeFilter {
     nationality : string;
     currency: string;
     tradeType : string;
@@ -11,11 +11,11 @@ export default class Trade {
 
 
     constructor (data: any) {
-        this.nationality = data.nationality || '';
-        this.currency = data.currency || '';
-        this.tradeType = data.tradeType || '';
-        this.cryptocurrency = data.cryptocurrency || '';
-        this.paymentMethod = data.paymentMethod || '';
+        this.nationality = data.nationality || 'KR';
+        this.currency = data.currency || 'CNY';
+        this.tradeType = data.tradeType || 'buy';
+        this.cryptocurrency = data.cryptocurrency || 'bitcoin';
+        this.paymentMethod = data.paymentMethod || '{"alipay":"y","wechat":"y","bank":"n"}';
         this.minLimit = Number(data.minLimit) || -1;
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
