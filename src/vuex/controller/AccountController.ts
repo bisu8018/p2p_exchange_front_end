@@ -1,7 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import Account from "@/vuex/model/Account";
-import account from "@/vuex/modules/account";
 
 export default class AccountController {
     store: Store<any>;
@@ -11,7 +10,7 @@ export default class AccountController {
     }
 
     setUserInfo(userInfo: Account) {
-        this.store.dispatch(VuexTypes.SET_USER_DATA, userInfo);
+        this.store.dispatch(VuexTypes.SET_USER_INFO, userInfo);
     }
 
     getUserInfo() {

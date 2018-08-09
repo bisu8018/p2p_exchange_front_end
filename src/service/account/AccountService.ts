@@ -12,6 +12,7 @@ export default {
                 function () {
                 })
         },
+        // 인증코드 전송
         sendVerificationCode: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('signUpVerification', 'POST', data ,
                 function (data: any) {
@@ -20,6 +21,7 @@ export default {
                 function () {
                 })
         },
+        // 인증코드 검증
         checkVerificationCode: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('signUpVerification', 'PUT', data ,
                 function (data: any) {
@@ -27,7 +29,17 @@ export default {
                 },
                 function () {
                 })
-        }
+        },
+        // 유져 정보 get
+        getUserInfo: function (callback: any) {
+            AxiosService._requestWithBody('member/my', 'GET', '' ,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+
+                })
+        },
     }
 }
 

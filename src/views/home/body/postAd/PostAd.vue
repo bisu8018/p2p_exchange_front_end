@@ -561,49 +561,16 @@
                 {currency: 'KHR', minLimit: 60000 },
             ],
 
-            marketPrice: {
-                0: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "CAD", price: 9052.0784189057},
-                1: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "CHF", price: 6942.6038282769},
-                2: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "CNY", price: 47697.4828673597},
-                3: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "EUR", price: 6024.4459626844},
-                4: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "GBP", price: 5379.5930372738},
-                5: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "HKD", price: 54740.8405859423},
-                6: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "IDR", price: 99791846.84730938},
-                7: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "INR", price: 479511.0714627694},
-                8: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "KRW", price: 7831748.927704704},
-                9: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "NGN", price: 2509601.743459733},
-                10: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "PHP", price: 369220.517038513},
-                11: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "RUB", price: 443607.0654407606},
-                12: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "SGD", price: 9531.2823021323},
-                13: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "TWD", price: 213220.4646150297},
-                14: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "USD", price: 6973.82599128},
-                15: {exchange: "COINMARKETCAP", cryptocurrency: "bitcoin", currency: "VND", price: 161215878.66616184},
-                16: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "CAD", price: 527.8047680976},
-                17: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "CHF", price: 404.8753670717},
-                18: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "CNY", price: 2781.6765258361},
-                19: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "EUR", price: 351.3306867102},
-                20: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "GBP", price: 313.7244698872},
-                21: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "HKD", price: 3192.3495095283},
-                22: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "IDR", price: 5819612.010483851},
-                23: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "INR", price: 27959.1291813234},
-                24: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "KRW", price: 456863.0631519533},
-                25: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "NGN", price: 146353.7243690491},
-                26: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "PHP", price: 21532.0211355756},
-                27: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "RUB", price: 25870.0594039978},
-                28: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "SGD", price: 555.7459858769},
-                29: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "TWD", price: 12434.4865433065},
-                30: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "USD", price: 406.841856852},
-                31: {exchange: "COINMARKETCAP", cryptocurrency: "ethereum", currency: "VND", price: 9399534.972564604}
-            }
+            marketPrice: '',
         }),
         components: {
             SelectBox, VerifySlider, Toggle
         },
         created() {
             //환율 및 유져 정보 get 필요
-            Common.info.getMarketPrice(function (result, event, data) {
-                console.log(result);
-                console.log(event);
+            let self = this;
+            Common.info.getMarketPrice(function (data) {
+                self.marketPrice = data;
                 console.log(data);
             });
         },

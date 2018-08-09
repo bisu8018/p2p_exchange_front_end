@@ -34,6 +34,7 @@
 
 <script lang="ts">
     import Vue from 'vue';
+    import AccountService from "../../../service/account/AccountService";
 
     export default Vue.extend({
         name: 'abMain',
@@ -52,6 +53,9 @@
             }
         },
         created () {
+          AccountService.Account.getUserInfo(function (result) {
+              console.log(result);
+          });
         },
         methods: {
             goLogin() {
