@@ -112,18 +112,33 @@ export default {
         controller(): TradeListController {
             return tradelistController
         },
-
+        initData(){
+            //filter 초기화
+            tradelistController.updateTradeFilter({
+                cryptocurrency : 'bitcoin',
+                tradeType : 'buy',
+                nationality : 'KR',
+                currency :  'CNY',
+                minLimit :  -1,
+                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
+                page :  1,
+                size : 10,
+                })
+            //pagination 초기화
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
         initPage(){
             //page 켜졌을때 default로 생성.
             TradeService.tradeView.tradePage({
-                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
-                tradeType :   tradelistController.getTradeFilter().tradeType,
-                nationality : tradelistController.getTradeFilter().nationality,
-                currency :  tradelistController.getTradeFilter().currency,
-                minLimit :  tradelistController.getTradeFilter().minLimit,
-                paymentMethod :  tradelistController.getTradeFilter().paymentMethod,
-                page :   tradelistController.getTradeFilter().page,
-                size : tradelistController.getTradeFilter().size,
+                cryptocurrency : 'bitcoin',
+                tradeType : 'buy',
+                nationality : 'KR',
+                currency :  'CNY',
+                minLimit :  -1,
+                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
+                page :  1,
+                size : 10,
             }, function (data) {
                 //전체 item 갯수 pagination에 넣어주기.
                 let totalCount = data.totalCount;
@@ -182,23 +197,10 @@ export default {
         // cryptocurrency & tradeType
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
-            //fullname으로 변환
-            switch (cryptocurrency) {
-                case 'BTC':
-                    cryptocurrency = 'bitcoin'
-                    break;
-
-                case 'ETH':
-                    cryptocurrency = 'ethereum'
-                    break;
-            }
-            //소문자 변환
-            tradeType = tradeType.toLowerCase()
-
             var LeftFilterArr = {
                 cryptocurrency : cryptocurrency,
                 tradeType :   tradeType,
-                page : 1,                           //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
+                page : 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
             };
             //page는 1로 초기화
             instance.Pagination.setPage(1,);

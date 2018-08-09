@@ -25,13 +25,31 @@ export default class TradeFilter {
     update (data: any){
         if(data.nationality !==undefined && data.nationality !==null) this.nationality = data.nationality;
         if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;
-        if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType;
-        if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = data.cryptocurrency;
+        if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType.toLowerCase();
+        if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.paymentMethod !==undefined && data.paymentMethod !==null) this.paymentMethod = data.paymentMethod;
         if(data.minLimit !==undefined && data.minLimit !==null) this.minLimit = data.minLimit;
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
     }
+
+    //보낼때는 약어를 fullname으로 보내야함.
+    transCrptocurrency(cryptocurrency){
+        switch (cryptocurrency) {
+            case 'BTC':
+            case 'bitcoin':
+                return 'bitcoin'
+
+            case 'ETH':
+            case 'ethereum':
+                return 'ethereum'
+
+            default:
+                return 'ALLB'
+        }
+    }
+
+
 
 
 
