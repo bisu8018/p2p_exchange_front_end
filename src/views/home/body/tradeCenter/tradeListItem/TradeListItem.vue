@@ -3,7 +3,7 @@
     <!-- mobile 일때-->
     <div v-if="isMobile" class="p-relative">
       <!--거래 list -->
-      <div>
+      <div v-if="!drawer">
         <!-- name-->
         <v-layout mt-4>
           <v-flex xs2 text-xs-left>
@@ -344,7 +344,7 @@
               </span>
             </v-layout>
           </v-flex>
-          <!--둘째줄-->
+          <!--두번째열-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
               {{user.volume}} {{user.currency}}
@@ -360,10 +360,13 @@
               <!--to input-->
               <div class="p-relative">
                 <input type="number" class="input userInput textRightPlaceholder"
-                       name="toValue" v-model="toValue" :placeholder="user.currency"
+                       name="toValue" v-model="toValue"
                        @blur="onChecktoValue"
-                       v-bind:class="{'warning-border' : warning_toValue}"
-                >
+                       v-bind:class="{'warning-border' : warning_toValue}">
+                <!--All 버튼-->
+                <span class="cs-click-send" @click="fillAll('toValue')" v-if="clickToAll">{{$str("All")}}</span>
+                <!--currency placeholder-->
+                <span class="cs-timer" v-else="!clickToAll">{{user.currency}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
                 </div>
@@ -373,11 +376,12 @@
               <!--from input-->
             <div class="p-relative">
               <input type="number" class="input userInput textRightPlaceholder"
-                     name="fromValue" v-model="fromValue"
-                     :placeholder="user.cryptocurrency"
-                     @blur="onCheckfromValue"
-                     v-bind:class="{'warning-border' : warning_fromValue}"
-              >
+                     name="fromValue" v-model="fromValue" @blur="onCheckfromValue"
+                     v-bind:class="{'warning-border' : warning_fromValue}">
+              <!--All 버튼-->
+              <span class="cs-click-send" @click="fillAll('fromValue')" v-if="clickFromAll">{{$str("All")}}</span>
+              <!--cryptocurrency placeholder-->
+              <span class="cs-timer" v-else="!clickToAll">{{user.cryptocurrency}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                     {{verify_warning_fromValue}}</p>
@@ -480,6 +484,8 @@
             warning_tradePassword: false,
             setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
+            clickToAll: true,              //tovalue부분의 input에 All button이 올라가 있게
+            clickFromAll: true,            //fromvalue부분의 input에 All button이 올라가 있게
 
 
         }),
@@ -532,6 +538,17 @@
                     }
                 }
             },
+            //trade modal에서 input에서 All 버튼 누를때
+            fillAll(type){
+                if(type =='toValue'){
+                    this.clickToAll = false;
+                    this.toValue = 100;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                }
+                else{
+                    this.clickFromAll = false;
+                    this.fromValue = 100;     //차후 내 잔고 불러와 마진고려해 수정해야함
+                }
+            },
             goUserPage(){
                 this.$router.push("/userpage");
             },
@@ -575,15 +592,15 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
-            tradeType(){
-                return MainRepository.TradeView.getSelectFilter().tradeType
-            },
-            token(){
-                return MainRepository.TradeView.getSelectFilter().cryptocurrency
-            },
-            currency(){
-                return MainRepository.TradeView.getSelectFilter().currency
-            },
+            // tradeType(){
+            //     return MainRepository.TradeView.getSelectFilter().tradeType
+            // },
+            // token(){
+            //     return MainRepository.TradeView.getSelectFilter().cryptocurrency
+            // },
+            // currency(){
+            //     return MainRepository.TradeView.getSelectFilter().currency
+            // },
 
         },
 
@@ -626,6 +643,7 @@
     min-height: 171px;
     background-color: #ffffff;
     width: 100%;
+    /*position: absolute;*/
     border-radius: 2px;
     padding-top: 24px;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
@@ -644,11 +662,12 @@
     border-radius: 2px;
     background-color: #ffffff;
     width: 100%;
-    position: absolute;
+    /*position: absolute;*/
     display: block;
     z-index: 1;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     padding-top: 24px;
     padding-bottom: 24px;
   }
+
 </style>

@@ -112,18 +112,33 @@ export default {
         controller(): TradeListController {
             return tradelistController
         },
-
+        initData(){
+            //filter 초기화
+            tradelistController.updateTradeFilter({
+                cryptocurrency : 'bitcoin',
+                tradeType : 'buy',
+                nationality : 'KR',
+                currency :  'CNY',
+                minLimit :  -1,
+                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
+                page :  1,
+                size : 10,
+                })
+            //pagination 초기화
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
         initPage(){
             //page 켜졌을때 default로 생성.
             TradeService.tradeView.tradePage({
-                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
-                tradeType :   tradelistController.getTradeFilter().tradeType,
-                nationality : tradelistController.getTradeFilter().nationality,
-                currency :  tradelistController.getTradeFilter().currency,
-                minLimit :  tradelistController.getTradeFilter().minLimit,
-                paymentMethod :  tradelistController.getTradeFilter().paymentMethod,
-                page :   tradelistController.getTradeFilter().page,
-                size : tradelistController.getTradeFilter().size,
+                cryptocurrency : 'bitcoin',
+                tradeType : 'buy',
+                nationality : 'KR',
+                currency :  'CNY',
+                minLimit :  -1,
+                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
+                page :  1,
+                size : 10,
             }, function (data) {
                 //전체 item 갯수 pagination에 넣어주기.
                 let totalCount = data.totalCount;

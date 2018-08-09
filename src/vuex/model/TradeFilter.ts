@@ -14,7 +14,7 @@ export default class TradeFilter {
         this.nationality = data.nationality || 'KR';
         this.currency = data.currency || 'CNY';
         this.tradeType = data.tradeType || 'buy';
-        this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency) || 'bitcoin';
+        this.cryptocurrency = data.cryptocurrency || 'bitcoin';
         this.paymentMethod = data.paymentMethod || '{"alipay":"y","wechat":"y","bank":"n"}';
         this.minLimit = Number(data.minLimit) || -1;
         this.page = Number(data.page) || 1;
@@ -37,13 +37,15 @@ export default class TradeFilter {
     transCrptocurrency(cryptocurrency){
         switch (cryptocurrency) {
             case 'BTC':
+            case 'bitcoin':
                 return 'bitcoin'
 
             case 'ETH':
+            case 'ethereum':
                 return 'ethereum'
 
             default:
-                return ''
+                return 'ALLB'
         }
     }
 

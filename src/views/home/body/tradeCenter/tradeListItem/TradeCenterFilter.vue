@@ -5,7 +5,7 @@
       <v-layout row wrap v-if="isMobile" >
         <!-- buy sell 버튼 -->
         <v-flex xs12>
-          <div v-if="tradeType ==='BUY'">
+          <div v-if="tradeType ==='Buy'">
             <!--buy가 활성화-->
             <div class="buyBtn mobileActiveBtn">
               <button class="mobileActiveBtnText" @click="setBuyInfo('current')">{{$str("buy")}}</button>
@@ -35,15 +35,15 @@
                 v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"
                 @click="onMobileTokenClicked('BTC')"><h4>BTC</h4>
           </button>
+          <!-- ALLB 버튼 -->
+          <button
+                  v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"
+                  @click="onMobileTokenClicked('ALLB')"><h4>ALLB</h4>
+          </button>
           <!--ETH 버튼-->
           <button
                 v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"
                 @click="onMobileTokenClicked('ETH')"><h4>ETH</h4>
-          </button>
-          <!-- USDT 버튼 -->
-          <button
-                v-bind:class="{'color-blue bold underline' : clicked[2].isUSDT}"
-                @click="onMobileTokenClicked('USDT')"><h4>USDT</h4>
           </button>
           <!-- > 화살표 -->
           <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
@@ -119,19 +119,20 @@
                   <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
                 <!--BTC 버튼-->
                   <button
-                        v-bind:class="{'color-blue underline' : clicked[0].isBTC && tradeType==='BUY'}"
+                        v-bind:class="{'color-blue underline bold' : clicked[0].isBTC && tradeType==='Buy'}"
                         @click="setBuyInfo('BTC')"><h4>BTC</h4>
                   </button>
+                <!-- ALLB 버튼-->
+                <button
+                        v-bind:class="{'color-blue underline bold ' : clicked[2].isALLB && tradeType==='Buy'}"
+                        @click="setBuyInfo('ALLB')"><h4>ALLB</h4>
+                </button>
                 <!-- ETH 버튼-->
                   <button
-                        v-bind:class="{'color-blue underline' : clicked[1].isETH && tradeType==='BUY'}"
+                        v-bind:class="{'color-blue underline bold' : clicked[1].isETH && tradeType==='Buy'}"
                           @click="setBuyInfo('ETH')"><h4>ETH</h4>
                   </button>
-                <!-- USDT 버튼-->
-                  <button
-                        v-bind:class="{'color-blue underline' : clicked[2].isUSDT && tradeType==='BUY'}"
-                          @click="setBuyInfo('USDT')"><h4>USDT</h4>
-                  </button>
+
                 <!-- > 화살표-->
                   <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
               </v-layout>
@@ -155,17 +156,17 @@
               <i class="material-icons md-24">keyboard_arrow_left</i>
               <!--BTC 버튼-->
               <button
-                    v-bind:class="{'color-blue underline' : clicked[0].isBTC && tradeType==='SELL'}"
+                    v-bind:class="{'color-blue underline bold' : clicked[0].isBTC && tradeType==='Sell'}"
                     @click="setSellInfo('BTC')"><h4>BTC</h4>
+              </button>
+              <!-- ALLB 버튼-->
+              <button  v-bind:class="{'color-blue underline bold' : clicked[2].isALLB && tradeType==='Sell'}"
+                    @click="setSellInfo('ALLB')"><h4>ALLB</h4>
               </button>
               <!-- ETH 버튼-->
               <button
-                    v-bind:class="{'color-blue underline' : clicked[1].isETH && tradeType==='SELL'}"
-                    @click="setSellInfo('ETH')"><h4>ETH</h4>
-              </button>
-              <!-- USDT 버튼-->
-              <button  v-bind:class="{'color-blue underline' : clicked[2].isUSDT && tradeType==='SELL'}"
-                    @click="setSellInfo('USDT')"><h4>USDT</h4>
+                      v-bind:class="{'color-blue underline bold' : clicked[1].isETH && tradeType==='Sell'}"
+                      @click="setSellInfo('ETH')"><h4>ETH</h4>
               </button>
               <i class="material-icons md-24">keyboard_arrow_right</i>
             </v-layout>
@@ -250,16 +251,16 @@
             clicked : [
                 {isBTC : true},
                 {isETH : false},
-                {isUSDT : false},
+                {isALLB : false},
             ],
 
-            tradeType : 'BUY',
+            tradeType : 'Buy',
             tradeCoin: 'BTC',
 
         }),
         methods : {
             setBuyInfo(item){
-                this.tradeType = "BUY";
+                this.tradeType = "Buy";
                 //스타일을 위한 class binding을 위한 함수.
                 this.setTokenStyle(item);
 
@@ -268,13 +269,12 @@
                 }
                 else{
                     this.tradeCoin = item;
-                    //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeType, this.country, this.currency, this.amount, this.paymentMethod);
                     MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
 
             },
             setSellInfo(item){
-                this.tradeType = "SELL";
+                this.tradeType = "Sell";
                 this.setTokenStyle(item);
                 //default data
 
@@ -283,7 +283,6 @@
                 }
                 else{
                     this.tradeCoin =item;
-                    //MainRepository.TradeView.setTotalTradeView(this.tradeCoin, this.tradeType, this.country, this.currency, this.amount, this.paymentMethod);
                     MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
 
@@ -293,51 +292,42 @@
                     case 'BTC':
                         this.clicked[0].isBTC = true;
                         this.clicked[1].isETH = false;
-                        this.clicked[2].isUSDT = false;
+                        this.clicked[2].isALLB = false;
                         break;
 
                     case 'ETH':
                         this.clicked[0].isBTC = false;
                         this.clicked[1].isETH = true;
-                        this.clicked[2].isUSDT = false;
+                        this.clicked[2].isALLB = false;
                         break;
 
-                    case 'USDT':
+                    case 'ALLB':
                         this.clicked[0].isBTC = false;
                         this.clicked[1].isETH = false;
-                        this.clicked[2].isUSDT = true;
+                        this.clicked[2].isALLB = true;
                         break;
                 }
             },
             //모바일에서 token 변화를 눌렀을시
             onMobileTokenClicked(item){
-              if(this.tradeType == 'BUY'){
+              if(this.tradeType == 'Buy'){
                   this.setBuyInfo(item);
               }
               else{
                   this.setSellInfo(item);
               }
             },
-            onCurrencyChange (){
-
-            },
-            onPaymentMethodChange (){
-
-            },
-            onAmountChange (){
-
-            },
+            //rightfilter의 search 클릭시
             onSearch(){
                 //입력된 정보들을 vuex로 set 시킴.
                 MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
-
-
                 this.country =  MainRepository.SelectBox.controller().getCountry();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
 
                 this.isModal = false; //modal 창 끄기.
             },
+            //amount Chip에서 창 끌때
             removeAmount(){
                 this.amount = '';
                 //amount를 default로 초기화 시키고, 다시 list호출.
