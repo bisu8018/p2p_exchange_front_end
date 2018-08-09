@@ -182,23 +182,10 @@ export default {
         // cryptocurrency & tradeType
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
-            //fullname으로 변환
-            switch (cryptocurrency) {
-                case 'BTC':
-                    cryptocurrency = 'bitcoin'
-                    break;
-
-                case 'ETH':
-                    cryptocurrency = 'ethereum'
-                    break;
-            }
-            //소문자 변환
-            tradeType = tradeType.toLowerCase()
-
             var LeftFilterArr = {
                 cryptocurrency : cryptocurrency,
                 tradeType :   tradeType,
-                page : 1,                           //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
+                page : 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
             };
             //page는 1로 초기화
             instance.Pagination.setPage(1,);

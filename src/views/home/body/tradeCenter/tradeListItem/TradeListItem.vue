@@ -518,7 +518,7 @@
             },
             goTrade(){
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
-                    switch (this.tradeType) {
+                    switch (this.user.tradeType) {
                         case 'Buy':
                             this.$router.push("/buy");
                             break;
