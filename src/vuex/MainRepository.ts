@@ -212,7 +212,6 @@ export default {
                 minLimit : minLimit,
                 page: 1,
             };
-            console.log(RightFilterArr);
             instance.Pagination.setPage(1,);//page는 1로 초기화
             instance.TradeView.updateSelectPage(RightFilterArr);     //필터에 맞게 화면 재구성
         },

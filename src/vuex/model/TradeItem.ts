@@ -42,8 +42,8 @@ export default class TradeItem {
         this.type = data.type || '';
         this.nationality = data.nationality || '';
         this.currency = data.currency || '';
-        this.tradeType = data.tradeType || '';
-        this.cryptocurrency = data.cryptocurrency || '';
+        this.tradeType = this.transBuySell(data.tradeType) || '';
+        this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency) || '';
         this.priceType = data.priceType || '';
         this.fixedPrice = Number(data.fixedPrice) || -1;
         this.volume = Number(data.volume) || -1;
@@ -69,9 +69,8 @@ export default class TradeItem {
         this.alipay_id = data.alipay_id || 'n';
 
     }
-
+    //paymentmethods 재가공
     splitPayment(data){
-        console.log(data);
         if(data.bank_account ==="y"){
             this.bank_account = 'y'
         }
@@ -82,6 +81,28 @@ export default class TradeItem {
             this.wechat_id = 'y'
         }
     }
+    //tradeType 재가공
+    transBuySell(tradeType){
+        switch (tradeType) {
+            case 'buy':
+                return 'Buy'
+
+            case 'sell':
+                return 'Sell'
+        }
+
+    }
+    //cryptocurrency 재가공
+    transCryptocurrency(cryptocurrency){
+        switch (cryptocurrency) {
+            case 'bitcoin':
+                return 'BTC'
+
+            case 'ethereum':
+                return 'ETH'
+        }
+    }
+
 
     // update (data: any){
     //     if(data.nationality !==undefined && data.nationality !==null) this.nationality = data.nationality;

@@ -234,7 +234,6 @@
     import Vue from 'vue';
     import MainRepository from '../../../../../vuex/MainRepository';
     import SelectBox from '@/components/SelectBox.vue';
-    import AXIOS from 'axios';
     export default Vue.extend({
         name: "TradeCenterFilter",
         components: {
@@ -336,18 +335,6 @@
                 this.country =  MainRepository.SelectBox.controller().getCountry();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-//                 this.country = MainRepository.SelectBox.controller().getCountry();
-//                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-//                 this.currency = MainRepository.SelectBox.controller().getCurrency();
-// l
-//                 console.log("search country data:" + this.country);
-//                 console.log("search currency data:" + this.currency);
-//                 console.log("search amount data:" + this.amount);
-//                 MainRepository.SelectBox.controller().setCountry(this.country);
-//                 MainRepository.SelectBox.controller().setCurrency(this.currency);
-//                 MainRepository.SelectBox.controller().setPayment(this.paymentMethod);
-//                 MainRepository.TradeView.controller().setLimitMin(this.amount);
-//                 MainRepository.TradeView.setSelectPage(0);
 
                 this.isModal = false; //modal 창 끄기.
             },
