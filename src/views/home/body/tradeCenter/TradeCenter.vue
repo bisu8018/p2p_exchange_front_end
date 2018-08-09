@@ -16,7 +16,7 @@
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <div  v-for="user in users"  >
+                <div  v-for="user in TradeItemLists" >
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
@@ -50,7 +50,7 @@
                 <v-flex><v-divider></v-divider></v-flex>
 
                 <!-- user item list들 10개씩 출력-->
-                <div v-for="user in users"  >
+                <div v-for="user in TradeItemLists"  >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>
@@ -60,7 +60,7 @@
             <!-- pagination -->
             <Pagination
                     :size="pageSize"
-                    :type="type"
+                    :type="pageType"
             ></Pagination>
         </div>
     </div>
@@ -73,6 +73,8 @@
     import TradeCenterFilter from './tradeListItem/TradeCenterFilter.vue';
     import Pagination from '@/components/Pagination.vue';
     import NickNameModal from '@/components/NickNameModal.vue';
+    import TradeFilter from "../../../../vuex/model/TradeFilter";
+    import TradeService from "../../../../service/trade/TradeService";
 
 
     export default Vue.extend({
@@ -81,7 +83,7 @@
         components: {Pagination, TradeListItem, TradeCenterFilter, NickNameModal},
         data: () => ({
             pageSize : 10,              //한 page에 몇개씩 item을 보여줄건가.
-            type : "tradecenter",       //pagination을 위해.
+            pageType : "tradecenter",       //pagination을 위해.
             tradeLevel : 'low',
             setNickName : false,
             users: [
@@ -319,15 +321,16 @@
             ],
         }),
         created() {
-
             if(this.message == "general"){
-                MainRepository.TradeView.initPage();
+                //default filter값으로 list setting하기.
+                MainRepository.TradeView.initPage()
             }else {
                 MainRepository.TradeView.initPage();
             }
         },
         computed: {
-            dataInfo(){
+            TradeItemLists(){
+                //최신화된 model list를 불러옴.
                 return MainRepository.TradeView.getSelectPage();
             },
             isMobile() {

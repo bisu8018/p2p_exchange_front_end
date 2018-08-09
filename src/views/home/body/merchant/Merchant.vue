@@ -5,7 +5,6 @@
                 <h1 class="bold">{{$str("Merchant")}}</h1>
                 <h5 class="mt-4">{{$str("Apply to be Merchant")}}</h5>
             </v-flex>
-
         </v-layout>
 
         <v-layout wrap row>
@@ -68,6 +67,11 @@
                 </v-flex>
             </v-layout>
         </div>
+        <!--nickname 설정을 안했으면 띄우는 화면-->
+        <nick-name-modal
+                :show = showNickNameModal
+                v-on:close="closeNicknameModal"
+        ></nick-name-modal>
         <!--첫번째로 뜨는 정보 입력 dialog-->
         <v-dialog v-model="showVeriModal" persistent>
             <v-layout row wrap>
@@ -136,13 +140,32 @@
                 <!-- Photo 올리기-->
                 <v-flex xs12 text-xs-left>{{$str("Photo of Identification")}}</v-flex>
                 <v-flex xs12 mt-2 mb-4>
-                    <div class="photobox input">
-                        <input name="IdPhoto" type="file" @change="onFileChange"
-                               class=" "
-                              autocomplete="off" placeholder="Upload photo of identification">
-                        <div class="sprite-img ic-upload"> </div>
-                        <h6>{{$str("Upload photo of identiication")}}</h6>
-                    </div>
+                    <label class="">
+                        <div class="textarea-style p-relative" v-bind:class="{'warning-border' : warning_attachment_file}">
+                            <div v-if="file === ''" class="ma-4a">
+                                <input type="file" id="file" ref="file" v-on:change="onCheckAttachmentFile()"
+                                       class="d-none"/>
+                                <div class="d-inline-block mt-2">
+                                    <div class="sprite-img ic-upload"></div>
+                                </div>
+                                <div class="color-darkgray h5">
+                                    {{$str('Upload photo of identification')}}
+                                </div>
+                            </div>
+                            <div v-else class="text-xs-center p-relative">
+                                <img :src="image" class="attachment-img-style">
+                                <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
+                                      @click="deleteFile()">
+                                    {{$str('delete')}}
+                                    <i class="material-icons ">close</i>
+                                </span>
+                            </div>
+                            <div class="warning-text-wrapper-photo">
+                                <span class="d-none"
+                                      v-bind:class="{'warning-text' : warning_attachment_file}">{{verify_warning_attachment_file}}</span>
+                            </div>
+                        </div>
+                    </label>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
                     <button class="btn-rounded-white text-white-hover" @click="showVeriModal = false" >
@@ -183,13 +206,17 @@
 
 <script>
     import Vue from 'vue';
+    import NickNameModal from '@/components/NickNameModal.vue';
     export default {
         name: "merchant",
+        components:{NickNameModal},
         data: () => ({
-            isAgree : false,
-            showVeriModal : false,
-            showSuccessModal : false,
-            alreadySuccess : false,
+            isAgree : false,        //term에 대해 check click 한 경우
+            showVeriModal : false,  //apply now 클릭했을때
+            showSuccessModal : false,   //form 입력 성공했을때 띄우는 dialog
+            alreadySuccess : false,     //이미 제출해놨을때 대체하여 띄워지는 하단부를 보여줌
+            setNickName : false,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
+            showNickNameModal : false,      //nickname modal을 띄울려면 true로.
             FirstName : '',
             LastName : '',
             IDNum : '',
@@ -197,9 +224,15 @@
             verify_warning_first : "",
             verify_warning_last : "",
             verify_warning_IdNum : "",
+            verify_warning_attachment_file: '',
             warning_first : false,
             warning_last : false,
             warning_IdNum : false,
+            warning_attachment_file : false,
+            //파일 첨부
+            file: '',
+            image: '',
+
             countries: [
                 {country: 'China', code: 'CN'},
                 {country: 'Singapore', code: 'SG'},
@@ -224,25 +257,18 @@
         methods :{
             showDialog(){
                 if(this.isAgree == true){
-                    this.showVeriModal = true;
+                    //nickname설정을 해야할때
+                    if(!this.setNickName){
+                        this.showNickNameModal = true;
+                    }
+                    //nickname설정이 필요없을때
+                    else{
+                        this.showVeriModal = true;
+                    }
+
                 }
 
-            },
-            onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-            },
-            createImage(file) {
-                var image = new Image();
-                var reader = new FileReader();
-                var vm = this;
 
-                reader.onload = (e) => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
             },
             goDone(){
                 if (this.onCheckFirst() && this.onCheckLast() && this.onCheckIdNum()) {
@@ -279,6 +305,58 @@
                 this.warning_IdNum = false;
                 return true;
             },
+            closeNicknameModal(){
+                this.showNickNameModal = false;
+                this.setNickName = true;
+                this.showVeriModal = true;
+            //    nickname 설정 성공시 성공했음을 알려주는 함수 전달이 필요할듯.
+            },
+            //file 전송관련메서드
+            onCheckAttachmentFile() {
+                //첨부파일 타입, 확장자, 용량 체크
+                let fileInfo = this.$refs.file.files[0];
+                //let fileType = fileInfo.type.split("/")[0];
+                let fileExtension = fileInfo.type.split("/")[1];
+                let fileSize = fileInfo.size;
+                if (fileExtension != 'jpg' && fileExtension != 'png' && fileExtension != 'jpeg') {
+                    this.warning_attachment_file = true;
+                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileType');
+
+                    return false;
+                }
+                if (fileSize > 5000) {
+                    this.warning_attachment_file = true;
+                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileSize');
+
+                    return false;
+                }
+                this.warning_attachment_file = false;
+                return true;
+                this.handleFileUpload();
+
+            },
+            handleFileUpload() {
+                //첨부파일 사진 등록 및 출력
+                this.file = this.$refs.file.files[0];
+                console.log(this.file);
+                let image = new Image();
+                let reader = new FileReader();
+                let vm = this;
+
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(this.file);
+            },
+            // 첨부파일 서버 전송
+            submitFile() {
+                let formData = new FormData();
+                formData.append('file', this.file);
+            },
+            deleteFile() {
+                this.file = '';
+                this.image = '';
+            }
         },
 
     }
@@ -310,6 +388,30 @@
         text-align: center;
 
     }
+    .textarea-style {
+        width: 100%;
+        height: 152px;
+        border-radius: 2px;
+        border: solid 1px #8d8d8d;
+        resize: none;
+    }
 
+    .attachment-img-style {
+        height: 105px;
+        margin-top: 22px;
+    }
+
+    .image-delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 9px;
+    }
+
+    .warning-text-wrapper-photo {
+        position: absolute !important;
+        bottom : -20px !important;
+        right: 0px;
+    }
 
 </style>

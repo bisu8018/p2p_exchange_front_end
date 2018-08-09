@@ -29,11 +29,9 @@ export enum VuexTypes {
     //======================================
     //              TradeView
     // =====================================
-    //SET_TRADEVIEW_DATA = 'trade/SET_TRADEVIEW_DATA',
-    SET_SELECTTRADEVIEW_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
-    //SET_CRYPTOCURRENCY_DATA = 'trade/SET_CRYPTOCURRENCY_DATA',
-    //SET_TRADETYPE_DATA = 'trade/SET_TRADETYPE_DATA',
+    SET_SELECTTRADEFILTER_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
     UPDATE_SELECTTRADEVIEW_DATA = 'trade/UPDATE_SELECTTRADEVIEW_DATA',
+    SET_TRADEITEMS_DATA = 'trade/SET_TRADEITEMS_DATA',
 
 
     SET_PAGE_DATA = 'trade/SET_PAGE_DATA',
@@ -55,6 +53,7 @@ export enum VuexTypes {
     //              Account
     // =====================================
     SET_USER_INFO = 'account/SET_USER_INFO',
+    SET_USER_DATA = 'account/SET_USER_DATA',
 
 
 

@@ -24,19 +24,19 @@
         <v-layout>
             <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left color-darkgray>{{$str("Available")}} :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.volume}} {{token}} </v-flex>
+            <v-flex xs6 text-xs-right> {{user.volume}} {{user.cryptocurrency}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left color-darkgray>{{$str("limits")}} :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
+            <v-flex xs6 text-xs-right> {{user.minLimit}}-{{user.maxLimit}} {{user.currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left color-darkgray>{{$str("price")}} :</v-flex>
-            <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
+            <v-flex xs6 text-xs-right bold color-orange-price> {{user.fixedPrice}} {{user.currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -68,7 +68,7 @@
               </div>
               <div v-else>
                 <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-                  <h5>{{tradeType}} {{token}}</h5>
+                  <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
                 </button>
               </div>
             </v-flex>
@@ -90,7 +90,7 @@
               <img :src="rankSrc" class="userRank">
             </h5>
             <h5 class="color-darkgray medium">
-              {{$str("Available")}}  {{user.volume}} {{token}}
+              {{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}
             </h5>
           </v-flex>
         </v-layout>
@@ -121,7 +121,7 @@
           </v-flex>
           <v-flex xs8 text-xs-left>
             <h5 class="medium color-blue">
-            {{user.email}} ( {{user.volume}} | 99%)
+            {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
             </h5>
             <img :src="rankSrc" class="userRank">
           </v-flex>
@@ -138,7 +138,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.volume}} {{token}}</h5>
+            <h5>{{user.volume}} {{user.cryptocurrency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -149,7 +149,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.minLimit}}-{{user.maxLimit}} {{currency}}</h5>
+            <h5>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Price -->
@@ -160,7 +160,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5 class=" bold color-orange-price">{{user.price}} {{currency}}</h5>
+            <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- payment methods -->
@@ -184,7 +184,7 @@
             <!--to input-->
             <div class="p-relative">
               <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
-                     :placeholder="currency" @blur="onChecktoValue"
+                     :placeholder="user.currency" @blur="onChecktoValue"
                      v-bind:class="{'warning-border' : warning_toValue}">
               <div class="warning-text-wrapper">
                 <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
@@ -193,7 +193,7 @@
             <!--from input-->
             <div class="mt-3 p-relative">
               <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="fromValue"
-                     :placeholder="token" @blur="onCheckfromValue"
+                     :placeholder="user.cryptocurrency" @blur="onCheckfromValue"
                      v-bind:class="{'warning-border' : warning_fromValue}">
               <div class="warning-text-wrapper">
                 <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
@@ -201,7 +201,7 @@
               </div>
             </div>
             <!--trade PW. sell 일때만 활성화-->
-            <div class="mt-3 p-relative" v-if="tradeType =='SELL'">
+            <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
               <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                      :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
                      v-bind:class="{'warning-border' : warning_tradePassword}">
@@ -222,11 +222,11 @@
           </v-flex>
         </v-layout>
         <!--user Memo가 있을시-->
-        <v-layout v-if="user.memo !== '' " mt-4>
+        <v-layout v-if="user.termsOfTransaction !== '' " mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
             <h6 class="color-darkgray medium">
               {{$str("userMemo")}}： <br>
-              {{user.memo}}
+              {{user.termsOfTransaction}}
             </h6>
           </v-flex>
         </v-layout>
@@ -235,7 +235,7 @@
 
     <!--Web 일때-->
     <div v-else class="p-relative">
-      <v-layout class="userWebList" align-center justify-center fill-height>
+      <v-layout class="userWebList" v-if="!drawer" align-center justify-center fill-height>
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
           <v-layout  align-center>
@@ -252,11 +252,11 @@
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volume}} {{token}} </v-flex>
+        <v-flex md2 text-md-left >{{user.volume}} {{user.cryptocurrency}} </v-flex>
         <!--limits-->
-        <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
+        <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{user.currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left color-orange-price bold>{{user.price}} {{token}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{user.fixedPrice}} {{user.currency}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -282,7 +282,7 @@
             </div>
             <div v-else>
               <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-                <h5>{{tradeType}} {{token}}</h5>
+                <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
               </button>
             </div>
           </v-layout>
@@ -305,7 +305,7 @@
                   {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
                 </span>
                 <img :src="rankSrc" class="userRank">
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{token}}</div>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}</div>
               </span>
             </v-layout>
           </v-flex>
@@ -340,17 +340,17 @@
                   {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
                 </span>
                 <img :src="rankSrc" class="userRank">
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{token}}</div>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}</div>
               </span>
             </v-layout>
           </v-flex>
           <!--둘째줄-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
-              {{user.volume}} {{currency}}
+              {{user.volume}} {{user.currency}}
             </div>
             <div class="medium">
-              {{user.volume}} {{currency}}
+              {{user.volume}} {{user.currency}}
             </div>
           </v-flex>
 
@@ -360,7 +360,7 @@
               <!--to input-->
               <div class="p-relative">
                 <input type="number" class="input userInput textRightPlaceholder"
-                       name="toValue" v-model="toValue" :placeholder="currency"
+                       name="toValue" v-model="toValue" :placeholder="user.currency"
                        @blur="onChecktoValue"
                        v-bind:class="{'warning-border' : warning_toValue}"
                 >
@@ -374,7 +374,7 @@
             <div class="p-relative">
               <input type="number" class="input userInput textRightPlaceholder"
                      name="fromValue" v-model="fromValue"
-                     :placeholder="token"
+                     :placeholder="user.cryptocurrency"
                      @blur="onCheckfromValue"
                      v-bind:class="{'warning-border' : warning_fromValue}"
               >
@@ -417,7 +417,7 @@
             </div>
           </v-flex>
           <v-flex md3 text-md-right>
-            <div v-if="tradeType =='SELL'">
+            <div v-if="user.tradeType =='Sell'">
               <div class="p-relative">
                 <input type="number" class="input userInput textLeftPlaceholder"
                        name="tradePW" v-model="tradePW" :placeholder="$str('tradePwText')"
@@ -439,10 +439,10 @@
 
         <!-- 판매자가 남긴 요구 메모가 있을시-->
         <v-layout >
-          <v-flex md12 mt-5 mb-5 v-if="user.memo !== '' " margin-left-74 mr-4 text-md-left>
+          <v-flex md12 mt-5 mb-5 v-if="user.termsOfTransaction !== '' " margin-left-74 mr-4 text-md-left>
             <h6 class="color-darkgray">
               {{$str("userMemo")}}： <br>
-              {{user.memo}}
+              {{user.termsOfTransaction}}
             </h6>
           </v-flex>
         </v-layout>
@@ -465,12 +465,9 @@
         name: "TradeListItem",
         components:{Avatar, NickNameModal},
         data: () => ({
-            drawer: false,
+            drawer: false,     //button 눌렀을시 true가 되며 거래 창을 띄운다
             toValue : '',
             fromValue : '',
-            // token : 'BTC',      //현재 거래하고자 하는 coin
-            // currency : 'CNY',   //현재 사용하고자 하는 화폐단위
-            // tradeType : 'SELL',
             tradePW : '',       // Trade Password
             rankSrc : '',
             verify_warning_toValue: "",
@@ -484,9 +481,11 @@
             setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
 
+
         }),
         props : {
             user: {},
+
 
         },
         methods : {
@@ -520,11 +519,11 @@
             goTrade(){
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
                     switch (this.tradeType) {
-                        case 'BUY':
+                        case 'Buy':
                             this.$router.push("/buy");
                             break;
 
-                        case 'SELL':
+                        case 'Sell':
                             //sell 모드 일때는 trade password를 추가로 검증해야함.
                             if(this.onChecktradePassword()){
                                 this.$router.push("/sell");
@@ -577,13 +576,13 @@
                 return MainRepository.State.isMobile();
             },
             tradeType(){
-                return MainRepository.TradeView.getSelectPage().tradeType
+                return MainRepository.TradeView.getSelectFilter().tradeType
             },
             token(){
-                return MainRepository.TradeView.getSelectPage().cryptocurrency
+                return MainRepository.TradeView.getSelectFilter().cryptocurrency
             },
             currency(){
-                return MainRepository.TradeView.getSelectPage().currency
+                return MainRepository.TradeView.getSelectFilter().currency
             },
 
         },
@@ -627,7 +626,6 @@
     min-height: 171px;
     background-color: #ffffff;
     width: 100%;
-    position: absolute;
     border-radius: 2px;
     padding-top: 24px;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);

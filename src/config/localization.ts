@@ -2268,10 +2268,17 @@ const strings = new Map([
         CN: '您的申请已成功提交。 我们将在2个工作日内完成审核。',
         JP: ''
     }],
-    ['Done', {
-        KOR: '확인',
-        ENG: 'Done',
-        CN: '完成',
+
+    ['Photo of Identification', {
+        KOR: '신분증 사진',
+        ENG: 'Photo of Identification',
+        CN: '鉴定照片',
+        JP: ''
+    }],
+    ['Upload photo of identification', {
+        KOR: '신분증 사진 업로드',
+        ENG: 'Upload photo of identification',
+        CN: '上传身份证的照片',
         JP: ''
     }],
 

@@ -10,7 +10,7 @@ const mutations = {
     },
     //  전체아이템이 몇개인지
     [VuexTypes.SET_TOTALCOUNT_DATA] (state: any, totalCount: number) {
-        state.TotalCount = totalCount;
+        state.totalCount = totalCount;
     },
 
 };
@@ -24,7 +24,7 @@ const actions = {
     },
     //  전체아이템이 몇개인지
     [VuexTypes.SET_TOTALCOUNT_DATA] (context: any, totalCount: number) {
-        context.commit(VuexTypes.SET_PAGE_DATA, totalCount)
+        context.commit(VuexTypes.SET_TOTALCOUNT_DATA, totalCount)
     },
 
 };
@@ -39,7 +39,7 @@ let totalCount : number  =  1;
 const state= {
 
     Page: page,
-    TotalCount : totalCount,
+    totalCount : totalCount,
 
 }
 

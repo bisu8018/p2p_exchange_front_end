@@ -21,6 +21,6 @@ export default class PaginationController {
         this.store.dispatch(VuexTypes.SET_TOTALCOUNT_DATA, totalCount);
     }
     getTotalCount() {
-        return this.store.state.pagination.TotalCount;
+        return this.store.state.pagination.totalCount;
     }
 }

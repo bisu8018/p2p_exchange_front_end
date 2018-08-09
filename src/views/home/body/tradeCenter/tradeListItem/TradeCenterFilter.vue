@@ -179,7 +179,7 @@
             <h6  class="statusChip" >{{country}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
             <h6  class=" statusChip">{{paymentMethod}}</h6>
-            <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
+            <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
               <v-layout align-center row fill-height>
                 {{amount}}
                 <i class="h5 material-icons " @click="removeAmount">close</i>
@@ -234,7 +234,6 @@
     import Vue from 'vue';
     import MainRepository from '../../../../../vuex/MainRepository';
     import SelectBox from '@/components/SelectBox.vue';
-    import AXIOS from 'axios';
     export default Vue.extend({
         name: "TradeCenterFilter",
         components: {
@@ -336,25 +335,13 @@
                 this.country =  MainRepository.SelectBox.controller().getCountry();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-//                 this.country = MainRepository.SelectBox.controller().getCountry();
-//                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-//                 this.currency = MainRepository.SelectBox.controller().getCurrency();
-// l
-//                 console.log("search country data:" + this.country);
-//                 console.log("search currency data:" + this.currency);
-//                 console.log("search amount data:" + this.amount);
-//                 MainRepository.SelectBox.controller().setCountry(this.country);
-//                 MainRepository.SelectBox.controller().setCurrency(this.currency);
-//                 MainRepository.SelectBox.controller().setPayment(this.paymentMethod);
-//                 MainRepository.TradeView.controller().setLimitMin(this.amount);
-//                 MainRepository.TradeView.setSelectPage(0);
 
                 this.isModal = false; //modal 창 끄기.
             },
             removeAmount(){
-                this.amount = 0;
+                this.amount = '';
+                //amount를 default로 초기화 시키고, 다시 list호출.
                 MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
-            //  list를 새로 띄워주도록 구현해야함.
             },
         },
         computed: {
