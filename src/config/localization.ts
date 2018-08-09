@@ -2289,9 +2289,11 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
-    ['pageNotFoundBtn', {
-        KOR: '거래소로 이동',
-        ENG: 'Back to trading list',
+
+    //alert
+    ['401', {
+        KOR: '세션이 만료되었습니다.',
+        ENG: 'Your session has expired.',
         CN: '',
         JP: ''
     }],

@@ -80,6 +80,7 @@
     import Avatar from './Avatar.vue';
     import ChatService from "../service/chat/ChatService";
     import AccountService from "../service/account/AccountService";
+    import {abUtils} from "../common/utils";
 
     export default Vue.extend({
         name: 'chat',
@@ -113,10 +114,11 @@
                 setInterval(function () {
                     this.getMessage();
                     this.getIsLogin();
-                }.bind(this), 30000);
+                }.bind(this), 5000);
             })
         },
         methods: {
+            // 유져 정보 AXIOS GET
             getIsLogin() {
                 AccountService.Account.isUserActive({
                         email: ''  //VUEX userInfo.nickname
@@ -130,28 +132,28 @@
                 )
             },
             getMessage: function () {
-                var date = Date.now();
-                console.log(date);
-                // 페이지 로딩 후 채팅 데이터 주기적 AXIOS get
+                // 메세지 AXIOS GET
+                let date = new Date().toISOString().substr(0,10);
+                let time = new Date().toISOString().substr(11,8);
+                let DT =  date + ' ' + time;
+
                 ChatService.message.getMessage({
                         email: '',  //VUEX userInfo.nickName
-                        dateTime:  date,
+                        dateTime:  DT,
                         orderNo : this.orderNo
-                    }, function (error) {
+                    }, function (result,error) {
                         if (!error) {
-
+                            this.message.push(result.message);
                         } else {
-
+                            console.log('ERROR ::::::    ' + error);
                         }
                     }
                 )
-                //orderNumber, message_no 파라미터 전달
-
-                // $.get('/api/data', function (response) {
-                //     this.items = response.items;
-                // }.bind(this));
-
-                // data get 성공시 this.message.push();
+            },
+            getLocaleDt (time) {
+                // 현지시간으로 변경
+                var localeDate = new Date(time);
+                return localeDate;
             },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크

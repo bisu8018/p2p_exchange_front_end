@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs';
-import MainRepository from "@/vuex/MainRepository";
+import Vue from "vue";
 
 export default {
   init: function () {
@@ -35,7 +35,11 @@ export default {
         if (this.DEBUG()) {
           console.log('성공\nurl: ' + url + '\nres:\n' + JSON.stringify(response.data))
         }
-        success(response.data)
+        if(response.data.code === 0){
+            success(response.data.result);
+        }
+          Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
+
       })
       .catch((error) => {
         if (error.response) {
@@ -57,11 +61,7 @@ export default {
           //  console.log('Status: ' + status);
           // 401 Error
           if (status === 401 || status === 502) {
-            let model = this;
-            // showOneBtnDialog('장기간 미접속으로 세션이 만료되었습니다. 다시 로그인해주세요.', 'CLOSE', true,
-            //   function () {
-            //     window.location.replace(model.getRootUrl() + '/home')
-            //   })
+              Vue.prototype.$eventBus.$emit('showAlert', status);
           } else {
             failure()
           }
