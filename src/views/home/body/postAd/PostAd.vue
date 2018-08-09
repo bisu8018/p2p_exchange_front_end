@@ -644,9 +644,6 @@
             }
         },
         methods: {
-            test_first(value) {
-                console.log(value);
-            },
             onNumberCheck(type) {
                 if (type === 'price') {
                     this.onCheckFixedPrice();

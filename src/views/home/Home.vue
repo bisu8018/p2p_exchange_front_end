@@ -38,7 +38,7 @@
         },
         computed: {
             isMobile() {
-                console.log(MainRepository.State.isMobile())
+                //console.log(MainRepository.State.isMobile())
                 return MainRepository.State.isMobile();
             },
             isFullSize() {
@@ -52,7 +52,7 @@
         beforeCreate: function() {
             // vuex store를 넘겨준다.
             MainRepository.init(this.$store, function() {
-                console.log("MainRepository");
+                //console.log("MainRepository");
             })
         },
         mounted() {

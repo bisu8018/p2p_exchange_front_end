@@ -11,6 +11,7 @@ import Trade from "@/vuex/model/Trade";
 import TradeService from "@/service/trade/TradeService";
 import {AxiosInstance} from "axios";
 import {toASCII} from "punycode";
+import AccountController from "@/vuex/controller/AccountController";
 
 
 let selectBoxController: SelectBoxController;
@@ -18,6 +19,7 @@ let listController : ListController;
 let stateController: StateController;
 let merchantController: MerchantController;
 let paginationController: PaginationController;
+let accountController: AccountController;
 
 let store: Store<any>;
 let instance: any;
@@ -83,7 +85,11 @@ export default {
         }
     },
     // User: {},
-    // Login: {},
+    Login: {
+        controller(): AccountController {
+            return accountController
+        }
+    },
     // SignUp: {},
 
     Service: {

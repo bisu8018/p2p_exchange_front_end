@@ -527,7 +527,6 @@
                         case 'SELL':
                             //sell 모드 일때는 trade password를 추가로 검증해야함.
                             if(this.onChecktradePassword()){
-                                console.log();
                                 this.$router.push("/sell");
                                 break;
                             }

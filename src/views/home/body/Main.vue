@@ -51,6 +51,8 @@
                 ]
             }
         },
+        created () {
+        },
         methods: {
             goLogin() {
                 this.$router.push("/login");

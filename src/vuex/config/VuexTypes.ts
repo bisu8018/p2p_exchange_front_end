@@ -25,6 +25,7 @@ export enum VuexTypes {
     SET_CURRENCY_DATA = 'selectbox/SET_CURRENCY_DATA',
     SET_PAYMENET_DATA = 'selectbox/SET_PAYMENET_DATA',
 
+
     //======================================
     //              TradeView
     // =====================================
@@ -43,10 +44,17 @@ export enum VuexTypes {
     // amount == limitMin
     //SET_LIMITMIN_DATA = 'trade/SET_LIMITMIN_DATA',
 
+
     //======================================
     //              Merchant
     // =====================================
     SET_MERCHANT_DATA = 'trade/SET_LIMITMIN_DATA',
+
+
+    //======================================
+    //              Account
+    // =====================================
+    SET_USER_DATA = 'account/SET_USER_DATA',
 
 
 
