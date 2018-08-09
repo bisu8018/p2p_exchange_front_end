@@ -5,13 +5,11 @@ import ListController from "@/vuex/controller/ListController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
 
-import {VuexTypes} from "@/vuex/config/VuexTypes";
 import AccountService from "@/service/account/AccountService";
 import Trade from "@/vuex/model/Trade";
 import TradeService from "@/service/trade/TradeService";
-import {AxiosInstance} from "axios";
-import {toASCII} from "punycode";
 import AccountController from "@/vuex/controller/AccountController";
+import Account from "@/vuex/model/Account";
 
 
 let selectBoxController: SelectBoxController;
@@ -33,6 +31,7 @@ export default {
         listController = new ListController(store);
         paginationController = new PaginationController(store);
         merchantController = new MerchantController(store);
+        accountController = new AccountController(store);
 
 
         // 자기 참조할 때 씀
@@ -86,8 +85,15 @@ export default {
     },
     // User: {},
     Login: {
-        controller(): AccountController {
-            return accountController
+        // 유저 정보 VUEX 저장
+        setUserInfo() {
+            AccountService.Account.getUserInfo(function (result) {
+                console.log(result);
+                let userInfo = new Account(result);
+                // var nextArr = JSON.stringify(tradeInfo)
+                // console.log(nextArr)
+                accountController.setUserInfo(userInfo);
+            });
         }
     },
     // SignUp: {},

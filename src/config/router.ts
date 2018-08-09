@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import AbMain from '../views/home/body/Main.vue'
+import PageNotFound from '../views/home/body/PageNotFound.vue'
 import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
@@ -136,6 +137,11 @@ export default new Router({
             path: '/resetTradePassword',
             name: 'resetTradePassword',
             component: RestTradePassword,
+        },
+        {
+            path: '*',
+            name: 'pageNotFound',
+            component: PageNotFound,
         },
 
     ],

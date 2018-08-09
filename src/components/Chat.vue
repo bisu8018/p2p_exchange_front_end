@@ -1,5 +1,5 @@
 <!--사용법-->
-<!--<chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>-->
+<!--<chat :nickName="nickName" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>-->
 
 
 <template>
@@ -7,13 +7,13 @@
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
                 <avatar
-                        :name=email[0]
+                        :name=nickName[0]
                         :isLogin=isLogin
-                        :color=color>
+                        :color=bgColor>
                 </avatar>
             </div>
             <div class="text-xs-left pt-twenty">
-                <span class="h5 bold color-black">{{email}}</span><br>
+                <span class="h5 bold color-black">{{nickName}}</span><br>
                 <span class="h6 color-darkgray">Trades in 30 days : {{transactionNum}}</span>
             </div>
             <v-spacer></v-spacer>
@@ -26,9 +26,9 @@
                 <div class="mb-3 display-flex" v-if="data.register_member_no != member_no">
                     <div>
                         <avatar
-                                :name=data.email[0]
-                                :isLogin=data.isLogin
-                                :color=data.color>
+                                :name=nickName[0]
+                                :isLogin= isLogin
+                                :color=bgColor>
                         </avatar>
                     </div>
                     <div class="pl-2">
@@ -54,9 +54,9 @@
                     </div>
                     <div>
                         <avatar
-                                :name=data.email[0]
-                                :isLogin=data.isLogin
-                                :color=data.color>
+                                :name=nickName[0]
+                                :isLogin=true
+                                :color=bgColor>
                         </avatar>
                     </div>
                 </div>
@@ -65,7 +65,10 @@
         <div class="pl-3 input-wrapper">
             <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
                    v-on:keydown.enter="onPost()" v-on:keyup.enter="scrollBottom()"/>
-            <div class="pr-3"><i class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
+            <div class="pr-3"><label><i
+                    class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
+                <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
+                       class="d-none" accept="image/*"/></label>
             </div>
         </div>
     </div>
@@ -75,33 +78,107 @@
     import Vue from 'vue';
     import MainRepository from "@/vuex/MainRepository";
     import Avatar from './Avatar.vue';
+    import ChatService from "../service/chat/ChatService";
+    import AccountService from "../service/account/AccountService";
 
     export default Vue.extend({
         name: 'chat',
         data: () => ({
             inputValue: "",
+            isLogin: false,
+            nickName: '',
+            bgColor: '',
+            transactionNum: '',
+
+            message : [],
+
+            //파일 첨부
+            file: '',
+            image: '',
         }),
         components: {
             Avatar
         },
-        props: ['email', 'transactionNum', 'isLogin', 'message', 'color', 'orderNumber', 'member_no'],
+        created() {
+            //상대방 정보 get AXIOS
+
+        },
+        props: ['orderNo'],
         mounted: function () {
+            this.scrollBottom();
+
             this.$nextTick(function () {
-                this.loadData();
+                this.getMessage();
+                this.getIsLogin();
                 setInterval(function () {
-                    this.loadData();
+                    this.getMessage();
+                    this.getIsLogin();
                 }.bind(this), 30000);
             })
         },
-        mounted () {
-            this.scrollBottom();
-        },
-        computed: {
-            setChatDate() {
-                return this.message;
-            },
-        },
         methods: {
+            getIsLogin() {
+                AccountService.Account.isUserActive({
+                        email: ''  //VUEX userInfo.nickname
+                    }, function (result,error) {
+                        if (!error) {
+                            this.isLogin = result;
+                        } else {
+                            console.log("getIsLogin ERROR ::::::: " + error);
+                        }
+                    }
+                )
+            },
+            getMessage: function () {
+                var date = Date.now();
+                console.log(date);
+                // 페이지 로딩 후 채팅 데이터 주기적 AXIOS get
+                ChatService.message.getMessage({
+                        email: '',  //VUEX userInfo.nickName
+                        dateTime:  date,
+                        orderNo : this.orderNo
+                    }, function (error) {
+                        if (!error) {
+
+                        } else {
+
+                        }
+                    }
+                )
+                //orderNumber, message_no 파라미터 전달
+
+                // $.get('/api/data', function (response) {
+                //     this.items = response.items;
+                // }.bind(this));
+
+                // data get 성공시 this.message.push();
+            },
+            onCheckAttachmentFile() {
+                //첨부파일 타입, 확장자, 용량 체크
+                let fileInfo = this.$refs.file.files[0];
+                let fileSize = fileInfo.size;
+                console.log(fileInfo);
+                if (fileSize > 500000) {
+                    // 용량 alert
+                    this.$eventBus.$emit('showAlert', 'chat_size');
+                    document.getElementById("file").value = "";
+                    return false;
+                }
+                //this.handleFileUpload();
+
+            },
+            handleFileUpload() {
+                //첨부파일 사진 등록 및 출력
+                this.file = this.$refs.file.files[0];
+                let image = new Image();
+                let reader = new FileReader();
+                let vm = this;
+
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(this.file);
+            },
             getDate(date) {
                 let dateTime = String(date).split(' ');
                 return dateTime[0];
@@ -113,33 +190,34 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-            loadData: function () {
-                // 페이지 로딩 후 채팅 데이터 주기적 AXIOS get
-                //orderNumber, message_no 파라미터 전달
-
-                // $.get('/api/data', function (response) {
-                //     this.items = response.items;
-                // }.bind(this));
-
-                // data get 성공시 this.message.push();
-            },
             onPost() {
-                // AXIOS post 작업 진행
+                // AXIOS post 전달
+                ChatService.message.postMessage({
+                    attachedImgUrl: "",
+                    message: this.inputValue,
+                    orderNo: this.orderNo,
+                }, function (error) {
+                    if (!error) {
+                        //post 성공시 작업 진행
+                        this.message.push(postMessage);
+                    } else {
+                        console.log("POST ERROR ::::::: " + error);
+                        //실패 시 alert 창 표출
+                    }
+                });
+
                 var postMessage = {
                     isLogin: true,
                     color: 'red',
-                    email: 'Max',
+                    nickName: 'Max',
                     message: this.inputValue,
                     register_member_no: this.member_no,
                     register_datetime: '2018-07-30 14:01:00',
                 };
 
-                //post 성공시 작업 진행
-                this.message.push(postMessage);
-
-                //실패 시 alert 창 표출
-
                 this.inputValue = "";
+
+
             },
             scrollBottom() {
                 var chatWrapper = document.getElementById("contentsWrapper");

@@ -35,6 +35,7 @@
 <script lang="ts">
     import Vue from 'vue';
     import AccountService from "../../../service/account/AccountService";
+    import MainRepository from "../../../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'abMain',
@@ -53,9 +54,8 @@
             }
         },
         created () {
-          AccountService.Account.getUserInfo(function (result) {
-              console.log(result);
-          });
+            // 유저 정보 VUEX 저장
+          MainRepository.Login.setUserInfo();
         },
         methods: {
             goLogin() {

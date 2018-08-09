@@ -35,7 +35,7 @@ export default {
         if (this.DEBUG()) {
           console.log('성공\nurl: ' + url + '\nres:\n' + JSON.stringify(response.data.result))
         }
-        success(response.data.result)
+        success(response.data.result);
       })
       .catch((error) => {
         if (error.response) {

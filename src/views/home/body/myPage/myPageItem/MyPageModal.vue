@@ -360,15 +360,7 @@
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
                 let fileInfo = this.$refs.file.files[0];
-                //let fileType = fileInfo.type.split("/")[0];
-                let fileExtension = fileInfo.type.split("/")[1];
                 let fileSize = fileInfo.size;
-                if (fileExtension != 'jpg' && fileExtension != 'png' && fileExtension != 'jpeg') {
-                    this.warning_attachment_file = true;
-                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileType');
-
-                    return false;
-                }
                 if (fileSize > 5000) {
                     this.warning_attachment_file = true;
                     this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileSize');

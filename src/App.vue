@@ -709,6 +709,12 @@
         color: white !important;
     }
 
+    .btn-white:hover {
+        background-color: white !important;
+        color: #316ee4 !important;
+        border: 1px solid #316ee4 !important;
+    }
+
     .text-white-hover:hover {
         color: #316ee4 !important;
     }

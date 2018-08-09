@@ -104,7 +104,7 @@
         </v-layout>
         <v-layout mt-4a>
           <v-flex xs4 offset-xs8 >
-            <button class="btn-white text-white-hover" @click="drawer = false">{{$str("cancel")}}</button>
+            <button class="btn-white " @click="drawer = false">{{$str("cancel")}}</button>
           </v-flex>
         </v-layout>
       </div>

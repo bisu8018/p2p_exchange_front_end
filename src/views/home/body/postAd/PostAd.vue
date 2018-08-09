@@ -114,7 +114,7 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3">{{Math.floor(getMarketPrice*fixedPrice*100)/100}} {{getCurrency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3">{{fixedPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
                     </div>
                 </div>
             </v-flex>
@@ -571,7 +571,6 @@
             let self = this;
             Common.info.getMarketPrice(function (data) {
                 self.marketPrice = data;
-                console.log(data);
             });
         },
         computed: {
@@ -579,7 +578,7 @@
                 return MainRepository.State.isMobile();
             },
             getCurrency() {
-                return MainRepository.SelectBox.controller().getCurrency()
+                return MainRepository.SelectBox.controller().getCurrency();
             },
             getMarketPrice(this:any) {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
@@ -593,7 +592,7 @@
                     if(this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency && this.marketPrice[i].currency === tmp_currency){
                         //console.log(this.marketPrice[i]);
                         let tmp_price = this.marketPrice[i].price;
-                        tmp_price = Math.floor(tmp_price*100)/100
+                        tmp_price = Math.floor(tmp_price*100)/100;
                         return  tmp_price;
                         break;
                     }

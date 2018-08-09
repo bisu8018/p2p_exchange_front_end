@@ -1,4 +1,4 @@
-export default class User {
+export default class Account {
     bgColor: string;
     email: string;
     membershipLevel: string;

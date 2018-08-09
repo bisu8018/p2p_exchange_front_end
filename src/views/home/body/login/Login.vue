@@ -45,7 +45,7 @@
                 <div class="mt-4a mb-4a orWrapper">
                     <div class="orTextWrapper"><span class="orText h6">or</span></div>
                 </div>
-                <button @click='goSignup' class="btn-blue-hover btn-white">{{$str("signupText")}}
+                <button @click='goSignup' class="btn-white">{{$str("signupText")}}
                 </button>
             </div>
         </v-flex>

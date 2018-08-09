@@ -153,7 +153,7 @@
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
 
                     <!--MyOrder-->
-                    <button class="button-2 mr-4a" @click="goMyOrder()">{{$str("MyOrder")}}</button>
+                    <button class="button-2 mr-4a" @click="goMyOrder()">{{$str("order")}}</button>
                     <!--Balances -->
                     <button class="button-2 mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
                     <!--내 정보 끝-->
@@ -174,9 +174,9 @@
                             </avatar>
                             <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
                         </div>
-                        <div class="dropdown-content" >
+                        <div class="dropdown-content avatar-dropdown" >
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
-                                {{$str("MyPage")}}
+                                {{$str("UserCenter")}}
                             </div>
                             <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyAds">
                                 {{$str("MyAds")}}
@@ -408,6 +408,10 @@
     .dropdown:hover .dropdown-content,
     .dropdown-content button {
         display: block;
+    }
+
+    .avatar-dropdown {
+        right: 135px;
     }
 
 

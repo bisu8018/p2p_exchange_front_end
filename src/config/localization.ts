@@ -2275,6 +2275,20 @@ const strings = new Map([
         JP: ''
     }],
 
+    //404 페이지
+    ['pageNotFound', {
+        KOR: '요청하신 페이지를 찾을 수 없습니다. 나중에 다시 시도해 주십시오.',
+        ENG: 'The page you are trying to reach is not available at the moment. Please try again later.',
+        CN: '',
+        JP: ''
+    }],
+    ['pageNotFoundBtn', {
+        KOR: '거래소로 이동',
+        ENG: 'Back to trading list',
+        CN: '',
+        JP: ''
+    }],
+
 
 
 

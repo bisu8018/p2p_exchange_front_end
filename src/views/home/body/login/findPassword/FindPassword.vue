@@ -79,7 +79,7 @@
 
 
                 <div class="text-xs-right">
-                    <button class="btn-white btn-blue-hover button-style" @click="goMyPage">{{$str('cancel')}}</button>
+                    <button class="btn-white button-style" @click="goMyPage">{{$str('cancel')}}</button>
                     <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onCheck()">{{$str('submit')}}
                     </button>
                 </div>

@@ -3,7 +3,7 @@
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
-                Order : #{{orderNumber}}
+                Order : #{{orderNo}}
 
             </div>
             <div class="h1 bold color-black text-xs-left mb-3 line-height-1 ">
@@ -237,7 +237,7 @@
 
         <div>
             <!--채팅창-->
-            <chat :email="email" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber" :member_no="member_no"></chat>
+            <chat :orderNo="orderNo"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -274,7 +274,7 @@
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
-            orderNumber: 115294828805587,
+            orderNo: 1,
             adType: 'BUY',
             volumeTotal: 0.1,
             token: 'ETH',
@@ -298,45 +298,6 @@
             transactionNum: 20,
             merchant_member_no: 0,
             member_no: 1,
-            message: [{
-                email : 'Charles',
-                color: '#13b0cb',
-                isLogin: true,
-                message_no: 1,
-                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
-                message_img_url: '',
-                register_member_no: 0,
-                register_datetime: '2018-07-30 13:00:00',
-            }, {
-                isLogin: true,
-                color: '#13b0cb',
-                email : 'Charles',
-                message_no: 0,
-                message: 'test1234',
-                message_img_url: '',
-                register_member_no: 0,
-                register_datetime: '2018-07-30 13:01:00',
-            }, {
-                isLogin: false,
-                color: 'red',
-                email : 'Max',
-                message_no: 2,
-                message: 'thank you!',
-                message_img_url: '',
-                register_member_no: 1,
-                register_datetime: '2018-07-30 13:10:00',
-            }, {
-                isLogin: true,
-                color: '#13b0cb',
-                email : 'Charles',
-                message_no: 3,
-                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
-                message_img_url: '',
-                register_member_no: 0,
-                register_datetime: '2018-07-30 13:12:00',
-            },
-            ]
-
 
         }),
         created() {

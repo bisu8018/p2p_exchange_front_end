@@ -52,22 +52,25 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
             this.$eventBus.$on('showAlert', (param) => {
                 switch (param) {
                     case 1 :
-                        this.showSuccessMessage("Success", "A Success Message")
-                        break
+                        this.showSuccessMessage("Success", "A Success Message");
+                        break;
                     case 2 :
-                        this.showWarningMessage("Warning", "A Waring Message")
-                        break
+                        this.showWarningMessage("Warning", "A Waring Message");
+                        break;
                     case 3 :
-                        this.showErrorMessage("Error", "A Error Message")
-                        break
+                        this.showErrorMessage("Error", "A Error Message");
+                        break;
                     case 4 :
-                        this.showWarningMessage("Notice", "Please enter account")
-                        break
+                        this.showWarningMessage("Notice", "Please enter account");
+                        break;
                     case 5 :
-                        break
+                        break;
+                    case 'chat_size' :
+                        this.showErrorMessage("Error", Vue.prototype.$str('warningAttachmentFileSize'));
+                        break;
 
                     default :
-                        break
+                        break;
 
                 }
             })

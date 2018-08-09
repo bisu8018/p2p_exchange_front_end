@@ -42,7 +42,7 @@
           <v-layout row wrap >
             <!--Transfer 버튼-->
             <v-flex xs5 md7 offset-md5 pl-0 >
-               <button class="btn-white text-white-hover bold mb-3" @click="showTransferModal = true">{{$str("Transfer")}}</button>
+               <button class="btn-white  bold mb-3" @click="showTransferModal = true">{{$str("Transfer")}}</button>
             </v-flex>
             <!--mobile에서 버튼사이 공간을 주기위한 spacer-->
             <v-spacer></v-spacer>
