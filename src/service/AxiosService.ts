@@ -82,6 +82,7 @@ export default {
   _requestWithUrlPram: function (url: string, type: string, data: any, success: any, failure: any) {
     data = data || {};
     let prams = qs.stringify(data);
+
     this._request(
       url + '?' + prams,
       type,

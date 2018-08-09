@@ -353,7 +353,6 @@
             },
             setEmail: function () {
                 var emailValue = this.email.split('@')[0];
-                console.log(emailValue);
                 return emailValue;
             }
         },
@@ -384,7 +383,6 @@
             handleFileUpload() {
                 //첨부파일 사진 등록 및 출력
                 this.file = this.$refs.file.files[0];
-                console.log(this.file);
                 let image = new Image();
                 let reader = new FileReader();
                 let vm = this;
@@ -467,7 +465,6 @@
             },
             onCheckTradePassword: function () {
                 if (this.tradePassword === '') {
-                    console.log(1);
                     this.warning_trade_password = true;
                     return false;
                 }

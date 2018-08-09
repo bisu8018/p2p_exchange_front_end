@@ -134,7 +134,7 @@
                     <!-- post AD 버튼 -->
                     <!-- default post AD 버튼-->
                     <div class="dropdown">
-                        <button class="ml-4a dropbtn">{{$str("postAd")}}</button>
+                        <button class="ml-4a dropbtn" @click="goPostGeneralAd">{{$str("postAd")}}</button>
                         <div class="dropdown-content " style="min-width: 140px;">
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostGeneralAd">
                                 {{$str("Post_General_AD")}}
@@ -165,7 +165,7 @@
                     <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
 
                     <!--아바타 (로그인 시 출력)-->
-                    <div class="mr-4a mt-2 dropdown c-pointer d-block">
+                    <div class="mr-4a mt-1 dropdown c-pointer d-block">
                         <div class="verticalcentertext dropbtn" @click="goMyPage">
                             <avatar
                                     :name="'T'"
