@@ -1,7 +1,10 @@
 <template>
-  <div class="footer">
-    <div class="flex">
-      <v-layout wrap row mt-4 mb-4 class="footerContainer">
+  <div>
+    <!--margin-top 64px를 주기위한 빈 div-->
+    <div style="padding-top: 64px; background-color: #ffffff"></div>
+    <!--footer시작-->
+    <div class="footer">
+      <v-layout wrap row pt-4 mb-4 class="footerContainer">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <div class="sprite-img ic-logo-otc mb-4a"></div>
@@ -46,10 +49,8 @@
           </a>
         </v-flex>
       </v-layout>
-    </div>
     <v-divider></v-divider>
     <!-- 언어설정버튼 -->
-    <div class="flex">
       <v-layout mt-4a mb-4a row wrap class="footerContainer">
         <v-flex md6 xs12 mb-1 text-md-left>
           <div class="dropup">
@@ -82,9 +83,8 @@
           <span>© 2018 allb.com</span>
         </v-flex>
       </v-layout>
-    </div>
-
   </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -113,9 +113,15 @@
 
 <style scoped>
   .footerContainer {
-    max-width: 1200px;
+    max-width: 1224px;
     margin-left: auto;
     margin-right: auto;
+  }
+  @media only screen and (max-width: 959px) {
+    .footerContainer {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
   }
 
   .footer {

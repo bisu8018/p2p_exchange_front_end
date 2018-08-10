@@ -1,6 +1,7 @@
 <template>
     <div>
-        <v-pagination v-model="currentPage" :length="pages" v-on:input="onChanged"></v-pagination>
+        <v-pagination v-model="currentPage" :length="pages" :total-visible="6"
+                      v-on:input="onChanged"></v-pagination>
     </div>
 </template>
 <script lang="ts">

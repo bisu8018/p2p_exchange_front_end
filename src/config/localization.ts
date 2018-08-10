@@ -1493,6 +1493,12 @@ const strings = new Map([
         CN: '请确保您的计算机和浏览器安全，并保护您的信息不被篡改或泄露。',
         JP: ''
     }],
+    ['balanceDetailsFilterPlaceholder', {
+        KOR: '날짜 / 타입 / 코인',
+        ENG: 'Time/Type/Coin',
+        CN: '订单日期/状态/编号/币种',
+        JP: ''
+    }],
     ['Exchange_Account', {
         KOR: '교환 계좌',
         ENG: 'Exchange Account',
@@ -1531,6 +1537,24 @@ const strings = new Map([
     }],
 
     //UserPage
+    ['Premium merchant', {
+        KOR: '프리미엄등급자',
+        ENG: 'Premium merchant',
+        CN: '额外费用零售商',
+        JP: ''
+    }],
+    ['Certified merchant', {
+        KOR: '인증등급자',
+        ENG: 'Certified merchant',
+        CN: '认证零售商',
+        JP: ''
+    }],
+    ['Phone', {
+        KOR: '보증금',
+        ENG: 'Phone',
+        CN: '保证金',
+        JP: ''
+    }],
     ['Phone', {
         KOR: '보증금',
         ENG: 'Phone',

@@ -58,10 +58,12 @@
                 </div>
             </div>
             <!-- pagination -->
-            <Pagination
-                    :size="pageSize"
-                    :type="pageType"
-            ></Pagination>
+            <div class="mt-5">
+                <Pagination
+                        :size="pageSize"
+                        :type="pageType"
+                ></Pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -326,6 +328,7 @@
                 //default filter값으로 list setting하기.
                 MainRepository.TradeView.initPage()
             }else {
+
                 MainRepository.TradeView.initPage();
             }
         },

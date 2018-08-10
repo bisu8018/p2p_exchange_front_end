@@ -2,26 +2,28 @@
   <div>
     <v-layout row wrap mt-5>
       <!--header-->
-      <v-flex md6 xs12 mb-4a pl-0 text-xs-left>
+      <v-flex md6 xs12 mb-4a text-xs-left>
         <h2 class="bold">{{$str("Balances")}}</h2>
       </v-flex>
-      <!--search filter 추가할것-->
-      <v-flex md6 xs12 text-xs-left text-md-right pr-0>
+      <!--toolBox들.-->
+      <v-flex md6 xs12 text-xs-left text-md-right >
         <v-layout row wrap justify-space-between>
           <div class="mb-2">
-            <span class="color-darkgray mr-1" @click="onWarning">{{$str("Estimated_Value")}}：</span>
-            <span >0.00000 BTC </span>
-            <span >≈ 0.00000</span>
-            <span class="ml-4 p-relative" >
-              <select v-model="currency"  class="select-currencybox">
-                <option v-for="currencyList in currencyLists" v-bind:value="currencyList.name" >{{currencyList.name}}</option>
-              </select>
-              <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
-            </span>
+            <label for="currencyBox">
+              <span class="color-darkgray mr-1">{{$str("Estimated_Value")}}：</span>
+              <span >0.00000 BTC </span>
+              <span >≈ 0.00000</span>
+              <span class="ml-4 p-relative"  >
+                <select v-model="currency"  id="currencyBox" class="select-currencybox color-blue">
+                  <option v-for="currencyList in currencyLists" v-bind:value="currencyList.name" >{{currencyList.name}}</option>
+                </select>
+                <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
+              </span>
+            </label>
           </div>
 
           <div class="mb-4a">
-            <span class="color-darkgray mr-2">{{$str("Security_Deposit")}}:</span>
+            <span class="color-darkgray mr-2" @click="showWarning">{{$str("Security_Deposit")}}:</span>
             <span> 000000</span>
           </div>
         </v-layout>
@@ -29,31 +31,56 @@
     </v-layout>
 
 
-
     <!--BalanceList-->
-    <div  v-for="tokenlist in tokenLists" >
-      <balance-token-list
-              :tokenlist="tokenlist"
-      ></balance-token-list>
-    </div>
+    <!--좌우 padding 맞추기용.-->
+    <v-flex>
+      <div class="cs-roundborder">
+        <div  v-for="tokenlist in tokenLists" >
+          <!--좌우 padding 맞춰주기 위해 사용.-->
+          <v-flex>
+            <balance-token-list
+                  :tokenlist="tokenlist"
+            ></balance-token-list>
+          </v-flex>
+          <v-divider></v-divider>
+        </div>
+      </div>
+    </v-flex>
 
-    <v-layout row wrap mt-5 mb-4a>
+    <v-layout row wrap mt-5 mb-3>
       <!--Detail header-->
-      <v-flex md8 xs12 text-xs-left>
+      <v-flex md8 xs12 text-xs-left mb-4>
         <h3 class="bold">{{$str("Details")}}</h3>
       </v-flex>
 
       <!--search filter -->
-      <v-flex md4 xs12 p-relative>
-        <v-layout row class="statusBox">
-            <div class="statusChip" >{{selectedDate}}</div>
-            <div class="statusChip">{{selectedType}}</div>
-            <div class=" statusChip">{{selectedToken}}</div>
-            <!-- 필터 펼치기 버튼 -->
-            <v-spacer></v-spacer>
-            <button @click.stop="isModal = !isModal">
-              <i class="material-icons color-darkgray" >filter_list</i>
-            </button>
+      <v-flex md4 xs12 p-relative mb-2>
+        <v-layout row wrap class="statusBox">
+          <div class="color-darkgray  p-relative  ma-2 d-inline-block"
+               v-if=" selectedDate === '' && selectedType === '' && selectedToken === ''">
+            {{$str("balanceDetailsFilterPlaceholder")}}</div>
+          <div class="statusChip" v-if="selectedDate != ''">
+            <v-layout align-center row fill-height>
+            {{selectedDate}}
+              <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('date')">close</i>
+            </v-layout>
+          </div>
+          <div class="statusChip" v-if="selectedType != ''">
+            <v-layout align-center row fill-height>
+              {{selectedType}}
+              <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('type')">close</i>
+            </v-layout>
+          </div>
+          <div class="statusChip" v-if="selectedToken != ''">
+            <v-layout align-center row fill-height>
+              {{selectedToken}}
+              <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('coin')">close</i>
+            </v-layout>
+          </div>
+          <!-- 필터 펼치기 버튼 -->
+          <v-spacer></v-spacer>
+          <i class="material-icons color-darkgray filter-img p-absolute c-pointer"
+             @click.stop="isModal = !isModal">filter_list</i>
         </v-layout>
 
         <!--필터링 card modal-->
@@ -116,21 +143,21 @@
       <v-layout mb-3 color-darkgray>
         <v-flex  md3 text-md-left>{{$str("Type")}}</v-flex>
         <v-flex  md3 text-md-left>{{$str("Coin")}}</v-flex>
-        <v-flex  md3 text-md-left>{{$str("Date")}}</v-flex>
+        <v-flex  md3 text-md-left>{{$str("time")}}</v-flex>
         <v-flex  md3 text-md-right>{{$str("amount")}}</v-flex>
       </v-layout>
-      <v-divider></v-divider>
+      <v-flex><v-divider></v-divider></v-flex>
     </div>
-
     <!--BalanceList-->
     <div  v-for="detailList in detailLists" >
       <balance-detail-list
               :detailList="detailList"
       ></balance-detail-list>
-      <v-divider></v-divider>
+      <v-flex><v-divider></v-divider></v-flex>
     </div>
-
+  <div class="mt-4">
     <Pagination></Pagination>
+  </div>
   </div>
 </template>
 
@@ -159,9 +186,9 @@
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
-            selectedDate : 'Date',
-            selectedType : 'Type',
-            selectedToken: 'Coin',
+            selectedDate : '',
+            selectedType : '',
+            selectedToken: '',
             clear: null,
             types : [
                 {name : 'Buy'},
@@ -174,7 +201,7 @@
             tokens : [
                 {name : 'BTC'},
                 {name : 'ETH'},
-                {name : 'USDT'},
+                // {name : 'USDT'},
                 {name : 'ALLB'},
             ],
             currencyLists : [
@@ -203,14 +230,14 @@
                     ExAvailable: 44.0,
                     ExFrozen : 1234,
                 },
-                {
-                    logo: 'USDT',
-                    name: 'USDT',
-                    OtcAvailable: 66.0,
-                    OtcFrozen: 224,
-                    ExAvailable: 44.0,
-                    ExFrozen : 1234,
-                },
+                // {
+                //     logo: 'USDT',
+                //     name: 'USDT',
+                //     OtcAvailable: 66.0,
+                //     OtcFrozen: 224,
+                //     ExAvailable: 44.0,
+                //     ExFrozen : 1234,
+                // },
                 {
                     logo: 'ALLB',
                     name: 'ALLB',
@@ -267,9 +294,20 @@
             onSearch(){
                 this.isModal = false;
             },
-            onWarning(){
-                this.$eventBus.$emit('showAlert', 2);
-            }
+            chipDelete (type) {
+                switch (type) {
+                    case 'date':
+                        this.selectedDate = '';
+                        break;
+                    case 'type':
+                        this.selectedType = '';
+                        break;
+                    case 'coin':
+                        this.selectedToken = '';
+                        break;
+                }
+            },
+            showWarning(){ this.$eventBus.$emit('showAlert', 2); }
 
         }
 
@@ -353,5 +391,14 @@
     color: #ffffff;
     margin-top: 7px;
     margin-bottom: 7px;
+  }
+
+  .filter-img {
+    right: 20px;
+    top: 8px;
+  }
+  .cs-roundborder{
+    border-radius: 2px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
   }
 </style>

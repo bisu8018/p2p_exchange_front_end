@@ -126,4 +126,13 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
     width: 290px;
     z-index: 999;
   }
+
+  @media only screen and (max-width: 959px) {
+    .notifications {
+      width: 98%;
+      left: 12px;
+      right: 0;
+
+    }
+  }
 </style>

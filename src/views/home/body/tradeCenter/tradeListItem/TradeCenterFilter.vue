@@ -106,7 +106,7 @@
 
       <!--buy 부분 -->
       <v-layout row v-else mb-5>
-        <v-flex md3 pl-0 pr-0>
+        <v-flex md3 pr-0>
           <v-layout column>
               <v-layout row mb-3>
                 <v-flex md3 offset-md2 text-md-left>
@@ -144,7 +144,7 @@
         </v-flex>
 
         <!-- Sell 부분 -->
-        <v-flex md3 pl-0 pr-0>
+        <v-flex md3 pl-0 >
           <v-layout column>
             <v-layout row mb-3>
               <v-flex md3 offset-md2 bold text-md-left>
@@ -175,7 +175,7 @@
 
 
         <!--right filter-->
-        <v-flex md4 offset-md1 pl-0 pr-0 class="cardParent">
+        <v-flex md4 offset-md1 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
             <h6  class="statusChip" >{{country}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
@@ -410,7 +410,7 @@
     padding: 16px 8px 24px 8px;
 
     width: 75%;
-    left: 25%;
+    left: 22%;
      top: 90px;
 
   }

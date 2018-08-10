@@ -17,106 +17,104 @@
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
-                <div class="dropDownBtn mt-6" v-if="drawer" @click.stop="drawer = !drawer">
-                    <v-layout row wrap class="dropDownMenu">
-                        <!-- TradeCenter버튼-->
-                        <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
-                            <button class="text-xs-left ml-3">
-                                <div right flat>{{$str("TradeCenter")}}</div>
-                            </button>
-                        </v-flex>
-                        <!-- BlockTrade 버튼-->
-                        <v-flex xs12 class="verticalcentertext" @click="goBlockTrade()">
+                <v-layout row wrap v-if="drawer" @click.stop="drawer = !drawer" class="dropDownMenu">
+                    <!-- TradeCenter버튼-->
+                    <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
+                        <button class="text-xs-left ml-3">
+                            <div right flat>{{$str("TradeCenter")}}</div>
+                        </button>
+                    </v-flex>
+                    <!-- BlockTrade 버튼-->
+                    <v-flex xs12 class="verticalcentertext" @click="goBlockTrade()">
 
-                            <button class="text-xs-left ml-3">
-                                <div flat>{{$str("BlockTrade")}}</div>
-                            </button>
-                        </v-flex>
-                        <!-- post AD 버튼 -->
-                        <v-flex xs12 class="verticalcentertext" @click.stop="postadDrawer = !postadDrawer">
+                        <button class="text-xs-left ml-3">
+                            <div flat>{{$str("BlockTrade")}}</div>
+                        </button>
+                    </v-flex>
+                    <!-- post AD 버튼 -->
+                    <v-flex xs12 class="verticalcentertext" @click.stop="postadDrawer = !postadDrawer">
 
-                            <button class="text-xs-left ml-3">
-                                <div>
-                                    <div>{{$str("postAd")}}</div>
-                                </div>
-                            </button>
-                        </v-flex>
-                        <!--post AD 눌렀을때 나오는 세부항목-->
-                        <div class="submenu">
-                            <div v-if="postadDrawer">
-                                <!--post general AD-->
-                                <v-flex xs12 class="verticalcentertext" @click="goPostGeneralAd">
-                                    <button class="text-xs-left ml-5">
-                                        <div flat>
-                                            {{$str("Post_General_AD")}}
-                                        </div>
-                                    </button>
-                                </v-flex>
-                                <!--post block AD-->
-                                <v-flex xs12 class="verticalcentertext" @click="goPostBlockAd">
-                                    <button class="text-xs-left ml-5">
-                                        <div>
-                                            {{$str("Post_Block_AD")}}
-                                        </div>
-                                    </button>
-                                </v-flex>
+                        <button class="text-xs-left ml-3">
+                            <div>
+                                <div>{{$str("postAd")}}</div>
                             </div>
+                        </button>
+                    </v-flex>
+                    <!--post AD 눌렀을때 나오는 세부항목-->
+                    <div class="submenu">
+                        <div v-if="postadDrawer">
+                            <!--post general AD-->
+                            <v-flex xs12 class="verticalcentertext" @click="goPostGeneralAd">
+                                <button class="text-xs-left ml-5">
+                                    <div flat>
+                                        {{$str("Post_General_AD")}}
+                                    </div>
+                                </button>
+                            </v-flex>
+                            <!--post block AD-->
+                            <v-flex xs12 class="verticalcentertext" @click="goPostBlockAd">
+                                <button class="text-xs-left ml-5">
+                                    <div>
+                                        {{$str("Post_Block_AD")}}
+                                    </div>
+                                </button>
+                            </v-flex>
                         </div>
+                    </div>
 
-                        <!-- login 버튼-->
-                        <v-flex xs12 class="verticalcentertext" @click="goLogin()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("loginText")}}</div>
-                            </button>
-                        </v-flex>
-                        <!-- signup 버튼-->
-                        <v-flex xs12 class="verticalcentertext" @click="goSignup()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("signupText")}}</div>
-                            </button>
-                        </v-flex>
+                    <!-- login 버튼-->
+                    <v-flex xs12 class="verticalcentertext" @click="goLogin()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("loginText")}}</div>
+                        </button>
+                    </v-flex>
+                    <!-- signup 버튼-->
+                    <v-flex xs12 class="verticalcentertext" @click="goSignup()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("signupText")}}</div>
+                        </button>
+                    </v-flex>
 
-                        <!-- 로그인시 추가되는 화면들-->
-                        <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("order")}}</div>
-                            </button>
-                        </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goBalances()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("Balances")}}</div>
-                            </button>
-                        </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("MyAds")}}</div>
-                            </button>
-                        </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goUserCenter()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("UserCenter")}}</div>
-                            </button>
-                        </v-flex>
+                    <!-- 로그인시 추가되는 화면들-->
+                    <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("order")}}</div>
+                        </button>
+                    </v-flex>
+                    <v-flex xs12 class="verticalcentertext" @click="goBalances()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("Balances")}}</div>
+                        </button>
+                    </v-flex>
+                    <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("MyAds")}}</div>
+                        </button>
+                    </v-flex>
+                    <v-flex xs12 class="verticalcentertext" @click="goUserCenter()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("UserCenter")}}</div>
+                        </button>
+                    </v-flex>
 
-                        <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("Merchant")}}</div>
-                            </button>
-                        </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("MyPage")}}</div>
-                            </button>
-                        </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("LogOut")}}</div>
-                            </button>
-                        </v-flex>
+                    <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("Merchant")}}</div>
+                        </button>
+                    </v-flex>
+                    <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("MyPage")}}</div>
+                        </button>
+                    </v-flex>
+                    <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
+                        <button class="text-xs-left ml-3">
+                            <div>{{$str("LogOut")}}</div>
+                        </button>
+                    </v-flex>
 
 
-                    </v-layout>
-                </div>
+                </v-layout>
             </div>
 
             <!-- 웹일때 -->
@@ -348,6 +346,7 @@
         z-index: 100;
         width: 100%;
         color: white;
+        top: 64px;
         background-color: #002970;
         position: fixed;
     }
