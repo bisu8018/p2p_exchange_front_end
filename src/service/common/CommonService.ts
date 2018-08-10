@@ -11,8 +11,8 @@ export default {
                     callback(data);
                     return;
                 },
-                function () {
-
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
     }

@@ -11,8 +11,8 @@ export default {
 
                     callback(data);
                 },
-                function () {
-
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
         postMessage: function (data: any, callback: any) {
@@ -20,7 +20,8 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function () {
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
     }

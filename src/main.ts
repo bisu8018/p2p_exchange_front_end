@@ -5,13 +5,13 @@ import plugins from "@/config/plugins";
 import configRouter from "@/config/router";
 import {sync} from "vuex-router-sync";
 import vuexStore from '@/vuex/config/store'
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 plugins(Vue);
 
-const store = new Vuex.Store(vuexStore)
-const router = configRouter
-sync(store, router)
+const store = new Vuex.Store(vuexStore);
+const router = configRouter;
+sync(store, router);
 
 const event = function event(Vue: any) {
     Vue.prototype.$eventBus = Vue.$eventBus = new Vue();
@@ -23,4 +23,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

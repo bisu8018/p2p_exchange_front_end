@@ -368,9 +368,9 @@
     }
 
     input[type="checkbox"]:checked + label span i{
-        padding-top: 3px;
-        padding-left: 3px;
-        font-size: 12px;
+        padding-top: 1px;
+        padding-left: 2px;
+        font-size: 15px;
         color: #214ea1;
         font-weight: bold;
         display: inline-block;
@@ -1385,10 +1385,15 @@
         height: 16px;
     }
 
+    .ic-404 {
+        background: 0px -772px;
+        width: 384px;
+        height: 356px;
+    }
 
 
     .sprite-img {
-        background-size: 384px 772px;
+        background-size: 384px 1128px;
         background-image: url(./assets/img/sprite_x2.png);
     }
 

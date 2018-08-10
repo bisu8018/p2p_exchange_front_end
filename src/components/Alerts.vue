@@ -63,7 +63,8 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4 :
                         this.showWarningMessage("Notice", "Please enter account");
                         break;
-                    case 5 :
+                    case 401 :
+                        this.showErrorMessage("401 Error", Vue.prototype.$str('401'));
                         break;
                     case 'chat_size' :
                         this.showErrorMessage("Error", Vue.prototype.$str('warningAttachmentFileSize'));

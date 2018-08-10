@@ -78,9 +78,6 @@
             VerifySlider,
         },
         methods: {
-            showWarning(){
-                this.$eventBus.$emit('showAlert', 4);
-            },
             goSignup() {
                 this.$router.push("/signup");
             },
@@ -90,6 +87,7 @@
             onLogin() {
                 //Send Email verification codes to Server
                 document.getElementById("loginForm").submit();
+
 
                 // 로그인 에러시
                 //this.showWarning;
