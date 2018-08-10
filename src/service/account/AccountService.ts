@@ -9,7 +9,8 @@ export default {
                 function (data: any) {
                 callback(data)
                 },
-                function () {
+                function (error) {
+                console.log("ERROR :::::::  " + error);
                 })
         },
         // 인증코드 전송
@@ -18,7 +19,8 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function () {
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
         // 인증코드 검증
@@ -27,7 +29,8 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function () {
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
         // 유져 정보 get
@@ -36,8 +39,8 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () {
-
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
         //유저 로그인 상태
@@ -46,8 +49,8 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () {
-
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
                 })
         },
     }

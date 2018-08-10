@@ -7,9 +7,7 @@
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
                 <avatar
-                        :name=nickName[0]
-                        :isLogin=isLogin
-                        :color=bgColor>
+                        :memberNo = member_no>
                 </avatar>
             </div>
             <div class="text-xs-left pt-twenty">
@@ -26,9 +24,7 @@
                 <div class="mb-3 display-flex" v-if="data.register_member_no != member_no">
                     <div>
                         <avatar
-                                :name=nickName[0]
-                                :isLogin= isLogin
-                                :color=bgColor>
+                                :memberNo = member_no>
                         </avatar>
                     </div>
                     <div class="pl-2">
@@ -54,9 +50,7 @@
                     </div>
                     <div>
                         <avatar
-                                :name=nickName[0]
-                                :isLogin=true
-                                :color=bgColor>
+                                :memberNo = member_no>
                         </avatar>
                     </div>
                 </div>
@@ -79,16 +73,12 @@
     import MainRepository from "@/vuex/MainRepository";
     import Avatar from './Avatar.vue';
     import ChatService from "../service/chat/ChatService";
-    import AccountService from "../service/account/AccountService";
     import {abUtils} from "../common/utils";
 
     export default Vue.extend({
         name: 'chat',
         data: () => ({
             inputValue: "",
-            isLogin: false,
-            nickName: '',
-            bgColor: '',
             transactionNum: '',
 
             message : [],
@@ -104,56 +94,27 @@
             //상대방 정보 get AXIOS
 
         },
-        props: ['orderNo'],
+        props: ['orderNo','merchant_member_no','customer_member_no'],
         mounted: function () {
             this.scrollBottom();
-
             this.$nextTick(function () {
                 this.getMessage();
-                this.getIsLogin();
                 setInterval(function () {
                     this.getMessage();
-                    this.getIsLogin();
                 }.bind(this), 5000);
             })
         },
         methods: {
-            // 유져 정보 AXIOS GET
-            getIsLogin() {
-                AccountService.Account.isUserActive({
-                        email: ''  //VUEX userInfo.nickname
-                    }, function (result,error) {
-                        if (!error) {
-                            this.isLogin = result;
-                        } else {
-                            console.log("getIsLogin ERROR ::::::: " + error);
-                        }
-                    }
-                )
-            },
             getMessage: function () {
                 // 메세지 AXIOS GET
-                let date = new Date().toISOString().substr(0,10);
-                let time = new Date().toISOString().substr(11,8);
-                let DT =  date + ' ' + time;
-
                 ChatService.message.getMessage({
                         email: '',  //VUEX userInfo.nickName
-                        dateTime:  DT,
+                        dateTime:  abUtils.getDateTime(),
                         orderNo : this.orderNo
-                    }, function (result,error) {
-                        if (!error) {
-                            this.message.push(result.message);
-                        } else {
-                            console.log('ERROR ::::::    ' + error);
-                        }
+                    }, function (result) {
+                        this.message.push(result.message);
                     }
                 )
-            },
-            getLocaleDt (time) {
-                // 현지시간으로 변경
-                var localeDate = new Date(time);
-                return localeDate;
             },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
@@ -198,14 +159,9 @@
                     attachedImgUrl: "",
                     message: this.inputValue,
                     orderNo: this.orderNo,
-                }, function (error) {
-                    if (!error) {
-                        //post 성공시 작업 진행
-                        this.message.push(postMessage);
-                    } else {
-                        console.log("POST ERROR ::::::: " + error);
-                        //실패 시 alert 창 표출
-                    }
+                }, function () {
+                    //post 성공시 작업 진행
+                    this.message.push(postMessage);
                 });
 
                 var postMessage = {
@@ -218,8 +174,6 @@
                 };
 
                 this.inputValue = "";
-
-
             },
             scrollBottom() {
                 var chatWrapper = document.getElementById("contentsWrapper");

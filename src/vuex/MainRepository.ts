@@ -89,13 +89,12 @@ export default {
         // 유저 정보 VUEX 저장
         setUserInfo() {
             AccountService.Account.getUserInfo(function (result) {
-                console.log(result);
                 let userInfo = new Account(result);
                 // var nextArr = JSON.stringify(tradeInfo)
                 // console.log(nextArr)
                 accountController.setUserInfo(userInfo);
             });
-        }
+        },
     },
     // SignUp: {},
 

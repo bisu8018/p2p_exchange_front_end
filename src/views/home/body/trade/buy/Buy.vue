@@ -237,7 +237,7 @@
 
         <div>
             <!--채팅창-->
-            <chat :orderNo="orderNo"></chat>
+            <chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -293,11 +293,9 @@
             status: 'pending',     //pending -> buying -> paid   그리고   cancel, appeal
             modalType: '',
             appealCode: 977057,
-            isLogin: true,
-            color: '#13b0cb',
             transactionNum: 20,
             merchant_member_no: 0,
-            member_no: 1,
+            customer_member_no: 1,
 
         }),
         created() {

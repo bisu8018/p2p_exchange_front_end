@@ -1,6 +1,6 @@
 <template>
   <span class="avatarWraaper">
-    <span class="mainCircle" v-bind:style="{background: color}">
+    <span class="mainCircle" v-bind:style="{background: bgColor}">
       <span class="firstWord">{{name}}</span>
     </span>
     <div class="loginCircle" v-bind:style="{background: loginColor}">
@@ -9,22 +9,21 @@
 </template>
 
 <script>
+    import AccountController from "../vuex/controller/AccountController";
+    import AccountService from "@/service/account/AccountService";
+
     export default {
         name: "Avatar",
-        props :{
-            name : {
-                type: String,
-                default : ''
-            },
-            isLogin :{
-                type: Boolean,
-                default : false
-            },
-            color :{},
-        },
+        props :['member_no'],
         data: () => ({
-            loginColor : '#C8C8C8'
+            loginColor : '',
+            name : '',
+            isLogin : false,
+            bgColor : '',
         }),
+        created() {
+            this.getIsLogin();
+        },
         mounted(){
             if(this.isLogin ===false){
                 this.loginColor ='#C8C8C8';
@@ -32,9 +31,19 @@
             else {
                 this.loginColor ='#59D817';
             }
-
+        },
+        methods : {
+            getIsLogin() {
+                var self = this;
+                AccountService.Account.isUserActive({
+                        member_no: self.member_no  //VUEX userInfo.email
+                    }, function (error) {
+                      this.isLogin = result;
+                    }
+                )
+            },
+            // 유져 정보 AXIOS GET
         }
-
     }
 </script>
 

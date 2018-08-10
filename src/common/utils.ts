@@ -94,6 +94,16 @@ export var abUtils = {
   toDeleteZero: function (amount: string): string {
     amount = amount || '';
     return amount.replace(/(^0+)/, "");
-  }
+  },
+  getDateTime: function () {
+      let date = new Date().toISOString().substr(0,10);
+      let time = new Date().toISOString().substr(11,8);
+      let DT =  date + ' ' + time;
+      return DT;
+  },
+    isLocaleDateTime: function (time){
+        let localeDate = new Date(time);
+        return localeDate;
+    }
 };
 

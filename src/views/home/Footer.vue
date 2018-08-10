@@ -113,7 +113,7 @@
 
 <style scoped>
   .footerContainer {
-    max-width: 1200px;
+    max-width: 1224px;
     margin-left: auto;
     margin-right: auto;
   }
