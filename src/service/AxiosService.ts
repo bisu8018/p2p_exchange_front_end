@@ -39,7 +39,6 @@ export default {
             success(response.data.result);
         }
           Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
-
       })
       .catch((error) => {
         if (error.response) {

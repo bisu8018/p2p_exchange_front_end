@@ -368,9 +368,9 @@
     }
 
     input[type="checkbox"]:checked + label span i{
-        padding-top: 3px;
-        padding-left: 3px;
-        font-size: 12px;
+        padding-top: 1px;
+        padding-left: 2px;
+        font-size: 15px;
         color: #214ea1;
         font-weight: bold;
         display: inline-block;

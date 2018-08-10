@@ -95,6 +95,9 @@ export default {
                 accountController.setUserInfo(userInfo);
             });
         },
+        getUserInfo() {
+            return accountController.getUserInfo();
+        }
     },
     // SignUp: {},
 

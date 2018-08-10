@@ -108,13 +108,11 @@
                                 <div>{{$str("MyPage")}}</div>
                             </button>
                         </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
-                            <button class="text-xs-left ml-3">
+                        <v-flex xs12 class="verticalcentertext">
+                            <button class="text-xs-left ml-3" @click="onLogout()">
                                 <div>{{$str("LogOut")}}</div>
                             </button>
                         </v-flex>
-
-
                     </v-layout>
                 </div>
             </div>
@@ -174,7 +172,7 @@
                             </avatar>
                             <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
                         </div>
-                        <div class="dropdown-content avatar-dropdown" >
+                        <div class="dropdown-content avatar-dropdown">
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
                                 {{$str("UserCenter")}}
                             </div>
@@ -184,9 +182,39 @@
                             <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
                                 {{$str("Merchant")}}
                             </div>
-                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
+                            <form action="http://13.125.249.179:8080/logout" method="post" id="logoutForm" @click="onLogout()">
+                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" >
                                 {{$str("LogOut")}}
                             </div>
+                            </form>
+                            <form action="http://13.125.249.179:8080/login" method="post" id="loginForm">
+                                <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
+                                <div class="p-relative mb-4"><input type="text" class="input" name="username" v-model="email"
+                                                                    @keyup="onCheckEmail"
+                                                                    :placeholder="loginEmailPlaceholder"
+                                                                    v-bind:class="{'warning-border' : warning_email}">
+                                    <div class="warning-text-wrapper">
+                                        <span class="d-none" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
+                                    </div>
+                                </div>
+                                <div class="text-xs-left mb-2 h5 color-black">{{$str("password")}}</div>
+                                <div class="p-relative mb-4">
+                                    <input name="password" v-model="password" type="password" class="input"
+                                           @keyup="onCheckPassword"
+                                           :placeholder="loginPasswordPlaceholder"
+                                           v-bind:class="{'warning-border' : warning_password}">
+                                    <div class="warning-text-wrapper">
+                                        <span class="d-none" v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 " v-if="email.length>0 && password.length>=8">
+                                    <!--<v-flex class="verifySlider" mb-4>-->
+                                    <div class="text-xs-left mb-2 h6 color-black">{{$str("verify")}}</div>
+                                    <verify-slider v-on:passcallback="putVerified"></verify-slider>
+                                </div>
+                                <!--<v-btn color="primary" type="submit" >Log In</v-btn>-->
+                            </form>
                         </div>
                     </div>
 
@@ -265,6 +293,9 @@
 
         }),
         methods: {
+            onLogout() {console.log(123);
+            document.getElementById("logoutForm").submit();
+            },
             goSignup() {
                 this.$router.push("/signup");
             },
@@ -413,7 +444,6 @@
     .avatar-dropdown {
         right: 135px;
     }
-
 
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
         display: block;

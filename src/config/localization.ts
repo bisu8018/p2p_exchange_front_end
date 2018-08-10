@@ -2289,6 +2289,12 @@ const strings = new Map([
         CN: '',
         JP: ''
     }],
+    ['pageNotFoundBtn', {
+        KOR: '거래소로 이동',
+        ENG: 'Back to trading list',
+        CN: '',
+        JP: ''
+    }],
 
     //alert
     ['401', {
