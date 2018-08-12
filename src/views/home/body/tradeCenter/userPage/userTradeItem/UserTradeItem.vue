@@ -6,7 +6,7 @@
     <!-- mobile 일때-->
     <div v-if="isMobile" class="p-relative">
       <!--거래 list -->
-      <div>
+      <div v-if="!drawer">
         <!-- name-->
         <!--userPage 일때-->
         <v-layout  mt-4 align-center fill-height>
@@ -43,7 +43,7 @@
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
           <v-flex xs2></v-flex>
-          <v-flex xs6 text-xs-left>
+          <v-flex xs5 text-xs-left>
             <a class="tooltip" v-if="user.bank_account.length >0">
               <div class="mr-2 sprite-img ic-bank f-left"></div>
               <span class="BankTooltip tooltip-content">Bank account</span>
@@ -58,7 +58,7 @@
             </a>
           </v-flex>
           <!--거래 버튼-->
-          <v-flex xs4 text-xs-right>
+          <v-flex xs5 text-xs-right>
             <button class="btn-rounded-blue medium" @click="drawer = !drawer">
               {{tradeType}} {{token}}</button>
           </v-flex>
@@ -66,7 +66,7 @@
       </div>
 
       <!--버튼 클릭시 거래를 위한 mobile modal-->
-      <div v-if="drawer" class="mobileModal">
+      <div v-else class="mobileModal">
         <!-- name-->
         <v-layout mt-4 align-center fill-height>
           <v-flex xs2 pl-2 >
@@ -82,15 +82,14 @@
             <button><i class="material-icons" @click="drawer = false">close</i></button>
           </v-flex>
         </v-layout>
-
         <!-- Volume -->
         <v-layout medium>
-          <v-flex xs3  offset-xs2 text-xs-left>
+          <v-flex xs4  offset-xs2 text-xs-left>
             <h5 class="color-darkgray">
               {{$str("Available")}} :
             </h5>
           </v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right>
+          <v-flex xs4 offset-xs1 text-xs-right>
             <h5>{{user.volumeTotal}} {{token}}</h5>
           </v-flex>
         </v-layout>
@@ -235,7 +234,8 @@
       </v-layout>
 
       <!--Buy 를 위한 modal-->
-      <div v-else class="tradeWebModal">
+      <v-flex v-else >
+        <div class="tradeWebModal">
         <v-layout row wrap>
           <v-flex md3 text-md-left >
             <v-layout pl-4 >
@@ -351,7 +351,8 @@
             </h6>
           </v-flex>
         </v-layout>
-      </div>
+        </div>
+      </v-flex>
     </div>
   </div>
 </template>
@@ -368,7 +369,7 @@
             toValue : '',
             fromValue : '',
             tradePassword : '',
-            token : 'BTC',      //현재 거래하고자 하는 coin
+            token : 'ALLB',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
             tradePW : '',       // Trade Password
             rankSrc : '',
@@ -509,7 +510,6 @@
     border-radius: 2px;
     background-color: #ffffff;
     width: 100%;
-    position: absolute;
     display: block;
     z-index: 1;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);

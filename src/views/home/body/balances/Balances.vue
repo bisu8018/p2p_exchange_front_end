@@ -391,6 +391,11 @@
     color: #ffffff;
     margin-top: 7px;
     margin-bottom: 7px;
+    cursor: pointer;
+  }
+
+  .statusChip:hover{
+    background-color: #c8c8c8;
   }
 
   .filter-img {

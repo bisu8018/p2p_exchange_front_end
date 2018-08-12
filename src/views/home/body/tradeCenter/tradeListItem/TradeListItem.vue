@@ -5,7 +5,7 @@
       <!--거래 list -->
       <div v-if="!drawer">
         <!-- name-->
-        <v-layout mt-4>
+        <v-layout mt-4  align-center fill-height>
           <v-flex xs2 text-xs-left>
             <avatar
               :name = user.email[0]
@@ -48,204 +48,207 @@
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
           <v-flex xs2></v-flex>
-            <v-flex xs6 text-xs-left>
-              <v-layout>
-                <a class="tooltip" v-if="user.bank_account.length >0">
-                  <div class="mr-2 sprite-img ic-bank "></div>
-                  <!--tooltip-->
-                  <span class="BankTooltip tooltip-content">Bank account</span>
-                </a>
-                <a class="tooltip" v-if="user.alipay_id.length >0">
-                  <div class="mr-2 sprite-img ic-alipay "></div>
-                  <!--tooltip-->
-                  <span class="tooltip-content">Alipay</span>
-                </a>
-                <a class="tooltip" v-if="user.wechat_id.length >0">
-                  <div class="mr-2 sprite-img ic-wechatpay "></div>
-                  <!--tooltip-->
-                  <span class="tooltip-content">Wechatpay</span>
-                </a>
-              </v-layout>
-            </v-flex>
-            <!--거래 버튼-->
-            <v-flex xs4 text-xs-right>
-              <div v-if="can_not_trade">
-                <h6 class="color-darkgray"> Need to</h6>
-                <h6 class="color-blue">{{do_not_trade_message}}</h6>
-              </div>
-              <div v-else>
-                <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-                  <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
-                </button>
-              </div>
-            </v-flex>
+          <v-flex xs5 text-xs-left>
+            <v-layout>
+              <a class="tooltip" v-if="user.bank_account.length >0">
+                <div class="mr-2 sprite-img ic-bank "></div>
+                <!--tooltip-->
+                <span class="BankTooltip tooltip-content">Bank account</span>
+              </a>
+              <a class="tooltip" v-if="user.alipay_id.length >0">
+                <div class="mr-2 sprite-img ic-alipay "></div>
+                <!--tooltip-->
+                <span class="tooltip-content">Alipay</span>
+              </a>
+              <a class="tooltip" v-if="user.wechat_id.length >0">
+                <div class="mr-2 sprite-img ic-wechatpay "></div>
+                <!--tooltip-->
+                <span class="tooltip-content">Wechatpay</span>
+              </a>
+            </v-layout>
+          </v-flex>
+          <!--거래 버튼-->
+          <v-flex xs5 text-xs-right>
+            <div v-if="can_not_trade">
+              <h6 class="color-darkgray"> Need to</h6>
+              <h6 class="color-blue">{{do_not_trade_message}}</h6>
+            </div>
+            <div v-else>
+              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+                <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
+              </button>
+            </div>
+          </v-flex>
         </v-layout>
       </div>
       <!-- Nicname 설정을 안했을경우 띄움-->
-      <div v-if="drawer&& !setNickName" class="mobileModal">
-        <v-layout>
-          <v-flex xs2 pl-2>
-            <avatar
-                    :name = user.email[0]
-                    :isLogin = user.isLogin
-                    :color = user.color>
-            </avatar>
-          </v-flex>
-          <v-flex xs10 text-xs-left mb-4>
-            <h5 class="medium color-blue">
-              {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
-              <a class="tooltip d-inline-block" v-if="user.rank==1">
-                <div class="sprite-img ic-premium ml-2"></div>
-                <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-              </a>
-              <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-                <div class="sprite-img ic-certified ml-2"></div>
-                <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-              </a>
-            </h5>
-            <h5 class="color-darkgray medium">
-              {{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}
-            </h5>
-          </v-flex>
-        </v-layout>
-        <v-layout >
-          <v-flex xs7  offset-xs2 text-xs-left>
-              <span class="color-darkgray">
-                {{$str("You need to complete the necessary transaction information.")}}
-              </span>
-              <span class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
-          </v-flex>
-        </v-layout>
-        <v-layout mt-4a>
+      <v-flex v-if="drawer&& !setNickName" >
+        <div class="mobileModal">
+          <v-layout>
+            <v-flex xs2 pl-2>
+              <avatar
+                      :name = user.email[0]
+                      :isLogin = user.isLogin
+                      :color = user.color>
+              </avatar>
+            </v-flex>
+            <v-flex xs10 text-xs-left mb-4>
+              <h5 class="medium color-blue">
+                {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                <a class="tooltip d-inline-block" v-if="user.rank==1">
+                  <div class="sprite-img ic-premium ml-2"></div>
+                  <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+                </a>
+                <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                  <div class="sprite-img ic-certified ml-2"></div>
+                  <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+                </a>
+              </h5>
+              <h5 class="color-darkgray medium">
+                {{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}
+              </h5>
+            </v-flex>
+          </v-layout>
+          <v-layout >
+            <v-flex xs7  offset-xs2 text-xs-left>
+                <span class="color-darkgray">
+                  {{$str("You need to complete the necessary transaction information.")}}
+                </span>
+                <span class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+            </v-flex>
+          </v-layout>
+          <v-layout mt-4a>
           <v-flex xs4 offset-xs8 >
             <button class="btn-white " @click="drawer = false">{{$str("cancel")}}</button>
           </v-flex>
         </v-layout>
-      </div>
+        </div>
+      </v-flex>
       <!--버튼 클릭시 거래를 위한 mobile modal-->
-      <div v-else-if="drawer" class="mobileModal">
-        <!-- name-->
-        <v-layout>
-          <v-flex xs2 pl-2>
-            <avatar
-                  :name = user.email[0]
-                  :isLogin = user.isLogin
-                  :color = user.color>
-          </avatar>
-          </v-flex>
-          <v-flex xs8 text-xs-left>
-            <v-layout>
-              <h5 class="medium color-blue">
-              {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
-              </h5>
-              <a class="tooltip d-inline-block" v-if="user.rank==1">
-                <div class="sprite-img ic-premium ml-2"></div>
-                <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-              </a>
-              <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-                <div class="sprite-img ic-certified ml-2"></div>
-                <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-              </a>
-            </v-layout>
-          </v-flex>
+      <v-flex v-else-if="drawer">
+        <div class="mobileModal">
+          <!-- name-->
+          <v-layout>
+            <v-flex xs2 pl-2>
+              <avatar
+                    :name = user.email[0]
+                    :isLogin = user.isLogin
+                    :color = user.color>
+            </avatar>
+            </v-flex>
+            <v-flex xs8 text-xs-left>
+              <v-layout>
+                <h5 class="medium color-blue">
+                {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                </h5>
+                <a class="tooltip d-inline-block" v-if="user.rank==1">
+                  <div class="sprite-img ic-premium ml-2"></div>
+                  <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+                </a>
+                <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                  <div class="sprite-img ic-certified ml-2"></div>
+                  <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+                </a>
+              </v-layout>
+            </v-flex>
 
-          <v-flex xs2 text-xs-center>
-            <button><i class="material-icons" @click="drawer = false">close</i></button>
-          </v-flex>
-        </v-layout>
-        <!-- Volume -->
-        <v-layout medium>
-          <v-flex xs3  offset-xs2 text-xs-left>
-            <h5 class="color-darkgray">
-              {{$str("Available")}} :
-            </h5>
-          </v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.volume}} {{user.cryptocurrency}}</h5>
-          </v-flex>
-        </v-layout>
-        <!-- Limits -->
-        <v-layout  medium>
-          <v-flex xs3  offset-xs2 text-xs-left>
-            <h5 class=" color-darkgray">
-              {{$str("limits")}} :
-            </h5>
-          </v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</h5>
-          </v-flex>
-        </v-layout>
-        <!-- Price -->
-        <v-layout medium>
-          <v-flex xs3  offset-xs2 text-xs-left>
-            <h5 class="color-darkgray">
-              {{$str("price")}} :
-            </h5>
-          </v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right>
-            <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</h5>
-          </v-flex>
-        </v-layout>
-        <!-- payment methods -->
-        <v-layout>
-          <v-flex xs3  offset-xs2 text-xs-left>
-            <h5 class="medium color-darkgray">
-              {{$str("payment")}}:
-            </h5>
-          </v-flex>
-          <v-flex xs5 offset-xs1 text-xs-right>
-            <div v-if="user.bank_account.length >0"
-                 class="ml-2 sprite-img ic-bank f-right"></div>
-            <div v-if="user.alipay_id.length >0"
-                 class="ml-2 sprite-img ic-alipay f-right"></div>
-            <div v-if="user.wechat_id.length >0"
-                 class="ml-2 sprite-img ic-wechatpay f-right"></div>
-          </v-flex>
-        </v-layout>
-        <v-layout mt-4>
-          <v-flex xs9 offset-xs2 text-xs-left >
-            <!--to input-->
-            <div class="p-relative">
-              <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
-                     :placeholder="user.currency" @blur="onChecktoValue"
-                     v-bind:class="{'warning-border' : warning_toValue}">
-              <div class="warning-text-wrapper">
-                <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
+            <v-flex xs2 text-xs-center>
+              <button><i class="material-icons" @click="drawer = false">close</i></button>
+            </v-flex>
+          </v-layout>
+          <!-- Volume -->
+          <v-layout medium>
+            <v-flex xs4  offset-xs2 text-xs-left>
+              <h5 class="color-darkgray">
+                {{$str("Available")}} :
+              </h5>
+            </v-flex>
+            <v-flex xs4 offset-xs1 text-xs-right>
+              <h5>{{user.volume}} {{user.cryptocurrency}}</h5>
+            </v-flex>
+          </v-layout>
+          <!-- Limits -->
+          <v-layout  medium>
+            <v-flex xs3  offset-xs2 text-xs-left>
+              <h5 class=" color-darkgray">
+                {{$str("limits")}} :
+              </h5>
+            </v-flex>
+            <v-flex xs5 offset-xs1 text-xs-right>
+              <h5>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</h5>
+            </v-flex>
+          </v-layout>
+          <!-- Price -->
+          <v-layout medium>
+            <v-flex xs3  offset-xs2 text-xs-left>
+              <h5 class="color-darkgray">
+                {{$str("price")}} :
+              </h5>
+            </v-flex>
+            <v-flex xs5 offset-xs1 text-xs-right>
+              <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</h5>
+            </v-flex>
+          </v-layout>
+          <!-- payment methods -->
+          <v-layout>
+            <v-flex xs3  offset-xs2 text-xs-left>
+              <h5 class="medium color-darkgray">
+                {{$str("payment")}}:
+              </h5>
+            </v-flex>
+            <v-flex xs5 offset-xs1 text-xs-right>
+              <div v-if="user.bank_account.length >0"
+                   class="ml-2 sprite-img ic-bank f-right"></div>
+              <div v-if="user.alipay_id.length >0"
+                   class="ml-2 sprite-img ic-alipay f-right"></div>
+              <div v-if="user.wechat_id.length >0"
+                   class="ml-2 sprite-img ic-wechatpay f-right"></div>
+            </v-flex>
+          </v-layout>
+          <v-layout mt-4>
+            <v-flex xs9 offset-xs2 text-xs-left >
+              <!--to input-->
+              <div class="p-relative">
+                <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
+                       :placeholder="user.currency" @blur="onChecktoValue"
+                       v-bind:class="{'warning-border' : warning_toValue}">
+                <div class="warning-text-wrapper">
+                  <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
+                </div>
               </div>
-            </div>
-            <!--from input-->
-            <div class="mt-3 p-relative">
-              <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="fromValue"
-                     :placeholder="user.cryptocurrency" @blur="onCheckfromValue"
-                     v-bind:class="{'warning-border' : warning_fromValue}">
-              <div class="warning-text-wrapper">
-                <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
-                  {{verify_warning_fromValue}}</p>
+              <!--from input-->
+              <div class="mt-3 p-relative">
+                <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="fromValue"
+                       :placeholder="user.cryptocurrency" @blur="onCheckfromValue"
+                       v-bind:class="{'warning-border' : warning_fromValue}">
+                <div class="warning-text-wrapper">
+                  <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
+                    {{verify_warning_fromValue}}</p>
+                </div>
               </div>
-            </div>
-            <!--trade PW. sell 일때만 활성화-->
-            <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
-              <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
-                     :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
-                     v-bind:class="{'warning-border' : warning_tradePassword}">
-              <div class="warning-text-wrapper">
-                <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
+              <!--trade PW. sell 일때만 활성화-->
+              <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
+                <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
+                       :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
+                       v-bind:class="{'warning-border' : warning_tradePassword}">
+                <div class="warning-text-wrapper">
+                  <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
+                </div>
               </div>
-            </div>
-          </v-flex>
-        </v-layout>
-        <v-layout mt-4a>
-          <v-flex xs9 offset-xs2 text-xs-left>
-            <button class="btn-blue" @click="goTrade">{{$str("confirm")}}</button>
-          </v-flex>
-        </v-layout>
-        <v-layout mt-4>
-          <v-flex xs9 offset-xs2 text-xs-left>
-            <h5 class="color-darkgray medium">{{$str("Payment_window_is_15minutes")}}</h5>
-          </v-flex>
-        </v-layout>
-        <!--user Memo가 있을시-->
-        <v-layout v-if="user.termsOfTransaction !== '' " mt-4>
+            </v-flex>
+          </v-layout>
+          <v-layout mt-4a>
+            <v-flex xs9 offset-xs2 text-xs-left>
+              <button class="btn-blue" @click="goTrade">{{$str("confirm")}}</button>
+            </v-flex>
+          </v-layout>
+          <v-layout mt-4>
+            <v-flex xs9 offset-xs2 text-xs-left>
+              <h5 class="color-darkgray medium">{{$str("Payment_window_is_15minutes")}}</h5>
+            </v-flex>
+          </v-layout>
+          <!--user Memo가 있을시-->
+          <v-layout v-if="user.termsOfTransaction.length >0 " mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
             <h6 class="color-darkgray medium">
               {{$str("userMemo")}}： <br>
@@ -253,7 +256,8 @@
             </h6>
           </v-flex>
         </v-layout>
-      </div>
+        </div>
+      </v-flex>
     </div>
 
     <!--Web 일때-->
@@ -336,11 +340,11 @@
                     {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
                   </span>
                       <!--판매자 rank-->
-                  <a class="tooltip" v-if="user.rank==1">
+                  <a class="tooltip d-inline-block" v-if="user.rank==1">
                     <div class="sprite-img ic-premium ml-2"></div>
                     <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
                   </a>
-                  <a class="tooltip" v-else-if="user.rank==2">
+                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
                     <div class="sprite-img ic-certified ml-2"></div>
                     <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
                   </a>
@@ -530,12 +534,10 @@
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
-            setNickName : false,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
+            setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
             clickToAll: true,              //tovalue부분의 input에 All button이 올라가 있게
             clickFromAll: true,            //fromvalue부분의 input에 All button이 올라가 있게
-
-
         }),
         props : {
             user: {},
@@ -686,12 +688,16 @@
 
   .BankTooltip{
     width: 101px;
+    left: 45% !important;
   }
   .premiumTooltip{
     width: 150px;
+    left: 75% !important;
   }
   .certifiedTooltip{
     width: 150px;
+    left: 75% !important;
+    bottom: 160% !important;
   }
 
   .tradeWebModal{
