@@ -30,27 +30,28 @@
         <v-layout justify-space-between row mt-4 color-darkgray  medium>
           <!-- < 화살표-->
           <i class="material-icons md-24 c-pointer"
-             @clicked="onMobileTokenClicked('left')"
+             @click="onMobileTokenClicked('left')"
              v-bind:class="{'color-blue' : !isRightClicked}"
           >keyboard_arrow_left</i>
-          <!--BTC 버튼-->
+          <!--token[0] 버튼-->
+          <!--v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"-->
           <button
-                v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"
-                @click="onMobileTokenClicked('BTC')"><h4>BTC</h4>
+                @click="onMobileTokenClicked(0)"><h4>{{tokens[0]}}</h4>
           </button>
-          <!-- ALLB 버튼 -->
+          <!-- token[1] 버튼. 활성화된 버튼 -->
+          <!--v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"-->
           <button
-                  v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"
-                  @click="onMobileTokenClicked('ALLB')"><h4>ALLB</h4>
+                 class="color-blue bold underline"
+                 @click="onMobileTokenClicked(1)"><h4>{{tokens[1]}}</h4>
           </button>
-          <!--ETH 버튼-->
+          <!--token[2]-->
+          <!--v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"-->
           <button
-                v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"
-                @click="onMobileTokenClicked('ETH')"><h4>ETH</h4>
+                @click="onMobileTokenClicked(2)"><h4>{{tokens[2]}}</h4>
           </button>
           <!-- > 화살표 -->
           <i class="material-icons md-24 c-pointer"
-             @clicked="onMobileTokenClicked('right')"
+             @click="onMobileTokenClicked('right')"
              v-bind:class="{'color-blue' : isRightClicked}"
           >keyboard_arrow_right</i>
         </v-layout>
@@ -262,21 +263,29 @@
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
-            isRightClicked : true, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
+            isRightClicked : false, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
 
             clicked : [
                 {isBTC : true},
                 {isETH : false},
                 {isALLB : false},
             ],
-            tokens : [
-
-            ],
-
             tradeType : 'Buy',
             tradeCoin: 'BTC',
 
         }),
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            tokens(){
+                return ['BTC', 'ALLB','ETH'];
+            },
+
+        },
+        beforeUpdate(){
+            console.log(this.tradeCoin);
+        },
         methods : {
             setBuyInfo(item){
                 this.tradeType = "Buy";
@@ -297,7 +306,7 @@
                 this.setTokenStyle(item);
                 //default data
 
-                if(item =='current'){     //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
+                if(item ==='current'){     //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
                     MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
                 else{
@@ -329,12 +338,30 @@
             },
             //모바일에서 token 변화를 눌렀을시
             onMobileTokenClicked(item){
-              if(this.tradeType == 'Buy'){
-                  this.setBuyInfo(item);
-              }
-              else{
-                  this.setSellInfo(item);
-              }
+                if(item ==='left' || item === 2){
+                    this.isRightClicked = false;
+                    let temp = this.tokens[0];
+                    this.tokens[0] = this.tokens[1];
+                    this.tokens[1] = this.tokens[2];
+                    this.tokens[2] = temp;
+                    item= this.tokens[1];    //아래의 분기처리를 위해 가운데 token의 값 넣어줌.
+                    console.log(this.tokens);
+                }
+                else if(item ==='right'|| item === 0){
+                    this.isRightClicked = true;
+                    let temp = this.tokens[2];
+                    this.tokens[2] = this.tokens[1];
+                    this.tokens[1] = this.tokens[0];
+                    this.tokens[0] = temp;
+                    item= this.tokens[1];
+                }
+                if(this.tradeType == 'Buy'){
+                    this.tradeCoin =
+                    this.setBuyInfo(item);
+                }
+                else{
+                    this.setSellInfo(item);
+                }
             },
             //rightfilter의 search 클릭시
             onSearch(){
@@ -351,11 +378,6 @@
                 this.amount = '';
                 //amount를 default로 초기화 시키고, 다시 list호출.
                 MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
-            },
-        },
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
             },
         },
     });
@@ -427,7 +449,6 @@
     background-color: #ffffff;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     padding: 16px 8px 24px 8px;
-
     width: 75%;
     left: 22%;
      top: 90px;
@@ -440,10 +461,25 @@
      left: 95%;
      margin-left: -8px;
      width: 0; height: 0;
+     border-style: solid;
      border-bottom: 8px solid  #ffffff;
      border-right: 8px solid transparent;
      border-left: 8px solid transparent;
-
+     border-color: transparent transparent  #ffffff transparent ;
+   }
+   .cardModal:before{
+     content: '';
+     position: absolute;
+     border-style: solid;
+     bottom: 100.3%;
+     left: 95%;
+     margin-left: -8px;
+     width: 0; height: 0;
+     border-width: 10px;
+     border-bottom: 8px solid  #ffffff;
+     border-right: 8px solid transparent;
+     border-left: 8px solid transparent;
+     border-color: transparent transparent #d8d8d8 transparent ;
    }
    /* filter card 가 mobile에선 width 100이므로
    mobile에서만 추가 선언.*/
@@ -473,6 +509,6 @@
     cursor: pointer;
   }
   .statusChip:hover{
-    background-color: #c8c8c8;
+    opacity: 0.8;
   }
 </style>

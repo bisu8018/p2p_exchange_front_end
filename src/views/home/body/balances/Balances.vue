@@ -319,12 +319,20 @@
   .select-currencybox{
     cursor: pointer;
     overflow: scroll;
+    color: #214ea1;
+    outline:0;
+  }
+  .select-currencybox:checked{
+    color: #353535;
 
   }
+  .select-currencybox:target{
+
+  }
+
   .comp-select-currencybox-icon{
     position: absolute;
     right: -18px;
-
   }
 
   .cardText{
@@ -365,6 +373,20 @@
     border-left: 8px solid transparent;
 
   }
+  .cardModal:before{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    bottom: 100.3%;
+    left: 95%;
+    margin-left: -8px;
+    width: 0; height: 0;
+    border-width: 10px;
+    border-bottom: 8px solid  #ffffff;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-color: transparent transparent #d8d8d8 transparent ;
+  }
   /* filter card 가 mobile에선 width 100이므로
   mobile에서만 추가 선언.*/
   @media only screen and (max-width: 959px) {
@@ -395,7 +417,7 @@
   }
 
   .statusChip:hover{
-    background-color: #c8c8c8;
+    opacity: 0.8;
   }
 
   .filter-img {
