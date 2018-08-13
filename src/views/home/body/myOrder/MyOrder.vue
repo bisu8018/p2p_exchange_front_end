@@ -2,7 +2,7 @@
     <div>
         <v-layout row wrap mt-5 mb-4a>
             <!--header-->
-            <div class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</div>
+            <v-flex xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
             <v-spacer></v-spacer>
             <v-flex md10 xs12>
                 <my-order-filter class="myOrderFilter"></my-order-filter>
@@ -12,32 +12,36 @@
         <div v-if="orderLists.length > 0">
             <!--mobile 일때-->
             <span v-if="isMobile">
-                <v-flex v-for="orderlist in orderLists" xs12 mb-4>
+                <div v-for="orderlist in orderLists" class="xs12 mb-4">
                     <my-order-list :orderlist="orderlist"></my-order-list>
                     <v-divider></v-divider>
-                </v-flex>
+                </div>
             </span>
             <span v-else>
             <!-- Web 일때-->
                 <!-- 표의 header들 -->
-                <v-layout mb-2 color-darkgray>
-                    <v-flex md1 text-md-left>{{$str("orderNo")}}</v-flex>
-                    <v-flex md2 text-md-left>{{$str("orderType")}}</v-flex>
+                <v-layout mb-2 color-darkgray row wrap>
+                    <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
+                    <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
                     <v-flex md1 text-md-left>{{$str("volumeText")}}</v-flex>
                     <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
                     <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
                     <v-flex md3 text-md-left>{{$str("time")}}</v-flex>
-                    <v-flex md1 text-md-left>{{$str("status")}}</v-flex>
-                    <v-flex md1 text-md-right>{{$str("counterparty")}}</v-flex>
+                    <v-flex md2>
+                        <v-layout justify-space-between>
+                            <span>{{$str("status")}}</span>
+                            <span>{{$str("counterparty")}}</span>
+                        </v-layout>
+                    </v-flex>
                 </v-layout>
-                <v-divider></v-divider>
+                <v-flex><v-divider></v-divider></v-flex>
                 <!-- user item list들 10개씩 출력-->
-                <v-flex v-for="(orderlist) in orderLists" >
+                <div v-for="(orderlist) in orderLists" >
                     <my-order-list
                             :orderlist="orderlist"
                     ></my-order-list>
-                    <v-divider></v-divider>
-                </v-flex>
+                    <v-flex><v-divider></v-divider></v-flex>
+                </div>
                 <!-- pagination -->
                 <!--<Pagination></Pagination>-->
             </span>

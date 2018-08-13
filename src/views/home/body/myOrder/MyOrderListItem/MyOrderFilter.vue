@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12 md10 >
+        <v-flex xs12 md10>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if=" date === '' && orderStatus === '' && orderNo === '' && coinType === '' && orderType === '' && tradeType === '' && currency === ''">{{$str("orderFilterPlaceholder")}}</div>
@@ -362,7 +362,7 @@ mobile에서만 추가 선언.*/
     }
 
     .flex {
-        padding-left: 0px;
-        padding-right: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
     }
 </style>7
