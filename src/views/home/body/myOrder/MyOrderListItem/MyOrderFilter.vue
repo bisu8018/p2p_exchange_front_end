@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12 md10 >
+        <v-flex xs12 md10>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if=" date === '' && orderStatus === '' && orderNo === '' && coinType === '' && orderType === '' && tradeType === '' && currency === ''">{{$str("orderFilterPlaceholder")}}</div>
@@ -314,7 +314,20 @@
         border-bottom: 8px solid #ffffff;
         border-right: 8px solid transparent;
         border-left: 8px solid transparent;
-
+    }
+    .card-modal:before{
+        content: '';
+        position: absolute;
+        border-style: solid;
+        bottom: 100.2%;
+        left: 95%;
+        margin-left: -8px;
+        width: 0; height: 0;
+        border-width: 10px;
+        border-bottom: 8px solid  #ffffff;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+        border-color: transparent transparent #d8d8d8 transparent ;
     }
 
     /* filter card 가 mobile에선 width 100이므로
@@ -342,10 +355,14 @@ mobile에서만 추가 선언.*/
         font-weight: 500;
         color: #ffffff;
         margin-bottom: 6px;
+        cursor: pointer;
+    }
+    .statusChip:hover{
+        opacity: 0.8;
     }
 
     .flex {
-        padding-left: 0px;
-        padding-right: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
     }
 </style>7

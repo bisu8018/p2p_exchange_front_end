@@ -2,7 +2,7 @@
   <div>
     <div v-if="isMobile" >
       <!-- name-->
-      <v-layout >
+      <v-layout>
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("OrderNumber")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue>{{orderlist.orderNum}}</v-flex>
       </v-layout>
@@ -47,22 +47,28 @@
     <!-- Web 일때-->
     <div v-else>
       <v-layout pt-4 pb-4>
-        <v-flex  md1 text-md-left color-blue>{{orderlist.orderNum}}</v-flex>
-        <v-flex  md2 text-md-left>
-             <span class="mr-4 color-green bold" v-if="orderlist.tradeType === 'sell'">
-                  {{$str("sell")}}
-                  </span>
-          <span class="mr-4 color-orange-price bold" v-if="orderlist.tradeType === 'buy'">
-                        {{$str("buy")}}
-                      </span>
-          {{orderlist.exType}}
+        <v-flex  md2 text-md-left color-blue>{{orderlist.orderNum}}</v-flex>
+        <v-flex  md1 text-md-left>
+          <v-layout justify-space-between>
+            <span class=" color-green bold" v-if="orderlist.tradeType === 'sell'">
+                    {{$str("sell")}}
+            </span>
+            <span class=" color-orange-price bold" v-if="orderlist.tradeType === 'buy'">
+                          {{$str("buy")}}
+            </span>
+            <span>{{orderlist.exType}}</span>
+          </v-layout>
         </v-flex>
         <v-flex  md1 text-md-left>{{orderlist.exNum}}</v-flex>
         <v-flex  md2 text-md-left>{{orderlist.totalPrice}}</v-flex>
         <v-flex  md1 text-md-left>{{orderlist.price}}</v-flex>
         <v-flex  md3 text-md-left>{{orderlist.time}}</v-flex>
-        <v-flex  md1 text-md-left>{{orderlist.status}}</v-flex>
-        <v-flex  md1 text-md-right>{{orderlist.partner}}</v-flex>
+        <v-flex  md2>
+          <v-layout justify-space-between>
+            <span>{{orderlist.status}}</span>
+            <span>{{orderlist.partner}}</span>
+          </v-layout>
+        </v-flex>
       </v-layout>
     </div>
   </div>
@@ -88,11 +94,6 @@
 
 <style scoped>
 
-  @media only screen and (min-width: 960px) {
-    .flex {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-  }
+
 
 </style>

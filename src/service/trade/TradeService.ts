@@ -6,7 +6,7 @@ export default {
         tradePage: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('ad', 'GET', data ,
                 function (data: any) {
-                    callback(data.result)
+                    callback(data)
                 },
                 function () {
                     console.log('실패');

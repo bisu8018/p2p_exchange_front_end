@@ -207,7 +207,12 @@
                             <div class="sprite-img ic-english f-left"></div>
                             <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
-                        <!-- 중국어 -->
+                        <!-- 중문번체 -->
+                        <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
+                            <div class="sprite-img ic-chinese f-left"></div>
+                            <span class=" ml-2">中國傳統<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                        </button>
+                        <!-- 중문간체 -->
                         <button v-else class="dropbtn  vertical-center">
                             <div class="sprite-img ic-chinese f-left"></div>
                             <span class="ml-2">简体中文<i
@@ -220,9 +225,11 @@
                             </div>
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
                             </div>
-                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">
-                                English
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">中國傳統
                             </div>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
+                            </div>
+
                         </div>
                     </div>
                 </v-layout>
@@ -257,6 +264,10 @@
                 {
                     title: '简体中文',
                     code: 'ZH'
+                },
+                {
+                    title: '中國傳統',
+                    code: 'HK'
                 },
                 {
                     title: 'English',

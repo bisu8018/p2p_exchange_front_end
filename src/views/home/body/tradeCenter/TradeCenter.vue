@@ -16,7 +16,7 @@
         <div>
             <!-- mobile 일때 -->
             <div v-if="isMobile">
-                <div  v-for="user in users" >
+                <div  v-for="user in TradeItemLists" >
                     <trade-list-item
                             :user="user"
                     ></trade-list-item>
@@ -50,7 +50,7 @@
                 <v-flex><v-divider></v-divider></v-flex>
 
                 <!-- user item list들 10개씩 출력-->
-                <div v-for="user in users"  >
+                <div v-for="user in TradeItemLists"  >
                     <trade-list-item
                             :user ="user"
                     ></trade-list-item>

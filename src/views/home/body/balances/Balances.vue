@@ -8,18 +8,21 @@
       <!--toolBox들.-->
       <v-flex md6 xs12 text-xs-left text-md-right >
         <v-layout row wrap justify-space-between>
-          <div class="mb-2">
-            <label for="currencyBox">
-              <span class="color-darkgray mr-1">{{$str("Estimated_Value")}}：</span>
-              <span >0.00000 BTC </span>
-              <span >≈ 0.00000</span>
-              <span class="ml-4 p-relative"  >
-                <select v-model="currency"  id="currencyBox" class="select-currencybox color-blue">
-                  <option v-for="currencyList in currencyLists" v-bind:value="currencyList.name" >{{currencyList.name}}</option>
-                </select>
-                <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
-              </span>
-            </label>
+          <div class="mb-2" style="display: inline-flex">
+            <span class="color-darkgray mr-1">{{$str("Estimated_Value")}}：</span>
+            <span >0.00000 BTC </span>
+            <span >≈ 0.00000</span>
+            <span class="ml-4 p-relative color-blue">
+              {{currency}}
+              <i class="material-icons">arrow_drop_down</i>
+              <!--div class="dropdown-content">
+                <div v-for="currencyList in currencyLists" class="btn-blue-hover c-pointer">
+                  {{currencyList.name}}</div>
+              </div>
+            <select v-model="currency"  id="currencyBox" class="select-currencybox color-blue">
+              <option v-for="currencyList in currencyLists" v-bind:value="currencyList.name" >{{currencyList.name}}</option>
+            </select-->
+            </span>
           </div>
 
           <div class="mb-4a">
@@ -183,7 +186,6 @@
             isAmout : true,
             isModal: false,
             country: 'China',
-            currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
             selectedDate : '',
@@ -319,11 +321,21 @@
   .select-currencybox{
     cursor: pointer;
     overflow: scroll;
+    color: #214ea1;
+    outline:0;
+  }
+  .select-currencybox:checked{
+    color: #353535;
 
   }
+  .select-currencybox:target{
+
+  }
+
   .comp-select-currencybox-icon{
     position: absolute;
-    right: -18px;
+    right: -20px;
+    top: 0px;
 
   }
 
@@ -365,6 +377,20 @@
     border-left: 8px solid transparent;
 
   }
+  .cardModal:before{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    bottom: 100.3%;
+    left: 95%;
+    margin-left: -8px;
+    width: 0; height: 0;
+    border-width: 10px;
+    border-bottom: 8px solid  #ffffff;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-color: transparent transparent #d8d8d8 transparent ;
+  }
   /* filter card 가 mobile에선 width 100이므로
   mobile에서만 추가 선언.*/
   @media only screen and (max-width: 959px) {
@@ -395,7 +421,7 @@
   }
 
   .statusChip:hover{
-    background-color: #c8c8c8;
+    opacity: 0.8;
   }
 
   .filter-img {
@@ -406,4 +432,37 @@
     border-radius: 2px;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
   }
+  /*.dropdown {*/
+    /*position: relative;*/
+  /*}*/
+
+  /*.dropbtn {*/
+    /*padding-top: 22px;*/
+    /*padding-bottom: 21px;*/
+    /*border: none;*/
+    /*float: left;*/
+  /*}*/
+
+
+  /*.dropdown-content {*/
+    /*display: none;*/
+    /*position: absolute;*/
+    /*color: black;*/
+    /*min-width: 48px;*/
+    /*box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);*/
+    /*z-index: 1;*/
+    /*top: 30px;*/
+    /*border-radius: 2px;*/
+    /*text-align: center;*/
+    /*background-color: white;*/
+
+  /*}*/
+
+
+  /*.dropbtn:hover .dropdown:hover .dropdown-content,*/
+  /*.dropdown-content {*/
+    /*display: block;*/
+  /*}*/
+
+
 </style>
