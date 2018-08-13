@@ -263,6 +263,9 @@
 
         }),
         methods: {
+            onLogout() {console.log(123);
+            document.getElementById("logoutForm").submit();
+            },
             goSignup() {
                 this.$router.push("/signup");
             },
@@ -346,7 +349,6 @@
         z-index: 100;
         width: 100%;
         color: white;
-        top: 64px;
         background-color: #002970;
         position: fixed;
     }
@@ -412,7 +414,6 @@
     .avatar-dropdown {
         right: 135px;
     }
-
 
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
         display: block;
