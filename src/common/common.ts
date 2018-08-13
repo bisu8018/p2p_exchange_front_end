@@ -40,3 +40,18 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
 export function deleteCookie(name) {
     if (getCookie(name)) document.cookie = name + "=" + ";expires=Thu, 01-Jan-70 00:00:01 GMT";
 }
+
+
+//firefox 동작 안됨
+export function doesHttpOnlyCookieExist(cookiename : string) {
+    var d = new Date();
+    d.setTime(d.getTime() + (1000));
+    var expires = "expires=" + d.toUTCString();
+
+    document.cookie = cookiename + "=new_value;path=/;" + expires;
+    if (document.cookie.indexOf(cookiename + '=') == -1) {
+        return true;
+    } else {
+        return false;
+    }
+}

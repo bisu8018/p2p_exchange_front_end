@@ -14,7 +14,7 @@ export default class AccountController {
     }
 
     getUserInfo() {
-        return this.store.state.account.UserInfo;
+        return this.store.state.account.getUserInfo;
     }
 }
 

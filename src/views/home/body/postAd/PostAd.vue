@@ -1,13 +1,14 @@
 <template>
     <div class=" mt-5">
-        <div class="text-xs-left h2 mb-4 pb-4a flex-divide bold">
+        <v-flex xs12 class="text-xs-left h2 mb-4  bold">
             {{message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject")}}
-        </div>
+            <v-divider class="mt-4"></v-divider>
+        </v-flex>
 
         <!--***************      첫번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4>
                 {{$str('postAdIn')}}
             </v-flex>
@@ -51,7 +52,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{$str("cryptoCurrency")}}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency" >
+                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
                             <option value="BTC">BTC</option>
                             <option value="ETH">ETH</option>
                             <option value="USDT">USDT</option>
@@ -60,12 +61,15 @@
                     </div>
                 </div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      두번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{$str('price')}}
             </v-flex>
@@ -114,7 +118,7 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3">{{fixedPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3" :class="{'pt-2':!isMobile}">{{fixedPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
                     </div>
                 </div>
             </v-flex>
@@ -129,12 +133,15 @@
                     <div class="price-explain color-darkgray">{{$str("priceExplain")}}</div>
                 </div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      세번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4>
                 {{$str('limits')}}
             </v-flex>
@@ -244,12 +251,15 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left color-darkgray line-height-1a">{{$str("paymentWindowExplain")}}</div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      네번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{$str('paymentMethod')}}
             </v-flex>
@@ -321,12 +331,16 @@
                     <a class="text-white-hover color-blue">{{$str("clickHereText")}}</a>
                 </div>
             </v-flex>
+
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      다섯번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{$str('autoReplyText')}}
             </v-flex>
@@ -340,13 +354,16 @@
                     </div>
                 </div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      여섯번째       *********-->
         <!--***************       섹션        *********-->
 
         <!--거래조항 입력-->
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{$str('termsTransactionText')}}
             </v-flex>
@@ -360,12 +377,15 @@
                     </div>
                 </div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      일곱번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{$str('counterpartyFilterText')}}
             </v-flex>
@@ -420,12 +440,15 @@
                     <div class="text-xs-left h6 color-darkgray">{{$str("counterpartyExplain")}}</div>
                 </div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      여덞번째       *********-->
         <!--***************       섹션        *********-->
 
-        <v-layout wrap row flex-divide pb-4 mb-4>
+        <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left v-if="!isMobile">
                 {{$str('tradePwText')}}
             </v-flex>
@@ -442,26 +465,28 @@
                     </div>
                 </div>
             </v-flex>
+            <v-flex xs12>
+                <v-divider class="mt-4"></v-divider>
+            </v-flex>
         </v-layout>
 
         <!--***************      아홉번째       *********-->
         <!--***************       섹션        *********-->
 
         <!--거래조항/이용약관-->
-        <v-layout wrap row pb-4 mb-4>
-            <v-flex xs12 md6 offset-md4>
-                <div class=" mb-4 display-flex">
-                    <div class="text-xs-left">
-                        <label class="mb-3">
-                            <input type="checkbox" v-model="agreeTerms" class="mr-3"/>{{$str("agreeTermsExplain")}}
-                        </label>
-                        <div class="d-inline-block">
-                            <a class=" color-blue common-text-hover">《{{$str("termsTrading")}}》</a>
-                        </div>
-                    </div>
-                </div>
+        <v-layout wrap row >
+            <v-flex xs12 md6 offset-md4  text-xs-left vertical-center>
+                    <input type="checkbox" id="terms_chkbox" v-model="agreeTerms" class="mr-3"/>
+                    <label for="terms_chkbox">
+                            <span>
+                                <i class="material-icons">done</i>
+                            </span>
+                        <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
+                    </label>
+                <a class=" color-blue common-text-hover" v-if="!isMobile">《{{$str("termsTrading")}}》</a>
             </v-flex>
-            <v-flex xs12 md3 offset-md4>
+            <a class=" color-blue common-text-hover ml-4 mt-1"  v-if="isMobile">《{{$str("termsTrading")}}》</a>
+            <v-flex xs12 md3 offset-md4 mt-4>
                 <!--슬라이드 바 인증-->
                 <div class="verify-slider-wrapper mb-4">
                     <div>
@@ -541,24 +566,24 @@
 
             // 후오비 정책
             officialMinLimit: [
-                {currency: 'CNY', minLimit: 100 },
-                {currency: 'USD', minLimit: 15 },
-                {currency: 'SGD', minLimit: 20 },
-                {currency: 'INR', minLimit: 1000 },
-                {currency: 'VND', minLimit: 350000 },
-                {currency: 'CAD', minLimit: 20 },
-                {currency: 'CNY', minLimit: 20 },
-                {currency: 'KRW', minLimit: 15000 },
-                {currency: 'CHF', minLimit: 15 },
-                {currency: 'TWD', minLimit: 500 },
-                {currency: 'RUB', minLimit: 1000 },
-                {currency: 'GBP', minLimit: 10 },
-                {currency: 'HKD', minLimit: 100 },
-                {currency: 'EUR', minLimit: 10 },
-                {currency: 'NGN', minLimit: 5000 },
-                {currency: 'IDR', minLimit: 200000 },
-                {currency: 'PHP', minLimit: 1000 },
-                {currency: 'KHR', minLimit: 60000 },
+                {currency: 'CNY', minLimit: 100},
+                {currency: 'USD', minLimit: 15},
+                {currency: 'SGD', minLimit: 20},
+                {currency: 'INR', minLimit: 1000},
+                {currency: 'VND', minLimit: 350000},
+                {currency: 'CAD', minLimit: 20},
+                {currency: 'CNY', minLimit: 20},
+                {currency: 'KRW', minLimit: 15000},
+                {currency: 'CHF', minLimit: 15},
+                {currency: 'TWD', minLimit: 500},
+                {currency: 'RUB', minLimit: 1000},
+                {currency: 'GBP', minLimit: 10},
+                {currency: 'HKD', minLimit: 100},
+                {currency: 'EUR', minLimit: 10},
+                {currency: 'NGN', minLimit: 5000},
+                {currency: 'IDR', minLimit: 200000},
+                {currency: 'PHP', minLimit: 1000},
+                {currency: 'KHR', minLimit: 60000},
             ],
 
             marketPrice: '',
@@ -580,30 +605,30 @@
             getCurrency() {
                 return MainRepository.SelectBox.controller().getCurrency();
             },
-            getMarketPrice(this:any) {
+            getMarketPrice(this: any) {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
                 let tmp_cryptoCurrency;
-                if(this.cryptocurrency === 'ETH'){
+                if (this.cryptocurrency === 'ETH') {
                     tmp_cryptoCurrency = 'ethereum';
-                }else{
+                } else {
                     tmp_cryptoCurrency = 'bitcoin';
                 }
-                for(var i = 0; i < Object.keys(this.marketPrice).length  ; i++){
-                    if(this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency && this.marketPrice[i].currency === tmp_currency){
+                for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
+                    if (this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency && this.marketPrice[i].currency === tmp_currency) {
                         //console.log(this.marketPrice[i]);
                         let tmp_price = this.marketPrice[i].price;
-                        tmp_price = Math.floor(tmp_price*100)/100;
-                        return  tmp_price;
+                        tmp_price = Math.floor(tmp_price * 100) / 100;
+                        return tmp_price;
                         break;
                     }
                 }
             },
-            getMinLimit(this:any) {
+            getMinLimit(this: any) {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                for(var i = 0; i < Object.keys(this.officialMinLimit).length  ; i++){
-                    if(this.officialMinLimit[i].currency === tmp_currency){
+                for (var i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
+                    if (this.officialMinLimit[i].currency === tmp_currency) {
                         let tmp_minLimit = this.officialMinLimit[i].minLimit;
-                        return  tmp_minLimit;
+                        return tmp_minLimit;
                         break;
                     }
                 }
@@ -960,11 +985,6 @@
     textarea:-ms-input-placeholder {
         color: #9294a6;
     }
-
-    .flex {
-        padding-left: 0px !important;
-    }
-
 
 </style>
 

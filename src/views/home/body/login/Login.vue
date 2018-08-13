@@ -7,7 +7,7 @@
                     <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
                     <div class="h2 bold">{{$str("welcome")}}</div>
                 </div>
-                <form action="http://13.125.249.179:8080/login" method="post" id="loginForm">
+                <form action="http://localhost:8080/login" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
                     <div class="p-relative mb-4"><input type="text" class="input" name="username" v-model="email"
                                                            @keyup="onCheckEmail"

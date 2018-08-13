@@ -81,6 +81,10 @@
         font-feature-settings: 'liga';
     }
 
+    .v-divider {
+        background: #d1d1d1 !important;
+    }
+
     /* Rules for sizing the icon. */
 
     .material-icons.md-12 {

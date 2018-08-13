@@ -61,59 +61,61 @@
                             </v-flex>
                         </div>
                     </div>
+                    <span v-if="!isLogin">
+                        <!-- login 버튼-->
+                        <v-flex xs12 class="verticalcentertext" @click="goLogin()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("loginText")}}</div>
+                            </button>
+                        </v-flex>
+                        <!-- signup 버튼-->
+                        <v-flex xs12 class="verticalcentertext" @click="goSignup()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("signupText")}}</div>
+                            </button>
+                        </v-flex>
+                    </span>
+                    <span v-if="isLogin">
+                        <!-- 로그인시 추가되는 화면들-->
+                        <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("order")}}</div>
+                            </button>
+                        </v-flex>
+                        <v-flex xs12 class="verticalcentertext" @click="goBalances()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("Balances")}}</div>
+                            </button>
+                        </v-flex>
+                        <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("MyAds")}}</div>
+                            </button>
+                        </v-flex>
+                        <v-flex xs12 class="verticalcentertext" @click="goUserCenter()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("UserCenter")}}</div>
+                            </button>
+                        </v-flex>
 
-                    <!-- login 버튼-->
-                    <v-flex xs12 class="verticalcentertext" @click="goLogin()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("loginText")}}</div>
-                        </button>
-                    </v-flex>
-                    <!-- signup 버튼-->
-                    <v-flex xs12 class="verticalcentertext" @click="goSignup()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("signupText")}}</div>
-                        </button>
-                    </v-flex>
-
-                    <!-- 로그인시 추가되는 화면들-->
-                    <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("order")}}</div>
-                        </button>
-                    </v-flex>
-                    <v-flex xs12 class="verticalcentertext" @click="goBalances()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("Balances")}}</div>
-                        </button>
-                    </v-flex>
-                    <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("MyAds")}}</div>
-                        </button>
-                    </v-flex>
-                    <v-flex xs12 class="verticalcentertext" @click="goUserCenter()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("UserCenter")}}</div>
-                        </button>
-                    </v-flex>
-
-                    <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("Merchant")}}</div>
-                        </button>
-                    </v-flex>
-                    <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("MyPage")}}</div>
-                        </button>
-                    </v-flex>
-                    <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
-                        <button class="text-xs-left ml-3">
-                            <div>{{$str("LogOut")}}</div>
-                        </button>
-                    </v-flex>
-
-
+                        <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("Merchant")}}</div>
+                            </button>
+                        </v-flex>
+                        <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
+                            <button class="text-xs-left ml-3">
+                                <div>{{$str("MyPage")}}</div>
+                            </button>
+                        </v-flex>
+                        <form action="http://localhost:8080/logout" method="post" ref="logout" @click="onLogout">
+                            <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
+                                <button class="text-xs-left ml-3">
+                                    <div>{{$str("LogOut")}}</div>
+                                </button>
+                            </v-flex>
+                        </form>
+                    </span>
                 </v-layout>
             </div>
 
@@ -151,42 +153,46 @@
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
 
                     <!--MyOrder-->
-                    <button class="button-2 mr-4a" @click="goMyOrder()">{{$str("order")}}</button>
+                    <button class="button-2 mr-4a" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
                     <!--Balances -->
-                    <button class="button-2 mr-4a" @click="goBalances()">{{$str("Balances")}}</button>
+                    <button class="button-2 mr-4a" @click="goBalances()" v-if="isLogin">{{$str("Balances")}}</button>
                     <!--내 정보 끝-->
 
 
                     <!-- login 버튼 -->
-                    <button class="button-2 mr-4a" @click="goLogin()">{{$str("loginText")}}</button>
+                    <button class="button-2 mr-4a" @click="goLogin()" v-if="!isLogin">{{$str("loginText")}}</button>
                     <!-- signup 버튼-->
-                    <button class="button-2 mr-4a" @click="goSignup()">{{$str("signupText")}}</button>
+                    <button class="button-2 mr-4a" @click="goSignup()" v-if="!isLogin">{{$str("signupText")}}</button>
 
-                    <!--아바타 (로그인 시 출력)-->
-                    <div class="mr-4a mt-1 dropdown c-pointer d-block">
-                        <div class="verticalcentertext dropbtn" @click="goMyPage">
-                            <avatar
-                                    :name="'T'"
-                                    :isLogin="true"
-                                    :color="'#13b0cb'" class=" mr-1 ">
-                            </avatar>
-                            <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+                    <span v-if="isLogin">
+                        <!--아바타 (로그인 시 출력)-->
+                        <div class="mr-4a mt-1 dropdown c-pointer d-block">
+                            <div class="verticalcentertext dropbtn" @click="goMyPage">
+                                <avatar
+                                        :me=true
+                                        class=" mr-1 ">
+                                </avatar>
+                                <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+                            </div>
+                            <div class="dropdown-content avatar-dropdown">
+                                <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
+                                    {{$str("UserCenter")}}
+                                </div>
+                                <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyAds">
+                                    {{$str("MyAds")}}
+                                </div>
+                                <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
+                                    {{$str("Merchant")}}
+                                </div>
+                                <form action="http://localhost:8080/logout" method="post" ref="logout"
+                                      @click="onLogout">
+                                    <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
+                                        {{$str("LogOut")}}
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="dropdown-content avatar-dropdown" >
-                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
-                                {{$str("UserCenter")}}
-                            </div>
-                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyAds">
-                                {{$str("MyAds")}}
-                            </div>
-                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
-                                {{$str("Merchant")}}
-                            </div>
-                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
-                                {{$str("LogOut")}}
-                            </div>
-                        </div>
-                    </div>
+                    </span>
 
                     <!-- 언어설정버튼 -->
                     <div class="dropdown mr-4a d-block">
@@ -227,7 +233,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import Avatar from '@/components/Avatar.vue';
 
@@ -244,7 +250,6 @@
             title: 'header',
             drawer: false,
             postadDrawer: false,
-
             languages: [{
                 title: '한국어',
                 code: 'KO'
@@ -259,12 +264,23 @@
                 },
             ],
             currentLang: 'KO',
-
-
         }),
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            isLogin() {
+                return MainRepository.Login.getUserInfo().email === '' ? false : true;
+            }
+        },
+        created() {
+            this.currentLang = abGetLang();
+
+        },
         methods: {
-            onLogout() {console.log(123);
-            document.getElementById("logoutForm").submit();
+
+            onLogout() {
+                this.$refs.logout.submit();
             },
             goSignup() {
                 this.$router.push("/signup");
@@ -319,15 +335,6 @@
                 abSetLang(userLang);
                 this.currentLang = userLang
             },
-
-        },
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            }
-        },
-        created() {
-            this.currentLang = abGetLang();
         },
 
     });

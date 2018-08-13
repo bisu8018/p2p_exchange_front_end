@@ -53,7 +53,6 @@ export enum VuexTypes {
     //              Account
     // =====================================
     SET_USER_INFO = 'account/SET_USER_INFO',
-    SET_USER_DATA = 'account/SET_USER_DATA',
 
 
 

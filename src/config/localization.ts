@@ -1026,7 +1026,7 @@ const strings = new Map([
         JP: ''
     }],
     ['complete', {
-        KOR: '완료, ',
+        KOR: '완료',
         ENG: 'Complete',
         CN: '已完成',
         JP: ''
@@ -1220,9 +1220,9 @@ const strings = new Map([
         JP: ''
     }],
     ['Export', {
-        KOR: '',
+        KOR: 'Export',
         ENG: 'Export',
-        CN: '',
+        CN: 'Export',
         JP: ''
     }],
     ['orderFilterPlaceholder', {

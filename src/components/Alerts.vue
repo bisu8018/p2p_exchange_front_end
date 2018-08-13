@@ -51,6 +51,9 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
         created() {
             this.$eventBus.$on('showAlert', (param) => {
                 switch (param) {
+                    case 0 :
+                        this.showSuccessMessage("Success", "");
+                        break;
                     case 1 :
                         this.showSuccessMessage("Success", "A Success Message");
                         break;

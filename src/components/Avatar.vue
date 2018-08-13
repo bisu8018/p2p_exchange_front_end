@@ -9,36 +9,50 @@
 </template>
 
 <script>
-    import AccountController from "../vuex/controller/AccountController";
     import AccountService from "@/service/account/AccountService";
+    import MainRepository from "../vuex/MainRepository";
 
     export default {
         name: "Avatar",
-        props :['member_no'],
+        props: ['member_no', 'email', 'me'],
         data: () => ({
-            loginColor : '',
-            name : '',
-            isLogin : false,
-            bgColor : '',
+            loginColor: '',
+            name: '',
+            bgColor: '',
         }),
         created() {
-            this.getIsLogin();
-        },
-        mounted(){
-            if(this.isLogin ===false){
-                this.loginColor ='#C8C8C8';
+            var self = this;
+            if (this.me === true) {
+                this.loginColor = '#59D817';
+                this.name = MainRepository.Login.getUserInfo().nickname === '' ? 'A' : MainRepository.Login.getUserInfo().nickname[0];
+                this.bgColor = MainRepository.Login.getUserInfo().bgColor;
+            } else {
+                //유저 정보 GET AXIOS
+
+
+
+                //3분마다 로그인 확인 갱신
+                setInterval(function () {
+                    self.getIsLogin();
+                },108000)
+
             }
-            else {
-                this.loginColor ='#59D817';
-            }
         },
-        methods : {
+        mounted() {
+
+        },
+        methods: {
             getIsLogin() {
                 var self = this;
                 AccountService.Account.isUserActive({
-                        member_no: self.member_no  //VUEX userInfo.email
+                        email: self.email  //VUEX userInfo.email
                     }, function (error) {
-                      this.isLogin = result;
+                        if (result === false) {
+                            this.loginColor = '#C8C8C8';
+                        }
+                        else {
+                            this.loginColor = '#59D817';
+                        }
                     }
                 )
             },
@@ -49,33 +63,35 @@
 
 <style scoped>
 
-  .avatarWraaper{
+    .avatarWraaper {
 
-    position : relative;
-  }
-  .mainCircle{
-    height: 34px;
-    width: 34px;
-    border-radius: 100%;
-    align-items: center;
-    display: flex;
+        position: relative;
+    }
 
+    .mainCircle {
+        height: 34px;
+        width: 34px;
+        border-radius: 100%;
+        align-items: center;
+        display: flex;
 
-}
-  .firstWord{
-    margin-left: auto;
-    margin-right: auto;
-    color: #ffffff;
-    font-size: 16px;
-  }
-  .loginCircle{
-    position: relative;
-    margin-top: -8px;
-    left: 24px;
-    height: 10px;
-    width: 10px;
-    border-radius: 100%;
-    border: solid 2px #ffffff;
-  }
+    }
+
+    .firstWord {
+        margin-left: auto;
+        margin-right: auto;
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    .loginCircle {
+        position: relative;
+        margin-top: -8px;
+        left: 24px;
+        height: 10px;
+        width: 10px;
+        border-radius: 100%;
+        border: solid 2px #ffffff;
+    }
 
 </style>

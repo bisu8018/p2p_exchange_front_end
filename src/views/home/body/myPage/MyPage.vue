@@ -10,28 +10,27 @@
                     <!--***************      첫번째       *********-->
                     <!--***************       섹션        *********-->
                     <big-avatar
-                            :name=user.nick_name[0]
-                            :isLogin=user.isLogin
-                            :color=user.color class="f-left mr-3">
+                            :me=true
+                            class="f-left mr-3">
                     </big-avatar>
-                    <h5 class="color-blue">{{user.nick_name}}</h5>
-                    <h5 class="color-darkgray">UID: {{user.uid}}</h5>
+                    <h5 class="color-blue">{{nickName}}</h5>
+                    <h5 class="color-darkgray">UID: {{emailVerification.memberNo}}</h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <!--***************      두번째       *********-->
                     <!--***************       섹션        *********-->
 
-                    <h5 class="color-darkgray">{{$str('trades')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span class="color-black">{{user.transaction_number}} {{$str('times')}}</span>
+                    <h5 class="color-darkgray">{{$str('trades')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span class="color-black">99999999999999 {{$str('times')}}</span>
                     </h5>
                     <h5 class="color-darkgray">{{$str('avgRelease')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span
-                            class="color-black">{{user.avg_release}} {{$str('minuteText')}}</span></h5>
+                            class="color-black">99999999999999 {{$str('minuteText')}}</span></h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <!--***************      세번째       *********-->
                     <!--***************       섹션        *********-->
 
-                    <h5 class="color-darkgray">{{$str('accountCreatedTime')}} {{getDate(user.dateTime)}}</h5>
-                    <h5 class="color-darkgray mb-5">{{getTime(user.dateTime)}} , {{$str('noRecord')}}</h5>
+                    <h5 class="color-darkgray">{{$str('accountCreatedTime')}} 99999999999999</h5>
+                    <h5 class="color-darkgray mb-5">99999999999999 , {{$str('noRecord')}}</h5>
 
                     <!--***************      네번째       *********-->
                     <!--***************       섹션        *********-->
@@ -40,8 +39,8 @@
                         <v-layout column>
                             <h4 class="bold mb-3">{{$str('accountSecurity')}}</h4>
                             <h5 class="color-darkgray text-md-right mb-3">{{$str('securityLevel')}} :&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span class="color-red" v-if="user.kyc_level === 1">{{$str('low')}}</span>
-                                <span class="color-orange" v-else-if="user.kyc_level === 2">{{$str('medium')}}</span>
+                                <span class="color-red" v-if="getSecurityLevel === 1">{{$str('low')}}</span>
+                                <span class="color-orange" v-else-if="getSecurityLevel === 2">{{$str('medium')}}</span>
                                 <span class="color-green" v-else>{{$str('high')}}</span></h5>
                         </v-layout>
                         <p class="text-xs-left color-darkgray">*{{$str('securityExplain')}}</p>
@@ -50,20 +49,20 @@
                             <v-flex xs8>
                                 <div class="sprite-img ic-email f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">{{$str('email')}}</h5>
-                                <h5 class="mb-3 ml-4 pl-3 color-black" v-if="user.kyc_email === 'y'">
+                                <h5 class="mb-3 ml-4 pl-3 color-black" v-if="emailVerification != ''">
                                     {{$str('bound')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
                             <v-flex xs4 class="mt-3  pr-3 text-xs-right">
-                                <h6 v-if="!user.kyc_email">
+                                <h6 v-if="emailVerification === ''">
                                     <a class="color-blue text-white-hover c-pointer">{{$str('bound')}}</a>
                                 </h6>
                                 <h6 v-else>
                                     <a class="color-darkgray text-white-hover c-pointer"
-                                       v-if="user.mail_status === 'activatied' && user.phone_status === 'activatied' && user.kyc_phone === 'y'&& user.kyc_email === 'y'"
+                                       v-if="emailVerification.status === 'turn_on' && user.phone_status === 'turn_on' && user.kyc_phone === 'y'&& user.kyc_email === 'y'"
                                        @click="goTurnOff">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer"
-                                       v-else-if="user.mail_status === 'deactivatied'&& user.kyc_email === 'y' "
+                                       v-else-if="emailVerification === 'turn_off'&& user.kyc_email === 'y' "
                                        @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
@@ -87,10 +86,10 @@
                                        @click="goLink('phone')">{{$str('bind')}}</a>
                                     <a class="color-darkgray text-white-hover c-pointer" v-if="user.kyc_phone === 'y'">{{$str('changePhone')}}</a>
                                     <a class="color-darkgray text-white-hover c-pointer ml-3"
-                                       v-if="user.mail_status === 'activatied' && user.phone_status === 'activatied' && user.kyc_phone === 'y'&& user.kyc_email === 'y'">{{$str('turnOff')}}</a>
+                                       v-if="emailVerification === 'turn_on' && user.phone_status === 'turn_on' && user.kyc_phone === 'y'&& user.kyc_email === 'y'">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer ml-3"
                                        @click="onModal('phoneTurnOn')"
-                                       v-else-if="user.kyc_phone === 'y' && user.phone_status === 'deactivatied'">{{$str('turnOn')}}</a>
+                                       v-else-if="user.kyc_phone === 'y' && user.phone_status === 'turn_off'">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -108,7 +107,7 @@
                             <v-flex xs12>
                                 <div class="sprite-img ic-uid f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">UID</h5><h5 class="ml-4 pl-3 color-black">
-                                {{user.uid}}</h5>
+                                {{emailVerification.memberNo}}</h5>
                             </v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
@@ -371,12 +370,11 @@
                 <!--***************       섹션        *********-->
                 <v-flex md3 text-md-left text-xs-left>
                     <big-avatar
-                            :name=user.nick_name[0]
-                            :isLogin=user.isLogin
-                            :color=user.color class="f-left mr-3">
+                            :me= true
+                            class="f-left mr-3">
                     </big-avatar>
-                    <h5 class="color-blue">{{user.nick_name}}</h5>
-                    <h5 class="color-darkgray">UID: {{user.uid}}</h5>
+                    <h5 class="color-blue">{{nickName}}</h5>
+                    <h5 class="color-darkgray">UID: {{emailVerification.memberNo}}</h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <h5 class="color-darkgray">{{$str('trades')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span class="color-black">{{user.transaction_number}} {{$str('times')}}</span>
@@ -415,10 +413,10 @@
                             </h6>
                                 <h6 v-else>
                                     <a class="color-darkgray text-white-hover c-pointer"
-                                       v-if="user.mail_status === 'activatied' && user.phone_status === 'activatied' && user.kyc_phone === 'y'&& user.kyc_email === 'y'"
+                                       v-if="emailVerification === 'turn_on' && user.phone_status === 'turn_on' && user.kyc_phone === 'y'&& user.kyc_email === 'y'"
                                        @click="goTurnOff">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer"
-                                       v-else-if="user.mail_status === 'deactivatied'&& user.kyc_email === 'y' "
+                                       v-else-if="emailVerification === 'turn_off'&& user.kyc_email === 'y' "
                                        @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
                                 </h6></v-flex>
                         </v-layout>
@@ -440,10 +438,10 @@
                                        @click="goLink('phone')">{{$str('bind')}}</a>
                                     <a class="color-darkgray text-white-hover c-pointer" v-if="user.kyc_phone === 'y'">{{$str('changePhone')}}</a>
                                     <a class="color-darkgray text-white-hover c-pointer ml-3"
-                                       v-if="user.mail_status === 'activatied' && user.phone_status === 'activatied' && user.kyc_phone === 'y'&& user.kyc_email === 'y'">{{$str('turnOff')}}</a>
+                                       v-if="emailVerification === 'turn_on' && user.phone_status === 'turn_on' && user.kyc_phone === 'y'&& user.kyc_email === 'y'">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer ml-3"
                                        @click="onModal('phoneTurnOn')"
-                                       v-else-if="user.kyc_phone === 'y' && user.phone_status === 'deactivatied'">{{$str('turnOn')}}</a>
+                                       v-else-if="user.kyc_phone === 'y' && user.phone_status === 'turn_off'">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                         </v-layout>
@@ -463,7 +461,7 @@
                             <v-flex md4>
                                 <div class="sprite-img ic-uid f-left mr-3"></div>
                                 <h5 class="color-darkgray">UID</h5></v-flex>
-                            <v-flex md3><h5>{{user.uid}}</h5></v-flex>
+                            <v-flex md3><h5>{{emailVerification.memberNo}}</h5></v-flex>
                             <v-flex md4></v-flex>
                             <v-flex md1></v-flex>
                         </v-layout>
@@ -659,7 +657,7 @@
         <!--결제수단 추가 모달-->
         <my-page-modal :show="showModal" :type="modalType" :phoneNo="user.phone_no" :email="user.email"
                        v-on:close="onClose" v-on:paymentMethod="getPaymentMethod"
-                       v-on:turnon="onTurnOn" v-on:nickName="getNickName"></my-page-modal>
+                       v-on:turnon="onTurnOn" v-on:nickName="nickName"></my-page-modal>
 
     </div>
 </template>
@@ -671,6 +669,7 @@
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
     import MyPageModal from './myPageItem/MyPageModal.vue';
+    import AccountService from "../../../../service/account/AccountService";
 
     export default {
         name: "MyPage",
@@ -680,12 +679,15 @@
             selection_security: false,
             showModal: false,
             modalType: '',
+
+            nickName: 1,//MainRepository.Login.getUserInfo().nickname,
+
+            emailVerification: '',
+            phoneVerification: '',
+
             user: {
-                mail_status: 'activatied',
-                phone_status: 'deactivated',
                 member_no: 1,
                 uid: 15198155,
-                nick_name: 'Test',
                 real_name: 'Kay',
                 id_no: '36**********51',
                 trade_no: 408125,
@@ -775,7 +777,7 @@
             ]
         }),
         mounted() {
-            if (this.user.nick_name === '') {
+            if (this.nickName === '') {
                 this.modalType = 'nickName';
                 this.showModal = true;
             }
@@ -784,6 +786,17 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            getSecurityLevel() {
+                let level = 1;
+                if(this.phoneVerification != ''){
+                    ++level;
+                }
+                if(this.nickName != ''){
+                    ++level;
+                }
+
+                return level;
+            }
         },
         methods: {
             onModal(type) {
@@ -836,7 +849,7 @@
             },
             //결제수단 추가 모달 data get 및 결제수단 표시 설정
             getPaymentMethod(value) {
-                // 결제수단 정보 AXIOS GET
+
 
                 //하기 코드 미사용 가능성 존재
                 if (value === 'alipay') {
@@ -879,11 +892,7 @@
             goReset() {
                 this.$router.push('/resetTradePassword');
             },
-            getNickName(value) {
-                this.user.nick_name = value;
-                // 전체 정보 AXIOS GET 성공 후 진행
-                this.showModal = false;
-            }
+
         }
     }
 </script>

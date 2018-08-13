@@ -5,17 +5,17 @@ import MainRepository from "@/vuex/MainRepository";
 export default {
     Account: {
         signup: function (data: any, callback: any) {
-            AxiosService._requestWithBody('member', 'POST', data ,
+            AxiosService._requestWithBody('member', 'POST', data,
                 function (data: any) {
-                callback(data)
+                    callback(data)
                 },
                 function (error) {
-                console.log("ERROR :::::::  " + error);
+                    console.log("ERROR :::::::  " + error);
                 })
         },
         // 인증코드 전송
         sendVerificationCode: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('signUpVerification', 'POST', data ,
+            AxiosService._requestWithUrlPram('signUpVerification', 'POST', data,
                 function (data: any) {
                     callback(data)
                 },
@@ -25,7 +25,7 @@ export default {
         },
         // 인증코드 검증
         checkVerificationCode: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('signUpVerification', 'PUT', data ,
+            AxiosService._requestWithUrlPram('signUpVerification', 'PUT', data,
                 function (data: any) {
                     callback(data)
                 },
@@ -35,7 +35,7 @@ export default {
         },
         // 유져 정보 get
         getUserInfo: function (callback: any) {
-            AxiosService._requestWithBody('member/my', 'GET', '' ,
+            AxiosService._requestWithBody('member/my', 'GET', '',
                 function (data: any) {
                     callback(data);
                 },
@@ -45,7 +45,7 @@ export default {
         },
         //유저 로그인 상태
         isUserActive: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('isUserActive', 'GET', data ,
+            AxiosService._requestWithUrlPram('isUserActive', 'GET', data,
                 function (data: any) {
                     callback(data);
                 },
@@ -53,6 +53,17 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
+    },
+    Verification: {
+        memberVerification: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('memberVerification', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
     }
 }
 

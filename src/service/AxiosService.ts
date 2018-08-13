@@ -7,7 +7,7 @@ export default {
   },
   getRootUrl: function () {
     if (window.location.hostname == 'localhost') {
-      return window.location.protocol + '//' + '13.125.249.179' + ':' + '8080' //window.location.port
+      return window.location.protocol + '//' + 'localhost' + ':' + '8080' //window.location.port
     } else {
       return window.location.protocol + '//' + window.location.hostname
     }
@@ -73,6 +73,7 @@ export default {
           // Something happened in setting up the request that triggered an Error
           console.log('Error', error)
         }
+
         console.log(error)
       }).then(() => {
       // always executed

@@ -11,6 +11,8 @@ import TradeItem from "@/vuex/model/TradeItem";
 import TradeService from "@/service/trade/TradeService";
 import AccountController from "@/vuex/controller/AccountController";
 import Account from "@/vuex/model/Account";
+import EmailVerification from "@/vuex/model/EmailVerification";
+import PhoneVerification from "@/vuex/model/PhoneVerification";
 
 
 let selectBoxController: SelectBoxController;
@@ -84,7 +86,22 @@ export default {
             return stateController.isMoblie();
         }
     },
-    // User: {},
+    MyPage: {
+        getMemberVerification: function () {
+            AccountService.Verification.memberVerification({
+                email : instance.Login.getUserInfo().email
+            },function (result) {
+                for(let i=0; i < result.length; i++){
+                    const result_tmp =  result[i];
+                    if(result_tmp.type === 'email'){
+                        let emailVerification = new EmailVerification(result_tmp);
+                    }else{
+                        let phoneVerification = new PhoneVerification(result_tmp);
+                    }
+                }
+            });
+        }
+    },
     Login: {
         // 유저 정보 VUEX 저장
         setUserInfo() {
