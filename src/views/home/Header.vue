@@ -185,7 +185,6 @@
                             <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
                                 {{$str("LogOut")}}
                             </div>
-                            </form>
                         </div>
                     </div>
 
