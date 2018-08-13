@@ -2,7 +2,7 @@
   <v-layout mt-5>
     <!--left filter-->
       <!-- mobile 일때 -->
-      <v-layout row wrap v-if="isMobile" >
+      <v-layout row wrap v-if="isMobile" mb-3>
         <!-- buy sell 버튼 -->
         <v-flex xs12>
           <div v-if="tradeType ==='Buy'">
@@ -29,7 +29,10 @@
           <!-- BTC ALLB ETH  버튼 -->
         <v-layout justify-space-between row mt-4 color-darkgray  medium>
           <!-- < 화살표-->
-          <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
+          <i class="material-icons md-24 c-pointer"
+             @clicked="onMobileTokenClicked('left')"
+             v-bind:class="{'color-blue' : !isRightClicked}"
+          >keyboard_arrow_left</i>
           <!--BTC 버튼-->
           <button
                 v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"
@@ -46,7 +49,10 @@
                 @click="onMobileTokenClicked('ETH')"><h4>ETH</h4>
           </button>
           <!-- > 화살표 -->
-          <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
+          <i class="material-icons md-24 c-pointer"
+             @clicked="onMobileTokenClicked('right')"
+             v-bind:class="{'color-blue' : isRightClicked}"
+          >keyboard_arrow_right</i>
         </v-layout>
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
@@ -103,10 +109,9 @@
       </v-layout>
 
       <!-- Web 일때 -->
-
       <!--buy 부분 -->
       <v-layout row v-else mb-5>
-        <v-flex md3 pl-0 pr-0>
+        <v-flex md3 pr-0>
           <v-layout column>
               <v-layout row mb-3>
                 <v-flex md3 offset-md2 text-md-left>
@@ -116,7 +121,9 @@
               </v-layout>
               <v-layout justify-space-between row medium color-darkgray>
                 <!-- < 화살표-->
-                  <button><i class="material-icons md-24">keyboard_arrow_left</i></button>
+                  <i class="material-icons md-24 c-pointer"
+                     v-bind:class="{'color-blue' : !isRightClicked}"
+                  >keyboard_arrow_left</i>
                 <!--BTC 버튼-->
                   <button
                         v-bind:class="{'color-blue underline bold' : clicked[0].isBTC && tradeType==='Buy'}"
@@ -134,7 +141,9 @@
                   </button>
 
                 <!-- > 화살표-->
-                  <button><i class="material-icons md-24">keyboard_arrow_right</i></button>
+                  <i class="material-icons md-24 c-pointer"
+                     v-bind:class="{'color-blue' : isRightClicked}"
+                  >keyboard_arrow_right</i>
               </v-layout>
           </v-layout>
         </v-flex>
@@ -144,7 +153,7 @@
         </v-flex>
 
         <!-- Sell 부분 -->
-        <v-flex md3 pl-0 pr-0>
+        <v-flex md3 pl-0 >
           <v-layout column>
             <v-layout row mb-3>
               <v-flex md3 offset-md2 bold text-md-left>
@@ -153,7 +162,10 @@
               <v-flex md5></v-flex>
             </v-layout>
             <v-layout justify-space-between row color-darkgray>
-              <i class="material-icons md-24">keyboard_arrow_left</i>
+              <!-- < 화살표-->
+              <i class="material-icons md-24 c-pointer"
+                 v-bind:class="{'color-blue' : !isRightClicked}"
+              >keyboard_arrow_left</i>
               <!--BTC 버튼-->
               <button
                     v-bind:class="{'color-blue underline bold' : clicked[0].isBTC && tradeType==='Sell'}"
@@ -168,14 +180,17 @@
                       v-bind:class="{'color-blue underline bold' : clicked[1].isETH && tradeType==='Sell'}"
                       @click="setSellInfo('ETH')"><h4>ETH</h4>
               </button>
-              <i class="material-icons md-24">keyboard_arrow_right</i>
+              <!-- > 화살표-->
+              <i class="material-icons md-24 c-pointer"
+                 v-bind:class="{'color-blue' : isRightClicked}"
+              >keyboard_arrow_right</i>
             </v-layout>
           </v-layout>
         </v-flex>
 
 
         <!--right filter-->
-        <v-flex md4 offset-md1 pl-0 pr-0 class="cardParent">
+        <v-flex md4 offset-md1 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
             <h6  class="statusChip" >{{country}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
@@ -247,11 +262,15 @@
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
+            isRightClicked : true, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
 
             clicked : [
                 {isBTC : true},
                 {isETH : false},
                 {isALLB : false},
+            ],
+            tokens : [
+
             ],
 
             tradeType : 'Buy',
@@ -410,7 +429,7 @@
     padding: 16px 8px 24px 8px;
 
     width: 75%;
-    left: 25%;
+    left: 22%;
      top: 90px;
 
   }
@@ -451,6 +470,9 @@
     color: #ffffff;
     margin-top: 7px;
     margin-bottom: 7px;
-
+    cursor: pointer;
+  }
+  .statusChip:hover{
+    background-color: #c8c8c8;
   }
 </style>

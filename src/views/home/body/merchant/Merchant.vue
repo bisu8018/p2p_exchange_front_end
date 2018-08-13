@@ -9,21 +9,21 @@
 
         <v-layout wrap row>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
-                <div class="section-border-depth pt-5 pb-5">
+                <div class="section-border-depth pt-5 pb-5 cardBox">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">{{$str("Advertising")}}</h2>
                     <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Merchants are able to post advertisements, flexible and covenient to trade.")}}</h4>
                 </div>
             </v-flex>
-            <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
-                <div class="section-border-depth pt-5 pb-5">
+            <v-flex xs12 md4 text-md-left text-xs-left class="mt-3 ">
+                <div class="section-border-depth pt-5 pb-5 cardBox">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3 medium">{{$str("Exclusive logo")}}</h2>
                     <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Verified merchants will have an exclusive logo to enhance reliability and trustworthiness.")}}</h4>
                 </div>
             </v-flex>
-            <v-flex xs12 md4 text-md-left text-xs-left class="mt-3">
-                <div class="section-border-depth pt-5 pb-72">
+            <v-flex xs12 md4 text-md-left text-xs-left class="mt-3 ">
+                <div class="section-border-depth pt-5 pb-72 cardBox">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">{{$str("One-to-one Service")}}</h2>
                     <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Merchants will enjoy our one-to-one exclusive service.")}}</h4>
@@ -34,17 +34,15 @@
         <!--merchant 등록을 안했을때 나오는 기본화면-->
         <div v-if="!alreadySuccess">
             <v-layout mt-4a mb-3 align-center justify-center row wrap>
-                    <div class=" p-relative vertical-center">
-                        <input type="checkbox" v-model="isAgree" id="termsCheckbox">
-                        <label for="termsCheckbox"><span><i class="material-icons">done</i></span></label>
-                        <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
-                    </div>
-                    <button>
-                        <span class="color-blue">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
-                    </button>
+                <div class=" p-relative vertical-center mb-2">
+                    <input type="checkbox" v-model="isAgree" id="termsCheckbox">
+                    <label for="termsCheckbox"><span><i class="material-icons">done</i></span></label>
+                    <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
+                </div>
+                <span class="color-blue mb-2 c-pointer">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
             </v-layout>
             <v-layout>
-                <v-flex xs12 md12 class="mb-6 mt-1">
+                <v-flex xs12 md12 class="mb-6">
                     <!--위의 checkbox를 눌렀을때에만 버튼 활성화-->
                     <button class="pl-4 pr-4 btn-apply " :class="{'btn-blue btn-blue-hover ': isAgree, 'inactive' : !isAgree}"
                             @click="showDialog">
@@ -379,6 +377,9 @@
 
     .btn-apply {
         width: auto !important;
+    }
+    .cardBox{
+        height: 378px;
     }
     .photobox{
         height: 148px;

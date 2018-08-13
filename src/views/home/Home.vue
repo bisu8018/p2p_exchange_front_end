@@ -29,16 +29,9 @@
             return {
                 isMobileMode: false,
             }
-
-            // if (this.$route.name === 'abMain') {
-            //  FullSize Main Class값에 물린 Data True
-            // } else {
-            //    FullSize Main Class값에 물린 Data False
-            // }
         },
         computed: {
             isMobile() {
-                //console.log(MainRepository.State.isMobile())
                 return MainRepository.State.isMobile();
             },
             isFullSize() {
@@ -96,7 +89,6 @@
       max-width: 100%;
     }
   }
-
 
   /* mobile 에서 gutter 주기*/
 

@@ -3,7 +3,12 @@
       <v-layout row wrap >
         <!--로고-->
         <v-flex md1 xs11 text-xs-left text-md-center >
-          <div class="pb-2 "><img :src="logoimg"></div>
+          <!--logo img-->
+          <div class="pb-2 d-inline-block">
+            <div class=" sprite-img ic-btc-lg" v-if="tokenlist.name =='BTC'"></div>
+            <div class=" sprite-img ic-eth-lg" v-else-if="tokenlist.name =='ETH'"></div>
+            <div class=" sprite-img ic-allb-lg" v-else-if="tokenlist.name =='ALLB'"></div>
+          </div>
           <div class=" mb-4">
             <h4 class="bold">{{tokenlist.name}}</h4>
           </div>
@@ -55,22 +60,23 @@
       </v-layout>
       <!--Transfer modal-->
       <v-dialog v-model="showTransferModal">
-        <v-layout row wrap>
-          <!--header-->
-          <v-flex xs6 text-xs-left >
-            <h3>{{$str("Transfer")}}</h3>
-          </v-flex>
-          <v-flex xs6 text-xs-right>
-            <button><i class="material-icons " @click="showTransferModal = false">close</i></button>
-          </v-flex>
-          <v-flex xs12 color-darkgray text-xs-left mt-3 mb-4>
+        <div>
+          <div class="cs-flex mb-3">
+            <!--header-->
+            <div class=" h4 bold text-xs-left">
+              {{$str("Transfer")}}
+            </div>
+            <v-spacer></v-spacer>
+            <i class="material-icons color-black c-pointer" @click="showTransferModal = false">close</i>
+          </div>
+          <div class="color-darkgray text-xs-left mt-3 mb-4">
             {{$str("Transfer_to_Exchange_account_to_withdraw")}}
-          </v-flex>
-          <v-flex xs12 text-xs-left>
+          </div>
+          <div class="text-xs-left">
             {{$str("Coin")}}
-          </v-flex>
+          </div>
           <!-- 1. Coin select 창-->
-          <v-flex xs12  mt-2 mb-4 >
+          <div class="mt-2 mb-4">
             <div class="p-relative">
               <select v-model="selectedToken" class="comp-selectbox">
                 <option v-for="token in tokens" v-bind:value="token.name" >
@@ -79,77 +85,86 @@
               </select>
               <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
             </div>
-          </v-flex>
-          <v-flex xs4 text-xs-left>{{$str("From")}}</v-flex>
-          <v-flex xs8 text-xs-right color-darkgray>
-            <h6>(OTC {{$str("Balances")}}: 0.0000{{tokenlist.name}})</h6>
-          </v-flex>
+          </div>
+          <div class="cs-flex">
+            <div class="text-xs-left">{{$str("From")}}</div>
+            <v-spacer></v-spacer>
+            <div class="text-xs-right color-darkgray">
+              <h6>(OTC {{$str("Balances")}}: 0.0000{{tokenlist.name}})</h6>
+            </div>
+          </div>
           <!-- 2. From select 창-->
-          <v-flex xs12 mt-2 mb-4>
+          <div class="mt-2 mb-4">
             <div class="p-relative">
               <select v-model="selectedFrom"  class="comp-selectbox">
                 <option v-for="from in froms" v-bind:value="from.name" >{{from.name}}</option>
               </select>
               <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
             </div>
-          </v-flex>
-          <v-flex xs4 text-xs-left>{{$str("To")}}</v-flex>
-          <v-flex xs8 text-xs-right color-darkgray >
-            <h6>(Exchange balance: 0.0000{{tokenlist.name}})</h6>
-          </v-flex>
+          </div>
+          <div class="cs-flex">
+            <div class="text-xs-left">{{$str("To")}}</div>
+            <v-spacer></v-spacer>
+            <div class="text-xs-right color-darkgray" >
+              <h6>(Exchange balance: 0.0000{{tokenlist.name}})</h6>
+            </div>
+          </div>
           <!-- 3. To select 창-->
-          <v-flex xs12 mt-2 mb-4>
+          <div class="mt-2 mb-4">
             <div class="p-relative">
               <select v-model="selectedTo"  class="comp-selectbox">
                 <option v-for="to in tos" v-bind:value="to.name" >{{to.name}}</option>
               </select>
               <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
             </div>
-          </v-flex>
-          <v-flex xs4 text-xs-left>{{$str("volume")}}</v-flex>
-          <v-flex xs8 text-xs-right color-darkgray>
-            <h6>(Exchange balance: 0.0000{{tokenlist.name}})</h6>
-          </v-flex>
+          </div>
+          <div class="cs-flex">
+            <div class="text-xs-left">{{$str("volume")}}</div>
+            <v-spacer></v-spacer>
+            <div class="text-xs-right color-darkgray">
+              <h6>(Exchange balance: 0.0000{{tokenlist.name}})</h6>
+            </div>
+          </div>
           <!-- 4. Volume select 창-->
-          <v-flex xs12 mt-2 mb-4>
+          <div class="mt-2 mb-4">
             <div class="p-relative">
               <input name="VolumeAccount" v-model="volume" type="text" class="input"
                      placeholder="Exchange Account" autocomplete="off" >
               <button class="click-All-text" @click="">{{$str("All")}}</button>
             </div>
-          </v-flex>
-          <v-flex xs12 text-xs-right>
+          </div>
+          <div class="text-xs-right">
             <button class="btn-rounded-white text-white-hover" @click="showTransferModal = false" >
               <h6>{{$str("cancel")}}</h6>
             </button>
             <button class="btn-rounded-blue btn-blue-hover" >
               <h6>{{$str("TransferNow")}}</h6>
             </button>
-          </v-flex>
-        </v-layout>
+          </div>
+
+        </div>
       </v-dialog>
       <!--Deposit modal-->
       <v-dialog v-model="showDepositModal">
         <v-layout row wrap>
           <!--header-->
-          <v-flex xs6 text-xs-left>
-            <h3>{{$str("Deposit")}} {{tokenlist.name}}</h3>
-          </v-flex>
-          <v-flex xs6 text-xs-right>
-            <button><i class="material-icons " @click="showDepositModal = false">close</i></button>
-          </v-flex>
+          <div class-="text-xs-left">
+            <h3 class="bold">{{$str("Deposit")}} {{tokenlist.name}}</h3>
+          </div>
+          <v-spacer></v-spacer>
+          <div class="text-xs-right">
+            <i class="material-icons color-black c-pointer" @click="showDepositModal = false">close</i>
+          </div>
           <v-flex xs12 color-darkgray text-xs-center mt-3 mb-4>
             {{tokenlist.name}} {{$str("Deposit_Address")}}
           </v-flex>
           <v-flex xs12>
             {{copyCode}}
           </v-flex>
-          <v-flex xs12  mt-3 mb-4>
-            <button>
+          <v-flex xs12 mt-3 mb-4>
               <h5 class="color-blue" @click.stop.prevent="onCopy()">
-                Copy
+                {{$str("Copy")}}
               </h5>
-            </button>
             <input type="hidden" :value="copyCode" id="copy-code" >
           </v-flex>
           <v-flex xs12 mt-2 mb-4>
@@ -160,7 +175,7 @@
           </v-flex>
           <div class="horizontalDivider">
           </div>
-          <v-flex xs12 mt-2 mb-4 text-xs-left color-darkgray >
+          <div class="mt-2 mb-4 text-xs-left color-darkgray">
             <div class="mb-3">
               <h6>
                 {{$str("BalanceDepositExplain1-1")}}
@@ -191,8 +206,7 @@
               {{$str("BalanceDepositExplain5")}}
               </h6>
             </div>
-          </v-flex>
-
+          </div>
         </v-layout>
       </v-dialog>
     </div>
@@ -205,7 +219,11 @@
             tokenlist : {},
         },
         data: () => ({
-            logoimg : '',
+            istoken :[
+                {isBTC : false},
+                {isETH : false},
+                {isALLB : false},
+            ],
             showTransferModal : false,
             showDepositModal : false,
             selectedToken: 'BTC',
@@ -260,18 +278,16 @@
 
         },
         mounted(){
-            switch (this.tokenlist.logo){
+            switch (this.tokenlist.name){
                 case 'BTC':
-                    this.logoimg = require('../../../../../assets/img/coin_btc.png');
+                    this.istoken[0].isBTC = true;
                     break;
                 case 'ETH':
-                    this.logoimg = require('../../../../../assets/img/coin_eth.png');
-                    break;
-                case 'USDT':
-                    this.logoimg = require('../../../../../assets/img/coin_usdt.png');
+                    this.istoken[0].isETH = true;
                     break;
                 case 'ALLB':
-                    this.logoimg = require('../../../../../assets/img/coin_allb.png');
+                    this.istoken[0].isALLB = true;
+                    break;
             }
         },
     }
@@ -279,9 +295,7 @@
 
 <style scoped>
   .tokenlistWraaper{
-    border-radius: 2px;
     background-color: #ffffff;
-    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
     min-height: 160px;
     padding-top: 32px;
     padding-bottom: 16px;
@@ -323,5 +337,8 @@
   .getOut {
     position: absolute;
     left: -1000px;
+  }
+  .cs-flex{
+    display: flex;
   }
 </style>

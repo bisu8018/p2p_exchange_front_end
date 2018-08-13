@@ -32,43 +32,43 @@
         <v-flex xs12><v-divider></v-divider></v-flex>
 
         <v-flex xs3 offset-xs2 text-xs-left mt-4>
-          <v-layout v-if="merchant.verifiedEmail">
+          <v-layout v-if="merchant.verifiedEmail" align-center>
             <h6>Email</h6>
             <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
         <v-flex xs7 text-xs-right mt-4>
-          <v-layout v-if="merchant.verifiedID" justify-end>
+          <v-layout v-if="merchant.verifiedID" justify-end align-center >
             <h6>ID Verification</h6>
             <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
         <v-flex xs3 offset-xs2 text-xs-left mt-3>
-          <v-layout v-if="merchant.verifiedPhone">
+          <v-layout v-if="merchant.verifiedPhone" align-center >
             <h6>Phone</h6>
             <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
         <v-flex xs7 text-xs-right mt-3>
-          <v-layout v-if="merchant.verifiedAdvanced" justify-end>
+          <v-layout v-if="merchant.verifiedAdvanced" justify-end align-center >
             <h6>Advanced Verification</h6>
             <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
       </v-layout>
       <!--SELL-->
-      <v-flex xs12 text-xs-left mt-5>
+      <v-flex xs12 text-xs-left mt-5 mb-2>
         <h3 class="bold">Online Sell</h3>
       </v-flex>
       <div  v-for="user in SellLists" >
-        <user-trade-item
-                :user="user"
-                :tradeType = "tradeType = 'SELL'"
-        ></user-trade-item>
+          <user-trade-item
+                  :user="user"
+                  :tradeType = "tradeType = 'SELL'"
+          ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
       <!--Buy-->
-      <v-flex text-xs-left mt-5>
+      <v-flex text-xs-left mt-5 mb-2>
         <h3 class="bold">Online Buy</h3>
       </v-flex>
       <div  v-for="user in BuyLists">
@@ -131,19 +131,19 @@
         </v-flex>
         <v-flex md9>
           <v-layout justify-end >
-            <div v-if="merchant.verifiedEmail">
+            <div v-if="merchant.verifiedEmail" class="vertical-center">
               <h6 class="veri_icon">{{$str("email")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
             </div>
-            <div v-if="merchant.verifiedPhone">
+            <div v-if="merchant.verifiedPhone" class="vertical-center">
               <h6 class="veri_icon">{{$str("Phone")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
             </div>
-            <div v-if="merchant.verifiedID">
+            <div v-if="merchant.verifiedID" class="vertical-center">
               <h6 class="veri_icon">{{$str("ID_Verification")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
             </div>
-            <div v-if="merchant.verifiedAdvanced">
+            <div v-if="merchant.verifiedAdvanced" class="vertical-center">
               <h6 class="veri_icon">{{$str("Advanced_Verification")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 veri_icon"></h6>
             </div>
@@ -306,19 +306,19 @@
                     alipay_id : '789',
 
                 },
-                {
-                    Coin: 'USDT',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
-                    price: 224,
-                    adType: 44.0,
-                    tradeRate: 99,
-                    memo: '',
-                    bank_account : '123',
-                    wechat_id : '456',
-                    alipay_id : '',
-
-                },
+                // {
+                //     Coin: 'USDT',
+                //     volumeTotal: 119,
+                //     limitMax: 66.0,
+                //     price: 224,
+                //     adType: 44.0,
+                //     tradeRate: 99,
+                //     memo: '',
+                //     bank_account : '123',
+                //     wechat_id : '456',
+                //     alipay_id : '',
+                //
+                // },
                 {
                     Coin: 'ALLB',
                     volumeTotal: 119,
