@@ -1038,7 +1038,7 @@ const strings = new Map([
         HK: ''
     }],
     ['complete', {
-        KOR: '완료, ',
+        KOR: '완료',
         ENG: 'Complete',
         CN: '已完成',
         HK: ''
@@ -1793,25 +1793,25 @@ const strings = new Map([
         HK: ''
     }],
     ['low', {
-        KOR: '저',
+        KOR: '낮음',
         ENG: 'Low',
         CN: '低',
         HK: ''
     }],
     ['medium', {
-        KOR: '중',
+        KOR: '중간',
         ENG: 'Medium',
         CN: '中',
         HK: ''
     }],
     ['high', {
-        KOR: '고',
+        KOR: '높음',
         ENG: 'High',
         CN: '高',
         HK: ''
     }],
     ['bound', {
-        KOR: '연동',
+        KOR: '연동완료',
         ENG: 'Bound',
         CN: '绑定',
         HK: ''
@@ -2415,7 +2415,6 @@ export function abGetLang (): Lang {
 
 export function abSetLang (lang: Lang) {
     currentLang = lang;
-
     deleteCookie('language');
 
     switch (lang) {
