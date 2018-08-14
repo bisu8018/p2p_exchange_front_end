@@ -14,7 +14,7 @@
 
     export default {
         name: "Avatar",
-        props: ['member_no', 'email', 'me'],
+        props: ['email', 'me'],
         data: () => ({
             loginColor: '',
             name: '',
@@ -28,8 +28,9 @@
                 this.bgColor = MainRepository.Login.getUserInfo().bgColor;
             } else {
                 //유저 정보 GET AXIOS
-
-
+                const otherUsersInfo = MainRepository.Users.getOtherUsers();
+                this.bgColor = otherUsersInfo.bgColor;
+                this.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
 
                 //3분마다 로그인 확인 갱신
                 setInterval(function () {

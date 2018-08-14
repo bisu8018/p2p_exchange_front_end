@@ -13,10 +13,13 @@ import AccountController from "@/vuex/controller/AccountController";
 import Account from "@/vuex/model/Account";
 import EmailVerification from "@/vuex/model/EmailVerification";
 import PhoneVerification from "@/vuex/model/PhoneVerification";
+import IdVerification from "@/vuex/model/IdVerification";
+import PaymentMethod from "@/vuex/model/PaymentMethod";
+import OtherUsers from "@/vuex/model/OtherUsers";
 
 
 let selectBoxController: SelectBoxController;
-let tradelistController : TradeListController;
+let tradelistController: TradeListController;
 let stateController: StateController;
 let merchantController: MerchantController;
 let paginationController: PaginationController;
@@ -89,17 +92,77 @@ export default {
     MyPage: {
         getMemberVerification: function () {
             AccountService.Verification.memberVerification({
-                email : instance.Login.getUserInfo().email
-            },function (result) {
-                for(let i=0; i < result.length; i++){
-                    const result_tmp =  result[i];
-                    if(result_tmp.type === 'email'){
-                        let emailVerification = new EmailVerification(result_tmp);
-                    }else{
-                        let phoneVerification = new PhoneVerification(result_tmp);
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
+                const memberVerification_arr = new Array();
+                for (let i = 0; i < result.length; i++) {
+                    const memberVerification_tmp = result[i];
+                    if (memberVerification_tmp.type === 'email') {
+                        let emailVerification = new EmailVerification(memberVerification_tmp);
+                        memberVerification_arr.push(emailVerification);
+                    } else {
+                        let phoneVerification = new PhoneVerification(memberVerification_tmp);
+                        memberVerification_arr.push(phoneVerification);
                     }
                 }
+                return memberVerification_arr;
             });
+        },
+        getIdVerification: function () {
+            AccountService.Verification.idVerification({
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
+                let idVerification = new IdVerification(result);
+                return idVerification;
+            })
+        },
+        getPaymentMethod: function () {
+            AccountService.PaymentMethod.getPaymentMethod({
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
+                const paymentMethod_map = new Map();
+                for (let i = 0; i < result.length; i++) {
+                    const paymentMethod_tmp = result[i];
+                    paymentMethod_map.set(paymentMethod_tmp.type, paymentMethod_tmp);
+                }
+                return paymentMethod_map;
+            })
+        },
+        getBlockList: function () {
+            AccountService.BlockList.getBlockList({
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
+                const blockList_arr = new Array();
+                for (let i = 0; i < result.length; i++) {
+                    const blockList_tmp = result[i];
+                    blockList_arr.push(blockList_tmp);
+                }
+                return blockList_arr;
+            })
+        },
+        getLoginHistory: function () {
+            AccountService.LoginHistory.getLoginHistory({
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
+                const loginHistory_arr = new Array();
+                for (let i = 0; i < result.length; i++) {
+                    const loginHistory_tmp = result[i];
+                    loginHistory_arr.push(loginHistory_tmp);
+                }
+                return loginHistory_arr;
+            })
+        },
+        getSecuritySettings: function () {
+            AccountService.LoginHistory.getLoginHistory({
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
+                const loginHistory_arr = new Array();
+                for (let i = 0; i < result.length; i++) {
+                    const loginHistory_tmp = result[i];
+                    loginHistory_arr.push(loginHistory_tmp);
+                }
+                return loginHistory_arr;
+            })
         }
     },
     Login: {
@@ -116,6 +179,18 @@ export default {
             return accountController.getUserInfo();
         }
     },
+    Users: {
+        //다른 유저 정보 GET
+        getOtherUsers(email) {
+            AccountService.Account.getOtherUsersInfo({
+                email: email
+            }, function (result) {
+                let otherUserInfo = new OtherUsers(result);
+                return otherUserInfo;
+
+            })
+        },
+    },
     // SignUp: {},
 
     Service: {
@@ -131,7 +206,7 @@ export default {
         controller(): TradeListController {
             return tradelistController
         },
-        initData(){
+        initData() {
             //filter 초기화
             tradelistController.updateTradeFilter({
                 type : 'piece',

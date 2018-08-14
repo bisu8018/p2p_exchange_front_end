@@ -4,3 +4,4 @@
 /.vscode
 /webpack.config.ts
 src/service/verification/
+/src/webpack.config.js
