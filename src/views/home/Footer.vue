@@ -15,29 +15,29 @@
           <a href="https://www.allblab.com">
             <p>{{$str("guides")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a href="https://allbglobal.zendesk.com/hc/en-us">
             <p>{{$str("FAQ")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a href="https://allbglobal.zendesk.com/hc/en-us/sections/360001880491">
             <p>{{$str("announcements")}}</p>
           </a>
         </v-flex>
         <!-- 카드 3 Terms-->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("terms")}}</p>
-          <a href="https://www.allblab.com">
+          <a href="https://allbglobal.zendesk.com/hc/en-us/articles/360012379132">
             <p>{{$str("terms_Of_Service")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a href="https://allbglobal.zendesk.com/hc/en-us/articles/360012615751">
             <p>{{$str("transaction_Regulations")}}</p>
           </a>
           <a href="https://www.allblab.com">
             <p>{{$str("fees")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a href="https://allbglobal.zendesk.com/hc/en-us/articles/360012603291">
             <p>{{$str("Terms_Of_Privacy_Policy")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a href="https://allbglobal.zendesk.com/hc/en-us/articles/360012389672">
             <p>{{$str("KYC&AML_Policies")}}</p>
           </a>
         </v-flex>
@@ -102,6 +102,11 @@
         methods: {
             changeLang: function(userLang) {
                 abSetLang(userLang)
+            },
+            go_announcements(){
+                if(this.currentLang =='EN'){
+
+                }
             }
         },
         created() {

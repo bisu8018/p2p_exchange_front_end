@@ -7,7 +7,6 @@
                     <h1 class="text-white mb-2 text-xs-center">Welcome to AllB OTC</h1>
                     <h2 class="text-white mb-2 text-xs-center mt-2">위아위아~~위어어앙아어어 어~</h2>
                   </v-layout> -->
-
                 </v-carousel-item>
             </v-carousel>
         </v-parallax>
@@ -19,7 +18,7 @@
         <v-flex xs6 md2 mb-4>
           <select-box :selectBoxType="'country'"></select-box>
         </v-flex>
-        <v-flex xs6 md2   mb-4>
+        <v-flex xs6 md1 mb-4>
           <div class="p-relative">
             <select v-model="selectedTradeType" class="comp-selectbox o-none h6">
               <option class="o-none">Buy</option>
@@ -39,7 +38,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-flex xs6 md1 mb-4 >
+        <v-flex xs6 md2 mb-4 >
           <div class="p-relative">
             <select v-model="selectedToken" class="comp-selectbox o-none h6">
               <option class="o-none">BTC</option>
@@ -58,8 +57,8 @@
           <select-box :selectBoxType="'payment'"></select-box>
         </v-flex>
         <v-flex xs12 md1 mb-4>
-          <div class="searchBtn btn-blue btn-blue-hover c-pointer">
-            Search
+          <div class="searchBtn btn-blue btn-blue-hover c-pointer" @click="goSearchedTradeCenter">
+            {{$str("search")}}
           </div>
         </v-flex>
       </v-layout>
@@ -128,6 +127,9 @@
             goSignup() {
                 this.$router.push("/signup");
             },
+            goSearchedTradeCenter(){
+                this.$router.push("/tradecenter");
+            }
 
         },
         computed: {

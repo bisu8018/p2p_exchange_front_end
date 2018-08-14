@@ -412,14 +412,15 @@
               <v-layout align-center justify-space-between row fill-height>
                 <!--to input-->
                 <div class="p-relative">
-                  <input type="number" class="input userToInput textRightPlaceholder"
+                  <input type="number" class="input userInput textRightPlaceholder"
                          name="toValue" v-model="toValue"
-                         @blur="onChecktoValue"
+                         @focus="inputFocus('toValue')" @blur="onChecktoValue"
                          v-bind:class="{'warning-border' : warning_toValue}">
                   <!--All 버튼-->
-                  <span class="cs-click-send allCurrencyBtn" @click="fillAll('toValue')" v-if="clickToAll">{{$str("All")}}</span>
+                  <span class="cs-click-send allCurrencyBtn" @mousedown="fillAll('toValue')"
+                        v-if="clickToAll">{{$str("All")}}</span>
                   <!--currency placeholder-->
-                  <span class="cs-timer currencyPlaceholderBtn">{{user.currency}}</span>
+                  <span class="cs-timer currencyPlaceholderBtn" v-else>{{user.currency}}</span>
                   <div class="warning-text-wrapper">
                     <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
                   </div>
@@ -428,13 +429,15 @@
               <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
                 <!--from input-->
               <div class="p-relative">
-                <input type="number" class="input userFromInput textRightPlaceholder"
-                       name="fromValue" v-model="fromValue" @blur="onCheckfromValue"
+                <input type="number" class="input userInput textRightPlaceholder"
+                       name="fromValue" v-model="fromValue"
+                       @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
                        v-bind:class="{'warning-border' : warning_fromValue}">
                 <!--All 버튼-->
-                <span class="cs-click-send" @click="fillAll('fromValue')" v-if="clickFromAll">{{$str("All")}}</span>
+                <span class="cs-click-send" @mousedown="fillAll('fromValue')"
+                      v-if="clickFromAll">{{$str("All")}}</span>
                 <!--cryptocurrency placeholder-->
-                <span class="cs-timer" v-else="!clickToAll">{{user.cryptocurrency}}</span>
+                <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
                   <div class="warning-text-wrapper">
                     <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                       {{verify_warning_fromValue}}</p>
@@ -536,8 +539,8 @@
             warning_tradePassword: false,
             setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
-            clickToAll: true,              //tovalue부분의 input에 All button이 올라가 있게
-            clickFromAll: true,            //fromvalue부분의 input에 All button이 올라가 있게
+            clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
+            clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
         }),
         props : {
             user: {},
@@ -546,6 +549,8 @@
         },
         methods : {
             onChecktoValue(){
+                //All 버튼 없애기.
+                this.clickToAll = false;
                 if (this.toValue === "") {
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_toValue = true;
@@ -555,6 +560,7 @@
                 return true;
             },
             onCheckfromValue(){
+                this.clickFromAll = false;
                 if (this.fromValue === "") {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_fromValue = true;
@@ -590,14 +596,20 @@
             },
             //trade modal에서 input에서 All 버튼 누를때
             fillAll(type){
+                  this.clickToAll = false;
+                  this.toValue = 10000;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                  this.clickFromAll = false;
+                  this.fromValue = 100;     //차후 내 잔고 불러와 마진고려해 수정해야함
+
+            },
+            inputFocus(type){
                 if(type =='toValue'){
-                    this.clickToAll = false;
-                    this.toValue = 100;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                    this.clickToAll = true;
                 }
                 else{
-                    this.clickFromAll = false;
-                    this.fromValue = 100;     //차후 내 잔고 불러와 마진고려해 수정해야함
+                    this.clickFromAll = true;
                 }
+
             },
             goUserPage(){
                 this.$router.push("/userpage");
@@ -641,15 +653,7 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
-            // tradeType(){
-            //     return MainRepository.TradeView.getSelectFilter().tradeType
-            // },
-            // token(){
-            //     return MainRepository.TradeView.getSelectFilter().cryptocurrency
-            // },
-            // currency(){
-            //     return MainRepository.TradeView.getSelectFilter().currency
-            // },
+
 
         },
 
@@ -729,27 +733,8 @@
     padding-bottom: 24px;
   }
 
-  .currencyPlaceholderBtn{
-    display: block ;
-  }
-  .allCurrencyBtn{
-    display: none;
-  }
-  .userToInput{
-    border: solid 1px #b2b2b2;
-    max-width: 153px;
-  }
-  .userFromInput{
-    border: solid 1px #b2b2b2;
-    max-width: 153px;
-  }
-  .userToInput:focus .currencyPlaceholderBtn {
-    display: none ;
-  }
-   .userToInput:focus +.allCurrencyBtn{
+  .currencyPlaceholderBtn {
     display: block;
   }
-
-
 
 </style>

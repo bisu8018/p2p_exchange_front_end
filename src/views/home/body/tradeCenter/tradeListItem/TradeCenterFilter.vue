@@ -8,21 +8,21 @@
           <div v-if="tradeType ==='Buy'">
             <!--buy가 활성화-->
             <div class="buyBtn mobileActiveBtn">
-              <button class="mobileActiveBtnText" @click="setBuyInfo('current')">{{$str("buy")}}</button>
+              <button class="mobileActiveBtnText" @click="onTokenClicked('current','Buy')">{{$str("buy")}}</button>
             </div>
             <!--sell-->
             <div class="sellBtn mobileInactiveBtn">
-              <button class="mobileInactiveBtnText" @click="setSellInfo('current')">{{$str("sell")}}</button>
+              <button class="mobileInactiveBtnText" @click="onTokenClicked('current','Sell')">{{$str("sell")}}</button>
             </div>
           </div>
           <div v-else>
             <!--buy-->
             <div class="buyBtn mobileInactiveBtn">
-              <button class="mobileInactiveBtnText" @click="setBuyInfo('current')">Buy</button>
+              <button class="mobileInactiveBtnText" @click="onTokenClicked('current','Buy')">Buy</button>
             </div>
             <!--sell 이 활성화-->
             <div class="sellBtn mobileActiveBtn">
-              <button class="mobileActiveBtnText" @click="setSellInfo('current')"> Sell</button>
+              <button class="mobileActiveBtnText" @click="onTokenClicked('current','Sell')"> Sell</button>
             </div>
           </div>
         </v-flex>
@@ -30,29 +30,29 @@
         <v-layout justify-space-between row mt-4 color-darkgray  medium>
           <!-- < 화살표-->
           <i class="material-icons md-24 c-pointer"
-             @click="onMobileTokenClicked('left')"
-             v-bind:class="{'color-blue' : !isRightClicked}"
+             @click="onTokenClicked('left')"
+             v-bind:class="{'color-blue' : isRightClicked}"
           >keyboard_arrow_left</i>
           <!--token[0] 버튼-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"-->
           <button
-                @click="onMobileTokenClicked(0)"><h4>{{tokens2.left}}</h4>
+                @click="onTokenClicked(0,'current')"><h4>{{tokens.left}}</h4>
           </button>
           <!-- token[1] 버튼. 활성화된 버튼 -->
           <!--v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"-->
           <button
                  class="color-blue bold underline"
-                 @click="onMobileTokenClicked(1)"><h4>{{tokens2.center}}</h4>
+                 @click="onTokenClicked(1,'current')"><h4>{{tokens.center}}</h4>
           </button>
           <!--token[2]-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"-->
           <button
-                @click="onMobileTokenClicked(2)"><h4>{{tokens2.right}}</h4>
+                @click="onTokenClicked(2,'current')"><h4>{{tokens.right}}</h4>
           </button>
           <!-- > 화살표 -->
           <i class="material-icons md-24 c-pointer"
-             @click="onMobileTokenClicked('right')"
-             v-bind:class="{'color-blue' : isRightClicked}"
+             @click="onTokenClicked('right')"
+             v-bind:class="{'color-blue' : !isRightClicked}"
           >keyboard_arrow_right</i>
         </v-layout>
         <!--필터링된 사항들-->
@@ -121,29 +121,23 @@
                 <v-flex md5></v-flex>
               </v-layout>
               <v-layout justify-space-between row medium color-darkgray>
-                <!-- < 화살표-->
+                  <!-- < 화살표-->
                   <i class="material-icons md-24 c-pointer"
-                     v-bind:class="{'color-blue' : !isRightClicked}"
-                  >keyboard_arrow_left</i>
-                <!--BTC 버튼-->
-                  <button
-                        v-bind:class="{'color-blue underline bold' : clicked[0].isBTC && tradeType==='Buy'}"
-                        @click="setBuyInfo('BTC')"><h4>BTC</h4>
-                  </button>
-                <!-- ALLB 버튼-->
-                <button
-                        v-bind:class="{'color-blue underline bold ' : clicked[2].isALLB && tradeType==='Buy'}"
-                        @click="setBuyInfo('ALLB')"><h4>ALLB</h4>
-                </button>
-                <!-- ETH 버튼-->
-                  <button
-                        v-bind:class="{'color-blue underline bold' : clicked[1].isETH && tradeType==='Buy'}"
-                          @click="setBuyInfo('ETH')"><h4>ETH</h4>
-                  </button>
-
-                <!-- > 화살표-->
-                  <i class="material-icons md-24 c-pointer"
+                     @click="onTokenClicked('left', 'Buy')"
                      v-bind:class="{'color-blue' : isRightClicked}"
+                  >keyboard_arrow_left</i>
+                  <!--left 버튼-->
+                  <button @click="onTokenClicked(0, 'Buy')"><h4>{{tokens.left}}</h4></button>
+                  <!-- center 버튼-->
+                  <button v-bind:class="{'color-blue underline bold' : tradeType==='Buy'}"
+                          @click="onTokenClicked(1, 'Buy')"><h4>{{tokens.center}}</h4>
+                  </button>
+                  <!-- right 버튼-->
+                  <button @click="onTokenClicked(2, 'Buy')"><h4>{{tokens.right}}</h4></button>
+                  <!-- > 화살표-->
+                  <i class="material-icons md-24 c-pointer"
+                     @click="onTokenClicked('right', 'Buy')"
+                     v-bind:class="{'color-blue' : !isRightClicked}"
                   >keyboard_arrow_right</i>
               </v-layout>
           </v-layout>
@@ -165,25 +159,21 @@
             <v-layout justify-space-between row color-darkgray>
               <!-- < 화살표-->
               <i class="material-icons md-24 c-pointer"
-                 v-bind:class="{'color-blue' : !isRightClicked}"
+                 @click="onTokenClicked('left', 'Sell')"
+                 v-bind:class="{'color-blue' : isRightClicked}"
               >keyboard_arrow_left</i>
-              <!--BTC 버튼-->
-              <button
-                    v-bind:class="{'color-blue underline bold' : clicked[0].isBTC && tradeType==='Sell'}"
-                    @click="setSellInfo('BTC')"><h4>BTC</h4>
+              <!--left 버튼-->
+              <button @click="onTokenClicked(0, 'Sell')"><h4>{{tokens.left}}</h4></button>
+              <!-- center 버튼-->
+              <button v-bind:class="{'color-blue underline bold' :  tradeType==='Sell'}"
+                      @click="onTokenClicked(1, 'Sell')"><h4>{{tokens.center}}</h4>
               </button>
-              <!-- ALLB 버튼-->
-              <button  v-bind:class="{'color-blue underline bold' : clicked[2].isALLB && tradeType==='Sell'}"
-                    @click="setSellInfo('ALLB')"><h4>ALLB</h4>
-              </button>
-              <!-- ETH 버튼-->
-              <button
-                      v-bind:class="{'color-blue underline bold' : clicked[1].isETH && tradeType==='Sell'}"
-                      @click="setSellInfo('ETH')"><h4>ETH</h4>
-              </button>
+              <!-- right 버튼-->
+              <button @click="onTokenClicked(2, 'Sell')"><h4>{{tokens.right}}</h4></button>
               <!-- > 화살표-->
               <i class="material-icons md-24 c-pointer"
-                 v-bind:class="{'color-blue' : isRightClicked}"
+                 @click="onTokenClicked('right', 'Sell')"
+                 v-bind:class="{'color-blue' : !isRightClicked}"
               >keyboard_arrow_right</i>
             </v-layout>
           </v-layout>
@@ -272,30 +262,22 @@
             ],
             tradeType : 'Buy',
             tradeCoin: 'BTC',
-            tokens: ['BTC', 'ALLB','ETH'],
-            tokens2: {
-                left: 'BTC',
-                center: 'ALLB',
-                right: 'ETH',
+            tokens: {
+                left: 'ETH',
+                center: 'BTC',
+                right: 'ALLB',
             }
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-            // tokens(){
-            //     return ['BTC', 'ALLB','ETH'];
-            // },
 
-        },
-        beforeUpdate(){
         },
         methods : {
             setBuyInfo(item){
                 this.tradeType = "Buy";
                 //스타일을 위한 class binding을 위한 함수.
-                this.setTokenStyle(item);
-
                 if(item =="current"){ //mobile 버전에서 그냥 buy 버튼만 누룰시 현재 token을 유지
                     MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
@@ -307,9 +289,7 @@
             },
             setSellInfo(item){
                 this.tradeType = "Sell";
-                this.setTokenStyle(item);
                 //default data
-
                 if(item ==='current'){     //mobile 버전에서 그냥 sell 버튼만 누룰시 현재 token을 유지
                     MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
@@ -319,64 +299,40 @@
                 }
 
             },
-            setTokenStyle(item){
-                switch (item){
-                    case 'BTC':
-                        this.clicked[0].isBTC = true;
-                        this.clicked[1].isETH = false;
-                        this.clicked[2].isALLB = false;
-                        break;
-
-                    case 'ETH':
-                        this.clicked[0].isBTC = false;
-                        this.clicked[1].isETH = true;
-                        this.clicked[2].isALLB = false;
-                        break;
-
-                    case 'ALLB':
-                        this.clicked[0].isBTC = false;
-                        this.clicked[1].isETH = false;
-                        this.clicked[2].isALLB = true;
-                        break;
-                }
-            },
-            //모바일에서 token 변화를 눌렀을시
-            onMobileTokenClicked(item){
-                if(item ==='left' || item === 2){
+            onTokenClicked(item, tradeType){
+                ///////////setItem
+                if(item ==='right' || item === 2){
                     this.isRightClicked = false;
-                    let temp = this.tokens[0];
-                    this.tokens[0] = this.tokens[1];
-                    this.tokens[1] = this.tokens[2];
-                    this.tokens[2] = temp;
-                    item= this.tokens[1];    //아래의 분기처리를 위해 가운데 token의 값 넣어줌.
-
-                    this.tokens2.left = this.tokens[0];
-                    this.tokens2.center = this.tokens[1];
-                    this.tokens2.right = this.tokens[2];
-
-                    console.log(this.tokens);
+                    let temp = this.tokens.left
+                    this.tokens.left = this.tokens.center;
+                    this.tokens.center = this.tokens.right;
+                    this.tokens.right = temp;
+                    this.tradeCoin= this.tokens.center
                 }
-                else if(item ==='right'|| item === 0){
+                else if(item ==='left'|| item === 0){
                     this.isRightClicked = true;
-                    let temp = this.tokens[2];
-                    this.tokens[2] = this.tokens[1];
-                    this.tokens[1] = this.tokens[0];
-                    this.tokens[0] = temp;
-                    item= this.tokens[1];
-                    console.log(this.tokens);
+                    let temp = this.tokens.right;
+                    this.tokens.right = this.tokens.center;
+                    this.tokens.center = this.tokens.left;
+                    this.tokens.left = temp
+                    this.tradeCoin= this.tokens.center
+                }
+                else if(item ==='current'){
+                    //this.tradeCoin으로 trade 이용.
+                }
+                //////////setTradeType
+                if(tradeType ==='Buy'){
+                    this.tradeType = "Buy";
+                }
+                else if(tradeType ==='Sell'){
+                    this.tradeType = "Sell";
+                }
+                else if(tradeType ==='current'){
+                    //this.tradeType으로 trade 이용.
+                }
+                //위의 과정 거치면 coin과 type 결정됨.
+                MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
 
-
-                    this.tokens2.left = this.tokens[0];
-                    this.tokens2.center = this.tokens[1];
-                    this.tokens2.right = this.tokens[2];
-                }
-                if(this.tradeType == 'Buy'){
-                    this.tradeCoin =
-                    this.setBuyInfo(item);
-                }
-                else{
-                    this.setSellInfo(item);
-                }
             },
             //rightfilter의 search 클릭시
             onSearch(){
