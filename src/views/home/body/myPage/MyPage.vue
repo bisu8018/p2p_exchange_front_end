@@ -17,7 +17,7 @@
                             class="f-left mr-3">
                     </big-avatar>
                     <h5 class="color-blue">{{nickName}}</h5>
-                    <h5 class="color-darkgray">UID: {{emailVerification.memberNo}}</h5>
+                    <h5 class="color-darkgray">UID: {{member_no}}</h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <!--***************      두번째       *********-->
@@ -71,7 +71,7 @@
                                        v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'"
                                        @click="goTurnOff">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer"
-                                       v-else-if="emailVerification === 'turn_off'"
+                                       v-else-if="emailVerification != 'turn_on'"
                                        @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
@@ -98,7 +98,7 @@
                                        v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer ml-3"
                                        @click="onModal('phoneTurnOn')"
-                                       v-else-if="phoneVerification != '' && phoneVerification.status === 'turn_off'">{{$str('turnOn')}}</a>
+                                       v-else-if="phoneVerification != '' && phoneVerification.status != 'turn_on'">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                             <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
@@ -116,7 +116,7 @@
                             <v-flex xs12>
                                 <div class="sprite-img ic-uid f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">UID</h5><h5 class="ml-4 pl-3 color-black">
-                                {{emailVerification.memberNo}}</h5>
+                                {{member_no}}</h5>
                             </v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
@@ -160,7 +160,7 @@
                                 <div class="sprite-img ic-id f-left mr-3"></div>
                                 <h5 class="color-darkgray mb-3">{{$str('idVerification')}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-black"
-                                    v-if="idVerification != '' && idVerification.identification_no != undefined">
+                                    v-if="idVerification != ''">
                                     {{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unverified')}}</h5>
                             </v-flex>
@@ -397,7 +397,7 @@
                             class="f-left mr-3">
                     </big-avatar>
                     <h5 class="color-blue">{{nickName}}</h5>
-                    <h5 class="color-darkgray">UID: {{emailVerification.memberNo}}</h5>
+                    <h5 class="color-darkgray">UID: {{member_no}}</h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
 
                     <h5 class="color-darkgray">{{$str('trades')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span class="color-black">99999999999999 {{$str('times')}}</span>
@@ -439,7 +439,7 @@
                                        v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'"
                                        @click="goTurnOff">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer"
-                                       v-else-if="emailVerification === 'turn_off'"
+                                       v-else-if="emailVerification != 'turn_on'"
                                        @click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>
                                 </h6></v-flex>
                         </v-layout>
@@ -464,7 +464,7 @@
                                        v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'">{{$str('turnOff')}}</a>
                                     <a class="color-blue text-white-hover c-pointer ml-3"
                                        @click="onModal('phoneTurnOn')"
-                                       v-else-if="phoneVerification != '' && phoneVerification.status === 'turn_off'">{{$str('turnOn')}}</a>
+                                       v-else-if="phoneVerification != '' && phoneVerification.status != 'turn_on'">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
                         </v-layout>
@@ -484,7 +484,7 @@
                             <v-flex md4>
                                 <div class="sprite-img ic-uid f-left mr-3"></div>
                                 <h5 class="color-darkgray">UID</h5></v-flex>
-                            <v-flex md3><h5>{{emailVerification.memberNo}}</h5></v-flex>
+                            <v-flex md3><h5>{{member_no}}</h5></v-flex>
                             <v-flex md4></v-flex>
                             <v-flex md1></v-flex>
                         </v-layout>
@@ -505,7 +505,7 @@
                             <v-flex md4>
                                 <div class="sprite-img ic-password f-left mr-3"></div>
                                 <h5 class="color-darkgray">{{$str('tradePwText')}}</h5></v-flex>
-                            <v-flex md3><h5 class="color-darkgray">*******</h5></v-flex>
+                            <v-flex md3><h5 class="color-darkgray">******</h5></v-flex>
                             <v-flex md4></v-flex>
                             <v-flex md1><h6><a class="color-blue text-white-hover c-pointer" @click="goReset">{{$str('reset')}}</a>
                             </h6></v-flex>
@@ -526,7 +526,7 @@
                                 <div class="sprite-img ic-id f-left mr-3"></div>
                                 <h5 class="color-darkgray">{{$str('idVerification')}}</h5></v-flex>
                             <v-flex md3>
-                                <h5 class="color-black"  v-if="idVerification != '' && idVerification.identification_no != undefined">
+                                <h5 class="color-black"  v-if="idVerification != '' || idVerification != undefined">
                                     {{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}</h5>
                                 <h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unverified')}}</h5>
                             </v-flex>
@@ -709,9 +709,13 @@
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
     import MyPageModal from './myPageItem/MyPageModal.vue';
-    import AccountService from "../../../../service/account/AccountService";
     import PaymentMethod from "../../../../vuex/model/PaymentMethod";
+    import IdVerification from "../../../../vuex/model/IdVerification";
     import LoginHistory from "../../../../vuex/model/LoginHistory";
+    import Block from "../../../../vuex/model/Block";
+    import SecuritySettings from "../../../../vuex/model/SecuritySettings";
+    import EmailVerification from "../../../../vuex/model/EmailVerification";
+    import PhoneVerification from "../../../../vuex/model/PhoneVerification";
 
     export default {
         name: "MyPage",
@@ -722,6 +726,7 @@
             showModal: false,
             modalType: '',
 
+            member_no: MainRepository.Login.getUserInfo().member_no,
             nickName: 1,//MainRepository.Login.getUserInfo().nickname,
 
             emailVerification: '',
@@ -734,16 +739,20 @@
         }),
         created() {
             // 유저 인증 정보 GET
+            console.log(this.idVerification != ''? 1 : 2);
             const memberVerification = MainRepository.MyPage.getMemberVerification();
-            if (memberVerification[0].memberNo != '') {
-                this.emailVerification = result[0];
-            }
-            if (memberVerification[1].memberNo != '') {
-                this.emailVerification = result[1];
+
+            if(memberVerification != undefined) {
+                if (memberVerification[0].email != '') {
+                    this.emailVerification = result[0];
+                }
+                if (memberVerification[1].email != '') {
+                    this.emailVerification = result[1];
+                }
             }
             // 유저 ID 인증 정보 GET
             const idVerification = MainRepository.MyPage.getIdVerification();
-            if (!idVerification.isNull) {
+            if (!IdVerification.isNull) {
                 this.idVerification = idVerification;
             }
 
