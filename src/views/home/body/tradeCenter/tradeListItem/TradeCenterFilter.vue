@@ -36,18 +36,18 @@
           <!--token[0] 버튼-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"-->
           <button
-                @click="onMobileTokenClicked(0)"><h4>{{tokens[0]}}</h4>
+                @click="onMobileTokenClicked(0)"><h4>{{tokens2.left}}</h4>
           </button>
           <!-- token[1] 버튼. 활성화된 버튼 -->
           <!--v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"-->
           <button
                  class="color-blue bold underline"
-                 @click="onMobileTokenClicked(1)"><h4>{{tokens[1]}}</h4>
+                 @click="onMobileTokenClicked(1)"><h4>{{tokens2.center}}</h4>
           </button>
           <!--token[2]-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"-->
           <button
-                @click="onMobileTokenClicked(2)"><h4>{{tokens[2]}}</h4>
+                @click="onMobileTokenClicked(2)"><h4>{{tokens2.right}}</h4>
           </button>
           <!-- > 화살표 -->
           <i class="material-icons md-24 c-pointer"
@@ -273,6 +273,11 @@
             tradeType : 'Buy',
             tradeCoin: 'BTC',
             tokens: ['BTC', 'ALLB','ETH'],
+            tokens2: {
+                left: 'BTC',
+                center: 'ALLB',
+                right: 'ETH',
+            }
         }),
         computed: {
             isMobile() {
@@ -344,6 +349,11 @@
                     this.tokens[1] = this.tokens[2];
                     this.tokens[2] = temp;
                     item= this.tokens[1];    //아래의 분기처리를 위해 가운데 token의 값 넣어줌.
+
+                    this.tokens2.left = this.tokens[0];
+                    this.tokens2.center = this.tokens[1];
+                    this.tokens2.right = this.tokens[2];
+
                     console.log(this.tokens);
                 }
                 else if(item ==='right'|| item === 0){
@@ -354,6 +364,11 @@
                     this.tokens[0] = temp;
                     item= this.tokens[1];
                     console.log(this.tokens);
+
+
+                    this.tokens2.left = this.tokens[0];
+                    this.tokens2.center = this.tokens[1];
+                    this.tokens2.right = this.tokens[2];
                 }
                 if(this.tradeType == 'Buy'){
                     this.tradeCoin =
