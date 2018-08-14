@@ -134,28 +134,65 @@ export default {
         initData(){
             //filter 초기화
             tradelistController.updateTradeFilter({
+                type : 'piece',
                 cryptocurrency : 'bitcoin',
                 tradeType : 'buy',
-                nationality : 'KR',
+                nationality : 'ALL',
                 currency :  'CNY',
                 minLimit :  -1,
-                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
+                paymentMethods :  '',
                 page :  1,
                 size : 10,
                 })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
+            //selectbox 초기화
+            selectBoxController.setCountry('ALL');
+            selectBoxController.setCurrency('CNY');
+            selectBoxController.setPayment('ALL');
         },
-        initPage(){
+        initPiecePage(){
+            //tradecenter에서 창 열면 type piece로 생성
+            instance.TradeView.updateSelectPage({type : 'piece',})
             //page 켜졌을때 default로 생성.
             TradeService.tradeView.tradePage({
+                type : 'piece',
                 cryptocurrency : 'bitcoin',
                 tradeType : 'buy',
-                nationality : 'KR',
+                nationality : 'ALL',
                 currency :  'CNY',
                 minLimit :  -1,
-                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
+                paymentMethods :  '',
+                page :  1,
+                size : 10,
+            }, function (data) {
+                //전체 item 갯수 pagination에 넣어주기.
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
+
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let tradeList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    tradeList.push(itemList);
+                }
+                tradelistController.setTradeItems(tradeList);
+            })
+        },
+        initBlockPage(){
+            //tradecenter에서 창 열면 type block으로 생성
+            instance.TradeView.updateSelectPage({type : 'block',})
+            TradeService.tradeView.tradePage({
+                type : 'block',
+                cryptocurrency : 'bitcoin',
+                tradeType : 'buy',
+                nationality : 'ALL',
+                currency :  'CNY',
+                minLimit :  -1,
+                paymentMethods :  '',
                 page :  1,
                 size : 10,
             }, function (data) {
@@ -180,12 +217,13 @@ export default {
             //바뀐 data update해주기.
             tradelistController.updateTradeFilter(data);
             TradeService.tradeView.tradePage({
+                type : tradelistController.getTradeFilter().type,
                 cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
                 tradeType :   tradelistController.getTradeFilter().tradeType,
                 nationality : tradelistController.getTradeFilter().nationality,
                 currency :  tradelistController.getTradeFilter().currency,
                 minLimit :  tradelistController.getTradeFilter().minLimit,
-                paymentMethod :  tradelistController.getTradeFilter().paymentMethod,
+                paymentMethods :  tradelistController.getTradeFilter().paymentMethods,
                 page :   tradelistController.getTradeFilter().page,
                 size : tradelistController.getTradeFilter().size,
             }, function (data) {
@@ -234,7 +272,7 @@ export default {
             let minLimit = Number(amount);
             var RightFilterArr = {
                 nationality : instance.SelectBox.controller().getCountry(),
-                paymentMethod : '{"alipay":"y","wechat":"y","bank":"n"}',
+                paymentMethods : instance.SelectBox.controller().getPayment(),
                 currency : instance.SelectBox.controller().getCurrency(),
                 minLimit : minLimit,
                 page: 1,

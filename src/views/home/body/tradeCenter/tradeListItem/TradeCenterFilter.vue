@@ -259,7 +259,7 @@
         data: () => ({
             isAmout : true,
             isModal: false,
-            country: 'China',
+            country: 'All countries',
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
@@ -272,19 +272,18 @@
             ],
             tradeType : 'Buy',
             tradeCoin: 'BTC',
-
+            tokens: ['BTC', 'ALLB','ETH'],
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-            tokens(){
-                return ['BTC', 'ALLB','ETH'];
-            },
+            // tokens(){
+            //     return ['BTC', 'ALLB','ETH'];
+            // },
 
         },
         beforeUpdate(){
-            console.log(this.tradeCoin);
         },
         methods : {
             setBuyInfo(item){
@@ -354,6 +353,7 @@
                     this.tokens[1] = this.tokens[0];
                     this.tokens[0] = temp;
                     item= this.tokens[1];
+                    console.log(this.tokens);
                 }
                 if(this.tradeType == 'Buy'){
                     this.tradeCoin =
@@ -366,6 +366,9 @@
             //rightfilter의 search 클릭시
             onSearch(){
                 //입력된 정보들을 vuex로 set 시킴.
+                this.country =  MainRepository.SelectBox.controller().getCountry();
+                this.currency = MainRepository.SelectBox.controller().getCurrency();
+                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
                 MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
                 this.country =  MainRepository.SelectBox.controller().getCountry();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();

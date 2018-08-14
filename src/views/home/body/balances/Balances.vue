@@ -457,6 +457,5 @@
   :hover.dropbtn .dropdown-content{
     display: block;
   }
-  .dropdown-content:che
 
 </style>

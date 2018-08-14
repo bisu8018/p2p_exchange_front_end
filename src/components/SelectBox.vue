@@ -94,9 +94,9 @@
             ],
             payments : [
                 {payment : 'All Payments', code : 'ALL'},
-                {payment : 'Bank Account', code : 'BAC'},
-                {payment : 'Alipay', code : 'ALI'},
-                {payment : 'Wechat', code : 'WCH'},
+                {payment : 'Bank Account', code : 'bankaccount'},
+                {payment : 'Alipay', code : 'alipay'},
+                {payment : 'Wechat', code : 'wechat'},
             ],
             phones : [
                 {code : '0086', nation : 'China'},
@@ -125,12 +125,16 @@
             }, setPayment() {
                 //console.log("selectedPayment:" + this.selectedPayment)
                 MainRepository.SelectBox.controller().setPayment(this.selectedPayment);
-                console.log("setPayment:" + MainRepository.SelectBox.controller().setPayment(this.selectedPayment));
             }, setPhone() {
                 this.$emit('number',this.selectedPhone);
 
             }
-        }
+        },
+        created(){
+            this.selectedCountry = MainRepository.SelectBox.controller().getCountry();
+            this.selectedCurrency = MainRepository.SelectBox.controller().getCurrency();
+            this.selectedPayment = MainRepository.SelectBox.controller().getPayment();
+        },
     }
 </script>
 <style >

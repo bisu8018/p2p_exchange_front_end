@@ -50,17 +50,17 @@
           <v-flex xs2></v-flex>
           <v-flex xs5 text-xs-left>
             <v-layout>
-              <a class="tooltip" v-if="user.bank_account.length >0">
+              <a class="tooltip" v-if="user.bank_account== 'y'">
                 <div class="mr-2 sprite-img ic-bank "></div>
                 <!--tooltip-->
                 <span class="BankTooltip tooltip-content">Bank account</span>
               </a>
-              <a class="tooltip" v-if="user.alipay_id.length >0">
+              <a class="tooltip" v-if="user.alipay_id== 'y'">
                 <div class="mr-2 sprite-img ic-alipay "></div>
                 <!--tooltip-->
                 <span class="tooltip-content">Alipay</span>
               </a>
-              <a class="tooltip" v-if="user.wechat_id.length >0">
+              <a class="tooltip" v-if="user.wechat_id== 'y'">
                 <div class="mr-2 sprite-img ic-wechatpay "></div>
                 <!--tooltip-->
                 <span class="tooltip-content">Wechatpay</span>
@@ -267,9 +267,9 @@
         <v-flex  md3 text-md-left>
           <v-layout  align-center>
               <avatar
-              :name = user.email[0]
+              :name = user.nickname[0]
               :isLogin = user.isLogin
-              :color = user.color>
+              :color = user.bgColor>
             </avatar>
             <span class="ml-3 color-blue">
               <button @click="goUserPage">{{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
@@ -295,15 +295,15 @@
         <v-flex md3 text-md-right>
           <v-layout align-center >
             <!--payment method-->
-            <a class="tooltip" v-if="user.bank_account.length >0">
+            <a class="tooltip" v-if="user.bank_account== 'y'">
               <div class="sprite-img ic-bank mr-2"></div>
               <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
             </a>
-            <a class="tooltip" v-if="user.alipay_id.length >0">
+            <a class="tooltip" v-if="user.alipay_id== 'y'">
               <div class="sprite-img ic-alipay mr-2"></div>
               <span class="tooltip-content">{{$str("alipayText")}}</span>
             </a>
-            <a class="tooltip" v-if="user.wechat_id.length >0">
+            <a class="tooltip" v-if="user.wechat_id== 'y'">
               <div class="sprite-img ic-wechatpay mr-2"></div>
               <span class="tooltip-content">{{$str("wechatPayText")}}</span>
             </a>
@@ -374,9 +374,9 @@
               <v-layout row pl-4 >
                 <!--avatar-->
                 <avatar
-                          :name = user.email[0]
+                          :name = user.nickname[0]
                           :isLogin = user.isLogin
-                          :color = user.color>
+                          :color = user.bgColor>
                 </avatar>
 
                 <!-- merchant 정보-->
@@ -412,14 +412,14 @@
               <v-layout align-center justify-space-between row fill-height>
                 <!--to input-->
                 <div class="p-relative">
-                  <input type="number" class="input userInput textRightPlaceholder"
+                  <input type="number" class="input userToInput textRightPlaceholder"
                          name="toValue" v-model="toValue"
                          @blur="onChecktoValue"
                          v-bind:class="{'warning-border' : warning_toValue}">
                   <!--All 버튼-->
-                  <span class="cs-click-send" @click="fillAll('toValue')" v-if="clickToAll">{{$str("All")}}</span>
+                  <span class="cs-click-send allCurrencyBtn" @click="fillAll('toValue')" v-if="clickToAll">{{$str("All")}}</span>
                   <!--currency placeholder-->
-                  <span class="cs-timer" v-else="!clickToAll">{{user.currency}}</span>
+                  <span class="cs-timer currencyPlaceholderBtn">{{user.currency}}</span>
                   <div class="warning-text-wrapper">
                     <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
                   </div>
@@ -428,7 +428,7 @@
               <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
                 <!--from input-->
               <div class="p-relative">
-                <input type="number" class="input userInput textRightPlaceholder"
+                <input type="number" class="input userFromInput textRightPlaceholder"
                        name="fromValue" v-model="fromValue" @blur="onCheckfromValue"
                        v-bind:class="{'warning-border' : warning_fromValue}">
                 <!--All 버튼-->
@@ -625,8 +625,6 @@
 
         },
         mounted(){
-
-
           switch (this.user.rank) {
               case 1:
                   this.rankSrc = require('../../../../../assets/img/rank_crown.png');
@@ -637,6 +635,7 @@
               default:
                   this.rankSrc = '';
           }
+
         },
         computed : {
             isMobile(){
@@ -729,5 +728,28 @@
     padding-top: 24px;
     padding-bottom: 24px;
   }
+
+  .currencyPlaceholderBtn{
+    display: block ;
+  }
+  .allCurrencyBtn{
+    display: none;
+  }
+  .userToInput{
+    border: solid 1px #b2b2b2;
+    max-width: 153px;
+  }
+  .userFromInput{
+    border: solid 1px #b2b2b2;
+    max-width: 153px;
+  }
+  .userToInput:focus .currencyPlaceholderBtn {
+    display: none ;
+  }
+   .userToInput:focus +.allCurrencyBtn{
+    display: block;
+  }
+
+
 
 </style>

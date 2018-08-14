@@ -9,6 +9,7 @@ export default {
                     callback(data)
                 },
                 function () {
+                
                     console.log('실패');
                 })
         },

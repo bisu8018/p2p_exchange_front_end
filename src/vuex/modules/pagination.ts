@@ -33,7 +33,7 @@ const getters = {
 };
 
 let page : number  =  1;
-let totalCount : number  =  1;
+let totalCount : number  =  0;
 
 
 const state= {
