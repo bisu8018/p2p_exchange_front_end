@@ -8,25 +8,26 @@
       <!--toolBox들.-->
       <v-flex md6 xs12 text-xs-left text-md-right >
         <v-layout row wrap justify-space-between>
-          <div class="mb-2" style="display: inline-flex">
-            <span class="color-darkgray mr-1">{{$str("Estimated_Value")}}：</span>
-            <span >0.00000 BTC </span>
-            <span >≈ 0.00000</span>
-            <span class="ml-4 p-relative color-blue">
-              {{currency}}
-              <i class="material-icons">arrow_drop_down</i>
-              <!--div class="dropdown-content">
-                <div v-for="currencyList in currencyLists" class="btn-blue-hover c-pointer">
-                  {{currencyList.name}}</div>
-              </div>
-            <select v-model="currency"  id="currencyBox" class="select-currencybox color-blue">
-              <option v-for="currencyList in currencyLists" v-bind:value="currencyList.name" >{{currencyList.name}}</option>
-            </select-->
+          <div class="mb-2 ">
+            <span class="dropbtn">
+              <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
+              <span >0.00000 BTC </span>
+              <span >≈ 0.00000</span>
+              <span class="ml-4 p-relative color-blue " >
+                <span>{{selectedCurrency}}</span>
+                <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
+                <div class="dropdown-content">
+                  <!-- 내 정보 list 버튼-->
+                  <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
+                       @click="clickedCurrency(currency.name)">
+                    {{currency.name}}
+                  </div>
+                </div>
+              </span>
             </span>
           </div>
-
           <div class="mb-4a">
-            <span class="color-darkgray mr-2" @click="showWarning">{{$str("Security_Deposit")}}:</span>
+            <span class="color-darkgray mr-2">{{$str("Security_Deposit")}}:</span>
             <span> 000000</span>
           </div>
         </v-layout>
@@ -191,6 +192,7 @@
             selectedDate : '',
             selectedType : '',
             selectedToken: '',
+            selectedCurrency : 'CNY',
             clear: null,
             types : [
                 {name : 'Buy'},
@@ -309,7 +311,10 @@
                         break;
                 }
             },
-            showWarning(){ this.$eventBus.$emit('showAlert', 2); }
+            clickedCurrency(item){
+                this.selectedCurrency = item;
+                console.log(this.selectedCurrency);
+            },
 
         }
 
@@ -432,37 +437,26 @@
     border-radius: 2px;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
   }
-  /*.dropdown {*/
-    /*position: relative;*/
-  /*}*/
 
-  /*.dropbtn {*/
-    /*padding-top: 22px;*/
-    /*padding-bottom: 21px;*/
-    /*border: none;*/
-    /*float: left;*/
-  /*}*/
+  .dropbtn {
+    border: none;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    color: black;
+    min-width: 46px;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    border-radius: 2px;
+    text-align: center;
+    background-color: white;
+    left: -15px;
+  }
 
-
-  /*.dropdown-content {*/
-    /*display: none;*/
-    /*position: absolute;*/
-    /*color: black;*/
-    /*min-width: 48px;*/
-    /*box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);*/
-    /*z-index: 1;*/
-    /*top: 30px;*/
-    /*border-radius: 2px;*/
-    /*text-align: center;*/
-    /*background-color: white;*/
-
-  /*}*/
-
-
-  /*.dropbtn:hover .dropdown:hover .dropdown-content,*/
-  /*.dropdown-content {*/
-    /*display: block;*/
-  /*}*/
-
+  :hover.dropbtn .dropdown-content{
+    display: block;
+  }
+  .dropdown-content:che
 
 </style>
