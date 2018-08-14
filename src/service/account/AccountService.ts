@@ -63,6 +63,59 @@ export default {
                 function (error) {
                     console.log("ERROR :::::::  " + error);
                 })
+        },
+        idVerification: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('idverification', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
+    },
+    PaymentMethod: {
+        getPaymentMethod: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('payment', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
+    },
+    BlockList: {
+        getBlockList: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('member/block', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
+    },
+    LoginHistory: {
+        getLoginHistory: function (data:any, callback:any) {
+            AxiosService._requestWithUrlPram('login/history', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
+    },
+    SecuritySettings: {
+        getSecuritySettings: function (data:any, callback:any) {
+            AxiosService._requestWithUrlPram('security/history', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
         }
     }
 }

@@ -885,6 +885,18 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['nullPaymentMethod', {
+        KOR: '추가된 계정 정보가 없습니다.',
+        ENG: 'No account information has been added.',
+        CN: '',
+        HK: ''
+    }],
+    ['noMoreRecords', {
+        KOR: '기록 없음',
+        ENG: 'No more record',
+        CN: '',
+        HK: ''
+    }],
 
     //Buy
     ['orderText', {

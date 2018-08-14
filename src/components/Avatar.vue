@@ -14,7 +14,7 @@
 
     export default {
         name: "Avatar",
-        props: ['member_no', 'email', 'me'],
+        props: ['email', 'me'],
         data: () => ({
             loginColor: '',
             name: '',
