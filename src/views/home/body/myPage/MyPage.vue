@@ -729,9 +729,9 @@
             member_no: MainRepository.Login.getUserInfo().member_no,
             nickName: 1,//MainRepository.Login.getUserInfo().nickname,
 
-            emailVerification: '',
-            phoneVerification: '',
-            idVerification: '',
+            emailVerification: new EmailVerification(''),
+            phoneVerification: new PhoneVerification(''),
+            idVerification: new IdVerification(''),
             paymentMethod: '',
             blockList: '',
             loginHistory: '',
@@ -739,17 +739,13 @@
         }),
         created() {
             // 유저 인증 정보 GET
-            console.log(this.idVerification != ''? 1 : 2);
-            const memberVerification = MainRepository.MyPage.getMemberVerification();
 
-            if(memberVerification != undefined) {
-                if (memberVerification[0].email != '') {
-                    this.emailVerification = result[0];
-                }
-                if (memberVerification[1].email != '') {
-                    this.emailVerification = result[1];
-                }
-            }
+            let self = this;
+            MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                self.emailVerification = email;
+                self.phoneVerification = phone;
+            })
+
             // 유저 ID 인증 정보 GET
             const idVerification = MainRepository.MyPage.getIdVerification();
             if (!IdVerification.isNull) {

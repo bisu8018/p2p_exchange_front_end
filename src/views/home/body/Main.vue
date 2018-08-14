@@ -11,6 +11,58 @@
                 </v-carousel-item>
             </v-carousel>
         </v-parallax>
+      <div v-if="isMobile" class="pageView mt-5">
+        <h2 class="bold">ALLB OTC</h2>
+        <h5 class="medium mt-3">The world's leading P2P trading platform</h5>
+      </div>
+      <v-layout row wrap pageView mt-6>
+        <v-flex xs6 md2 mb-4>
+          <select-box :selectBoxType="'country'"></select-box>
+        </v-flex>
+        <v-flex xs6 md2   mb-4>
+          <div class="p-relative">
+            <select v-model="selectedTradeType" class="comp-selectbox o-none h6">
+              <option class="o-none">Buy</option>
+              <option class="o-none">Sell</option>
+            </select>
+            <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+          </div>
+        </v-flex>
+        <v-flex xs12 md3 mb-4>
+          <v-layout>
+            <v-flex xs9 pl-0 pr-0>
+              <input type="text" class="input" v-model="amount"
+                     :placeholder="$str('How_much_you_want_to_trade?')">
+            </v-flex>
+            <v-flex xs3 pl-0 pr-0>
+              <select-box :selectBoxType="'currency'"></select-box>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+        <v-flex xs6 md1 mb-4 >
+          <div class="p-relative">
+            <select v-model="selectedToken" class="comp-selectbox o-none h6">
+              <option class="o-none">BTC</option>
+              <option class="o-none">ETH</option>
+              <option class="o-none">ALLB</option>
+            </select>
+            <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+          </div>
+        </v-flex>
+        <v-flex md1 v-if="!isMobile" mb-4>
+          <div class="color-darkgray pt-2">
+            Via
+          </div>
+        </v-flex>
+        <v-flex xs6 md2 mb-4>
+          <select-box :selectBoxType="'payment'"></select-box>
+        </v-flex>
+        <v-flex xs12 md1 mb-4>
+          <div class="searchBtn btn-blue btn-blue-hover c-pointer">
+            Search
+          </div>
+        </v-flex>
+      </v-layout>
         <v-layout wrap class="pageView">
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons md-36 color-blue">verified_user</i>
@@ -34,9 +86,13 @@
 
 <script lang="ts">
     import Vue from 'vue';
+    import {doesHttpOnlyCookieExist} from "@/common/common";
+    import MainRepository from "../../../vuex/MainRepository";
+    import SelectBox  from '@/components/SelectBox';
 
     export default Vue.extend({
         name: 'abMain',
+        components: {SelectBox},
         data() {
             return {
                 items: [{
@@ -48,8 +104,22 @@
                     {
                         src: 'https://file.rci8.top/vue/static/banner/banner37.png'
                     },
-                ]
+                ],
+                selectedToken : 'BTC',
+                selectedTradeType : 'Buy',
+                amount : '',
             }
+        },
+        created() {
+            // 유저 정보 VUEX 저장
+            let isLogin = doesHttpOnlyCookieExist('SESSION');
+            console.log(isLogin);
+
+            //firefox 미동작 하므로 추가 코딩 필요
+            if (isLogin === true) {
+                MainRepository.Login.setUserInfo();
+            }
+
         },
         methods: {
             goLogin() {
@@ -59,7 +129,13 @@
                 this.$router.push("/signup");
             },
 
-        }
+        },
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+
+        },
     })
 </script>
 
@@ -104,5 +180,12 @@
 
     p {
         font-size: 16px;
+    }
+    .searchBtn{
+      height: 40px;
+      padding-top: 8px;
+    }
+    .input{
+      border-right : 0.5px;
     }
 </style>

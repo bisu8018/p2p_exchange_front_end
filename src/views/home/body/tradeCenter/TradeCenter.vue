@@ -12,43 +12,36 @@
         ></nick-name-modal>
         <!-- 상단의 list filter -->
         <trade-center-filter></trade-center-filter>
+
+        <!-- Web 일때만 -->
+        <div v-if="!isMobile">
+            <!-- chart의 title들 -->
+            <v-layout mb-3>
+                <v-flex  md3 text-md-left color-darkgray>
+                    {{$str("Merchant(Volume | Trade rate)")}}
+                </v-flex>
+                <v-flex  md2 text-md-left color-darkgray>
+                    {{$str("Available")}}
+                </v-flex>
+                <v-flex  md2 text-md-left color-darkgray>
+                    {{$str("limits")}}
+                </v-flex>
+                <v-flex  md2 text-md-left color-darkgray>
+                    {{$str("price")}}
+                </v-flex>
+                <v-flex  md2 text-md-left color-darkgray>
+                    {{$str("paymentMethod")}}
+                </v-flex>
+                <v-flex  md1 text-md-right color-darkgray>
+                    {{$str("control")}}
+                </v-flex>
+            </v-layout>
+            <v-flex><v-divider></v-divider></v-flex>
+        </div>
+
         <!--본 list들-->
-        <div>
-            <!-- mobile 일때 -->
-            <div v-if="isMobile">
-                <div  v-for="user in TradeItemLists" >
-                    <trade-list-item
-                            :user="user"
-                    ></trade-list-item>
-                    <v-flex><v-divider></v-divider></v-flex>
-                </div>
-            </div>
-            <!-- Web 일때 -->
-            <div v-else>
-
-                <!-- chart의 title들 -->
-                <v-layout mb-3>
-                    <v-flex  md3 text-md-left color-darkgray>
-                        {{$str("Merchant(Volume | Trade rate)")}}
-                    </v-flex>
-                    <v-flex  md2 text-md-left color-darkgray>
-                        {{$str("Available")}}
-                    </v-flex>
-                    <v-flex  md2 text-md-left color-darkgray>
-                        {{$str("limits")}}
-                    </v-flex>
-                    <v-flex  md2 text-md-left color-darkgray>
-                        {{$str("price")}}
-                    </v-flex>
-                    <v-flex  md2 text-md-left color-darkgray>
-                        {{$str("paymentMethod")}}
-                    </v-flex>
-                    <v-flex  md1 text-md-right color-darkgray>
-                        {{$str("control")}}
-                    </v-flex>
-                </v-layout>
-                <v-flex><v-divider></v-divider></v-flex>
-
+        <div v-if="haveItems">
+            <div>
                 <!-- user item list들 10개씩 출력-->
                 <div v-for="user in TradeItemLists"  >
                     <trade-list-item
@@ -63,6 +56,14 @@
                         :size="pageSize"
                         :type="pageType"
                 ></Pagination>
+            </div>
+        </div>
+        <!--해당되는 item이 1개도 없을때-->
+        <div v-else>
+            <div class="sprite-img ic-no-ad-lg no-more-ads">
+            </div>
+            <div class="color-gray no-more-ads-text">
+                No more ads
             </div>
         </div>
     </div>
@@ -321,24 +322,29 @@
                     counterpartyFilterDoNotOtherMerchantsYn: true,
                 },
             ],
+            totalcount : 1,
         }),
         created() {
+            //default filter값으로 list setting하기.
             if(this.message == "general"){
-                //default filter값으로 list setting하기.
-                MainRepository.TradeView.initPage()
+                MainRepository.TradeView.initPiecePage()
             }else {
-
-                MainRepository.TradeView.initPage();
+                MainRepository.TradeView.initBlockPage();
             }
         },
         computed: {
             TradeItemLists(){
                 //최신화된 model list를 불러옴.
                 return MainRepository.TradeView.getSelectPage();
+
             },
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            //불러온 item이 1개라도 있으면 true, 없으면 false.
+            haveItems(){
+                return MainRepository.Pagination.getTotalCount() !== 0;
+            }
         },
         methods: {
             closeNicknameModal(){
@@ -347,7 +353,14 @@
         },
         beforeDestroy(){
             MainRepository.TradeView.initData();
-            MainRepository.TradeView.initPage();
+            if(this.message == "general"){
+                //반대로 blocktrade할 준비를 해줌
+                MainRepository.TradeView.initBlockPage();
+            }else {
+                //반대로 piecetrade할 준비를 해줌
+                MainRepository.TradeView.initPiecePage()
+
+            }
         },
     });
 </script>
@@ -372,6 +385,21 @@
             padding: 8px 8px 16px 8px;
             text-align: left;
             margin-top : 16px;
+        }
+    }
+    /*web 일때*/
+    @media only screen and (min-width: 960px) {
+        .no-more-ads{
+            margin: 120px auto 16px auto;
+        }
+        .no-more-ads-text{
+            margin-bottom: 56px;
+        }
+    }
+    /*mobile 일때*/
+    @media only screen and (max-width: 959px) {
+        .no-more-ads{
+            margin: 48px auto 16px auto;
         }
     }
 
