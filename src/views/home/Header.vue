@@ -243,6 +243,7 @@
 <script>
     import Vue from 'vue';
     import Avatar from '@/components/Avatar.vue';
+    import {doesHttpOnlyCookieExist} from "@/common/common";
 
     import {
         abGetLang,

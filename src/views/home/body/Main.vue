@@ -34,8 +34,6 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {doesHttpOnlyCookieExist} from "@/common/common";
-    import MainRepository from "../../../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'abMain',
