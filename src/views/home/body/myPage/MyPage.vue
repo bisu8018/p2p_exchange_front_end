@@ -712,6 +712,9 @@
     import AccountService from "../../../../service/account/AccountService";
     import PaymentMethod from "../../../../vuex/model/PaymentMethod";
     import LoginHistory from "../../../../vuex/model/LoginHistory";
+    import EmailVerification from "../../../../vuex/model/EmailVerification";
+    import PhoneVerification from "../../../../vuex/model/PhoneVerification";
+    import IdVerification from "../../../../vuex/model/IdVerification";
 
     export default {
         name: "MyPage",
@@ -724,9 +727,9 @@
 
             nickName: 1,//MainRepository.Login.getUserInfo().nickname,
 
-            emailVerification: '',
-            phoneVerification: '',
-            idVerification: '',
+            emailVerification: new EmailVerification(''),
+            phoneVerification: new PhoneVerification(''),
+            idVerification: new IdVerification(''),
             paymentMethod: '',
             blockList: '',
             loginHistory: '',
@@ -734,13 +737,13 @@
         }),
         created() {
             // 유저 인증 정보 GET
-            const memberVerification = MainRepository.MyPage.getMemberVerification();
-            if (memberVerification[0].memberNo != '') {
-                this.emailVerification = result[0];
-            }
-            if (memberVerification[1].memberNo != '') {
-                this.emailVerification = result[1];
-            }
+
+            let self = this;
+            MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                self.emailVerification = email;
+                self.phoneVerification = phone;
+            })
+
             // 유저 ID 인증 정보 GET
             const idVerification = MainRepository.MyPage.getIdVerification();
             if (!idVerification.isNull) {

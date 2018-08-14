@@ -90,22 +90,22 @@ export default {
         }
     },
     MyPage: {
-        getMemberVerification: function () {
+        getMemberVerification: function (callback: any) {
             AccountService.Verification.memberVerification({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
-                const memberVerification_arr = new Array();
+                let _email = new EmailVerification('');
+                let _phone = new PhoneVerification('');
+
                 for (let i = 0; i < result.length; i++) {
                     const memberVerification_tmp = result[i];
                     if (memberVerification_tmp.type === 'email') {
-                        let emailVerification = new EmailVerification(memberVerification_tmp);
-                        memberVerification_arr.push(emailVerification);
+                        _email = new EmailVerification(memberVerification_tmp);
                     } else {
-                        let phoneVerification = new PhoneVerification(memberVerification_tmp);
-                        memberVerification_arr.push(phoneVerification);
+                        _phone = new PhoneVerification(memberVerification_tmp);
                     }
                 }
-                return memberVerification_arr;
+                callback(_email, _phone);
             });
         },
         getIdVerification: function () {
