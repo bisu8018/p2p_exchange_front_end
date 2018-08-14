@@ -43,6 +43,15 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
+        getOtherUsersInfo: function (data: any, callback: any){
+            AxiosService._requestWithUrlPram('member/them', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        },
         //유저 로그인 상태
         isUserActive: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('isUserActive', 'GET', data,
@@ -55,6 +64,7 @@ export default {
         },
     },
     Verification: {
+        // 유저인증정보
         memberVerification: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('memberVerification', 'GET', data,
                 function (data: any) {
@@ -64,6 +74,7 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
+        // 유저 신분증/여권 인증 정보
         idVerification: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('idverification', 'GET', data,
                 function (data: any) {
@@ -75,6 +86,7 @@ export default {
         }
     },
     PaymentMethod: {
+        // 유저 결제수단 정보
         getPaymentMethod: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('payment', 'GET', data,
                 function (data: any) {
@@ -86,6 +98,7 @@ export default {
         }
     },
     BlockList: {
+        //유저 차단 리스트 정보
         getBlockList: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('member/block', 'GET', data,
                 function (data: any) {
@@ -97,6 +110,7 @@ export default {
         }
     },
     LoginHistory: {
+        //유저 로그인 기록
         getLoginHistory: function (data:any, callback:any) {
             AxiosService._requestWithUrlPram('login/history', 'GET', data,
                 function (data: any) {
@@ -108,6 +122,7 @@ export default {
         }
     },
     SecuritySettings: {
+        //유저 보안 설정 변경 기록
         getSecuritySettings: function (data:any, callback:any) {
             AxiosService._requestWithUrlPram('security/history', 'GET', data,
                 function (data: any) {

@@ -15,10 +15,11 @@ import EmailVerification from "@/vuex/model/EmailVerification";
 import PhoneVerification from "@/vuex/model/PhoneVerification";
 import IdVerification from "@/vuex/model/IdVerification";
 import PaymentMethod from "@/vuex/model/PaymentMethod";
+import OtherUsers from "@/vuex/model/OtherUsers";
 
 
 let selectBoxController: SelectBoxController;
-let tradelistController : TradeListController;
+let tradelistController: TradeListController;
 let stateController: StateController;
 let merchantController: MerchantController;
 let paginationController: PaginationController;
@@ -91,15 +92,15 @@ export default {
     MyPage: {
         getMemberVerification: function () {
             AccountService.Verification.memberVerification({
-                email : instance.Login.getUserInfo().email
-            },function (result) {
+                email: instance.Login.getUserInfo().email
+            }, function (result) {
                 const memberVerification_arr = new Array();
-                for(let i=0; i < result.length; i++){
-                    const memberVerification_tmp =  result[i];
-                    if(memberVerification_tmp.type === 'email'){
+                for (let i = 0; i < result.length; i++) {
+                    const memberVerification_tmp = result[i];
+                    if (memberVerification_tmp.type === 'email') {
                         let emailVerification = new EmailVerification(memberVerification_tmp);
                         memberVerification_arr.push(emailVerification);
-                    }else{
+                    } else {
                         let phoneVerification = new PhoneVerification(memberVerification_tmp);
                         memberVerification_arr.push(phoneVerification);
                     }
@@ -109,7 +110,7 @@ export default {
         },
         getIdVerification: function () {
             AccountService.Verification.idVerification({
-                email : instance.Login.getUserInfo().email
+                email: instance.Login.getUserInfo().email
             }, function (result) {
                 let idVerification = new IdVerification(result);
                 return idVerification;
@@ -117,23 +118,23 @@ export default {
         },
         getPaymentMethod: function () {
             AccountService.PaymentMethod.getPaymentMethod({
-                email : instance.Login.getUserInfo().email
+                email: instance.Login.getUserInfo().email
             }, function (result) {
                 const paymentMethod_map = new Map();
-                for(let i= 0 ; i< result.length; i++){
-                    const paymentMethod_tmp =  result[i];
-                    paymentMethod_map.set(paymentMethod_tmp.type,paymentMethod_tmp);
+                for (let i = 0; i < result.length; i++) {
+                    const paymentMethod_tmp = result[i];
+                    paymentMethod_map.set(paymentMethod_tmp.type, paymentMethod_tmp);
                 }
                 return paymentMethod_map;
             })
         },
         getBlockList: function () {
             AccountService.BlockList.getBlockList({
-                email : instance.Login.getUserInfo().email
+                email: instance.Login.getUserInfo().email
             }, function (result) {
                 const blockList_arr = new Array();
-                for(let i= 0 ; i< result.length; i++){
-                    const blockList_tmp =  result[i];
+                for (let i = 0; i < result.length; i++) {
+                    const blockList_tmp = result[i];
                     blockList_arr.push(blockList_tmp);
                 }
                 return blockList_arr;
@@ -141,11 +142,11 @@ export default {
         },
         getLoginHistory: function () {
             AccountService.LoginHistory.getLoginHistory({
-                email : instance.Login.getUserInfo().email
+                email: instance.Login.getUserInfo().email
             }, function (result) {
                 const loginHistory_arr = new Array();
-                for(let i= 0 ; i< result.length; i++){
-                    const loginHistory_tmp =  result[i];
+                for (let i = 0; i < result.length; i++) {
+                    const loginHistory_tmp = result[i];
                     loginHistory_arr.push(loginHistory_tmp);
                 }
                 return loginHistory_arr;
@@ -153,11 +154,11 @@ export default {
         },
         getSecuritySettings: function () {
             AccountService.LoginHistory.getLoginHistory({
-                email : instance.Login.getUserInfo().email
+                email: instance.Login.getUserInfo().email
             }, function (result) {
                 const loginHistory_arr = new Array();
-                for(let i= 0 ; i< result.length; i++){
-                    const loginHistory_tmp =  result[i];
+                for (let i = 0; i < result.length; i++) {
+                    const loginHistory_tmp = result[i];
                     loginHistory_arr.push(loginHistory_tmp);
                 }
                 return loginHistory_arr;
@@ -178,6 +179,18 @@ export default {
             return accountController.getUserInfo();
         }
     },
+    Users: {
+        //다른 유저 정보 GET
+        getOtherUsers(email) {
+            AccountService.Account.getOtherUsersInfo({
+                email: email
+            }, function (result) {
+                let otherUserInfo = new OtherUsers(result);
+                return otherUserInfo;
+
+            })
+        },
+    },
     // SignUp: {},
 
     Service: {
@@ -193,33 +206,33 @@ export default {
         controller(): TradeListController {
             return tradelistController
         },
-        initData(){
+        initData() {
             //filter 초기화
             tradelistController.updateTradeFilter({
-                cryptocurrency : 'bitcoin',
-                tradeType : 'buy',
-                nationality : 'KR',
-                currency :  'CNY',
-                minLimit :  -1,
-                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
-                page :  1,
-                size : 10,
-                })
+                cryptocurrency: 'bitcoin',
+                tradeType: 'buy',
+                nationality: 'KR',
+                currency: 'CNY',
+                minLimit: -1,
+                paymentMethod: '{"alipay":"y","wechat":"y","bank":"n"}',
+                page: 1,
+                size: 10,
+            })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        initPage(){
+        initPage() {
             //page 켜졌을때 default로 생성.
             TradeService.tradeView.tradePage({
-                cryptocurrency : 'bitcoin',
-                tradeType : 'buy',
-                nationality : 'KR',
-                currency :  'CNY',
-                minLimit :  -1,
-                paymentMethod :  '{"alipay":"y","wechat":"y","bank":"n"}',
-                page :  1,
-                size : 10,
+                cryptocurrency: 'bitcoin',
+                tradeType: 'buy',
+                nationality: 'KR',
+                currency: 'CNY',
+                minLimit: -1,
+                paymentMethod: '{"alipay":"y","wechat":"y","bank":"n"}',
+                page: 1,
+                size: 10,
             }, function (data) {
                 //전체 item 갯수 pagination에 넣어주기.
                 let totalCount = data.totalCount;
@@ -228,7 +241,7 @@ export default {
                 //전체 item list model화 시켜 주기
                 let result = data.adList
                 let tradeList: TradeItem[] = [];
-                for(let key in result){
+                for (let key in result) {
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
                     tradeList.push(itemList);
@@ -242,14 +255,14 @@ export default {
             //바뀐 data update해주기.
             tradelistController.updateTradeFilter(data);
             TradeService.tradeView.tradePage({
-                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
-                tradeType :   tradelistController.getTradeFilter().tradeType,
-                nationality : tradelistController.getTradeFilter().nationality,
-                currency :  tradelistController.getTradeFilter().currency,
-                minLimit :  tradelistController.getTradeFilter().minLimit,
-                paymentMethod :  tradelistController.getTradeFilter().paymentMethod,
-                page :   tradelistController.getTradeFilter().page,
-                size : tradelistController.getTradeFilter().size,
+                cryptocurrency: tradelistController.getTradeFilter().cryptocurrency,
+                tradeType: tradelistController.getTradeFilter().tradeType,
+                nationality: tradelistController.getTradeFilter().nationality,
+                currency: tradelistController.getTradeFilter().currency,
+                minLimit: tradelistController.getTradeFilter().minLimit,
+                paymentMethod: tradelistController.getTradeFilter().paymentMethod,
+                page: tradelistController.getTradeFilter().page,
+                size: tradelistController.getTradeFilter().size,
             }, function (data) {
                 //전체 item 갯수 pagination에 넣어주기.
                 let totalCount = data.totalCount;
@@ -258,7 +271,7 @@ export default {
                 //전체 item list model화 시켜 주기
                 let result = data.adList
                 let tradeList: TradeItem[] = [];
-                for(let key in result){
+                for (let key in result) {
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
                     tradeList.push(itemList);
@@ -279,26 +292,26 @@ export default {
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
             var LeftFilterArr = {
-                cryptocurrency : cryptocurrency,
-                tradeType :   tradeType,
-                page : 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
+                cryptocurrency: cryptocurrency,
+                tradeType: tradeType,
+                page: 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
             };
             //page는 1로 초기화
             instance.Pagination.setPage(1,);
             instance.TradeView.updateSelectPage(LeftFilterArr);      //필터에 맞게 화면 재구성
         },
-        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string){
+        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string) {
             //amount 에 들어간 값이 없을때
-            if(amount ==''){
+            if (amount == '') {
                 amount = '-1'
             }
             //amount 는 filter에서 minLImit과 같음.
             let minLimit = Number(amount);
             var RightFilterArr = {
-                nationality : instance.SelectBox.controller().getCountry(),
-                paymentMethod : '{"alipay":"y","wechat":"y","bank":"n"}',
-                currency : instance.SelectBox.controller().getCurrency(),
-                minLimit : minLimit,
+                nationality: instance.SelectBox.controller().getCountry(),
+                paymentMethod: '{"alipay":"y","wechat":"y","bank":"n"}',
+                currency: instance.SelectBox.controller().getCurrency(),
+                minLimit: minLimit,
                 page: 1,
             };
             instance.Pagination.setPage(1,);//page는 1로 초기화
@@ -324,14 +337,14 @@ export default {
         getTotalCount() {
             return paginationController.getTotalCount();
         },
-        setPage(page: number, size : number, type : string) {
+        setPage(page: number, size: number, type: string) {
             //현재 page set
             paginationController.setPage(page);
             //pagination에서 직접버튼을 눌렀을때만 아래의 case 따라 page update 시켜줌.
-            if(type !==''){
+            if (type !== '') {
                 switch (type) {
                     case 'tradecenter':     //tradecenter page 일때.
-                        instance.TradeView.updateSelectPage({page : page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
+                        instance.TradeView.updateSelectPage({page: page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
                         break;
 
                     case 'MyAds':
