@@ -40,7 +40,7 @@
         </v-flex>
         <v-flex xs6 md2 mb-4 >
           <div class="p-relative">
-            <select v-model="selectedToken" class="comp-selectbox o-none h6">
+            <select v-model="selectedCryptocurrency" class="comp-selectbox o-none h6">
               <option class="o-none">BTC</option>
               <option class="o-none">ETH</option>
               <option class="o-none">ALLB</option>
@@ -104,7 +104,7 @@
                         src: 'https://file.rci8.top/vue/static/banner/banner37.png'
                     },
                 ],
-                selectedToken : 'BTC',
+                selectedCryptocurrency : 'BTC',
                 selectedTradeType : 'Buy',
                 amount : '',
             }
@@ -128,7 +128,9 @@
                 this.$router.push("/signup");
             },
             goSearchedTradeCenter(){
-                this.$router.push("/tradecenter");
+                MainRepository.TradeView.setTradeLeftFilter(this.selectedCryptocurrency, this.selectedTradeType);
+                MainRepository.TradeView.setTradeRightFilter('', '', '', this.amount);
+                this.$router.push("/tradecenter?main");
             }
 
         },

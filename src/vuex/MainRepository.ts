@@ -227,10 +227,15 @@ export default {
             selectBoxController.setCurrency('CNY');
             selectBoxController.setPayment('ALL');
         },
+        initFromMainPage(){
+            //tradecenter에서 창 열면 type piece로 생성
+            instance.TradeView.updateTradeFilter({type : 'piece',})
+            //page 켜졌을때 default로 생성.
+        },
         initPiecePage(){
             //tradecenter에서 창 열면 type piece로 생성
-            instance.TradeView.updateSelectPage({type : 'piece',})
-            //page 켜졌을때 default로 생성.
+            tradelistController.updateTradeFilter({type : 'piece',})
+            //default로 초기보여줄 창의 filter들 넣어줌
             TradeService.tradeView.tradePage({
                 type : 'piece',
                 cryptocurrency : 'bitcoin',
@@ -259,7 +264,7 @@ export default {
         },
         initBlockPage(){
             //tradecenter에서 창 열면 type block으로 생성
-            instance.TradeView.updateSelectPage({type : 'block',})
+            tradelistController.updateTradeFilter({type : 'block',})
             TradeService.tradeView.tradePage({
                 type : 'block',
                 cryptocurrency : 'bitcoin',
@@ -289,8 +294,9 @@ export default {
 
         // 리스트 페이지 SET
         updateSelectPage(data) {
-            //바뀐 data update해주기.
+            //바뀐 data로 filter update해주기.
             tradelistController.updateTradeFilter(data);
+            //바뀐 data로 DB에서 item 불러오기
             TradeService.tradeView.tradePage({
                 type : tradelistController.getTradeFilter().type,
                 cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
@@ -341,7 +347,7 @@ export default {
         setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string){
             //amount 에 들어간 값이 없을때
             if(amount ==''){
-                amount = '-1'
+                amount = '0'
             }
             //amount 는 filter에서 minLImit과 같음.
             let minLimit = Number(amount);

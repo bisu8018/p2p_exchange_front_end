@@ -58,7 +58,7 @@
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
           <v-layout row class="statusBox" mt-4a pr-2>
-            <h6  class="statusChip" >{{country}}</h6>
+            <h6  class="statusChip" >{{nationality}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
             <h6  class=" statusChip">{{paymentMethod}}</h6>
             <!--amount 는 입력시에만 뜸-->
@@ -183,7 +183,7 @@
         <!--right filter-->
         <v-flex md4 offset-md1 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
-            <h6  class="statusChip" >{{country}}</h6>
+            <h6  class="statusChip" >{{nationality}}</h6>
             <h6  class="statusChip">{{currency}}</h6>
             <h6  class=" statusChip">{{paymentMethod}}</h6>
             <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
@@ -200,7 +200,7 @@
           <div class="cardModal" v-if="isModal">
             <v-layout row wrap>
               <v-flex xs12 text-xs-left cardText>{{$str("country")}}</v-flex>
-              <!--country select box-->
+              <!--nationality select box-->
               <v-flex xs12 ><SelectBox select-box-type="country"></SelectBox></v-flex>
 
               <!-- currency 셀렉터-->
@@ -249,7 +249,7 @@
         data: () => ({
             isAmout : true,
             isModal: false,
-            country: 'All countries',
+            nationality: 'All countries',
             currency: 'CNY',
             paymentMethod: 'All Payments',
             amount : '',
@@ -337,11 +337,8 @@
             //rightfilter의 search 클릭시
             onSearch(){
                 //입력된 정보들을 vuex로 set 시킴.
-                this.country =  MainRepository.SelectBox.controller().getCountry();
-                this.currency = MainRepository.SelectBox.controller().getCurrency();
-                this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-                MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
-                this.country =  MainRepository.SelectBox.controller().getCountry();
+                MainRepository.TradeView.setTradeRightFilter(this.nationality, this.paymentMethod, this.currency, this.amount);
+                this.nationality = MainRepository.SelectBox.controller().getCountry();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
 
@@ -351,8 +348,41 @@
             removeAmount(){
                 this.amount = '';
                 //amount를 default로 초기화 시키고, 다시 list호출.
-                MainRepository.TradeView.setTradeRightFilter(this.country, this.paymentMethod, this.currency, this.amount);
+                MainRepository.TradeView.setTradeRightFilter(this.nationality, this.paymentMethod, this.currency, this.amount);
             },
+        },
+        created(){
+            let cureentURL = window.location.href
+            var param = cureentURL.split('?');
+            if(param[1] === 'main') {
+                //main에서 바로 넘어오는경우 정보 동기화.
+                this.tradeCoin = MainRepository.TradeView.getSelectFilter().cryptocurrency;
+                this.tradeType = MainRepository.TradeView.getSelectFilter().tradeType;
+                this.nationality = MainRepository.TradeView.getSelectFilter().nationality;
+                this.currency = MainRepository.TradeView.getSelectFilter().currency;
+                this.paymentMethod = MainRepository.TradeView.getSelectFilter().paymentMethods;
+                this.amount = MainRepository.TradeView.getSelectFilter().minLimit;
+                //tradeCoin의 순서 배치
+                if(this.tradeCoin == 'ethereum'){
+                    this.tokens = {left: 'ALLB',center: 'ETH',right: 'BTC',}
+                }
+                else if (this.tradeCoin == 'ALLB'){
+                    this.tokens = {left: 'BTC',center: 'ALLB',right: 'ETH',}
+                }
+                //TradeType 수정.
+                if(this.tradeType == 'buy'){
+                    this.tradeType = 'Buy'
+                } else{
+                    this.tradeType = 'Sell'
+                }
+                //amount 수정.
+                if (this.amount === 0) {
+                    this.amount = '';
+                }//paymentMethod 수정.
+                if(this.paymentMethod ===''){
+                    this.paymentMethod = 'ALL'
+                }
+            }
         },
     });
 </script>

@@ -18,7 +18,7 @@ export default class TradeFilter {
         this.tradeType = data.tradeType || 'buy';
         this.cryptocurrency = data.cryptocurrency || 'bitcoin';
         this.paymentMethods = data.paymentMethods || '';
-        this.minLimit = Number(data.minLimit) || -1;
+        this.minLimit = Number(data.minLimit) || 0;
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
 
@@ -60,10 +60,6 @@ export default class TradeFilter {
             this.paymentMethods = payment;
         }
     }
-
-
-
-
 
     isNull (): boolean {
         return (this.cryptocurrency === undefined || this.cryptocurrency === '')
