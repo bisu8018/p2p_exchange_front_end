@@ -5,41 +5,89 @@
       <!--type-->
       <v-layout mb-2 mt-4>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Type")}} : </v-flex>
-        <v-flex xs6 text-xs-left>{{detailList.type}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.type}}</v-flex>
       </v-layout>
       <!--coin-->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Coin")}}:</v-flex>
-        <v-flex xs6 text-xs-left>{{detailList.coin}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.coin}}</v-flex>
       </v-layout>
       <!-- time-->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("time")}}:</v-flex>
-        <v-flex xs6 text-xs-left>{{detailList.time}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.time}}</v-flex>
       </v-layout>
-      <!-- ammount -->
-      <v-layout mb-4>
+      <!-- amount -->
+      <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("amount")}}:</v-flex>
-        <v-flex xs6 text-xs-left>{{detailList.amount}} {{detailList.coin}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.amount}} {{detailList.coin}}</v-flex>
+      </v-layout>
+      <!-- status -->
+      <v-layout mb-2>
+        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("status")}}:</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.status}}</v-flex>
+      </v-layout>
+      <!-- action -->
+      <v-layout mb-4>
+        <v-flex xs4 text-xs-left h5 color-darkgray>{{$str("action")}}:</v-flex>
+        <v-flex xs8 text-xs-right>
+          <button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button>
+          <button class="btn-rounded-blue btn-blue-hover "
+                  @click="drawer">{{$str("details")}}
+          </button>
+        </v-flex>
       </v-layout>
     </div>
     <!--web 일때-->
     <div v-else>
       <v-layout row wrap align-center fill-height class="webDetailWrapper">
-        <v-flex md3 xs12 text-md-left>
+        <v-flex md2 text-md-left>
           {{detailList.type}}
         </v-flex>
-        <v-flex md3 xs12 text-md-left>
+        <v-flex md2 text-md-left>
           {{detailList.coin}}
         </v-flex>
-        <v-flex md3 xs12 text-md-left>
+        <v-flex md2 text-md-left>
           {{detailList.time}}
         </v-flex>
-        <v-flex md3 xs12 text-md-right>
+        <v-flex md2 text-md-right>
           {{detailList.amount}} {{detailList.coin}}
+        </v-flex>
+        <v-flex md2 text-md-right>
+          {{detailList.status}}
+        </v-flex>
+        <v-flex md2 text-md-right>
+          <button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button>
+          <button class="btn-rounded-blue btn-blue-hover "
+                  @click="drawer">{{$str("details")}}
+          </button>
         </v-flex>
       </v-layout>
     </div>
+    <v-flex v-if="isdrawer">
+      <div class="detail-list-modal">
+        <v-layout text-xs-left mb-2 >
+          <v-flex md2 xs6 pl-4 >{{$str("Address")}}:</v-flex>
+          <v-flex md10 xs6>{{detailList.address}}</v-flex>
+        </v-layout>
+        <v-layout text-xs-left mb-2>
+          <v-flex md2 xs6 pl-4>{{$str("Tag")}}:</v-flex>
+          <v-flex md10 xs6> {{detailList.tag}}</v-flex>
+        </v-layout>
+        <v-layout text-xs-left mb-2>
+          <v-flex md2 xs6 pl-4>{{$str("TxID")}}:</v-flex>
+          <v-flex md10 xs6> {{detailList.TxID}}</v-flex>
+        </v-layout>
+        <v-layout text-xs-left mb-2>
+          <v-flex md2 xs6 pl-4>{{$str("fee")}}:</v-flex>
+          <v-flex md10 xs6> {{detailList.fee}}</v-flex>
+        </v-layout>
+        <v-layout text-xs-left>
+          <v-flex md2 xs6 pl-4>{{$str("Processing Time")}}:</v-flex>
+          <v-flex md10 xs6> {{detailList.processingTime}}</v-flex>
+        </v-layout>
+      </div>
+    </v-flex>
   </div>
 </template>
 
@@ -50,23 +98,35 @@
         props : {
             detailList : {},
         },
-        methods : {
 
-        },
         data: () => ({
+            isdrawer : false,
+
 
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-
+        },
+        methods : {
+            drawer(){
+                this.isdrawer = !this.isdrawer
+            }
         },
     }
 </script>
 
 <style scoped>
-.webDetailWrapper{
-  min-height: 68px;
-}
+  .webDetailWrapper{
+    min-height: 68px;
+  }
+  .detail-list-modal{
+    border-radius: 2px;
+    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+    padding: 24px 24px 24px 0px;
+  }
+  .cs-flex{
+    display: flex;
+  }
 </style>

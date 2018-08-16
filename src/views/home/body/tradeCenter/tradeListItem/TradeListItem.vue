@@ -427,7 +427,7 @@
                 <!--from input-->
               <div class="p-relative">
                 <input type="number" class="input userInput textRightPlaceholder"
-                       name="fromValue" v-model="computedFromValue" @keyup="onNumberCheck('fromValue')"
+                       name="fromValue" v-model="fromValue" @keyup="onNumberCheck('fromValue')"
                        @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
                        v-bind:class="{'warning-border' : warning_fromValue}">
                 <!--All 버튼-->
@@ -541,8 +541,11 @@
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
             clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
-
+            currency: MainRepository.TradeView.getSelectFilter().currency,
+            cryptocurrency : MainRepository.TradeView.getSelectFilter().cryptocurrency,
             marketPrice: '',
+            tempMarketPrice: '',
+
         }),
         props : {
             user: {},
@@ -550,21 +553,6 @@
         computed : {
             isMobile(){
                 return MainRepository.State.isMobile();
-            },
-            computedFromValue(){
-                let tmp_currency = MainRepository.TradeView.getSelectFilter().currency;
-                let tmp_cryptoCurrency = MainRepository.TradeView.getSelectFilter().cryptocurrency;
-                let tmp_price;
-                for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
-                    if (this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency
-                        && this.marketPrice[i].currency === tmp_currency) {
-                        //console.log(this.marketPrice[i]);
-                        tmp_price = this.marketPrice[i].price;
-                        this.fromValue = this.toValue/tmp_price;
-                        return this.fromValue.toFixed(6);         //소수점 6번째자리까지
-                        break;
-                    }
-                }
             },
         },
         methods : {
@@ -578,6 +566,10 @@
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
+                    //fromvalue 계산해줌
+                    this.fromValue = this.toValue/this.tempMarketPrice;
+                    this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+
                 }else if(type ==='fromValue'){
                     this.onCheckfromValue()
                     let temp = this.fromValue;
@@ -587,6 +579,10 @@
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
+                    //toValue 계산해줌
+                    this.toValue = this.fromValue * this.tempMarketPrice;
+                    this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
+
                 }else if(type ==='tradePW'){
                     this.onChecktradePassword();
 
@@ -612,12 +608,21 @@
             //trade modal에서 input에서 All 버튼 누를때
             fillAll(){
                 this.clickToAll = false;
-                this.toValue = 10000;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                this.toValue = this.user.maxLimit;         //차후 내 잔고 불러와 마진고려해 수정해야함
                 this.clickFromAll = false;
             },
             inputFocus(type){
-                if(type =='toValue'){
-                    this.clickToAll = true;
+                //시장가 받아오기.
+                for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
+                    if (this.marketPrice[i].cryptocurrency === this.cryptocurrency
+                        && this.marketPrice[i].currency === this.currency) {
+                        this.tempMarketPrice = this.marketPrice[i].price;
+                    }
+                }
+                if(type =='toValue' ){
+                    if(this.toValue < this.user.maxLimit){
+                      this.clickToAll = true;
+                    }
                 }
                 else{
                     this.clickFromAll = true;

@@ -22,7 +22,21 @@
 
             <!--인증코드 입력필드-->
             <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCode")}}</div>
-            <verification-code v-on:verify="onCheckVerificationCode" :email="email" :type="'signup'"></verification-code>
+            <div class="p-relative">
+                <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4" maxlength="7"
+                       autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}"
+                       @keyup="onCheckVerificationCode">
+                <span class="cs-click-send text-white-hover" @click="sendVerificationCode"
+                      v-if="verifyStatus === 'unverified'">{{$str("clickToSend")}}</span>
+                <span class="cs-timer" @click="sendVerificationCode"
+                      v-else-if="verifyStatus === 'verifying'">{{$str('timerExplain1')}}  {{setTime}}  {{$str('timerExplain2')}}</span>
+                <span class="cs-code-verified " @click="sendVerificationCode"
+                      v-else>{{$str("verifySliderSuccess")}}</span>
+                <div class="warning-text-wrapper">
+                    <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}"
+                    >{{verify_warning_verification_code}}</span>
+                </div>
+            </div>
 
             <!--비밀번호 입력필드-->
             <div class="text-xs-left mb-2 color-black">{{$str("password")}}</div>
@@ -49,10 +63,13 @@
 
             <!--이용약관 체크박스-->
             <div class="mb-4 text-xs-left">
+                <v-layout>
                 <input id="termsCheckbox" type="checkbox" v-model="termsAgreeYn"
                        @click="onCheckTerms()"
                        class="mr-2">
-                <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel')}}</label>
+                <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel1')}}</label>
+                <span class="color-blue text-white-hover" @click="go_Terms_of_Service()">&nbsp;{{$str('termsLabel2')}}</span>
+                </v-layout>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
@@ -81,34 +98,52 @@
     import SelectBox from '@/components/SelectBox.vue';
     import VerificationModal from '@/components/VerificationModal.vue';
     import Alerts from '@/components/Alerts.vue';
-    import VerificationCode from '@/components/VerificationCode.vue';
     import MainRepository from "@/vuex/MainRepository";
 
     export default Vue.extend({
         name: 'home',
         components: {
-            SelectBox, VerificationModal, Alerts, VerificationCode
+            SelectBox, VerificationModal, Alerts
         },
         data: () => ({
+            setTime: 60,
             email: "",
             password: "",
             passwordConfirm: "",
-            verify: false,
             termsAgreeYn: false,
+            verifyStatus: 'unverified',        //unverified -> verifying -> verified
             verify_warning_email: "",
+            verify_warning_verification_code: "",
             verify_warning_password: "",
             verify_warning_password_confirm: "",
             verify_terms: "",
+            verificationCode: "",
             warning_email: false,
+            warning_verification_code: false,
             warning_password: false,
             warning_password_confirm: false,
             warning_verify_terms: false,
             showModal: false
         }),
         methods: {
+            // 시간 타이머 설정
+            getTimer() {
+                var start = setInterval(() => {
+                    if (this.setTime > 0) {
+                        this.setTime--;
+                    } else {
+                        clearInterval(start);
+                        this.verifyStatus = 'unverified';
+                        this.setTime = 5;
+                    }
+                }, 1000);
+            },
+            verifyComplete() {
+                this.verifyStatus = 'verified';
+            },
             // 전체 값 체크
             onCheck() {
-                if (this.onCheckEmail() && this.verify && this.onCheckPassword() && this.onCheckTerms()) {
+                if (this.onCheckEmail() && this.onCheckVerificationCode() && this.onCheckPassword() && this.onCheckTerms()) {
                     this.showModal = true;
                 }
             },
@@ -131,7 +166,18 @@
             },
             // 인증코드 체크
             onCheckVerificationCode() {
-                this.verify = true;
+                if (this.verifyStatus === 'verifying') {
+                    if (this.verificationCode === "") {
+                        this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
+                        this.warning_verification_code = true;
+                        return false;
+                    } else if (this.verificationCode.length >= 6) {
+                        this.checkVerificationCode();
+                    }
+                }
+                this.warning_verification_code = false;
+                return true;
+
             },
             // 비밀번호 체크
             onCheckPassword() {
@@ -220,6 +266,60 @@
             goLogin() {
                 this.$router.push("/login");
             },
+            // 인증 코드 이메일 전송
+            sendVerificationCode() {
+                this.verifyStatus = 'verifying';
+                this.getTimer();
+                if (this.onCheckEmail() === true) {
+                    let self = this;
+                    AccountService.Account.sendVerificationCode({
+                        email: this.email
+                    }, function (error) {
+                        if (!error) {
+                            self.verifyStatus = 'verifying';
+                            self.getTimer();
+                        } else {
+                            console.log("ERROR ::::::: " + error);
+                        }
+                    })
+                }
+            },
+            //인증코드 체크
+            checkVerificationCode() {
+                let self = this;
+                AccountService.Account.checkVerificationCode({
+                    email: this.email,
+                    code: this.verificationCode
+                }, function (error) {
+                    if (!error) {
+                        console.log("code check success");
+                        self.verifyStatus = 'verified';
+                    } else {
+                        console.log("ERROR ::::::: " + error);
+                    }
+                })
+            },
+            go_Terms_of_Service(){          //terms of service 누를시 zendisk로 이동
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+            },
+            /*showWarning(code) {
+                this.$eventBus.$emit('showAlert', code);
+            }*/
         }
     });
 </script>

@@ -99,7 +99,7 @@
                                        v-else-if="!phoneVerification.isNull() && phoneVerification.status != 'turn_on'">{{$str('turnOn')}}</a>
                                 </h6>
                             </v-flex>
-                            <v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
+                            <v-flex xs12><p class="color-darkgray">*{{$str('phoneSecurityExplain')}}</p></v-flex>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
                         <v-layout wrap row>
@@ -455,7 +455,7 @@
                                 <h5 class="color-black" v-if="!emailVerification.isNull()">{{$str('bound')}}</h5>
                                 <h5 class="color-darkgray" v-else>{{$str('unbound')}}</h5>
                             </v-flex>
-                            <v-flex md4><p class="color-darkgray">{{$str('emailSecurityExplain')}}</p></v-flex>
+                            <v-flex md4><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
                             <v-flex md2 text-xs-right>
                                 <h6 v-if="emailVerification.isNull()">
                                     <a class="color-blue text-white-hover c-pointer">{{$str('bound')}}</a>
@@ -481,7 +481,7 @@
                                 <h5 class="color-darkgray">{{$str('phone')}}</h5></v-flex>
                             <v-flex md2><h5 class="color-black" v-if="!phoneVerification.isNull()">{{$str('bound')}}</h5>
                                 <h5 class="color-darkgray" v-else>{{$str('unbound')}}</h5></v-flex>
-                            <v-flex md4><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>
+                            <v-flex md4><p class="color-darkgray">*{{$str('phoneSecurityExplain')}}</p></v-flex>
                             <v-flex md2 text-xs-right>
                                 <h6 v-if="phoneVerification.isNull()">
                                     <a class="color-blue">{{$str('bound')}}</a>

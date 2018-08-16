@@ -145,10 +145,12 @@
     <div v-if="!isMobile">
       <!-- 표의 header들은 Web일때만 보여짐 -->
       <v-layout mb-3 color-darkgray>
-        <v-flex  md3 text-md-left>{{$str("Type")}}</v-flex>
-        <v-flex  md3 text-md-left>{{$str("Coin")}}</v-flex>
-        <v-flex  md3 text-md-left>{{$str("time")}}</v-flex>
-        <v-flex  md3 text-md-right>{{$str("amount")}}</v-flex>
+        <v-flex  md2 text-md-left>{{$str("Type")}}</v-flex>
+        <v-flex  md2 text-md-left>{{$str("Coin")}}</v-flex>
+        <v-flex  md2 text-md-left>{{$str("time")}}</v-flex>
+        <v-flex  md2 text-md-right>{{$str("amount")}}</v-flex>
+        <v-flex  md2 text-md-right>{{$str("status")}}</v-flex>
+        <v-flex  md2 text-md-right>{{$str("action")}}</v-flex>
       </v-layout>
       <v-flex><v-divider></v-divider></v-flex>
     </div>
@@ -160,7 +162,10 @@
       <v-flex><v-divider></v-divider></v-flex>
     </div>
   <div class="mt-4">
-    <Pagination></Pagination>
+    <Pagination
+            :size="pageSize"
+            :type="pageType"
+    ></Pagination>
   </div>
   </div>
 </template>
@@ -182,6 +187,8 @@
             DatePicker,
         },
         data: () => ({
+            pageSize: 10,
+            pageType: 'balance',
             alertStatus : '',
             isdropdown : false,
             currency : 'CNY',
@@ -254,22 +261,52 @@
             ],
             detailLists: [
                 {
-                    type: 'Buy',
+                    type: 'Withdrawal',
                     coin: 'BTC',
-                    time: 66.0,
+                    time: '2018-07-03 18:53:08',
                     amount: 224,
+                    status: 'Under examination',
+                    address: 'abcdabcdacbdasdfjkqlwer',
+                    tag : '123456789',
+                    TxID: 'ancbdsaqwer',
+                    fee: '1000',
+                    processingTime: '2018-08-12 16:48:23',
                 },
                 {
                     type: 'Sell',
                     coin: 'BTC',
-                    time: 66.0,
+                    time: '2018-07-03 18:53:08',
                     amount: 224,
+                    status: 'Completed',
+                    address: 'abcdabcdacbdasdfjkqlwer',
+                    tag : '123456789',
+                    TxID: 'ancbdsaqwer',
+                    fee: '1000',
+                    processingTime: '2018-08-12 16:48:23',
                 },
                 {
-                    type: 'Transfer Out',
+                    type: 'Buy',
                     coin: 'BTC',
-                    time: 66.0,
+                    time: '2018-07-03 18:53:08',
                     amount: 224,
+                    status: 'Completed',
+                    address: 'abcdabcdacbdasdfjkqlwer',
+                    tag : '123456789',
+                    TxID: 'ancbdsaqwer',
+                    fee: '1000',
+                    processingTime: '2018-08-12 16:48:23',
+                },
+                {
+                    type: 'Deposit',
+                    coin: 'BTC',
+                    time: '2018-07-03 18:53:08',
+                    amount: 224,
+                    status: 'Under examination',
+                    address: 'abcdabcdacbdasdfjkqlwer',
+                    tag : '123456789',
+                    TxID: 'ancbdsaqwer',
+                    fee: '1000',
+                    processingTime: '2018-08-12 16:48:23',
                 },
             ],
 

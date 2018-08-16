@@ -58,9 +58,9 @@
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
           <v-layout row class="statusBox" mt-4a pr-2>
-            <h6  class="statusChip" >{{nationality}}</h6>
-            <h6  class="statusChip">{{currency}}</h6>
-            <h6  class=" statusChip">{{paymentMethod}}</h6>
+            <h6  class="statusChip" @click.stop="transisModal('open')">{{nationality}}</h6>
+            <h6  class="statusChip" @click.stop="transisModal('open')">{{currency}}</h6>
+            <h6  class=" statusChip" @click.stop="transisModal('open')">{{paymentMethod}}</h6>
             <!--amount 는 입력시에만 뜸-->
             <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
               <v-layout align-center row fill-height>
@@ -70,7 +70,7 @@
             </h6>
             <v-spacer></v-spacer>
             <!-- 필터 펼치기 버튼 -->
-            <button @click.stop="isModal = !isModal">
+            <button @click.stop="transisModal('open')">
               <i class="material-icons color-darkgray" >filter_list</i>
             </button>
           </v-layout>
@@ -102,7 +102,7 @@
             </v-layout>
             <!-- cancel, search 버튼-->
             <v-flex text-xs-right mt-4>
-              <button class="btn-rounded-white text-white-hover" @click="isModal = false" >{{$str("cancel")}} </button>
+              <button class="btn-rounded-white text-white-hover" @click="transisModal('close')" >{{$str("cancel")}} </button>
               <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >{{$str("search")}} </button>
             </v-flex>
           </div>
@@ -183,9 +183,9 @@
         <!--right filter-->
         <v-flex md4 offset-md1 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
-            <h6  class="statusChip" >{{nationality}}</h6>
-            <h6  class="statusChip">{{currency}}</h6>
-            <h6  class=" statusChip">{{paymentMethod}}</h6>
+            <h6  class="statusChip" @click="transisModal('open')">{{nationality}}</h6>
+            <h6  class="statusChip" @click="transisModal('open')">{{currency}}</h6>
+            <h6  class=" statusChip" @click="transisModal('open')">{{paymentMethod}}</h6>
             <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
               <v-layout align-center row fill-height>
                 {{amount}}
@@ -193,7 +193,7 @@
               </v-layout>
             </h6>
             <v-spacer></v-spacer>
-            <button @click.stop="isModal = !isModal">
+            <button @click="transisModal('open')">
               <i class="material-icons color-darkgray">filter_list</i>
             </button>
           </v-layout>
@@ -223,7 +223,7 @@
             </v-layout>
             <!-- cancel, search 버튼-->
             <v-flex text-xs-right mt-4>
-              <button class="btn-rounded-white text-white-hover" @click="isModal = false" >{{$str("cancel")}} </button>
+              <button class="btn-rounded-white text-white-hover" @click="transisModal('close')" >{{$str("cancel")}} </button>
               <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >{{$str("search")}} </button>
             </v-flex>
           </div>
@@ -332,6 +332,14 @@
                 }
                 //위의 과정 거치면 coin과 type 결정됨.
                 MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
+
+            },
+            transisModal(type){
+                if(type ==='open'){
+                    this.isModal = true;
+                }else{
+                    this.isModal = false;
+                }
 
             },
             //rightfilter의 search 클릭시
