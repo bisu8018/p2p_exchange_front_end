@@ -542,9 +542,9 @@
             alipay: "Y",
             wechatPay: "Y",
             bankAccount: "Y",
-            alipayInfo: "范鹏龙 , 18529612778 Alipay",
-            wechatPayInfo: "范鹏龙 , 18529612778 Wechatpay",
-            bankAccountInfo: "范鹏龙 , 6214856562128938 招商银行 珠海分行营业部",
+            alipayInfo: "李小龙 , 88888888888 Alipay",
+            wechatPayInfo: "李小龙 , 88888888888 Wechatpay",
+            bankAccountInfo: "李小龙 , 88888888888 招商银行 珠海分行营业部",
             exchangeRate: '2977.02',
 
 

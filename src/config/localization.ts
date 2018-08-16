@@ -761,9 +761,9 @@ const strings = new Map([
     }],
     ['autoReplyPlaceholder', {
         KOR: '거래가 성사된 후, 본 정보는 자동으로 상대방에게 전송됩니다.',
-        ENG: 'After the order is established, this information is automatically sent to the other party.',
-        CN: '交易完成后，本信息将自动传送到对方',
-        HK: '交易完成後，本信息將自動傳送到對方'
+        ENG: 'After the order is established, this information is automatically sent to the counterparty.',
+        CN: '交易完成后，本信息将自动传送到对方。',
+        HK: '交易完成後，本信息將自動傳送到對方。'
     }],
     ['termsTransactionText', {
         KOR: '거래조항',
@@ -802,10 +802,10 @@ const strings = new Map([
         HK: '對方需要綁定手機號碼和賬戶'
     }],
     ['counterpartyCheckbox3', {
-        KOR: '상대방은 다른 사람과 거래하지 않아야 합니다.',
-        ENG: 'Counterparty should not trade with other merchants.',
-        CN: '对方不应与其他商家交易。',
-        HK: '對方不應與其他商家交易。'
+        KOR: '상대방이 다른 상인들과 거래하지 않아야 합니다',
+        ENG: 'Counterparty should not trade with other merchants',
+        CN: '对方不应与其他商人交易',
+        HK: '對方不應與其他商人交易'
     }],
     ['counterpartyExplain', {
         KOR: '상대방 제한을 설정하면 보다 신뢰할 수 있는 거래자를 필터링 할 수 있지만, 제한이 너무 많으면 거래 성공 가능성이 낮아집니다.',
@@ -1033,7 +1033,7 @@ const strings = new Map([
         HK: '異議申請'
     }],
     ['complete', {
-        KOR: '완료, ',
+        KOR: '완료',
         ENG: 'Complete',
         CN: '完成',
         HK: '完成'
@@ -1629,6 +1629,30 @@ const strings = new Map([
         CN: '保证金',
         HK: '保證金'
     }],
+    ['Tag', {
+        KOR: '태그',
+        ENG: 'Tag',
+        CN: '标签',
+        HK: '標籤'
+    }],
+    ['action', {
+        KOR: '동작',
+        ENG: 'Action',
+        CN: '行动',
+        HK: '行動'
+    }],
+    ['TxID', {
+        KOR: 'TxID',
+        ENG: 'TxID',
+        CN: 'TxID',
+        HK: 'TxID'
+    }],
+    ['Processing Time', {
+        KOR: '처리 시간',
+        ENG: 'Processing Time',
+        CN: '处理时间',
+        HK: '處理時間'
+    }],
 
     //UserPage
     ['Premium merchant', {
@@ -1791,19 +1815,25 @@ const strings = new Map([
         HK: '安全等級'
     }],
     ['securityExplain', {
-        KOR: '두가지 이상 인증 받는 것을 강력히 추천 드립니다.',
+        KOR: '이중 인증 연동을 강력히 추천합니다.',
         ENG: 'Using two-factor authentication is highly recommended.',
-        CN: '我们强烈建议您进行两种以上的验证方式。',
-        HK: '我們强烈建議您進行兩種以上的驗證方式。'
+        CN: '我们强烈建议您绑定双重验证。',
+        HK: '我們强烈建議您綁定雙重驗證。'
     }],
     ['emailSecurityExplain', {
-        KOR: '이메일은 API를 관리하는 동안 인출, 암호검색, 보안 설정 변경 그리고 인증에 사용 됩니다.',
-        ENG: 'Your Email would be used to withdraw, retrieve password, change security settings and verify while managing API.',
-        CN: ' 于管理API时，您的邮箱将被用于提款、搜索密码、更改安全设定以及验证。',
-        HK: '於管理API時，您的Email將被用於提款、搜索密碼、更改安全設定以及驗證。'
+        KOR: '이메일은 본 계정을 관리하는 동안 인출, 암호 찾기, 보안 설정 변경 및 인증에 사용됩니다.',
+        ENG: 'Your Email would be used to withdraw, retrieve password, change security settings and verify while managing your account.',
+        CN: '管理本账户时，您的邮箱将活用于提款、搜索密码、更改安全设定以及验证服务。',
+        HK: '管理本帳戶時，您的Email將活用於取款、搜索密碼、更改安全設定以及驗證服務。'
+    }],
+    ['phoneSecurityExplain', {
+        KOR: '휴대폰은 본 계정을 관리하는 동안 인출, 암호 찾기, 보안 설정 변경 및 인증에 사용됩니다.',
+        ENG: 'Your phone would be used to withdraw, retrieve password, change security settings and verify while managing your account.',
+        CN: '管理本账户时，您的手机将活用于提款、搜索密码、更改安全设定以及验证服务。',
+        HK: '管理本帳戶時，您的手機將活用於取款、搜索密碼、更改安全設定以及驗證服務。'
     }],
     ['phone', {
-        KOR: '전화',
+        KOR: '휴대폰',
         ENG: 'Phone',
         CN: '手机',
         HK: '手機'
@@ -1822,9 +1852,9 @@ const strings = new Map([
     }],
     ['idVerificationExplain', {
         KOR: '최초 신분증 인증 후, 바꿀 수 없습니다.',
-        ENG: 'Once ID verification is completed, no changes may be made.',
-        CN: '一旦验证身份证以后无法更改此验证',
-        HK: '一旦驗證身份證以後無法更改此驗證'
+        ENG: 'Once ID verification is completed, you can\'t change to any other ID.',
+        CN: '一旦验证身份证以后，无法更改此验证',
+        HK: '一旦驗證身份證以後，無法更改此驗證'
     }],
     ['advancedVerification', {
         KOR: '고급 인증',
@@ -1833,10 +1863,22 @@ const strings = new Map([
         HK: '高級驗證'
     }],
     ['paymentMethodExplain', {
-        KOR: '개인 보안상의 이유로 자신의 계정 만을 사용해야 합니다. 사용 가능한 결제 방법은 구매자에게 최대 3 개까지 표시됩니다.',
-        ENG: 'For personal security reasons, please only use your own account. Enabled payment instructions will be showen to the buyer, 3 at most',
-        CN: '为了保障个人安全，仅能用个人的账户。可使用的结账方法最多将显示3种于买方。',
-        HK: '爲了保障個人安全，僅能用個人的帳戶。可使用的結賬方法最多將顯示3種於買方。'
+        KOR: '보안상의 이유로 본인 계정만 허용됩니다. 사용 가능한 결제 수단은 구매자에게 최대 3개까지 표시됩니다.',
+        ENG: 'For security reasons, only can use your own payment accounts. Available payment methods will be shown to the buyer 3 at most.',
+        CN: '为了保障账户安全，仅能用您的支付账户。可使用的支付方式最多将显示3种于对方。',
+        HK: '爲了保障帳戶安全，僅能用您的支付帳戶。可使用的支付方式最多將顯示3種於對方。'
+    }],
+    ['nullPaymentMethod', {
+        KOR: '등록된 결제수단 없음',
+        ENG: 'No registered payment methods found',
+        CN: '没有注册的支付方式',
+        HK: '沒有注冊的支付方式'
+    }],
+    ['noMoreRecords', {
+        KOR: '기록 없음',
+        ENG: 'No records',
+        CN: '无记录',
+        HK: '無記錄'
     }],
     ['modify', {
         KOR: '수정',
@@ -1953,8 +1995,8 @@ const strings = new Map([
         HK: '更改'
     }],
     ['paymentMethodSelectboxPlaceholder', {
-        KOR: '결제수단을 선태하여 주십시오',
-        ENG: 'Choose a paymnet method',
+        KOR: '결제수단을 선택하여 주십시오',
+        ENG: 'Choose a payment method',
         CN: '请选择支付方式',
         HK: '請選擇支付方式'
     }],
@@ -2020,19 +2062,19 @@ const strings = new Map([
     }],
     ['branchInfo', {
         KOR: '추가 정보(선택사항)',
-        ENG: 'Branch Info(Oprional)',
+        ENG: 'Branch Info(Optional)',
         CN: '附加信息（选项）',
         HK: '附加信息（選項）'
     }],
     ['bankNamePlaceholder', {
         KOR: '은행 이름을 입력해 주십시오',
-        ENG: 'Enter bank name',
+        ENG: 'Enter the bank name',
         CN: '请输入银行名',
         HK: '請輸入銀行名'
     }],
     ['branchInfoPlaceholder', {
         KOR: '추가 정보를 입력해 주십시오',
-        ENG: 'Enter branch information',
+        ENG: 'Enter the branch information',
         CN: '请输入附加信息',
         HK: '請輸入附加信息'
     }],
@@ -2085,10 +2127,10 @@ const strings = new Map([
         HK: '更改密碼'
     }],
     ['changePasswordExplain', {
-        KOR: '한번 비밀번호를 변경하게 되면, 24시간 동안 입금을 할 수 없습니다.',
-        ENG: 'The withdrawal will be disabled in 24 hours once password is changed.',
-        CN: '一旦更改您的密码，24小时内将不能存款。',
-        HK: '一但更改您的密碼，24小時内將不能匯入款項。'
+        KOR: '비밀번호 변경 시, 24시간 동안 출금할 수 없습니다.',
+        ENG: 'Once you change the password, withdrawal will be disabled within 24 hours.',
+        CN: '一旦更改您的密码，24小时内将不能取款款项。',
+        HK: '一但更改您的密碼，24小時内將不能取款款項。'
     }],
     ['change', {
         KOR: '수정',
@@ -2328,14 +2370,14 @@ const strings = new Map([
     ['Your application is under review', {
         KOR: '신청서를 검토 중입니다.',
         ENG: 'Your application is under review',
-        CN: '您的申请正在审核中',
-        HK: '您的申請正在審核中'
+        CN: '交易申请正在审核中',
+        HK: '交易申請正在審核中'
     }],
     ['Authentication has been successfully submitted.', {
         KOR: '인증이 성공적으로 신청되었습니다.',
         ENG: 'Authentication has been successfully submitted.',
         CN: '身份验证已成功提交。',
-        HK: '身份驗證已成功提交'
+        HK: '身份驗證已成功提交。'
     }],
     ['We will complete the review within 2 working days', {
         KOR: '2 영업일 이내에 검토를 완료하겠습니다.',

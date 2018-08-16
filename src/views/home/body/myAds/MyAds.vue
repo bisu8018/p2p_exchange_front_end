@@ -2,7 +2,7 @@
     <div>
         <v-layout row wrap mt-5 mb-4a>
             <!--header-->
-            <div class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</div>
+            <v-flex md2 xs12 class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</v-flex>
             <v-spacer></v-spacer>
             <v-flex md10 xs12>
                 <my-ads-filter class="myOrderFilter"></my-ads-filter>
@@ -18,28 +18,28 @@
             </span>
 
             <!-- Web 일때-->
-            <span v-else>
+            <div v-else>
                 <!-- header -->
                  <v-layout mb-2 color-darkgray>
-                  <v-flex md1 text-md-left>{{$str("orderNo")}}</v-flex>
-                  <v-flex md2 text-md-left>{{$str("adsType")}}</v-flex>
+                  <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
+                  <v-flex md1 text-md-left>{{$str("adsType")}}</v-flex>
                   <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
                   <v-flex md2 text-md-left>{{$str("limits")}}</v-flex>
                   <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
                   <v-flex md2 text-md-left>{{$str("time")}}</v-flex>
                   <v-flex md3 text-md-right>{{$str("control")}}</v-flex>
                 </v-layout>
-                <v-divider></v-divider>
+                <v-flex><v-divider></v-divider></v-flex>
                 <!-- user ad list들 10개씩 출력-->
-                <v-flex v-for="(adslist,index) in adsLists" pl-0 pr-0>
+                <div v-for="(adslist,index) in adsLists" >
                   <my-ads-list
                           :adslist="adslist"
                   ></my-ads-list>
-                  <v-divider></v-divider>
-                </v-flex>
+                  <v-flex><v-divider></v-divider></v-flex>
+                </div>
                 <!-- pagination -->
                 <!--<Pagination></Pagination>-->
-             </span>
+             </div>
         </div>
         <div v-else>
             <div class="mb-2"><img src="@/assets/img/no_data.png"></div>
@@ -63,7 +63,8 @@
                     no: '6517',
                     token: 'ETH',
                     amount: 6,
-                    limits: 224,
+                    minLimit: 124,
+                    maxLimit: 224,
                     price: 44.0,
                     time: '11:59:59',
                     currency: 'CNY',
@@ -74,7 +75,8 @@
                     no: '6518',
                     token: 'ETH',
                     amount: 2,
-                    limits: 1000,
+                    minLimit: 124,
+                    maxLimit: 224,
                     price: 44.0,
                     time: '11:59:59',
                     currency: 'CNY',
@@ -84,7 +86,8 @@
                     no: '6519',
                     token: 'BTC',
                     amount: 0.1,
-                    limits: 100,
+                    minLimit: 124,
+                    maxLimit: 224,
                     price: 44.0,
                     time: '11:59:59',
                     currency: 'CNY',

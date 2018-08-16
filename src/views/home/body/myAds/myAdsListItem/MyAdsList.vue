@@ -50,19 +50,21 @@
         <!-- Web 일때-->
         <div v-else>
             <v-layout pt-4 pb-4>
-                <v-flex md1 text-md-left color-blue>{{adslist.no}}</v-flex>
-                <v-flex md2 text-md-left>
-                    <span class="mr-4 color-green bold" v-if="adslist.adsType === 'sell'">
-                        {{$str("sell")}}
-                    </span>
-                    <span class="mr-4 color-orange-price bold" v-if="adslist.adsType === 'buy'">
-                        {{$str("buy")}}
-                    </span>
+                <v-flex md2 text-md-left color-blue>{{adslist.no}}</v-flex>
+                <v-flex md1 text-md-left>
+                    <v-layout justify-space-between>
+                        <h5 class="color-green bold" v-if="adslist.adsType === 'sell'">
+                            {{$str("sell")}}
+                        </h5>
+                        <h5 class="color-orange-price bold" v-if="adslist.adsType === 'buy'">
+                            {{$str("buy")}}
+                        </h5>
                     {{adslist.token}}
+                    </v-layout>
                 </v-flex>
                 <v-flex md1 text-md-left>{{adslist.amount}}</v-flex>
-                <v-flex md2 text-md-left>{{adslist.limits}}</v-flex>
-                <v-flex md1 text-md-left>{{adslist.price}}</v-flex>
+                <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.token}}</v-flex>
+                <v-flex md1 text-md-left>{{adslist.price}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>{{adslist.time}}</v-flex>
                 <v-flex md3 text-md-right color-blue>
                     <span class="text-white-hover c-pointer ">{{$str('edit')}}</span>
