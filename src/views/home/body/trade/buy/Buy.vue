@@ -134,12 +134,13 @@
                         <!--{{email}} 이메일-->
                     {{email}}
                     {{$str("buyingExplain3")}}
-                </span>
+                    </span>
+
                     <span v-if="status === 'buying'">
-                      {{$str("buyingExplain4")}}
-                  </span>
+                      <!--{{$str("buyingExplain4")}}-->
+                    </span>
                     <span v-else-if="status === 'paid' || status === 'cancel'">
-                    {{$str("complete")}},
+                    {{$str("cancel")}} {{$str("complete")}},
                     </span>
 
                     <!--status cancel 일 시 설명 문구-->
@@ -284,9 +285,9 @@
             alipay: 'Y',
             wechat: 'Y',
             bankAccount: 'Y',
-            alipay_address: '1670191503@qq.com 支付宝付款 直接扫码 安全便捷',
-            wechatpay_address: 'wwxx88663   微信支付直接扫码',
-            bankaccount_address: '6217001250015304185  建设银行',
+            alipay_address: '8888888888@qq.com 支付宝付款 直接扫码 安全便捷',
+            wechatpay_address: 'wwxx8888888888   微信支付直接扫码',
+            bankaccount_address: '8888888888  建设银行',
             paymentWindow: 15,
             reference: 453534,
             showModal: false,

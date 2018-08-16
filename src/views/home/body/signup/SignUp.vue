@@ -63,10 +63,13 @@
 
             <!--이용약관 체크박스-->
             <div class="mb-4 text-xs-left">
+                <v-layout>
                 <input id="termsCheckbox" type="checkbox" v-model="termsAgreeYn"
                        @click="onCheckTerms()"
                        class="mr-2">
-                <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel')}}</label>
+                <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel1')}}</label>
+                <span class="color-blue text-white-hover" @click="go_Terms_of_Service()">&nbsp;{{$str('termsLabel2')}}</span>
+                </v-layout>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>
@@ -295,6 +298,24 @@
                         console.log("ERROR ::::::: " + error);
                     }
                 })
+            },
+            go_Terms_of_Service(){          //terms of service 누를시 zendisk로 이동
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
             },
             /*showWarning(code) {
                 this.$eventBus.$emit('showAlert', code);

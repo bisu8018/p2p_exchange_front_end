@@ -12,7 +12,9 @@
                 <div class="section-border-depth pt-5 pb-5 cardBox">
                     <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">{{$str("Advertising")}}</h2>
-                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Merchants are able to post advertisements, flexible and covenient to trade.")}}</h4>
+                    <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">
+                        {{$str("Merchants are able to post advertisements, flexible and convenient to trade.")}}
+                    </h4>
                 </div>
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3 ">
@@ -81,7 +83,7 @@
                     <button><i class="material-icons " @click="showVeriModal = false">close</i></button>
                 </v-flex>
                 <v-flex xs12 color-darkgray text-xs-left mt-3 mb-4>
-                    {{$str("For safety reasons, please complete the transaction information")}}
+                    {{$str("nickNameExplain")}}
                 </v-flex>
                 <!-- 1. Nationality 창-->
                 <v-flex xs12 text-xs-left>

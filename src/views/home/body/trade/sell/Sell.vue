@@ -130,14 +130,14 @@
                     {{$str("complete")}},
                 </span>
 
-                {{$str("referenceText")}} :
+                 :
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy()">
                     <!--{{거래번호}}-->
                     {{reference}}
                     </span>
                     <input type="text" :value="reference" id="referenceNum" class="referenceNum">
-                    <span class="tooltip-content">Copy</span>
+                    <span class="tooltip-content">{{$str("Copy")}}</span>
                 </div>
             </div>
         </div>
@@ -228,9 +228,9 @@
             alipay: 'Y',
             wechat: 'Y',
             bankAccount: 'Y',
-            alipay_address: '1670191503@qq.com 支付宝付款 直接扫码 安全便捷',
-            wechatpay_address: 'wwxx88663   微信支付直接扫码',
-            bankaccount_address: '6217001250015304185  建设银行',
+            alipay_address: '88888888@qq.com 支付宝付款 直接扫码 安全便捷',
+            wechatpay_address: 'wwxx88888888   微信支付直接扫码',
+            bankaccount_address: '8888888888888888  建设银行',
             paymentWindow: 15,
             reference: 453534,
             showModal: false,

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-parallax style="height: 600px;">
+        <v-parallax style="height: 600px;" v-if="!isMobile">
             <v-carousel delimiter-icon="remove" lazy style="height: 600px;">
                 <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
                     <!-- <v-layout column align-center justify-center class="white--text">
@@ -15,10 +15,12 @@
         <h5 class="medium mt-3">The world's leading P2P trading platform</h5>
       </div>
       <v-layout row wrap pageView mt-6>
+        <!-- 국가 -->
         <v-flex xs6 md2 mb-4>
           <select-box :selectBoxType="'country'"></select-box>
         </v-flex>
-        <v-flex xs6 md1 mb-4>
+        <!-- tradeType -->
+        <v-flex xs6 md2 mb-4>
           <div class="p-relative">
             <select v-model="selectedTradeType" class="comp-selectbox o-none h6">
               <option class="o-none">Buy</option>
@@ -27,34 +29,40 @@
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
           </div>
         </v-flex>
+        <!-- amount -->
         <v-flex xs12 md3 mb-4>
           <v-layout>
             <v-flex xs9 pl-0 pr-0>
-              <input type="text" class="input" v-model="amount"
+              <input type="text" class="input amount-box" v-model="amount"
                      :placeholder="$str('How_much_you_want_to_trade?')">
             </v-flex>
+            <!-- currency -->
             <v-flex xs3 pl-0 pr-0>
-              <select-box :selectBoxType="'currency'"></select-box>
+              <div class="p-relative">
+                <select-box :selectBoxType="'currency'"></select-box>
+                <div class="currency-box-border"></div>
+              </div>
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-flex xs6 md2 mb-4 >
-          <div class="p-relative">
-            <select v-model="selectedCryptocurrency" class="comp-selectbox o-none h6">
-              <option class="o-none">BTC</option>
-              <option class="o-none">ETH</option>
-              <option class="o-none">ALLB</option>
-            </select>
-            <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
-          </div>
-        </v-flex>
-        <v-flex md1 v-if="!isMobile" mb-4>
-          <div class="color-darkgray pt-2">
-            Via
-          </div>
-        </v-flex>
-        <v-flex xs6 md2 mb-4>
-          <select-box :selectBoxType="'payment'"></select-box>
+        <v-flex xs12 md4 mb-4 >
+          <v-layout justify-space-between>
+            <div class="p-relative userInput">
+              <!-- cryptocurrency -->
+              <select v-model="selectedCryptocurrency" class="comp-selectbox  o-none h6">
+                <option class="o-none">BTC</option>
+                <option class="o-none">ETH</option>
+                <option class="o-none">ALLB</option>
+              </select>
+              <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+            </div>
+            <div v-if="isMobile" class="pl-1 pr-1"></div>
+            <div v-else class="color-darkgray pt-2 mb-4">Via</div>
+            <!-- paymentmethod -->
+            <div class="p-relative userInput">
+              <select-box :selectBoxType="'payment'"></select-box>
+            </div>
+          </v-layout>
         </v-flex>
         <v-flex xs12 md1 mb-4>
           <div class="searchBtn btn-blue btn-blue-hover c-pointer" @click="goSearchedTradeCenter">
@@ -189,7 +197,27 @@
       height: 40px;
       padding-top: 8px;
     }
-    .input{
-      border-right : 0.5px;
+    .amount-box{
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-right: 0.5px;
     }
+    .currency-box-border {
+      position : absolute;
+      height: 40px;
+      width: 1px;
+      top: 0px;
+      background-color: #8d8d8d;
+
+    }
+
+    .userInput{
+      min-width: 155px;
+    }
+    @media only screen and (max-width: 959px) {
+      .userInput {
+        width: 100%;
+      }
+    }
+
 </style>
