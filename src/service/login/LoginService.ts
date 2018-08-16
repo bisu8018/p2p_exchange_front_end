@@ -31,6 +31,14 @@ export default {
 
 
     User: {
+        login: function (data: any, callback: any){
+          AxiosService._requestWithBody('login','POST',data,
+              function (data: any) {
+              callback(data);
+              },
+              function () {
+              })
+        },
         getUser: function (callback: any) {
             AxiosService._request('user/myInfo', 'GET', '',
                 function (data: any) {

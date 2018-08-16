@@ -92,7 +92,7 @@
                 <div>
                     <div class="text-xs-left mb-2 button- color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{$str("fixedPrice")}}
+                        {{priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin")}}
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price}">
@@ -100,7 +100,7 @@
                                @keyup="onNumberCheck('price')"
                         >
                         <div class="border-indicator h6">
-                            {{getCurrency}}
+                            {{priceType === 'fixedprice' ? getCurrency : '%'}}
                         </div>
                         <!--<div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
@@ -118,7 +118,7 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3" :class="{'pt-2':!isMobile}">{{fixedPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{priceType === 'fixedprice' ?  toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
                     </div>
                 </div>
             </v-flex>
@@ -128,7 +128,7 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
                     <div class="price-calculate color-darkgray">{{$str("marektPrice")}} :
-                        {{getMarketPrice}} {{getCurrency}}/{{cryptocurrency}}
+                        {{getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}
                     </div>
                     <div class="price-explain color-darkgray">{{$str("priceExplain")}}</div>
                 </div>
@@ -503,7 +503,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import SelectBox from '../../../../components/SelectBox.vue';
     import Toggle from '../../../../components/Toggle.vue';
@@ -605,7 +605,7 @@
             getCurrency() {
                 return MainRepository.SelectBox.controller().getCurrency();
             },
-            getMarketPrice(this: any) {
+            getMarketPrice() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
                 let tmp_cryptoCurrency;
                 if (this.cryptocurrency === 'ETH') {
@@ -623,15 +623,21 @@
                     }
                 }
             },
-            getMinLimit(this: any) {
+            getMinLimit() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
                 for (var i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
                     if (this.officialMinLimit[i].currency === tmp_currency) {
                         let tmp_minLimit = this.officialMinLimit[i].minLimit;
+                        if(this.message != 'general'){
+                            tmp_minLimit = tmp_minLimit * 1000;
+                        }
                         return tmp_minLimit;
                         break;
                     }
                 }
+            },
+            toMoneyFormat() {
+                return abUtils.toMoneyFormat(this.fixedPrice);
             }
         },
         methods: {
@@ -639,7 +645,7 @@
                 if (type === 'price') {
                     this.onCheckFixedPrice();
                     let temp = this.fixedPrice;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.fixedPrice = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -648,7 +654,7 @@
                 } else if (type === 'volume') {
                     this.onCheckVolume();
                     let temp = this.volume;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.volume = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -657,7 +663,7 @@
                 } else if (type === "minLimit") {
                     this.onCheckMinLimit();
                     let temp = this.minLimit;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.minLimit = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -666,7 +672,7 @@
                 } else if (type === "maxLimit") {
                     this.onCheckMaxLimit();
                     let temp = this.maxLimit;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.maxLimit = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -776,7 +782,7 @@
             },
             onCheckFixedPrice() {
                 // 고정가격 체크
-                let fixedPrice = Number(this.fixedPrice)
+                let fixedPrice = Number(this.fixedPrice);
                 if (fixedPrice === 0 || fixedPrice === undefined) {
                     this.warning_fixed_price = true;
                     this.verify_warning_fixed_price = Vue.prototype.$str("warningFixedPricePlaceholder");

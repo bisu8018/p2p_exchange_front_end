@@ -56,6 +56,9 @@
     import Vue from 'vue';
     import VerifySlider from "@/components/VerifySlider";
     import {abUtils} from '@/common/utils';
+    import LoginService from "../../../../service/login/LoginService";
+
+    import axios from 'axios'
 
     export default {
         name: 'login',
@@ -88,6 +91,24 @@
                 //Send Email verification codes to Server
                 document.getElementById("loginForm").submit();
 
+                // axios({
+                //     method: 'POST',
+                //     url: 'http://13.125.249.179:8080/login',
+                //     data: {
+                //         "username" : 'bisu8018@naver.com',
+                //         "password" : 'test1234!'
+                //     },
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     }
+                // })
+
+           /*     LoginService.User.login({
+                    username : 'bisu8018@naver.com',
+                    password : 'test1234!'
+                },function (result) {
+
+                })*/
 
                 // 로그인 에러시
                 //this.showWarning;
