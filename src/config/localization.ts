@@ -892,8 +892,8 @@ const strings = new Map([
         HK: ''
     }],
     ['noMoreRecords', {
-        KOR: '기록 없음',
-        ENG: 'No more record',
+        KOR: '기록 없음.',
+        ENG: 'No more record.',
         CN: '',
         HK: ''
     }],
@@ -1752,7 +1752,7 @@ const strings = new Map([
     }],
     ['paymentMethodExplain', {
         KOR: '개인 보안상의 이유로 자신의 계정 만을 사용해야 합니다. 사용 가능한 결제 방법은 구매자에게 최대 3 개까지 표시됩니다.',
-        ENG: 'For personal security reasons, please only use your own account.Enabled payment instructions will be showen to the buyer,3 at most',
+        ENG: 'For personal security reasons, please only use your own account.Enabled payment instructions will be showen to the buyer, 3 at most.',
         CN: '',
         HK: ''
     }],
@@ -1776,7 +1776,7 @@ const strings = new Map([
     }],
     ['blockListExplain', {
         KOR: '차단된 이용자는 당신과 거래할 수 없습니다.',
-        ENG: 'Users that you blocked will not be able to trade with you',
+        ENG: 'Users that you blocked will not be able to trade with you.',
         CN: '被屏蔽的用户将无法与您进行交易',
         HK: ''
     }],
@@ -2141,8 +2141,8 @@ const strings = new Map([
         HK: ''
     }],
     ['nickNameConfirmPasswordPlaceholder', {
-        KOR: '거래 비밀번호를 다시 한번 입력해 주십시오.',
-        ENG: 'Confirm trade password.',
+        KOR: '거래 비밀번호를 다시 한번 입력해 주십시오',
+        ENG: 'Confirm trade password',
         CN: '',
         HK: ''
     }],

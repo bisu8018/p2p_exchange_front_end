@@ -10,53 +10,39 @@
                 <div class="color-darkgray mb-4 text-xs-left">
                     {{$str("emailTurnOffExplain")}}
                 </div>
-                <!--******************************************
-                                    TURN ON
-                 ******************************************-->
-                <div >
-                    <!--전화 번호 입력-->
-                    <div class="mb-4">
-                        <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("phoneNumber")}}
-                        </div>
-                        <div class="input-disabled  vertical-center disabled">{{setPhoneNumber}}</div>
+
+                    <!--전화 번호-->
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("phoneNumber")}}
                     </div>
+                    <div class="input-disabled  vertical-center disabled mb-4">{{setPhoneNumber}}</div>
 
                     <!--문자인증-->
-                    <div class="mb-4">
-                        <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("SMSverification")}}
-                        </div>
-                        <div class="p-relative">
-                            <input type="text" class="input" v-model="SMSVerificationCode" maxlength="12">
-                            <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
-                        </div>
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("SMSverification")}}
                     </div>
-                </div>
+                    <verification-code v-on:verify="onCheckVerificationCode(code,'phone')" :phone="phone"
+                                       :type="'phone'"></verification-code>
 
-                <div>
-                    <!--이메일 입력-->
-                    <div class="mb-4">
-                        <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("email")}}
-                        </div>
-                        <div class="input-disabled  vertical-center disabled">{{setEmail}}</div>
+                    <!--이메일 -->
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("email")}}
                     </div>
+                    <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
+
 
                     <!--이메일인증-->
-                    <div class="mb-4">
-                        <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("emailVerification")}}
-                        </div>
-                        <div class="p-relative">
-                            <input type="text" class="input" v-model="emailVerificationCode" maxlength="12">
-                            <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
-                        </div>
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("emailVerification")}}
                     </div>
-                </div>
+                    <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
+                                       :type="'email'"></verification-code>
+
+
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
-                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onChange">{{$str('change')}}</button>
+                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onChange">{{$str('change')}}
+                    </button>
                 </div>
             </div>
         </v-flex>
@@ -65,37 +51,40 @@
 
 <script>
     import Vue from 'vue';
-    import {abUtils} from '@/common/utils';
+    import MainRepository from "../../../../../vuex/MainRepository";
+    import VerificationCode from '@/components/VerificationCode.vue';
+    import AccountService from "../../../../../service/account/AccountService";
 
     export default {
         name: 'turnOff',
+        components: {
+            VerificationCode
+        },
         data: function () {
             return {
-                type : '',
-                user : {
-                    member_no : 0,
-                    phoneNo : '01012341234',
-                    email: 'test@naver.com'
-                },
-                SMSVerificationCode : '',
-                emailVerificationCode : ''
-
+                type: '',
+                email: MainRepository.Login.getUserInfo().email,
+                phone: MainRepository.Login.getUserInfo().phoneNumber,
+                emailVerify: false,
+                phoneVerify: false,
+                phoneCode: '',
+                emailCode : ''
             }
         },
-        created () {
-            window.scrollTo(0,0);
+        created() {
+            window.scrollTo(0, 0);
             var url = location.href;
             var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
             this.type = parameters[0];
         },
         computed: {
             setPhoneNumber: function () {
-                var phoneNumber = this.user.phoneNo.substr(0, 3) + '****' + this.user.phoneNo.substr(7, 5);
+                var phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 5);
                 return phoneNumber;
             },
             setEmail: function () {
-                var emailSplit = this.user.email.split('@');
-                var emailValue = emailSplit[0].substr(0,2) + '****' + '@' + emailSplit[1];
+                var emailSplit = this.email.split('@');
+                var emailValue = emailSplit[0].substr(0, 2) + '****' + '@' + emailSplit[1];
                 return emailValue;
             }
         },
@@ -103,21 +92,34 @@
             goMyPage() {
                 this.$router.push("/myPage");
             },
-            onChange() {
-                // type 별로 AXIOS post 작업 진행
-
-                // 성공후 push
-                this.goMyPage();
-            },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
-                if (this.onCheckOldPassword() && this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
+                if ( this.emailVerify === true && this.phoneVerify === true) {
                     this.onChange();
                 }
             },
-            sendVerificationCode() {
+            onChange() {
+                let self = this;
+                // type 별로 AXIOS post 작업 진행
+                AccountService.Account.checkVerificationCode('phone',{
+                    email : self.email,
+                    phoneNumber : self.phoneNumber,
+                    code : self.phoneCode
+                },function (result) {
+                    this.goMyPage();
+                });
+            },
+            // 인증코드 체크
+            onCheckVerificationCode(code,type) {
+                if (type === 'email') {
+                    this.emailVerify = true;
+                    this.emailCode = code;
+                } else {
+                    this.phoneVerify = true;
+                    this.phoneCode = code;
+                }
 
-            }
+            },
         }
     }
 </script>

@@ -55,6 +55,8 @@
 
 <script>
     import {abUtils} from '@/common/utils';
+    import AccountService from "../../../../../service/account/AccountService";
+    import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: 'changePassword',
@@ -82,10 +84,15 @@
                 this.$router.push("/myPage");
             },
             onChange() {
+                let self = this;
                 // AXIOS post 작업 진행
-
-                // 성공후 push
-                goMyPage();
+                AccountService.Account.changePassword({
+                    email : MainRepository.Login.getUserInfo().email,
+                    password: self.new_password
+                },function (result) {
+                    // 성공후 router push
+                    goMyPage();
+                });
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry

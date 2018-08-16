@@ -24,10 +24,7 @@
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("SMSverification")}}
                         </div>
-                        <div class="p-relative">
-                            <input type="text" class="input" v-model="SMSVerificationCode" maxlength="12">
-                            <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
-                        </div>
+                        <verification-code v-on:verify="onCheckVerificationCode" :phone="phone_number" :type="'phone'"></verification-code>
                     </div>
                 </div>
 
@@ -64,20 +61,20 @@
 <script>
     import {abUtils} from '@/common/utils';
     import SelectBox from "../../../../../components/SelectBox";
+    import VerificationCode from '@/components/VerificationCode.vue';
+    import AccountService from '@/service/account/AccountService';
+    import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: 'linkAccount',
-        components: {SelectBox},
+        components: {SelectBox, VerificationCode},
         data: function () {
             return {
                 type : '',
                 phone_number : '',
                 code_number : '0086',
-                user : {
-                    member_no : 0,
-                },
-                SMSVerificationCode : '',
-                emailVerificationCode : ''
+                verify : false,
+                verificationCode : '',
 
             }
         },
@@ -92,18 +89,28 @@
                 this.$router.push("/myPage");
             },
             onLink() {
-                // type 별로 AXIOS post 작업 진행
+                let self = this;
+                AccountService.Account.checkVerificationCode('phone', {
+                    email: MainRepository.Login.getUserInfo().email,
+                    phoneNumber: self.phone_number,
+                    code: self.verificationCode,
+                    status: 'turn_on'
+                }, function (result) {
+                    console.log("code check success");
+                    self.verifyStatus = 'verified';
 
-                // 성공후 push
-                this.goMyPage();
+                    this.goMyPage();
+                });
             },
+            //지역번호 select box 값 get
             setCode(value) {
                 //console.log(value);
                 this.code_number = value;
             },
-            sendVerificationCode() {
-                //문자 또는 메일 전송
-                //console.log(this.code_number + this.phone_number);
+            // 인증코드 체크
+            onCheckVerificationCode(code) {
+                this.verify = true;
+                this.verificationCode = code;
             },
         }
     }

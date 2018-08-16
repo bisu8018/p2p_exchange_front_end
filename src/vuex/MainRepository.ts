@@ -134,6 +134,11 @@ export default {
                 callback(paymentMethod_map);
             })
         },
+        setPaymentMethod: function (type: string, data: any, callback: any){
+            AccountService.Account.addPaymentMethod(type,data,function (result) {
+                callback(result);
+            })
+        },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.Login.getUserInfo().email

@@ -771,11 +771,10 @@
         </div>
 
         <!--결제수단 추가 모달-->
-        <my-page-modal :show="showModal" :type="modalType" :phoneNo="phoneVerification.phoneNumber"
+        <my-page-modal :show="showModal" :type="modalType" :phoneNumber="phoneVerification.phoneNumber"
                        :email="emailVerification.email"
                        v-on:close="onClose" v-on:paymentMethod="getPaymentMethod"
                        v-on:turnon="onTurnOn" v-on:nickName="nickName"></my-page-modal>
-
     </div>
 </template>
 

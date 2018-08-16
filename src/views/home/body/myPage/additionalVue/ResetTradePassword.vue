@@ -30,28 +30,22 @@
                         <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
                     </div>
                 </div>
-                <div>
+                <div v-if="emailVerification.status === 'turn_on'">
                     <!--이메일인증-->
-                    <div class="mb-4">
-                        <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("emailVerification")}}
-                        </div>
-                        <div class="p-relative">
-                            <input type="text" class="input" v-model="emailVerificationCode" maxlength="12">
-                            <span class="cs-click-send text-white-hover" @click="sendEmailVerificationCode">{{$str("clickToSend")}}</span>
-                        </div>
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("emailVerification")}}
                     </div>
-
+                    <verification-code v-on:verify="onCheckVerificationCode('email')" :email="email"
+                                       :type="'email'"></verification-code>
+                </div>
+                <div v-if="phoneVerification.status === 'turn_on'">
                     <!--문자인증-->
-                    <div class="mb-4">
-                        <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("SMSverification")}}
-                        </div>
-                        <div class="p-relative">
-                            <input type="text" class="input" v-model="SMSVerificationCode" maxlength="12">
-                            <span class="cs-click-send text-white-hover" @click="sendSMSVerificationCode">{{$str("clickToSend")}}</span>
-                        </div>
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("SMSverification")}}
                     </div>
+                    <verification-code v-on:verify="onCheckVerificationCode('phone')" :phone="phone"
+                                       :type="'phone'"></verification-code>
+
                 </div>
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
@@ -64,29 +58,42 @@
 </template>
 
 <script>
-    import {abUtils} from '@/common/utils';
     import Vue from 'vue';
+    import {abUtils} from '@/common/utils';
+    import VerificationCode from '@/components/VerificationCode.vue';
+    import MainRepository from "@/vuex/MainRepository";
+    import EmailVerification from "@/vuex/model/EmailVerification";
+    import PhoneVerification from "@/vuex/model/PhoneVerification";
+    import AccountService from "../../../../../service/account/AccountService";
 
     export default {
         name: 'resetTradePassword',
+        components: {
+            VerificationCode
+        },
         data: function () {
             return {
-                user: {
-                    member_no: 0,
-                    phoneNo: '01012341234',
-                    email: 'test@naver.com'
-                },
-                SMSVerificationCode: '',
-                emailVerificationCode: '',
+                emailVerify: false,
+                phoneVerify: false,
+
                 new_password: '',
                 confirm_password: '',
                 warning_password: "",
                 warning_new_password: "",
-                warning_confirm_password: ""
+                warning_confirm_password: "",
+
+                emailVerification: new EmailVerification(''),
+                phoneVerification: new PhoneVerification(''),
             }
         },
         created() {
             window.scrollTo(0, 0);
+            // 유저 인증 정보 GET
+            let self = this;
+            MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                self.emailVerification = email;
+                self.phoneVerification = phone;
+            });
         },
         methods: {
             goMyPage() {
@@ -95,12 +102,23 @@
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
                 if (this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
-                    this.onConfirm();
+                    if ((this.emailVerification.status === 'turn_on' && this.phoneVerification.status != 'turn_on' && this.emailVerify === true) ||
+                        (this.phoneVerification.status === 'turn_on' && this.emailVerification.status != 'turn_on' && this.phoneVerify === true) ||
+                        (this.phoneVerification.status === 'turn_on' && this.emailVerification.status === 'turn_on' && this.phoneVerify === true && this.emailVerify === true)) {
+                        this.onConfirm();
+                    }
                 }
             },
             onConfirm() {
                 // AXIOS POST 성공 후
-                goMyPage();
+                let self = this;
+                AccountService.Account.setNickName({
+                    email : MainRepository.Login.getUserInfo().email,
+                    nickName : MainRepository.Login.getUserInfo().nickName,
+                    tradePassword : self.new_password
+                },function (result) {
+                    goMyPage();
+                });
             },
             onCheckPasswordConfirm() {
                 //confirm password null
@@ -126,12 +144,15 @@
                 this.warning_new_password = false;
                 return true;
             },
-            sendEmailVerificationCode () {
+            // 인증코드 체크
+            onCheckVerificationCode(type) {
+                if (type === 'email') {
+                    this.emailVerify = true;
+                } else {
+                    this.phoneVerify = true;
+                }
 
             },
-            sendSMSVerificationCode () {
-
-            }
         }
     }
 </script>

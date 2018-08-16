@@ -245,7 +245,6 @@
 <script>
     import Vue from 'vue';
     import Avatar from '@/components/Avatar.vue';
-    import {doesHttpOnlyCookieExist} from "@/common/common";
 
     import {
         abGetLang,
@@ -289,14 +288,6 @@
         },
         created() {
             this.currentLang = abGetLang();
-
-            // 유저 정보 VUEX 저장
-            let isLogin = doesHttpOnlyCookieExist('SESSION');
-
-            //firefox 미동작 하므로 추가 코딩 필요
-            if (isLogin === true) {
-                MainRepository.Login.setUserInfo();
-            }
         },
         methods: {
 
