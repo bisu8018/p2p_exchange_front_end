@@ -7,24 +7,25 @@
         <!-- name-->
         <v-layout mt-4  align-center fill-height>
           <v-flex xs2 text-xs-left>
-            <avatar
-              :name = user.email[0]
-              :isLogin = user.isLogin
-              :color = user.color>
+            <avatar :email = user.nickname[0]>
             </avatar>
           </v-flex>
 
-          <v-flex xs10 text-xs-left color-blue>
-            {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
-            <!-- user의 rank 이미지-->
-            <a class="tooltip d-inline-block" v-if="user.rank==1">
-              <div class="sprite-img ic-premium ml-2"></div>
-              <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-            </a>
-            <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-              <div class="sprite-img ic-certified ml-2"></div>
-              <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-            </a>
+          <v-flex xs10 text-xs-left>
+            <v-layout>
+              <h5 class="color-blue text-white-hover c-pointer" @click="goUserPage">
+                {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+              </h5>
+              <!-- user의 rank 이미지-->
+              <a class="tooltip d-inline-block" v-if="user.rank==1">
+                <div class="sprite-img ic-premium ml-2"></div>
+                <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+              </a>
+              <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                <div class="sprite-img ic-certified ml-2"></div>
+                <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+              </a>
+            </v-layout>
           </v-flex>
         </v-layout>
         <!-- Volume -->
@@ -86,15 +87,13 @@
         <div class="mobileModal">
           <v-layout>
             <v-flex xs2 pl-2>
-              <avatar
-                      :name = user.email[0]
-                      :isLogin = user.isLogin
-                      :color = user.color>
+              <avatar :email = user.nickname[0]>
               </avatar>
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
               <h5 class="medium color-blue">
                 {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+              </h5>
                 <a class="tooltip d-inline-block" v-if="user.rank==1">
                   <div class="sprite-img ic-premium ml-2"></div>
                   <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
@@ -103,7 +102,7 @@
                   <div class="sprite-img ic-certified ml-2"></div>
                   <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
                 </a>
-              </h5>
+
               <h5 class="color-darkgray medium">
                 {{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}
               </h5>
@@ -130,15 +129,12 @@
           <!-- name-->
           <v-layout>
             <v-flex xs2 pl-2>
-              <avatar
-                    :name = user.email[0]
-                    :isLogin = user.isLogin
-                    :color = user.color>
+              <avatar :email = user.nickname[0]>
             </avatar>
             </v-flex>
             <v-flex xs8 text-xs-left>
               <v-layout>
-                <h5 class="medium color-blue">
+                <h5 class="medium color-blue text-white-hover c-pointer" @click="goUserPage">
                 {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
                 </h5>
                 <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -210,17 +206,27 @@
               <!--to input-->
               <div class="p-relative">
                 <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
-                       :placeholder="user.currency" @blur="onChecktoValue"
+                       @focus="inputFocus('toValue')"  @blur="onChecktoValue" @keyup="onNumberCheck('toValue')"
                        v-bind:class="{'warning-border' : warning_toValue}">
+                <!--All 버튼-->
+                <span class="cs-click-send allCurrencyBtn" @mousedown="fillAll()"
+                      v-if="clickToAll">{{$str("All")}}</span>
+                <!--currency placeholder-->
+                <span class="cs-timer currencyPlaceholderBtn" v-else>{{user.currency}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
                 </div>
               </div>
               <!--from input-->
               <div class="mt-3 p-relative">
-                <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="fromValue"
-                       :placeholder="user.cryptocurrency" @blur="onCheckfromValue"
+                <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="computedFromValue"
+                       @focus="inputFocus('fromValue')" @blur="onCheckfromValue" @keyup="onNumberCheck('fromValue')"
                        v-bind:class="{'warning-border' : warning_fromValue}">
+                <!--All 버튼-->
+                <span class="cs-click-send" @mousedown="fillAll()"
+                      v-if="clickFromAll">{{$str("All")}}</span>
+                <!--cryptocurrency placeholder-->
+                <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                     {{verify_warning_fromValue}}</p>
@@ -229,7 +235,7 @@
               <!--trade PW. sell 일때만 활성화-->
               <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
                 <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
-                       :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
+                       :placeholder="$str('tradePwText')" @blur="onChecktradePassword" @keyup="onNumberCheck('tradePW')"
                        v-bind:class="{'warning-border' : warning_tradePassword}">
                 <div class="warning-text-wrapper">
                   <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
@@ -266,12 +272,9 @@
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
           <v-layout  align-center>
-              <avatar
-              :name = user.nickname[0]
-              :isLogin = user.isLogin
-              :color = user.bgColor>
+              <avatar :email = user.nickname[0]>
             </avatar>
-            <span class="ml-3 color-blue">
+            <span class="ml-3 color-blue text-white-hover">
               <button @click="goUserPage">{{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
             </span>
             <!--판매자 rank-->
@@ -329,10 +332,7 @@
             <v-flex md3 text-md-left >
               <v-layout pl-4 >
                 <!--avatar-->
-                <avatar
-                        :name = user.email[0]
-                        :isLogin = user.isLogin
-                        :color = user.color>
+                <avatar :email = user.nickname[0]>
                 </avatar>
                 <!-- merchant 정보-->
                 <span>
@@ -373,15 +373,12 @@
             <v-flex md3 text-md-left >
               <v-layout row pl-4 >
                 <!--avatar-->
-                <avatar
-                          :name = user.nickname[0]
-                          :isLogin = user.isLogin
-                          :color = user.bgColor>
+                <avatar :email = user.nickname[0]>
                 </avatar>
 
                 <!-- merchant 정보-->
                 <span>
-                  <span class="mr-2 ml-3 color-blue medium">
+                  <span class="mr-2 ml-3 color-blue medium text-white-hover" @click="goUserPage">
                     {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
                   </span>
                   <!--판매자 rank-->
@@ -412,14 +409,15 @@
               <v-layout align-center justify-space-between row fill-height>
                 <!--to input-->
                 <div class="p-relative">
-                  <input type="number" class="input userToInput textRightPlaceholder"
-                         name="toValue" v-model="toValue"
-                         @blur="onChecktoValue"
+                  <input type="number" class="input userInput textRightPlaceholder"
+                         name="toValue" v-model="toValue" @keyup="onNumberCheck('toValue')"
+                         @focus="inputFocus('toValue')" @blur="onChecktoValue"
                          v-bind:class="{'warning-border' : warning_toValue}">
                   <!--All 버튼-->
-                  <span class="cs-click-send allCurrencyBtn" @click="fillAll('toValue')" v-if="clickToAll">{{$str("All")}}</span>
+                  <span class="cs-click-send allCurrencyBtn" @mousedown="fillAll()"
+                        v-if="clickToAll">{{$str("All")}}</span>
                   <!--currency placeholder-->
-                  <span class="cs-timer currencyPlaceholderBtn">{{user.currency}}</span>
+                  <span class="cs-timer currencyPlaceholderBtn" v-else>{{user.currency}}</span>
                   <div class="warning-text-wrapper">
                     <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
                   </div>
@@ -428,13 +426,15 @@
               <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
                 <!--from input-->
               <div class="p-relative">
-                <input type="number" class="input userFromInput textRightPlaceholder"
-                       name="fromValue" v-model="fromValue" @blur="onCheckfromValue"
+                <input type="number" class="input userInput textRightPlaceholder"
+                       name="fromValue" v-model="computedFromValue" @keyup="onNumberCheck('fromValue')"
+                       @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
                        v-bind:class="{'warning-border' : warning_fromValue}">
                 <!--All 버튼-->
-                <span class="cs-click-send" @click="fillAll('fromValue')" v-if="clickFromAll">{{$str("All")}}</span>
+                <span class="cs-click-send" @mousedown="fillAll()"
+                      v-if="clickFromAll">{{$str("All")}}</span>
                 <!--cryptocurrency placeholder-->
-                <span class="cs-timer" v-else="!clickToAll">{{user.cryptocurrency}}</span>
+                <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
                   <div class="warning-text-wrapper">
                     <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                       {{verify_warning_fromValue}}</p>
@@ -517,6 +517,9 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
     import NickNameModal from '@/components/NickNameModal.vue';
+    import Common from "../../../../../service/common/CommonService";
+    import {abUtils} from "../../../../../common/utils";
+
     export default {
         name: "TradeListItem",
         components:{Avatar, NickNameModal},
@@ -536,41 +539,59 @@
             warning_tradePassword: false,
             setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
-            clickToAll: true,              //tovalue부분의 input에 All button이 올라가 있게
-            clickFromAll: true,            //fromvalue부분의 input에 All button이 올라가 있게
+            clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
+            clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
+
+            marketPrice: '',
         }),
         props : {
             user: {},
-
-
+        },
+        computed : {
+            isMobile(){
+                return MainRepository.State.isMobile();
+            },
+            computedFromValue(){
+                let tmp_currency = MainRepository.TradeView.getSelectFilter().currency;
+                let tmp_cryptoCurrency = MainRepository.TradeView.getSelectFilter().cryptocurrency;
+                let tmp_price;
+                for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
+                    if (this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency
+                        && this.marketPrice[i].currency === tmp_currency) {
+                        //console.log(this.marketPrice[i]);
+                        tmp_price = this.marketPrice[i].price;
+                        this.fromValue = this.toValue/tmp_price;
+                        return this.fromValue.toFixed(6);         //소수점 6번째자리까지
+                        break;
+                    }
+                }
+            },
         },
         methods : {
-            onChecktoValue(){
-                if (this.toValue === "") {
-                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
-                    this.warning_toValue = true;
-                    return false;
+            onNumberCheck(type){
+                if(type ==='toValue'){
+                    this.onChecktoValue();
+                    let temp = this.toValue;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.toValue = "";
+                    }
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                        return this.toValue = abUtils.toDeleteZero(temp);
+                    }
+                }else if(type ==='fromValue'){
+                    this.onCheckfromValue()
+                    let temp = this.fromValue;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.fromValue = "";
+                    }
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                        return this.fromValue = abUtils.toDeleteZero(temp);
+                    }
+                }else if(type ==='tradePW'){
+                    this.onChecktradePassword();
+
                 }
-                this.warning_toValue = false;
-                return true;
-            },
-            onCheckfromValue(){
-                if (this.fromValue === "") {
-                    this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
-                    this.warning_fromValue = true;
-                    return false;
-                }
-                this.warning_fromValue = false;
-                return true;
-            },
-            onChecktradePassword(){
-                if (this.tradePW === "") {
-                    this.verify_warning_tradePassword = Vue.prototype.$str("warning_trade_password");
-                    this.warning_tradePassword = true;
-                    return false;
-                }
-                this.warning_tradePassword = false;
-                return true;
+
             },
             goTrade(){
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
@@ -589,14 +610,17 @@
                 }
             },
             //trade modal에서 input에서 All 버튼 누를때
-            fillAll(type){
+            fillAll(){
+                this.clickToAll = false;
+                this.toValue = 10000;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                this.clickFromAll = false;
+            },
+            inputFocus(type){
                 if(type =='toValue'){
-                    this.clickToAll = false;
-                    this.toValue = 100;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                    this.clickToAll = true;
                 }
                 else{
-                    this.clickFromAll = false;
-                    this.fromValue = 100;     //차후 내 잔고 불러와 마진고려해 수정해야함
+                    this.clickFromAll = true;
                 }
             },
             goUserPage(){
@@ -604,7 +628,38 @@
             },
             closeNicknameModal(){
                 this.showNickNameModal = false;
-            }
+            },
+            onChecktoValue(){
+                //All 버튼 없애기.
+                this.clickToAll = false;
+                if (this.toValue === "") {
+                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    this.warning_toValue = true;
+                    return false;
+                }
+                this.warning_toValue = false;
+                return true;
+            },
+            onCheckfromValue(){
+                //All 버튼 없애기.
+                this.clickFromAll = false;
+                if (this.fromValue === "") {
+                    this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    this.warning_fromValue = true;
+                    return false;
+                }
+                this.warning_fromValue = false;
+                return true;
+            },
+            onChecktradePassword(){
+                if (this.tradePW === "") {
+                    this.verify_warning_tradePassword = Vue.prototype.$str("warning_trade_password");
+                    this.warning_tradePassword = true;
+                    return false;
+                }
+                this.warning_tradePassword = false;
+                return true;
+            },
 
         },
         created(){
@@ -622,7 +677,11 @@
                 this.do_not_trade_message += 'adv. verification'
                 this.can_not_trade = true;
             }
-
+            //환율 및 유져 정보 get 필요
+            let self = this;
+            Common.info.getMarketPrice(function (data) {
+                self.marketPrice = data;
+            });
         },
         mounted(){
           switch (this.user.rank) {
@@ -637,21 +696,7 @@
           }
 
         },
-        computed : {
-            isMobile(){
-                return MainRepository.State.isMobile();
-            },
-            // tradeType(){
-            //     return MainRepository.TradeView.getSelectFilter().tradeType
-            // },
-            // token(){
-            //     return MainRepository.TradeView.getSelectFilter().cryptocurrency
-            // },
-            // currency(){
-            //     return MainRepository.TradeView.getSelectFilter().currency
-            // },
 
-        },
 
     }
 </script>
@@ -729,27 +774,8 @@
     padding-bottom: 24px;
   }
 
-  .currencyPlaceholderBtn{
-    display: block ;
-  }
-  .allCurrencyBtn{
-    display: none;
-  }
-  .userToInput{
-    border: solid 1px #b2b2b2;
-    max-width: 153px;
-  }
-  .userFromInput{
-    border: solid 1px #b2b2b2;
-    max-width: 153px;
-  }
-  .userToInput:focus .currencyPlaceholderBtn {
-    display: none ;
-  }
-   .userToInput:focus +.allCurrencyBtn{
+  .currencyPlaceholderBtn {
     display: block;
   }
-
-
 
 </style>

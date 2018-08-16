@@ -8,15 +8,15 @@
       <!--toolBox들.-->
       <v-flex md6 xs12 text-xs-left text-md-right >
         <v-layout row wrap justify-space-between>
-          <div class="mb-2 ">
-            <span class="dropbtn">
+          <div class="mb-2">
+            <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
               <span >0.00000 BTC </span>
               <span >≈ 0.00000</span>
-              <span class="ml-4 p-relative color-blue " >
+              <span class="ml-4 p-relative color-blue">
                 <span>{{selectedCurrency}}</span>
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
-                <div class="dropdown-content">
+                <div class="dropdown-content" v-if="isdropdown">
                   <!-- 내 정보 list 버튼-->
                   <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
                        @click="clickedCurrency(currency.name)">
@@ -183,6 +183,7 @@
         },
         data: () => ({
             alertStatus : '',
+            isdropdown : false,
             currency : 'CNY',
             isAmout : true,
             isModal: false,
@@ -313,8 +314,13 @@
             },
             clickedCurrency(item){
                 this.selectedCurrency = item;
+                this.isdropdown = false;
                 console.log(this.selectedCurrency);
             },
+            showDropdown(){
+                 this.isdropdown = true;
+                console.log(this.isdropdown);
+            }
 
         }
 
@@ -440,6 +446,7 @@
 
   .dropbtn {
     border: none;
+    cursor: pointer;
   }
   .dropdown-content {
     display: none;
@@ -453,9 +460,9 @@
     background-color: white;
     left: -15px;
   }
-
   :hover.dropbtn .dropdown-content{
     display: block;
   }
+
 
 </style>

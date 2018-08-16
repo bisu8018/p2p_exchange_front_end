@@ -325,10 +325,18 @@
             totalcount : 1,
         }),
         created() {
+            let cureentURL = window.location.href
+            var param = cureentURL.split('?');
             //default filter값으로 list setting하기.
             if(this.message == "general"){
-                MainRepository.TradeView.initPiecePage()
-            }else {
+                if(param[1] === 'main'){        //main에서 search로 온 경우일때
+                    MainRepository.TradeView.initFromMainPage();
+
+                }
+                else{                           //header에서 온 경우일때
+                MainRepository.TradeView.initPiecePage();
+                }
+            }else {                             //blocktrade로 온 경우일때
                 MainRepository.TradeView.initBlockPage();
             }
         },

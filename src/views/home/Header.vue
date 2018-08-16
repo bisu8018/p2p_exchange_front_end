@@ -198,40 +198,39 @@
 
                     <!-- 언어설정버튼 -->
                     <div class="dropdown mr-4a d-block">
-                        <!-- 한국어-->
-                        <button v-if="currentLang=='KO'" class="dropbtn vertical-center">
-                            <div class="sprite-img ic-korean f-left"></div>
-                            <span class=" ml-2">한국어<i
+                        <!-- 중문간체 -->
+                        <button v-if="currentLang=='ZH'" class="dropbtn  vertical-center">
+                            <div class="sprite-img ic-chinese f-left"></div>
+                            <span class="ml-2">简体中文<i
                                     class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                        </button>
+                        <!-- 중문번체 -->
+                        <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
+                            <div class="sprite-img ic-chinese f-left"></div>
+                            <span class=" ml-2">繁體中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!-- 영어 -->
                         <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
                             <div class="sprite-img ic-english f-left"></div>
                             <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
-                        <!-- 중문번체 -->
-                        <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
-                            <div class="sprite-img ic-chinese f-left"></div>
-                            <span class=" ml-2">中國傳統<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                        </button>
-                        <!-- 중문간체 -->
-                        <button v-else class="dropbtn  vertical-center">
-                            <div class="sprite-img ic-chinese f-left"></div>
-                            <span class="ml-2">简体中文<i
+                        <!-- 한국어-->
+                        <button v-else class="dropbtn vertical-center">
+                            <div class="sprite-img ic-korean f-left"></div>
+                            <span class=" ml-2">한국어<i
                                     class="material-icons md-light md-12">keyboard_arrow_down</i></span>
                         </button>
                         <!--언어 설정시 dropdown box-->
                         <div class="dropdown-content">
-                            <!-- 내 정보 list 버튼-->
-                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
-                            </div>
+                            <!-- 언어 list 버튼-->
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
                             </div>
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">中國傳統
                             </div>
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
                             </div>
-
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+                            </div>
                         </div>
                     </div>
                 </v-layout>

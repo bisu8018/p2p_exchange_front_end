@@ -12,39 +12,39 @@
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("support")}}</p>
-          <a href="https://www.allblab.com">
+          <a @click="go_Guides()">
             <p>{{$str("guides")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a @click="go_FAQ()" >
             <p>{{$str("FAQ")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a @click="go_announcements()">
             <p>{{$str("announcements")}}</p>
           </a>
         </v-flex>
         <!-- 카드 3 Terms-->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("terms")}}</p>
-          <a href="https://www.allblab.com">
+          <a @click="go_Terms_of_Service()">
             <p>{{$str("terms_Of_Service")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a @click="go_Transaction_Regulations()">
             <p>{{$str("transaction_Regulations")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a @click="go_Fees()">
             <p>{{$str("fees")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a @click="go_Terms_Of_Privacy_Policy()">
             <p>{{$str("Terms_Of_Privacy_Policy")}}</p>
           </a>
-          <a href="https://www.allblab.com">
+          <a @click="go_KYC_Policies()" >
             <p>{{$str("KYC&AML_Policies")}}</p>
           </a>
         </v-flex>
         <!-- 카드 4 Contact Us-->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("contact_Us")}}</p>
-          <a href="https://www.allblab.com">
+          <a href="https://www.allblab.com" target="_blank">
             <p>support@allblab.com</p>
           </a>
         </v-flex>
@@ -54,27 +54,38 @@
       <v-layout mt-4a mb-4a row wrap class="footerContainer">
         <v-flex md6 xs12 mb-1 text-md-left>
           <div class="dropup">
-            <!-- 한국어모드일때-->
-            <button v-if="currentLang=='KO'" class="dropbtn vertical-center">
-              <div class="sprite-img ic-korean f-left"></div>
-              <span class=" ml-2 ">한국어<i class="material-icons md-12">keyboard_arrow_up</i></span>
+            <!-- 중국어간체일때 -->
+            <button v-if="currentLang=='ZH'" class="dropbtn vertical-center">
+              <div class="sprite-img ic-chinese f-left"></div>
+              <span class=" ml-2">简体中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
+            </button>
+            <!-- 중국어번체일때 -->
+            <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
+              <div class="sprite-img ic-chinese f-left"></div>
+              <span class=" ml-2">繁體中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 영어모드일때 -->
             <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
               <div class="sprite-img ic-english f-left"></div>
               <span class=" ml-2 " >English<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
-            <!-- 중국어모드일때 -->
+            <!-- 한국어모드일때-->
             <button v-else class="dropbtn vertical-center">
-              <div class="sprite-img ic-chinese f-left"></div>
-              <span class=" ml-2">简体中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
+              <div class="sprite-img ic-korean f-left"></div>
+              <span class=" ml-2 ">한국어<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
+
             <!--언어 설정시 dropdown box-->
-            <div class="dropup-content pl-3">
-              <!-- 내 정보 list 버튼-->
-              <button class="mt-3 mb-3" @click="changeLang('KO')">한국어</button>
-              <button @click="changeLang('ZH')">简体中文</button>
-              <button class="mt-3 mb-3" @click="changeLang('EN')">English</button>
+            <div class="dropup-content">
+              <!-- 언어 list 버튼-->
+              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
+              </div>
+              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">中國傳統
+              </div>
+              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
+              </div>
+              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+              </div>
             </div>
           </div>
         </v-flex>
@@ -102,7 +113,152 @@
         methods: {
             changeLang: function(userLang) {
                 abSetLang(userLang)
-            }
+            },
+            go_Guides(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880552-Beginners-Guide";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/zh-cn";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://www.allblab.com";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://www.allblab.com";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_FAQ(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_announcements(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880491";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880491";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880491";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880491";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_Terms_of_Service(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_Transaction_Regulations(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012615751";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012615751";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012615751";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012615751";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_Fees(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_Terms_Of_Privacy_Policy(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012603291";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012603291";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012603291";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012603291";
+                    window.open(URL, "_blank");
+                }
+            },
+            go_KYC_Policies(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012389672";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012389672";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012389672";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012389672";
+                    window.open(URL, "_blank");
+                }
+            },
+
         },
         created() {
             this.currentLang = abGetLang();
@@ -166,7 +322,7 @@
     z-index: 1;
     border-radius: 2px;
     font-weight: 400;
-    text-align: left;
+    text-align: center;
   }
 
   .dropup-content a {
