@@ -91,11 +91,11 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import {doesHttpOnlyCookieExist} from "@/common/common";
     import MainRepository from "../../../vuex/MainRepository";
-    import SelectBox  from '@/components/SelectBox';
+    import SelectBox  from "../../../components/SelectBox";
 
     export default Vue.extend({
         name: 'abMain',

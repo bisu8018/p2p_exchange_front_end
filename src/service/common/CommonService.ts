@@ -15,6 +15,19 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
+    },
+    fileUpload: {
+        //파일 업로드
+        fileUpload: function (data:any, callback: any) {
+            AxiosService._requestWithUrlPram('file','POST',data,
+                function (data) {
+                    callback(data);
+                    return;
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
     }
 }
 

@@ -14,8 +14,16 @@ export default {
                 })
         },
         // 인증코드 전송
-        sendVerificationCode: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('signUpVerification', 'POST', data,
+        sendVerificationCode: function (type: string, data: any, callback: any) {
+            let url;
+            if (type === 'signup') {          //회원가입
+                url = 'signUpVerification';
+            } else if (type === 'email') {     //이메일 인증코드
+                url = 'memberVerificaion/email'
+            } else if (type === 'phone') {     //휴대전화 인증코드
+                url = 'memberVerificaion/sms'
+            }
+            AxiosService._requestWithUrlPram(url, 'POST', data,
                 function (data: any) {
                     callback(data)
                 },
@@ -24,8 +32,16 @@ export default {
                 })
         },
         // 인증코드 검증
-        checkVerificationCode: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('signUpVerification', 'PUT', data,
+        checkVerificationCode: function (type: string, data: any, callback: any) {
+            let url;
+            if (type === 'signup') {          //회원가입
+                url = 'signUpVerification';
+            } else if (type === 'email') {     //이메일 인증코드
+                url = 'memberVerificaion/email/status'
+            } else if (type === 'phone') {     //휴대전화 인증코드
+                url = 'memberVerificaion/sms/status'
+            }
+            AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {
                     callback(data)
                 },
@@ -33,7 +49,7 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
-        // 유져 정보 get
+        // 유저 정보 get
         getUserInfo: function (callback: any) {
             AxiosService._requestWithBody('member/my', 'GET', '',
                 function (data: any) {
@@ -43,7 +59,8 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
-        getOtherUsersInfo: function (data: any, callback: any){
+        // 다른 유저 정보 get
+        getOtherUsersInfo: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('member/them', 'GET', data,
                 function (data: any) {
                     callback(data);
@@ -62,6 +79,39 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
+        //닉네임, 거래 비밀번호 설정
+        setNickName: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('member/nickandtrade', 'PUT', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        },
+        //결제수단 설정
+        addPaymentMethod: function (type: string, data: any, callback: any) {
+            let url = 'payment/';
+            url += type;
+
+            AxiosService._requestWithUrlPram(url, 'POST', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        },
+        //패스워드 변경
+        changePassword: function (data: any, callback: any) {
+            AxiosService._requestWithBody('member/password', 'PUT', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        }
     },
     Verification: {
         // 유저인증정보
@@ -111,7 +161,7 @@ export default {
     },
     LoginHistory: {
         //유저 로그인 기록
-        getLoginHistory: function (data:any, callback:any) {
+        getLoginHistory: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('login/history', 'GET', data,
                 function (data: any) {
                     callback(data);
@@ -123,7 +173,7 @@ export default {
     },
     SecuritySettings: {
         //유저 보안 설정 변경 기록
-        getSecuritySettings: function (data:any, callback:any) {
+        getSecuritySettings: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('security/history', 'GET', data,
                 function (data: any) {
                     callback(data);

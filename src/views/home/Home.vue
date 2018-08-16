@@ -17,6 +17,7 @@
     import AbHeader from "./Header.vue"
     import AbFooter from "./Footer.vue"
     import Alert from './../../components/Alerts.vue';
+    import {doesHttpOnlyCookieExist} from "@/common/common";
 
     export default Vue.extend({
         name: 'home',
@@ -46,7 +47,17 @@
             // vuex store를 넘겨준다.
             MainRepository.init(this.$store, function() {
                 //console.log("MainRepository");
-            })
+            });
+
+            // 유저 정보 VUEX 저장
+            let isLogin = doesHttpOnlyCookieExist('SESSION');
+
+            //firefox 미동작 하므로 추가 코딩 필요
+            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+            if (isLogin === true || isFirefox) {
+                MainRepository.Login.setUserInfo();
+            }
         },
         mounted() {
             this.$nextTick(function() {

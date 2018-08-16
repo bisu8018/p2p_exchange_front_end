@@ -13,7 +13,7 @@
             </div>
 
             <!--******************************************
-                              ADD PAYMENT
+                        NickName / Trade Password
              ******************************************-->
             <span v-if="type === 'nickName'">
                 <div class="color-darkgray mb-4 text-xs-left">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="p-relative">
                         <input type="text" class="input" :placeholder="$str('nickNamePlaceholder')"
-                               v-model="user.nick_name"
+                               v-model="nick_name"
                                v-bind:class="{'warning-border' : warning_nick_name}" @keyup="onCheckNickName">
                         <div class="warning-text-wrapper">
                             <span class="d-none"
@@ -72,7 +72,7 @@
                     {{$str("paymentMethod")}}
                 </div>
                 <div class="p-relative mb-4">
-                    <select class="comp-selectbox h6" id="paymentMethod" v-model="paymentMethod">
+                    <select class="comp-selectbox h6" id="paymentMethod" v-model="paymentMethod" @change="onClearData">
                         <option value="" disabled selected
                                 hidden>{{$str('paymentMethodSelectboxPlaceholder')}}
                         </option>
@@ -176,7 +176,8 @@
                         {{$str("qrCode")}}
                     </div>
                     <label class="">
-                        <div class="textarea-style p-relative" v-bind:class="{'warning-border' : warning_attachment_file}">
+                        <div class="textarea-style p-relative"
+                             v-bind:class="{'warning-border' : warning_attachment_file}">
                             <div v-if="file === ''" class="ma-4a">
                                 <input type="file" id="file" ref="file" v-on:change="onCheckAttachmentFile()"
                                        class="d-none"/>
@@ -196,7 +197,7 @@
                                     <i class="material-icons ">close</i>
                                 </span>
                             </div>
-                            <div class="warning-text-wrapper">
+                            <div class="warning-text-wrapper warning-textArea-wrapper">
                                 <span class="d-none"
                                       v-bind:class="{'warning-text' : warning_attachment_file}">{{verify_warning_attachment_file}}</span>
                             </div>
@@ -239,10 +240,7 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("SMSverification")}}
                     </div>
-                    <div class="p-relative">
-                        <input type="text" class="input" v-model="SMSverificationCode" maxlength="12">
-                        <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
-                    </div>
+                    <verification-code v-on:verify="onCheckVerificationCode" :phone="phoneNumber" :type="'phone'"></verification-code>
                 </div>
             </div>
 
@@ -260,14 +258,14 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("emailVerification")}}
                     </div>
-                    <div class="p-relative">
-                        <input type="text" class="input" v-model="SMSverificationCode" maxlength="12">
-                        <span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>
-                    </div>
+                    <verification-code v-on:verify="onCheckVerificationCode" :email="email" :type="'email'"></verification-code>
                 </div>
             </div>
 
 
+            <!--******************************************
+                           입력 버튼 모음
+            ******************************************-->
             <div class="text-xs-right">
                 <v-spacer></v-spacer>
                 <button @click="onClose" class="h6 btn-rounded-white text-white-hover mr-3" v-if="type != 'nickName' ">
@@ -297,17 +295,19 @@
 <script>
     import Vue from 'vue';
     import {abUtils} from '@/common/utils';
+    import AccountService from "../../../../../service/account/AccountService";
+    import MainRepository from "../../../../../vuex/MainRepository";
+    import VerificationCode from '@/components/VerificationCode.vue';
+    import CommonService from "../../../../../service/common/CommonService";
 
     export default {
         name: 'myPageModal',
-        props: ['show', 'type', 'phoneNo', 'email'],
+        components: {
+            VerificationCode
+        },
+        props: ['show', 'type', 'phoneNumber', 'email'],
         data() {
             return {
-                user: {
-                    member_no: 0,
-                    email: 'test@naver.com',
-                    nick_name: '',
-                },
                 //거래수단 변경
                 paymentMethod: "",
                 realName: "",
@@ -323,7 +323,7 @@
                 warning_bank: false,
                 warning_bank_accout: false,
                 warning_trade_password: false,
-                warning_attachment_file : false,
+                warning_attachment_file: false,
                 verify_warning_name: Vue.prototype.$str('warning_name'),
                 verify_warning_alipay: Vue.prototype.$str('warning_alipay'),
                 verify_warning_wechat: Vue.prototype.$str('warning_wechat'),
@@ -331,9 +331,9 @@
                 verify_warning_bank_account: Vue.prototype.$str('warning_name'),
                 verify_warning_trade_password: Vue.prototype.$str('warning_trade_password'),
                 verify_warning_attachment_file: '',
-                SMSverificationCode: '',
 
                 // 닉네임 & 거래 비밀번호
+                nick_name: '',
                 new_password: '',
                 confirm_password: '',
                 warning_password: "",
@@ -344,37 +344,45 @@
                 //파일 첨부
                 file: '',
                 image: '',
+
+                verifyStatus: 'unverified',        //unverified -> verifying -> verified
+                verify: false,
+                verificationCode: '',
             }
         },
         computed: {
             setPhoneNumber: function () {
-                var phoneValue = this.phoneNo.substr(0, 3) + '****' + this.phoneNo.substr(7, 5);
+                let phoneValue = this.phoneNumber.substr(0, 3) + '****' + this.phoneNumber.substr(7, 5);
                 return phoneValue;
             },
             setEmail: function () {
-                var emailValue = this.email.split('@')[0];
+                //var emailValue = this.email.split('@')[0];
+                let emailValue = this.email;
                 return emailValue;
             }
         },
         methods: {
+            // 인증코드 체크
+            onCheckVerificationCode(code) {
+                this.verify = true;
+                this.verificationCode = code;
+            },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
                 let fileInfo = this.$refs.file.files[0];
                 let fileSize = fileInfo.size;
-                if (fileSize > 5000) {
+                console.log(fileInfo);
+                if (fileSize > 5e+6) {
                     this.warning_attachment_file = true;
                     this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileSize');
-
                     return false;
                 }
                 this.warning_attachment_file = false;
-                return true;
-                this.handleFileUpload();
-
+                this.handleFileUpload(fileInfo);
             },
-            handleFileUpload() {
+            handleFileUpload(fileInfo) {
                 //첨부파일 사진 등록 및 출력
-                this.file = this.$refs.file.files[0];
+                this.file = fileInfo;
                 let image = new Image();
                 let reader = new FileReader();
                 let vm = this;
@@ -388,11 +396,43 @@
                 this.$emit('close');
             },
             onComplete: function (type) {
-                // post 작업 완료 후 진행
+                let self = this;
+
+                //닉네임 및 거래 비밀번호 PUT AXIOS
+                if (type === 'nickName') {
+                    AccountService.Account.setNickName({
+                        email: MainRepository.Login.getUserInfo().email,
+                        nickname: self.nick_name,
+                        tradePassword: self.new_password
+                    }, function (result) {
+                        self.$emit('nickName', self.user.nick_name);
+                    })
+                }
+
                 if (type === 'payment') {
-                    this.$emit('paymentMethod');
-                } else if (type === 'nickName') {
-                    this.$emit('nickName', this.user.nick_name);
+                    let paymentType = self.paymentMethod;
+                    MainRepository.MyPage.setPaymentMethod(paymentType, {
+                        activeYn: 'Y',
+                        alipayId: self.alipay,
+                        alipayQrCodeImgUrl: '',
+                        bankAccount: self.bank,
+                        bankBranchInfo: self.branchInfo,
+                        bankName: self.bankAccount,
+                        memberNo: MainRepository.Login.getUserInfo.member_no,
+                        ownerName: self.realName,
+                        type: paymentType,
+                        wechatId: self.wechat,
+                        wechatQrCodeImgUrl: ''
+                    }, function (result) {
+                        self.$emit('paymentMethod');
+                    });
+
+                    CommonService.fileUpload.fileUpload({
+                        file : self.file,
+                        purpose : paymentType
+                    },function () {
+                        console.log('File upload success.');
+                    })
                 }
             },
             onNickNameCheck() {
@@ -467,10 +507,18 @@
                 // 문자 전송 코드
             },
             onConfirmTurnOn: function () {
-                //AXIOS POST
-
-                // 성공후
-                this.$emit('turnon');
+                //turn on 수행
+                let self = this;
+                AccountService.Account.checkVerificationCode(self.type, {
+                    email: self.email,
+                    phoneNumber: self.phone,
+                    code: self.verificationCode,
+                    status: 'turn_on'
+                }, function (result) {
+                    console.log("code check success");
+                    self.verifyStatus = 'verified';
+                    self.$emit('turnon');
+                });
             },
             onCheckPasswordConfirm() {
                 //confirm password null
@@ -519,6 +567,17 @@
             deleteFile() {
                 this.file = '';
                 this.image = '';
+            },
+            onClearData() {
+                this.realName = '';
+                this.alipay = '';
+                this.wechat = '';
+                this.bank = '';
+                this.branchInfo = '';
+                this.bankAccount = '';
+                this.tradePassword = '';
+                this.file = '';
+                this.image = '';
             }
         },
     }
@@ -565,8 +624,8 @@
         margin: 9px;
     }
 
-    .warning-text-wrapper {
-        top : 153px !important;
+    .warning-textArea-wrapper {
+        top: 153px !important;
     }
 
 </style>

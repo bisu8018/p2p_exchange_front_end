@@ -10,6 +10,6 @@ export default class PhoneVerification {
     }
 
     isNull(): boolean {
-        return (this.phoneNumber === undefined || this.phoneNumber === '')
+        return (this.status === undefined || this.status === '' || this.status === 'requested')
     }
 }

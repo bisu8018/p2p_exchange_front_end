@@ -16,6 +16,9 @@ import PhoneVerification from "@/vuex/model/PhoneVerification";
 import IdVerification from "@/vuex/model/IdVerification";
 import PaymentMethod from "@/vuex/model/PaymentMethod";
 import OtherUsers from "@/vuex/model/OtherUsers";
+import Block from "@/vuex/model/Block";
+import LoginHistory from "@/vuex/model/LoginHistory";
+import SecuritySettings from "@/vuex/model/SecuritySettings";
 
 
 let selectBoxController: SelectBoxController;
@@ -94,74 +97,91 @@ export default {
             AccountService.Verification.memberVerification({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
-                let _email = new EmailVerification('');
-                let _phone = new PhoneVerification('');
+                let email = new EmailVerification('');
+                let phone = new PhoneVerification('');
 
                 for (let i = 0; i < result.length; i++) {
                     const memberVerification_tmp = result[i];
                     if (memberVerification_tmp.type === 'email') {
-                        _email = new EmailVerification(memberVerification_tmp);
+                        email = new EmailVerification(memberVerification_tmp);
                     } else {
-                        _phone = new PhoneVerification(memberVerification_tmp);
+                        phone = new PhoneVerification(memberVerification_tmp);
                     }
                 }
-                callback(_email, _phone);
+                callback(email, phone);
             });
         },
-        getIdVerification: function () {
+        getIdVerification: function (callback: any) {
             AccountService.Verification.idVerification({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
                 let idVerification = new IdVerification(result);
-                return idVerification;
+                callback(idVerification);
             })
         },
-        getPaymentMethod: function () {
+        getPaymentMethod: function (callback: any) {
             AccountService.PaymentMethod.getPaymentMethod({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
+                let paymentMethod = new PaymentMethod('');
                 const paymentMethod_map = new Map();
+
                 for (let i = 0; i < result.length; i++) {
                     const paymentMethod_tmp = result[i];
-                    paymentMethod_map.set(paymentMethod_tmp.type, paymentMethod_tmp);
+                    paymentMethod = new PaymentMethod(paymentMethod_tmp);
+                    paymentMethod_map.set(paymentMethod_tmp.type, paymentMethod);
                 }
-                return paymentMethod_map;
+                callback(paymentMethod_map);
             })
         },
-        getBlockList: function () {
+        setPaymentMethod: function (type: string, data: any, callback: any){
+            AccountService.Account.addPaymentMethod(type,data,function (result) {
+                callback(result);
+            })
+        },
+        getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
+                let blockList = new Block('');
                 const blockList_arr = new Array();
+
                 for (let i = 0; i < result.length; i++) {
                     const blockList_tmp = result[i];
-                    blockList_arr.push(blockList_tmp);
+                    blockList = new Block(blockList_tmp);
+                    blockList_arr.push(blockList);
                 }
-                return blockList_arr;
+                callback(blockList_arr);
             })
         },
-        getLoginHistory: function () {
+        getLoginHistory: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
+                let loginHistory = new LoginHistory('');
                 const loginHistory_arr = new Array();
+
                 for (let i = 0; i < result.length; i++) {
                     const loginHistory_tmp = result[i];
-                    loginHistory_arr.push(loginHistory_tmp);
+                    loginHistory = new LoginHistory(loginHistory_tmp)
+                    loginHistory_arr.push(loginHistory);
                 }
-                return loginHistory_arr;
+                callback(loginHistory_arr);
             })
         },
-        getSecuritySettings: function () {
+        getSecuritySettings: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
-                const loginHistory_arr = new Array();
+                let securitySettings = new SecuritySettings('');
+                const securitySettings_arr = new Array();
+
                 for (let i = 0; i < result.length; i++) {
-                    const loginHistory_tmp = result[i];
-                    loginHistory_arr.push(loginHistory_tmp);
+                    const securitySettings_tmp = result[i];
+                    securitySettings =  new SecuritySettings(securitySettings_tmp);
+                    securitySettings_arr.push(securitySettings);
                 }
-                return loginHistory_arr;
+                callback(securitySettings_arr);
             })
         }
     },

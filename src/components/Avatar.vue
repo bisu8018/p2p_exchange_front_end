@@ -57,7 +57,6 @@
                     }
                 )
             },
-            // 유져 정보 AXIOS GET
         }
     }
 </script>
