@@ -117,27 +117,19 @@
             },
             onLogin() {
                 //Send Email verification codes to Server
-                document.getElementById("loginForm").submit();
-              /*  let self = this;
-                let data= {
-                        username : 'bisu8018@naver.com',
-                        password : 'test1234!'
-                };*/
+               // document.getElementById("loginForm").submit();
+                let self = this;
 
-           /*        axios({
+                   axios({
                        method: 'POST',
                        url: '/login',
-                       dataType: 'jsonp',
                        data: self.serializeserialize(document.getElementById("loginForm")),
-                       withCredentials: 'false',
+                       withCredentials: true,
                        headers: {
-                           'Accept': 'application/x-www-form-urlencoded',
+                         //  'Accept': 'application/x-www-form-urlencoded',
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
-                   }).then((response) => {
-                       console.log(response);
-                       this.$router.push("/abMain");
-                   })*/
+                   })
 
            /*     LoginService.User.login({
                     username : 'bisu8018@naver.com',
