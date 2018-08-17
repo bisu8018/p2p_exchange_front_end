@@ -7,7 +7,7 @@ export default {
   },
   getRootUrl: function () {
     if (window.location.hostname == 'localhost') {
-      return window.location.protocol + '//' + 'localhost' + ':' + '8080' //window.location.port
+      return window.location.protocol + '//' + 'localhost' + ':' + '8081' //window.location.port
     } else {
       return window.location.protocol + '//' + window.location.hostname
     }
