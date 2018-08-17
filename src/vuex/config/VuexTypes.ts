@@ -52,6 +52,10 @@ export enum VuexTypes {
     SET_USER_INFO = 'account/SET_USER_INFO',
 
 
+    //======================================
+    //              Market Price
+    // =====================================
+    SET_MARKET_PRICE = 'market/SET_MARKET_PRICE',
 
 
 }

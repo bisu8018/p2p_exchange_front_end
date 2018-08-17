@@ -4,6 +4,7 @@ import trade from "@/vuex/modules/trade";
 import merchant from "@/vuex/modules/merchant";
 import pagination from "@/vuex/modules/pagination";
 import account from "@/vuex/modules/account";
+import marketPrice from "@/vuex/modules/marketPrice";
 
 
 
@@ -14,7 +15,8 @@ export default {
         trade,
         merchant,
         pagination,
-        account
+        account,
+        marketPrice,
     },
     strict: true
 }
