@@ -46,11 +46,18 @@ export default {
         // 자기 참조
         instance = this;
 
+        // 모바일 체크 -> Vuex
+        if (document.documentElement.clientWidth < 768) {
+            this.State.controller().setMobile(true);
+        } else {
+            this.State.controller().setMobile(false);
+        }
+
+
         // 서버 데이터 초기화 -> 완료 후 Callback
-        instance.initData(function () {
+        instance.initData(function () {console.log('init');
             instance.setInitCompleted(true);
         });
-
       /*  CommonService.init.getInitValue(function (data: any) {
            instance.initData(data);
            callback();
@@ -59,14 +66,7 @@ export default {
             instance.initData(data);
             callback()
         });
-*/
-
-        // 모바일 체크 -> Vuex
-        if (document.documentElement.clientWidth < 768) {
-            this.State.controller().setMobile(true);
-        } else {
-            this.State.controller().setMobile(false);
-        }
+        */
 
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
@@ -79,25 +79,25 @@ export default {
     },
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
-
-    // 로그인한 유저 정보 파싱
+        // 로그인한 유저 정보 파싱
         let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
         let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        if (isLogin === true || isFirefox) {
+        if (isLogin === true || isFirefox) {console.log('ready');
             this.Login.setUserInfo(function () {
+                console.log('set');
                 callback();
             })
+        }else{console.log('pass');
+            callback();
         }
-        callback();
-
         // 계정 JSON 파싱
       /* for (let key in data['accounts']) {
             accountController.push(data['accounts'][key])
         }*/
     },
-
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
+        console.log('complete');
         store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
     },
     State: {
@@ -211,7 +211,7 @@ export default {
             AccountService.Account.getUserInfo(function (result) {
                 let userInfo = new Account(result);
                 // var nextArr = JSON.stringify(tradeInfo)
-                // console.log(nextArr)
+                console.log(result)
                 accountController.setUserInfo(userInfo);
                 callback();
             });

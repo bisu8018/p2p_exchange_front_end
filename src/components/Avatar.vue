@@ -28,7 +28,7 @@
                 this.bgColor = MainRepository.Login.getUserInfo().bgColor;
             } else {
                 //유저 정보 GET AXIOS
-                const otherUsersInfo = MainRepository.Users.getOtherUsers();
+                const otherUsersInfo = MainRepository.Users.getOtherUsers(self.email);
                 this.bgColor = otherUsersInfo.bgColor;
                 this.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
 

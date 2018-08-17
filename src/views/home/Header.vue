@@ -186,7 +186,7 @@
                                 <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
                                     {{$str("Merchant")}}
                                 </div>
-                                <form action="http://localhost:8080/logout" method="post" ref="logout"
+                                <form action="http://13.124.253.57:8080/logout" method="post" ref="logout"
                                       @click="onLogout">
                                     <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
                                         {{$str("LogOut")}}

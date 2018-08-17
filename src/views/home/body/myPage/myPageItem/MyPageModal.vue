@@ -240,7 +240,8 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("SMSverification")}}
                     </div>
-                    <verification-code v-on:verify="onCheckVerificationCode" :phone="phoneNumber" :type="'phone'"></verification-code>
+                    <verification-code v-on:verify="onCheckVerificationCode" :phone="phoneNumber"
+                                       :type="'phone'"></verification-code>
                 </div>
             </div>
 
@@ -258,7 +259,8 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("emailVerification")}}
                     </div>
-                    <verification-code v-on:verify="onCheckVerificationCode" :email="email" :type="'email'"></verification-code>
+                    <verification-code v-on:verify="onCheckVerificationCode" :email="email"
+                                       :type="'email'"></verification-code>
                 </div>
             </div>
 
@@ -394,6 +396,7 @@
             },
             onClose: function () {
                 this.$emit('close');
+                this.onClearData();
             },
             onComplete: function (type) {
                 let self = this;
@@ -406,6 +409,7 @@
                         tradePassword: self.new_password
                     }, function (result) {
                         self.$emit('nickName', self.user.nick_name);
+                        this.onClearData();
                     })
                 }
 
@@ -425,12 +429,13 @@
                         wechatQrCodeImgUrl: ''
                     }, function (result) {
                         self.$emit('paymentMethod');
+                        this.onClearData();
                     });
 
                     CommonService.fileUpload.fileUpload({
-                        file : self.file,
-                        purpose : paymentType
-                    },function () {
+                        file: self.file,
+                        purpose: paymentType
+                    }, function () {
                         console.log('File upload success.');
                     })
                 }
@@ -518,6 +523,7 @@
                     console.log("code check success");
                     self.verifyStatus = 'verified';
                     self.$emit('turnon');
+                    this.onClearData();
                 });
             },
             onCheckPasswordConfirm() {
@@ -578,6 +584,23 @@
                 this.tradePassword = '';
                 this.file = '';
                 this.image = '';
+                this.warning_name = false;
+                this.warning_alipay = false;
+                this.warning_wechat = false;
+                this.warning_bank = false;
+                this.warning_bank_accout = false;
+                this.warning_trade_password = false;
+                this.warning_attachment_file = false;
+                this.nick_name = '';
+                this.new_password = '';
+                this.confirm_password = '';
+                this.warning_password = "";
+                this.warning_new_password = "";
+                this.warning_confirm_password = "";
+                this.warning_nick_name = "";
+                this.verifyStatus = 'unverified';       //unverified -> verifying -> verified
+                this.verify = false;
+                this.verificationCode = '';
             }
         },
     }

@@ -81,6 +81,34 @@
             VerifySlider,
         },
         methods: {
+            serializeserialize (form) {
+                var field,
+                    l,
+                    s = [];
+
+                if (typeof form == 'object' && form.nodeName == "FORM") {
+                    var len = form.elements.length;
+
+                    for (var i = 0; i < len; i++) {
+                        field = form.elements[i];
+                        if (field.name && !field.disabled && field.type != 'button' && field.type != 'file' && field.type != 'hidden' && field.type != 'reset' && field.type != 'submit') {
+                            if (field.type == 'select-multiple') {
+                                l = form.elements[i].options.length;
+
+                                for (var j = 0; j < l; j++) {
+                                    if (field.options[j].selected) {
+                                        s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[j].value);
+                                    }
+                                }
+                            }
+                            else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
+                                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                            }
+                        }
+                    }
+                }
+                return s.join('&').replace(/%20/g, '+');
+            },
             goSignup() {
                 this.$router.push("/signup");
             },
@@ -89,19 +117,26 @@
             },
             onLogin() {
                 //Send Email verification codes to Server
-                document.getElementById("loginForm").submit();
+                //document.getElementById("loginForm").submit();
+                let self = this;
+                let data= {
+                        username : 'bisu8018@naver.com',
+                        password : 'test1234!'
+                };
 
-                // axios({
-                //     method: 'POST',
-                //     url: 'http://13.125.249.179:8080/login',
-                //     data: {
-                //         "username" : 'bisu8018@naver.com',
-                //         "password" : 'test1234!'
-                //     },
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     }
-                // })
+      /*             axios({
+                       method: 'POST',
+                       url: 'http://localhost:8080/login',
+                       data: self.serializeserialize(document.getElementById("loginForm")),
+                       withCredentials: true,
+                       headers: {
+                           //'Accept': 'application/x-www-form-urlencoded',
+                           'Content-Type': 'application/x-www-form-urlencoded',
+                           //'Acces-Control-Allow-Origin': 'http://localhost.com:8080'
+                       }
+                   }).then((response) => {
+                       this.$router.push("/abMain");
+                   })*/
 
            /*     LoginService.User.login({
                     username : 'bisu8018@naver.com',

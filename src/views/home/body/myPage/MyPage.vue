@@ -194,7 +194,7 @@
                             <h6 class="color-darkgray mt-3">{{$str('paymentMethodExplain')}}</h6>
                         </v-layout>
 
-                        <span v-if="!paymentMethod.isNull()">
+                        <span v-if="paymentMethod != ''">
                             <!--알리페이-->
                             <v-layout wrap row v-if="paymentMethod.alipay">
                                 <v-divider class="mt-4 mb-4"></v-divider>
@@ -256,7 +256,7 @@
                         </span>
 
                         <v-divider class="mt-4 mb-4"></v-divider>
-                        <span v-if="paymentMethod.isNull()">
+                        <span v-if="paymentMethod === ''">
                           <h5 class="color-darkgray mb-3 mt-4 text-xs-center">{{$str('nullPaymentMethod')}}</h5>
                         </span>
 
@@ -280,7 +280,7 @@
                             <h6 class="color-darkgray mt-3">{{$str('blockListExplain')}}</h6>
                         </v-layout>
                         <v-divider class="mt-4 mb-4"></v-divider>
-                        <span v-if="!blockList.isNull()">
+                        <span v-if="blockList != ''">
                             <v-layout wrap row class="vertical-center flex-divide-bottom-block"
                                       v-for="block in blockList">
                                 <v-flex xs8 class="vertical-center">
@@ -316,7 +316,7 @@
 
 
                         <!--로그인 선택 시-->
-                        <span v-if=" selection_login  && !loginHistory.isNull()">
+                        <span v-if=" selection_login  && loginHistory != ''">
                             <v-layout wrap row flex-divide-bottom mb-4 pb-4 v-for="data in loginHistory">
                                 <v-flex xs12 class="text-xs-left">
                                     <div class="vertical-center mb-2">
@@ -359,7 +359,7 @@
                         </span>
 
                         <!--보안 설정 선택 시-->
-                        <span v-else-if=" !selection_login && !blockList.isNull()">
+                        <span v-else-if=" !selection_login && blockList != ''">
                             <v-layout wrap row flex-divide-bottom mb-4 pb-4 v-for="data in securitySettings">
                                 <v-flex xs12 class="text-xs-left">
                                     <div class="vertical-center mb-2">
@@ -394,7 +394,7 @@
                         </span>
 
 
-                        <span v-if="!blockList.isNull()" >
+                        <span v-if="blockList != ''" >
                             <Pagination class="text-md-center mt-5 mb-4"></Pagination>
                         </span>
                     </div>
@@ -615,7 +615,7 @@
 
                         <v-divider class="mt-4 mb-4"></v-divider>
 
-                        <span v-if="!paymentMethod.isNull()">
+                        <span v-if="paymentMethod != ''">
                             <!--알리페이-->
                             <v-layout wrap row class="vertical-center" v-if="paymentMethod.alipay">
                                 <v-flex md4>
@@ -670,7 +670,7 @@
                             <v-divider class="mt-4 mb-4"></v-divider>
                             <v-flex md12>
                                 <h5 class="text-md-center">
-                                    <h5 class="color-darkgray mb-3" v-if="paymentMethod.isNull()">
+                                    <h5 class="color-darkgray mb-3" v-if="paymentMethod === ''">
                                         {{$str('nullPaymentMethod')}}</h5>
                                     <a class="color-blue text-white-hover c-pointer" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
                                 </h5>
@@ -690,7 +690,7 @@
                         </v-layout>
 
                         <v-divider class="mt-4 mb-4"></v-divider>
-                        <span v-if="!blockList.isNull()">
+                        <span v-if="blockList != ''">
                             <div class="color-darkgray mt-5 mb-4 text-md-center" v-if="blockList === ''">
                                 {{$str('noMoreRecords')}}
                             </div>
@@ -727,7 +727,7 @@
                         </v-layout>
 
                         <!--로그인 선택 시-->
-                        <span v-if="selection_login  && !loginHistory.isNull()">
+                        <span v-if="selection_login  && loginHistory != ''">
                             <v-layout class="vertical-center flex-divide-bottom-block pb-2">
                                 <v-flex md4><div class="color-darkgray h5">{{$str('date')}}</div></v-flex>
                                 <v-flex md3><div class="color-darkgray h5">{{$str('Type')}}</div></v-flex>
@@ -745,7 +745,7 @@
                         </span>
 
                         <!--보안 설정 선택 시-->
-                        <span v-else-if=" !selection_login && !blockList.isNull()">
+                        <span v-else-if=" !selection_login && blockList != ''">
                             <v-layout class="vertical-center flex-divide-bottom pb-2">
                                 <v-flex md4><div class="color-darkgray h5">{{$str('date')}}</div></v-flex>
                                 <v-flex md5><div class="color-darkgray h5">{{$str('securitySettings')}}</div></v-flex>
@@ -759,7 +759,7 @@
                             </v-layout>
                         </span>
 
-                        <span v-if="blockList.isNull()" >
+                        <span v-if="blockList === ''" >
                             <div class="color-darkgray mt-5 mb-4 text-md-center text-xs-center">{{$str('noMoreRecords')}}</div>
                         </span>
                         <span v-else>
@@ -809,9 +809,9 @@
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
             idVerification: new IdVerification(''),
-            paymentMethod: new PaymentMethod(''),
-            blockList: new Block(''),
-            loginHistory: new LoginHistory(''),
+            paymentMethod: '',
+            blockList: '',
+            loginHistory: '',
             securitySettings: new SecuritySettings(''),
         }),
         created() {
