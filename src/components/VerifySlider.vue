@@ -198,6 +198,7 @@
         font-size: 12px;
         letter-spacing: 0;
         border-radius: 2px !important;
+        overflow: hidden;
     }
 
     .drag_verify .dv_handler {

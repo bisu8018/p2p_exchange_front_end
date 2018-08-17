@@ -1013,6 +1013,8 @@
         font-size: 12px;
         text-align: center;
         border-radius: 2px;
+        width: -moz-max-content;
+        width: max-content;
     }
 
     .tooltip .tooltip-content:after {
