@@ -20,6 +20,9 @@ import OtherUsers from "@/vuex/model/OtherUsers";
 import Block from "@/vuex/model/Block";
 import LoginHistory from "@/vuex/model/LoginHistory";
 import SecuritySettings from "@/vuex/model/SecuritySettings";
+import MarketPriceController from "@/vuex/controller/MarketPriceController";
+import CommonService from "@/service/common/CommonService";
+import MarketPrice from "@/vuex/model/MarketPrice";
 
 
 let selectBoxController: SelectBoxController;
@@ -28,6 +31,7 @@ let stateController: StateController;
 let merchantController: MerchantController;
 let paginationController: PaginationController;
 let accountController: AccountController;
+let marketPriceController: MarketPriceController;
 
 let store: Store<any>;
 let instance: any;
@@ -42,6 +46,7 @@ export default {
         paginationController = new PaginationController(store);
         merchantController = new MerchantController(store);
         accountController = new AccountController(store);
+        marketPriceController = new MarketPriceController(store);
 
         // 자기 참조
         instance = this;
@@ -451,4 +456,19 @@ export default {
         // },
     },
 
+    MarketPrice: {
+        controller(): MarketPriceController {
+            return marketPriceController;
+        },
+        load(callback: any) {
+            CommonService.info.getMarketPrice(function (data) {
+                let priceList: MarketPrice[] = [];
+                for (let key in data) {
+                    priceList.push(new MarketPrice(data[key]));
+                }
+                marketPriceController.setMarketPriceList(priceList);
+                callback();
+            })
+        }
+    }
 }
