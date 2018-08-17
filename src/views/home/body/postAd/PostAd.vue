@@ -926,6 +926,7 @@
         border: solid 1px #8d8d8d;
         border-radius: 2px;
         display: flex;
+        position: relative;
     }
 
     .price-input {
@@ -954,12 +955,11 @@
     }
 
     .border-indicator {
-        height: 40px;
         font-weight: 500;
-        padding-top: 10px;
         color: #353535;
-        padding-left: 14px;
-        padding-right: 14px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
 
     .refresh-btn {
