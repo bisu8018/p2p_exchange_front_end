@@ -6,11 +6,12 @@ export default {
   init: function () {
   },
   getRootUrl: function () {
-    if (window.location.hostname == 'localhost') {
+  /*  if (window.location.hostname == 'localhost') {
       return window.location.protocol + '//' + 'localhost' + ':' + '8080' //window.location.port
     } else {
       return window.location.protocol + '//' + window.location.hostname
-    }
+    }*/
+  return '';
   },
   getRootUrlWithApi: function () {
     return this.getRootUrl() + '/api/'
@@ -38,7 +39,7 @@ export default {
         if(response.data.code === 0){
             success(response.data.result);
         }
-          Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
+          //Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
       })
       .catch((error) => {
         if (error.response) {
@@ -60,7 +61,7 @@ export default {
           //  console.log('Status: ' + status);
           // 401 Error
           if (status === 401 || status === 502) {
-              Vue.prototype.$eventBus.$emit('showAlert', status);
+              //Vue.prototype.$eventBus.$emit('showAlert', status);
           } else {
             failure()
           }

@@ -82,12 +82,11 @@ export default {
         // 로그인한 유저 정보 파싱
         let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
         let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        if (isLogin === true || isFirefox) {console.log('ready');
+        if (isLogin === true || isFirefox) {
             this.Login.setUserInfo(function () {
-                console.log('set');
                 callback();
             })
-        }else{console.log('pass');
+        }else{
             callback();
         }
         // 계정 JSON 파싱
@@ -97,7 +96,6 @@ export default {
     },
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
-        console.log('complete');
         store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
     },
     State: {
@@ -190,7 +188,7 @@ export default {
             })
         },
         getSecuritySettings: function (callback: any) {
-            AccountService.LoginHistory.getLoginHistory({
+            AccountService.SecuritySettings.getSecuritySettings({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
                 let securitySettings = new SecuritySettings('');
@@ -211,7 +209,6 @@ export default {
             AccountService.Account.getUserInfo(function (result) {
                 let userInfo = new Account(result);
                 // var nextArr = JSON.stringify(tradeInfo)
-                console.log(result)
                 accountController.setUserInfo(userInfo);
                 callback();
             });
@@ -222,12 +219,12 @@ export default {
     },
     Users: {
         //다른 유저 정보 GET
-        getOtherUsers(email) {
+        getOtherUsers(email : string, callback: any) {
             AccountService.Account.getOtherUsersInfo({
                 email: email
             }, function (result) {
                 let otherUserInfo = new OtherUsers(result);
-                return otherUserInfo;
+                callback(otherUserInfo);
 
             })
         },

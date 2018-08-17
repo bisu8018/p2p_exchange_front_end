@@ -5,7 +5,7 @@ export default class OtherUsers {
 
     constructor(data: any) {
         this.bgColor = data.bgColor || '';
-        this.nickName = data.nickName || '';
+        this.nickName = data.nickname || '';
     }
 
     isNull(): boolean {

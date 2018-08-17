@@ -279,9 +279,8 @@
                             <h4 class="bold">{{$str('blockList')}}</h4>
                             <h6 class="color-darkgray mt-3">{{$str('blockListExplain')}}</h6>
                         </v-layout>
-                        <v-divider class="mt-4 mb-4"></v-divider>
                         <span v-if="blockList != ''">
-                            <v-layout wrap row class="vertical-center flex-divide-bottom-block"
+                            <v-layout wrap row class="vertical-center flex-divide-top-block"
                                       v-for="block in blockList">
                                 <v-flex xs8 class="vertical-center">
                                     <avatar :email="block.email" class="mr-3 f-left"></avatar>
@@ -291,7 +290,7 @@
                             </v-layout>
                         </span>
                         <span v-else>
-                            <div class="color-darkgray text-md-center text-xs-center">{{$str('noMoreRecords')}}</div>
+                            <div class="color-darkgray text-md-center text-xs-center flex-divide-top-block">{{$str('noMoreRecords')}}</div>
                         </span>
                     </div>
 
@@ -359,7 +358,7 @@
                         </span>
 
                         <!--보안 설정 선택 시-->
-                        <span v-else-if=" !selection_login && blockList != ''">
+                        <span v-else-if=" !selection_login && securitySettings != ''">
                             <v-layout wrap row flex-divide-bottom mb-4 pb-4 v-for="data in securitySettings">
                                 <v-flex xs12 class="text-xs-left">
                                     <div class="vertical-center mb-2">
@@ -689,21 +688,20 @@
                             <h6 class="color-darkgray mt-3">{{$str('blockListExplain')}}</h6>
                         </v-layout>
 
-                        <v-divider class="mt-4 mb-4"></v-divider>
                         <span v-if="blockList != ''">
-                            <div class="color-darkgray mt-5 mb-4 text-md-center" v-if="blockList === ''">
+                            <div class="color-darkgray mt-5 mb-4 text-md-center " v-if="blockList === ''">
                                 {{$str('noMoreRecords')}}
                             </div>
-                            <v-layout wrap row class="vertical-center flex-divide-bottom-block" v-for="block in blockList">
+                            <v-layout wrap row class="vertical-center flex-divide-top-block" v-for="block in blockList">
                                 <v-flex md10 class="vertical-center">
                                     <avatar :email="block.email" class="mr-3 f-left"></avatar>
-                                    <h5 class="color-darkgray">{{block.nickName}}</h5></v-flex>
+                                    <h5 class="color-blue c-pointer text-white-hover ">{{block.nickName}}</h5></v-flex>
                                 <v-flex md2><a class="h6 color-blue text-white-hover c-pointer">{{$str('unblock')}}</a>
                                 </v-flex>
                             </v-layout>
                          </span>
                         <span v-else>
-                            <div class="color-darkgray mt-4a  text-md-center text-xs-center">{{$str('noMoreRecords')}}</div>
+                            <div class="color-darkgray mt-4a  text-md-center text-xs-center flex-divide-top-block">{{$str('noMoreRecords')}}</div>
                         </span>
                     </div>
 
@@ -745,7 +743,7 @@
                         </span>
 
                         <!--보안 설정 선택 시-->
-                        <span v-else-if=" !selection_login && blockList != ''">
+                        <span v-else-if=" !selection_login && securitySettings != ''">
                             <v-layout class="vertical-center flex-divide-bottom pb-2">
                                 <v-flex md4><div class="color-darkgray h5">{{$str('date')}}</div></v-flex>
                                 <v-flex md5><div class="color-darkgray h5">{{$str('securitySettings')}}</div></v-flex>
@@ -802,9 +800,9 @@
             showModal: false,
             modalType: '',
 
-            member_no: MainRepository.Login.getUserInfo().member_no,
+            member_no: MainRepository.Login.getUserInfo().memberNo,
             nickName: 1,//MainRepository.Login.getUserInfo().nickname,
-            register_datetime: MainRepository.Login.getUserInfo().register_datetime,
+            register_datetime: MainRepository.Login.getUserInfo().createDatetime,
 
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
@@ -812,7 +810,7 @@
             paymentMethod: '',
             blockList: '',
             loginHistory: '',
-            securitySettings: new SecuritySettings(''),
+            securitySettings: '',
         }),
         created() {
             // 유저 인증 정보 GET
@@ -835,6 +833,7 @@
             // 차단 리스트 정보 GET
             MainRepository.MyPage.getBlockList(function (blockList) {
                 self.blockList = blockList;
+                console.log(blockList);
             });
 
             // 로그인 기록 정보 GET
@@ -978,6 +977,12 @@
     .flex-divide-bottom-block {
         border-bottom: solid 1px #d1d1d1;
         height: 82px;
+    }
+
+    .flex-divide-top-block {
+        border-top: solid 1px #d1d1d1;
+        padding-top: 20px;
+        margin-top: 20px;
     }
 
     .flex-divide-bottom {

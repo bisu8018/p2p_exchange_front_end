@@ -16,14 +16,18 @@ export default {
         // 인증코드 전송
         sendVerificationCode: function (type: string, data: any, callback: any) {
             let url;
+            let _type;
             if (type === 'signup') {          //회원가입
                 url = 'signUpVerification';
+                _type = 'POST';
             } else if (type === 'email') {     //이메일 인증코드
-                url = 'memberVerificaion/email'
+                url = 'memberVerification/email';
+                _type = 'PUT';
             } else if (type === 'phone') {     //휴대전화 인증코드
-                url = 'memberVerificaion/sms'
+                url = 'memberVerification/sms';
+                _type = 'PUT';
             }
-            AxiosService._requestWithUrlPram(url, 'POST', data,
+            AxiosService._requestWithUrlPram(url, _type, data,
                 function (data: any) {
                     callback(data)
                 },
@@ -37,9 +41,9 @@ export default {
             if (type === 'signup') {          //회원가입
                 url = 'signUpVerification';
             } else if (type === 'email') {     //이메일 인증코드
-                url = 'memberVerificaion/email/status'
+                url = 'memberVerification/email/status'
             } else if (type === 'phone') {     //휴대전화 인증코드
-                url = 'memberVerificaion/sms/status'
+                url = 'memberVerification/sms/status'
             }
             AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {

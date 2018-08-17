@@ -408,7 +408,7 @@
                         nickname: self.nick_name,
                         tradePassword: self.new_password
                     }, function (result) {
-                        self.$emit('nickName', self.user.nick_name);
+                        self.$emit('nickName', self.nick_name);
                         this.onClearData();
                     })
                 }
@@ -514,7 +514,13 @@
             onConfirmTurnOn: function () {
                 //turn on 수행
                 let self = this;
-                AccountService.Account.checkVerificationCode(self.type, {
+                let _type;
+                if(this.type === 'emailTurnOn'){
+                    _type = 'email';
+                }else{
+                    _type = 'phone';
+                }
+                AccountService.Account.checkVerificationCode(_type, {
                     email: self.email,
                     phoneNumber: self.phone,
                     code: self.verificationCode,
@@ -557,7 +563,7 @@
             onCheckNickName() {
                 // 닉네임 null 체크
                 if (this.type === 'nickName') {
-                    if (this.user.nick_name === "") {
+                    if (this.nick_name === "") {
                         this.warning_nick_name = true;
                         return false;
                     }

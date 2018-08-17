@@ -21,16 +21,19 @@
             bgColor: '',
         }),
         created() {
-            var self = this;
+            let self = this;
             if (this.me === true) {
                 this.loginColor = '#59D817';
                 this.name = MainRepository.Login.getUserInfo().nickname === '' ? 'A' : MainRepository.Login.getUserInfo().nickname[0];
                 this.bgColor = MainRepository.Login.getUserInfo().bgColor;
             } else {
                 //유저 정보 GET AXIOS
-                const otherUsersInfo = MainRepository.Users.getOtherUsers(self.email);
-                this.bgColor = otherUsersInfo.bgColor;
-                this.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
+                MainRepository.Users.getOtherUsers(this.email, function (result) {
+                    let otherUsersInfo = result ;
+                    self.bgColor = otherUsersInfo.bgColor;
+                    self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
+                    self.getIsLogin()
+                });
 
                 //3분마다 로그인 확인 갱신
                 setInterval(function () {
@@ -47,12 +50,12 @@
                 var self = this;
                 AccountService.Account.isUserActive({
                         email: self.email  //VUEX userInfo.email
-                    }, function (error) {
+                    }, function (result) {
                         if (result === false) {
-                            this.loginColor = '#C8C8C8';
+                            self.loginColor = '#C8C8C8';
                         }
                         else {
-                            this.loginColor = '#59D817';
+                            self.loginColor = '#59D817';
                         }
                     }
                 )

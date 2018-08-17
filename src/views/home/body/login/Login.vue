@@ -7,7 +7,7 @@
                     <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
                     <div class="h2 bold">{{$str("welcome")}}</div>
                 </div>
-                <form action="http://localhost:8080/login" method="post" id="loginForm">
+                <form action="/login" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
                     <div class="p-relative mb-4"><input type="text" class="input" name="username" v-model="email"
                                                            @keyup="onCheckEmail"
@@ -117,24 +117,25 @@
             },
             onLogin() {
                 //Send Email verification codes to Server
-                //document.getElementById("loginForm").submit();
-                let self = this;
+                document.getElementById("loginForm").submit();
+              /*  let self = this;
                 let data= {
                         username : 'bisu8018@naver.com',
                         password : 'test1234!'
-                };
+                };*/
 
-      /*             axios({
+           /*        axios({
                        method: 'POST',
-                       url: 'http://localhost:8080/login',
+                       url: '/login',
+                       dataType: 'jsonp',
                        data: self.serializeserialize(document.getElementById("loginForm")),
-                       withCredentials: true,
+                       withCredentials: 'false',
                        headers: {
-                           //'Accept': 'application/x-www-form-urlencoded',
+                           'Accept': 'application/x-www-form-urlencoded',
                            'Content-Type': 'application/x-www-form-urlencoded',
-                           //'Acces-Control-Allow-Origin': 'http://localhost.com:8080'
                        }
                    }).then((response) => {
+                       console.log(response);
                        this.$router.push("/abMain");
                    })*/
 

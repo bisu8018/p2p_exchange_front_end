@@ -700,7 +700,7 @@ const strings = new Map([
         HK: '請輸入交易數量'
     }],
     ['volumePlaceholderMobile', {
-        KOR: '사용 가능 : ',
+        KOR: '보유 : ',
         ENG: 'Available : ',
         CN: '可用：',
         HK: '可用：'

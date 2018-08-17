@@ -118,7 +118,9 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{priceType === 'fixedprice' ?  toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{priceType === 'fixedprice' ?
+                            toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}
+                        </div>
                     </div>
                 </div>
             </v-flex>
@@ -268,51 +270,64 @@
             <!--알리페이 결제-->
             <v-flex xs12 md8>
                 <div class="text-xs-left display-flex mb-4" v-if="alipay === 'Y'">
-                    <div class="mr-3 "><span @click="onToggle('alipay')"><toggle :toggle="alipay_toggle_use"
-                                                                                 class="c-pointer"></toggle></span>
-                    </div>
-                    <div class="d-grid p-relative">
-                        <div class="vertical-center ">
+                    <v-flex xs1 pl-0 pr-0>
+                        <span @click="onToggle('alipay')">
+                            <toggle :toggle="alipay_toggle_use" class="c-pointer"></toggle>
+                        </span>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-flex xs5 pl-0 pr-0 class="vertical-center ">
                             <div class="sprite-img ic-alipay d-inline-block"></div>
                             <span
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
+                        </v-flex>
+                        <v-flex xs7 pl-0 pr-0 class="vertical-center ">
                             <div class="d-inline-block">{{alipayInfo}}</div>
-                        </div>
-                    </div>
+                        </v-flex>
+                    </v-flex>
                 </div>
             </v-flex>
 
             <!--위챗페이 결제-->
             <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left display-flex mb-4" v-if="wechatPay === 'Y'">
-                    <div class="mr-3"><span @click="onToggle('wechatPay')"><toggle :toggle="wechat_toggle_use"
-                                                                                   class="c-pointer"></toggle></span>
-                    </div>
-                    <div class="d-grid p-relative">
-                        <div class="vertical-center">
+                    <v-flex xs1 pl-0 pr-0>
+                        <span @click="onToggle('wechatPay')">
+                            <toggle :toggle="wechat_toggle_use" class="c-pointer"></toggle>
+                        </span>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-flex xs5 pl-0 pr-0 class="vertical-center">
                             <div class="sprite-img ic-wechatpay d-inline-block"></div>
                             <span
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
+                        </v-flex>
+                        <v-flex xs6 pl-0 pr-0 class="vertical-center ">
                             <div class="d-inline-block">{{wechatPayInfo}}</div>
-                        </div>
-                    </div>
+                        </v-flex>
+                    </v-flex>
+
                 </div>
             </v-flex>
 
             <!--은행 계좌 결제-->
             <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left display-flex mb-4 " v-if="bankAccount === 'Y'">
-                    <div class="mr-3 "><span @click="onToggle('bankAccount')"><toggle :toggle="bank_toggle_use"
-                                                                                      class="c-pointer"></toggle></span>
-                    </div>
-                    <div class="d-grid p-relative">
-                        <div class="vertical-center">
+                    <v-flex xs1 pl-0 pr-0>
+                        <span @click="onToggle('bankAccount')">
+                            <toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>
+                        </span>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-flex xs5 pl-0 pr-0 class="vertical-center">
                             <div class="sprite-img ic-bank d-inline-block"></div>
                             <span
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
+                        </v-flex>
+                        <v-flex xs6 pl-0 pr-0 class="vertical-center ">
                             <div class="d-inline-block">{{bankAccountInfo}}</div>
-                        </div>
-                    </div>
+                        </v-flex>
+                    </v-flex>
                 </div>
             </v-flex>
 
@@ -474,18 +489,18 @@
         <!--***************       섹션        *********-->
 
         <!--거래조항/이용약관-->
-        <v-layout wrap row >
-            <v-flex xs12 md6 offset-md4  text-xs-left vertical-center>
-                    <input type="checkbox" id="terms_chkbox" v-model="agreeTerms" class="mr-3"/>
-                    <label for="terms_chkbox">
+        <v-layout wrap row>
+            <v-flex xs12 md6 offset-md4 text-xs-left vertical-center>
+                <input type="checkbox" id="terms_chkbox" v-model="agreeTerms" class="mr-3"/>
+                <label for="terms_chkbox">
                             <span>
                                 <i class="material-icons">done</i>
                             </span>
-                        <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
-                    </label>
+                    <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
+                </label>
                 <a class=" color-blue common-text-hover" v-if="!isMobile">《{{$str("termsTrading")}}》</a>
             </v-flex>
-            <a class=" color-blue common-text-hover ml-4 mt-1"  v-if="isMobile">《{{$str("termsTrading")}}》</a>
+            <a class=" color-blue common-text-hover ml-4 mt-1" v-if="isMobile">《{{$str("termsTrading")}}》</a>
             <v-flex xs12 md3 offset-md4 mt-4>
                 <!--슬라이드 바 인증-->
                 <div class="verify-slider-wrapper mb-4">
@@ -618,7 +633,7 @@
                         //console.log(this.marketPrice[i]);
                         let tmp_price = this.marketPrice[i].price;
                         tmp_price = Math.floor(tmp_price * 100) / 100;
-                        return tmp_price;
+                        return abUtils.toMoneyFormat(String(tmp_price));
                         break;
                     }
                 }
@@ -628,7 +643,7 @@
                 for (var i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
                     if (this.officialMinLimit[i].currency === tmp_currency) {
                         let tmp_minLimit = this.officialMinLimit[i].minLimit;
-                        if(this.message != 'general'){
+                        if (this.message != 'general') {
                             tmp_minLimit = tmp_minLimit * 1000;
                         }
                         return tmp_minLimit;
@@ -636,7 +651,7 @@
                     }
                 }
             },
-            toMoneyFormat() {
+            toMoneyFormat(type) {
                 return abUtils.toMoneyFormat(this.fixedPrice);
             }
         },
