@@ -21,6 +21,7 @@ export default {
         return false
     },
     _request: function (url: string, type: string, data: any, success: any, failure: any) {
+        let self = this;
         if (this.DEBUG()) {
             console.log('[request]\nurl: ' + url + '\ndata: ' + data)
         }
@@ -62,6 +63,7 @@ export default {
                     //  console.log('Status: ' + status);
                     // 401 Error
                     if (status === 401 || status === 502) {
+                        //self.$router.push("/login");
                         //Vue.prototype.$eventBus.$emit('showAlert', status);
                     } else {
                         failure()

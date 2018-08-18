@@ -65,4 +65,10 @@ export enum VuexTypes {
     SET_PAYMENT_METHOD = 'common/SET_PAYMENT_METHOD',
 
 
+    //======================================
+    //              Balance
+    // =====================================
+    SET_BALANCE_DATA = 'balance/SET_BALANCE_DATA',
+
+
 }

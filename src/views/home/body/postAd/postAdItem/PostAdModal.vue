@@ -1,38 +1,23 @@
 <template>
     <v-dialog v-model="show" persistent>
-        <div>
-            <div class="modal-subject-wrapper mb-3">
-                <div class="h3 text-xs-left color-black bold">
-                    {{$str("adPostSuccess")}}
-                </div>
-                <v-spacer></v-spacer>
-                <i class="material-icons color-black c-pointer" @click="onClose" >close</i>
+        <div class="modal-subject-wrapper mb-3">
+            <div class="h3 text-xs-left color-black bold">
+                {{$str("adPostSuccess")}}
             </div>
-
-            <!--******************************************
-                        NickName / Trade Password
-             ******************************************-->
-            <span v-if="type === 'nickName'">
-                <div class="color-darkgray mb-4 text-xs-left">
-                    {{$str("nickNameExplain")}}
-                </div>
-
-                <!--가명 입력-->
-                <div class="mb-4">
-                    <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("nickName")}}
-                    </div>
-                    <div class="p-relative">
-                        <input type="text" class="input" :placeholder="$str('nickNamePlaceholder')"
-                               v-model="nick_name"
-                               v-bind:class="{'warning-border' : warning_nick_name}" @keyup="onCheckNickName">
-                        <div class="warning-text-wrapper">
-                            <span class="d-none"
-                                  v-bind:class="{'warning-text' : warning_nick_name}">{{$str('warning_nick_name')}}</span>
-                        </div>
-                    </div>
-                </div>
-            </span>
+            <v-spacer></v-spacer>
+            <i class="material-icons color-black c-pointer" @click="onClose">close</i>
+        </div>
+        <!--******************************************
+                    NickName / Trade Password
+         ******************************************-->
+        <div  class="text-xs-left vertical-center mb-4">
+            <i class="material-icons check-icon ml-0 mr-2">check_circle</i>
+            <span>{{$str("determine")}}</span>
+        </div>
+        <div class="text-xs-right">
+            <button @click="onDetermine" class="h6 btn-rounded-blue btn-blue-hover color-black ">
+                {{$str("determine")}}
+            </button>
         </div>
     </v-dialog>
 </template>
@@ -43,17 +28,14 @@
         name: 'postAdModal',
         props: ['show'],
         data() {
-            return {
-
-
-            }
+            return {}
         },
         methods: {
             onClose: function () {
                 this.$emit('close');
             },
-            onConfirm: function () {
-                this.$emit('close');
+            onDetermine: function () {
+                this.$emit('determine');
             },
         },
     }
@@ -61,5 +43,12 @@
 <style scoped>
     .modal-subject-wrapper {
         display: flex;
+    }
+    .check-icon {
+        font-size: 30px;
+
+        font-weight: bold;
+        color: #71aa3a;
+        margin: -7px;
     }
 </style>
