@@ -1,18 +1,25 @@
 import {Store} from "vuex";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
+
 import SelectBoxController from "@/vuex/controller/SelectBoxController";
 import StateController from "@/vuex/controller/StateController";
 import TradeListController from "@/vuex/controller/TradeListController";
 import MyTradeController from "@/vuex/controller/MyTradeController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
+import BalanceController from "@/vuex/controller/BalanceController";
+import CommonController from "@/vuex/controller/CommonController";
+import MarketPriceController from "@/vuex/controller/MarketPriceController";
+import AccountController from "@/vuex/controller/AccountController";
 
 import AccountService from "@/service/account/AccountService";
-import {doesHttpOnlyCookieExist} from "@/common/common";
-import TradeItem from "@/vuex/model/TradeItem";
 import TradeService from "@/service/trade/TradeService";
 import AdService from "@/service/ad/AdService";
-import AccountController from "@/vuex/controller/AccountController";
+import CommonService from "@/service/common/CommonService";
+import AxiosService from "@/service/AxiosService";
+import OrderService from "@/service/order/OrderService";
+import BalanceService from "@/service/balance/BalanceService";
+
 import Account from "@/vuex/model/Account";
 import EmailVerification from "@/vuex/model/EmailVerification";
 import PhoneVerification from "@/vuex/model/PhoneVerification";
@@ -20,14 +27,12 @@ import IdVerification from "@/vuex/model/IdVerification";
 import PaymentMethod from "@/vuex/model/PaymentMethod";
 import OtherUsers from "@/vuex/model/OtherUsers";
 import Block from "@/vuex/model/Block";
+import Balance from "@/vuex/model/Balance";
 import LoginHistory from "@/vuex/model/LoginHistory";
 import SecuritySettings from "@/vuex/model/SecuritySettings";
-import MarketPriceController from "@/vuex/controller/MarketPriceController";
-import CommonService from "@/service/common/CommonService";
 import MarketPrice from "@/vuex/model/MarketPrice";
-import CommonController from "@/vuex/controller/CommonController";
-import AxiosService from "@/service/AxiosService";
-import OrderService from "@/service/order/OrderService";
+import TradeItem from "@/vuex/model/TradeItem";
+import {doesHttpOnlyCookieExist} from "@/common/common";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -38,6 +43,7 @@ let paginationController: PaginationController;
 let accountController: AccountController;
 let marketPriceController: MarketPriceController;
 let commonController: CommonController;
+let balanceController: BalanceController;
 
 let store: Store<any>;
 let instance: any;
@@ -54,6 +60,7 @@ export default {
         accountController = new AccountController(store);
         myTradeController = new MyTradeController(store);
         commonController = new CommonController(store);
+        balanceController = new BalanceController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -72,17 +79,7 @@ export default {
         // 유져 정보 GET
         this.initData(function () {
             instance.setInitCompleted(true);
-            // 유져 결제수단 정보 GET
-            instance.Common.setPaymentMethod(function (result) {
-                if(AxiosService.DEBUG()){
-                    console.log(result)
-                }
-            });
         });
-
-
-
-
 
       /*  CommonService.init.getInitValue(function (data: any) {
            instance.initData(data);
@@ -106,10 +103,21 @@ export default {
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
         // 로그인한 유저 정보 파싱
+        let self = this;
         let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
         let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         if (isLogin === true || isFirefox) {
             this.Login.setUserInfo(function () {
+                self.Common.setPaymentMethod(function (result) {
+                    if(AxiosService.DEBUG()){
+                        console.log(result)
+                    }
+                });
+                self.Balance.setBalances(function (result) {
+                    if(AxiosService.DEBUG()){
+                        console.log(result)
+                    }
+                });
                 callback();
             })
         }else{
@@ -140,19 +148,51 @@ export default {
             CommonService.info.setPaymentMethod({
                 email : instance.Login.getUserInfo().email
             },function (result) {
-                let paymentMethod_arr = new Array();
+                const paymentMethod_map = {
+                    alipay : {},
+                    wechat : {},
+                    bank : {}
+                };
 
                 for (let i = 0; i < result.length; i++) {
                     const paymentMethod_tmp = result[i];
                     let paymentMethod = new PaymentMethod(paymentMethod_tmp);
-                    paymentMethod_arr.push(paymentMethod);
+                    if(paymentMethod.type === 'alipay'){
+                        paymentMethod_map.alipay = paymentMethod;
+                    }else if(paymentMethod.type === 'wechat'){
+                        paymentMethod_map.wechat = paymentMethod;
+                    }else{
+                        paymentMethod_map.bank = paymentMethod;
+                    }
                 }
-                commonController.setPaymentMethod(paymentMethod_arr);
+                //console.log(paymentMethod_map);
+                commonController.setPaymentMethod(paymentMethod_map);
                 callback();
             })
         },
         getPaymentMethod: function () {
             return commonController.getPaymentMethod();
+        }
+    },
+    Balance: {
+        setBalances: function (callback:any) {
+          BalanceService.getBalances({
+              email: instance.Login.getUserInfo().email
+          }, function (result) {
+              let balance = new Balance('');
+              const balance_map = {};
+
+              for (let i = 0; i < result.length; i++) {
+                  const balance_tmp = result[i];
+                  balance = new Balance(balance_tmp);
+                  balance_map[balance_tmp.cryptoCurrency] = balance;
+              }
+              balanceController.setBalance(balance_map);
+              callback(balance_map);
+          })
+        },
+        getBalance: function () {
+            return balanceController.getBalance();
         }
     },
     MyPage: {
@@ -261,6 +301,11 @@ export default {
 
             })
         },
+        isUserActive(data : any, callback: any){
+            AccountService.Account.isUserActive(data, function (result) {
+                callback(result);
+            })
+        }
     },
     // SignUp: {},
 

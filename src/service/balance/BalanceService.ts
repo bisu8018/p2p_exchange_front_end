@@ -9,8 +9,8 @@ export default {
             function () {
             })
     },
-    getMyBalances : function (data: any, callback: any) {
-        AxiosService._requestWithBody('balance', 'GET', data ,
+    getBalances : function (data: any, callback: any) {
+        AxiosService._requestWithUrlPram('balance', 'GET', data ,
             function (data: any) {
                 callback(data)
             },

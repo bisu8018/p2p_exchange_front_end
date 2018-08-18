@@ -55,7 +55,7 @@
                         <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
                             <option value="bitcoin">BTC</option>
                             <option value="ethereum">ETH</option>
-                            <option value="USDT">USDT</option>
+                            <option value="allb">ALLB</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -157,8 +157,8 @@
                     </div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                         <input type="text" class="price-input" v-model="volume"
-                               @keyup="onNumberCheck(volume)" ref="volume"
-                               :placeholder="$str('volumePlaceholderMobile') + balance">
+                               @keyup="onNumberCheck('volume')" ref="volume"
+                               :placeholder="$str('volumePlaceholderMobile') + getBalance">
                         <div class="border-indicator h6">
                             {{getCryptoCurrency}}
                         </div>
@@ -517,7 +517,7 @@
                 </div>
             </v-flex>
         </v-layout>
-        <post-ad-modal :show="showModal" v-on:close="onClose"></post-ad-modal>
+        <post-ad-modal :show="showModal" v-on:close="onClose" v-on:determine="onDetermine"></post-ad-modal>
     </div>
 </template>
 
@@ -526,7 +526,6 @@
     import SelectBox from '../../../../components/SelectBox.vue';
     import Toggle from '../../../../components/Toggle.vue';
     import VerifySlider from "../../../../components/VerifySlider.vue";
-    import AdService from "../../../../service/ad/AdService";
     import Common from "../../../../service/common/CommonService";
     import MainRepository from "../../../../vuex/MainRepository";
     import {abUtils} from "../../../../common/utils";
@@ -534,11 +533,13 @@
 
     export default Vue.extend({
         name: 'postAd',
-        components: {
-            PostAdModal
-        },
         props: ['message'],
+        components: {
+            SelectBox, VerifySlider, Toggle, PostAdModal
+        },
         data: () => ({
+            balace: '',
+            showModal: false,
             tradeType: "buy",
             cryptocurrency: "bitcoin",
             priceType: "fixedprice",
@@ -560,14 +561,6 @@
             agreeTerms: false,
             memberNo: '',
             adType: "piece",
-            balance: 200,   //DB get 작업 필요
-
-            wechatPay: "Y",
-            bankAccount: "Y",
-            alipayInfo: "李小龙 , 88888888888 Alipay",
-            wechatPayInfo: "李小龙 , 88888888888 Wechatpay",
-            bankAccountInfo: "李小龙 , 88888888888 招商银行 珠海分行营业部",
-            exchangeRate: '2977.02',
 
 
             isVerified: false,
@@ -610,9 +603,6 @@
 
             marketPrice: '',
         }),
-        components: {
-            SelectBox, VerifySlider, Toggle
-        },
         created() {
             //환율 및 유져 정보 get 필요
             let self = this;
@@ -629,14 +619,8 @@
             },
             getMarketPrice() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                let tmp_cryptoCurrency;
-                if (this.cryptocurrency === 'ETH') {
-                    tmp_cryptoCurrency = 'ethereum';
-                } else {
-                    tmp_cryptoCurrency = 'bitcoin';
-                }
                 for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
-                    if (this.marketPrice[i].cryptocurrency === tmp_cryptoCurrency && this.marketPrice[i].currency === tmp_currency) {
+                    if (this.marketPrice[i].cryptocurrency === this.cryptocurrency && this.marketPrice[i].currency === tmp_currency) {
                         //console.log(this.marketPrice[i]);
                         let tmp_price = this.marketPrice[i].price;
                         tmp_price = Math.floor(tmp_price * 100) / 100;
@@ -671,14 +655,28 @@
                 return MainRepository.Common.getPaymentMethod().bank;
             },
             getCryptoCurrency() {
-                if(this.cryptocurrency === 'bitcoin'){
+                if (this.cryptocurrency === 'bitcoin') {
                     return 'BIT'
-                }else{this.cryptocurrency === 'etherium'}{
+                } else if (this.cryptocurrency === 'ethereum') {
                     return 'ETH'
+                } else {
+                    return 'ALLB'
+                }
+            },
+            getBalance() {
+                if ((this.cryptocurrency === 'ethereum'&& MainRepository.Balance.getBalance()) || (this.cryptocurrency === 'bitcoin' && MainRepository.Balance.getBalance())) {
+                    this.balance = MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
+                    return MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
+                } else {
+                    this.balance = 0;
+                    return 0;
                 }
             }
         },
         methods: {
+            onClose() {
+                this.showModal = false;
+            },
             onNumberCheck(type) {
                 if (type === 'price') {
                     this.onCheckFixedPrice();
@@ -719,14 +717,14 @@
                 } else if (type === "paymentWindow") {
                     this.onCheckPaymentWindow();
                     let temp = this.paymentWindow;
-                    if (!abUtils.isInteger(temp)) {
+                    if (!abUtils.isInteger(temp) || temp[0] === '-') {
                         return this.paymentWindow = "";
                     }
                     return this.paymentWindow = abUtils.toDeleteZero(temp);
                 } else if (type === "counterParty") {
                     this.onCheckCounterparty();
                     let temp = this.counterpartyFilterTradeCount;
-                    if (!abUtils.isInteger(temp)) {
+                    if (!abUtils.isInteger(temp) || temp[0] === '-') {
                         return this.counterpartyFilterTradeCount = "";
                     }
                     return this.counterpartyFilterTradeCount = abUtils.toDeleteZero(temp);
@@ -734,14 +732,21 @@
             },
             onCheck: function () {
                 if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() && this.onCheckFixedPrice() && this.onCheckCounterparty()) {
-                    this.onPost();
+                    this.onModal();
                 }
+            },
+            onModal: function () {
+                this.showModal = true;
+            },
+            onDetermine: function () {
+                this.showModal = false;
+                this.onPost();
             },
             onPost: function () {
                 //결제수단 토글 object 화
-                let alipayToggle = this.alipay_toggle_use ? 'y' : 'n';
-                let wechatToggle = this.wechat_toggle_use ? 'y' : 'n';
-                let bankToggle = this.bank_toggle_use ? 'y' : 'n';
+                let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
+                let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
+                let bankToggle = this.bank_toggle_use ? 'bank' : '';
 
 
                 var paymentMethodsArr = {
@@ -777,7 +782,9 @@
                     status: 'enable',
                     volumeAvailable: Number(this.volume),
                 }, function (result) {
-
+                    MainRepository.Balance.setBalances(function (result) {
+                        this.$router.push("/tradeCenter");
+                    });
                 })
             },
             putVerified: function () {

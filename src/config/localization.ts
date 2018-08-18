@@ -2508,6 +2508,18 @@ const strings = new Map([
         CN: '创建成功',
         HK: ''
     }],
+    ['determine', {
+        KOR: '결정',
+        ENG: 'Determine',
+        CN: '确定',
+        HK: ''
+    }],
+    ['adPostSuccessExplain', {
+        KOR: '광고가 성공적으로 생성 되었습니다.',
+        ENG: 'The ad was created successfully.',
+        CN: '广告创建成功。',
+        HK: ''
+    }],
 
 
 
