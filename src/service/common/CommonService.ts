@@ -17,6 +17,15 @@ export default {
                 function () {
                 })
         },
+        setPaymentMethod: function (data : any, callback: any) {
+            AxiosService._requestWithUrlPram('payment', 'GET', data,
+                function (data) {
+                    callback(data);
+                    return;
+                },
+                function () {
+                })
+        }
     },
     fileUpload: {
         //파일 업로드

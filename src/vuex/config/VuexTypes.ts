@@ -59,4 +59,10 @@ export enum VuexTypes {
     SET_MARKET_PRICE = 'market/SET_MARKET_PRICE',
 
 
+    //======================================
+    //              Common
+    // =====================================
+    SET_PAYMENT_METHOD = 'common/SET_PAYMENT_METHOD',
+
+
 }

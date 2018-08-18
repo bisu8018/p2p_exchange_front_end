@@ -801,7 +801,7 @@
             modalType: '',
 
             member_no: MainRepository.Login.getUserInfo().memberNo,
-            nickName: 1,//MainRepository.Login.getUserInfo().nickname,
+            nickName: MainRepository.Login.getUserInfo().nickname,
             register_datetime: MainRepository.Login.getUserInfo().createDatetime,
 
             emailVerification: new EmailVerification(''),
@@ -826,7 +826,7 @@
             });
 
             // 유저 결제수단 정보 GET
-            MainRepository.MyPage.getPaymentMethod(function (paymentMethod) {
+            MainRepository.Common.getPaymentMethod(function (paymentMethod) {
                 self.paymentMethod = paymentMethod;
             });
 

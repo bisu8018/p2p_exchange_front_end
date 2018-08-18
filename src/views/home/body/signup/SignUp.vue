@@ -195,20 +195,10 @@
                     encryptedPassword: this.password,
                     membershipLevel: 'none',
                     nationality: MainRepository.SelectBox.controller().getCountry(),
-                    nickname : '',
-                    phoneNumber : '',
                     role: 'ROLE_CUSTOMER',
-                    terms_agree_yn: this.termsAgreeYn,
-                }, function (error) {
-                    if (!error) {
-                        //console.log("success");
-                        //성공 alert 추가
-
-                        // self.showWarning(1);
-                        //location.href = "/abMain";
-                    } else {
-                        console.log("POST ERROR ::::::: " + error);
-                    }
+                    termsAgreeYn: this.termsAgreeYn,
+                }, function (result) {
+                    location.href = "/abMain";
                 })
             },
             // 모달 종료

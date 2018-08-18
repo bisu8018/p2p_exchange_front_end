@@ -1,6 +1,6 @@
 export default class PaymentMethod {
     type: string;
-    active_yn: string;
+    active_yn: boolean;
     owner_name: string;
     bank_name: string;
     bank_branch_info: string;
@@ -13,7 +13,7 @@ export default class PaymentMethod {
 
     constructor(data: any) {
         this.type = data.type || '';
-        this.active_yn = data.active_yn || '';
+        this.active_yn = data.active_yn ==='y'? true : false;
         this.owner_name = data.owner_name || '';
         this.bank_name = data.bank_name || '';
         this.bank_branch_info = data.bank_branch_info || '';
