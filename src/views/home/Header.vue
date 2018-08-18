@@ -171,14 +171,14 @@
                         <div class="mr-4a mt-1 dropdown c-pointer d-block">
                             <div class="verticalcentertext dropbtn" @click="goMyPage">
                                 <avatar
-                                        :me=true
+                                        :me= true
                                         class=" mr-1 ">
                                 </avatar>
                                 <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
                             </div>
                             <div class="dropdown-content avatar-dropdown">
                                 <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
-                                    {{$str("UserCenter")}}
+                                    {{$str("MyPage")}}
                                 </div>
                                 <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyAds">
                                     {{$str("MyAds")}}

@@ -22,7 +22,7 @@
         }),
         created() {
             let self = this;
-            if (this.me === true) {
+            if (this.me === true) {console.log(MainRepository.Login.getUserInfo());
                 this.loginColor = '#59D817';
                 this.name = MainRepository.Login.getUserInfo().nickname === '' ? 'A' : MainRepository.Login.getUserInfo().nickname[0];
                 this.bgColor = MainRepository.Login.getUserInfo().bgColor;

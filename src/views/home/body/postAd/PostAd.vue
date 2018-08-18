@@ -553,7 +553,8 @@
             agreeTerms: false,
             memberNo: '',
             adType: "piece",
-            balance: 200,
+            balance: 200,   //DB get 작업 필요
+            paymentMethod: MainRepository.Common.getPaymentMethod(),
             alipay: "Y",
             wechatPay: "Y",
             bankAccount: "Y",
@@ -656,9 +657,6 @@
             }
         },
         methods: {
-            getPaymentMethod() {
-
-            },
             onNumberCheck(type) {
                 if (type === 'price') {
                     this.onCheckFixedPrice();

@@ -25,6 +25,8 @@ import SecuritySettings from "@/vuex/model/SecuritySettings";
 import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import CommonService from "@/service/common/CommonService";
 import MarketPrice from "@/vuex/model/MarketPrice";
+import CommonController from "@/vuex/controller/CommonController";
+import AxiosService from "@/service/AxiosService";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -34,6 +36,7 @@ let merchantController: MerchantController;
 let paginationController: PaginationController;
 let accountController: AccountController;
 let marketPriceController: MarketPriceController;
+let commonController: CommonController;
 
 let store: Store<any>;
 let instance: any;
@@ -49,6 +52,7 @@ export default {
         merchantController = new MerchantController(store);
         accountController = new AccountController(store);
         myTradeController = new MyTradeController(store);
+        commonController = new CommonController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -64,10 +68,21 @@ export default {
         }
 
 
-        // 서버 데이터 초기화 -> 완료 후 Callback
-        instance.initData(function () {console.log('init');
+        // 유져 정보 GET
+        this.initData(function () {
             instance.setInitCompleted(true);
+            // 유져 결제수단 정보 GET
+            instance.Common.setPaymentMethod(function (result) {
+                if(AxiosService.DEBUG()){
+                    console.log(result)
+                }
+            });
         });
+
+
+
+
+
       /*  CommonService.init.getInitValue(function (data: any) {
            instance.initData(data);
            callback();
@@ -120,13 +135,23 @@ export default {
         },
     },
     Common: {
-        getPaymentMethod: function (callback: any) {
-            CommonService.info.getPaymentMethod({
+        setPaymentMethod: function (callback: any) {
+            CommonService.info.setPaymentMethod({
                 email : instance.Login.getUserInfo().email
             },function (result) {
-                let paymentMethod = new PaymentMethod(result);
-                callback(paymentMethod);
+                let paymentMethod_arr = new Array();
+
+                for (let i = 0; i < result.length; i++) {
+                    const paymentMethod_tmp = result[i];
+                    let paymentMethod = new PaymentMethod(paymentMethod_tmp);
+                    paymentMethod_arr.push(paymentMethod);
+                }
+                commonController.setPaymentMethod(paymentMethod_arr);
+                callback();
             })
+        },
+        getPaymentMethod: function () {
+            return commonController.getPaymentMethod();
         }
     },
     MyPage: {
@@ -155,21 +180,6 @@ export default {
             }, function (result) {
                 let idVerification = new IdVerification(result);
                 callback(idVerification);
-            })
-        },
-        getPaymentMethod: function (callback: any) {
-            AccountService.PaymentMethod.getPaymentMethod({
-                email: instance.Login.getUserInfo().email
-            }, function (result) {
-                let paymentMethod = new PaymentMethod('');
-                const paymentMethod_map = new Map();
-
-                for (let i = 0; i < result.length; i++) {
-                    const paymentMethod_tmp = result[i];
-                    paymentMethod = new PaymentMethod(paymentMethod_tmp);
-                    paymentMethod_map.set(paymentMethod_tmp.type, paymentMethod);
-                }
-                callback(paymentMethod_map);
             })
         },
         setPaymentMethod: function (type: string, data: any, callback: any){
@@ -228,8 +238,10 @@ export default {
         setUserInfo(callback : any) {
             AccountService.Account.getUserInfo(function (result) {
                 let userInfo = new Account(result);
-                // var nextArr = JSON.stringify(tradeInfo)
                 accountController.setUserInfo(userInfo);
+                if(AxiosService.DEBUG()){
+                    console.log(result);
+                }
                 callback();
             });
         },

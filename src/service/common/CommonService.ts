@@ -17,8 +17,8 @@ export default {
                 function () {
                 })
         },
-        getPaymentMethod: function (data : any, callback: any) {
-            AxiosService._requestWithBody('paymentMethod', 'GET', data,
+        setPaymentMethod: function (data : any, callback: any) {
+            AxiosService._requestWithUrlPram('payment', 'GET', data,
                 function (data) {
                     callback(data);
                     return;
