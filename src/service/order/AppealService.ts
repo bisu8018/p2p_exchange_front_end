@@ -1,4 +1,4 @@
-import AxiosService from "@/service/AxiosService";
+import AxiosService from "../AxiosService";
 
 export default {
     registerAppeal : function (callback: any) {

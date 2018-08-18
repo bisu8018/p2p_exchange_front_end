@@ -53,8 +53,8 @@
                     <div class="text-xs-left mb-2 h5  color-black">{{$str("cryptoCurrency")}}</div>
                     <div class="p-relative">
                         <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
-                            <option value="BTC">BTC</option>
-                            <option value="ETH">ETH</option>
+                            <option value="bitcoin">BTC</option>
+                            <option value="ethereum">ETH</option>
                             <option value="USDT">USDT</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
@@ -119,7 +119,7 @@
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
                         <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{priceType === 'fixedprice' ?
-                            toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}
+                            toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{getCryptoCurrency}}
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
                     <div class="price-calculate color-darkgray">{{$str("marektPrice")}} :
-                        {{getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}
+                        {{getMarketPrice || 0}} {{getCurrency}}/{{getCryptoCurrency}}
                     </div>
                     <div class="price-explain color-darkgray">{{$str("priceExplain")}}</div>
                 </div>
@@ -158,12 +158,12 @@
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                         <input type="text" class="price-input" v-model="volume"
                                @keyup="onNumberCheck(volume)" ref="volume"
-                               :placeholder="$str('volumePlaceholderMobile') + balance + ' ' + cryptocurrency">
+                               :placeholder="$str('volumePlaceholderMobile') + balance">
                         <div class="border-indicator h6">
-                            {{cryptocurrency}}
+                            {{getCryptoCurrency}}
                         </div>
                         <!--<div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
-                            {{cryptocurrency}}
+                            {{getCryptoCurrency}}
                         </div>-->
                         <div class="warning-text-wrapper">
                     <span class="d-none"
@@ -233,7 +233,7 @@
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_payment_window}">
-                        <input type="text" maxlength="3" class="price-input"
+                        <input type="text" maxlength="2" class="price-input"
                                :placeholder="$str('paymentWindowPlaceholder')"
                                @keyup="onNumberCheck('paymentWindow')"
                                v-model="paymentWindow">
@@ -269,7 +269,7 @@
             <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
             <!--알리페이 결제-->
             <v-flex xs12 md8>
-                <div class="text-xs-left display-flex mb-4" v-if="alipay === 'Y'">
+                <div class="text-xs-left display-flex mb-4" v-if="getAlipay.activeYn === true ">
                     <v-flex xs1 pl-0 pr-0>
                         <span @click="onToggle('alipay')">
                             <toggle :toggle="alipay_toggle_use" class="c-pointer"></toggle>
@@ -282,7 +282,7 @@
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
                         </v-flex>
                         <v-flex xs7 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{alipayInfo}}</div>
+                            <div class="d-inline-block">{{getAlipay.alipayId}}</div>
                         </v-flex>
                     </v-flex>
                 </div>
@@ -290,7 +290,7 @@
 
             <!--위챗페이 결제-->
             <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4" v-if="wechatPay === 'Y'">
+                <div class="text-xs-left display-flex mb-4" v-if="getWechat.activeYn === true">
                     <v-flex xs1 pl-0 pr-0>
                         <span @click="onToggle('wechatPay')">
                             <toggle :toggle="wechat_toggle_use" class="c-pointer"></toggle>
@@ -303,7 +303,7 @@
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
                         </v-flex>
                         <v-flex xs6 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{wechatPayInfo}}</div>
+                            <div class="d-inline-block">{{getWechat.wechatId}}</div>
                         </v-flex>
                     </v-flex>
 
@@ -312,7 +312,7 @@
 
             <!--은행 계좌 결제-->
             <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4 " v-if="bankAccount === 'Y'">
+                <div class="text-xs-left display-flex mb-4 " v-if="getBank === true">
                     <v-flex xs1 pl-0 pr-0>
                         <span @click="onToggle('bankAccount')">
                             <toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>
@@ -325,7 +325,9 @@
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
                         </v-flex>
                         <v-flex xs6 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{bankAccountInfo}}</div>
+                            <div class="d-inline-block">{{getBank.bankName}}, {{getBank.bankBranchInfo}}
+                                {{getBank.bankAccount}}
+                            </div>
                         </v-flex>
                     </v-flex>
                 </div>
@@ -343,7 +345,7 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="payment-explain text-xs-left line-height-1a">
                     <span class="color-darkgray ">{{$str("paymentExplain")}}</span>
-                    <a class="text-white-hover color-blue">{{$str("clickHereText")}}</a>
+                    <a class="text-white-hover color-blue" @click="goMyPage()">{{$str("clickHereText")}}</a>
                 </div>
             </v-flex>
 
@@ -415,7 +417,7 @@
                         <input class="input" type="text" v-bind:class="{'warning-border' : warning_counterparty}"
                                @keyup="onNumberCheck('counterParty')"
                                placeholder="0" v-model="counterpartyFilterTradeCount "
-                               maxlength="3">
+                               maxlength="2">
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_counterparty}">{{verify_warning_counterparty}}</span>
                         </div>
@@ -498,9 +500,9 @@
                             </span>
                     <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
                 </label>
-                <a class=" color-blue common-text-hover" v-if="!isMobile">《{{$str("termsTrading")}}》</a>
+                <a class=" color-blue text-white-hover" v-if="!isMobile">《{{$str("termsTrading")}}》</a>
             </v-flex>
-            <a class=" color-blue common-text-hover ml-4 mt-1" v-if="isMobile">《{{$str("termsTrading")}}》</a>
+            <a class=" color-blue text-white-hover ml-4 mt-1" v-if="isMobile">《{{$str("termsTrading")}}》</a>
             <v-flex xs12 md3 offset-md4 mt-4>
                 <!--슬라이드 바 인증-->
                 <div class="verify-slider-wrapper mb-4">
@@ -515,6 +517,7 @@
                 </div>
             </v-flex>
         </v-layout>
+        <post-ad-modal :show="showModal" v-on:close="onClose"></post-ad-modal>
     </div>
 </template>
 
@@ -527,13 +530,17 @@
     import Common from "../../../../service/common/CommonService";
     import MainRepository from "../../../../vuex/MainRepository";
     import {abUtils} from "../../../../common/utils";
+    import PostAdModal from "./postAdItem/PostAdModal.vue";
 
     export default Vue.extend({
         name: 'postAd',
+        components: {
+            PostAdModal
+        },
         props: ['message'],
         data: () => ({
             tradeType: "buy",
-            cryptocurrency: "BTC",
+            cryptocurrency: "bitcoin",
             priceType: "fixedprice",
             fixedPrice: "",
             volume: "",
@@ -554,8 +561,7 @@
             memberNo: '',
             adType: "piece",
             balance: 200,   //DB get 작업 필요
-            paymentMethod: MainRepository.Common.getPaymentMethod(),
-            alipay: "Y",
+
             wechatPay: "Y",
             bankAccount: "Y",
             alipayInfo: "李小龙 , 88888888888 Alipay",
@@ -654,6 +660,22 @@
             },
             toMoneyFormat(type) {
                 return abUtils.toMoneyFormat(this.fixedPrice);
+            },
+            getAlipay() {
+                return MainRepository.Common.getPaymentMethod().alipay;
+            },
+            getWechat() {
+                return MainRepository.Common.getPaymentMethod().wechat;
+            },
+            getBank() {
+                return MainRepository.Common.getPaymentMethod().bank;
+            },
+            getCryptoCurrency() {
+                if(this.cryptocurrency === 'bitcoin'){
+                    return 'BIT'
+                }else{this.cryptocurrency === 'etherium'}{
+                    return 'ETH'
+                }
             }
         },
         methods: {
@@ -730,37 +752,32 @@
 
                 var paymentMethods = JSON.stringify(paymentMethodsArr);
 
-                AdService.postAD({
-                    nationality: MainRepository.SelectBox.controller().getCountry(),
-                    currency: MainRepository.SelectBox.controller().getCurrency(),
-                    tradeType: this.tradeType,
-                    cryptocurrency: this.cryptocurrency,
-                    priceType: this.priceType,
-                    fixedPrice: Number(this.fixedPrice),
-                    volume: Number(this.volume),
-                    minLimit: Number(this.minLimit),
-                    maxLimit: Number(this.maxLimit),
-                    paymentWindow: Number(this.paymentWindow),
-                    paymentMethods: paymentMethods,
+                MainRepository.AD.postAD({
                     autoReplay: this.autoReplay,
-                    termsOfTransaction: this.termsOfTransaction,
                     counterpartyFilterTradeCount: this.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: this.counterpartyCheckbox_first,
                     counterpartyFilterDoNotOtherMerchantsYn: this.counterpartyCheckbox_second,
                     counterpartyFilterMobileVerificationYn: this.counterpartyCheckbox_third,
-                    tradepassword: this.tradePassword,
-                    termsAgreeYn: this.agreeTerms,
+                    cryptocurrency: this.cryptocurrency,
+                    currency: MainRepository.SelectBox.controller().getCurrency(),
+                    fixedPrice: Number(this.fixedPrice),
+                    maxLimit: Number(this.maxLimit),
+                    minLimit: Number(this.minLimit),
                     memberNo: Number(this.memberNo),
+                    nationality: MainRepository.SelectBox.controller().getCountry(),
+                    paymentWindow: Number(this.paymentWindow),
+                    paymentMethods: paymentMethods,
+                    priceType: this.priceType,
+                    termsAgreeYn: this.agreeTerms,
+                    termsOfTransaction: this.termsOfTransaction,
+                    tradePassword: this.tradePassword,
+                    tradeType: this.tradeType,
                     type: this.adType,
-                }, function (error) {
-                    if (!error) {
-                        //console.log("success");
-                        alert("Thank you");
-                        location.href = "/abMain";
+                    volume: Number(this.volume),
+                    status: 'enable',
+                    volumeAvailable: Number(this.volume),
+                }, function (result) {
 
-                    } else {
-                        console.log("POST ERROR ::::::: " + error);
-                    }
                 })
             },
             putVerified: function () {
@@ -769,6 +786,8 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
+                MainRepository.Common.setPaymentMethod(function (result) {
+                })
             },
             onToggle: function (type) {
                 // 결제수단 별 토글버튼 on/off 로직
@@ -894,6 +913,9 @@
                 }
                 this.warning_trade_password = false;
                 return true;
+            },
+            goMyPage() {
+                this.$router.push("/myPage");
             },
 
         }

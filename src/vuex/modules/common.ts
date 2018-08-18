@@ -1,16 +1,15 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
-import PaymentMethod from "@/vuex/model/PaymentMethod";
 
 
 const mutations = {
-    [VuexTypes.SET_PAYMENT_METHOD] (state: any, paymentMethod: PaymentMethod[]) {
+    [VuexTypes.SET_PAYMENT_METHOD] (state: any, paymentMethod: any) {
         state.getPaymentMethod = paymentMethod;
     },
 };
 
 
 const actions = {
-    [VuexTypes.SET_PAYMENT_METHOD] (context: any, paymentMethod: PaymentMethod[]) {
+    [VuexTypes.SET_PAYMENT_METHOD] (context: any, paymentMethod: any) {
         context.commit(VuexTypes.SET_PAYMENT_METHOD, paymentMethod)
     },
 
@@ -19,11 +18,17 @@ const actions = {
 const getters = {
 };
 
-let getPaymentMethod: PaymentMethod[] = [];
+let getPaymentMethod = {
+    alipay : '',
+    wechat : '',
+    bank : '',
+};
+
 
 const state= {
     getPaymentMethod: getPaymentMethod,
 };
+
 
 export default {
     namespaced: false,

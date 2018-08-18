@@ -9,11 +9,12 @@ export default class CommonController {
     }
 
     setPaymentMethod(paymentMethod: any) {
-        this.store.dispatch(VuexTypes.SET_USER_INFO, paymentMethod);
+        this.store.dispatch(VuexTypes.SET_PAYMENT_METHOD, paymentMethod);
+
     }
 
     getPaymentMethod() {
-        return this.store.state.account.getPaymentMethod;
+        return this.store.state.common.getPaymentMethod;
     }
 }
 

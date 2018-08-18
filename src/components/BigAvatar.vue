@@ -40,18 +40,12 @@
         },
         methods: {
             getIsLogin() {
-                var self = this;
-                AccountService.Account.isUserActive({
-                        email: self.email  //VUEX userInfo.email
-                    }, function (error) {
-                        if (result === false) {
-                            this.loginColor = '#C8C8C8';
-                        }
-                        else {
-                            this.loginColor = '#59D817';
-                        }
-                    }
-                )
+                let self = this;
+                MainRepository.Users.isUserActive({
+                    email : self.email
+                },function (result) {
+                    return result
+                })
             },
         }
 

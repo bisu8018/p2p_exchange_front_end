@@ -139,14 +139,25 @@ export default {
             CommonService.info.setPaymentMethod({
                 email : instance.Login.getUserInfo().email
             },function (result) {
-                let paymentMethod_arr = new Array();
+                const paymentMethod_map = {
+                    alipay : {},
+                    wechat : {},
+                    bank : {}
+                };
 
                 for (let i = 0; i < result.length; i++) {
                     const paymentMethod_tmp = result[i];
                     let paymentMethod = new PaymentMethod(paymentMethod_tmp);
-                    paymentMethod_arr.push(paymentMethod);
+                    if(paymentMethod.type === 'alipay'){
+                        paymentMethod_map.alipay = paymentMethod;
+                    }else if(paymentMethod.type === 'wechat'){
+                        paymentMethod_map.wechat = paymentMethod;
+                    }else{
+                        paymentMethod_map.bank = paymentMethod;
+                    }
                 }
-                commonController.setPaymentMethod(paymentMethod_arr);
+                console.log(paymentMethod_map);
+                commonController.setPaymentMethod(paymentMethod_map);
                 callback();
             })
         },
@@ -260,6 +271,11 @@ export default {
 
             })
         },
+        isUserActive(data : any, callback: any){
+            AccountService.Account.isUserActive(data, function (result) {
+                callback(result);
+            })
+        }
     },
     // SignUp: {},
 
@@ -578,6 +594,13 @@ export default {
         getPage(){
             return myTradeController.getMyAdsItems();
         },
+    },
+    AD : {
+        postAD: function (data : any, callback: any) {
+            AdService.postAD(data, function (result) {
+                callback(result);
+            })
+        }
     },
 
 

@@ -22,7 +22,7 @@
         }),
         created() {
             let self = this;
-            if (this.me === true) {console.log(MainRepository.Login.getUserInfo());
+            if (this.me === true) {
                 this.loginColor = '#59D817';
                 this.name = MainRepository.Login.getUserInfo().nickname === '' ? 'A' : MainRepository.Login.getUserInfo().nickname[0];
                 this.bgColor = MainRepository.Login.getUserInfo().bgColor;
@@ -47,18 +47,12 @@
         },
         methods: {
             getIsLogin() {
-                var self = this;
-                AccountService.Account.isUserActive({
-                        email: self.email  //VUEX userInfo.email
-                    }, function (result) {
-                        if (result === false) {
-                            self.loginColor = '#C8C8C8';
-                        }
-                        else {
-                            self.loginColor = '#59D817';
-                        }
-                    }
-                )
+                let self = this;
+              MainRepository.Users.isUserActive({
+                  email : self.email
+              },function (result) {
+                  return result
+              })
             },
         }
     }

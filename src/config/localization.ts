@@ -718,10 +718,10 @@ const strings = new Map([
         HK: '最大為0.00'
     }],
     ['paymentWindowPlaceholder', {
-        KOR: '10-20분',
-        ENG: '10 to 20 Min',
-        CN: '10-20分钟',
-        HK: '10-20分鐘'
+        KOR: '10-20',
+        ENG: '10 to 20',
+        CN: '10-20',
+        HK: '10-20'
     }],
     ['alipayText', {
         KOR: '알리페이',
@@ -827,7 +827,7 @@ const strings = new Map([
     }],
     ['agreeTermsExplain', {
         KOR: '본인은 이를 이해하고 준수할 것에 동의합니다',
-        ENG: 'I have read and agree to the Terms of Trading.',
+        ENG: 'I have read and agree to the Terms of Trading',
         CN: '我了解与同意交易规则',
         HK: '我理解與同意交易規則'
     }],
@@ -874,10 +874,10 @@ const strings = new Map([
         HK: '請輸入限度以上的金額'
     }],
     ['atMost', {
-        KOR: '한도금액 이하로 입력해 주십시오',
-        ENG: 'Enter less than or equal to limit',
-        CN: '请输入限度以下的金额',
-        HK: '請輸入限度一下的金額'
+        KOR: '최저 한도금액 이상으로 입력해 주십시오',
+        ENG: 'Enter greater than min limit',
+        CN:  '',//'请输入限度以下的金额',
+        HK: '' //'請輸入限度一下的金額'
     }],
     ['timeRange', {
         KOR: '범위 시간 내로 입력해 주십시오',
@@ -2501,6 +2501,12 @@ const strings = new Map([
         ENG: 'Copy',
         CN: '复制',
         HK: '複製'
+    }],
+    ['adPostSuccess', {
+        KOR: '생성성공',
+        ENG: 'Created successfully',
+        CN: '创建成功',
+        HK: ''
     }],
 
 
