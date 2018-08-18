@@ -29,15 +29,16 @@ export enum VuexTypes {
     SET_SELECTTRADEFILTER_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
     UPDATE_SELECTTRADEVIEW_DATA = 'trade/UPDATE_SELECTTRADEVIEW_DATA',
     SET_TRADEITEMS_DATA = 'trade/SET_TRADEITEMS_DATA',
+    SET_DRAWER_DATA = 'trade/SET_DRAWER_DATA',
 
 
     SET_PAGE_DATA = 'trade/SET_PAGE_DATA',
     SET_TOTALCOUNT_DATA = 'trade/SET_TOTALCOUNT_DATA',
     //======================================
-    //              TradeFilter
+    //              MyTrade(My Ads & My Orders)
     // =====================================
-    // amount == limitMin
-    //SET_LIMITMIN_DATA = 'trade/SET_LIMITMIN_DATA',
+    SET_MYADSLIST_DATA = 'myads/SET_MYADSLIST_DATA',
+    SET_MYADSFILTER_DATA = 'myads/SET_MYADSFILTER_DATA',
 
 
     //======================================

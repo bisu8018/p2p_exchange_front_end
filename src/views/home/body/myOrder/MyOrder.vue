@@ -8,47 +8,45 @@
                 <my-order-filter class="myOrderFilter"></my-order-filter>
             </v-flex>
         </v-layout>
-        <!--main list view-->
-        <div v-if="orderLists.length > 0">
-            <!--mobile 일때-->
-            <span v-if="isMobile">
-                <div v-for="orderlist in orderLists" class="xs12 mb-4">
-                    <my-order-list :orderlist="orderlist"></my-order-list>
-                    <v-divider></v-divider>
-                </div>
-            </span>
-            <span v-else>
-            <!-- Web 일때-->
-                <!-- 표의 header들 -->
-                <v-layout mb-2 color-darkgray row wrap>
-                    <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
-                    <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
-                    <v-flex md1 text-md-left>{{$str("volumeText")}}</v-flex>
-                    <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
-                    <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
-                    <v-flex md3 text-md-left>{{$str("time")}}</v-flex>
-                    <v-flex md2>
-                        <v-layout justify-space-between>
-                            <span>{{$str("status")}}</span>
-                            <span>{{$str("counterparty")}}</span>
-                        </v-layout>
-                    </v-flex>
-                </v-layout>
-                <v-flex><v-divider></v-divider></v-flex>
-                <!-- user item list들 10개씩 출력-->
-                <div v-for="(orderlist) in orderLists" >
-                    <my-order-list
-                            :orderlist="orderlist"
-                    ></my-order-list>
-                    <v-flex><v-divider></v-divider></v-flex>
-                </div>
-                <!-- pagination -->
-                <!--<Pagination></Pagination>-->
-            </span>
+        <div v-if="!isMobile">
+            <v-layout mb-2 color-darkgray row wrap>
+                <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
+                <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
+                <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
+                <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
+                <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
+                <v-flex md3 text-md-left>{{$str("time")}}</v-flex>
+                <v-flex md2>
+                    <v-layout justify-space-between>
+                        <span>{{$str("status")}}</span>
+                        <span>{{$str("counterparty")}}</span>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
+            <v-flex><v-divider></v-divider></v-flex>
         </div>
+        <!--main list view-->
+        <div v-if="haveItems">
+            <!-- user item list들 10개씩 출력-->
+            <div v-for="(orderlist) in orderLists" >
+                <my-order-list
+                        :orderlist="orderlist"
+                ></my-order-list>
+                <v-flex><v-divider></v-divider></v-flex>
+            </div>
+            <!-- pagination -->
+            <Pagination class="pagination-top-margin"
+                        :size="pageSize"
+                        :type="pageType"
+            ></Pagination>
+        </div>
+        <!-- 해당되는 item이 1개도 없을때-->
         <div v-else>
-            <div class="mb-2"><img src="@/assets/img/no_data.png"></div>
-            <div class="color-gray bold">{{$str("noOrders")}}</div>
+            <div class="sprite-img ic-no-ad-lg no-more-ads">
+            </div>
+            <div class="color-gray no-more-ads-text">
+                {{$str("No more ads")}}
+            </div>
         </div>
     </div>
 </template>
@@ -72,7 +70,7 @@
                     totalPrice: 224,
                     price: 44.0,
                     time: '11:59:59',
-                    status: 'Complete',
+                    status: 'Unpaid',
                     partner: 'haohao',
                     currency: 'CNY',
                     tradeType : 'sell'
@@ -84,7 +82,7 @@
                     totalPrice: 224,
                     price: 44.0,
                     time: '11:59:59',
-                    status: 'Complete',
+                    status: 'Cancelled',
                     partner: 'haohao',
                     currency: 'CNY',
                     tradeType : 'sell'
@@ -103,22 +101,48 @@
                 },
 
             ],
+            haveItems(){
+                //return (MainRepository.Pagination.getTotalCount() >0)
+                return true;
+            },
         }),
-        created() {
-
-        },
-        mounted() {
-
-        },
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
 
         },
+        created() {
+
+        },
+        mounted() {
+
+        },
+
 
     }
 </script>
 
 <style scoped>
+    /*web 일때*/
+    @media only screen and (min-width: 960px) {
+        .no-more-ads{
+            margin: 120px auto 16px auto;
+        }
+        .no-more-ads-text{
+            margin-bottom: 56px;
+        }
+        .pagination-top-margin{
+            margin-top : 48px;
+        }
+    }
+    /*mobile 일때*/
+    @media only screen and (max-width: 959px) {
+        .no-more-ads{
+            margin: 48px auto 16px auto;
+        }
+        .pagination-top-margin{
+            margin-top : 32px;
+        }
+    }
 </style>

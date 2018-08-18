@@ -75,7 +75,7 @@
               <h6 class="color-blue">{{do_not_trade_message}}</h6>
             </div>
             <div v-else>
-              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+              <button class="btn-rounded-blue medium" @click="changeDrawer">
                 <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
               </button>
             </div>
@@ -147,9 +147,8 @@
                 </a>
               </v-layout>
             </v-flex>
-
             <v-flex xs2 text-xs-center>
-              <button><i class="material-icons" @click="drawer = false">close</i></button>
+              <button><i class="material-icons" @click="changeDrawer">close</i></button>
             </v-flex>
           </v-layout>
           <!-- Volume -->
@@ -219,7 +218,7 @@
               </div>
               <!--from input-->
               <div class="mt-3 p-relative">
-                <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="computedFromValue"
+                <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="fromValue"
                        @focus="inputFocus('fromValue')" @blur="onCheckfromValue" @keyup="onNumberCheck('fromValue')"
                        v-bind:class="{'warning-border' : warning_fromValue}">
                 <!--All 버튼-->
@@ -318,7 +317,7 @@
               <h6 class="color-blue">{{do_not_trade_message}}</h6>
             </div>
             <div v-else>
-              <button class="btn-rounded-blue medium" @click="drawer = !drawer">
+              <button class="btn-rounded-blue medium" @click="changeDrawer">
                 <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
               </button>
             </div>
@@ -359,7 +358,7 @@
                 <h5 class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</h5>
                 <v-divider class="mx-3" inset vertical></v-divider>
                 <button class="btn-rounded-white text-white-hover"
-                        @click="drawer = !drawer">{{$str("cancel")}}
+                        @click="changeDrawer">{{$str("cancel")}}
                 </button>
               </v-layout>
             </v-flex>
@@ -449,7 +448,7 @@
               </button>
               <!--cancel 버튼-->
               <button class="btn-rounded-white text-white-hover"
-                      @click="drawer = !drawer">{{$str("cancel")}}
+                      @click="changeDrawer">{{$str("cancel")}}
               </button>
             </v-flex>
           </v-layout>
@@ -524,7 +523,6 @@
         name: "TradeListItem",
         components:{Avatar, NickNameModal},
         data: () => ({
-            drawer: false,     //button 눌렀을시 true가 되며 거래 창을 띄운다
             toValue : '',
             fromValue : '',
             tradePW : '',       // Trade Password
@@ -554,6 +552,10 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
+            //item 하나씩만 선택하기 위한 원격 drawer
+            drawer(){
+                return (MainRepository.TradeView.getDrawer() == this.user.adNo);
+            }
         },
         methods : {
             onNumberCheck(type){
@@ -610,6 +612,10 @@
                 this.clickToAll = false;
                 this.toValue = this.user.maxLimit;         //차후 내 잔고 불러와 마진고려해 수정해야함
                 this.clickFromAll = false;
+                //fromvalue 계산해줌
+                this.fromValue = this.toValue/this.tempMarketPrice;
+                this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+
             },
             inputFocus(type){
                 //시장가 받아오기.
@@ -665,6 +671,9 @@
                 this.warning_tradePassword = false;
                 return true;
             },
+            changeDrawer(){
+                MainRepository.TradeView.setchangeDrawer(this.user.adNo);
+            }
 
         },
         created(){
