@@ -3,7 +3,7 @@
         <!--nickname 설정 안했을때 나오는 안내문구-->
         <v-layout v-if="tradeLevel == 'low'" row wrap nickname-setUp>
             <h6>{{$str("Before you start trading, you need to complete the necessary transaction information.")}}&nbsp;</h6>
-            <h6 class="color-blue" @click="setNickName = true">{{$str("Set up now.")}}</h6>
+            <a class="color-blue h6" @click="setNickName = true">{{$str("Set up now.")}}</a>
         </v-layout>
         <nick-name-modal
                 v-if="setNickName"

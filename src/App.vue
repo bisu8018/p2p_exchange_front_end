@@ -981,6 +981,7 @@
         border-radius: 2px;
         width: -moz-max-content;
         width: max-content;
+        line-height: 1;
     }
 
     .tooltip .tooltip-content:after {
