@@ -17,7 +17,7 @@
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
-                <v-layout row wrap v-if="drawer" @click.stop="drawer = !drawer" class="dropDownMenu">
+                <v-layout row wrap mt-6 v-if="drawer" @click.stop="drawer = !drawer" class="dropDownMenu">
                     <!-- TradeCenter버튼-->
                     <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
                         <button class="text-xs-left ml-3">
@@ -234,7 +234,6 @@
                         </div>
                     </div>
                 </v-layout>
-
             </div>
         </div>
         <!--header 아래 contents 들이 겹쳐지지 않기 위한 빈 box-->

@@ -3,7 +3,6 @@ import User from "@/vuex/model/Account";
 import MainRepository from "@/vuex/MainRepository";
 
 export default {
-    AD: {
         // CNY, USDT 코인 환율 select
         getUserInfo: function (callback: any) {
             AxiosService._requestWithBody('/postAdInfo', 'GET', '' ,
@@ -11,8 +10,7 @@ export default {
 
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         postAD: function (data: any, callback: any) {
@@ -20,8 +18,7 @@ export default {
                 function (data: any) {
                 callback(data)
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         getMyAds:function (data: any, callback: any) {
@@ -33,6 +30,7 @@ export default {
                     console.log("ERROR :::::::  " + error);
                 })
         },
-    }
+
+
 }
 

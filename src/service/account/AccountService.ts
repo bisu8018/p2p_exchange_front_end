@@ -9,8 +9,7 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         // 인증코드 전송
@@ -31,8 +30,7 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         // 인증코드 검증
@@ -49,8 +47,7 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         // 유저 정보 get
@@ -59,8 +56,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         // 다른 유저 정보 get
@@ -69,8 +65,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         //유저 로그인 상태
@@ -79,8 +74,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         //닉네임, 거래 비밀번호 설정
@@ -89,8 +83,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         //결제수단 설정
@@ -102,8 +95,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         //패스워드 변경
@@ -112,8 +104,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     },
@@ -124,8 +115,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
         // 유저 신분증/여권 인증 정보
@@ -134,8 +124,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     },
@@ -146,8 +135,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     },
@@ -158,8 +146,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     },
@@ -170,8 +157,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     },
@@ -182,8 +168,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     }

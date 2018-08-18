@@ -95,7 +95,7 @@ const strings = new Map([
     }],
     ['passwordPlaceholder', {
         KOR: '8~20자 숫자/영문/특수문자 포함',
-        ENG: 'Enter 8 to 20 characters with a mix of letters and numbers',
+        ENG: 'Enter 8 to 20 characters with a mix of letters, special symbols and numbers',
         CN: '包含8~20个数字、英文以及标点符号',
         HK: '包含8~20位數字、英文以及標點符號'
     }],
@@ -106,7 +106,7 @@ const strings = new Map([
         HK: '確認密碼'
     }],
     ['termsLabel1', {
-        KOR: '본 이용약관을 확인하였으며, 이에 동의합니다.',
+        KOR: '본 이용약관을 확인하였으며, 이에 동의합니다',
         ENG: 'I agree to the AllB\'s',
         CN: '我已阅读并同意',
         HK: '我已閲讀並同意'

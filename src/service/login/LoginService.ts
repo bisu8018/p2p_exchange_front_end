@@ -4,8 +4,6 @@ import AxiosService from "@/service/AxiosService";
 export default {
 
     findPasswd: function (email: string, password: string, callback: any) {
-
-        //
         let userDummy = {
             userId: 1,
             userName: 'hi',
@@ -14,19 +12,6 @@ export default {
         callback(userDummy);
         return;
 
-        // let data = {
-        //     email: email,
-        //     encryptedPassword: password
-        // }
-        //
-        // AxiosService._requestWithBody('user', 'POST', data,
-        //     function (data: any) {
-        //         // 성공
-        //         callback();
-        //     },
-        //     function () {
-        //         // 실패
-        //     })
     },
 
 
