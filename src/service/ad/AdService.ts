@@ -23,7 +23,16 @@ export default {
                 function (error) {
                     console.log("ERROR :::::::  " + error);
                 })
-        }
+        },
+        getMyAds:function (data: any, callback: any) {
+            AxiosService._requestWithBody('ad/my', 'GET', data ,
+                function (data: any) {
+                    callback(data)
+                },
+                function (error) {
+                    console.log("ERROR :::::::  " + error);
+                })
+        },
     }
 }
 

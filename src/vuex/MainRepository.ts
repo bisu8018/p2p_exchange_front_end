@@ -2,13 +2,14 @@ import {Store} from "vuex";
 import SelectBoxController from "@/vuex/controller/SelectBoxController";
 import StateController from "@/vuex/controller/StateController";
 import TradeListController from "@/vuex/controller/TradeListController";
+import MyTradeController from "@/vuex/controller/MyTradeController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
-
 import AccountService from "@/service/account/AccountService";
 import TradeFilter from "@/vuex/model/TradeFilter";
 import TradeItem from "@/vuex/model/TradeItem";
 import TradeService from "@/service/trade/TradeService";
+import AdService from "@/service/ad/AdService";
 import AccountController from "@/vuex/controller/AccountController";
 import Account from "@/vuex/model/Account";
 import EmailVerification from "@/vuex/model/EmailVerification";
@@ -20,7 +21,7 @@ import Block from "@/vuex/model/Block";
 import LoginHistory from "@/vuex/model/LoginHistory";
 import SecuritySettings from "@/vuex/model/SecuritySettings";
 
-
+let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
 let tradelistController: TradeListController;
 let stateController: StateController;
@@ -41,7 +42,7 @@ export default {
         paginationController = new PaginationController(store);
         merchantController = new MerchantController(store);
         accountController = new AccountController(store);
-
+        myTradeController = new MyTradeController(store);
 
         // 자기 참조할 때 씀
         instance = this;
@@ -234,7 +235,7 @@ export default {
                 tradeType : 'buy',
                 nationality : 'ALL',
                 currency :  'CNY',
-                minLimit :  -1,
+                amount :  -1,
                 paymentMethods :  '',
                 page :  1,
                 size : 10,
@@ -262,7 +263,7 @@ export default {
                 tradeType : 'buy',
                 nationality : 'ALL',
                 currency :  'CNY',
-                minLimit :  -1,
+                amount :  -1,
                 paymentMethods :  '',
                 page :  1,
                 size : 10,
@@ -291,7 +292,7 @@ export default {
                 tradeType : 'buy',
                 nationality : 'ALL',
                 currency :  'CNY',
-                minLimit :  -1,
+                amount :  -1,
                 paymentMethods :  '',
                 page :  1,
                 size : 10,
@@ -311,7 +312,6 @@ export default {
                 tradelistController.setTradeItems(tradeList);
             })
         },
-
         // 리스트 페이지 SET
         updateSelectPage(data) {
             //바뀐 data로 filter update해주기.
@@ -323,7 +323,7 @@ export default {
                 tradeType :   tradelistController.getTradeFilter().tradeType,
                 nationality : tradelistController.getTradeFilter().nationality,
                 currency :  tradelistController.getTradeFilter().currency,
-                minLimit :  tradelistController.getTradeFilter().minLimit,
+                amount :  tradelistController.getTradeFilter().amount,
                 paymentMethods :  tradelistController.getTradeFilter().paymentMethods,
                 page :   tradelistController.getTradeFilter().page,
                 size : tradelistController.getTradeFilter().size,
@@ -369,18 +369,30 @@ export default {
             if(amount ==''){
                 amount = '0'
             }
-            //amount 는 filter에서 minLImit과 같음.
-            let minLimit = Number(amount);
             var RightFilterArr = {
                 nationality : instance.SelectBox.controller().getCountry(),
                 paymentMethods : instance.SelectBox.controller().getPayment(),
                 currency : instance.SelectBox.controller().getCurrency(),
-                minLimit : minLimit,
+                amount :  Number(amount),
                 page: 1,
             };
             instance.Pagination.setPage(1,);//page는 1로 초기화
             instance.TradeView.updateSelectPage(RightFilterArr);     //필터에 맞게 화면 재구성
         },
+
+        setchangeDrawer(adNo: number){
+            let tempNo = tradelistController.getDrawerID();
+            if(tempNo === adNo){
+                tradelistController.setDrawerID(0)
+            }
+            else{
+                tradelistController.setDrawerID(adNo)
+            }
+        },
+        getDrawer(){
+            return tradelistController.getDrawerID();
+        },
+
     },
     SelectBox: {
         controller(): SelectBoxController {
@@ -432,5 +444,92 @@ export default {
         // //    여기까지 선언하다 막힘.
         // },
     },
+    MyAds:{
+        controller(): MyTradeController {
+            return myTradeController;
+        },
+        initPage(){
+            AdService.AD.getMyAds({
+                email : '',
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',
+            }, function (data) {
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
+
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let myAdsList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    myAdsList.push(itemList);
+                }
+                myTradeController.setMyAdsItems(myAdsList);
+            })
+        },
+        initData(){
+            myTradeController.setMyAdsFilter({
+                email : '',
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',
+            })
+            //pagination 초기화
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
+        setFilter( start_date: string, end_date: string, coinType: string, tradeType: string,
+                   orderNo: number, adsType: string, currency: string,){
+            AdService.AD.getMyAds({
+                email : instance.Login.getUserInfo().email,
+                searchStartTime : start_date,
+                searchEndTime : end_date,
+                status : '',
+                orderNo : orderNo,
+                cryptocurrency : coinType,
+                orderType : adsType,
+                tradeType : tradeType,
+                currency : currency,
+                page : instance.paginationController.getPage(),
+                size : '10',
+            }, function (data) {
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
+
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let myAdsList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    myAdsList.push(itemList);
+                }
+                myTradeController.setMyAdsItems(myAdsList);
+            })
+        },
+        updatePage(){
+
+        },
+        getPage(){
+            return myTradeController.getMyAdsItems();
+        },
+    },
+
 
 }

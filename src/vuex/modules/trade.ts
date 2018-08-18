@@ -17,11 +17,12 @@ const mutations = {
     [VuexTypes.SET_TRADEITEMS_DATA] (state: any, tradeItems: TradeItem[]) {
         state.tradeItems = tradeItems;
     },
+    //drawer로 하나씩만 보여주기 위한 data
+    [VuexTypes.SET_DRAWER_DATA] (state: any, drawerID: number) {
+        state.drawerID = drawerID;
+    },
 
-    // // AMOUNT(LIMIT_MIN) 타입
-    // [VuexTypes.SET_LIMITMIN_DATA] (context: any, limitMin: number) {
-    //     state.limitMin = limitMin;
-    // }
+
 };
 
 
@@ -40,6 +41,10 @@ const actions = {
     [VuexTypes.SET_TRADEITEMS_DATA] (context: any, tradeItems: TradeItem[]) {
         context.commit(VuexTypes.SET_TRADEITEMS_DATA, tradeItems)
     },
+    //drawer를 하나씩만 보여주기 위한 data
+    [VuexTypes.SET_DRAWER_DATA] (context: any, drawerID: number) {
+        context.commit(VuexTypes.SET_DRAWER_DATA, drawerID)
+    },
 
 };
 
@@ -48,11 +53,13 @@ const getters = {
 
 let tradeFilter = new TradeFilter('');  // array형 으로 초기화
 let tradeItems : TradeItem[] = [];
+let drawerID : Number = 0;
 
 const state= {
 
     tradeFilter: tradeFilter,
     tradeItems: tradeItems,
+    drawerID : drawerID,
 
 }
 
