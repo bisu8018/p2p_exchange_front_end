@@ -14,7 +14,7 @@
           <v-flex xs10 text-xs-left>
             <v-layout>
               <h5 class="color-blue text-white-hover c-pointer" @click="goUserPage">
-                {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
               </h5>
               <!-- user의 rank 이미지-->
               <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -91,8 +91,8 @@
               </avatar>
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
-              <h5 class="medium color-blue">
-                {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+              <h5 class="medium color-blue c-pointer text-white-hover">
+                {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
               </h5>
                 <a class="tooltip d-inline-block" v-if="user.rank==1">
                   <div class="sprite-img ic-premium ml-2"></div>
@@ -113,12 +113,12 @@
                 <span class="color-darkgray">
                   {{$str("You need to complete the necessary transaction information.")}}
                 </span>
-                <span class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+                <span class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
             </v-flex>
           </v-layout>
           <v-layout mt-4a>
           <v-flex xs4 offset-xs8 >
-            <button class="btn-white " @click="drawer = false">{{$str("cancel")}}</button>
+            <button class="btn-white " @click="changeDrawer">{{$str("cancel")}}</button>
           </v-flex>
         </v-layout>
         </div>
@@ -135,7 +135,7 @@
             <v-flex xs8 text-xs-left>
               <v-layout>
                 <h5 class="medium color-blue text-white-hover c-pointer" @click="goUserPage">
-                {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                 </h5>
                 <a class="tooltip d-inline-block" v-if="user.rank==1">
                   <div class="sprite-img ic-premium ml-2"></div>
@@ -273,8 +273,8 @@
           <v-layout  align-center>
               <avatar :email = user.nickname[0]>
             </avatar>
-            <span class="ml-3 color-blue text-white-hover">
-              <button @click="goUserPage">{{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
+            <span class="ml-3 color-blue text-white-hover ">
+              <button @click="goUserPage">{{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
             </span>
             <!--판매자 rank-->
             <a class="tooltip" v-if="user.rank==1">
@@ -335,8 +335,8 @@
                 </avatar>
                 <!-- merchant 정보-->
                 <span>
-                  <span class="mr-2 ml-3 color-blue medium">
-                    {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover">
+                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                   </span>
                       <!--판매자 rank-->
                   <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -355,7 +355,7 @@
               <!--수직, 수평가운데 정렬.-->
               <v-layout row  align-center fill-height justify-end pr-4>
                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
-                <h5 class="color-blue" @click="showNickNameModal = true">{{$str("Set up now.")}}</h5>
+                <h5 class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</h5>
                 <v-divider class="mx-3" inset vertical></v-divider>
                 <button class="btn-rounded-white text-white-hover"
                         @click="changeDrawer">{{$str("cancel")}}
@@ -377,8 +377,8 @@
 
                 <!-- merchant 정보-->
                 <span>
-                  <span class="mr-2 ml-3 color-blue medium text-white-hover" @click="goUserPage">
-                    {{user.email}} ( {{user.volume}} | {{user.tradeRate}}%)
+                  <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="goUserPage">
+                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                   </span>
                   <!--판매자 rank-->
                   <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -396,10 +396,10 @@
             <!--두번째열-->
             <v-flex md2 text-md-left>
               <div class="bold color-orange-price">
-                {{user.volume}} {{user.currency}}
+                {{user.fixedPrice}} {{user.currency}}
               </div>
               <div class="medium">
-                {{user.volume}} {{user.currency}}
+                {{user.minLimit}}-{{user.maxLimit}} {{user.currency}}
               </div>
             </v-flex>
 
@@ -535,7 +535,7 @@
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
-            setNickName : true,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
+
             showNickNameModal : false,        //nickname modal을 띄울려면 true로.
             clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
@@ -555,7 +555,12 @@
             //item 하나씩만 선택하기 위한 원격 drawer
             drawer(){
                 return (MainRepository.TradeView.getDrawer() == this.user.adNo);
+            },
+            setNickName(){
+                //nickname 설정이 필요하면 false, 설정이미 했으면 true
+                return (MainRepository.Login.getUserInfo().nickname !== '')
             }
+
         },
         methods : {
             onNumberCheck(type){
@@ -569,7 +574,7 @@
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
                     //fromvalue 계산해줌
-                    this.fromValue = this.toValue/this.tempMarketPrice;
+                    this.fromValue = this.toValue/this.user.fixedPrice;
                     this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
 
                 }else if(type ==='fromValue'){
@@ -592,7 +597,16 @@
 
             },
             goTrade(){
+
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
+                    MainRepository.TradeView.createOrder(
+                        this.user.adNo,                           //adNo
+                        this.toValue,                             //amount
+                        this.fromValue,                           //coinCount
+                        MainRepository.Login.getUserInfo().memberNo,//customerMemberNo
+                        this.user.memberNo,                       //merchantMemberNo
+                        this.user.fixedPrice,                     //price
+                    );
                     switch (this.user.tradeType) {
                         case 'Buy':
                             this.$router.push("/buy");
@@ -610,21 +624,16 @@
             //trade modal에서 input에서 All 버튼 누를때
             fillAll(){
                 this.clickToAll = false;
-                this.toValue = this.user.maxLimit;         //차후 내 잔고 불러와 마진고려해 수정해야함
+                //차후 내 잔고 불러와 마진고려해 수정해야함
+                if(this.user.volume > this.user.maxLimit){ this.toValue = this.user.maxLimit}
+                else{this.toValue = this.user.volume;}
                 this.clickFromAll = false;
                 //fromvalue 계산해줌
-                this.fromValue = this.toValue/this.tempMarketPrice;
+                this.fromValue = this.toValue/this.user.fixedPrice;
                 this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
 
             },
             inputFocus(type){
-                //시장가 받아오기.
-                for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
-                    if (this.marketPrice[i].cryptocurrency === this.cryptocurrency
-                        && this.marketPrice[i].currency === this.currency) {
-                        this.tempMarketPrice = this.marketPrice[i].price;
-                    }
-                }
                 if(type =='toValue' ){
                     if(this.toValue < this.user.maxLimit){
                       this.clickToAll = true;
@@ -634,16 +643,15 @@
                     this.clickFromAll = true;
                 }
             },
-            goUserPage(){
-                this.$router.push("/userpage");
-            },
             closeNicknameModal(){
                 this.showNickNameModal = false;
             },
             onChecktoValue(){
                 //All 버튼 없애기.
                 this.clickToAll = false;
-                if (this.toValue === "") {
+                // to가 비었거나 || 넣은 값이 가능규모보다 크거나 || limit 범위를 벗어날때
+                if (this.toValue === "" || this.toValue >this.user.volume
+                    || this.toValue >this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_toValue = true;
                     return false;
@@ -671,9 +679,13 @@
                 this.warning_tradePassword = false;
                 return true;
             },
+            //원격 Drawer를 향해 set 해줌
             changeDrawer(){
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
-            }
+            },
+            goUserPage(){
+                this.$router.push("/userpage");
+            },
 
         },
         created(){

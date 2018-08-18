@@ -2,12 +2,9 @@
     <div>
         <v-parallax style="height: 600px;" v-if="!isMobile">
             <v-carousel delimiter-icon="remove" lazy style="height: 600px;">
-                <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
-                    <!-- <v-layout column align-center justify-center class="white--text">
-                    <h1 class="text-white mb-2 text-xs-center">Welcome to AllB OTC</h1>
-                    <h2 class="text-white mb-2 text-xs-center mt-2">위아위아~~위어어앙아어어 어~</h2>
-                  </v-layout> -->
-                </v-carousel-item>
+              <v-carousel-item :src="require('@/assets/img/landing_1.png')"></v-carousel-item>
+              <v-carousel-item :src="require('@/assets/img/landing_2.png')"></v-carousel-item>
+              <v-carousel-item :src="require('@/assets/img/landing_3.png')"></v-carousel-item>
             </v-carousel>
         </v-parallax>
       <div v-if="isMobile" class="pageView mt-5">
@@ -102,16 +99,17 @@
         components: {SelectBox},
         data() {
             return {
-                items: [{
-                    src: 'https://file.rci8.top/vue/static/banner/banner33.png'
-                },
-                    {
-                        src: 'https://file.rci8.top/vue/static/banner/banner39.jpg'
-                    },
-                    {
-                        src: 'https://file.rci8.top/vue/static/banner/banner37.png'
-                    },
-                ],
+                // items: [
+                //     {
+                //       src: "require('@/assets/img/landing_1.png')"
+                //     },
+                //     {
+                //         src: "require('@/assets/img/landing_2.png')"
+                //     },
+                //     {
+                //         src: "require('@/assets/img/landing_3.png')"
+                //     },
+                // ],
                 selectedCryptocurrency : 'BTC',
                 selectedTradeType : 'Buy',
                 amount : '',

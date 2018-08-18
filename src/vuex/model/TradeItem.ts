@@ -93,10 +93,10 @@ export default class TradeItem {
     transBuySell(tradeType){
         switch (tradeType) {
             case 'buy':
-                return 'Buy'
+                return 'Sell'
 
             case 'sell':
-                return 'Sell'
+                return 'Buy'
         }
 
     }

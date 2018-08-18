@@ -379,9 +379,9 @@
                 }
                 //TradeType 수정.
                 if(this.tradeType == 'buy'){
-                    this.tradeType = 'Buy'
-                } else{
                     this.tradeType = 'Sell'
+                } else{
+                    this.tradeType = 'Buy'
                 }
                 //amount 수정.
                 if (this.amount === 0) {

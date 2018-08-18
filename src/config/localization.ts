@@ -137,7 +137,7 @@ const strings = new Map([
     }],
     ['loginText', {
         KOR: '로그인',
-        ENG: 'Sign in',
+        ENG: 'Login',
         CN: '登录',
         HK: '登錄'
     }],
