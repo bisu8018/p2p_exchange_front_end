@@ -77,7 +77,7 @@
             </v-flex>
             <!--위챗페이 QR코드-->
             <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
-                <label @click="onQRcode('wechat')" class="c-pointer  d-block">
+                <label @click="onQRcode('wechat')" class="c-pointer  d-block vertical-center">
                     <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
                     <div class="d-inline-block color-black h6"> QR Code</div>
                 </label>

@@ -656,6 +656,9 @@
             }
         },
         methods: {
+            getPaymentMethod() {
+
+            },
             onNumberCheck(type) {
                 if (type === 'price') {
                     this.onCheckFixedPrice();
@@ -729,7 +732,7 @@
 
                 var paymentMethods = JSON.stringify(paymentMethodsArr);
 
-                AdService.AD.postAD({
+                AdService.postAD({
                     nationality: MainRepository.SelectBox.controller().getCountry(),
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     tradeType: this.tradeType,

@@ -14,8 +14,7 @@ export default {
                     callback(data);
                     return;
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         },
     },
@@ -27,8 +26,7 @@ export default {
                     callback(data);
                     return;
                 },
-                function (error) {
-                    console.log("ERROR :::::::  " + error);
+                function () {
                 })
         }
     }

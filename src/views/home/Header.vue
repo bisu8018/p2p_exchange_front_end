@@ -234,7 +234,6 @@
                         </div>
                     </div>
                 </v-layout>
-
             </div>
         </div>
         <!--header 아래 contents 들이 겹쳐지지 않기 위한 빈 box-->

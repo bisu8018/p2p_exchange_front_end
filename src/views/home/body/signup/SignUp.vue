@@ -192,7 +192,7 @@
                 AccountService.Account.signup({
                     bgColor: '',
                     email: this.email,
-                    encrypted_password: this.password,
+                    encryptedPassword: this.password,
                     membershipLevel: 'none',
                     nationality: MainRepository.SelectBox.controller().getCountry(),
                     nickname : '',
