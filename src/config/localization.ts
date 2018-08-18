@@ -585,6 +585,12 @@ const strings = new Map([
         CN: '固定价格',
         HK: '固定價格'
     }],
+    ['margin', {
+        KOR: '마진',
+        ENG: 'Margin',
+        CN: '浮动价格',
+        HK: ''
+    }],
     ['warningFixedPricePlaceholder', {
         KOR: '올바른 수를 입력해 주십시오',
         ENG: 'Enter a vaild number',
@@ -694,7 +700,7 @@ const strings = new Map([
         HK: '請輸入交易數量'
     }],
     ['volumePlaceholderMobile', {
-        KOR: '사용 가능 : ',
+        KOR: '보유 : ',
         ENG: 'Available : ',
         CN: '可用：',
         HK: '可用：'

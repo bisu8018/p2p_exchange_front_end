@@ -34,4 +34,10 @@ export default class SelectBoxController {
     getPayment() {
         return this.store.state.selectBox.getPayment;
     }
+
+    onClear(){
+        this.store.dispatch(VuexTypes.SET_COUNTRY_DATA, 'ALL');
+        this.store.dispatch(VuexTypes.SET_CURRENCY_DATA, 'CNY');
+        this.store.dispatch(VuexTypes.SET_PAYMENET_DATA, 'ALL');
+    }
 }

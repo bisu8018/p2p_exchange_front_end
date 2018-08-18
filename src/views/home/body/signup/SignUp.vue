@@ -68,7 +68,7 @@
                        @click="onCheckTerms()"
                        class="mr-2">
                 <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel1')}}</label>
-                <span class="color-blue text-white-hover" @click="go_Terms_of_Service()">&nbsp;{{$str('termsLabel2')}}</span>
+                <span class="color-blue text-white-hover" >&nbsp;{{$str('termsLabel2')}}</span>
                 </v-layout>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
@@ -272,7 +272,7 @@
                 this.getTimer();
                 if (this.onCheckEmail() === true) {
                     let self = this;
-                    AccountService.Account.sendVerificationCode({
+                    AccountService.Account.sendVerificationCode('signup',{
                         email: this.email
                     }, function (error) {
                         if (!error) {
@@ -287,7 +287,7 @@
             //인증코드 체크
             checkVerificationCode() {
                 let self = this;
-                AccountService.Account.checkVerificationCode({
+                AccountService.Account.checkVerificationCode('signup',{
                     email: this.email,
                     code: this.verificationCode
                 }, function (error) {
@@ -299,7 +299,7 @@
                     }
                 })
             },
-            go_Terms_of_Service(){          //terms of service 누를시 zendisk로 이동
+      /*      go_Terms_of_Service(){          //terms of service 누를시 zendisk로 이동
                 if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
                     window.open(URL, "_blank");
@@ -316,7 +316,7 @@
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
                     window.open(URL, "_blank");
                 }
-            },
+            },*/
             /*showWarning(code) {
                 this.$eventBus.$emit('showAlert', code);
             }*/

@@ -48,7 +48,7 @@ const state = {
   isMobile: isMobile,
   //OS Check
   //checkOs: checkOs,
-}
+};
 
 export default {
   namespaced: false,

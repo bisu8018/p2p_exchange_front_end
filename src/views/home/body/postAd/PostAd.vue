@@ -92,7 +92,7 @@
                 <div>
                     <div class="text-xs-left mb-2 button- color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{$str("fixedPrice")}}
+                        {{priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin")}}
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price}">
@@ -100,7 +100,7 @@
                                @keyup="onNumberCheck('price')"
                         >
                         <div class="border-indicator h6">
-                            {{getCurrency}}
+                            {{priceType === 'fixedprice' ? getCurrency : '%'}}
                         </div>
                         <!--<div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
@@ -118,7 +118,9 @@
                 <div>
                     <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3" :class="{'pt-2':!isMobile}">{{fixedPrice || 0}} {{getCurrency}}/{{cryptocurrency}}</div>
+                        <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{priceType === 'fixedprice' ?
+                            toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}
+                        </div>
                     </div>
                 </div>
             </v-flex>
@@ -128,7 +130,7 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
                     <div class="price-calculate color-darkgray">{{$str("marektPrice")}} :
-                        {{getMarketPrice}} {{getCurrency}}/{{cryptocurrency}}
+                        {{getMarketPrice || 0}} {{getCurrency}}/{{cryptocurrency}}
                     </div>
                     <div class="price-explain color-darkgray">{{$str("priceExplain")}}</div>
                 </div>
@@ -268,51 +270,64 @@
             <!--알리페이 결제-->
             <v-flex xs12 md8>
                 <div class="text-xs-left display-flex mb-4" v-if="alipay === 'Y'">
-                    <div class="mr-3 "><span @click="onToggle('alipay')"><toggle :toggle="alipay_toggle_use"
-                                                                                 class="c-pointer"></toggle></span>
-                    </div>
-                    <div class="d-grid p-relative">
-                        <div class="vertical-center ">
+                    <v-flex xs1 pl-0 pr-0>
+                        <span @click="onToggle('alipay')">
+                            <toggle :toggle="alipay_toggle_use" class="c-pointer"></toggle>
+                        </span>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-flex xs5 pl-0 pr-0 class="vertical-center ">
                             <div class="sprite-img ic-alipay d-inline-block"></div>
                             <span
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
+                        </v-flex>
+                        <v-flex xs7 pl-0 pr-0 class="vertical-center ">
                             <div class="d-inline-block">{{alipayInfo}}</div>
-                        </div>
-                    </div>
+                        </v-flex>
+                    </v-flex>
                 </div>
             </v-flex>
 
             <!--위챗페이 결제-->
             <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left display-flex mb-4" v-if="wechatPay === 'Y'">
-                    <div class="mr-3"><span @click="onToggle('wechatPay')"><toggle :toggle="wechat_toggle_use"
-                                                                                   class="c-pointer"></toggle></span>
-                    </div>
-                    <div class="d-grid p-relative">
-                        <div class="vertical-center">
+                    <v-flex xs1 pl-0 pr-0>
+                        <span @click="onToggle('wechatPay')">
+                            <toggle :toggle="wechat_toggle_use" class="c-pointer"></toggle>
+                        </span>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-flex xs5 pl-0 pr-0 class="vertical-center">
                             <div class="sprite-img ic-wechatpay d-inline-block"></div>
                             <span
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
+                        </v-flex>
+                        <v-flex xs6 pl-0 pr-0 class="vertical-center ">
                             <div class="d-inline-block">{{wechatPayInfo}}</div>
-                        </div>
-                    </div>
+                        </v-flex>
+                    </v-flex>
+
                 </div>
             </v-flex>
 
             <!--은행 계좌 결제-->
             <v-flex xs12 md8 offset-md4>
                 <div class="text-xs-left display-flex mb-4 " v-if="bankAccount === 'Y'">
-                    <div class="mr-3 "><span @click="onToggle('bankAccount')"><toggle :toggle="bank_toggle_use"
-                                                                                      class="c-pointer"></toggle></span>
-                    </div>
-                    <div class="d-grid p-relative">
-                        <div class="vertical-center">
+                    <v-flex xs1 pl-0 pr-0>
+                        <span @click="onToggle('bankAccount')">
+                            <toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>
+                        </span>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-flex xs5 pl-0 pr-0 class="vertical-center">
                             <div class="sprite-img ic-bank d-inline-block"></div>
                             <span
                                     class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
+                        </v-flex>
+                        <v-flex xs6 pl-0 pr-0 class="vertical-center ">
                             <div class="d-inline-block">{{bankAccountInfo}}</div>
-                        </div>
-                    </div>
+                        </v-flex>
+                    </v-flex>
                 </div>
             </v-flex>
 
@@ -474,18 +489,18 @@
         <!--***************       섹션        *********-->
 
         <!--거래조항/이용약관-->
-        <v-layout wrap row >
-            <v-flex xs12 md6 offset-md4  text-xs-left vertical-center>
-                    <input type="checkbox" id="terms_chkbox" v-model="agreeTerms" class="mr-3"/>
-                    <label for="terms_chkbox">
+        <v-layout wrap row>
+            <v-flex xs12 md6 offset-md4 text-xs-left vertical-center>
+                <input type="checkbox" id="terms_chkbox" v-model="agreeTerms" class="mr-3"/>
+                <label for="terms_chkbox">
                             <span>
                                 <i class="material-icons">done</i>
                             </span>
-                        <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
-                    </label>
+                    <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
+                </label>
                 <a class=" color-blue common-text-hover" v-if="!isMobile">《{{$str("termsTrading")}}》</a>
             </v-flex>
-            <a class=" color-blue common-text-hover ml-4 mt-1"  v-if="isMobile">《{{$str("termsTrading")}}》</a>
+            <a class=" color-blue common-text-hover ml-4 mt-1" v-if="isMobile">《{{$str("termsTrading")}}》</a>
             <v-flex xs12 md3 offset-md4 mt-4>
                 <!--슬라이드 바 인증-->
                 <div class="verify-slider-wrapper mb-4">
@@ -503,7 +518,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import SelectBox from '../../../../components/SelectBox.vue';
     import Toggle from '../../../../components/Toggle.vue';
@@ -605,7 +620,7 @@
             getCurrency() {
                 return MainRepository.SelectBox.controller().getCurrency();
             },
-            getMarketPrice(this: any) {
+            getMarketPrice() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
                 let tmp_cryptoCurrency;
                 if (this.cryptocurrency === 'ETH') {
@@ -618,20 +633,26 @@
                         //console.log(this.marketPrice[i]);
                         let tmp_price = this.marketPrice[i].price;
                         tmp_price = Math.floor(tmp_price * 100) / 100;
-                        return tmp_price;
+                        return abUtils.toMoneyFormat(String(tmp_price));
                         break;
                     }
                 }
             },
-            getMinLimit(this: any) {
+            getMinLimit() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
                 for (var i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
                     if (this.officialMinLimit[i].currency === tmp_currency) {
                         let tmp_minLimit = this.officialMinLimit[i].minLimit;
+                        if (this.message != 'general') {
+                            tmp_minLimit = tmp_minLimit * 1000;
+                        }
                         return tmp_minLimit;
                         break;
                     }
                 }
+            },
+            toMoneyFormat(type) {
+                return abUtils.toMoneyFormat(this.fixedPrice);
             }
         },
         methods: {
@@ -639,7 +660,7 @@
                 if (type === 'price') {
                     this.onCheckFixedPrice();
                     let temp = this.fixedPrice;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.fixedPrice = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -648,7 +669,7 @@
                 } else if (type === 'volume') {
                     this.onCheckVolume();
                     let temp = this.volume;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.volume = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -657,7 +678,7 @@
                 } else if (type === "minLimit") {
                     this.onCheckMinLimit();
                     let temp = this.minLimit;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.minLimit = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -666,7 +687,7 @@
                 } else if (type === "maxLimit") {
                     this.onCheckMaxLimit();
                     let temp = this.maxLimit;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                         return this.maxLimit = "";
                     }
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -776,7 +797,7 @@
             },
             onCheckFixedPrice() {
                 // 고정가격 체크
-                let fixedPrice = Number(this.fixedPrice)
+                let fixedPrice = Number(this.fixedPrice);
                 if (fixedPrice === 0 || fixedPrice === undefined) {
                     this.warning_fixed_price = true;
                     this.verify_warning_fixed_price = Vue.prototype.$str("warningFixedPricePlaceholder");
@@ -905,6 +926,7 @@
         border: solid 1px #8d8d8d;
         border-radius: 2px;
         display: flex;
+        position: relative;
     }
 
     .price-input {
@@ -933,12 +955,11 @@
     }
 
     .border-indicator {
-        height: 40px;
         font-weight: 500;
-        padding-top: 10px;
         color: #353535;
-        padding-left: 14px;
-        padding-right: 14px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
 
     .refresh-btn {

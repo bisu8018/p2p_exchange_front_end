@@ -1,8 +1,11 @@
 import AxiosService from "@/service/AxiosService";
-import User from "@/vuex/model/Account";
-import MainRepository from "@/vuex/MainRepository";
 
 export default {
+    init: {
+      setInitValue(callback: any){
+
+      }
+    },
     info: {
         // CNY, USDT 코인 환율 select
         getMarketPrice: function (callback: any) {

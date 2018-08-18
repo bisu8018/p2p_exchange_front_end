@@ -6,8 +6,8 @@ export default class Account {
     nickname: string;
     phoneNumber: string;
     role: 'ROLE_CUSTOMER';
-    register_datetime: string;
-    member_no: string;
+    createDatetime: string;
+    memberNo: string;
     //encryptedPassword: string;
     //termsAgreeYn: true;
     //tradePassword: string
@@ -19,8 +19,8 @@ export default class Account {
     this.nationality = data.nationality || 'CN';
     this.nickname = data.nickname || '';
     this.phoneNumber = data.phoneNumber || '';
-    this.register_datetime = data.register_datetime || '';
-    this.member_no = data.member_no || '';
+    this.createDatetime = data.createDatetime || '';
+    this.memberNo = data.memberNo || '';
     this.role = data.role || 'ROLE_CUSTOMER';
   }
 

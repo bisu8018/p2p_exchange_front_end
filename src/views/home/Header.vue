@@ -108,7 +108,7 @@
                                 <div>{{$str("MyPage")}}</div>
                             </button>
                         </v-flex>
-                        <form action="http://localhost:8080/logout" method="post" ref="logout" @click="onLogout">
+                        <form action="/logout" method="post" ref="logout" @click="onLogout">
                             <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
                                 <button class="text-xs-left ml-3">
                                     <div>{{$str("LogOut")}}</div>
@@ -186,7 +186,7 @@
                                 <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
                                     {{$str("Merchant")}}
                                 </div>
-                                <form action="http://localhost:8080/logout" method="post" ref="logout"
+                                <form action="/logout" method="post" ref="logout"
                                       @click="onLogout">
                                     <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
                                         {{$str("LogOut")}}

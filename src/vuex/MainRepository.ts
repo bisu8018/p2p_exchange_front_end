@@ -1,12 +1,14 @@
 import {Store} from "vuex";
+import {VuexTypes} from "@/vuex/config/VuexTypes";
 import SelectBoxController from "@/vuex/controller/SelectBoxController";
 import StateController from "@/vuex/controller/StateController";
 import TradeListController from "@/vuex/controller/TradeListController";
 import MyTradeController from "@/vuex/controller/MyTradeController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
+
 import AccountService from "@/service/account/AccountService";
-import TradeFilter from "@/vuex/model/TradeFilter";
+import {doesHttpOnlyCookieExist} from "@/common/common";
 import TradeItem from "@/vuex/model/TradeItem";
 import TradeService from "@/service/trade/TradeService";
 import AdService from "@/service/ad/AdService";
@@ -20,6 +22,9 @@ import OtherUsers from "@/vuex/model/OtherUsers";
 import Block from "@/vuex/model/Block";
 import LoginHistory from "@/vuex/model/LoginHistory";
 import SecuritySettings from "@/vuex/model/SecuritySettings";
+import MarketPriceController from "@/vuex/controller/MarketPriceController";
+import CommonService from "@/service/common/CommonService";
+import MarketPrice from "@/vuex/model/MarketPrice";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -28,6 +33,7 @@ let stateController: StateController;
 let merchantController: MerchantController;
 let paginationController: PaginationController;
 let accountController: AccountController;
+let marketPriceController: MarketPriceController;
 
 let store: Store<any>;
 let instance: any;
@@ -45,21 +51,32 @@ export default {
         myTradeController = new MyTradeController(store);
 
         // 자기 참조할 때 씀
+        marketPriceController = new MarketPriceController(store);
+
+        // 자기 참조
         instance = this;
 
-        // 서버 데이터 초기화 -> 완료 후 Callback
-        // MainService.getInitValue(function (data: any) {
-        //     instance.initData(data);
-        //     callback()
-        // });
-
-
-        // 모바일 인지 체크 -> Vuex
+        // 모바일 체크 -> Vuex
         if (document.documentElement.clientWidth < 768) {
             this.State.controller().setMobile(true);
         } else {
             this.State.controller().setMobile(false);
         }
+
+
+        // 서버 데이터 초기화 -> 완료 후 Callback
+        instance.initData(function () {console.log('init');
+            instance.setInitCompleted(true);
+        });
+      /*  CommonService.init.getInitValue(function (data: any) {
+           instance.initData(data);
+           callback();
+        });*/
+        /*getInitValue(function (data: any) {
+            instance.initData(data);
+            callback()
+        });
+        */
 
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
@@ -70,28 +87,37 @@ export default {
         //     this.State.controller().setCheckOs(3);
         // }
     },
-    // initData: function (data: any) {
-    // 서버 초기 데이터를 파싱 한다.
-    // // 유저 파싱
-    // this.setMyInfo(new User(data['user']));
-    //
-    // // 계정 JSON 파싱
-    // for (let key in data['accounts']) {
-    //     accountController.push(data['accounts'][key])
-    // }
-    // },
-
-    // 서버 데이터 초기화가 완료를 파악할 때 사용한다. (서버 데이터 완료 후 뷰 그리기 등)
-    // setInitCompleted(isCompleted: boolean) {
-    //     store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
-    // },
+    //서버 초기 데이터를 파싱
+    initData: function (callback: any) {
+        // 로그인한 유저 정보 파싱
+        let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
+        let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        if (isLogin === true || isFirefox) {
+            this.Login.setUserInfo(function () {
+                callback();
+            })
+        }else{
+            callback();
+        }
+        // 계정 JSON 파싱
+      /* for (let key in data['accounts']) {
+            accountController.push(data['accounts'][key])
+        }*/
+    },
+    //서버 데이터 초기화 완료 체크
+    setInitCompleted(isCompleted: boolean) {
+        store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
+    },
     State: {
         controller(): StateController {
             return stateController
         },
         isMobile(): boolean {
             return stateController.isMoblie();
-        }
+        },
+        isInitCompleted(){
+            return stateController.isInitCompleted();
+        },
     },
     MyPage: {
         getMemberVerification: function (callback: any) {
@@ -113,6 +139,7 @@ export default {
             });
         },
         getIdVerification: function (callback: any) {
+            console.log(instance.Login.getUserInfo().email);
             AccountService.Verification.idVerification({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
@@ -171,7 +198,7 @@ export default {
             })
         },
         getSecuritySettings: function (callback: any) {
-            AccountService.LoginHistory.getLoginHistory({
+            AccountService.SecuritySettings.getSecuritySettings({
                 email: instance.Login.getUserInfo().email
             }, function (result) {
                 let securitySettings = new SecuritySettings('');
@@ -188,12 +215,12 @@ export default {
     },
     Login: {
         // 유저 정보 VUEX 저장
-        setUserInfo() {
+        setUserInfo(callback : any) {
             AccountService.Account.getUserInfo(function (result) {
                 let userInfo = new Account(result);
                 // var nextArr = JSON.stringify(tradeInfo)
-                // console.log(nextArr)
                 accountController.setUserInfo(userInfo);
+                callback();
             });
         },
         getUserInfo() {
@@ -202,12 +229,12 @@ export default {
     },
     Users: {
         //다른 유저 정보 GET
-        getOtherUsers(email) {
+        getOtherUsers(email : string, callback: any) {
             AccountService.Account.getOtherUsersInfo({
                 email: email
             }, function (result) {
                 let otherUserInfo = new OtherUsers(result);
-                return otherUserInfo;
+                callback(otherUserInfo);
 
             })
         },
@@ -532,4 +559,19 @@ export default {
     },
 
 
+    MarketPrice: {
+        controller(): MarketPriceController {
+            return marketPriceController;
+        },
+        load(callback: any) {
+            CommonService.info.getMarketPrice(function (data) {
+                let priceList: MarketPrice[] = [];
+                for (let key in data) {
+                    priceList.push(new MarketPrice(data[key]));
+                }
+                marketPriceController.setMarketPriceList(priceList);
+                callback();
+            })
+        }
+    }
 }

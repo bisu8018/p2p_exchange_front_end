@@ -66,6 +66,10 @@ this.verify = true;
                 var start = setInterval(() => {
                     if (this.setTime > 0) {
                         this.setTime--;
+                        if(this.verifyStatus = 'verified'){
+                            clearInterval(start);
+                            this.setTime = 60;
+                        }
                     } else {
                         clearInterval(start);
                         this.verifyStatus = 'unverified';

@@ -10,16 +10,13 @@ export enum VuexTypes {
     //======================================
     //              Home
     // =====================================
-    // 초기화 완료
-    INIT_COMPLETED = 'state/INIT_COMPLETED',
-    //OS 체크
-    SET_CHECK_OS = 'state/SET_CHECK_OS',
-    // 모바일 인지 체크
-    SET_IS_MOBILE = 'state/SET_IS_MOBILE',
+    INIT_COMPLETED = 'state/INIT_COMPLETED',    // 초기화 완료 체크
+    SET_CHECK_OS = 'state/SET_CHECK_OS',        // OS 체크
+    SET_IS_MOBILE = 'state/SET_IS_MOBILE',      // 모바일 인지 체크
 
 
     //======================================
-    //              SELECTBOX
+    //              SelectBox
     // =====================================
     SET_COUNTRY_DATA = 'selectbox/SET_COUNTRY_DATA',
     SET_CURRENCY_DATA = 'selectbox/SET_CURRENCY_DATA',
@@ -56,6 +53,10 @@ export enum VuexTypes {
     SET_USER_INFO = 'account/SET_USER_INFO',
 
 
+    //======================================
+    //              Market Price
+    // =====================================
+    SET_MARKET_PRICE = 'market/SET_MARKET_PRICE',
 
 
 }

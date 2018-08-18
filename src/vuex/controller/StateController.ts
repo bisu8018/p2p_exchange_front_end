@@ -17,6 +17,10 @@ export default class StateController {
         return this.store.state.state.isMobile
     }
 
+    isInitCompleted() {
+        return this.store.state.state.initCompleted
+    }
+
     //OS 체크
     // setCheckOs(checkOs: number) {
     //     this.store.dispatch(VuexTypes.SET_CHECK_OS, checkOs)

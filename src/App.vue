@@ -58,7 +58,47 @@
         src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material/MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
-    .material-icons {
+
+/*
+
+@font-face {
+    font-family: 'Noto Sans SC';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/notosans/NotoSansSC-Regular.woff2) format('woff2'), url(../fonts/notosans/NotoSansSC-Regular.woff) format('woff'), url(../fonts/notosans/NotoSansSC-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans SC';
+    font-style: normal;
+    font-weight: 500;
+    src: url(../fonts/notosans/NotoSansSC-Medium.woff2) format('woff2'), url(../fonts/notosans/NotoSansSC-Medium.woff) format('woff'), url(../fonts/notosans/NotoSansSC-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans SC';
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/notosans/NotoSansSC-Bold.woff2) format('woff2'), url(../fonts/notosans/NotoSansSC-Bold.woff) format('woff'), url(../fonts/notosans/NotoSansSC-Bold.otf) format('opentype');
+}
+
+!*material font*!
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/material/MaterialIcons-Regular.eot);
+    !* For IE6-8 *!
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url(../fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(../fonts/material/MaterialIcons-Regular.woff) format('woff'), url(../fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+*/
+
+
+
+
+.material-icons {
         font-family: 'Material Icons';
         font-weight: normal;
         font-style: normal;
@@ -973,6 +1013,9 @@
         font-size: 12px;
         text-align: center;
         border-radius: 2px;
+        width: -moz-max-content;
+        width: max-content;
+        line-height: 1;
     }
 
     .tooltip .tooltip-content:after {
