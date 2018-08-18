@@ -25,6 +25,7 @@ import SecuritySettings from "@/vuex/model/SecuritySettings";
 import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import CommonService from "@/service/common/CommonService";
 import MarketPrice from "@/vuex/model/MarketPrice";
+import OrderService from "@/service/order/OrderService";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -235,7 +236,6 @@ export default {
             }, function (result) {
                 let otherUserInfo = new OtherUsers(result);
                 callback(otherUserInfo);
-
             })
         },
     },
@@ -259,7 +259,7 @@ export default {
             tradelistController.updateTradeFilter({
                 type : 'piece',
                 cryptocurrency : 'bitcoin',
-                tradeType : 'buy',
+                tradeType : 'Buy',
                 nationality : 'ALL',
                 currency :  'CNY',
                 amount :  -1,
@@ -277,7 +277,7 @@ export default {
         },
         initFromMainPage(){
             //tradecenter에서 창 열면 type piece로 생성
-            instance.TradeView.updateTradeFilter({type : 'piece',})
+            instance.TradeView.updateSelectPage({type : 'piece',})
             //page 켜졌을때 default로 생성.
         },
         initPiecePage(){
@@ -287,7 +287,7 @@ export default {
             TradeService.tradeView.tradePage({
                 type : 'piece',
                 cryptocurrency : 'bitcoin',
-                tradeType : 'buy',
+                tradeType : 'sell',
                 nationality : 'ALL',
                 currency :  'CNY',
                 amount :  -1,
@@ -316,7 +316,7 @@ export default {
             TradeService.tradeView.tradePage({
                 type : 'block',
                 cryptocurrency : 'bitcoin',
-                tradeType : 'buy',
+                tradeType : 'sell',
                 nationality : 'ALL',
                 currency :  'CNY',
                 amount :  -1,
@@ -418,6 +418,22 @@ export default {
         },
         getDrawer(){
             return tradelistController.getDrawerID();
+        },
+        createOrder(adNo: number, amount: number, coinCount: number, customerMemberNo: number,
+                    merchantMemberNo: number, price: number){
+            OrderService.addOrder({
+                adNo : adNo,
+                amount :   amount,
+                coinCount : coinCount,
+                customerMemberNo :  customerMemberNo,
+                merchantMemberNo :  merchantMemberNo,
+                price : price,
+                status : "unpaid",
+            }, function (data) {
+                console.log('createOrder 성공!')
+                return true;
+            })
+
         },
 
     },
@@ -557,6 +573,9 @@ export default {
             return myTradeController.getMyAdsItems();
         },
     },
+    Order: {
+
+    },
 
 
     MarketPrice: {
@@ -574,4 +593,5 @@ export default {
             })
         }
     }
+
 }

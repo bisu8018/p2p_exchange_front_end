@@ -19,14 +19,14 @@
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3 ">
                 <div class="section-border-depth pt-5 pb-5 cardBox">
-                    <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
+                    <div class="sprite-img ic-merchant-logo-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3 medium">{{$str("Exclusive logo")}}</h2>
                     <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Verified merchants will have an exclusive logo to enhance reliability and trustworthiness.")}}</h4>
                 </div>
             </v-flex>
             <v-flex xs12 md4 text-md-left text-xs-left class="mt-3 ">
                 <div class="section-border-depth pt-5 pb-72 cardBox">
-                    <div class="sprite-img ic-merchant-ad-lg horizontal-center mb-4"></div>
+                    <div class="sprite-img ic-merchant-service-lg horizontal-center mb-4"></div>
                     <h2 class="text-md-center text-xs-center mb-3">{{$str("One-to-one Service")}}</h2>
                     <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Merchants will enjoy our one-to-one exclusive service.")}}</h4>
                 </div>
@@ -69,11 +69,12 @@
         </div>
         <!--nickname 설정을 안했으면 띄우는 화면-->
         <nick-name-modal
+                v-if="!setNickName"
                 :show = showNickNameModal
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
         <!--첫번째로 뜨는 정보 입력 dialog-->
-        <v-dialog v-model="showVeriModal" persistent>
+        <v-dialog v-else v-model="showVeriModal" persistent>
             <v-layout row wrap>
                 <!--header-->
                 <v-flex xs6 text-xs-left >
@@ -207,6 +208,7 @@
 <script>
     import Vue from 'vue';
     import NickNameModal from '@/components/NickNameModal.vue';
+    import MainRepository from "../../../../vuex/MainRepository";
     export default {
         name: "merchant",
         components:{NickNameModal},
@@ -215,7 +217,6 @@
             showVeriModal : false,  //apply now 클릭했을때
             showSuccessModal : false,   //form 입력 성공했을때 띄우는 dialog
             alreadySuccess : false,     //이미 제출해놨을때 대체하여 띄워지는 하단부를 보여줌
-            setNickName : false,              //nickname 설정이 필요하면 false, 설정이미 했으면 true
             showNickNameModal : false,      //nickname modal을 띄울려면 true로.
             FirstName : '',
             LastName : '',
@@ -254,6 +255,12 @@
             ],
 
         }),
+        computed: {
+            setNickName(){
+                //nickname이 없으면 false, 설정이미 했으면 true
+                return (MainRepository.Login.getUserInfo().nickname !== '')
+            }
+        },
         methods :{
             showDialog(){
                 if(this.isAgree == true){
@@ -265,16 +272,12 @@
                     else{
                         this.showVeriModal = true;
                     }
-
                 }
-
-
             },
             goDone(){
                 if (this.onCheckFirst() && this.onCheckLast() && this.onCheckIdNum()) {
                     this.showVeriModal = false;
                     this.showSuccessModal = true;
-
                 }
             },
             onCheckFirst(){
@@ -307,7 +310,6 @@
             },
             closeNicknameModal(){
                 this.showNickNameModal = false;
-                this.setNickName = true;
                 this.showVeriModal = true;
             //    nickname 설정 성공시 성공했음을 알려주는 함수 전달이 필요할듯.
             },

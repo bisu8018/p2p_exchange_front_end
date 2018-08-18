@@ -1,13 +1,13 @@
 <template>
     <div>
         <!--nickname 설정 안했을때 나오는 안내문구-->
-        <v-layout v-if="tradeLevel == 'low'" row wrap nickname-setUp>
+        <v-layout v-if="!setNickName" row wrap nickname-setUp>
             <h6>{{$str("Before you start trading, you need to complete the necessary transaction information.")}}&nbsp;</h6>
-            <a class="color-blue h6" @click="setNickName = true">{{$str("Set up now.")}}</a>
+            <a class="color-blue h6 text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</a>
         </v-layout>
         <nick-name-modal
-                v-if="setNickName"
-                :show = setNickName
+                v-if="showNickNameModal"
+                :show = showNickNameModal
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
         <!-- 상단의 list filter -->
@@ -90,8 +90,8 @@
             pageSize : 10,              //한 page에 몇개씩 item을 보여줄건가.
             pageType : "tradecenter",       //pagination을 위해.
             tradeLevel : 'low',
-            setNickName : false,
             totalcount : 1,
+            showNickNameModal : false,
         }),
         created() {
             let cureentURL = window.location.href
@@ -121,11 +121,15 @@
             //불러온 item이 1개라도 있으면 true, 없으면 false.
             haveItems(){
                 return MainRepository.Pagination.getTotalCount() !== 0;
+            },
+            setNickName(){
+                //nickname이 없으면 false, 설정이미 했으면 true
+                return (MainRepository.Login.getUserInfo().nickname !== '')
             }
         },
         methods: {
             closeNicknameModal(){
-             this.setNickName = false;
+             this.showNickNameModal = false;
             }
         },
         beforeDestroy(){

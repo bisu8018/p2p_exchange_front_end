@@ -1,4 +1,4 @@
-import AxiosService from "../../AxiosService";
+import AxiosService from "../AxiosService";
 
 export default {
 
