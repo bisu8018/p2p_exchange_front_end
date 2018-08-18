@@ -114,6 +114,16 @@ export default {
             return stateController.isInitCompleted();
         },
     },
+    Common: {
+        getPaymentMethod: function (callback: any) {
+            CommonService.info.getPaymentMethod({
+                email : instance.Login.getUserInfo().email
+            },function (result) {
+                let paymentMethod = new PaymentMethod(result);
+                callback(paymentMethod);
+            })
+        }
+    },
     MyPage: {
         getMemberVerification: function (callback: any) {
             AccountService.Verification.memberVerification({
