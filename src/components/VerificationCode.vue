@@ -66,7 +66,7 @@ this.verify = true;
                 var start = setInterval(() => {
                     if (this.setTime > 0) {
                         this.setTime--;
-                        if(this.verifyStatus = 'verified'){
+                        if(this.verifyStatus === 'verified'){
                             clearInterval(start);
                             this.setTime = 60;
                         }
@@ -95,27 +95,28 @@ this.verify = true;
             },
             // 인증 코드 전송
             sendVerificationCode() {
-                let self = this;
-                AccountService.Account.sendVerificationCode(self.type, {
-                    email: self.email,
-                    phoneNumber: self.phone,
-                }, function (result) {
-                    self.verifyStatus = 'verifying';
-                    self.getTimer();
-                })
+                if(this.onCheckEmail() || this.onCheckEmail()){
+                    let self = this;
+                    AccountService.Account.sendVerificationCode(self.type, {
+                        email: self.email,
+                        phoneNumber: self.phone,
+                    }, function (result) {
+                        self.verifyStatus = 'verifying';
+                        self.getTimer();
+                    })
+                }
             },
             //인증코드 체크
             checkVerificationCode() {
                 let self = this;
                 AccountService.Account.checkVerificationCode(self.type, {
-                    email: this.email,
-                    code: this.verificationCode,
+                    email: self.email,
+                    code: self.verificationCode,
                     phoneNumber: self.phone,
                     status: 'requested'
                 }, function (result) {
-                    console.log("code check success");
                     self.verifyStatus = 'verified';
-                    this.$emit('verify', this.verificationCode);
+                    self.$emit('verify', self.verificationCode);
                 })
             },
             // 이메일 체크

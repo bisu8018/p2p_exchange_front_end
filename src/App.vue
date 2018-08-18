@@ -59,44 +59,6 @@
     }
 
 
-/*
-
-@font-face {
-    font-family: 'Noto Sans SC';
-    font-style: normal;
-    font-weight: 400;
-    src: url(../fonts/notosans/NotoSansSC-Regular.woff2) format('woff2'), url(../fonts/notosans/NotoSansSC-Regular.woff) format('woff'), url(../fonts/notosans/NotoSansSC-Regular.otf) format('opentype');
-}
-
-@font-face {
-    font-family: 'Noto Sans SC';
-    font-style: normal;
-    font-weight: 500;
-    src: url(../fonts/notosans/NotoSansSC-Medium.woff2) format('woff2'), url(../fonts/notosans/NotoSansSC-Medium.woff) format('woff'), url(../fonts/notosans/NotoSansSC-Medium.otf) format('opentype');
-}
-
-@font-face {
-    font-family: 'Noto Sans SC';
-    font-style: normal;
-    font-weight: 700;
-    src: url(../fonts/notosans/NotoSansSC-Bold.woff2) format('woff2'), url(../fonts/notosans/NotoSansSC-Bold.woff) format('woff'), url(../fonts/notosans/NotoSansSC-Bold.otf) format('opentype');
-}
-
-!*material font*!
-
-@font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url(../fonts/material/MaterialIcons-Regular.eot);
-    !* For IE6-8 *!
-    src: local('Material Icons'), local('MaterialIcons-Regular'), url(../fonts/material/MaterialIcons-Regular.woff2) format('woff2'), url(../fonts/material/MaterialIcons-Regular.woff) format('woff'), url(../fonts/material/MaterialIcons-Regular.ttf) format('truetype');
-}
-
-*/
-
-
-
 
 .material-icons {
         font-family: 'Material Icons';
@@ -431,6 +393,10 @@
         margin: 0;
     }
 
+
+    .nav {
+        z-index: 101 !important;
+    }
 
     /*폰트 색깔*/
 

@@ -106,7 +106,7 @@ const strings = new Map([
         HK: '確認密碼'
     }],
     ['termsLabel1', {
-        KOR: '본 이용약관을 확인하였으며, 이에 동의합니다.',
+        KOR: '본 이용약관을 확인하였으며, 이에 동의합니다',
         ENG: 'I agree to the AllB\'s',
         CN: '我已阅读并同意',
         HK: '我已閲讀並同意'
