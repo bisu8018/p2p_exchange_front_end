@@ -4,7 +4,7 @@
             <!--header-->
             <v-flex xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
             <v-spacer></v-spacer>
-            <v-flex md10 xs12>
+            <v-flex>
                 <my-order-filter class="myOrderFilter"></my-order-filter>
             </v-flex>
         </v-layout>
@@ -12,14 +12,14 @@
             <v-layout mb-2 color-darkgray row wrap>
                 <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
-                <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
+                <v-flex md1 text-md-left>{{$str("Trade Num")}}</v-flex>
                 <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
                 <v-flex md3 text-md-left>{{$str("time")}}</v-flex>
                 <v-flex md2>
                     <v-layout justify-space-between>
                         <span>{{$str("status")}}</span>
-                        <span>{{$str("counterparty")}}</span>
+                        <span >{{$str("counterparty")}}</span>
                     </v-layout>
                 </v-flex>
             </v-layout>
@@ -28,7 +28,7 @@
         <!--main list view-->
         <div v-if="haveItems">
             <!-- user item list들 10개씩 출력-->
-            <div v-for="(orderlist) in orderLists" >
+            <div v-for="orderlist in orderLists" >
                 <my-order-list
                         :orderlist="orderlist"
                 ></my-order-list>
@@ -62,6 +62,8 @@
         name: "MyOrder",
         components: {ListFilter, Pagination, MyOrderList, MyOrderFilter},
         data: () => ({
+            pageSize : 10,
+            pageType : 'MyOrder',
             orderLists: [
                 {
                     orderNum: '6517',
@@ -99,25 +101,30 @@
                     currency: 'CNY',
                     tradeType : 'buy'
                 },
-
             ],
-            haveItems(){
-                //return (MainRepository.Pagination.getTotalCount() >0)
-                return true;
-            },
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            haveItems(){
+                //return (MainRepository.Pagination.getTotalCount() >0)
+                return true;
+            },
+            OrderLists() {
+                return MainRepository.MyOrder.getPage();
+            }
 
         },
         created() {
-
+            MainRepository.MyOrder.initPage();
         },
         mounted() {
 
         },
+        beforeDestroy(){
+            MainRepository.MyAds.initData()
+        }
 
 
     }

@@ -893,7 +893,7 @@ const strings = new Map([
     }],
     ['warning_trade_password', {
         KOR: '거래 비밀번호를 입력해 주십시오',
-        ENG: 'enter you trade password',
+        ENG: 'Enter your trade password',
         CN: '请输入交易密码',
         HK: '請輸入交易密碼'
     }],

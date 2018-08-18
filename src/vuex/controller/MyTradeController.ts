@@ -37,4 +37,22 @@ export default class MyTradeController{
         return this.store.state.mytrade.drawerID;
     }
 
+    setMyOrderFilter(myAdsFilter : object) {
+        this.store.dispatch(VuexTypes.SET_MYADSFILTER_DATA, myAdsFilter);
+    }
+
+    getMyOrderFilter() {
+        return this.store.state.mytrade.myAdsFilter;
+    }
+
+    //10개씩 item 설정
+    setMyOrderItems(myAdsItems : TradeItem[]) {
+        this.store.dispatch(VuexTypes.SET_MYADSLIST_DATA, myAdsItems);
+    }
+
+    getMyOrderItems() {
+        return this.store.state.mytrade.myAdsItems;
+    }
+    //drawer는 위의 메서드와 공유.
+
 }

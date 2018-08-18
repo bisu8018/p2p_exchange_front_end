@@ -516,7 +516,7 @@ export default {
         },
         initPage(){
             AdService.getMyAds({
-                email : '',
+                email : instance.Login.getUserInfo().email,
                 searchStartTime : '',
                 searchEndTime : '',
                 status : '',
@@ -544,7 +544,7 @@ export default {
         },
         initData(){
             myTradeController.setMyAdsFilter({
-                email : '',
+                email : instance.Login.getUserInfo().email,
                 searchStartTime : '',
                 searchEndTime : '',
                 status : '',
@@ -596,7 +596,91 @@ export default {
             return myTradeController.getMyAdsItems();
         },
     },
-    Order: {
+    MyOrder: {
+        controller(): MyTradeController {
+            return myTradeController;
+        },
+        initPage(){
+            OrderService.getMyOrder({
+                email : instance.Login.getUserInfo().email,
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',
+            }, function (data) {
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
+
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let myOrderList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    myOrderList.push(itemList);
+                }
+                myTradeController.setMyOrderItems(myOrderList);
+            })
+        },
+        initData(){
+            myTradeController.setMyOrderFilter({
+                email : instance.Login.getUserInfo().email,
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',
+            })
+            //pagination 초기화
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
+        setFilter( start_date: string, end_date: string, coinType: string, tradeType: string,
+                   orderNo: number, adsType: string, currency: string,){
+            OrderService.getMyOrder({
+                email : instance.Login.getUserInfo().email,
+                searchStartTime : start_date,
+                searchEndTime : end_date,
+                status : '',
+                orderNo : orderNo,
+                cryptocurrency : coinType,
+                orderType : adsType,
+                tradeType : tradeType,
+                currency : currency,
+                page : instance.paginationController.getPage(),
+                size : '10',
+            }, function (data) {
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
+
+                //전체 item list model화 시켜 주기
+                let result = data.adList
+                let myOrderList: TradeItem[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    myOrderList.push(itemList);
+                }
+                myTradeController.setMyOrderItems(myOrderList);
+            })
+        },
+        updatePage(){
+
+        },
+        getPage(){
+            return myTradeController.getMyOrderItems();
+        },
 
     },
     AD : {

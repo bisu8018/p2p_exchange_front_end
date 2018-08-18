@@ -13,7 +13,7 @@
                    @click="onDate"  readonly/>
             <i class="material-icons color-darkgray h1 p-absolute icon-style ">calendar_today</i>
         </div>
-        <div id="datePickerWrapper" class="mt-2 d-none p-absolute date-picker-wrapper c-pointer">
+        <div :class="classname" class=" mt-2 d-none p-absolute date-picker-wrapper c-pointer">
             <v-date-picker width="254" v-model="date" @input="onPickDate(date)"></v-date-picker>
         </div>
     </div>
@@ -24,7 +24,16 @@
 
     export default Vue.extend({
         name: 'datePicker',
-        props: ['clear'],
+        props: {
+            clear: {
+                type: String,
+                default: ''
+            },
+            classname: {
+                type: String,
+                default : 'PickerClass',
+            }
+        },
         data: () => ({
             date: null,
         }),
@@ -39,10 +48,10 @@
         },
         methods: {
             onDate() {
-                document.getElementById("datePickerWrapper").style.display = "block";
+                document.getElementsByClassName(this.classname)[0].style.display = "block";
             },
             onPickDate(date) {
-                document.getElementById("datePickerWrapper").style.display = "none";
+                document.getElementsByClassName(this.classname)[0].style.display = "none";
                 this.date = date;
                 this.$emit('date', date);
                 this.$emit('switch');

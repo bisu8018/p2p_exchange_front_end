@@ -26,7 +26,7 @@
             <!--mobile 일때-->
             <div>
                 <!-- user ad list들 10개씩 출력-->
-                <div v-for="adslist in adsLists" >
+                <div v-for="adslist in AdsLists" >
                   <my-ads-list
                           :adslist="adslist"
                   ></my-ads-list>
@@ -104,11 +104,10 @@
                 return MainRepository.State.isMobile();
             },
             haveItems(){
-                //return (MainRepository.Pagination.getTotalCount() >0)
-                return true;
+                return (MainRepository.Pagination.getTotalCount() >0)
+                //return true;
             },
             AdsLists() {
-                console.log(MainRepository.MyAds.getPage());
                 return MainRepository.MyAds.getPage();
             }
 
@@ -116,12 +115,9 @@
         methods: {},
         created() {
             MainRepository.MyAds.initPage();
-            console.log(MainRepository.MyAds.getPage());
         },
         beforeDestroy(){
-            console.log(MainRepository.MyAds.getPage());
             MainRepository.MyAds.initData()
-
         }
 
 

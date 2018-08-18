@@ -3,14 +3,14 @@
         <v-flex xs12 md12 >
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-                      v-if=" end_date === '' && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
+                      v-if=" start_date === '' && end_date === '' && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                    @click.stop="isModal = !isModal">filter_list</i>
 
 
             <!--chips-->
             <div class="mr-5 chip-wrapper d-inline-block">
-                <h6 class="statusChip" v-if="end_date != ''">
+                <h6 class="statusChip" v-if="showDateChip">
                     <v-layout align-center row fill-height >
                         {{start_date}} - {{end_date}}
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('date')">close</i>
@@ -54,13 +54,13 @@
                 <!--start date-->
                 <div class="text-xs-left text-black mb-2">{{$str("start")}} {{$str("date")}}</div>
                 <div class="mb-4">
-                    <date-picker v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
+                    <date-picker :classname = 'startdateclass' v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
                 </div>
 
                 <!--end date-->
                 <div class="text-xs-left text-black mb-2">{{$str("end")}} {{$str("date")}}</div>
                 <div class="mb-4">
-                    <date-picker v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
+                    <date-picker :classname = "enddateclass" v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
                 </div>
 
                 <!--암호화폐 종류-->
@@ -142,6 +142,8 @@
             DatePicker
         },
         data: () => ({
+            startdateclass : 'startdateclass',
+            enddateclass : 'enddateclass',
             isModal: false,
             menu: false,
             clear: 'on',
@@ -182,6 +184,14 @@
             ],
 
         }),
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            showDateChip(){
+                return (this.start_date !== "") &&(this.end_date !== "");
+            }
+        },
         methods: {
             onStartDate(value) {
                 this.modal_start_date = value;
@@ -190,19 +200,22 @@
                 this.modal_end_date = val;
             },
             onSearch() {
-                MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
-                    this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
+                //MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
+                  //  this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
                 // AXIOS GET 작업 진행
+                this.isModal = false;
                 this.start_date = this.modal_start_date;
-                this.end_date = this.modal_start_date;
+                this.end_date = this.modal_end_date;
                 this.coinType = this.modal_coinType;
                 this.tradeType = this.modal_tradeType;
                 this.orderNo = this.modal_orderNo;
                 this.adsType = this.modal_adsType;
                 this.currency = this.modal_currency;
+
             },
             onClear() {
-                this.modal_date = "";
+                this.modal_start_date = "";
+                this.modal_end_date = "";
                 this.modal_coinType = "";
                 this.modal_tradeType = "";
                 this.modal_orderNo = "";
@@ -212,7 +225,8 @@
             },
             onCancel() {
                 this.isModal = false;
-                this.modal_date = "";
+                this.modal_start_date = "";
+                this.modal_end_date = "";
                 this.modal_coinType = "";
                 this.modal_tradeType = "";
                 this.modal_orderNo = "";
@@ -242,11 +256,7 @@
                 }
             }
         },
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
-        },
+
     });
 </script>
 

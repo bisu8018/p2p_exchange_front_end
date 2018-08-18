@@ -7,7 +7,7 @@
         <!-- name-->
         <v-layout mt-4  align-center fill-height>
           <v-flex xs2 text-xs-left>
-            <avatar :email = user.nickname[0]>
+            <avatar :me= true>
             </avatar>
           </v-flex>
 
@@ -87,7 +87,7 @@
         <div class="mobileModal">
           <v-layout>
             <v-flex xs2 pl-2>
-              <avatar :email = user.nickname[0]>
+              <avatar :me= true>
               </avatar>
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
@@ -129,7 +129,7 @@
           <!-- name-->
           <v-layout>
             <v-flex xs2 pl-2>
-              <avatar :email = user.nickname[0]>
+              <avatar :me= true>
             </avatar>
             </v-flex>
             <v-flex xs8 text-xs-left>
@@ -271,7 +271,7 @@
         <!--ㅡmerchant-->
         <v-flex  md3 text-md-left>
           <v-layout  align-center>
-              <avatar :email = user.nickname[0]>
+              <avatar :me= true>
             </avatar>
             <span class="ml-3 color-blue text-white-hover ">
               <button @click="goUserPage">{{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
@@ -331,7 +331,7 @@
             <v-flex md3 text-md-left >
               <v-layout pl-4 >
                 <!--avatar-->
-                <avatar :email = user.nickname[0]>
+                <avatar :me= true>
                 </avatar>
                 <!-- merchant 정보-->
                 <span>
@@ -372,7 +372,7 @@
             <v-flex md3 text-md-left >
               <v-layout row pl-4 >
                 <!--avatar-->
-                <avatar :email = user.nickname[0]>
+                <avatar :me= true>
                 </avatar>
 
                 <!-- merchant 정보-->
@@ -597,7 +597,6 @@
 
             },
             goTrade(){
-
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
                     MainRepository.TradeView.createOrder(
                         this.user.adNo,                           //adNo
@@ -625,7 +624,9 @@
             fillAll(){
                 this.clickToAll = false;
                 //차후 내 잔고 불러와 마진고려해 수정해야함
-                if(this.user.volume > this.user.maxLimit){ this.toValue = this.user.maxLimit}
+                if(this.user.volume*this.user.fixedPrice > this.user.maxLimit){
+                    this.toValue = this.user.maxLimit
+                }
                 else{this.toValue = this.user.volume;}
                 this.clickFromAll = false;
                 //fromvalue 계산해줌
@@ -650,8 +651,7 @@
                 //All 버튼 없애기.
                 this.clickToAll = false;
                 // to가 비었거나 || 넣은 값이 가능규모보다 크거나 || limit 범위를 벗어날때
-                if (this.toValue === "" || this.toValue >this.user.volume
-                    || this.toValue >this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
+                if (this.toValue === "" || this.toValue >this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_toValue = true;
                     return false;
@@ -681,6 +681,10 @@
             },
             //원격 Drawer를 향해 set 해줌
             changeDrawer(){
+                // if(!MainRepository.Users.getOtherUsers()){
+                //     //login안했을때.
+                //     return;
+                // }
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
             goUserPage(){

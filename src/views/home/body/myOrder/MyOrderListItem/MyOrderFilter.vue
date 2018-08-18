@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12 md10>
+        <v-flex pr-0 pl-0>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if=" date === '' && orderStatus === '' && orderNo === '' && coinType === '' && orderType === '' && tradeType === '' && currency === ''">{{$str("orderFilterPlaceholder")}}</div>
@@ -9,9 +9,9 @@
 
                 <!--chips-->
                 <div class="mr-5 chip-wrapper d-inline-block">
-                    <h6 class="statusChip" v-if="date != ''">
+                    <h6 class="statusChip" v-if="showDateChip">
                         <v-layout align-center row fill-height >
-                            {{date}}
+                            {{start_date}} - {{end_date}}
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('date')">close</i>
                         </v-layout>
                     </h6>
@@ -160,10 +160,13 @@
             DatePicker
         },
         data: () => ({
+            startdateclass : 'startdateclass',
+            enddateclass : 'enddateclass',
             isModal: false,
             menu: false,
             clear: 'on',
-            date: "",
+            start_date: "",
+            end_date: "",
             orderStatus: "",
             orderNo: "",
             coinType: "",
@@ -209,13 +212,24 @@
             tradeCoin: 'BTC',
 
         }),
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            showDateChip(){
+                return (this.start_date !== "") &&(this.end_date !== "");
+            }
+        },
         methods: {
             onDate(value) {
                 this.modal_date = value;
             },
             onSearch() {
                 // AXIOS GET 작업 진행
-                this.date = this.modal_date;
+                MainRepository.MyOrder.setFilter(this.modal_date, this.modal_coinType,
+                    this.modal_tradeType,this.modal_orderNo, this.modal_orderType, this.modal_currency)
+                this.start_date = this.modal_start_date;
+                this.end_date = this.modal_start_date;
                 this.orderStatus = this.modal_orderStatus;
                 this.orderNo = this.modal_orderNo;
                 this.coinType = this.modal_coinType;
@@ -224,7 +238,8 @@
                 this.currency = this.modal_currency;
             },
             onClear() {
-                this.modal_date = "";
+                this.modal_start_date = "";
+                this.modal_end_date = "";
                 this.modal_orderStatus = "";
                 this.modal_orderNo = "";
                 this.modal_coinType = "";
@@ -235,7 +250,8 @@
             },
             onCancel() {
                 this.isModal = false;
-                this.modal_date = "";
+                this.modal_start_date = "";
+                this.modal_end_date = "";
                 this.modal_orderStatus = "";
                 this.modal_orderNo = "";
                 this.modal_coinType = "";
@@ -268,11 +284,7 @@
                 }
             }
         },
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
-        },
+
     });
 </script>
 
@@ -361,8 +373,4 @@ mobile에서만 추가 선언.*/
         opacity: 0.8;
     }
 
-    .flex {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
 </style>7

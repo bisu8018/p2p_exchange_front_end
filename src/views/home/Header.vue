@@ -155,7 +155,36 @@
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
 
                     <!--MyOrder-->
-                    <button class="button-2 mr-4a" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
+                    <div class="dropdown">
+                        <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
+                        <div class="dropdown-content myorder-dropdown">
+                            <!-- 언어 list 버튼-->
+                            <v-layout ml-3 mr-3 mt-4 mb-4 align-center>
+                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
+                                <v-spacer></v-spacer>
+                                <div class="color-blue mr-2">{{$str("Fixed")}}</div>
+                                <div class="sprite-img ic-fix color-blue"></div>
+                            </v-layout>
+                            <v-divider></v-divider>
+                            <v-layout row pl-3 pr-3 pt-4 pb-4>
+                                <!--avatar-->
+                                <avatar :me= true ></avatar>
+                                <!-- merchant 정보-->
+                                <span>
+                                    <span class="mr-2 ml-3 color-darkgray text-md-left" >
+                                        <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
+                                        Buy BTC Total Price: 200 CNY
+                                    </span>
+                                    <div class="ml-3 text-md-left">Please pay - 00:14:32</div>
+                                </span>
+                                <span class="badge">1</span>
+                            </v-layout>
+                            <v-divider></v-divider>
+                            <div class="text-md-right color-blue text-white-hover mt-4 mb-4 mr-3 c-pointer">
+                                View All
+                            </div>
+                        </div>
+                    </div>
                     <!--Balances -->
                     <button class="button-2 mr-4a" @click="goBalances()" v-if="isLogin">{{$str("Balances")}}</button>
                     <!--내 정보 끝-->
@@ -430,6 +459,44 @@
 
     .avatar-dropdown {
         right: 135px;
+    }
+    .myorder-dropdown{
+        min-width: 306px;
+        z-index: 2;
+        top: 48px;
+        right: 0;
+    }
+    .myorder-dropdown:after{
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 95%;
+        margin-left: -8px;
+        width: 0; height: 0;
+        border-style: solid;
+        border-bottom: 4px solid  #ffffff;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        border-color: transparent transparent  #ffffff transparent ;
+    }
+    .badge{
+        background-color: #e62a2b;
+        border-radius: 100px;
+        text-align:center;
+        font-size: 12px;
+        color: #ffffff;
+        width: 17px;
+        height: 17px;
+        margin : auto 0 auto 0;
+        padding : auto 0 auto 0;
+        cursor : pointer;
+
+        -moz-border-radius : 100px;
+        -webkit-border-radius : 100px;
+        -ms-border-radius :100px;
+        -khtml-border-radius : 100px;
+        -o-border-radius :100px;
+
     }
 
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
