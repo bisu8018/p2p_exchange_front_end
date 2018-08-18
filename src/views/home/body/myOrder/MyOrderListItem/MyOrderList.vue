@@ -19,7 +19,7 @@
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("volumeText")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("amount")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.exNum}}</v-flex>
       </v-layout>
       <v-layout >
@@ -36,7 +36,12 @@
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("status")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.status}}</v-flex>
+        <v-flex xs5 text-xs-right>
+          <v-layout justify-end align-center>
+            <div class="sprite-img mr-2" :class="statusImg"></div>
+            {{orderlist.status}}
+          </v-layout>
+        </v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("counterparty")}}</v-flex>
@@ -64,9 +69,11 @@
         <v-flex  md1 text-md-left>{{orderlist.price}}</v-flex>
         <v-flex  md3 text-md-left>{{orderlist.time}}</v-flex>
         <v-flex  md2>
-          <v-layout justify-space-between>
-            <span>{{orderlist.status}}</span>
-            <span>{{orderlist.partner}}</span>
+          <v-layout align-center>
+            <div class="sprite-img mr-2" :class="statusImg"></div>
+            <div>{{orderlist.status}}</div>
+            <v-spacer></v-spacer>
+            <span class="color-blue">{{orderlist.partner}}</span>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -81,6 +88,10 @@
         props : {
             orderlist : {},
         },
+        data: () => ({
+            statusImg : 'ic',
+
+        }),
         methods : {
 
         },
@@ -88,7 +99,23 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
-        }
+        },
+        mounted(){
+            switch (this.orderlist.status) {
+                case 'Unpaid':
+                    this.statusImg = 'ic-unpaid'
+                    break;
+
+                case 'Cancelled':
+                    this.statusImg = 'ic-cancel-sm'
+                    break;
+
+                case 'Complete':
+                    this.statusImg = 'ic-success-sm'
+                    break;
+            }
+
+        },
     }
 </script>
 

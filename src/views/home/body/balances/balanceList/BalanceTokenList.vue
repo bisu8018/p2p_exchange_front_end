@@ -5,9 +5,7 @@
         <v-flex md1 xs11 text-xs-left text-md-center >
           <!--logo img-->
           <div class="pb-2 d-inline-block">
-            <div class=" sprite-img ic-btc-lg" v-if="tokenlist.name =='BTC'"></div>
-            <div class=" sprite-img ic-eth-lg" v-else-if="tokenlist.name =='ETH'"></div>
-            <div class=" sprite-img ic-allb-lg" v-else-if="tokenlist.name =='ALLB'"></div>
+            <div class=" sprite-img " :class="tokenImg"></div>
           </div>
           <div class=" mb-4">
             <h4 class="bold">{{tokenlist.name}}</h4>
@@ -80,7 +78,7 @@
             <input type="hidden" :value="copyCode" id="copy-code" >
           </v-flex>
           <v-flex xs12 mt-2 mb-4>
-            <img src="../../../../../assets/img/qr_code.png">
+            <div class="sprite-img ic-qr"></div>
           </v-flex>
           <v-flex xs12 mt-2 mb-4 color-darkgray>
             {{$str("Or_scan_this_QR_code")}}
@@ -235,12 +233,7 @@
             ],
             showWithdrawModal : false,
             showDepositModal : false,
-            tokens : [
-                {name : 'BTC'},
-                {name : 'ETH'},
-                {name : 'USDT'},
-                {name : 'ALLB'},
-            ],
+            tokenImg : '',
             copyCode : '123456789abcdef',
             fee : 0,
             address : '',
@@ -302,15 +295,15 @@
             }
         },
         mounted(){
-            switch (this.tokenlist.name){
+            switch (this.tokenlist.name) {
                 case 'BTC':
-                    this.istoken[0].isBTC = true;
+                    this.tokenImg = 'ic-btc-lg';
                     break;
                 case 'ETH':
-                    this.istoken[0].isETH = true;
+                    this.tokenImg = 'ic-eth-lg';
                     break;
                 case 'ALLB':
-                    this.istoken[0].isALLB = true;
+                    this.tokenImg = 'ic-allb-lg';
                     break;
             }
         },

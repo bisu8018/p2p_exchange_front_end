@@ -8,42 +8,44 @@
                 <my-ads-filter class="myOrderFilter"></my-ads-filter>
             </v-flex>
         </v-layout>
-        <!--main list view-->
-        <div v-if="adsLists.length > 0">
-            <!--mobile 일때-->
-            <span v-if="isMobile">
-                <v-flex v-for="adslist in adsLists" xs12 mb-4>
-                    <my-ads-list :adslist="adslist"></my-ads-list>
-                </v-flex>
-            </span>
 
-            <!-- Web 일때-->
-            <div v-else>
-                <!-- header -->
-                 <v-layout mb-2 color-darkgray>
-                  <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
-                  <v-flex md1 text-md-left>{{$str("adsType")}}</v-flex>
-                  <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
-                  <v-flex md2 text-md-left>{{$str("limits")}}</v-flex>
-                  <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
-                  <v-flex md2 text-md-left>{{$str("time")}}</v-flex>
-                  <v-flex md3 text-md-right>{{$str("control")}}</v-flex>
-                </v-layout>
-                <v-flex><v-divider></v-divider></v-flex>
+      <div v-if="!isMobile">
+        <v-layout mb-2 color-darkgray>
+          <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
+          <v-flex md1 text-md-left>{{$str("adsType")}}</v-flex>
+          <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
+          <v-flex md2 text-md-left>{{$str("limits")}}</v-flex>
+          <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
+          <v-flex md2 text-md-left>{{$str("time")}}</v-flex>
+          <v-flex md3 text-md-right>{{$str("control")}}</v-flex>
+        </v-layout>
+        <v-flex><v-divider></v-divider></v-flex>
+      </div>
+        <!--main list view-->
+        <div v-if="haveItems">
+            <!--mobile 일때-->
+            <div>
                 <!-- user ad list들 10개씩 출력-->
-                <div v-for="(adslist,index) in adsLists" >
+                <div v-for="adslist in adsLists" >
                   <my-ads-list
                           :adslist="adslist"
                   ></my-ads-list>
                   <v-flex><v-divider></v-divider></v-flex>
                 </div>
                 <!-- pagination -->
-                <!--<Pagination></Pagination>-->
+              <Pagination class="pagination-top-margin"
+                      :size="pageSize"
+                      :type="pageType"
+              ></Pagination>
              </div>
         </div>
+        <!-- 해당되는 item이 1개도 없을때-->
         <div v-else>
-            <div class="mb-2"><img src="@/assets/img/no_data.png"></div>
-            <div class="color-gray bold">{{$str("noOrders")}}</div>
+          <div class="sprite-img ic-no-ad-lg no-more-ads">
+          </div>
+          <div class="color-gray no-more-ads-text">
+            No more ads
+          </div>
         </div>
     </div>
 </template>
@@ -58,6 +60,8 @@
         name: "MyAds",
         components: {Pagination, MyAdsList, MyAdsFilter},
         data: () => ({
+            pageSize : 10,
+            pageType : "myAds",
             adsLists: [
                 {
                     no: '6517',
@@ -95,23 +99,56 @@
                 },
             ],
         }),
-        created() {
-
-        },
-        mounted() {
-
-        },
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            haveItems(){
+                //return (MainRepository.Pagination.getTotalCount() >0)
+                return true;
+            },
+            AdsLists() {
+                console.log(MainRepository.MyAds.getPage());
+                return MainRepository.MyAds.getPage();
+            }
 
         },
-        methods: {}
+        methods: {},
+        created() {
+            MainRepository.MyAds.initPage();
+            console.log(MainRepository.MyAds.getPage());
+        },
+        beforeDestroy(){
+            console.log(MainRepository.MyAds.getPage());
+            MainRepository.MyAds.initData()
+
+        }
+
+
 
     }
 </script>
 
 <style scoped>
-
+  /*web 일때*/
+  @media only screen and (min-width: 960px) {
+    .no-more-ads{
+      margin: 120px auto 16px auto;
+    }
+    .no-more-ads-text{
+      margin-bottom: 56px;
+    }
+    .pagination-top-margin{
+      margin-top : 48px;
+    }
+  }
+  /*mobile 일때*/
+  @media only screen and (max-width: 959px) {
+    .no-more-ads{
+      margin: 48px auto 16px auto;
+    }
+    .pagination-top-margin{
+      margin-top : 32px;
+    }
+  }
 </style>

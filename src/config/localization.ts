@@ -1659,6 +1659,31 @@ const strings = new Map([
         CN: '处理时间',
         HK: '處理時間'
     }],
+    ['Enter the number you want to trade', {
+        KOR: '거래하고자하는 양을 입력하십시오.',
+        ENG: 'Enter the number you want to trade',
+        CN: '输入您要交易的数字',
+        HK: '輸入您要交易的數字'
+    }],
+    ['start', {
+        KOR: '시작',
+        ENG: 'Start',
+        CN: '开始',
+        HK: '開始'
+    }],
+    ['end', {
+        KOR: '끝',
+        ENG: 'End',
+        CN: '结束',
+        HK: '結束'
+    }],
+    ['Are you sure to delete this ad?', {
+        KOR: '이 광고를 삭제 하시겠습니까?',
+        ENG: 'Are you sure to delete this ad?',
+        CN: '您确定要删除此广告吗？',
+        HK: '您確定要刪除此廣告嗎？'
+    }],
+
 
     //UserPage
     ['Premium merchant', {
@@ -2454,6 +2479,14 @@ const strings = new Map([
         ENG: 'Back to trading list',
         CN: '回去交易所网页',
         HK: '回去交易所網頁'
+    }],
+
+    //no more ads
+    ['No more ads', {
+        KOR: '해당 광고가 없습니다.',
+        ENG: 'No more ads',
+        CN: '没有更多广告',
+        HK: '沒有更多廣告'
     }],
 
     //alert

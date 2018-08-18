@@ -3,16 +3,16 @@
         <v-flex xs12 md12 >
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-                      v-if=" date === '' && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
+                      v-if=" end_date === '' && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                    @click.stop="isModal = !isModal">filter_list</i>
 
 
             <!--chips-->
             <div class="mr-5 chip-wrapper d-inline-block">
-                <h6 class="statusChip" v-if="date != ''">
+                <h6 class="statusChip" v-if="end_date != ''">
                     <v-layout align-center row fill-height >
-                        {{date}}
+                        {{start_date}} - {{end_date}}
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('date')">close</i>
                     </v-layout>
                 </h6>
@@ -51,11 +51,16 @@
 
             <!--filter-->
             <div class="card-modal card-modal-mobile pr-3 pl-3 mt-3" v-if="isModal">
-                <div class="text-xs-left text-black mb-2">{{$str("date")}}</div>
-
-                <!--달력-->
+                <!--start date-->
+                <div class="text-xs-left text-black mb-2">{{$str("start")}} {{$str("date")}}</div>
                 <div class="mb-4">
-                    <date-picker v-on:date="onDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
+                    <date-picker v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
+                </div>
+
+                <!--end date-->
+                <div class="text-xs-left text-black mb-2">{{$str("end")}} {{$str("date")}}</div>
+                <div class="mb-4">
+                    <date-picker v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
                 </div>
 
                 <!--암호화폐 종류-->
@@ -140,13 +145,15 @@
             isModal: false,
             menu: false,
             clear: 'on',
-            date: "",
+            start_date: "",
+            end_date: "",
             coinType: "",
             tradeType: "",
             orderNo: "",
             adsType: "",
             currency: '',
-            modal_date: "",
+            modal_start_date: "",
+            modal_end_date: "",
             modal_coinType: "",
             modal_tradeType: "",
             modal_orderNo: "",
@@ -173,17 +180,21 @@
                 {currency: 'PHP'},
                 {currency: 'KHR'},
             ],
-            tradeStatus: 'BUY',
-            tradeCoin: 'BTC',
 
         }),
         methods: {
-            onDate(value) {
-                this.modal_date = value;
+            onStartDate(value) {
+                this.modal_start_date = value;
+            },
+            onEndDate(val) {
+                this.modal_end_date = val;
             },
             onSearch() {
+                MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
+                    this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
                 // AXIOS GET 작업 진행
-                this.date = this.modal_date;
+                this.start_date = this.modal_start_date;
+                this.end_date = this.modal_start_date;
                 this.coinType = this.modal_coinType;
                 this.tradeType = this.modal_tradeType;
                 this.orderNo = this.modal_orderNo;
