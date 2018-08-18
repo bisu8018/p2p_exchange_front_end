@@ -476,7 +476,7 @@ export default {
             return myTradeController;
         },
         initPage(){
-            AdService.AD.getMyAds({
+            AdService.getMyAds({
                 email : '',
                 searchStartTime : '',
                 searchEndTime : '',
@@ -523,7 +523,7 @@ export default {
         },
         setFilter( start_date: string, end_date: string, coinType: string, tradeType: string,
                    orderNo: number, adsType: string, currency: string,){
-            AdService.AD.getMyAds({
+            AdService.getMyAds({
                 email : instance.Login.getUserInfo().email,
                 searchStartTime : start_date,
                 searchEndTime : end_date,
