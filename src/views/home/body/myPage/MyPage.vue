@@ -813,6 +813,12 @@
             securitySettings: '',
         }),
         created() {
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.Login.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+
             // 유저 인증 정보 GET
             let self = this;
             MainRepository.MyPage.getMemberVerification(function (email, phone) {

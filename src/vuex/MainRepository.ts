@@ -33,6 +33,7 @@ import SecuritySettings from "@/vuex/model/SecuritySettings";
 import MarketPrice from "@/vuex/model/MarketPrice";
 import TradeItem from "@/vuex/model/TradeItem";
 import {doesHttpOnlyCookieExist} from "@/common/common";
+import RouterController from "@/vuex/controller/RouterController";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -44,6 +45,7 @@ let accountController: AccountController;
 let marketPriceController: MarketPriceController;
 let commonController: CommonController;
 let balanceController: BalanceController;
+let routerController: RouterController;
 
 let store: Store<any>;
 let instance: any;
@@ -81,16 +83,6 @@ export default {
             instance.setInitCompleted(true);
         });
 
-      /*  CommonService.init.getInitValue(function (data: any) {
-           instance.initData(data);
-           callback();
-        });*/
-        /*getInitValue(function (data: any) {
-            instance.initData(data);
-            callback()
-        });
-        */
-
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
         //     this.State.controller().setCheckOs(1);
@@ -108,8 +100,12 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Common.setPaymentMethod(function () {});
                 self.Balance.setBalances(function () {});
+
+                // 이후 아래 코드로 변경할 것
+                self.Common.setPaymentMethod(function () {});
+                // 객체형으로 관리하도록 변경 필요
+                self.Login.loadMyPaymentMethods();
                 callback();
             },
             // 로그인 하지 않음
@@ -280,7 +276,7 @@ export default {
             return accountController.getUserInfo();
         },
         isLogin(): boolean {
-            return accountController.getUserInfo().isLogin
+            return accountController.getUserInfo().isLogin();
         },
         checkLoginBySession(): boolean {
             let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
@@ -299,7 +295,7 @@ export default {
                 accountController.setMyPaymentMethods(_payments);
             })
         },
-        getPaymentMethods() {
+        getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
         }
     },
@@ -764,5 +760,12 @@ export default {
                 callback();
             })
         }
+    },
+
+    router() {
+        return routerController;
+    },
+    initRouterController(router: any) {
+        routerController = new RouterController(router);
     }
 }

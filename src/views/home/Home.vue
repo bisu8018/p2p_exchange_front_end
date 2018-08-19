@@ -51,6 +51,8 @@
             MainRepository.init(this.$store, function() {
                 //console.log("MainRepository");
             });
+
+            MainRepository.initRouterController(this.$router);
         },
         mounted() {
             this.$nextTick(function() {

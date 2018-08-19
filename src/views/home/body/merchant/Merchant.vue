@@ -261,6 +261,13 @@
                 return (MainRepository.Login.getUserInfo().nickname !== '')
             }
         },
+        created() {
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.Login.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+        },
         methods :{
             showDialog(){
                 if(this.isAgree == true){
