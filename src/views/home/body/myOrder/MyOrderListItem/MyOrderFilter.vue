@@ -3,7 +3,7 @@
         <v-flex pr-0 pl-0>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-                      v-if=" date === '' && orderStatus === '' && orderNo === '' && coinType === '' && orderType === '' && tradeType === '' && currency === ''">{{$str("orderFilterPlaceholder")}}</div>
+                      v-if=" end_date === '' && orderStatus === '' && orderNo === '' && coinType === '' && orderType === '' && tradeType === '' && currency === ''">{{$str("orderFilterPlaceholder")}}</div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                    @click.stop="isModal = !isModal">filter_list</i>
 
@@ -55,11 +55,16 @@
 
                 <!--filter-->
                 <div class="card-modal card-modal-mobile pr-3 pl-3 mt-3" v-if="isModal">
-                    <div class="text-xs-left text-black mb-2">{{$str("date")}}</div>
-
-                    <!--달력-->
+                    <!--start date-->
+                    <div class="text-xs-left text-black mb-2">{{$str("start")}} {{$str("date")}}</div>
                     <div class="mb-4">
-                        <date-picker v-on:date="onDate" v-on:switch="clear = 'on'" :clear="clear"></date-picker>
+                        <date-picker :classname = 'startdateclass' v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
+                    </div>
+
+                    <!--end date-->
+                    <div class="text-xs-left text-black mb-2">{{$str("end")}} {{$str("date")}}</div>
+                    <div class="mb-4">
+                        <date-picker :classname = "enddateclass" v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
                     </div>
 
                     <!--주문 상태-->
@@ -221,21 +226,25 @@
             }
         },
         methods: {
-            onDate(value) {
-                this.modal_date = value;
+            onStartDate(value) {
+                this.modal_start_date = value;
+            },
+            onEndDate(value) {
+                this.modal_end_date = value;
             },
             onSearch() {
                 // AXIOS GET 작업 진행
-                MainRepository.MyOrder.setFilter(this.modal_date, this.modal_coinType,
-                    this.modal_tradeType,this.modal_orderNo, this.modal_orderType, this.modal_currency)
+                //MainRepository.MyOrder.setFilter(this.modal_start_date, this.modal_end_date, this.modal_orderStatus, this.modal_orderNo,
+                //   this.modal_coinType,  this.modal_orderType, this.modal_tradeType, this.modal_currency)
                 this.start_date = this.modal_start_date;
-                this.end_date = this.modal_start_date;
+                this.end_date = this.modal_end_date;
                 this.orderStatus = this.modal_orderStatus;
                 this.orderNo = this.modal_orderNo;
                 this.coinType = this.modal_coinType;
                 this.orderType = this.modal_orderType;
                 this.tradeType = this.modal_tradeType;
                 this.currency = this.modal_currency;
+                this.isModal = false;
             },
             onClear() {
                 this.modal_start_date = "";
@@ -268,19 +277,20 @@
             // 칩 x버튼 눌렀을 시 삭제
             chipDelete (type) {
                 if(type === 'date'){
-                    this.date = '';
+                    this.start_date = '';
+                    this.end_date = '';
                 }else if(type === 'orderStatus'){
                     this.orderStatus = '';
-                }else if(type === 'modal_orderNo'){
-                    this.modal_orderNo = '';
-                }else if(type === 'modal_coinType'){
-                    this.modal_coinType = '';
-                }else if(type === 'modal_orderType'){
-                    this.modal_orderType = '';
-                }else if(type === 'modal_tradeType'){
-                    this.modal_tradeType = '';
-                }else if(type === 'modal_currency'){
-                    this.modal_currency = '';
+                }else if(type === 'orderNo'){
+                    this.orderNo = '';
+                }else if(type === 'coinType'){
+                    this.coinType = '';
+                }else if(type === 'orderType'){
+                    this.orderType = '';
+                }else if(type === 'tradeType'){
+                    this.tradeType = '';
+                }else if(type === 'currency'){
+                    this.currency = '';
                 }
             }
         },

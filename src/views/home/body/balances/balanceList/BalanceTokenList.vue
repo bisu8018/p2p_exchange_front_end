@@ -17,11 +17,11 @@
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{tokenlist.OtcAvailable}} {{tokenlist.name}}</span>
+              <span>{{getBalance}} {{tokenlist.name}}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{tokenlist.OtcAvailable}} {{tokenlist.name}}</span>
+              <span>{{tokenlist.OtcFrozen}} {{tokenlist.name}}</span>
             </v-layout>
           </div>
         </v-flex>
@@ -220,6 +220,7 @@
 </template>
 
 <script>
+    import MainRepository from '../../../../../vuex/MainRepository';
     export default {
         name: "BalanceTokenList",
         props : {
@@ -246,6 +247,17 @@
                     return 0;
                 }
                 return this.amount - this.fee;
+            },
+            getBalance() {
+                if ((this.tokenlist.name === 'ETH'&& MainRepository.Balance.getBalance()) ||
+                    (this.tokenlist.name === 'BTC' && MainRepository.Balance.getBalance()) ||
+                    (this.tokenlist.name === 'ALLB' && MainRepository.Balance.getBalance())) {
+                    this.tokenlist.otc = MainRepository.Balance.getBalance()[this.tokenlist.name].availableAmount;
+                    return MainRepository.Balance.getBalance()[this.tokenlist.name].availableAmount;
+                } else {
+                    this.balance = 0;
+                    return 0;
+                }
             }
         },
         methods : {
@@ -277,6 +289,7 @@
             },
         },
         created(){
+            console.log(MainRepository.Balance.getBalance());
             switch (this.tokenlist.name) {
                 case 'BTC':
                     this.fee = 0.001

@@ -5,7 +5,7 @@
       <v-layout>
         <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("OrderNumber")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue c-pointer text-white-hover @click="goTrade">
-          {{orderlist.orderNum}}
+          {{orderlist.orderNo}}
         </v-flex>
       </v-layout>
       <v-layout >
@@ -57,7 +57,7 @@
     <div v-else>
       <v-layout pt-4 pb-4>
         <v-flex  md2 text-md-left color-blue c-pointer text-white-hover @click="goTrade">
-          {{orderlist.orderNum}}
+          {{orderlist.orderNo}}
         </v-flex>
         <v-flex  md1 text-md-left>
           <v-layout justify-space-between>
@@ -104,20 +104,24 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
+
         },
         methods : {
             goUserPage(){
-                this.$router.push("/userpage");
+                let userpage = "/userpage?"+this.orderlist.partner;
+                this.$router.push(userpage);
             },
             goTrade(){
-                console.log(this.orderlist.tradeType);
+                let tradePage;
                 switch (this.orderlist.tradeType) {
                     case 'buy':
-                        this.$router.push("/buy");
+                        tradePage = "/buy?"+this.orderlist.orderNo
+                        this.$router.push(tradePage);
                         break;
 
                     case 'sell':
-                        this.$router.push("/sell");
+                        tradePage = "/sell?"+this.orderlist.orderNo
+                        this.$router.push(tradePage);
                         break;
                 }
             }

@@ -4,7 +4,7 @@
             <!--header-->
             <v-flex xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
             <v-spacer></v-spacer>
-            <v-flex>
+            <v-flex xs12 md10 >
                 <my-order-filter class="myOrderFilter"></my-order-filter>
             </v-flex>
         </v-layout>
@@ -66,38 +66,38 @@
             pageType : 'MyOrder',
             orderLists: [
                 {
-                    orderNum: '6517',
+                    orderNo: '6517',
                     exType: 'ETH',
                     exNum: 66.0,
                     totalPrice: 224,
                     price: 44.0,
                     time: '11:59:59',
                     status: 'Unpaid',
-                    partner: 'haohao',
+                    partner: 'dean',
                     currency: 'CNY',
                     tradeType : 'sell'
                 },
                 {
-                    orderNum: '6517',
+                    orderNo: '6517',
                     exType: 'ETH',
                     exNum: 66.0,
                     totalPrice: 224,
                     price: 44.0,
                     time: '11:59:59',
                     status: 'Cancelled',
-                    partner: 'haohao',
+                    partner: 'jack',
                     currency: 'CNY',
                     tradeType : 'sell'
                 },
                 {
-                    orderNum: '6517',
+                    orderNo: '6517',
                     exType: 'ETH',
                     exNum: 66.0,
                     totalPrice: 224,
                     price: 44.0,
                     time: '11:59:59',
                     status: 'Complete',
-                    partner: 'haohao',
+                    partner: 'tom',
                     currency: 'CNY',
                     tradeType : 'buy'
                 },

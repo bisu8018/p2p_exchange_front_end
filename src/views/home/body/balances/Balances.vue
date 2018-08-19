@@ -230,17 +230,13 @@
                     logo: 'BTC',
                     name: 'BTC',
                     OtcAvailable: 66.0,
-                    OtcFrozen: 224,
-                    ExAvailable: 44.0,
-                    ExFrozen : 1234,
+                    OtcFrozen: 0,
                 },
                 {
                     logo: 'ETH',
                     name: 'ETH',
                     OtcAvailable: 66.0,
-                    OtcFrozen: 224,
-                    ExAvailable: 44.0,
-                    ExFrozen : 1234,
+                    OtcFrozen: 0,
                 },
                 // {
                 //     logo: 'USDT',
@@ -254,9 +250,7 @@
                     logo: 'ALLB',
                     name: 'ALLB',
                     OtcAvailable: 66.0,
-                    OtcFrozen: 224,
-                    ExAvailable: 44.0,
-                    ExFrozen : 1234,
+                    OtcFrozen: 0,
                 },
             ],
             detailLists: [
@@ -311,12 +305,6 @@
             ],
 
         }),
-        created() {
-
-        },
-        mounted() {
-
-        },
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -355,11 +343,17 @@
                 console.log(this.selectedCurrency);
             },
             showDropdown(){
-                 this.isdropdown = true;
-                console.log(this.isdropdown);
+                this.isdropdown = true;
             }
 
-        }
+        },
+        created() {
+
+        },
+        mounted() {
+
+        },
+
 
 
     }

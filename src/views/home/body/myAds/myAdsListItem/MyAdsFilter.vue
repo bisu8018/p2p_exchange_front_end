@@ -196,8 +196,8 @@
             onStartDate(value) {
                 this.modal_start_date = value;
             },
-            onEndDate(val) {
-                this.modal_end_date = val;
+            onEndDate(value) {
+                this.modal_end_date = value;
             },
             onSearch() {
                 //MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,

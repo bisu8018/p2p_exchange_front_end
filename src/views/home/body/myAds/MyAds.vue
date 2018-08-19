@@ -23,10 +23,9 @@
       </div>
         <!--main list view-->
         <div v-if="haveItems">
-            <!--mobile 일때-->
             <div>
                 <!-- user ad list들 10개씩 출력-->
-                <div v-for="adslist in AdsLists" >
+                <div v-for="adslist in adsLists" >
                   <my-ads-list
                           :adslist="adslist"
                   ></my-ads-list>
@@ -44,7 +43,7 @@
           <div class="sprite-img ic-no-ad-lg no-more-ads">
           </div>
           <div class="color-gray no-more-ads-text">
-            No more ads
+            {{$str("No more ads")}}
           </div>
         </div>
     </div>
@@ -104,8 +103,8 @@
                 return MainRepository.State.isMobile();
             },
             haveItems(){
-                return (MainRepository.Pagination.getTotalCount() >0)
-                //return true;
+                //return (MainRepository.Pagination.getTotalCount() >0)
+                return true;
             },
             AdsLists() {
                 return MainRepository.MyAds.getPage();
@@ -113,6 +112,14 @@
 
         },
         methods: {},
+        beforeCreate(){
+            /////////////login 안했을때 login창으로 돌려보냄////////
+            MainRepository.Users.isUserActive({
+                email : MainRepository.Login.getUserInfo().email
+            },function (result) {
+                return result
+            })
+        },
         created() {
             MainRepository.MyAds.initPage();
         },
