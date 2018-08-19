@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="my-order-simple_wrapper" row>
+    <v-layout class="my-order-simple_wrapper" row @click="goTradePage">
         <!--avatar-->
         <avatar></avatar>
         <!-- merchant 정보-->
@@ -29,6 +29,20 @@
         methods: {
             goMyOrder() {
                 this.$router.push("/myOrder");
+            },
+            goTradePage(){
+                let tradePage;
+                switch (this.data.tradeType) {
+                    case 'buy':
+                        tradePage = "/buy?"+this.data.orderNo;
+                        this.$router.push(tradePage);
+                        break;
+
+                    case 'sell':
+                        tradePage = "/sell?"+this.data.orderNo;
+                        this.$router.push(tradePage);
+                        break;
+                }
             },
         }
     }
