@@ -1,11 +1,11 @@
 <template>
-  <span class="avatarWraaper">
+  <div class="avatarWraaper">
     <span class="mainCircle" v-bind:style="{background: bgColor}" :class="{ blueBg:!me }">
       <span class="firstWord">{{name}}</span>
     </span>
     <div class="loginCircle" v-bind:style="{background: loginColor}">
     </div>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -61,8 +61,11 @@
 <style scoped>
 
     .avatarWraaper {
-
         position: relative;
+        height: 34px;
+        width: 34px;
+        display: inline-block;
+        vertical-align: middle;
     }
 
     .mainCircle {
@@ -71,7 +74,6 @@
         border-radius: 100%;
         align-items: center;
         display: flex;
-
     }
 
     .firstWord {
@@ -82,9 +84,9 @@
     }
 
     .loginCircle {
-        position: relative;
-        margin-top: -8px;
-        left: 24px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
         height: 10px;
         width: 10px;
         border-radius: 100%;
