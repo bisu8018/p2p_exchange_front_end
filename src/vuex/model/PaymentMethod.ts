@@ -10,6 +10,8 @@ export default class PaymentMethod {
     alipayId: string;
     alipayQrCodeImgUrl: string;
 
+    // viewModel
+    iconClass: string;
 
     constructor(data: any) {
         this.type = data.type || '';
@@ -22,6 +24,16 @@ export default class PaymentMethod {
         this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl || '';
         this.alipayId = data.alipayId || '';
         this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl || '';
+
+        this.checkViewModel();
+    }
+
+    checkViewModel() {
+        switch (this.type) {
+            case 'alipay': this.iconClass = 'ic-alipay'; break;
+            case 'wechat': this.iconClass ='ic-wechat'; break;
+            default: this.iconClass ='ic-bank'; break;
+        }
     }
 
     isNull(): boolean {

@@ -1,12 +1,13 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import Account from "@/vuex/model/Account";
+import PaymentMethod from "@/vuex/model/PaymentMethod";
 
 
 const mutations = {
     // -                   현재 상태                             -
     //merchant 기본정보 받아오기
     [VuexTypes.SET_USER_INFO] (state: any, userInfo: Account) {
-        state.getUserInfo = userInfo;
+        state.userInfo = userInfo;
     },
 };
 
@@ -24,10 +25,12 @@ const actions = {
 const getters = {
 };
 
-let getUserInfo : Account =  new Account('');
+let userInfo : Account =  new Account('');
+let myPaymentMethods: PaymentMethod[] = [];
 
 const state= {
-    getUserInfo: getUserInfo,
+    userInfo: userInfo,
+    myPaymentMethods: myPaymentMethods,
 };
 export default {
     namespaced: false,

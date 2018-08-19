@@ -102,11 +102,8 @@ export default {
     },
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
-        // 로그인한 유저 정보 파싱
         let self = this;
-        let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
-        let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        if (isLogin === true || isFirefox) {
+        if (this.Login.isLogin) {
             this.Login.setUserInfo(function () {
                 self.Common.setPaymentMethod(function (result) {
                     if(AxiosService.DEBUG()){
@@ -120,13 +117,9 @@ export default {
                 });
                 callback();
             })
-        }else{
+        } else {
             callback();
         }
-        // 계정 JSON 파싱
-      /* for (let key in data['accounts']) {
-            accountController.push(data['accounts'][key])
-        }*/
     },
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
@@ -288,6 +281,29 @@ export default {
         },
         getUserInfo() {
             return accountController.getUserInfo();
+        },
+        isLogin(): boolean {
+            return accountController.getUserInfo().isLogin
+        },
+        checkLoginBySession(): boolean {
+            let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
+            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+            return isLogin || isFirefox
+        },
+
+        loadMyPaymentMethods: function () {
+            CommonService.info.setPaymentMethod({
+                email : this.getUserInfo().email
+            },function (result) {
+                let _payments: PaymentMethod[] = [];
+                for (let i = 0; i < result.length; i++) {
+                    _payments.push(new PaymentMethod(result[i]));
+                }
+                accountController.setMyPaymentMethods(_payments);
+            })
+        },
+        getPaymentMethods() {
+            return accountController.getMyPaymentMethods();
         }
     },
     Users: {

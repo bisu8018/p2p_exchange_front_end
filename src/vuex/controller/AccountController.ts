@@ -14,7 +14,17 @@ export default class AccountController {
     }
 
     getUserInfo() {
-        return this.store.state.account.getUserInfo;
+        return this.store.state.account.userInfo;
     }
+
+    setMyPaymentMethods(paymentMethods: any) {
+        this.store.dispatch(VuexTypes.SET_MY_PAYMENT_METHOD, paymentMethods);
+    }
+
+    getMyPaymentMethods() {
+        return this.store.state.account.myPaymentMethods;
+    }
+
+
 }
 
