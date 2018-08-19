@@ -272,6 +272,7 @@
         height: 40px;
         border: solid 1px #8d8d8d;
         min-width: 376px;
+        border-radius: 2px;
     }
 
     .card-modal {

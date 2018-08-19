@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div v-if="isMobile" >
+    <div v-if="isMobile" class="myorderlist-mobile-wrapper">
       <!-- name-->
       <v-layout>
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("OrderNumber")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("OrderNumber")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue c-pointer text-white-hover @click="goTrade">
           {{orderlist.orderNum}}
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("orderType")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("orderType")}}</v-flex>
         <v-flex xs5 text-xs-right>
           <span class="mr-4 color-green bold" v-if="orderlist.tradeType === 'sell'">
                   {{$str("sell")}}
@@ -21,23 +21,23 @@
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("amount")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("amount")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.exNum}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("TotalPrice")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("TotalPrice")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.totalPrice}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("price")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("price")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.price}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("time")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.time}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("status")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}}</v-flex>
         <v-flex xs5 text-xs-right>
           <v-layout justify-end align-center>
             <div class="sprite-img mr-2" :class="statusImg"></div>
@@ -46,7 +46,7 @@
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray mb-4>{{$str("counterparty")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("counterparty")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue c-pointer text-white-hover @click="goUserPage()">
           {{orderlist.partner}}
         </v-flex>
@@ -54,21 +54,19 @@
     </div>
 
     <!-- Web 일때-->
-    <div v-else>
+    <div class="myorderlist-web-wrapper" v-else>
       <v-layout pt-4 pb-4>
-        <v-flex  md2 text-md-left color-blue c-pointer text-white-hover @click="goTrade">
+        <v-flex  md1 text-md-left color-blue c-pointer text-white-hover @click="goTrade">
           {{orderlist.orderNum}}
         </v-flex>
-        <v-flex  md1 text-md-left>
-          <v-layout justify-space-between>
-            <span class=" color-green bold" v-if="orderlist.tradeType === 'sell'">
+        <v-flex  md2 text-md-left>
+            <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'sell'">
                     {{$str("sell")}}
             </span>
-            <span class=" color-orange-price bold" v-if="orderlist.tradeType === 'buy'">
+            <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'buy'">
                           {{$str("buy")}}
             </span>
             <span>{{orderlist.exType}}</span>
-          </v-layout>
         </v-flex>
         <v-flex  md1 text-md-left>{{orderlist.exNum}}</v-flex>
         <v-flex  md2 text-md-left>{{orderlist.totalPrice}} {{orderlist.currency}}</v-flex>
@@ -143,6 +141,18 @@
 
 <style scoped>
 
+  .myorderlist-mobile-wrapper {
+    padding: 16px 4px;
+  }
+
+  .myorderlist-mobile-wrapper > .layout {
+    height: 38px;
+    align-items: center;
+  }
+
+  .myorderlist-web-wrapper > .layout{
+    padding: 0 4px;
+  }
 
 
 </style>
