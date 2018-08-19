@@ -3,7 +3,7 @@
         <!-- mobile 일때-->
         <div v-if="isMobile" class="p-relative">
 
-            <!--거래 list 아이템 -->
+            <!--거래 list -->
             <div v-if="!drawer" class="trade-list_item">
                 <!-- name-->
                 <v-layout mt-4 align-center fill-height>
@@ -52,7 +52,7 @@
                     </ul>
 
                     <!-- Payment Methods -->
-                    <ulclass="pt-3">
+                    <ul class="pt-3">
                         <!-- 아이콘 v-if="user.bank_account== 'y'"  v-if="user.alipay_id== 'y'" v-if="user.wechat_id== 'y'"-->
                         <li>
                             <a class="tooltip">
@@ -127,7 +127,6 @@
                     </v-layout>
                 </div>
             </v-flex>
-
             <!--버튼 클릭시 거래를 위한 mobile modal-->
             <v-flex v-else-if="drawer">
                 <div class="mobileModal">
