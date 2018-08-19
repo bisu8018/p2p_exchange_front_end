@@ -11,13 +11,13 @@
         <!--userPage 일때-->
         <v-layout  mt-4 align-center fill-height>
           <v-flex xs2>
-            <h5 v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </h5>
-            <h5 v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </h5>
-            <h5 v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
+            <h5 v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </h5>
+            <h5 v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </h5>
+            <h5 v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
             <h5 v-else class="sprite-img ic-allb-lg"> </h5>
           </v-flex>
           <v-flex xs10 text-xs-left>
-            <span class="bold">{{user.Coin}}</span>
+            <span class="bold">{{user.cryptocurrency}}</span>
           </v-flex>
         </v-layout>
 
@@ -26,19 +26,19 @@
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
-          <v-flex xs6 text-xs-right> {{user.volumeTotal}} {{token}} </v-flex>
+          <v-flex xs6 text-xs-right> {{user.volume}} {{user.cryptocurrency}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>Limits :</v-flex>
-          <v-flex xs6 text-xs-right> {{user.limitMax}} {{currency}} </v-flex>
+          <v-flex xs6 text-xs-right> {{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>Price :</v-flex>
-          <v-flex xs6 text-xs-right bold color-orange-price> {{user.price}} {{currency}} </v-flex>
+          <v-flex xs6 text-xs-right bold color-orange-price> {{user.fixedPrice}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -60,7 +60,7 @@
           <!--거래 버튼-->
           <v-flex xs5 text-xs-right>
             <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-              {{tradeType}} {{token}}</button>
+              {{tradeType}} {{user.cryptocurrency}}</button>
           </v-flex>
         </v-layout>
       </div>
@@ -70,13 +70,13 @@
         <!-- name-->
         <v-layout mt-4 align-center fill-height>
           <v-flex xs2 pl-2 >
-            <h5 v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </h5>
-            <h5 v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </h5>
-            <h5 v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
+            <h5 v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </h5>
+            <h5 v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </h5>
+            <h5 v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
             <h5 v-else class="sprite-img ic-allb-lg"> </h5>
           </v-flex>
           <v-flex xs8 text-xs-left>
-            <span class="bold">{{user.Coin}}</span>
+            <span class="bold">{{user.cryptocurrency}}</span>
           </v-flex>
           <v-flex xs2 text-xs-center>
             <button><i class="material-icons" @click="drawer = false">close</i></button>
@@ -90,7 +90,7 @@
             </h5>
           </v-flex>
           <v-flex xs4 offset-xs1 text-xs-right>
-            <h5>{{user.volumeTotal}} {{token}}</h5>
+            <h5>{{user.volume}} {{user.cryptocurrency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -101,7 +101,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{user.limitMax}} {{currency}}</h5>
+            <h5>{{user.minLimit}}-{{user.maxLimit}} {{currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Price -->
@@ -112,7 +112,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5 class=" bold color-orange-price">{{user.price}} {{currency}}</h5>
+            <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- payment methods -->
@@ -136,8 +136,13 @@
             <!--to input-->
             <div class="p-relative">
               <input type="text" class="input textRightPlaceholder" name="toValue" v-model="toValue"
-                     :placeholder="currency" @blur="onChecktoValue"
+                     @focus="inputFocus('toValue')"  @blur="onChecktoValue" @keyup="onNumberCheck('toValue')"
                      v-bind:class="{'warning-border' : warning_toValue}">
+              <!--All 버튼-->
+              <span class="cs-click-send allCurrencyBtn" @mousedown="fillAll()"
+                    v-if="clickToAll">{{$str("All")}}</span>
+              <!--currency placeholder-->
+              <span class="cs-timer currencyPlaceholderBtn" v-else>{{user.currency}}</span>
               <div class="warning-text-wrapper">
                 <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
               </div>
@@ -145,8 +150,13 @@
             <!--from input-->
             <div class="mt-3 p-relative">
               <input type="text" class="input textRightPlaceholder" name="fromValue" v-model="fromValue"
-                     :placeholder="token" @blur="onCheckfromValue"
+                     @focus="inputFocus('fromValue')" @blur="onCheckfromValue" @keyup="onNumberCheck('fromValue')"
                      v-bind:class="{'warning-border' : warning_fromValue}">
+              <!--All 버튼-->
+              <span class="cs-click-send" @mousedown="fillAll()"
+                    v-if="clickFromAll">{{$str("All")}}</span>
+              <!--cryptocurrency placeholder-->
+              <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
               <div class="warning-text-wrapper">
                 <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                   {{verify_warning_fromValue}}</p>
@@ -155,7 +165,7 @@
             <!--trade PW. sell 일때만 활성화-->
             <div class="mt-3 p-relative" v-if="tradeType =='SELL'">
               <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
-                     :placeholder="pwPlaceholder" @blur="onChecktradePassword"
+                     :placeholder="$str('tradePwText')" @blur="onChecktradePassword" @keyup="onNumberCheck('tradePW')"
                      v-bind:class="{'warning-border' : warning_tradePassword}">
               <div class="warning-text-wrapper">
                 <span class="d-none" v-bind:class="{'warning-text' : warning_tradePassword}">{{verify_warning_tradePassword}}</span>
@@ -194,19 +204,19 @@
         <v-flex  md3 text-md-left>
           <v-layout justify-start align-center>
             <!--coin 종류에 따라 하나만 이미지 보여줌-->
-            <span v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </span>
-            <span v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </span>
-            <span v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </span>
+            <span v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </span>
+            <span v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </span>
+            <span v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </span>
             <span v-else class="sprite-img ic-allb-lg"> </span>
-            <span class="ml-3 bold">{{user.Coin}}</span>
+            <span class="ml-3 bold">{{user.cryptocurrency}}</span>
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volumeTotal}} {{token}} </v-flex>
+        <v-flex md2 text-md-left >{{user.volume}} {{user.cryptocurrency}} </v-flex>
         <!--limits-->
-        <v-flex md2 text-md-left >{{user.limitMax}} {{currency}} </v-flex>
+        <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left color-orange-price bold>{{user.price}} {{token}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{user.fixedPrice}} {{user.cryptocurrency}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -227,7 +237,7 @@
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
             <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-              <h5>{{tradeType}} {{token}}</h5>
+              <h5>{{tradeType}} {{user.cryptocurrency}}</h5>
             </button>
           </v-layout>
         </v-flex>
@@ -239,23 +249,23 @@
         <v-layout row wrap>
           <v-flex md3 text-md-left >
             <v-layout pl-4 >
-              <span v-if="user.Coin=='BTC'"class="sprite-img ic-btc-lg"> </span>
-              <span v-else-if="user.Coin=='ETH'"class="sprite-img ic-eth-lg"> </span>
-              <span v-else-if="user.Coin=='USDT'"class="sprite-img ic-usdt-lg"> </span>
+              <span v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </span>
+              <span v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </span>
+              <span v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </span>
               <span v-else class="sprite-img ic-allb-lg"> </span>
               <span>
-                <span class="ml-3 bold">{{user.Coin}}</span>
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeTotal}} {{token}}</div>
+                <span class="ml-3 bold">{{user.cryptocurrency}}</span>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}</div>
               </span>
             </v-layout>
           </v-flex>
           <!--둘째줄-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
-              {{user.volumeTotal}} {{currency}}
+              {{user.fixedPrice}} {{currency}}
             </div>
             <div class="medium">
-              {{user.volumeTotal}} {{currency}}
+              {{user.minLimit}}-{{user.maxLimit}} {{currency}}
             </div>
           </v-flex>
 
@@ -265,10 +275,14 @@
               <!--to input-->
               <div class="p-relative">
                 <input type="number" class="input userInput textRightPlaceholder"
-                       name="toValue" v-model="toValue" :placeholder="currency"
-                       @blur="onChecktoValue"
-                       v-bind:class="{'warning-border' : warning_toValue}"
-                >
+                       name="toValue" v-model="toValue" @keyup="onNumberCheck('toValue')"
+                       @focus="inputFocus('toValue')" @blur="onChecktoValue"
+                       v-bind:class="{'warning-border' : warning_toValue}">
+                <!--All 버튼-->
+                <span class="cs-click-send allCurrencyBtn" @mousedown="fillAll()"
+                      v-if="clickToAll">{{$str("All")}}</span>
+                <!--currency placeholder-->
+                <span class="cs-timer currencyPlaceholderBtn" v-else>{{user.currency}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_toValue}">{{verify_warning_toValue}}</p>
                 </div>
@@ -278,11 +292,14 @@
               <!--from input-->
               <div class="p-relative">
                 <input type="number" class="input userInput textRightPlaceholder"
-                       name="fromValue" v-model="fromValue"
-                       :placeholder="token"
-                       @blur="onCheckfromValue"
-                       v-bind:class="{'warning-border' : warning_fromValue}"
-                >
+                       name="fromValue" v-model="fromValue" @keyup="onNumberCheck('fromValue')"
+                       @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
+                       v-bind:class="{'warning-border' : warning_fromValue}">
+                <!--All 버튼-->
+                <span class="cs-click-send" @mousedown="fillAll()"
+                      v-if="clickFromAll">{{$str("All")}}</span>
+                <!--cryptocurrency placeholder-->
+                <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                     {{verify_warning_fromValue}}</p>
@@ -361,6 +378,8 @@
     import Vue from 'vue';
     import MainRepository from "../../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
+    import {abUtils} from "../../../../../../common/utils";
+
     export default {
         name: "UserTradeItem",
         data: () => ({
@@ -369,7 +388,6 @@
             toValue : '',
             fromValue : '',
             tradePassword : '',
-            token : 'ALLB',      //현재 거래하고자 하는 coin
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
             tradePW : '',       // Trade Password
             rankSrc : '',
@@ -379,18 +397,72 @@
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
+            clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
+            clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
 
         }),
         components:{Avatar},
         props : {
             user: {},
-            tradeType : {         //살건지 팔건지 여부.
-                type: String,
-                default: 'SELL',
-            },
 
         },
         methods : {
+            onNumberCheck(type){
+                if(type ==='toValue'){
+                    this.onChecktoValue();
+                    let temp = this.toValue;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.toValue = "";
+                    }
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                        return this.toValue = abUtils.toDeleteZero(temp);
+                    }
+                    //fromvalue 계산해줌
+                    this.fromValue = this.toValue/this.user.fixedPrice;
+                    this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+
+                }else if(type ==='fromValue'){
+                    this.onCheckfromValue()
+                    let temp = this.fromValue;
+                    if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                        return this.fromValue = "";
+                    }
+                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                        return this.fromValue = abUtils.toDeleteZero(temp);
+                    }
+                    //toValue 계산해줌
+                    this.toValue = this.fromValue * this.tempMarketPrice;
+                    this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
+
+                }else if(type ==='tradePW'){
+                    this.onChecktradePassword();
+
+                }
+
+            },
+            fillAll(){
+                this.clickToAll = false;
+                //차후 내 잔고 불러와 마진고려해 수정해야함
+                if(this.user.volume*this.user.fixedPrice > this.user.maxLimit){
+                    this.toValue = this.user.maxLimit
+                }
+                else{this.toValue = this.user.volume;}
+                this.clickFromAll = false;
+                //fromvalue 계산해줌
+                this.fromValue = this.toValue/this.user.fixedPrice;
+                this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+
+            },
+            inputFocus(type){
+                if(type =='toValue' ){
+                    if(this.toValue < this.user.maxLimit){
+                        this.clickToAll = true;
+                    }
+                }
+                else{
+                    this.clickFromAll = true;
+                }
+            },
             onChecktoValue(){
                 if (this.toValue === "") {
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
@@ -447,6 +519,17 @@
                 default:
                     this.rankSrc = '';
             }
+            switch (this.user.tradeType){
+                case 'buy':
+                    this.user.tradeType = 'Sell';
+                    break;
+
+                case 'sell':
+                    this.user.tradeType = 'Buy';
+                    break;
+            }
+
+
         },
         computed : {
             isMobile(){

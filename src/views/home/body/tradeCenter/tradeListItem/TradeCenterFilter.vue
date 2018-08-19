@@ -217,7 +217,7 @@
               <!-- amount 셀렉터 -->
               <v-flex xs12  text-xs-left cardText>{{$str("amount")}}</v-flex>
               <v-flex xs12 >
-                <input type="text" class="input" v-model="amount"
+                <input type="text" class="input" v-model="amount" @keyup="onNumberCheck()"
                        :placeholder="$str('How_much_you_want_to_trade?')">
               </v-flex>
             </v-layout>
@@ -241,6 +241,8 @@
     import Vue from 'vue';
     import MainRepository from '../../../../../vuex/MainRepository';
     import SelectBox from '@/components/SelectBox.vue';
+    import {abUtils} from "../../../../../common/utils";
+
     export default Vue.extend({
         name: "TradeCenterFilter",
         components: {
@@ -358,6 +360,15 @@
                 //amount를 default로 초기화 시키고, 다시 list호출.
                 MainRepository.TradeView.setTradeRightFilter(this.nationality, this.paymentMethod, this.currency, this.amount);
             },
+            onNumberCheck(){
+                let temp = this.amount
+                if (!abUtils.isDouble(temp) || temp[0] === '.') {
+                    return this.amount = "";
+                }
+                if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                    return this.amount = abUtils.toDeleteZero(temp);
+                }
+            }
         },
         created(){
             let cureentURL = window.location.href

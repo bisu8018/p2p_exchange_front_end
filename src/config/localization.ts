@@ -2520,7 +2520,26 @@ const strings = new Map([
         CN: '广告创建成功。',
         HK: ''
     }],
+    //tradecenter 예외처리문구
+    ['Enter less than maximum limit', {
+        KOR: '최대 제한액 이하의 값을 입력하세요',
+        ENG: 'Enter less than maximum limit',
+        CN: '输入小于最大限制',
+        HK: '輸入小於最大限制'
+    }],
 
+    ['Enter more than minimum limit', {
+        KOR: '최소 제한액 이상의 값을 입력하세요',
+        ENG: 'Enter more than minimum limit',
+        CN: '输入超过最低限额',
+        HK: '輸入超過最低限額'
+    }],
+    ['Enter less than available', {
+        KOR: '교환가능규모 이하의 값을 입력하세요.',
+        ENG: 'Enter less than available',
+        CN: '输入少于可用',
+        HK: '輸入少於可用'
+    }],
 
 
 

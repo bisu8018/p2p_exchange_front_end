@@ -32,7 +32,7 @@
         <v-layout>
             <v-flex xs2></v-flex>
             <v-flex xs4 text-xs-left color-darkgray>{{$str("Available")}} :</v-flex>
-            <v-flex xs6 text-xs-right> {{user.volume}} {{user.cryptocurrency}} </v-flex>
+            <v-flex xs6 text-xs-right> {{user.volumeAvailable}} {{user.cryptocurrency}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
@@ -104,7 +104,7 @@
                 </a>
 
               <h5 class="color-darkgray medium">
-                {{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}
+                {{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}
               </h5>
             </v-flex>
           </v-layout>
@@ -159,7 +159,7 @@
               </h5>
             </v-flex>
             <v-flex xs4 offset-xs1 text-xs-right>
-              <h5>{{user.volume}} {{user.cryptocurrency}}</h5>
+              <h5>{{user.volumeAvailable}} {{user.cryptocurrency}}</h5>
             </v-flex>
           </v-layout>
           <!-- Limits -->
@@ -288,7 +288,7 @@
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volume}} {{user.cryptocurrency}} </v-flex>
+        <v-flex md2 text-md-left >{{user.volumeAvailable}} {{user.cryptocurrency}} </v-flex>
         <!--limits-->
         <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{user.currency}} </v-flex>
         <!--price-->
@@ -347,7 +347,7 @@
                     <div class="sprite-img ic-certified ml-2"></div>
                     <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
                   </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}</div>
+                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
                 </span>
               </v-layout>
             </v-flex>
@@ -389,7 +389,7 @@
                     <div class="sprite-img ic-certified ml-2"></div>
                     <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
                   </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}</div>
+                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
                 </span>
               </v-layout>
             </v-flex>
@@ -565,7 +565,11 @@
         methods : {
             onNumberCheck(type){
                 if(type ==='toValue'){
-                    this.onChecktoValue();
+                    if (this.toValue >this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
+                        this.verify_warning_toValue = Vue.prototype.$str("Enter less than maximum limit");
+                        this.warning_toValue = true;
+                        return false;
+                    }
                     let temp = this.toValue;
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.toValue = "";
@@ -578,7 +582,12 @@
                     this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
 
                 }else if(type ==='fromValue'){
-                    this.onCheckfromValue()
+                    let tempTovalue = this.fromValue* this.user.fixedPrice;
+                    if ( tempTovalue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
+                        this.verify_warning_fromValue = Vue.prototype.$str("Enter less than maximum limit");
+                        this.warning_fromValue = true;
+                        return false;
+                    }
                     let temp = this.fromValue;
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.fromValue = "";
@@ -587,7 +596,7 @@
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
                     //toValue 계산해줌
-                    this.toValue = this.fromValue * this.tempMarketPrice;
+                    this.toValue = this.fromValue * this.user.fixedPrice;
                     this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
 
                 }else if(type ==='tradePW'){
@@ -598,37 +607,47 @@
             },
             goTrade(){
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
-                    MainRepository.TradeView.createOrder(
+                    let res = MainRepository.TradeView.createOrder(
                         this.user.adNo,                           //adNo
                         this.toValue,                             //amount
                         this.fromValue,                           //coinCount
                         MainRepository.Login.getUserInfo().memberNo,//customerMemberNo
                         this.user.memberNo,                       //merchantMemberNo
                         this.user.fixedPrice,                     //price
+                        this.tradePW                              //tradePassword
                     );
-                    switch (this.user.tradeType) {
-                        case 'Buy':
-                            this.$router.push("/buy");
-                            break;
+                    if(res == true){
+                      switch (this.user.tradeType) {
+                          case 'Buy':
+                              console.log('buy로 ㄱㄱ');
+                              this.$router.push("/buy");
+                              break;
 
-                        case 'Sell':
-                            //sell 모드 일때는 trade password를 추가로 검증해야함.
-                            if(this.onChecktradePassword()){
-                                this.$router.push("/sell");
-                                break;
-                            }
+                          case 'Sell':
+                              //sell 모드 일때는 trade password를 추가로 검증해야함.
+                              if(this.onChecktradePassword()){
+                                  this.$router.push("/sell");
+                                  break;
+                              }
+                      }
+                    }
+                    else{
+                        console.log('res는 false');
                     }
                 }
             },
             //trade modal에서 input에서 All 버튼 누를때
             fillAll(){
                 this.clickToAll = false;
+                this.clickFromAll = false;
                 //차후 내 잔고 불러와 마진고려해 수정해야함
-                if(this.user.volume*this.user.fixedPrice > this.user.maxLimit){
+                if(this.user.volumeAvailable*this.user.fixedPrice > this.user.maxLimit){
                     this.toValue = this.user.maxLimit
                 }
-                else{this.toValue = this.user.volume;}
-                this.clickFromAll = false;
+                else{this.toValue = this.user.volumeAvailable;}
+                this.warning_toValue = false;
+                this.warning_fromValue = false;
+
                 //fromvalue 계산해줌
                 this.fromValue = this.toValue/this.user.fixedPrice;
                 this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
@@ -650,20 +669,35 @@
             onChecktoValue(){
                 //All 버튼 없애기.
                 this.clickToAll = false;
-                // to가 비었거나 || 넣은 값이 가능규모보다 크거나 || limit 범위를 벗어날때
-                if (this.toValue === "" || this.toValue >this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
-                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                if(this.toValue === ""){
                     this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    return false;
+                }
+                if(this.toValue< this.user.minLimit){
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Enter more than minimum limit");
+                    return false;
+                }
+                if(this.toValue> this.user.maxLimit){
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Enter less than maximum limit");
                     return false;
                 }
                 this.warning_toValue = false;
                 return true;
             },
             onCheckfromValue(){
-                //All 버튼 없애기.
                 this.clickFromAll = false;
-                if (this.fromValue === "") {
+                //All 버튼 없애기.
+                let tempTovalue = this.fromValue* this.user.fixedPrice;
+                if (this.fromValue === "" ||  tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    this.warning_fromValue = true;
+                    return false;
+                }
+                if(this.fromValue > this.user.volumeAvailable){
+                    this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
                     return false;
                 }
@@ -681,10 +715,13 @@
             },
             //원격 Drawer를 향해 set 해줌
             changeDrawer(){
-                // if(!MainRepository.Users.getOtherUsers()){
-                //     //login안했을때.
-                //     return;
-                // }
+                /////////////login 안했을때 login창으로 돌려보냄////////
+                MainRepository.Users.isUserActive({
+                    email : MainRepository.Login.getUserInfo().email
+                },function (result) {
+                    return result
+                })
+                /////////////////////////////////
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
             goUserPage(){

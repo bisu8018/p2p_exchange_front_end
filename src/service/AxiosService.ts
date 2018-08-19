@@ -54,16 +54,18 @@ export default {
                     let statusText = error.response.statusText;
 
                     if (this.DEBUG()) {
-                        console.log(headers);
-                        console.log(data);
-                        console.log(status)
+                        //console.log(headers);
+                        //console.log(data);
+                        //console.log(status)
+                        //위에 세개 일단 주석처리 jack
                         //  console.log(statusText)
                         //  console.log('Error!\ncode:' + request.status + '\n' + 'message:' + request.responseText + '\n' + 'error:' + error)
                     }
                     //  console.log('Status: ' + status);
                     // 401 Error
                     if (status === 401 || status === 502) {
-                        //self.$router.push("/login");
+                        Vue.prototype.$eventBus.$emit('goLogin', status)
+                        //Vue.$router.push("/login");
                         //Vue.prototype.$eventBus.$emit('showAlert', status);
                     } else {
                         failure()
@@ -96,6 +98,7 @@ export default {
         )
     },
     _requestWithPath: function (url: string, type: string, data: any, success: any, failure: any) {
+
         data = data || {};
         let path =  {email : MainRepository.Login.getUserInfo().email};
         let param = qs.stringify(path);

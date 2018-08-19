@@ -63,7 +63,6 @@
       <div  v-for="user in SellLists" >
           <user-trade-item
                   :user="user"
-                  :tradeType = "tradeType = 'SELL'"
           ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
@@ -74,7 +73,6 @@
       <div  v-for="user in BuyLists">
         <user-trade-item
                 :user="user"
-                :tradeType = "tradeType = 'BUY'"
         ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
@@ -181,7 +179,6 @@
       <div v-for="user in SellLists"  >
         <user-trade-item
                 :user ="user"
-                :tradeType = "tradeType = 'SELL'"
         ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
@@ -216,7 +213,6 @@
       <div v-for="user in BuyLists"  >
         <user-trade-item
                 :user ="user"
-                :tradeType = "tradeType = 'BUY'"
         ></user-trade-item>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
@@ -281,12 +277,14 @@
             ,
             BuyLists: [
                 {
-                    Coin: 'BTC',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
-                    price: 224,
+                    cryptocurrency: 'BTC',
+                    volume: 119,
+                    minLimit: 66.0,
+                    maxLimit : 1234,
+                    fixedPrice: 224,
                     adType: 44.0,
                     tradeRate: 99,
+                    tradeType: 'buy',
                     memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
                     '            If urgent, please message me on Telegram at +84963126446',
                     bank_account : '123',
@@ -294,12 +292,14 @@
                     alipay_id : '789',
                 },
                 {
-                    Coin: 'ETH',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
-                    price: 224,
+                    cryptocurrency: 'ETH',
+                    volume: 119,
+                    minLimit: 66.0,
+                    maxLimit : 1234,
+                    fixedPrice: 224,
                     adType: 44.0,
                     tradeRate: 99,
+                    tradeType: 'buy',
                     memo: '',
                     bank_account : '',
                     wechat_id : '456',
@@ -320,12 +320,14 @@
                 //
                 // },
                 {
-                    Coin: 'ALLB',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
-                    price: 224,
+                    cryptocurrency: 'ALLB',
+                    volume: 119,
+                    minLimit: 66.0,
+                    maxLimit : 1234,
+                    fixedPrice: 224,
                     adType: 44.0,
                     tradeRate: 99,
+                    tradeType: 'buy',
                     memo: '',
                     bank_account : '123',
                     wechat_id : '456',
@@ -335,12 +337,14 @@
             ],
             SellLists: [
                 {
-                    Coin: 'BTC',
-                    volumeTotal: 119,
-                    limitMax: 66.0,
-                    price: 224,
+                    cryptocurrency: 'BTC',
+                    volume: 119,
+                    minLimit: 66.0,
+                    maxLimit : 1234,
+                    fixedPrice: 224,
                     adType: 44.0,
                     tradeRate: 99,
+                    tradeType: 'sell',
                     memo : 'Payment to be made via FAST transfer to my DBS Singapore account. I strive to provide competitive rate and quick executition.\n' +
                     '            If urgent, please message me on Telegram at +84963126446',
                     bank_account : '123',
