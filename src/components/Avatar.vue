@@ -16,7 +16,7 @@
         name: "Avatar",
         props: ['email', 'me'],
         data: () => ({
-            loginColor: '',
+            loginColor: '#c8c8c8',
             name: '',
             bgColor: '',
         }),
@@ -81,6 +81,8 @@
         margin-right: auto;
         color: #ffffff;
         font-size: 16px;
+        line-height: 16px;
+        text-transform: uppercase;
     }
 
     .loginCircle {
