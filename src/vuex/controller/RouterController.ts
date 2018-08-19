@@ -18,7 +18,7 @@ export default class RouterController {
     goMain() {
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('/wbMain');
+            r.push('/abMain');
         });
     }
 
