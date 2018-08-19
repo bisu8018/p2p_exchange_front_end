@@ -21,12 +21,12 @@
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("amount")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("Trade Num")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.exNum}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("TotalPrice")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.totalPrice}} {{orderlist.currency}}</v-flex>
+        <v-flex xs5 text-xs-right>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("price")}}</v-flex>
@@ -34,7 +34,7 @@
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.time}}</v-flex>
+        <v-flex xs5 text-xs-right>{{orderlist.registerDatetime.dayOfWeek}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}}</v-flex>
@@ -48,7 +48,7 @@
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("counterparty")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue c-pointer text-white-hover @click="goUserPage()">
-          {{orderlist.partner}}
+          {{orderlist.nickname}}
         </v-flex>
       </v-layout>
     </div>
@@ -56,29 +56,29 @@
     <!-- Web 일때-->
     <div class="myorderlist-web-wrapper" v-else>
       <v-layout pt-4 pb-4>
-        <v-flex  md1 text-md-left color-blue c-pointer text-white-hover @click="goTrade">
+        <v-flex  md2 text-md-left color-blue c-pointer text-white-hover @click="goTrade">
           {{orderlist.orderNo}}
         </v-flex>
-        <v-flex  md2 text-md-left>
+        <v-flex  md1 text-md-left>
             <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'sell'">
                     {{$str("sell")}}
             </span>
             <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'buy'">
                           {{$str("buy")}}
             </span>
-            <span>{{orderlist.exType}}</span>
+            <span>{{orderlist.cryptocurrency}}</span>
         </v-flex>
         <v-flex  md1 text-md-left>{{orderlist.exNum}}</v-flex>
-        <v-flex  md2 text-md-left>{{orderlist.totalPrice}} {{orderlist.currency}}</v-flex>
+        <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
         <v-flex  md1 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
-        <v-flex  md3 text-md-left>{{orderlist.time}}</v-flex>
+        <v-flex  md3 text-md-left>{{orderlist.registerDatetime.dayOfWeek}}</v-flex>
         <v-flex  md2>
           <v-layout align-center>
             <div class="sprite-img mr-2" :class="statusImg"></div>
             <div>{{orderlist.status}}</div>
             <v-spacer></v-spacer>
             <span class="color-blue c-pointer text-white-hover" @click="goUserPage()">
-              {{orderlist.partner}}
+              {{orderlist.nickname}}
             </span>
           </v-layout>
         </v-flex>

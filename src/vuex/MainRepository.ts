@@ -32,6 +32,7 @@ import LoginHistory from "@/vuex/model/LoginHistory";
 import SecuritySettings from "@/vuex/model/SecuritySettings";
 import MarketPrice from "@/vuex/model/MarketPrice";
 import TradeItem from "@/vuex/model/TradeItem";
+import Order from "@/vuex/model/Order";
 import {doesHttpOnlyCookieExist} from "@/common/common";
 import RouterController from "@/vuex/controller/RouterController";
 
@@ -667,15 +668,16 @@ export default {
                 page : '1',
                 size : '10',
             }, function (data) {
+                console.log(data.ordersList);
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
 
                 //전체 item list model화 시켜 주기
-                let result = data.adList
-                let myOrderList: TradeItem[] = [];
+                let result = data.ordersList
+                let myOrderList: Order[] = [];
                 for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
-                    let itemList: TradeItem = new TradeItem(result[key])
+                    let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
                 myTradeController.setMyOrderItems(myOrderList);
@@ -705,7 +707,7 @@ export default {
                 email : instance.Login.getUserInfo().email,
                 searchStartTime : start_date,
                 searchEndTime : end_date,
-                status : '',
+                status : status,
                 orderNo : orderNo,
                 cryptocurrency : coinType,
                 orderType : orderType,
@@ -718,11 +720,11 @@ export default {
                 paginationController.setTotalCount(totalCount);
 
                 //전체 item list model화 시켜 주기
-                let result = data.adList
-                let myOrderList: TradeItem[] = [];
+                let result = data.ordersList
+                let myOrderList: Order[] = [];
                 for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
-                    let itemList: TradeItem = new TradeItem(result[key])
+                    let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
                 myTradeController.setMyOrderItems(myOrderList);

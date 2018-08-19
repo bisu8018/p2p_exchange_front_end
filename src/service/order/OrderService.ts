@@ -12,12 +12,14 @@ export default {
             })
     },
     getMyOrder:function (data: any, callback: any) {
-        AxiosService._requestWithBody('/order/my', 'GET', data ,
+        console.log(data);
+        AxiosService._requestWithUrlPram('order/my', 'GET', data ,
             function (data: any) {
                 callback(data)
             },
             function (error) {
-                console.log("ERROR :::::::  " + error);
+                console.log(error);
+                //실패시 이곳을 탐
             })
     },
 }

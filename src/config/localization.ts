@@ -2558,10 +2558,10 @@ const strings = new Map([
         HK: ''
     }],
     ['Trade Num', {
-        KOR: '',
+        KOR: '거래횟수',
         ENG: 'Trade Num',
-        CN: '',
-        HK: ''
+        CN: '交易数量',
+        HK: '交易數量'
     }],
     ['', {
         KOR: '',

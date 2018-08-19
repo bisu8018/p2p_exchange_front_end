@@ -40,6 +40,8 @@ export enum VuexTypes {
     SET_MYADSLIST_DATA = 'myads/SET_MYADSLIST_DATA',
     SET_MYADSFILTER_DATA = 'myads/SET_MYADSFILTER_DATA',
 
+    SET_MYORDERSLIST_DATA = 'myorder/SET_MYORDERSLIST_DATA',
+
 
     //======================================
     //              Merchant

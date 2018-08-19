@@ -10,8 +10,8 @@
         </v-layout>
         <div v-if="!isMobile">
             <v-layout mb-2 color-darkgray row wrap>
-                <v-flex md1 text-md-left>{{$str("orderNo")}}</v-flex>
-                <v-flex md2 text-md-left>{{$str("orderType")}}</v-flex>
+                <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
+                <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("Trade Num")}}</v-flex>
                 <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
@@ -28,7 +28,7 @@
         <!--main list view-->
         <div v-if="haveItems">
             <!-- user item list들 10개씩 출력-->
-            <div v-for="orderlist in orderLists" >
+            <div v-for="orderlist in OrderLists" >
                 <my-order-list
                         :orderlist="orderlist"
                 ></my-order-list>
@@ -61,6 +61,19 @@
     export default {
         name: "MyOrder",
         components: {ListFilter, Pagination, MyOrderList, MyOrderFilter},
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            haveItems(){
+                //return (MainRepository.Pagination.getTotalCount() >0)
+                return true;
+            },
+            OrderLists() {
+                return MainRepository.MyOrder.getPage();
+            }
+
+        },
         data: () => ({
             pageSize : 10,
             pageType : 'MyOrder',
@@ -103,27 +116,13 @@
                 },
             ],
         }),
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
-            haveItems(){
-                //return (MainRepository.Pagination.getTotalCount() >0)
-                return true;
-            },
-            OrderLists() {
-                return MainRepository.MyOrder.getPage();
-            }
-
-        },
         created() {
-            MainRepository.MyOrder.initPage();
-
             // 로그인 확인 -> Login 으로
             if (!MainRepository.Login.isLogin()) {
                 MainRepository.router().goLogin();
                 return;
             }
+            MainRepository.MyOrder.initPage();
         },
         mounted() {
 
