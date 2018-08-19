@@ -108,7 +108,7 @@ export default {
             failure
         )
     },
-    _requestWithBodyWithEmail: function (url: string, type: string, data: any, success: any, failure: any) {
+    _requestWithBodyAndEmail: function (url: string, type: string, data: any, success: any, failure: any) {
         data = data || {};
         let path =  {email : MainRepository.Login.getUserInfo().email};
         let param = qs.stringify(path);
