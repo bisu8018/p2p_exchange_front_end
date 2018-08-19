@@ -47,6 +47,8 @@
                 </div>
                 <button @click='goSignup' class="btn-white">{{$str("signupText")}}
                 </button>
+                <!-- vuex 기능을 위한 코드 : 기능 없음 -->
+                <div v-if="isLogin"></div>
             </div>
         </v-flex>
     </v-layout>
@@ -59,6 +61,7 @@
     import LoginService from "../../../../service/login/LoginService";
 
     import axios from 'axios'
+    import MainRepository from "../../../../vuex/MainRepository";
 
     export default {
         name: 'login',
@@ -79,6 +82,14 @@
         },
         components: {
             VerifySlider,
+        },
+        computed: {
+            isLogin() {
+                if (MainRepository.Login.isLogin()) {
+                    MainRepository.router().goMain();
+                }
+                return MainRepository.Login.isLogin();
+            }
         },
         methods: {
             serializeserialize (form) {
