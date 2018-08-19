@@ -518,7 +518,7 @@
         min-width: 306px;
         z-index: 2;
         top: 56px;
-        right: unset;
+        right: 50px;
     }
 
     .myorder-dropdown:after{
@@ -532,7 +532,7 @@
         border-bottom: 4px solid  #ffffff;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
-        border-color: transparent transparent  #ffffff transparent ;
+        border-color: transparent transparent  #ffffff transparent;
     }
 
     @media (max-width: 768px) {
