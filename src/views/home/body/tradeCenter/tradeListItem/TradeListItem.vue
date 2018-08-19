@@ -708,11 +708,10 @@
             //원격 Drawer를 향해 set 해줌
             changeDrawer(){
                 /////////////login 안했을때 login창으로 돌려보냄////////
-                MainRepository.Users.isUserActive({
-                    email : MainRepository.Login.getUserInfo().email
-                },function (result) {
-                    return result
-                })
+                if (!MainRepository.Login.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return;
+                }
                 /////////////////////////////////
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },

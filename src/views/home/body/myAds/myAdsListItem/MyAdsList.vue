@@ -5,31 +5,31 @@
             <!-- name-->
             <v-layout mt-4 mb-4>
                 <v-flex xs3 text-xs-left color-darkgray>{{$str('adsNo')}}</v-flex>
-                <v-flex xs9 text-xs-right color-blue>{{adslist.no}}</v-flex>
+                <v-flex xs9 text-xs-right color-blue>{{adslist.adNo}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('adsType')}}</v-flex>
                 <v-flex xs9 text-xs-right>
-                    <span class="mr-4 color-green bold" v-if="adslist.adsType === 'sell'">
+                    <span class="mr-4 color-green bold" v-if="adslist.tradeType === 'Sell'">
                   {{$str("sell")}}
                   </span>
-                    <span class="mr-4 color-orange-price bold" v-if="adslist.adsType === 'buy'">
+                    <span class="mr-4 color-orange-price bold" v-if="adslist.tradeType === 'Buy'">
                         {{$str("buy")}}
                       </span>
-                    {{adslist.token}}
+                    {{adslist.cryptocurrency}}
                 </v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Amount</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.amount}} {{adslist.currency}}</v-flex>
+                <v-flex xs9 text-xs-right>{{adslist.volumeAvailable}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Limits</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.limits}} {{adslist.currency}}</v-flex>
+                <v-flex xs9 text-xs-right>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Price</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.price}}</v-flex>
+                <v-flex xs9 text-xs-right>{{adslist.fixedPrice}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Time</v-flex>
@@ -49,21 +49,21 @@
         <!-- Web 일때-->
         <div v-else>
             <v-layout pt-4 pb-4>
-                <v-flex md2 text-md-left color-blue>{{adslist.no}}</v-flex>
+                <v-flex md2 text-md-left color-blue>{{adslist.adNo}}</v-flex>
                 <v-flex md1 text-md-left>
                     <v-layout justify-space-between>
-                        <h5 class="color-green bold" v-if="adslist.adsType === 'sell'">
+                        <h5 class="color-green bold" v-if="adslist.tradeType === 'Sell'">
                             {{$str("sell")}}
                         </h5>
-                        <h5 class="color-orange-price bold" v-if="adslist.adsType === 'buy'">
+                        <h5 class="color-orange-price bold" v-if="adslist.tradeType === 'Buy'">
                             {{$str("buy")}}
                         </h5>
-                    {{adslist.token}}
+                    {{adslist.cryptocurrency}}
                     </v-layout>
                 </v-flex>
-                <v-flex md1 text-md-left>{{adslist.amount}}</v-flex>
-                <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.token}}</v-flex>
-                <v-flex md1 text-md-left>{{adslist.price}} {{adslist.currency}}</v-flex>
+                <v-flex md1 text-md-left>{{adslist.volumeAvailable}}</v-flex>
+                <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.cryptocurrency}}</v-flex>
+                <v-flex md1 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>{{adslist.time}}</v-flex>
                 <v-flex md3 text-md-right color-blue>
                     <span class="text-white-hover c-pointer ">{{$str('edit')}}</span>
@@ -77,7 +77,7 @@
             <div class="cs-flex mb-4">
                 <!--header-->
                 <div class=" h4 bold text-xs-left">
-                    {{$str("enable")}} {{adslist.token}}
+                    {{$str("enable")}} {{adslist.cryptocurrency}}
                 </div>
                 <v-spacer></v-spacer>
                 <i class="material-icons color-black c-pointer" @click="showEnableDialog = false">close</i>
@@ -88,7 +88,7 @@
             <div class="p-relative mb-4">
                 <input name="amount" v-model="amount" type="text" class="input"
                        autocomplete="off" :placeholder="$str('Enter the number you want to trade')">
-                <button class="crypto-text">{{adslist.token}}</button>
+                <button class="crypto-text">{{adslist.cryptocurrency}}</button>
             </div>
             <div class="text-xs-right">
                 <button class="btn-rounded-white text-white-hover" @click="showEnableDialog = false" >

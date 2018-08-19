@@ -25,7 +25,7 @@
         <div v-if="haveItems">
             <div>
                 <!-- user ad list들 10개씩 출력-->
-                <div v-for="adslist in adsLists" >
+                <div v-for="adslist in AdsLists" >
                   <my-ads-list
                           :adslist="adslist"
                   ></my-ads-list>
@@ -112,22 +112,15 @@
 
         },
         methods: {},
-        beforeCreate(){
-            /////////////login 안했을때 login창으로 돌려보냄////////
-            MainRepository.Users.isUserActive({
-                email : MainRepository.Login.getUserInfo().email
-            },function (result) {
-                return result
-            })
-        },
         created() {
-            MainRepository.MyAds.initPage();
-
             // 로그인 확인 -> Login 으로
             if (!MainRepository.Login.isLogin()) {
                 MainRepository.router().goLogin();
                 return;
             }
+            MainRepository.MyAds.initPage();
+
+
         },
         beforeDestroy(){
             MainRepository.MyAds.initData()
