@@ -306,6 +306,14 @@
         min-width: 376px;
     }
 
+    @media (max-width: 768px) {
+        .order-filter {
+            height: 40px;
+            border: solid 1px #8d8d8d;
+            min-width: unset;
+        }
+    }
+
     .card-modal {
         z-index: 2;
         position: absolute;

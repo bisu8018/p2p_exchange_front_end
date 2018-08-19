@@ -1,15 +1,44 @@
 <template>
     <div>
         <div>
+
             <!-- 모바일 일때-->
             <div v-if="isMobile">
                 <v-layout class="nav align-center">
+
                     <!--logo-->
                     <button @click="goMain()" class="ml-3">
                         <div class="sprite-img ic-logo"></div>
                     </button>
+
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
                     <v-spacer></v-spacer>
+
+                    <!--MyOrder-->
+                    <div class="dropdown" v-if="isLogin">
+                        <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
+
+                        <!-- ongoing order 드롭다운 -->
+                        <div class="dropdown-content myorder-dropdown">
+
+                            <v-layout pa-3 align-center>
+                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
+                                <v-spacer></v-spacer>
+                                <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
+                                <!--<div class="sprite-img ic-fix color-blue"></div>-->
+                            </v-layout>
+                            <v-divider></v-divider>
+
+                            <!-- ongoing items -->
+                            <my-order-simple-item />
+
+                            <v-divider></v-divider>
+                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover mt-4 mb-4 mr-3 c-pointer">
+                                {{$str("View All")}}
+                            </div>
+                        </div>
+                    </div>
+
                     <!--햄버거 bar-->
                     <div class="mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
@@ -40,6 +69,7 @@
                             </div>
                         </button>
                     </v-flex>
+
                     <!--post AD 눌렀을때 나오는 세부항목-->
                     <div class="submenu">
                         <div v-if="postadDrawer">
@@ -61,7 +91,8 @@
                             </v-flex>
                         </div>
                     </div>
-                    <span v-if="!isLogin">
+
+                    <span v-if="!isLogin" class="mobile-span">
                         <!-- login 버튼-->
                         <v-flex xs12 class="verticalcentertext" @click="goLogin()">
                             <button class="text-xs-left ml-3">
@@ -75,7 +106,8 @@
                             </button>
                         </v-flex>
                     </span>
-                    <span v-if="isLogin">
+
+                    <span v-if="isLogin" class="mobile-span">
                         <!-- 로그인시 추가되는 화면들-->
                         <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
                             <button class="text-xs-left ml-3">
@@ -119,25 +151,26 @@
                 </v-layout>
             </div>
 
-
-
             <!-- 웹일때 -->
-            <div v-else>
+            <div class="nav-web" v-else>
                 <v-layout align-center row class="nav">
+
                     <!-- logo버튼-->
                     <button @click="goMain()" class="ml-4">
                         <div class="sprite-img ic-logo"></div>
                     </button>
-                    <!-- TradeCenter버튼-->
 
+                    <!-- TradeCenter버튼-->
                     <button @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</button>
+
                     <!-- BlockTrade 버튼-->
                     <button @click="goBlockTrade()" class="ml-4a">{{$str("BlockTrade")}}</button>
+
                     <!-- post AD 버튼 -->
                     <!-- default post AD 버튼-->
                     <div class="dropdown">
                         <button class="ml-4a dropbtn" @click="goPostGeneralAd">{{$str("postAd")}}</button>
-                        <div class="dropdown-content " style="min-width: 140px;">
+                        <div class="dropdown-content" style="min-width: 140px;">
                             <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostGeneralAd">
                                 {{$str("Post_General_AD")}}
                             </div>
@@ -146,7 +179,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
                     <v-spacer></v-spacer>
@@ -157,31 +189,37 @@
                     <!--MyOrder-->
                     <div class="dropdown">
                         <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
+
+                        <!-- ongoing order 드롭다운 -->
                         <div class="dropdown-content myorder-dropdown">
-                            <!-- 언어 list 버튼-->
-                            <v-layout ml-3 mr-3 mt-4 mb-4 align-center>
+                            <v-layout pa-3 align-center>
                                 <h3 class="medium">{{$str("Ongoing order")}}</h3>
                                 <v-spacer></v-spacer>
-                                <div class="color-blue mr-2">{{$str("Fixed")}}</div>
-                                <div class="sprite-img ic-fix color-blue"></div>
+                                <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
+                                <!--<div class="sprite-img ic-fix color-blue"></div>-->
                             </v-layout>
                             <v-divider></v-divider>
-                            <v-layout row pl-3 pr-3 pt-4 pb-4>
-                                <!--avatar-->
-                                <avatar :me= true ></avatar>
-                                <!-- merchant 정보-->
-                                <span>
-                                    <span class="mr-2 ml-3 color-darkgray text-md-left" >
-                                        <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
-                                        Buy BTC Total Price: 200 CNY
-                                    </span>
-                                    <div class="ml-3 text-md-left">Please pay - 00:14:32</div>
-                                </span>
-                                <span class="badge">1</span>
-                            </v-layout>
+
+                            <!-- ongoing items -->
+                            <my-order-simple-item />
+
+                            <!--<v-layout row pl-3 pr-3 pt-4 pb-4>-->
+                                <!--&lt;!&ndash;avatar&ndash;&gt;-->
+                                <!--<avatar :me= true ></avatar>-->
+                                <!--&lt;!&ndash; merchant 정보&ndash;&gt;-->
+                                <!--<span>-->
+                                    <!--<span class="mr-2 ml-3 color-darkgray text-md-left" >-->
+                                        <!--&lt;!&ndash;{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}&ndash;&gt;-->
+                                        <!--Buy BTC Total Price: 200 CNY-->
+                                    <!--</span>-->
+                                    <!--<div class="ml-3 text-md-left">Please pay - 00:14:32</div>-->
+                                <!--</span>-->
+                                <!--<span class="badge">1</span>-->
+                            <!--</v-layout>-->
+
                             <v-divider></v-divider>
-                            <div class="text-md-right color-blue text-white-hover mt-4 mb-4 mr-3 c-pointer">
-                                View All
+                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover mt-4 mb-4 mr-3 c-pointer">
+                                {{$str("View All")}}
                             </div>
                         </div>
                     </div>
@@ -272,6 +310,7 @@
 <script>
     import Vue from 'vue';
     import Avatar from '@/components/Avatar.vue';
+    import MyOrderSimpleItem from './body/myOrder/MyOrderListItem/MyOrderSimpleItem'
 
     import {
         abGetLang,
@@ -281,7 +320,7 @@
 
     export default Vue.extend({
         name: 'abHeader',
-        components: {Avatar},
+        components: {Avatar, MyOrderSimpleItem},
         data: () => ({
             title: 'header',
             drawer: false,
@@ -386,7 +425,8 @@
         color: white;
         position: fixed;
         top: 0;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: visible;
         z-index: 999;
         width: 100%;
     }
@@ -405,6 +445,20 @@
         height: 52px;
     }
 
+    .dropDownMenu > div,
+    .mobile-span > div {
+        cursor: pointer;
+    }
+
+    .dropDownMenu > div:hover,
+    .mobile-span > div:hover {
+        background-color: #316ee4
+    }
+
+    .dropDownMenu > .submenu:hover {
+        background-color: #21407e;
+    }
+
     .submenu {
         width: 100%;
         background-color: #21407e;
@@ -417,6 +471,10 @@
     .verticalcentertext {
         align-items: center;
         display: flex;
+    }
+
+    .mobile-span {
+        width: 100%;
     }
 
     .dropbtn {
@@ -433,8 +491,9 @@
         display: none;
         position: fixed;
         color: black;
+        overflow: hidden;
         min-width: 104px;
-        box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
+        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
         z-index: 1;
         border-radius: 2px;
         font-weight: 400;
@@ -463,14 +522,15 @@
     .myorder-dropdown{
         min-width: 306px;
         z-index: 2;
-        top: 48px;
-        right: 0;
+        top: 56px;
+        right: unset;
     }
+
     .myorder-dropdown:after{
         content: '';
         position: absolute;
         bottom: 100%;
-        left: 95%;
+        right: 95%;
         margin-left: -8px;
         width: 0; height: 0;
         border-style: solid;
@@ -479,24 +539,15 @@
         border-left: 4px solid transparent;
         border-color: transparent transparent  #ffffff transparent ;
     }
-    .badge{
-        background-color: #e62a2b;
-        border-radius: 100px;
-        text-align:center;
-        font-size: 12px;
-        color: #ffffff;
-        width: 17px;
-        height: 17px;
-        margin : auto 0 auto 0;
-        padding : auto 0 auto 0;
-        cursor : pointer;
 
-        -moz-border-radius : 100px;
-        -webkit-border-radius : 100px;
-        -ms-border-radius :100px;
-        -khtml-border-radius : 100px;
-        -o-border-radius :100px;
-
+    @media (max-width: 768px) {
+        .myorder-dropdown{
+            right: 10px;
+        }
+        .myorder-dropdown:after{
+            left: 95%;
+            margin-left: -8px;
+        }
     }
 
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
