@@ -103,23 +103,20 @@ export default {
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
         let self = this;
-        if (this.Login.isLogin) {
-            this.Login.setUserInfo(function () {
-                self.Common.setPaymentMethod(function (result) {
-                    if(AxiosService.DEBUG()){
-                        console.log(result)
-                    }
-                });
-                self.Balance.setBalances(function (result) {
-                    if(AxiosService.DEBUG()){
-                        console.log(result)
-                    }
-                });
+        AccountService.Account.checkLogin(
+            // 로그인 유저 -> 유저 정보 Set
+            function (data) {
+                accountController.setUserInfo(new Account(data));
+
+                self.Common.setPaymentMethod(function () {});
+                self.Balance.setBalances(function () {});
                 callback();
-            })
-        } else {
-            callback();
-        }
+            },
+            // 로그인 하지 않음
+            function () {
+                callback();
+            }
+        );
     },
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
