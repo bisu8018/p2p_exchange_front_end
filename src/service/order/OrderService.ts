@@ -5,11 +5,10 @@ export default {
     addOrder: function (data: any, callback: any) {
         AxiosService._requestWithPath('order', 'POST', data ,
             function (data: any) {
-                console.log('성공, addorder');
                 callback(data)
             },
             function () {
-                console.log('실패, addorder');
+                //실패시 이곳을 타게됨
             })
     },
     getMyOrder:function (data: any, callback: any) {

@@ -42,6 +42,38 @@ export function deleteCookie(name) {
 }
 
 
+export function setTimer() {
+    // 1초 마다 Update
+    let x = setInterval(function() {
+
+        // Get todays date and time
+        let now1 = new Date();
+        let countDownDate = new Date(now1.getFullYear() + "-" + (now1.getMonth()+1) + "-" + (now1.getDate() + 1));
+        let now = new Date().getTime();
+
+        // Find the distance between now an the count down date
+        let distance = countDownDate.getTime() - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // 결과를 받을 text;
+        let timer = '';
+
+        // Display the result in the element with id="demo"
+        timer =  hours + "시간 " + minutes + "분 " + seconds + "초";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            timer = "만료 되었을 경우";
+        }
+    }, 1000);
+}
+
+
 //firefox 동작 안됨
 export function doesHttpOnlyCookieExist(cookiename : string) {
     var d = new Date();

@@ -33,6 +33,7 @@ import SecuritySettings from "@/vuex/model/SecuritySettings";
 import MarketPrice from "@/vuex/model/MarketPrice";
 import TradeItem from "@/vuex/model/TradeItem";
 import {doesHttpOnlyCookieExist} from "@/common/common";
+import RouterController from "@/vuex/controller/RouterController";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -44,6 +45,7 @@ let accountController: AccountController;
 let marketPriceController: MarketPriceController;
 let commonController: CommonController;
 let balanceController: BalanceController;
+let routerController: RouterController;
 
 let store: Store<any>;
 let instance: any;
@@ -81,16 +83,6 @@ export default {
             instance.setInitCompleted(true);
         });
 
-      /*  CommonService.init.getInitValue(function (data: any) {
-           instance.initData(data);
-           callback();
-        });*/
-        /*getInitValue(function (data: any) {
-            instance.initData(data);
-            callback()
-        });
-        */
-
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
         //     this.State.controller().setCheckOs(1);
@@ -102,31 +94,25 @@ export default {
     },
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
-        // 로그인한 유저 정보 파싱
         let self = this;
-        let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
-        let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        if (isLogin === true || isFirefox) {
-            this.Login.setUserInfo(function () {
-                self.Common.setPaymentMethod(function (result) {
-                    if(AxiosService.DEBUG()){
-                        console.log(result)
-                    }
-                });
-                self.Balance.setBalances(function (result) {
-                    if(AxiosService.DEBUG()){
-                        console.log(result)
-                    }
-                });
+        AccountService.Account.checkLogin(
+            // 로그인 유저 -> 유저 정보 Set
+            function (data) {
+                accountController.setUserInfo(new Account(data));
+
+                self.Balance.setBalances(function () {});
+
+                // 이후 아래 코드로 변경할 것
+                self.Common.setPaymentMethod(function () {});
+                // 객체형으로 관리하도록 변경 필요
+                self.Login.loadMyPaymentMethods();
                 callback();
-            })
-        }else{
-            callback();
-        }
-        // 계정 JSON 파싱
-      /* for (let key in data['accounts']) {
-            accountController.push(data['accounts'][key])
-        }*/
+            },
+            // 로그인 하지 않음
+            function () {
+                callback();
+            }
+        );
     },
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
@@ -288,6 +274,29 @@ export default {
         },
         getUserInfo() {
             return accountController.getUserInfo();
+        },
+        isLogin(): boolean {
+            return accountController.getUserInfo().isLogin();
+        },
+        checkLoginBySession(): boolean {
+            let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
+            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+            return isLogin || isFirefox
+        },
+
+        loadMyPaymentMethods: function () {
+            CommonService.info.setPaymentMethod({
+                email : this.getUserInfo().email
+            },function (result) {
+                let _payments: PaymentMethod[] = [];
+                for (let i = 0; i < result.length; i++) {
+                    _payments.push(new PaymentMethod(result[i]));
+                }
+                accountController.setMyPaymentMethods(_payments);
+            })
+        },
+        getMyPaymentMethods() {
+            return accountController.getMyPaymentMethods();
         }
     },
     Users: {
@@ -499,7 +508,6 @@ export default {
                 status : "unpaid",
                 tradePassword : tradePassword,
             }, function (data) {
-                console.log('createOrder 성공!')
                 return true;
             })
 
@@ -751,5 +759,12 @@ export default {
                 callback();
             })
         }
+    },
+
+    router() {
+        return routerController;
+    },
+    initRouterController(router: any) {
+        routerController = new RouterController(router);
     }
 }

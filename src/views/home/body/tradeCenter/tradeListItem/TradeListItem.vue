@@ -616,23 +616,15 @@
                         this.user.fixedPrice,                     //price
                         this.tradePW                              //tradePassword
                     );
-                    if(res == true){
-                      switch (this.user.tradeType) {
-                          case 'Buy':
-                              console.log('buy로 ㄱㄱ');
-                              this.$router.push("/buy");
-                              break;
+                    switch (this.user.tradeType) {
+                        case 'Buy':
+                            this.$router.push("/buy");
+                            break;
 
-                          case 'Sell':
-                              //sell 모드 일때는 trade password를 추가로 검증해야함.
-                              if(this.onChecktradePassword()){
-                                  this.$router.push("/sell");
-                                  break;
-                              }
-                      }
-                    }
-                    else{
-                        console.log('res는 false');
+                        case 'Sell':
+                            this.$router.push("/sell");
+                            break;
+
                     }
                 }
             },

@@ -604,6 +604,12 @@
             marketPrice: '',
         }),
         created() {
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.Login.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+
             //환율 및 유져 정보 get 필요
             let self = this;
             Common.info.getMarketPrice(function (data) {

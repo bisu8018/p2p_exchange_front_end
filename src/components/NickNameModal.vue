@@ -105,6 +105,7 @@
             onNickNameCheck() {
                 // 닉네임 && 거래 비밀번호 전체 검사
                 if (this.onCheckNickName() && this.onCheckNewPassword() && this.onCheckPasswordConfirm() ) {
+
                     this.onComplete('nickName');
                 }
             },

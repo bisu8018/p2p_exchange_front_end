@@ -8,7 +8,6 @@ export default {
         getMessage: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('message', 'GET', data ,
                 function (data: any) {
-
                     callback(data);
                 },
                 function () {

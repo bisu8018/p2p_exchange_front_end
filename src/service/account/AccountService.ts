@@ -1,6 +1,7 @@
 import AxiosService from "@/service/AxiosService";
 import User from "@/vuex/model/Account";
 import MainRepository from "@/vuex/MainRepository";
+import axios from "axios";
 
 export default {
     Account: {
@@ -49,6 +50,26 @@ export default {
                 },
                 function () {
                 })
+        },
+        // 로그인 체크
+        checkLogin: function (success: any, failure: any) {
+            axios({
+                method: 'GET',
+                url: AxiosService.getRootUrlWithApi() + 'member/my',
+                data: '',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then((response) => {
+                    if (response.data.code === 0) {
+                        success(response.data.result);
+                    }
+                })
+                .catch((error) => {
+                    failure()
+                }).then(() => {
+            })
         },
         // 유저 정보 get
         getUserInfo: function (callback: any) {

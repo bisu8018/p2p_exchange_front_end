@@ -305,6 +305,16 @@
             ],
 
         }),
+        created() {
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.Login.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+        },
+        mounted() {
+
+        },
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -346,14 +356,7 @@
                 this.isdropdown = true;
             }
 
-        },
-        created() {
-
-        },
-        mounted() {
-
-        },
-
+        }
 
 
     }

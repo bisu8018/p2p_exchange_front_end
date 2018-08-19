@@ -51,6 +51,8 @@
             MainRepository.init(this.$store, function() {
                 //console.log("MainRepository");
             });
+
+            MainRepository.initRouterController(this.$router);
         },
         created(){
             this.$eventBus.$on('goLogin', (status) => {
