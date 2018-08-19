@@ -18,11 +18,11 @@
           <div v-else>
             <!--buy-->
             <div class="buyBtn mobileInactiveBtn">
-              <button class="mobileInactiveBtnText" @click="onTokenClicked('current','Buy')">Buy</button>
+              <button class="mobileInactiveBtnText" @click="onTokenClicked('current','Buy')">{{$str("buy")}}</button>
             </div>
             <!--sell 이 활성화-->
             <div class="sellBtn mobileActiveBtn">
-              <button class="mobileActiveBtnText" @click="onTokenClicked('current','Sell')"> Sell</button>
+              <button class="mobileActiveBtnText" @click="onTokenClicked('current','Sell')"> {{$str("sell")}}</button>
             </div>
           </div>
         </v-flex>
