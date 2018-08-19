@@ -308,7 +308,6 @@ export default {
         }
     },
     // SignUp: {},
-
     Service: {
         Account() {
             return AccountService;
@@ -488,8 +487,9 @@ export default {
             return tradelistController.getDrawerID();
         },
         createOrder(adNo: number, amount: number, coinCount: number, customerMemberNo: number,
-                    merchantMemberNo: number, price: number){
+                    merchantMemberNo: number, price: number, tradePassword: string){
             OrderService.addOrder({
+                email : instance.Login.getUserInfo().email,
                 adNo : adNo,
                 amount :   amount,
                 coinCount : coinCount,
@@ -497,6 +497,7 @@ export default {
                 merchantMemberNo :  merchantMemberNo,
                 price : price,
                 status : "unpaid",
+                tradePassword : tradePassword,
             }, function (data) {
                 console.log('createOrder 성공!')
                 return true;
@@ -589,7 +590,6 @@ export default {
         },
         initData(){
             myTradeController.setMyAdsFilter({
-                email : instance.Login.getUserInfo().email,
                 searchStartTime : '',
                 searchEndTime : '',
                 status : '',
@@ -691,8 +691,8 @@ export default {
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        setFilter( start_date: string, end_date: string, coinType: string, tradeType: string,
-                   orderNo: number, adsType: string, currency: string,){
+        setFilter( start_date: string, end_date: string, status: string, orderNo: number, coinType: string,
+                    orderType: string, tradeType: string, currency: string,){
             OrderService.getMyOrder({
                 email : instance.Login.getUserInfo().email,
                 searchStartTime : start_date,
@@ -700,7 +700,7 @@ export default {
                 status : '',
                 orderNo : orderNo,
                 cryptocurrency : coinType,
-                orderType : adsType,
+                orderType : orderType,
                 tradeType : tradeType,
                 currency : currency,
                 page : instance.paginationController.getPage(),

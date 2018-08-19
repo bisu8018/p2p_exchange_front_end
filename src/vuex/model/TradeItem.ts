@@ -11,6 +11,7 @@ export default class TradeItem {
     priceType : string;
     fixedPrice : number;
     volume : number;
+    volumeAvailable : number;
     minLimit : number;
     maxLimit : number;
     paymentWindow : number;
@@ -51,6 +52,7 @@ export default class TradeItem {
         this.priceType = data.priceType || '';
         this.fixedPrice = Number(data.fixedPrice) || -1;
         this.volume = Number(data.volume) || -1;
+        this.volumeAvailable = Number(data.volumeAvailable) || -1;
         this.minLimit = Number(data.minLimit) || -1;
         this.maxLimit = Number(data.maxLimit) || -1;
         this.paymentMethods = data.paymentMethods || '';

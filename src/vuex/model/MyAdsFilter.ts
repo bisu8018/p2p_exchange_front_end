@@ -1,5 +1,4 @@
 export default class MyAdsFilter {
-    email: string;
     searchStartTime: string;
     searchEndTime: string;
     status : string;
@@ -14,14 +13,13 @@ export default class MyAdsFilter {
 
 
     constructor (data: any) {
-        this.email = data.email ||'tom@allblab.com';
         this.searchStartTime = data.searchStartTime ||'';
         this.searchEndTime = data.searchEndTime ||'';
         this.status = data.status || 'enable';
         this.orderNo = Number(data.orderNo) || 0;
-        this.cryptocurrency = data.cryptocurrency || 'bitcoin';
+        this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency) || 'bitcoin';
         this.orderType = data.orderType || '';
-        this.tradeType = data.tradeType || '';
+        this.tradeType = this.toLowerCase(data.tradeType) || '';
         this.currency = data.currency || '';
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
@@ -29,7 +27,6 @@ export default class MyAdsFilter {
     }
 
     update (data: any){
-        if(data.email !==undefined && data.email !==null) this.email = data.email;
         if(data.status !==undefined && data.status !==null) this.status = data.status;
         if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;
         if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType.toLowerCase();
@@ -37,6 +34,14 @@ export default class MyAdsFilter {
         if(data.orderType !==undefined && data.orderType !==null) this.orderType = data.orderType;
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
+    }
+    toLowerCase(tradeType){
+        if(tradeType == 'Buy'){
+            return 'buy';
+        }
+        else{
+            return 'sell';
+        }
     }
 
     //보낼때는 약어를 fullname으로 보내야함.

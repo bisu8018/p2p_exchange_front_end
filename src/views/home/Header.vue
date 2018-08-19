@@ -92,12 +92,6 @@
                                 <div>{{$str("MyAds")}}</div>
                             </button>
                         </v-flex>
-                        <v-flex xs12 class="verticalcentertext" @click="goUserCenter()">
-                            <button class="text-xs-left ml-3">
-                                <div>{{$str("UserCenter")}}</div>
-                            </button>
-                        </v-flex>
-
                         <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
                             <button class="text-xs-left ml-3">
                                 <div>{{$str("Merchant")}}</div>
@@ -464,7 +458,7 @@
         min-width: 306px;
         z-index: 2;
         top: 48px;
-        right: 0;
+        right: 325px;
     }
     .myorder-dropdown:after{
         content: '';

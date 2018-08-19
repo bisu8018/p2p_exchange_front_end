@@ -52,6 +52,11 @@
                 //console.log("MainRepository");
             });
         },
+        created(){
+            this.$eventBus.$on('goLogin', (status) => {
+                this.$router.push("/login");
+            })
+        },
         mounted() {
             this.$nextTick(function() {
                 window.addEventListener('resize', this.getWindowWidth);

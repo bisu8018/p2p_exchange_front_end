@@ -1,13 +1,16 @@
 export default class Order {
-    orderNo: number;
-    referenceNo : number;
     adNo : number;
-    merchantMemberNo : number;
-    customerMemberNo : number;
-    status : string;
-    price : number;
-    coinCount : number;
     amount : number;
+    coinCount : number;
+    customerMemberNo : number;
+    merchantMemberNo : number;
+    orderNo: number;
+    price : number;
+    referenceNo : number;
+    status : string;
+
+
+
 
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
