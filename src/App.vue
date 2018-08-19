@@ -1179,10 +1179,6 @@
         height: 34px;
     }
 
-
-
-
-
     .ic-logo {
         background: -30px -602px;
         width: 30px;
@@ -1418,7 +1414,25 @@
         background-image: url(./assets/img/sprite_x2.png);
     }
 
+    .badge{
+        background-color: #e62a2b;
+        border-radius: 100px;
+        text-align:center;
+        font-size: 12px;
+        color: #ffffff;
+        width: 17px;
+        height: 17px;
+        margin : auto 0 auto 0;
+        padding : auto 0 auto 0;
+        cursor : pointer;
 
+        -moz-border-radius : 100px;
+        -webkit-border-radius : 100px;
+        -ms-border-radius :100px;
+        -khtml-border-radius : 100px;
+        -o-border-radius :100px;
+
+    }
 
 
 

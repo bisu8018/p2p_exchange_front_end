@@ -1233,7 +1233,7 @@ const strings = new Map([
         HK: '時間'
     }],
     ['Export', {
-        KOR: '',
+        KOR: '내보내기',
         ENG: 'Export',
         CN: '',
         HK: ''
@@ -2521,10 +2521,109 @@ const strings = new Map([
         HK: ''
     }],
 
-
-
-
-
+    // 180819 이후 추가. 번역 필요함
+    ['Ongoing order', {
+        KOR: '진행 중인 주문',
+        ENG: 'Ongoing order',
+        CN: '',
+        HK: ''
+    }],
+    ['View All', {
+        KOR: '모두 보기',
+        ENG: 'View All',
+        CN: '',
+        HK: ''
+    }],
+    ['Trade Num', {
+        KOR: '',
+        ENG: 'Trade Num',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
 ])
 
 export enum Lang {

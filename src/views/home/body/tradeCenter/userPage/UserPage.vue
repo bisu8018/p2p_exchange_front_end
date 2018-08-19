@@ -7,7 +7,7 @@
           <avatar
                 :name = merchant.email[0]
                 :isLogin = merchant.isLogin
-                :color = merchant.color class="f-left mr-3">
+                :color = merchant.color class="f-left mr-3">192.168
           </avatar>
           <h5 class="ml-3">
             <v-layout>
