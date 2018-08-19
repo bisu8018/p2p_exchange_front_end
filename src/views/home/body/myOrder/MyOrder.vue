@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-layout row wrap mt-5 mb-4a>
+        <v-layout row wrap mt-5 mb-2a>
             <!--header-->
-            <v-flex xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
+            <v-flex mt-2 xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
             <v-spacer></v-spacer>
             <v-flex>
                 <my-order-filter class="myOrderFilter"></my-order-filter>
@@ -10,16 +10,16 @@
         </v-layout>
         <div v-if="!isMobile">
             <v-layout mb-2 color-darkgray row wrap>
-                <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
-                <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
+                <v-flex md1 text-md-left>{{$str("orderNo")}}</v-flex>
+                <v-flex md2 text-md-left>{{$str("orderType")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("Trade Num")}}</v-flex>
                 <v-flex md2 text-md-left>{{$str("TotalPrice")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
                 <v-flex md3 text-md-left>{{$str("time")}}</v-flex>
                 <v-flex md2>
                     <v-layout justify-space-between>
-                        <span>{{$str("status")}}</span>
-                        <span >{{$str("counterparty")}}</span>
+                        <span class="mr-2">{{$str("status")}}</span>
+                        <span>{{$str("counterparty")}}</span>
                     </v-layout>
                 </v-flex>
             </v-layout>
