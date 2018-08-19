@@ -16,10 +16,7 @@ const mutations = {
     [VuexTypes.SET_MYADSLIST_DATA] (state: any, myAdsItems: TradeItem[]) {
         state.myAdsItems = myAdsItems;
     },
-    //drawer로 하나씩만 보여주기 위한 data
-    [VuexTypes.SET_DRAWER_DATA] (state: any, drawerID: number) {
-        state.drawerID = drawerID;
-    },
+
     ////////////////My Orders/////////////
     // 페이지 아이템 리스트
     [VuexTypes.SET_MYORDERSLIST_DATA] (state: any, myOrderItems: Order[]) {
@@ -41,10 +38,7 @@ const actions = {
     [VuexTypes.SET_MYADSLIST_DATA] (context: any, myAdsItems: TradeItem[]) {
         context.commit(VuexTypes.SET_MYADSLIST_DATA, myAdsItems)
     },
-    //drawer를 하나씩만 보여주기 위한 data
-    [VuexTypes.SET_DRAWER_DATA] (context: any, drawerID: number) {
-        context.commit(VuexTypes.SET_DRAWER_DATA, drawerID)
-    },
+
     ////////////////My Orders/////////////
     // 페이지 아이템 리스트
     [VuexTypes.SET_MYORDERSLIST_DATA] (context: any, myOrderItems: Order[]) {
@@ -59,13 +53,11 @@ const getters = {
 let myAdsFilter = new MyAdsFilter('');  //
 let myAdsItems : TradeItem[] = [];
 let myOrderItems : Order[] = [];
-let drawerID : Number = 0;
 
 const state= {
     myOrderItems : myOrderItems,
     myAdsFilter: myAdsFilter,
     myAdsItems: myAdsItems,
-    drawerID : drawerID,
 
 }
 

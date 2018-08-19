@@ -587,7 +587,8 @@ export default {
                 paginationController.setTotalCount(totalCount);
 
                 //전체 item list model화 시켜 주기
-                let result = data.adList
+                let result = data.myAdsList
+                console.log(result);
                 let myAdsList: TradeItem[] = [];
                 for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌

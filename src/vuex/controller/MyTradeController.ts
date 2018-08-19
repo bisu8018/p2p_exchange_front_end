@@ -29,14 +29,6 @@ export default class MyTradeController{
     getMyAdsItems() {
         return this.store.state.mytrade.myAdsItems;
     }
-    //drawer 설정
-    setDrawerID(drawerID : number) {
-        this.store.dispatch(VuexTypes.SET_DRAWER_DATA, drawerID);
-    }
-
-    getDrawerID() {
-        return this.store.state.mytrade.drawerID;
-    }
 
     setMyOrderFilter(myAdsFilter : object) {
         this.store.dispatch(VuexTypes.SET_MYADSFILTER_DATA, myAdsFilter);

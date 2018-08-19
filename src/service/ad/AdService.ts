@@ -22,12 +22,12 @@ export default {
                 })
         },
         getMyAds:function (data: any, callback: any) {
-            AxiosService._requestWithBody('ad/my', 'GET', data ,
+            AxiosService._requestWithUrlPram('ad/my', 'GET', data ,
                 function (data: any) {
                     callback(data)
                 },
                 function (error) {
-                    console.log("ERROR :::::::  " + error);
+                //실패시 여기로옴
                 })
         },
 
