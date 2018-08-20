@@ -123,16 +123,16 @@
         },
         mounted(){
             switch (this.orderlist.status) {
-                case 'Unpaid':
-                    this.statusImg = 'ic-unpaid'
+                case 'unpaid':
+                    this.statusImg = 'ic-unpaid';
                     break;
 
-                case 'Cancelled':
-                    this.statusImg = 'ic-cancel-sm'
+                case 'cancelled':
+                    this.statusImg = 'ic-cancel-sm';
                     break;
 
-                case 'Complete':
-                    this.statusImg = 'ic-success-sm'
+                case 'complete':
+                    this.statusImg = 'ic-success-sm';
                     break;
             }
 
