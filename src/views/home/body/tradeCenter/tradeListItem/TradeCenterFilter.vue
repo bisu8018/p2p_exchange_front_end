@@ -380,7 +380,7 @@
                 this.nationality = MainRepository.TradeView.getSelectFilter().nationality;
                 this.currency = MainRepository.TradeView.getSelectFilter().currency;
                 this.paymentMethod = MainRepository.TradeView.getSelectFilter().paymentMethods;
-                this.amount = MainRepository.TradeView.getSelectFilter().minLimit;
+                this.amount = MainRepository.TradeView.getSelectFilter().amount;
                 //tradeCoin의 순서 배치
                 if(this.tradeCoin == 'ethereum'){
                     this.tokens = {left: 'ALLB',center: 'ETH',right: 'BTC',}
