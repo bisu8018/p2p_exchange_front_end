@@ -93,41 +93,26 @@ export function findCountryName(code: string) {
         case 'ALL': return 'All countries';
         case 'CN': return 'China';
         case 'SG': return 'Singapore';
-        case 'India': return 'IN';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
-        case 'CN': return 'China';
+        case 'IN': return 'India';
+        case 'VN': return 'Vietnam';
+        case 'CA': return 'Canada';
+        case 'AU': return 'Australia';
+        case 'KR': return 'Korea';
+        case 'CH': return 'Switzerland';
+        case 'NL': return 'Netherlands';
+        case 'TW': return 'Taiwan';
+        case 'RU': return 'Russia';
+        case 'UK': return 'United Kingdom';
+        case 'HK': return 'Hong Kong(china)';
+        case 'NG': return 'Nigeria';
+        case 'ID': return 'Indonesia';
+        case 'PH': return 'Philippines';
+        case 'KH': return 'Cambodia';
+
+
     }
 }
-// countries: [
-//     {country: 'All countries', code: 'ALL'},
-//     {country: 'China', code: 'CN'},
-//     {country: 'Singapore', code: 'SG'},
-//     {country: 'India', code: 'IN'},
-//     {country: 'Vietnam', code: 'VN'},
-//     {country: 'Canada', code: 'CA'},
-//     {country: 'Australia', code: 'AU'},
-//     {country: 'Korea', code: 'KR'},
-//     {country: 'Switzerland', code: 'CH'},
-//     {country: 'Netherlands', code: 'NL'},
-//     {country: 'Taiwan', code: 'TW'},
-//     {country: 'Russia', code: 'RU'},
-//     {country: 'United Kingdom', code: 'UK'},
-//     {country: 'Hong Kong(china)', code: 'HK'},
-//     {country: 'Nigeria', code: 'NG'},
-//     {country: 'Indonesia', code: 'ID'},
-//     {country: 'Philippines', code: 'PH'},
-//     {country: 'Cambodia', code: 'KH'}
-// ],
+
 
 export function findPaymentName(code: string) {
     switch (code) {

@@ -614,55 +614,11 @@
 
                         <v-divider class="mt-4 mb-4"></v-divider>
 
-                        <span v-if="paymentMethod != ''">
-                            <!--알리페이-->
-                            <v-layout wrap row class="vertical-center" v-if="paymentMethod.alipay">
-                                <v-flex md4>
-                                    <div class="sprite-img ic-alipay f-left mr-3"></div>
-                                    <h5 class="color-darkgray">{{$str('alipayText')}}</h5></v-flex>
-                                <v-flex md6><h5 class="color-black">
-                                    {{paymentMethod.alipay.id}} {{paymentMethod.alipay.owner_name}}
-                                    {{paymentMethod.alipay.alipay_id}}
-                                </h5></v-flex>
-                                <v-flex md1><h6><a class="color-blue text-white-hover">{{$str('modify')}}</a></h6></v-flex>
-                                <v-flex md1>
-                                    <span @click="onToggle('alipay')"><toggle :toggle="paymentMethod.alipay.active_yn"
-                                                                              class="c-pointer"></toggle></span>
-                                </v-flex>
-                            </v-layout>
-
-                            <!--위챗페이-->
-                            <v-layout wrap row class="vertical-center" v-if="paymentMethod.wechat">
-                                <v-divider class="mt-4 mb-4"></v-divider>
-                                <v-flex md4>
-                                    <div class="sprite-img ic-wechatpay f-left mr-3"></div>
-                                    <h5 class="color-darkgray">{{$str('wechatPayText')}}</h5></v-flex>
-                                <v-flex md6><h5 class="color-black">
-                                    {{paymentMethod.wechat.id}} {{paymentMethod.wechat.owner_name}}
-                                    {{paymentMethod.wechat.wechat_id}}</h5></v-flex>
-                                <v-flex md1><h6><a class="color-blue">{{$str('modify')}}</a></h6></v-flex>
-                                <v-flex md1>
-                                    <span @click="onToggle('wechatPay')"><toggle :toggle="paymentMethod.wechat.active_yn"
-                                                                                 class="c-pointer"></toggle></span>
-                                </v-flex>
-                            </v-layout>
-
-                            <!--은행계좌-->
-                            <v-layout wrap row class="vertical-center" v-if="paymentMethod.bank">
-                                <v-divider class="mt-4 mb-4"></v-divider>
-                                <v-flex md4>
-                                    <div class="sprite-img ic-bank f-left mr-3"></div>
-                                    <h5 class="color-darkgray">{{$str('bankAccountText')}}</h5></v-flex>
-                                <v-flex md6><h5 class="color-black">
-                                    {{paymentMethod.bank_account}} {{paymentMethod.bank.owner_name}}
-                                    {{paymentMethod.bank_name}} {{paymentMethod.bank_branch_info}}</h5></v-flex>
-                                <v-flex md1><h6><a class="color-blue">{{$str('modify')}}</a></h6></v-flex>
-                                <v-flex md1>
-                                    <span @click="onToggle('bankAccount')"><toggle :toggle="paymentMethod.bank.active_yn"
-                                                                                   class="c-pointer"></toggle></span>
-                                </v-flex>
-                            </v-layout>
-                        </span>
+                        <div v-for="item in paymentMethods">
+                            <my-payment-item
+                                    :item="item"
+                            />
+                        </div>
 
                         <!--결제수단 추가-->
                         <v-layout wrap row class="vertical-center">
@@ -790,10 +746,11 @@
     import SecuritySettings from "../../../../vuex/model/SecuritySettings";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
+    import MyPaymentItem from "./item/MyPaymentItem"
 
     export default {
         name: "MyPage",
-        components: {BigAvatar, Avatar, Pagination, Toggle, MyPageModal},
+        components: {BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
         data: () => ({
             selection_login: true,
             selection_security: false,
@@ -812,6 +769,29 @@
             loginHistory: '',
             securitySettings: '',
         }),
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            getSecurityLevel() {
+                let level = 1;
+                if (!this.phoneVerification.isNull()) {
+                    ++level;
+                }
+                if (this.nickName != '') {
+                    ++level;
+                }
+                return level;
+            },
+            getSecuredIdNo() {
+                let noLength = this.idVerification.identification_no.length;
+                let securedIdNo = this.idVerification.identification_no.substr(0, 2) + '*********' + this.idVerification.identification_no.substr(noLength - 2, 2);
+                return securedIdNo;
+            },
+            paymentMethods() {
+                return MainRepository.Login.getMyPaymentMethods();
+            },
+        },
         created() {
             // 로그인 확인 -> Login 으로
             if (!MainRepository.Login.isLogin()) {
@@ -832,14 +812,11 @@
             });
 
             // 유저 결제수단 정보 GET
-            MainRepository.Common.getPaymentMethod(function (paymentMethod) {
-                self.paymentMethod = paymentMethod;
-            });
+            MainRepository.Login.loadMyPaymentMethods();
 
             // 차단 리스트 정보 GET
             MainRepository.MyPage.getBlockList(function (blockList) {
                 self.blockList = blockList;
-                console.log(blockList);
             });
 
             // 로그인 기록 정보 GET
@@ -858,26 +835,6 @@
                 this.showModal = true;
             }
         },
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
-            getSecurityLevel() {
-                let level = 1;
-                if (!this.phoneVerification.isNull()) {
-                    ++level;
-                }
-                if (this.nickName != '') {
-                    ++level;
-                }
-                return level;
-            },
-            getSecuredIdNo() {
-                let noLength = this.idVerification.identification_no.length;
-                let securedIdNo = this.idVerification.identification_no.substr(0, 2) + '*********' + this.idVerification.identification_no.substr(noLength - 2, 2);
-                return securedIdNo;
-            }
-        },
         methods: {
             onModal(type) {
                 this.showModal = true;
@@ -894,29 +851,6 @@
             getTime(date) {
                 let dateTime = String(date).split(' ');
                 return dateTime[1];
-            },
-            onToggle: function (type) {
-
-                // 결제수단 별 토글버튼 on/off 로직
-                if (type === 'alipay') {
-                    if (this.user.alipay_toggle_use === false) {
-                        this.user.alipay_toggle_use = true;
-                    } else {
-                        this.user.alipay_toggle_use = false;
-                    }
-                } else if (type === 'wechatPay') {
-                    if (this.user.wechat_toggle_use === false) {
-                        this.user.wechat_toggle_use = true;
-                    } else {
-                        this.user.wechat_toggle_use = false;
-                    }
-                } else {
-                    if (this.user.bank_toggle_use === false) {
-                        this.user.bank_toggle_use = true;
-                    } else {
-                        this.user.bank_toggle_use = false;
-                    }
-                }
             },
             onSelection(type) {
                 if (type === 'login') {
@@ -937,9 +871,7 @@
                 } else {
                     this.bank_use = 'y';
                 }
-
                 this.showModal = false;
-
             },
             goChangePassword() {
                 this.$router.push("/changePassword");
