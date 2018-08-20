@@ -35,6 +35,7 @@ import TradeItem from "@/vuex/model/TradeItem";
 import Order from "@/vuex/model/Order";
 import {doesHttpOnlyCookieExist} from "@/common/common";
 import RouterController from "@/vuex/controller/RouterController";
+import TradeFilter from "@/vuex/model/TradeFilter";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -351,17 +352,9 @@ export default {
             selectBoxController.setCurrency('CNY');
             selectBoxController.setPayment('ALL');
         },
-        initFromMainPage(){
-            //tradecenter에서 창 열면 type piece로 생성
-            instance.TradeView.updateSelectPage({type : 'piece',})
-            //page 켜졌을때 default로 생성.
-        },
-        initPiecePage(){
-            //tradecenter에서 창 열면 type piece로 생성
-            tradelistController.updateTradeFilter({type : 'piece',})
-            //default로 초기보여줄 창의 filter들 넣어줌
-            TradeService.tradeView.tradePage({
-                type : 'piece',
+        initPage(isBlock: boolean) {
+            this.setTradeFilter({
+                type : isBlock ? 'block' : 'piece',
                 cryptocurrency : 'bitcoin',
                 tradeType : 'sell',
                 nationality : 'ALL',
@@ -370,56 +363,28 @@ export default {
                 paymentMethods :  '',
                 page :  1,
                 size : 10,
-            }, function (data) {
-                //전체 item 갯수 pagination에 넣어주기.
-                let totalCount = data.totalCount;
-                paginationController.setTotalCount(totalCount);
-
-                //전체 item list model화 시켜 주기
-                let result = data.adList
-                let tradeList: TradeItem[] = [];
-                for(let key in result){
-                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
-                    let itemList: TradeItem = new TradeItem(result[key])
-                    tradeList.push(itemList);
-                }
-                tradelistController.setTradeItems(tradeList);
             })
         },
-        initBlockPage(){
-            //tradecenter에서 창 열면 type block으로 생성
-            tradelistController.updateTradeFilter({type : 'block',})
-            TradeService.tradeView.tradePage({
-                type : 'block',
-                cryptocurrency : 'bitcoin',
-                tradeType : 'sell',
-                nationality : 'ALL',
-                currency :  'CNY',
-                amount :  -1,
-                paymentMethods :  '',
-                page :  1,
-                size : 10,
-            }, function (data) {
-                //전체 item 갯수 pagination에 넣어주기.
-                let totalCount = data.totalCount;
-                paginationController.setTotalCount(totalCount);
-
-                //전체 item list model화 시켜 주기
-                let result = data.adList
-                let tradeList: TradeItem[] = [];
-                for(let key in result){
-                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
-                    let itemList: TradeItem = new TradeItem(result[key])
-                    tradeList.push(itemList);
-                }
-                tradelistController.setTradeItems(tradeList);
-            })
+        setTradeFilter(data) {
+            tradelistController.setTradeFilter(
+                new TradeFilter(data)
+            )
+        },
+        // 리스트 페이지 SET
+        updatePage(data) {
+            //바뀐 data로 filter update해주기.
+            tradelistController.updateTradeFilter(data);
         },
         // 리스트 페이지 SET
         updateSelectPage(data) {
             //바뀐 data로 filter update해주기.
             tradelistController.updateTradeFilter(data);
-            //바뀐 data로 DB에서 item 불러오기
+            this.load(function () {});
+        },
+
+        load(callback: any) {
+            // 변환 로직
+
             TradeService.tradeView.tradePage({
                 type : tradelistController.getTradeFilter().type,
                 cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
@@ -444,9 +409,8 @@ export default {
                     tradeList.push(itemList);
                 }
                 tradelistController.setTradeItems(tradeList);
-
+                callback();
             })
-
         },
         getSelectFilter() {
             return tradelistController.getTradeFilter();

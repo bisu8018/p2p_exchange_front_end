@@ -9,8 +9,6 @@ export default class TradeFilter {
     page : number;
     size : number;
 
-
-
     constructor (data: any) {
         this.type = data.type ||'piece';
         this.nationality = data.nationality || 'ALL';
@@ -21,7 +19,6 @@ export default class TradeFilter {
         this.amount = Number(data.amount) || 0;
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
-
     }
 
     update (data: any){

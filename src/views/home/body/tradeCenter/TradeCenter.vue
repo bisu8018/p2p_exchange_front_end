@@ -39,6 +39,8 @@
             <v-flex><v-divider></v-divider></v-flex>
         </div>
 
+        <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular"/>
+
         <!--본 list들-->
         <div v-if="haveItems">
             <div>
@@ -92,22 +94,41 @@
             tradeLevel : 'low',
             totalcount : 1,
             showNickNameModal : false,
+            showProgress : false,
         }),
         created() {
             let cureentURL = window.location.href
             var param = cureentURL.split('?');
             //default filter값으로 list setting하기.
-            if(this.message == "general"){
-                if(param[1] === 'main'){        //main에서 search로 온 경우일때
-                    MainRepository.TradeView.initFromMainPage();
+            if(this.message === "general"){
+                //main에서 search로 온 경우일때
+                if(param[1] === 'main'){ MainRepository.TradeView.updatePage({type : 'piece',}); }
+                //header에서 온 경우일때
+                else { MainRepository.TradeView.initPage(false); }
+            } //blocktrade로 온 경우일때
+            else { MainRepository.TradeView.initPage(true); }
 
-                }
-                else{                           //header에서 온 경우일때
-                MainRepository.TradeView.initPiecePage();
-                }
-            }else {                             //blocktrade로 온 경우일때
-                MainRepository.TradeView.initBlockPage();
-            }
+            this.showProgress = true;
+            MainRepository.TradeView.load(() => {
+                this.showProgress = false;
+            })
+
+
+            //
+            // let cureentURL = window.location.href
+            // var param = cureentURL.split('?');
+            // //default filter값으로 list setting하기.
+            // if(this.message == "general"){
+            //     if(param[1] === 'main'){        //main에서 search로 온 경우일때
+            //         MainRepository.TradeView.initFromMainPage();
+            //
+            //     }
+            //     else{                           //header에서 온 경우일때
+            //     MainRepository.TradeView.initPiecePage();
+            //     }
+            // }else {                             //blocktrade로 온 경우일때
+            //     MainRepository.TradeView.initBlockPage();
+            // }
         },
         computed: {
             TradeItemLists(){
@@ -133,15 +154,14 @@
             }
         },
         beforeDestroy(){
-            MainRepository.TradeView.initData();
-            if(this.message == "general"){
-                //반대로 blocktrade할 준비를 해줌
-                MainRepository.TradeView.initBlockPage();
-            }else {
-                //반대로 piecetrade할 준비를 해줌
-                MainRepository.TradeView.initPiecePage()
-
-            }
+            // MainRepository.TradeView.initData();
+            // if(this.message == "general"){
+            //     //반대로 blocktrade할 준비를 해줌
+            //     MainRepository.TradeView.initBlockPage();
+            // }else {
+            //     //반대로 piecetrade할 준비를 해줌
+            //     MainRepository.TradeView.initPiecePage()
+            // }
         },
     });
 </script>
