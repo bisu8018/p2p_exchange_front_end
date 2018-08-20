@@ -64,9 +64,10 @@ export default {
                     //  console.log('Status: ' + status);
                     // 401 Error
                     if (status === 401 || status === 502) {
-                        Vue.prototype.$eventBus.$emit('goLogin', status)
+                        // Vue.prototype.$eventBus.$emit('goLogin', status)
                         //Vue.$router.push("/login");
                         //Vue.prototype.$eventBus.$emit('showAlert', status);
+                        window.location.replace(self.getRootUrl() + '/login')
                     } else {
                         failure()
                     }

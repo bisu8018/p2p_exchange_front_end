@@ -296,6 +296,14 @@ export default {
                 accountController.setMyPaymentMethods(_payments);
             })
         },
+        updateMyPamentMethods: function () {
+            let self = this;
+
+
+            self.loadMyPaymentMethods();
+
+        },
+
         getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
         }

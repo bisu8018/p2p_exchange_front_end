@@ -110,7 +110,7 @@
                             </button>
                         </v-flex>
                         <form action="/logout" method="post" ref="logout" @click="onLogout" id="logoutFormMobile">
-                            <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
+                            <v-flex xs12 class="verticalcentertext">
                                 <button class="text-xs-left ml-3">
                                     <div>{{$str("LogOut")}}</div>
                                 </button>
@@ -361,7 +361,6 @@
                     data = "logoutFormDesktop"
                 }
 
-
                 axios({
                     method: 'POST',
                     url: '/logout',
@@ -373,6 +372,9 @@
                     }
                 }).then((response) => {
                     this.$router.push('tradeCenter');
+                }).then(() => {
+                    // always executed
+
                 })
             },
             goSignup() {
