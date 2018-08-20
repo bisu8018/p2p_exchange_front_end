@@ -85,10 +85,10 @@
         },
         computed: {
             isLogin() {
-                if (MainRepository.Login.isLogin()) {
+                if (MainRepository.MyInfo.isLogin()) {
                     MainRepository.router().goMain();
                 }
-                return MainRepository.Login.isLogin();
+                return MainRepository.MyInfo.isLogin();
             }
         },
         methods: {
@@ -141,7 +141,6 @@
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
                    }).then((response) => {
-
                        this.$router.push('tradeCenter');
                    })
 

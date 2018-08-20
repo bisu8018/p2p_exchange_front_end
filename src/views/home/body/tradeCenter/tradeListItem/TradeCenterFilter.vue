@@ -1,5 +1,7 @@
 <template>
   <v-layout mt-5>
+    <div :class="{'layout_dim' : isModal }" @click="onOutsideClick"></div>
+
     <!--left filter-->
       <!-- mobile 일때 -->
       <v-layout row wrap v-if="isMobile" mb-3>
@@ -269,7 +271,8 @@
                 left: 'ETH',
                 center: 'BTC',
                 right: 'ALLB',
-            }
+            },
+            showDim: false,
         }),
         computed: {
             isMobile() {
@@ -338,7 +341,9 @@
                     this.tradeCoin =item;
                     MainRepository.TradeView.setTradeLeftFilter(this.tradeCoin, this.tradeType);
                 }
-
+            },
+            onOutsideClick() {
+              this.isModal = false;
             },
             onTokenClicked(item, tradeType){
                 ///////////setItem
@@ -539,5 +544,14 @@
   }
   .statusChip:hover{
     opacity: 0.8;
+  }
+
+  .layout_dim {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
   }
 </style>

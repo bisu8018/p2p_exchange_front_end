@@ -206,6 +206,7 @@
                 this.$emit('passcallback');
                 document.getElementsByClassName("verify-icon")[0].style.textSize = '16px';
                 document.getElementsByClassName("drag_verify")[0].style.border = '1px solid #316ee4';
+                document.getElementsByClassName("dv_handler")[0].style.outline = '1px solid #316ee4';
                 document.getElementsByClassName('drag_verify')[0].lastChild.children[0].children[0].style.background = '#316ee4'
             }
         },
@@ -239,6 +240,7 @@
         left: 0px;
         width: 40px !important;
         cursor: move;
+        outline: 1px solid #8d8d8d;
     }
 
     .transition-animation {

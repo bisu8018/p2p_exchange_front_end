@@ -128,7 +128,7 @@
             },
             setNickName(){
                 //nickname이 없으면 false, 설정이미 했으면 true
-                return (MainRepository.Login.getUserInfo().nickname !== '')
+                return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             }
         },
         methods: {

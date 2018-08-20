@@ -91,7 +91,7 @@
             onLink() {
                 let self = this;
                 AccountService.Account.checkVerificationCode('phone', {
-                    email: MainRepository.Login.getUserInfo().email,
+                    email: MainRepository.MyInfo.getUserInfo().email,
                     phoneNumber: self.phone_number,
                     code: self.verificationCode,
                     status: 'turn_on'

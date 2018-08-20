@@ -105,14 +105,12 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.setBalances(function () {
-                });
+                self.Balance.setBalances(function () {});
 
                 // 이후 아래 코드로 변경할 것
-                self.Common.setPaymentMethod(function () {
-                });
+                self.Common.setPaymentMethod(function () {});
                 // 객체형으로 관리하도록 변경 필요
-                self.Login.loadMyPaymentMethods();
+                self.MyInfo.loadMyPaymentMethods();
                 callback();
             },
             // 로그인 하지 않음
@@ -132,29 +130,29 @@ export default {
         isMobile(): boolean {
             return stateController.isMoblie();
         },
-        isInitCompleted() {
+        isInitCompleted(){
             return stateController.isInitCompleted();
         },
     },
     Common: {
         setPaymentMethod: function (callback: any) {
             CommonService.info.setPaymentMethod({
-                email: instance.Login.getUserInfo().email
-            }, function (result) {
+                email : instance.Login.getUserInfo().email
+            },function (result) {
                 const paymentMethod_map = {
-                    alipay: {},
-                    wechat: {},
-                    bank: {}
+                    alipay : {},
+                    wechat : {},
+                    bank : {}
                 };
 
                 for (let i = 0; i < result.length; i++) {
                     const paymentMethod_tmp = result[i];
                     let paymentMethod = new PaymentMethod(paymentMethod_tmp);
-                    if (paymentMethod.type === 'alipay') {
+                    if(paymentMethod.type === 'alipay'){
                         paymentMethod_map.alipay = paymentMethod;
-                    } else if (paymentMethod.type === 'wechat') {
+                    }else if(paymentMethod.type === 'wechat'){
                         paymentMethod_map.wechat = paymentMethod;
-                    } else {
+                    }else{
                         paymentMethod_map.bank = paymentMethod;
                     }
                 }
@@ -175,14 +173,14 @@ export default {
                 let balance = new Balance('');
                 const balance_map = {};
 
-                for (let i = 0; i < result.length; i++) {
-                    const balance_tmp = result[i];
-                    balance = new Balance(balance_tmp);
-                    balance_map[balance_tmp.cryptoCurrency] = balance;
-                }
-                balanceController.setBalance(balance_map);
-                callback(balance_map);
-            })
+              for (let i = 0; i < result.length; i++) {
+                  const balance_tmp = result[i];
+                  balance = new Balance(balance_tmp);
+                  balance_map[balance_tmp.cryptoCurrency] = balance;
+              }
+              balanceController.setBalance(balance_map);
+              callback(balance_map);
+          })
         },
         getBalance: function () {
             return balanceController.getBalance();
@@ -191,7 +189,7 @@ export default {
     MyPage: {
         getMemberVerification: function (callback: any) {
             AccountService.Verification.memberVerification({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let email = new EmailVerification('');
                 let phone = new PhoneVerification('');
@@ -209,20 +207,20 @@ export default {
         },
         getIdVerification: function (callback: any) {
             AccountService.Verification.idVerification({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let idVerification = new IdVerification(result);
                 callback(idVerification);
             })
         },
-        setPaymentMethod: function (type: string, data: any, callback: any) {
-            AccountService.Account.addPaymentMethod(type, data, function (result) {
+        setPaymentMethod: function (type: string, data: any, callback: any){
+            AccountService.Account.addPaymentMethod(type,data,function (result) {
                 callback(result);
             })
         },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let blockList = new Block('');
                 const blockList_arr = new Array();
@@ -237,7 +235,7 @@ export default {
         },
         getLoginHistory: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let loginHistory = new LoginHistory('');
                 const loginHistory_arr = new Array();
@@ -252,31 +250,23 @@ export default {
         },
         getSecuritySettings: function (callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let securitySettings = new SecuritySettings('');
                 const securitySettings_arr = new Array();
 
                 for (let i = 0; i < result.length; i++) {
                     const securitySettings_tmp = result[i];
-                    securitySettings = new SecuritySettings(securitySettings_tmp);
+                    securitySettings =  new SecuritySettings(securitySettings_tmp);
                     securitySettings_arr.push(securitySettings);
                 }
                 callback(securitySettings_arr);
             })
         }
     },
-    Login: {
-        // 유저 정보 VUEX 저장
-        setUserInfo(callback: any) {
-            AccountService.Account.getUserInfo(function (result) {
-                let userInfo = new Account(result);
-                accountController.setUserInfo(userInfo);
-                if (AxiosService.DEBUG()) {
-                    console.log(result);
-                }
-                callback();
-            });
+    MyInfo: {
+        controller(): AccountController {
+            return accountController;
         },
         getUserInfo() {
             return accountController.getUserInfo();
@@ -284,11 +274,16 @@ export default {
         isLogin(): boolean {
             return accountController.getUserInfo().isLogin();
         },
+        checkLoginBySession(): boolean {
+            let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
+            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+            return isLogin || isFirefox
+        },
 
         loadMyPaymentMethods: function () {
             CommonService.info.setPaymentMethod({
-                email: this.getUserInfo().email
-            }, function (result) {
+                email : this.getUserInfo().email
+            },function (result) {
                 let _payments: PaymentMethod[] = [];
                 for (let i = 0; i < result.length; i++) {
                     _payments.push(new PaymentMethod(result[i]));
@@ -310,7 +305,7 @@ export default {
     },
     Users: {
         //다른 유저 정보 GET
-        getOtherUsers(email: string, callback: any) {
+        getOtherUsers(email : string, callback: any) {
             AccountService.Account.getOtherUsersInfo({
                 email: email
             }, function (result) {
@@ -319,7 +314,7 @@ export default {
 
             })
         },
-        isUserActive(data: any, callback: any) {
+        isUserActive(data : any, callback: any){
             AccountService.Account.isUserActive(data, function (result) {
                 callback(result);
             })
@@ -342,16 +337,16 @@ export default {
         initData() {
             //filter 초기화
             tradelistController.updateTradeFilter({
-                type: 'piece',
-                cryptocurrency: 'bitcoin',
-                tradeType: 'Buy',
-                nationality: 'ALL',
-                currency: 'CNY',
-                amount: -1,
-                paymentMethods: '',
-                page: 1,
-                size: 10,
-            })
+                type : 'piece',
+                cryptocurrency : 'bitcoin',
+                tradeType : 'Buy',
+                nationality : 'ALL',
+                currency :  'CNY',
+                amount :  -1,
+                paymentMethods :  '',
+                page :  1,
+                size : 10,
+                })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
@@ -362,15 +357,15 @@ export default {
         },
         initPage(isBlock: boolean) {
             this.setTradeFilter({
-                type: isBlock ? 'block' : 'piece',
-                cryptocurrency: 'bitcoin',
-                tradeType: 'sell',
-                nationality: 'ALL',
-                currency: 'CNY',
-                amount: -1,
-                paymentMethods: '',
-                page: 1,
-                size: 10,
+                type : isBlock ? 'block' : 'piece',
+                cryptocurrency : 'bitcoin',
+                tradeType : 'sell',
+                nationality : 'ALL',
+                currency :  'CNY',
+                amount :  -1,
+                paymentMethods :  '',
+                page :  1,
+                size : 10,
             })
         },
         setTradeFilter(data) {
@@ -387,23 +382,22 @@ export default {
         updateSelectPage(data) {
             //바뀐 data로 filter update해주기.
             tradelistController.updateTradeFilter(data);
-            this.load(function () {
-            });
+            this.load(function () {});
         },
 
         load(callback: any) {
             // 변환 로직
 
             TradeService.tradeView.tradePage({
-                type: tradelistController.getTradeFilter().type,
-                cryptocurrency: tradelistController.getTradeFilter().cryptocurrency,
-                tradeType: tradelistController.getTradeFilter().tradeType,
-                nationality: tradelistController.getTradeFilter().nationality,
-                currency: tradelistController.getTradeFilter().currency,
-                amount: tradelistController.getTradeFilter().amount,
-                paymentMethods: tradelistController.getTradeFilter().paymentMethods,
-                page: tradelistController.getTradeFilter().page,
-                size: tradelistController.getTradeFilter().size,
+                type : tradelistController.getTradeFilter().type,
+                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
+                tradeType :   tradelistController.getTradeFilter().tradeType,
+                nationality : tradelistController.getTradeFilter().nationality,
+                currency :  tradelistController.getTradeFilter().currency,
+                amount :  tradelistController.getTradeFilter().amount,
+                paymentMethods :  tradelistController.getTradeFilter().paymentMethods,
+                page :   tradelistController.getTradeFilter().page,
+                size : tradelistController.getTradeFilter().size,
             }, function (data) {
                 //전체 item 갯수 pagination에 넣어주기.
                 let totalCount = data.totalCount;
@@ -412,7 +406,7 @@ export default {
                 //전체 item list model화 시켜 주기
                 let result = data.adList
                 let tradeList: TradeItem[] = [];
-                for (let key in result) {
+                for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
                     tradeList.push(itemList);
