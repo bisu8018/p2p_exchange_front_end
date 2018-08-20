@@ -23,7 +23,6 @@ const actions = {
     [VuexTypes.SET_MY_PAYMENT_METHOD] (context: any, myPaymentMethods: PaymentMethod[]) {
         context.commit(VuexTypes.SET_MY_PAYMENT_METHOD, myPaymentMethods)
     },
-
 };
 
 const getters = {

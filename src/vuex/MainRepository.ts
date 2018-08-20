@@ -108,7 +108,7 @@ export default {
                 // 이후 아래 코드로 변경할 것
                 self.Common.setPaymentMethod(function () {});
                 // 객체형으로 관리하도록 변경 필요
-                self.Login.loadMyPaymentMethods();
+                self.MyInfo.loadMyPaymentMethods();
                 callback();
             },
             // 로그인 하지 않음
@@ -135,7 +135,7 @@ export default {
     Common: {
         setPaymentMethod: function (callback: any) {
             CommonService.info.setPaymentMethod({
-                email : instance.Login.getUserInfo().email
+                email : instance.MyInfo.getUserInfo().email
             },function (result) {
                 const paymentMethod_map = {
                     alipay : {},
@@ -166,7 +166,7 @@ export default {
     Balance: {
         setBalances: function (callback:any) {
           BalanceService.getBalances({
-              email: instance.Login.getUserInfo().email
+              email: instance.MyInfo.getUserInfo().email
           }, function (result) {
               let balance = new Balance('');
               const balance_map = {};
@@ -187,7 +187,7 @@ export default {
     MyPage: {
         getMemberVerification: function (callback: any) {
             AccountService.Verification.memberVerification({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let email = new EmailVerification('');
                 let phone = new PhoneVerification('');
@@ -205,7 +205,7 @@ export default {
         },
         getIdVerification: function (callback: any) {
             AccountService.Verification.idVerification({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let idVerification = new IdVerification(result);
                 callback(idVerification);
@@ -218,7 +218,7 @@ export default {
         },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let blockList = new Block('');
                 const blockList_arr = new Array();
@@ -233,7 +233,7 @@ export default {
         },
         getLoginHistory: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let loginHistory = new LoginHistory('');
                 const loginHistory_arr = new Array();
@@ -248,7 +248,7 @@ export default {
         },
         getSecuritySettings: function (callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
-                email: instance.Login.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 let securitySettings = new SecuritySettings('');
                 const securitySettings_arr = new Array();
@@ -262,17 +262,9 @@ export default {
             })
         }
     },
-    Login: {
-        // 유저 정보 VUEX 저장
-        setUserInfo(callback : any) {
-            AccountService.Account.getUserInfo(function (result) {
-                let userInfo = new Account(result);
-                accountController.setUserInfo(userInfo);
-                if(AxiosService.DEBUG()){
-                    console.log(result);
-                }
-                callback();
-            });
+    MyInfo: {
+        controller(): AccountController {
+            return accountController;
         },
         getUserInfo() {
             return accountController.getUserInfo();
@@ -297,6 +289,14 @@ export default {
                 accountController.setMyPaymentMethods(_payments);
             })
         },
+        updateMyPamentMethods: function () {
+            let self = this;
+
+
+            self.loadMyPaymentMethods();
+
+        },
+
         getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
         }
@@ -527,6 +527,8 @@ export default {
         },
         initPage(){
             this.setFilter({
+            AdService.getMyAds({
+                email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : '',
                 searchEndTime : '',
                 status : '',
@@ -602,7 +604,7 @@ export default {
         },
         initPage(){
             this.setFilter({
-                email : instance.Login.getUserInfo().email,
+                email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : '',
                 searchEndTime : '',
                 status : '',

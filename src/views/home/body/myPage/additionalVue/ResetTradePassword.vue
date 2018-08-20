@@ -113,8 +113,8 @@
                 // AXIOS POST 성공 후
                 let self = this;
                 AccountService.Account.setNickName({
-                    email : MainRepository.Login.getUserInfo().email,
-                    nickName : MainRepository.Login.getUserInfo().nickName,
+                    email : MainRepository.MyInfo.getUserInfo().email,
+                    nickName : MainRepository.MyInfo.getUserInfo().nickName,
                     tradePassword : self.new_password
                 },function (result) {
                     goMyPage();

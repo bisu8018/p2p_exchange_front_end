@@ -87,7 +87,7 @@
                 let self = this;
                 // AXIOS post 작업 진행
                 AccountService.Account.changePassword({
-                    email : MainRepository.Login.getUserInfo().email,
+                    email : MainRepository.MyInfo.getUserInfo().email,
                     password: self.new_password
                 },function (result) {
                     // 성공후 router push

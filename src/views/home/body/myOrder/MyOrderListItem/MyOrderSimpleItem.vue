@@ -13,7 +13,7 @@
                 Please pay - 00:14:32
             </h5>
         </div>
-        <span class="badge">1</span>
+        <span v-if="newMsgNum !== 0" class="badge">{{ newMsgNum }}</span>
     </v-layout>
 </template>
 
@@ -25,6 +25,11 @@
         components: {Avatar},
         props: {
             data: {}
+        },
+        data() {
+          return {
+              newMsgNum: 2,
+          }
         },
         methods: {
             goMyOrder() {

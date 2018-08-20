@@ -23,8 +23,8 @@
             var self = this;
             if (this.me === true) {
                 this.loginColor = '#59D817';
-                this.name = MainRepository.Login.getUserInfo().nickname === '' ? 'A' : MainRepository.Login.getUserInfo().nickname[0];
-                this.bgColor = MainRepository.Login.getUserInfo().bgColor;
+                this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
+                this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
             } else {
                 //유저 정보 GET AXIOS
                 const otherUsersInfo = MainRepository.Users.getOtherUsers();

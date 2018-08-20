@@ -604,7 +604,7 @@
         }),
         created() {
             // 로그인 확인 -> Login 으로
-            if (!MainRepository.Login.isLogin()) {
+            if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
                 return;
             }
@@ -779,7 +779,7 @@
                     fixedPrice: Number(self.fixedPrice),
                     maxLimit: Number(self.maxLimit),
                     minLimit: Number(self.minLimit),
-                    memberNo: MainRepository.Login.getUserInfo().memberNo,
+                    memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
                     nationality: MainRepository.SelectBox.controller().getCountry(),
                     paymentWindow: Number(self.paymentWindow),
                     paymentMethods: paymentMethods,

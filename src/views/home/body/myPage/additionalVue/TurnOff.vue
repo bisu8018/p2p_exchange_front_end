@@ -63,8 +63,8 @@
         data: function () {
             return {
                 type: '',
-                email: MainRepository.Login.getUserInfo().email,
-                phone: MainRepository.Login.getUserInfo().phoneNumber,
+                email: MainRepository.MyInfo.getUserInfo().email,
+                phone: MainRepository.MyInfo.getUserInfo().phoneNumber,
                 emailVerify: false,
                 phoneVerify: false,
                 phoneCode: '',

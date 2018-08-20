@@ -12,8 +12,6 @@ export default class PaymentMethod {
 
     // viewModel
     iconClass: string;
-    viewId: string;
-    viewQrCodeImgUrl: string;
 
     constructor(data: any) {
         this.type = data.type || '';
@@ -27,11 +25,6 @@ export default class PaymentMethod {
         this.alipayId = data.alipayId || '';
         this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl || '';
 
-        this.iconClass = data.iconClass || '';
-        this.viewId = data.viewId || '';
-        this.viewQrCodeImgUrl = data.viewQrCodeImgUrl || '';
-
-
         this.checkViewModel();
     }
 
@@ -39,13 +32,9 @@ export default class PaymentMethod {
         switch (this.type) {
             case 'alipay':
                 this.iconClass = 'ic-alipay';
-                this.viewId = this.alipayId;
-                this.viewQrCodeImgUrl = this.alipayQrCodeImgUrl;
             break;
             case 'wechat':
                 this.iconClass ='ic-wechat';
-                this.viewId = this.wechatId;
-                this.viewQrCodeImgUrl = this.wechatQrCodeImgUrl;
                 break;
             default:
                 this.iconClass ='ic-bank';

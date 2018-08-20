@@ -64,9 +64,10 @@ export default {
                     //  console.log('Status: ' + status);
                     // 401 Error
                     if (status === 401 || status === 502) {
-                        Vue.prototype.$eventBus.$emit('goLogin', status)
+                        // Vue.prototype.$eventBus.$emit('goLogin', status)
                         //Vue.$router.push("/login");
                         //Vue.prototype.$eventBus.$emit('showAlert', status);
+                        window.location.replace(self.getRootUrl() + '/login')
                     } else {
                         failure()
                     }
@@ -100,7 +101,7 @@ export default {
     _requestWithPath: function (url: string, type: string, data: any, success: any, failure: any) {
 
         data = data || {};
-        let path =  {email : MainRepository.Login.getUserInfo().email};
+        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
         let param = qs.stringify(path);
         let _url = url + '?' + param;
         this._request(
@@ -113,7 +114,7 @@ export default {
     },
     _requestWithBodyAndEmail: function (url: string, type: string, data: any, success: any, failure: any) {
         data = data || {};
-        let path =  {email : MainRepository.Login.getUserInfo().email};
+        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
         let param = qs.stringify(path);
         let _url = url + '?' + param;
         this._request(

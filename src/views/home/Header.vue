@@ -15,9 +15,11 @@
                     <v-spacer></v-spacer>
 
                     <!--햄버거 bar-->
-                    <div class="mr-3">
+                    <div class="p-relative mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
+                        <div class="new-msg-dot"></div>
                     </div>
+
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
@@ -88,6 +90,7 @@
                             <button class="text-xs-left ml-3">
                                 <div>{{$str("order")}}</div>
                             </button>
+                            <span class="badge ml-2">3</span>
                         </v-flex>
                         <v-flex xs12 class="verticalcentertext" @click="goBalances()">
                             <button class="text-xs-left ml-3">
@@ -110,7 +113,7 @@
                             </button>
                         </v-flex>
                         <form action="/logout" method="post" ref="logout" @click="onLogout" id="logoutFormMobile">
-                            <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
+                            <v-flex xs12 class="verticalcentertext">
                                 <button class="text-xs-left ml-3">
                                     <div>{{$str("LogOut")}}</div>
                                 </button>
@@ -157,6 +160,8 @@
                     <!-- 로그인시 내정보 버튼 -->
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
 
+                    <span class="badge mr-1">3</span>
+
                     <!--MyOrder-->
                     <div class="dropdown">
                         <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">
@@ -165,24 +170,26 @@
 
                         <!-- ongoing order 드롭다운 -->
                         <div class="dropdown-content myorder-dropdown">
-                            <v-layout pa-3 align-center>
-                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
-                                <v-spacer></v-spacer>
-                                <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
-                                <!--<div class="sprite-img ic-fix color-blue"></div>-->
-                            </v-layout>
-                            <v-divider></v-divider>
-
-                            <!-- ongoing items -->
-                            <div v-for="item in orderList">
-                                <my-order-simple-item
-                                        :data="item"
-                                />
+                            <div class="scroll-space">
+                                <v-layout pa-3 align-center>
+                                    <h3 class="medium">{{$str("Ongoing order")}}</h3>
+                                    <v-spacer></v-spacer>
+                                    <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
+                                    <!--<div class="sprite-img ic-fix color-blue"></div>-->
+                                </v-layout>
                                 <v-divider></v-divider>
-                            </div>
 
-                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
-                                {{$str("View All")}}
+                                <!-- ongoing items -->
+                                <div v-for="item in orderList">
+                                    <my-order-simple-item
+                                            :data="item"
+                                    />
+                                    <v-divider></v-divider>
+                                </div>
+
+                                <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
+                                    {{$str("View All")}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -281,6 +288,7 @@
         abSetLang
     } from "../../config/localization";
     import MainRepository from "../../vuex/MainRepository";
+    import AxiosService from "../../service/AxiosService";
 
     export default Vue.extend({
         name: 'abHeader',
@@ -313,7 +321,7 @@
                 return MainRepository.State.isMobile();
             },
             isLogin() {
-                return MainRepository.Login.getUserInfo().email === '' ? false : true;
+                return MainRepository.MyInfo.isLogin();
             },
             orderList() {
                 return MainRepository.MyOrder.getPage();
@@ -361,7 +369,6 @@
                     data = "logoutFormDesktop"
                 }
 
-
                 axios({
                     method: 'POST',
                     url: '/logout',
@@ -372,7 +379,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded',
                     }
                 }).then((response) => {
-                    this.$router.push('tradeCenter');
+                    window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
                 })
             },
             goSignup() {
@@ -444,8 +451,6 @@
         color: white;
         position: fixed;
         top: 0;
-        overflow: hidden;
-        z-index: 999;
         width: 100%;
     }
 
@@ -509,7 +514,6 @@
         display: none;
         position: fixed;
         color: black;
-        overflow: hidden;
         min-width: 104px;
         box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
         z-index: 1;
@@ -541,31 +545,40 @@
         min-width: 306px;
         z-index: 2;
         top: 56px;
-        right: 50px;
+        right: 18px;
+        max-height: 332px;
+        overflow: visible;
+        position: absolute;
     }
 
     .myorder-dropdown:after{
         content: '';
         position: absolute;
         bottom: 100%;
-        right: 95%;
-        margin-left: -8px;
+        right: 24px;
         width: 0; height: 0;
         border-style: solid;
         border-bottom: 4px solid  #ffffff;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
-        border-color: transparent transparent  #ffffff transparent;
+        border-color: transparent transparent  #ffffff transparent ;
     }
 
-    @media (max-width: 768px) {
-        .myorder-dropdown{
-            right: 10px;
-        }
-        .myorder-dropdown:after{
-            left: 95%;
-            margin-left: -8px;
-        }
+    .scroll-space {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        max-height: 332px;
+    }
+
+    .new-msg-dot {
+        width: 7px;
+        height: 7px;
+        background-color: #e62a2b;
+        border-radius: 20px;
+        position: absolute;
+        top: 1px;
+        left: -8px;
     }
 
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {

@@ -404,7 +404,7 @@
                 //닉네임 및 거래 비밀번호 PUT AXIOS
                 if (type === 'nickName') {
                     AccountService.Account.setNickName({
-                        email: MainRepository.Login.getUserInfo().email,
+                        email: MainRepository.MyInfo.getUserInfo().email,
                         nickname: self.nick_name,
                         tradePassword: self.new_password
                     }, function (result) {
@@ -422,7 +422,7 @@
                         bankAccount: self.bank,
                         bankBranchInfo: self.branchInfo,
                         bankName: self.bankAccount,
-                        memberNo: MainRepository.Login.getUserInfo.member_no,
+                        memberNo: MainRepository.MyInfo.getUserInfo.member_no,
                         ownerName: self.realName,
                         type: paymentType,
                         wechatId: self.wechat,

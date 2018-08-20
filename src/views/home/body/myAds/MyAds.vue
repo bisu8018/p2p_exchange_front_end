@@ -77,7 +77,7 @@
         methods: {},
         created() {
             // 로그인 확인 -> Login 으로
-            if (!MainRepository.Login.isLogin()) {
+            if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
                 return;
             }

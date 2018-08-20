@@ -175,12 +175,14 @@
                 }
             },
             dragFinish: function (e) {
-                this.isAnimation = true;
                 if (this.isMoving && !this.isPassing) {
-                    var _x = (e.pageX || e.changedTouches[0].pageX) - this.x;
+                    let _x = (e.pageX || e.changedTouches[0].pageX) - this.x;
                     if (_x < (this.slidebarWidth - this.slidebarHeight)) {
-                        this.$refs.handler.style.left = '0';
-                        this.$refs.progressBar.style.width = '0';
+                        this.isAnimation = true;
+                        this.$nextTick(() => {
+                            this.$refs.handler.style.left = '0';
+                            this.$refs.progressBar.style.width = '0';
+                        })
                     }
                     this.isMoving = false;
                     this.showDim = false;
@@ -204,6 +206,7 @@
                 this.$emit('passcallback');
                 document.getElementsByClassName("verify-icon")[0].style.textSize = '16px';
                 document.getElementsByClassName("drag_verify")[0].style.border = '1px solid #316ee4';
+                document.getElementsByClassName("dv_handler")[0].style.outline = '1px solid #316ee4';
                 document.getElementsByClassName('drag_verify')[0].lastChild.children[0].children[0].style.background = '#316ee4'
             }
         },
@@ -237,12 +240,13 @@
         left: 0px;
         width: 40px !important;
         cursor: move;
+        outline: 1px solid #8d8d8d;
     }
 
     .transition-animation {
-        -webkit-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
+        -webkit-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
     }
 
     .drag_verify .dv_handler_bg {
@@ -303,7 +307,7 @@
         background: -webkit-gradient(linear,left top,right top,color-stop(0,#4d4d4d),color-stop(.4,#4d4d4d),color-stop(.5,#fff),color-stop(.6,#4d4d4d),color-stop(1,#4d4d4d));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        -webkit-animation: isMove 3s infinite running;
+        -webkit-animation: isMove 4s infinite running;
         -webkit-text-size-adjust: none;
         width: 100%;
         display: inline-block;
@@ -313,10 +317,10 @@
 
     @keyframes isMove {
         0% {
-            background-position: -200px 0;
+            background-position: -100px 0;
         }
         100% {
-            background-position: 200px 0;
+            background-position: 100px 0;
         }
     }
 
