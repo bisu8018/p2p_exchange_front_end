@@ -249,12 +249,13 @@
                 return this.amount - this.fee;
             },
             getBalance() {
-                if ((this.tokenlist.name === 'ETH'&& MainRepository.Balance.getBalance()) ||
-                    (this.tokenlist.name === 'BTC' && MainRepository.Balance.getBalance()) ||
-                    (this.tokenlist.name === 'ALLB' && MainRepository.Balance.getBalance())) {
-                    this.tokenlist.otc = MainRepository.Balance.getBalance()[this.tokenlist.name].availableAmount;
-                    return MainRepository.Balance.getBalance()[this.tokenlist.name].availableAmount;
-                } else {
+                if (this.tokenlist.name === 'BTC'){
+                    return MainRepository.Balance.getBalance()['bitcoin'].availableAmount
+                }
+                else if(this.tokenlist.name === 'ETH'){
+                    return MainRepository.Balance.getBalance()['ethereum'].availableAmount
+                }
+                else {
                     this.balance = 0;
                     return 0;
                 }
@@ -289,7 +290,6 @@
             },
         },
         created(){
-            console.log(MainRepository.Balance.getBalance());
             switch (this.tokenlist.name) {
                 case 'BTC':
                     this.fee = 0.001
