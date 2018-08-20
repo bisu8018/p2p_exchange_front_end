@@ -3,7 +3,7 @@
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
-                Order : #{{orderNo}}
+                Order : #{{getOrderNumber}}
 
             </div>
             <div class="h1 bold color-black text-xs-left mb-3 line-height-1 ">
@@ -275,8 +275,7 @@
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
-            orderNo: 1,
-            adType: 'BUY',
+            orderNo: 0,
             volumeTotal: 0.1,
             token: 'ETH',
             email: 'Charles',
@@ -300,6 +299,17 @@
 
         }),
         created() {
+            //order no GET from url param
+            var url = location.href;
+            var parameters = url.slice(url.indexOf('?') + 1, url.length);
+            if(parameters.substr(0,4) != 'http'){
+                this.orderNo = parameters;
+            }else{
+                //order number 없을 시, 거래소 페이지 이동
+                this.$router.push("tradeCenter");
+            }
+
+
             // 유져 데이터 정보 get
 
             //취소 일경우 props로 판단 및 status 변경
@@ -313,7 +323,22 @@
                 return;
             }
         },
+        computed: {
+          getOrderNumber () {
+              let orderNoDigits = this.orderNo.length;
+              let zeroDigits = 8 - orderNoDigits;
+              let addZero = '';
+              for(let i = 0 ; i < zeroDigits; i++){
+                  addZero += "0"
+              }
+              let temp = addZero + this.orderNo;
+              return temp;
+          }
+        },
         methods: {
+            getOrderData() {
+
+            },
             isMobile() {
                 return MainRepository.State.isMobile();
             },

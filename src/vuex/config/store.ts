@@ -8,6 +8,7 @@ import mytrade from "@/vuex/modules/mytrade";
 import marketPrice from "@/vuex/modules/marketPrice";
 import common from "@/vuex/modules/common";
 import balance from "@/vuex/modules/balance";
+import tradeProcess from "@/vuex/modules/tradeProcess";
 
 
 
@@ -22,7 +23,8 @@ export default {
         mytrade,
         marketPrice,
         common,
-        balance
+        balance,
+        tradeProcess
     },
     strict: true
 }

@@ -20,8 +20,6 @@ export default class Order {
     tradeType : string;
 
 
-
-
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
         this.referenceNo = Number(data.referenceNo) || 0;

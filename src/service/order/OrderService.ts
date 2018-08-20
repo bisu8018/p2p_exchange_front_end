@@ -12,13 +12,24 @@ export default {
             })
     },
     getMyOrder:function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('order/my', 'GET', data ,
+        let email = {
+            email : data.email
+        }
+        AxiosService._requestWithUrlPram(data.orderNo, 'GET', email ,
             function (data: any) {
                 callback(data)
             },
-            function (error) {
-                console.log(error);
+            function () {
                 //실패시 이곳을 탐
             })
     },
+    getOrder: function (data : any, callback: any) {
+        let url = "order/" + data.orderNo;
+        AxiosService._requestWithUrlPram(url, 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    }
 }

@@ -725,15 +725,15 @@ export default {
         transCryptocurrency(cryptocurrency: string){
             switch (cryptocurrency) {
                 case 'BTC':
-                    return 'bitcoin'
+                    return 'bitcoin';
 
                 case 'ETH':
-                    return 'ethereum'
+                    return 'ethereum';
                 case 'ALLB':
-                    return 'allb'
+                    return 'allb';
 
                 default:
-                    return 'bitcoin'
+                    return 'bitcoin';
 
             }
         }
@@ -746,8 +746,14 @@ export default {
             })
         }
     },
+    TradeProcess : {
+      getOrder: function (data : any, callback: any) {
+          OrderService.getOrder(data, function (result) {
+              let tradeProcess = new Order(result);
 
-
+          })
+      }
+    },
     MarketPrice: {
         controller(): MarketPriceController {
             return marketPriceController;
