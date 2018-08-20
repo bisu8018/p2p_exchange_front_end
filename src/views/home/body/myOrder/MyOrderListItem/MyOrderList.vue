@@ -108,7 +108,7 @@
         },
         methods : {
             goUserPage(){
-                let userpage = "/userpage?"+this.orderlist.memberNo;
+                let userpage = "/userpage?"+this.orderlist.merchantMemberNo;
                 this.$router.push(userpage);
             },
             goTrade(){
