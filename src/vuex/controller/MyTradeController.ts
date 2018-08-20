@@ -1,6 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
-import MyAdsFilter from "@/vuex/model/MyAdsFilter";
+import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 import TradeItem from "@/vuex/model/TradeItem";
 import Order from "@/vuex/model/Order";
 import mytrade from "@/vuex/modules/mytrade";
@@ -12,9 +12,13 @@ export default class MyTradeController{
         this.store = vuexStore
     }
 
+    /////////////////MY Ads///////////////
     //item 검색을 위한 filter 정보 설정
     setMyAdsFilter(myAdsFilter : object) {
         this.store.dispatch(VuexTypes.SET_MYADSFILTER_DATA, myAdsFilter);
+    }
+    updateMyAdsFilter(data : object) {
+        this.store.dispatch(VuexTypes.UPDATE_MYADSFILTER_DATA, data);
     }
 
     getMyAdsFilter() {
@@ -26,16 +30,21 @@ export default class MyTradeController{
         this.store.dispatch(VuexTypes.SET_MYADSLIST_DATA, myAdsItems);
     }
 
+
     getMyAdsItems() {
         return this.store.state.mytrade.myAdsItems;
     }
 
-    setMyOrderFilter(myAdsFilter : object) {
-        this.store.dispatch(VuexTypes.SET_MYADSFILTER_DATA, myAdsFilter);
+    /////////////////MY Orders///////////////
+    setMyOrderFilter(myOrderFilter : MyTradeFilter) {
+        this.store.dispatch(VuexTypes.SET_MYORDERFILTER_DATA, myOrderFilter);
+    }
+    updateMyOrderFilter(data : object) {
+        this.store.dispatch(VuexTypes.UPDATE_MYORDERFILTER_DATA, data);
     }
 
     getMyOrderFilter() {
-        return this.store.state.mytrade.myAdsFilter;
+        return this.store.state.mytrade.myOrderFilter;
     }
 
     //10개씩 item 설정
