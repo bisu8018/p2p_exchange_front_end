@@ -161,6 +161,9 @@
                         handler.style.left = (this.slidebarWidth - this.slidebarHeight) - 2 + 'px';
                         this.$refs.progressBar.style.width = (this.slidebarWidth - this.slidebarHeight / 2) + 'px';
                         this.passVerify();
+                    } else if (_x <= 0) {
+                        this.$refs.handler.style.left = '0';
+                        this.$refs.progressBar.style.width = '0';
                     }
                 }
             },
