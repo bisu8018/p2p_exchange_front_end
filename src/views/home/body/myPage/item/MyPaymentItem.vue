@@ -74,14 +74,12 @@ export default Vue.extend({
         onToggle() {
             switch (this.item.type) {
                 case this.type.alipay:
-                    // Server 요청 -> 콜백 -> vuex 바꾸기
-                    return this.$str('alipayText');
+                    break;
 
                 case this.type.wechat:
-                    return this.$str('wechatPay');
-
+                    break;
                 default:
-                    return this.$str('bankAccountText');
+                    break;
             }
         }
     }
