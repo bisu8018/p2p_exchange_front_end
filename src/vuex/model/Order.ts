@@ -1,6 +1,5 @@
 export default class Order {
     adNo : number;
-    email: string;
     amount : number;
     coinCount : number;
     cryptocurrency: string;
@@ -23,7 +22,6 @@ export default class Order {
 
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
-        this.email = data.email;
         this.referenceNo = Number(data.referenceNo) || 0;
         this.adNo = Number(data.adNo) || 0;
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency)
@@ -35,13 +33,13 @@ export default class Order {
         this.price = Number(data.price) || 0;
         this.coinCount = Number(data.coinCount) || 0;
         this.amount = Number(data.amount) || 0;
-        this.getMyPaymentMethodSelectList = data.getMyPaymentMethodSelectList;
+        this.getMyPaymentMethodSelectList = data.getMyPaymentMethodSelectList || '';
         this.memberNo = data.memberNo;
-        this.nickname = data.nickname;
-        this.paymentMethods = data.paymentMethods;
-        this.paymentWindow = data.paymentWindow;
-        this.registerDatetime = data.registerDatetime;
-        this.tradeType = data.tradeType;
+        this.nickname = data.nickname || '';
+        this.paymentMethods = data.paymentMethods || '';
+        this.paymentWindow = data.paymentWindow || '';
+        this.registerDatetime = data.registerDatetime || '';
+        this.tradeType = data.tradeType || '';
 
     }
 

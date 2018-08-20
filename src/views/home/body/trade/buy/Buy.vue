@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 p-relative">
+    <div class="mt-5 mb-5 mr-3 ml-3 p-relative" v-if="init === true">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
@@ -13,8 +13,8 @@
                 {{volumeTotal}}
                 <!--{{token}} 토큰종류-->
                 {{token}}
-                <!--{{email}} 이메일-->
-                <div class="d-inline-block">From {{email}}</div>
+                <!--{{nickname}} 닉네임-->
+                <div class="d-inline-block">From {{nickname}}</div>
             </div>
             <div class="text-xs-left mb-4 line-height-1">
                 <div class="color-black mb-3 ">
@@ -107,15 +107,15 @@
             </v-flex>
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
-                <span v-if="status != 'cancel' && status === 'pending'" class="mb-3">
-                    <!--pending 상태 일때-->
+                <span v-if="status != 'cancel' && status === 'unpaid'" class="mb-3">
+                    <!--unpaid 상태 일때-->
                     {{$str("paymentExplain1")}}
                     <!--{{price}} 가격, {{currency}} 화폐단위-->
                     <span class="color-orange-price">{{price}} {{currency}}</span>
                     {{$str("paymentExplain2")}}
 
-                    <!--{{email}} 이메일-->
-                    {{email}}
+                    <!--{{nickname}} 닉네임-->
+                    {{nickname}}
                     {{$str("paymentExplain3")}}
 
                     <!--{{paymentWindow}} 지불기간-->
@@ -131,8 +131,8 @@
                     <span class="color-orange-price">{{volumeTotal}} {{token}}</span>
                     {{$str("buyingExplain2")}}
 
-                        <!--{{email}} 이메일-->
-                    {{email}}
+                        <!--{{nickname}} 닉네임-->
+                    {{nickname}}
                     {{$str("buyingExplain3")}}
                     </span>
 
@@ -159,14 +159,14 @@
                     </div>
                 </v-flex>
             </v-flex>
-            <!--paid 버튼--><!--pending 상태 일때-->
-            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="status === 'pending'">
+            <!--paid 버튼--><!--unpaid 상태 일때-->
+            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="status === 'unpaid'">
                 <input type="button" class=" btn-blue btn-blue-hover"
                        :value="$str('paidText')" @click="onModal('paid')">
             </v-flex>
             <!--paid 설명-->
             <v-flex xs12 md10 text-md-left vertical-center>
-                <span :class="{'ml-2' : !isMobile()} " v-if="status === 'pending'"
+                <span :class="{'ml-2' : !isMobile()} " v-if="status === 'unpaid'"
                       class="vertical-center mb-4 payment-explain-wrapper color-orange-price h6 line-height-1 text-xs-left pt-2 pb-2 pr-2 pl-2">
                         <i class="material-icons color-orange-price mr-2 ">info</i>
                         {{$str('paymentText')}}
@@ -189,7 +189,7 @@
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
             <v-flex xs12 md12  mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'paid'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
-                <div class="text-xs-left ml-3  ">{{$str('completedPayment')}}
+                <div class="text-xs-left ml-3 ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
                 </div>
             </v-flex>
@@ -238,7 +238,7 @@
 
         <div>
             <!--채팅창-->
-            <chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>
+            <!--<chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>-->
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -276,28 +276,45 @@
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
             orderNo: 0,
-            volumeTotal: 0.1,
-            token: 'ETH',
-            email: 'Charles',
-            price: 3405,
-            currency: 'CNY',
+            volumeTotal: MainRepository.TradeProcess.getOrder().coinCount,
+            token: MainRepository.TradeProcess.getOrder().cryptocurrency,
+            nickname: MainRepository.TradeProcess.getOrder().nickname,
+            price: MainRepository.TradeProcess.getOrder().price,
+            currency: MainRepository.TradeProcess.getOrder().currency,
+            paymentWindow: MainRepository.TradeProcess.getOrder().paymentWindow,
+            reference: MainRepository.TradeProcess.getOrder().referenceNo,
+            merchant_member_no: MainRepository.TradeProcess.getOrder().merchantMemberNo,
+            customer_member_no: MainRepository.TradeProcess.getOrder().customerMemberNo,
+            status: MainRepository.TradeProcess.getOrder().status,     //unpaid -> buying -> paid   그리고   cancel, appeal
+
             alipay: 'Y',
             wechat: 'Y',
             bankAccount: 'Y',
             alipay_address: '8888888888@qq.com 支付宝付款 直接扫码 安全便捷',
             wechatpay_address: 'wwxx8888888888   微信支付直接扫码',
             bankaccount_address: '8888888888  建设银行',
-            paymentWindow: 15,
-            reference: 453534,
-            showModal: false,
-            status: 'pending',     //pending -> buying -> paid   그리고   cancel, appeal
+
             modalType: '',
             appealCode: 977057,
-            transactionNum: 20,
-            merchant_member_no: 0,
-            customer_member_no: 1,
 
+            init : false,
+            showModal: false,
         }),
+        computed: {
+          getOrderNumber () {
+              let orderNoDigits = this.orderNo.length;
+              let zeroDigits = 8 - orderNoDigits;
+              let addZero = '';
+              for(let i = 0 ; i < zeroDigits; i++){
+                  addZero += "0"
+              }
+              let temp = addZero + this.orderNo;
+              return temp;
+          },
+        },
+        beforeCreate() {
+
+        },
         created() {
             //order no GET from url param
             var url = location.href;
@@ -309,8 +326,8 @@
                 this.$router.push("tradeCenter");
             }
 
-
             // 유져 데이터 정보 get
+            this.getOrderData();
 
             //취소 일경우 props로 판단 및 status 변경
             if (this.cancel === 'true') {
@@ -323,33 +340,27 @@
                 return;
             }
         },
-        computed: {
-          getOrderNumber () {
-              let orderNoDigits = this.orderNo.length;
-              let zeroDigits = 8 - orderNoDigits;
-              let addZero = '';
-              for(let i = 0 ; i < zeroDigits; i++){
-                  addZero += "0"
-              }
-              let temp = addZero + this.orderNo;
-              return temp;
-          }
-        },
         methods: {
             getOrderData() {
+                let self= this;
                 MainRepository.TradeProcess.setOrder({
-                  email : MainRepository.Login.getUserInfo().email,
-
+                    email : MainRepository.Login.getUserInfo().email,
+                    orderNo : self.orderNo
                 },function (result) {
-
+                    console.log(MainRepository.TradeProcess.getOrder());
+                    self.init = true;
                 })
             },
             isMobile() {
                 return MainRepository.State.isMobile();
             },
             onPaid() {
-                // pending 구매 전 단계
-                // *************************************post작업
+                let self = this;
+                MainRepository.TradeProcess.onPaid({
+                    orderNo : Number(self.orderNo)
+                },function (result) {
+
+                });
 
                 // buying 구매 중 단계
                 // post 작업 성공시

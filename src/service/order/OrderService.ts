@@ -24,8 +24,18 @@ export default {
             })
     },
     getOrder: function (data : any, callback: any) {
+        // buy/sell process 이용
+        
         let url = "order/" + data.orderNo;
         AxiosService._requestWithUrlPram(url, 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onPaid : function (data : any, callback: any) {
+        AxiosService._requestWithPath('order/paid', 'PUT', data ,
             function (data: any) {
                 callback(data)
             },

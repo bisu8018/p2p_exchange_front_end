@@ -284,11 +284,6 @@ export default {
         isLogin(): boolean {
             return accountController.getUserInfo().isLogin();
         },
-        checkLoginBySession(): boolean {
-            let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
-            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-            return isLogin || isFirefox
-        },
 
         loadMyPaymentMethods: function () {
             CommonService.info.setPaymentMethod({
@@ -733,6 +728,11 @@ export default {
         },
         getOrder: function () {
             return tradeController.getOrder();
+        },
+        onPaid: function (data: any, callback: any) {
+            OrderService.onPaid(data, function (result) {
+                callback(result);
+            })
         }
     },
     MarketPrice: {
