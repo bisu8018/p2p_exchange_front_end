@@ -469,8 +469,7 @@
         color: white;
         position: fixed;
         top: 0;
-        overflow-x: hidden;
-        overflow-y: visible;
+        overflow: hidden;
         z-index: 999;
         width: 100%;
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="avatarWraaper">
-    <span class="mainCircle" v-bind:style="{background: bgColor}" :class="{ blueBg:!me }">
+    <span class="mainCircle" v-bind:style="{background: bgColor}">
       <span class="firstWord">{{name}}</span>
     </span>
     <div class="loginCircle" v-bind:style="{background: loginColor}">
@@ -94,9 +94,5 @@
         border-radius: 100%;
         border: solid 2px #ffffff;
     }
-
-  .blueBg {
-    background-color: #214ea1;
-  }
 
 </style>

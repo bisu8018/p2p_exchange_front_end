@@ -495,22 +495,10 @@ export default {
         getDrawer(){
             return tradelistController.getDrawerID();
         },
-        createOrder(adNo: number, amount: number, coinCount: number, customerMemberNo: number,
-                    merchantMemberNo: number, price: number, tradePassword: string){
-            OrderService.addOrder({
-                email : instance.Login.getUserInfo().email,
-                adNo : adNo,
-                amount :   amount,
-                coinCount : coinCount,
-                customerMemberNo :  customerMemberNo,
-                merchantMemberNo :  merchantMemberNo,
-                price : price,
-                status : "unpaid",
-                tradePassword : tradePassword,
-            }, function (data) {
-                return true;
+        createOrder: function (data : any, callback: any) {
+            OrderService.addOrder(data, function (result) {
+                callback(result);
             })
-
         },
 
     },
@@ -672,7 +660,6 @@ export default {
 
                 //전체 item list model화 시켜 주기
                 let result = data.ordersList
-                console.log(result);
                 let myOrderList: Order[] = [];
                 for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
@@ -700,7 +687,7 @@ export default {
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        setFilter( start_date: string, end_date: string, status: string, orderNo: number, coinType: string,
+        setFilter( start_date: string, end_date: string, status: string, orderNo: number, cryptocurrency: string,
                     orderType: string, tradeType: string, currency: string,){
             OrderService.getMyOrder({
                 email : instance.Login.getUserInfo().email,
@@ -708,7 +695,7 @@ export default {
                 searchEndTime : end_date,
                 status : status,
                 orderNo : orderNo,
-                cryptocurrency : coinType,
+                cryptocurrency : this.transCryptocurrency(cryptocurrency),
                 orderType : orderType,
                 tradeType : tradeType,
                 currency : currency,
@@ -735,6 +722,21 @@ export default {
         getPage(){
             return myTradeController.getMyOrderItems();
         },
+        transCryptocurrency(cryptocurrency: string){
+            switch (cryptocurrency) {
+                case 'BTC':
+                    return 'bitcoin'
+
+                case 'ETH':
+                    return 'ethereum'
+                case 'ALLB':
+                    return 'allb'
+
+                default:
+                    return 'bitcoin'
+
+            }
+        }
 
     },
     AD : {
