@@ -288,6 +288,7 @@
         abSetLang
     } from "../../config/localization";
     import MainRepository from "../../vuex/MainRepository";
+    import AxiosService from "../../service/AxiosService";
 
     export default Vue.extend({
         name: 'abHeader',
@@ -378,10 +379,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded',
                     }
                 }).then((response) => {
-                    this.$router.push('tradeCenter');
-                }).then(() => {
-                    // always executed
-
+                    window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
                 })
             },
             goSignup() {
