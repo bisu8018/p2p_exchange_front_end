@@ -1,7 +1,7 @@
 <template>
     <v-layout class="my-order-simple_wrapper" row @click="goTradePage">
         <!--avatar-->
-        <avatar></avatar>
+        <avatar :email='data.email'></avatar>
         <!-- merchant 정보-->
         <div class="ml-3">
             <h5 class="color-darkgray">
@@ -70,5 +70,16 @@
     .my-order-simple_wrapper .badge {
         position: absolute;
         right: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .my-order-simple_wrapper {
+            padding: 24px 0;
+            position: relative;
+        }
+
+        .my-order-simple_wrapper .badge {
+            right: 0;
+        }
     }
 </style>
