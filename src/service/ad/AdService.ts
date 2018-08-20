@@ -30,6 +30,26 @@ export default {
                 //실패시 여기로옴
                 })
         },
+        // 다른 유저의 과거 정보 get
+        getUserPageHistoryInfo: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('order/member/stats', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                    //실패시 여기로
+                })
+        },
+        // 다른 유저가 올린 AdsList get
+        getUserPageAdsList: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('ad/member', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                    //실패시 여기로
+                })
+        },
 
 
 }
