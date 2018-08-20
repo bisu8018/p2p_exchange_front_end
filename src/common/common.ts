@@ -87,3 +87,54 @@ export function doesHttpOnlyCookieExist(cookiename : string) {
         return false;
     }
 }
+
+export function findCountryName(code: string) {
+    switch (code) {
+        case 'ALL': return 'All countries';
+        case 'CN': return 'China';
+        case 'SG': return 'Singapore';
+        case 'India': return 'IN';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+        case 'CN': return 'China';
+    }
+}
+// countries: [
+//     {country: 'All countries', code: 'ALL'},
+//     {country: 'China', code: 'CN'},
+//     {country: 'Singapore', code: 'SG'},
+//     {country: 'India', code: 'IN'},
+//     {country: 'Vietnam', code: 'VN'},
+//     {country: 'Canada', code: 'CA'},
+//     {country: 'Australia', code: 'AU'},
+//     {country: 'Korea', code: 'KR'},
+//     {country: 'Switzerland', code: 'CH'},
+//     {country: 'Netherlands', code: 'NL'},
+//     {country: 'Taiwan', code: 'TW'},
+//     {country: 'Russia', code: 'RU'},
+//     {country: 'United Kingdom', code: 'UK'},
+//     {country: 'Hong Kong(china)', code: 'HK'},
+//     {country: 'Nigeria', code: 'NG'},
+//     {country: 'Indonesia', code: 'ID'},
+//     {country: 'Philippines', code: 'PH'},
+//     {country: 'Cambodia', code: 'KH'}
+// ],
+
+export function findPaymentName(code: string) {
+    switch (code) {
+        case 'ALL': return 'All Payments';
+        case 'bankaccount': return 'Bank Account';
+        case 'alipay': return 'Alipay';
+        case 'wechat': return 'Wechat';
+    }
+}
+
