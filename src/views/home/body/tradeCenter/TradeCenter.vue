@@ -39,10 +39,10 @@
             <v-flex><v-divider></v-divider></v-flex>
         </div>
 
-        <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular"/>
+        <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
 
         <!--본 list들-->
-        <div v-if="haveItems">
+        <div v-if="haveItems && !showProgress">
             <div>
                 <!-- user item list들 10개씩 출력-->
                 <div v-for="user in TradeItemLists"  >
@@ -61,7 +61,7 @@
             </div>
         </div>
         <!--해당되는 item이 1개도 없을때-->
-        <div v-else>
+        <div v-else-if="!showProgress">
             <div class="sprite-img ic-no-ad-lg no-more-ads">
             </div>
             <div class="color-gray no-more-ads-text">
@@ -98,7 +98,7 @@
         }),
         created() {
             let cureentURL = window.location.href
-            var param = cureentURL.split('?');
+            let param = cureentURL.split('?');
             //default filter값으로 list setting하기.
             if(this.message === "general"){
                 //main에서 search로 온 경우일때
@@ -112,23 +112,6 @@
             MainRepository.TradeView.load(() => {
                 this.showProgress = false;
             })
-
-
-            //
-            // let cureentURL = window.location.href
-            // var param = cureentURL.split('?');
-            // //default filter값으로 list setting하기.
-            // if(this.message == "general"){
-            //     if(param[1] === 'main'){        //main에서 search로 온 경우일때
-            //         MainRepository.TradeView.initFromMainPage();
-            //
-            //     }
-            //     else{                           //header에서 온 경우일때
-            //     MainRepository.TradeView.initPiecePage();
-            //     }
-            // }else {                             //blocktrade로 온 경우일때
-            //     MainRepository.TradeView.initBlockPage();
-            // }
         },
         computed: {
             TradeItemLists(){
@@ -152,16 +135,6 @@
             closeNicknameModal(){
              this.showNickNameModal = false;
             }
-        },
-        beforeDestroy(){
-            // MainRepository.TradeView.initData();
-            // if(this.message == "general"){
-            //     //반대로 blocktrade할 준비를 해줌
-            //     MainRepository.TradeView.initBlockPage();
-            // }else {
-            //     //반대로 piecetrade할 준비를 해줌
-            //     MainRepository.TradeView.initPiecePage()
-            // }
         },
     });
 </script>
@@ -202,6 +175,10 @@
         .no-more-ads{
             margin: 48px auto 16px auto;
         }
+    }
+
+    .list_progress {
+        margin-top: 80px;
     }
 
 </style>
