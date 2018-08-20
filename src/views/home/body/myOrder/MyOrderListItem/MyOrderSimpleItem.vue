@@ -81,5 +81,9 @@
         .my-order-simple_wrapper .badge {
             right: 0;
         }
+
+        .my-order-simple_wrapper:hover {
+            background-color: unset;
+        }
     }
 </style>
