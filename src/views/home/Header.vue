@@ -15,9 +15,11 @@
                     <v-spacer></v-spacer>
 
                     <!--햄버거 bar-->
-                    <div class="mr-3">
+                    <div class="p-relative mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
+                        <div class="new-msg-dot"></div>
                     </div>
+
                 </v-layout>
 
                 <!-- navigation drawer 열렸을 시 나오는 menu bar-->
@@ -88,6 +90,7 @@
                             <button class="text-xs-left ml-3">
                                 <div>{{$str("order")}}</div>
                             </button>
+                            <span class="badge ml-2">3</span>
                         </v-flex>
                         <v-flex xs12 class="verticalcentertext" @click="goBalances()">
                             <button class="text-xs-left ml-3">
@@ -156,6 +159,8 @@
 
                     <!-- 로그인시 내정보 버튼 -->
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
+
+                    <span class="badge mr-1">3</span>
 
                     <!--MyOrder-->
                     <div class="dropdown">
@@ -446,7 +451,6 @@
         color: white;
         position: fixed;
         top: 0;
-        z-index: 999;
         width: 100%;
     }
 
@@ -566,6 +570,17 @@
         position: relative;
         max-height: 332px;
     }
+
+    .new-msg-dot {
+        width: 7px;
+        height: 7px;
+        background-color: #e62a2b;
+        border-radius: 20px;
+        position: absolute;
+        top: 1px;
+        left: -8px;
+    }
+
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
         display: block;
       }
