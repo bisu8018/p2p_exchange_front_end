@@ -559,7 +559,6 @@
             counterpartyCheckbox_third: false,
             tradePassword: "",
             agreeTerms: false,
-            memberNo: '',
             adType: "piece",
 
 
@@ -662,7 +661,7 @@
             },
             getCryptoCurrency() {
                 if (this.cryptocurrency === 'bitcoin') {
-                    return 'BIT'
+                    return 'BTC'
                 } else if (this.cryptocurrency === 'ethereum') {
                     return 'ETH'
                 } else {
@@ -670,10 +669,15 @@
                 }
             },
             getBalance() {
-                if ((this.cryptocurrency === 'ethereum'&& MainRepository.Balance.getBalance()) || (this.cryptocurrency === 'bitcoin' && MainRepository.Balance.getBalance())) {
-                    this.balance = MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
-                    return MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
-                } else {
+                if(Object.keys(MainRepository.Balance.getBalance()).length > 0){
+                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin' ) {
+                        this.balance = MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
+                        return MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
+                    } else {
+                        this.balance = 0;
+                        return 0;
+                    }
+                }else {
                     this.balance = 0;
                     return 0;
                 }
@@ -749,6 +753,7 @@
                 this.onPost();
             },
             onPost: function () {
+                let self = this;
                 //결제수단 토글 object 화
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
@@ -764,32 +769,32 @@
                 var paymentMethods = JSON.stringify(paymentMethodsArr);
 
                 MainRepository.AD.postAD({
-                    autoReplay: this.autoReplay,
-                    counterpartyFilterTradeCount: this.counterpartyFilterTradeCount,
-                    counterpartyFilterAdvancedVerificationYn: this.counterpartyCheckbox_first,
-                    counterpartyFilterDoNotOtherMerchantsYn: this.counterpartyCheckbox_second,
-                    counterpartyFilterMobileVerificationYn: this.counterpartyCheckbox_third,
-                    cryptocurrency: this.cryptocurrency,
+                    autoReplay: self.autoReplay,
+                    counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
+                    counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
+                    counterpartyFilterDoNotOtherMerchantsYn: self.counterpartyCheckbox_second,
+                    counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_third,
+                    cryptocurrency: self.cryptocurrency,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
-                    fixedPrice: Number(this.fixedPrice),
-                    maxLimit: Number(this.maxLimit),
-                    minLimit: Number(this.minLimit),
-                    memberNo: Number(this.memberNo),
+                    fixedPrice: Number(self.fixedPrice),
+                    maxLimit: Number(self.maxLimit),
+                    minLimit: Number(self.minLimit),
+                    memberNo: MainRepository.Login.getUserInfo().memberNo,
                     nationality: MainRepository.SelectBox.controller().getCountry(),
-                    paymentWindow: Number(this.paymentWindow),
+                    paymentWindow: Number(self.paymentWindow),
                     paymentMethods: paymentMethods,
-                    priceType: this.priceType,
-                    termsAgreeYn: this.agreeTerms,
-                    termsOfTransaction: this.termsOfTransaction,
-                    tradePassword: this.tradePassword,
-                    tradeType: this.tradeType,
-                    type: this.adType,
-                    volume: Number(this.volume),
+                    priceType: self.priceType,
+                    termsAgreeYn: self.agreeTerms,
+                    termsOfTransaction: self.termsOfTransaction,
+                    tradePassword: self.tradePassword,
+                    tradeType: self.tradeType,
+                    type: self.adType,
+                    volume: Number(self.volume),
                     status: 'enable',
-                    volumeAvailable: Number(this.volume),
+                    volumeAvailable: Number(self.volume),
                 }, function (result) {
                     MainRepository.Balance.setBalances(function (result) {
-                        this.$router.push("/tradeCenter");
+                        self.$router.push("tradeCenter");
                     });
                 })
             },

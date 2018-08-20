@@ -1,15 +1,16 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
+import Balance from '../model/Balance'
 
 
 const mutations = {
-    [VuexTypes.SET_BALANCE_DATA] (state: any, balance: any) {
+    [VuexTypes.SET_BALANCE_DATA](state: any, balance: any) {
         state.getBalance = balance;
     },
 };
 
 
 const actions = {
-    [VuexTypes.SET_BALANCE_DATA] (context: any, balance: any) {
+    [VuexTypes.SET_BALANCE_DATA](context: any, balance: any) {
         context.commit(VuexTypes.SET_BALANCE_DATA, balance)
     },
 
@@ -18,9 +19,10 @@ const actions = {
 const getters = {
 };
 
-let getBalance = '';
+let getBalance = {
+};
 
-const state= {
+const state = {
     getBalance: getBalance,
 };
 export default {
