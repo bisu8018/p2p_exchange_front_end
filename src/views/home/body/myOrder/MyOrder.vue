@@ -5,7 +5,7 @@
             <v-flex mt-2 xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
             <v-spacer></v-spacer>
             <v-flex xs12 md10 >
-                <my-order-filter class="myOrderFilter"></my-order-filter>
+                <my-order-filter></my-order-filter>
             </v-flex>
         </v-layout>
         <div v-if="!isMobile">
