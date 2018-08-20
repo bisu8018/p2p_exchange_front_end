@@ -876,6 +876,10 @@
         display: none;
     }
 
+    .mobile-hide {
+        display: none;
+    }
+
     .d-grid {
         display: grid;
     }
@@ -894,6 +898,7 @@
 
     .d-inline-block {
         display: inline-block;
+        vertical-align: middle;
     }
 
     .d-inherit {

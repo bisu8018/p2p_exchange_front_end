@@ -402,6 +402,63 @@
             </div>
 
             <!-- #################  5. History ################# -->
+            <div class="section-border pb-4">
+
+                <!-- Header -->
+                <div class="otherInfo-header history-header">
+                    <h4>{{$str('history')}}</h4>
+                    <div class="history-tab_wrapper">
+                        <h5 class="color-darkgray mr-4" v-bind:class="{'active-history' : selection_login}"
+                            @click="onSelection('login')">
+                            {{$str('loginText')}}
+                        </h5>
+                        <v-divider class="d-inline-block" inset vertical />
+                        <h5 class="color-darkgray ml-4" v-bind:class="{'active-history' : selection_security}"
+                            @click="onSelection('security')">
+                            {{$str('securitySettings')}}
+                        </h5>
+                    </div>
+                </div>
+
+                <!-- 로그인 선택 시 -->
+                <div v-if=" selection_login  && tempLogin != ''">
+
+                    <!-- menu -->
+                    <div class="history-login mobile-hide">
+                        <div>
+                            {{$str('date')}}
+                        </div>
+                        <div>
+                            {{$str('Type')}}
+                        </div>
+                        <div>
+                            IP
+                        </div>
+                        <div>
+                            {{$str('status')}}
+                        </div>
+                    </div>
+
+                    <!-- 내용 -->
+                    <div v-for="data in tempLogin">
+                        <div class="history-login history-login-detail">
+                            <div>
+                                <span class="label-mobile-history">{{$str('date')}}: </span> {{data.register_datetime}}
+                            </div>
+                            <div>
+                                <span class="label-mobile-history">{{$str('Type')}}: </span> {{data.type}}
+                            </div>
+                            <div>
+                                <span class="label-mobile-history">IP: </span> {{data.ip}}
+                            </div>
+                            <div>
+                                <span class="label-mobile-history">{{$str('status')}}: </span> {{data.status === 'success' ? $str('successful') : $str('failed')}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
 
@@ -444,6 +501,20 @@
             blockList: '',
             loginHistory: '',
             securitySettings: '',
+            tempLogin: [
+                {
+                    register_datetime : '00:00:00',
+                    type: 'web',
+                    ip: '000.000.000.000',
+                    status: 'successful'
+                },
+                {
+                    register_datetime : '00:00:00',
+                    type: 'web',
+                    ip: '000.000.000.000',
+                    status: 'successful'
+                }
+            ],
         }),
         computed: {
             isMobile() {
@@ -941,6 +1012,83 @@
 
     .selection-border-security {
         border-radius: 0 22px 22px 0;
+    }
+
+    .history-header {
+        border-bottom: none;
+    }
+
+    .history-tab_wrapper {
+        padding-top: 18px;
+    }
+
+    .history-tab_wrapper h5 {
+        display: inline-block;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    .history-login {
+        display: flex;
+        color: #9294a6;
+        border-bottom: 1px solid #d1d1d1;
+        padding-bottom: 8px;
+    }
+
+    .history-login-detail{
+        color: #353535;
+        padding: 26px 0;
+        border-bottom: 1px solid #d1d1d1;
+    }
+
+    .history-login > div:nth-of-type(1) {
+        width: 30%;
+    }
+
+    .history-login > div:nth-of-type(2) {
+        width: 25%;
+    }
+
+    .history-login > div:nth-of-type(3) {
+        width: 25%;
+    }
+
+    .history-login > div:nth-of-type(4) {
+        width: 20%;
+        text-align: right;
+    }
+
+    .label-mobile-history {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-hide {
+            overflow: hidden;
+            display: block;
+            height: 1px;
+            background-color: #d1d1d1;
+            padding: 0;
+        }
+
+        .label-mobile-history {
+            color: #9294a6;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .history-login-detail{
+           display: block;
+        }
+
+        .history-login > div:nth-of-type(1),
+        .history-login > div:nth-of-type(2),
+        .history-login > div:nth-of-type(3),
+        .history-login > div:nth-of-type(4) {
+            width: 100%;
+            text-align: left;
+            padding: 8px 0;
+        }
     }
 
 
