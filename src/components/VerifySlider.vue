@@ -1,5 +1,10 @@
 <template>
     <v-layout id="verify_wrapper">
+        <div :class="{'verify_dim' : showDim}"
+             @mousemove="dragMoving"
+             @mouseup="dragFinish"
+             @touchmove="dragMoving"
+             @touchend="dragFinish"></div>
         <div class="drag_verify"
              :style="dragVerifyStyle"
              @mousemove="dragMoving"
@@ -15,6 +20,7 @@
                 </i>
             </div>
         </div>
+
     </v-layout>
 </template>
 
@@ -32,7 +38,8 @@
                 slidebarHeight: 40,
                 vIcon: "keyboard_arrow_right",
                 text: Vue.prototype.$str("verifySliderPlaceholder"),
-                successText: Vue.prototype.$str("verifySliderSuccess")
+                successText: Vue.prototype.$str("verifySliderSuccess"),
+                showDim: false,
             }
         },
         props: {
@@ -137,6 +144,7 @@
             },
             dragStart: function (e) {
                 if (!this.isPassing) {
+                    this.showDim = true;
                     this.isMoving = true;
                     var handler = this.$refs.handler;
                     this.x = (e.pageX || e.touches[0].pageX) - parseInt(handler.style.left.replace('px', ''), 10);
@@ -164,10 +172,12 @@
                         this.$refs.progressBar.style.width = '0';
                     }
                     this.isMoving = false;
+                    this.showDim = false;
                 }
             },
             //Verify Completed Bar
             passVerify: function () {
+                this.showDim = false;
                 this.isPassing = true;
                 this.isMoving = false;
                 this.vIcon = "check";
@@ -199,6 +209,7 @@
         letter-spacing: 0;
         border-radius: 2px !important;
         overflow: hidden;
+        z-index: 1;
     }
 
     .drag_verify .dv_handler {
@@ -258,5 +269,13 @@
         font-weight: 100;
         left: 9px;
         top: 9px;
+    }
+
+    .verify_dim {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
 </style>
