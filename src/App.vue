@@ -291,6 +291,7 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #353535;
+        font-weight: 400;
     }
 
     /*placeholder CSS 설정*/
