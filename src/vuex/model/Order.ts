@@ -20,7 +20,7 @@ export default class Order {
     paymentWindow : string;
     price : number;
     referenceNo : number;
-    registerDatetime : number;
+    registerDatetime : object;
     status : string;
     tradeType : string;
 
@@ -44,15 +44,15 @@ export default class Order {
         this.amount = Number(data.amount) || 0;
         this.getMyPaymentMethodSelectList = data.getMyPaymentMethodSelectList;
         this.memberNo = data.memberNo;
-        this.nickname = data.nickname;
-        this.paymentMethods = data.paymentMethods;
+        this.nickname = data.nickname || '';
+        this.paymentMethods = data.paymentMethods || '';
         this.filteredPaymentMethod = [];
         for(let key in data.filteredPaymentMethod) {
             this.filteredPaymentMethod.push(new PaymentMethod(data.filteredPaymentMethod[key]));
         }
-        this.paymentWindow = data.paymentWindow;
-        this.registerDatetime = data.registerDatetime;
-        this.tradeType = data.tradeType;
+        this.paymentWindow = data.paymentWindow || '';
+        this.registerDatetime = data.registerDatetime || '';
+        this.tradeType = data.tradeType || '';
 
     }
 

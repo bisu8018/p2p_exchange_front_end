@@ -12,12 +12,61 @@ export default {
             })
     },
     getMyOrder:function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('order/my', 'GET', data ,
+        let _email = {
+            email : data.email
+        };
+        AxiosService._requestWithUrlPram(data.orderNo, 'GET', _email ,
             function (data: any) {
                 callback(data)
             },
-            function (error) {
+            function () {
                 //실패시 이곳을 탐
             })
     },
+    getOrder: function (data : any, callback: any) {
+        // buy/sell process 이용
+        
+        let url = "order/" + data.orderNo;
+        AxiosService._requestWithUrlPram(url, 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onPaid : function (data : any, callback: any) {
+        let url = 'order/' + data + '/paid';
+        AxiosService._requestWithPath(url, 'PUT', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onCancel : function (data : any, callback: any) {
+        AxiosService._requestWithPath('order/cancel', 'PUT', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onAppeal : function (data : any, callback: any) {
+        AxiosService._requestWithPath('order/appeal', 'PUT', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onConfirm : function (data : any, callback: any) {
+        let url = 'order/' + data + '/paid';
+        AxiosService._requestWithPath('order/appeal', 'PUT', data,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    }
+
 }

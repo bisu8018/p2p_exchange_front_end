@@ -1,9 +1,9 @@
 <template>
-    <div class="mt-5 mb-5 p-relative">
+    <div class="mt-5 mb-5 mr-3 ml-3 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
-                Order : #{{orderNumber}}
+                Order : #{{getOrderNumber}}
 
             </div>
             <div class="h1 bold color-black text-xs-left mb-3 line-height-1 ">
@@ -38,71 +38,16 @@
             </div>
         </v-layout>
         <v-layout wrap row v-if="status != 'cancel'" :class="{'mb-4' : isMobile()}">
-            <!--알리페이 결제-->
-            <v-flex xs6 md2 mb-3 v-if="alipay === 'Y'">
-                <div class="text-xs-left vertical-center">
-                    <img src="@/assets/img/method_alipay.png">
-                    <span class="ml-2 color-darkgray">
-                        {{$str("alipayText")}}
-                    </span>
-                </div>
-            </v-flex>
-            <!--알리페이 정보-->
-            <v-flex xs6 md4 mb-3 v-if="alipay === 'Y'">
-                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                    {{alipay_address}}
-                </div>
-            </v-flex>
-            <!--알리페이 QR코드-->
-            <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="alipay === 'Y'">
-                <label @click="onQRcode('alipay')" class="c-pointer vertical-center d-block">
-                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                    <div class="d-inline-block color-black h6"> QR Code</div>
-                </label>
-            </v-flex>
-            <!--위챗페이 결제-->
-            <v-flex xs6 md2 mb-3 v-if="wechat === 'Y'">
-                <div class="text-xs-left vertical-center ">
-                    <img src="@/assets/img/method_wechatpay.png">
-                    <span class="ml-2 color-darkgray">
-                        {{$str("wechatPayText")}}
-                    </span>
-                </div>
-            </v-flex>
-            <!--위챗페이정보-->
-            <v-flex xs6 md4 mb-3 v-if="wechat === 'Y'">
-                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                    {{wechatpay_address}}
-                </div>
-            </v-flex>
-            <!--위챗페이 QR코드-->
-            <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
-                <label @click="onQRcode('wechat')" class="c-pointer  d-block">
-                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                    <div class="d-inline-block color-black h6"> QR Code</div>
-                </label>
-            </v-flex>
-            <!--은행 계좌 결제-->
-            <v-flex xs6 md2 mb-3 v-if="bankAccount === 'Y'">
-                <div class="text-xs-left vertical-center">
-                    <img src="@/assets/img/method_bankaccount.png">
-                    <span class="ml-2 color-darkgray">
-                        {{$str("bankAccountText")}}
-                    </span>
-                </div>
-            </v-flex>
-            <!--은행계좌 정보-->
-            <v-flex xs6 md10 mb-3 v-if="bankAccount === 'Y'">
-                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                    {{bankaccount_address}}
-                </div>
-            </v-flex>
+            <div v-for="item in paymentMethods">
+                <trade-item :item="item"></trade-item>
+            </div>
+
         </v-layout>
 
 
         <div class="h4 bold color-black text-xs-left mb-4 line-height-1">
-            <!--paying 상태 일때-->
-            <div class="mb-2" v-if="status === 'paying'">
+            <!--unpaid 상태 일때-->
+            <div class="mb-2" v-if="status === 'unpaid'">
                 {{$str("payingExplain1")}}
                 {{email}}
                 {{$str("payingExplain2")}}
@@ -114,7 +59,7 @@
             </div>
 
             <!--confirm 상태 일때-->
-            <div class="mb-2" v-if="status === 'confirm'">
+            <div class="mb-2" v-if="status === 'paid'">
                 {{$str("confirmgExplain1")}}
                 {{email}}
                 {{$str("confirmgExplain2")}}
@@ -123,14 +68,14 @@
 
             </div>
             <div>
-                <span v-if="status === 'paying'">
-                    {{$str("buyingExplain4")}}
+                <span v-if="status === 'unpaid' || status === 'paid' ">
+                    {{$str("referenceText")}}
                 </span>
                 <span v-if="status === 'complete'">
                     {{$str("complete")}},
                 </span>
 
-                 :
+                :
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy()">
                     <!--{{거래번호}}-->
@@ -142,10 +87,10 @@
             </div>
         </div>
 
-        <!--paying process indicator (paying 상태 일때) -->
+        <!--unpaid process indicator (unpaid 상태 일때) -->
         <v-flex xs12 mb-4 v-if="status != 'complete'">
             <v-flex md3>
-            <span v-if="status === 'paying'" class="p-relative">
+            <span v-if="status === 'unpaid'" class="p-relative">
                 <input type="text" class="buying-process"
                        :value="$str('buyingIndicator')"
                        readonly>
@@ -154,14 +99,14 @@
             </span>
             </v-flex>
         </v-flex>
-        <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="status === 'confirm'">
+        <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="status === 'paid'">
             <!--거래 성사 버튼 (confirm 상태 일때) -->
             <input type="button" class="btn-blue btn-blue-hover mb-4"
                    :value="$str('confirmRelease')" @click="onModal('confirm')">
         </v-flex>
 
         <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
-        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-else>
+        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="tatus === 'complete'">
             <div><i class="material-icons check-icon">check_circle</i></div>
         </div>
         <!--데스크탑 환경에서 설명-->
@@ -178,7 +123,7 @@
         </v-flex>
         <div>
             <!--채팅창-->
-            <chat :email="email" :member_no = "member_no" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>
+            <!--<chat :email="email" :member_no = "member_no" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>-->
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -194,10 +139,10 @@
             </p>
         </div>
 
-        <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="status === 'confirm'">
+        <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="status === 'paid'">
             <!--거래 성사 버튼 (confirm 상태 일때) -->
-                    <input class="text-white-hover btn-rounded-white h5" type="button"
-                           :value="$str('appeal')" @click="onModal('appeal')">
+            <input class="text-white-hover btn-rounded-white h5" type="button"
+                   :value="$str('appeal')" @click="onModal('appeal')">
         </v-flex>
 
         <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"></sell-modal>
@@ -208,8 +153,8 @@
     import Vue from 'vue';
     import SellModal from './sellModal/SellModal.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
-    import Chat from "@/components/Chat.vue"
-
+    import Chat from "@/components/Chat.vue";
+    import TradeItem from "../item/TradeItem"
 
     export default Vue.extend({
         name: 'sell',
@@ -218,73 +163,57 @@
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
-            orderNumber: 115294828805587,
-            adType: 'SELL',
-            volumeTotal: 0.1,
-            token: 'ETH',
-            email: 'Charles',
-            price: 3405,
-            currency: 'CNY',
+            orderNo: 0,
+            volumeTotal: MainRepository.TradeProcess.getOrder().coinCount,
+            token: MainRepository.TradeProcess.getOrder().cryptocurrency,
+            nickname: MainRepository.TradeProcess.getOrder().nickname,
+            price: MainRepository.TradeProcess.getOrder().price,
+            currency: MainRepository.TradeProcess.getOrder().currency,
+            paymentWindow: MainRepository.TradeProcess.getOrder().paymentWindow,
+            reference: MainRepository.TradeProcess.getOrder().referenceNo,
+            merchant_member_no: MainRepository.TradeProcess.getOrder().merchantMemberNo,
+            customer_member_no: MainRepository.TradeProcess.getOrder().customerMemberNo,
+            status: MainRepository.TradeProcess.getOrder().status,    //unpaid -> paid -> complete  cancel, apeal
+            paymentMethods: MainRepository.TradeProcess.getOrder().paymentMethods,
+
             alipay: 'Y',
             wechat: 'Y',
             bankAccount: 'Y',
-            alipay_address: '88888888@qq.com 支付宝付款 直接扫码 安全便捷',
-            wechatpay_address: 'wwxx88888888   微信支付直接扫码',
-            bankaccount_address: '8888888888888888  建设银行',
-            paymentWindow: 15,
-            reference: 453534,
-            showModal: false,
-            status: 'paying',     //paying -> confirm -> complete  cancel, apeal
+            alipay_address: '8888888888@qq.com 支付宝付款 直接扫码 安全便捷',
+            wechatpay_address: 'wwxx8888888888   微信支付直接扫码',
+            bankaccount_address: '8888888888  建设银行',
+
             modalType: '',
             appealCode: 977057,
-            isLogin: true,
-            color: '#13b0cb',
-            transactionNum: 20,
-            merchant_member_no: 0,
-            member_no : 1,
-            message: [{
-                email : 'Charles',
-                color: '#13b0cb',
-                isLogin: true,
-                message_no: 0,
-                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
-                message_img_url: '',
-                register_member_no: 0,
-                register_datetime: '2018-07-30 13:00:00',
-            }, {
-                isLogin: true,
-                color: '#13b0cb',
-                email : 'Charles',
-                message_no: 1,
-                message: 'test1234',
-                message_img_url: '',
-                register_member_no: 0,
-                register_datetime: '2018-07-30 13:01:00',
-            }, {
-                isLogin: false,
-                color: 'red',
-                email : 'Max',
-                message_no: 2,
-                message: 'thank you!',
-                message_img_url: '',
-                register_member_no: 1,
-                register_datetime: '2018-07-30 13:10:00',
-            }, {
-                isLogin: true,
-                color: '#13b0cb',
-                email : 'Charles',
-                message_no: 3,
-                message: '你好 ~~ 单在 ~~人在 ~~请用~ 你好 ~~ 单在 ~~人在 ~~请用~',
-                message_img_url: '',
-                register_member_no: 0,
-                register_datetime: '2018-07-30 13:12:00',
-            },
-            ]
 
+            showModal : false,
 
         }),
+        computed: {
+            getOrderNumber() {
+                let orderNoDigits = this.orderNo.length;
+                let zeroDigits = 8 - orderNoDigits;
+                let addZero = '';
+                for (let i = 0; i < zeroDigits; i++) {
+                    addZero += "0"
+                }
+                let temp = addZero + this.orderNo;
+                return temp;
+            },
+        },
         created() {
+            //order no GET from url param
+            var url = location.href;
+            var parameters = url.slice(url.indexOf('?') + 1, url.length);
+            if (parameters.substr(0, 4) != 'http') {
+                this.orderNo = parameters;
+            } else {
+                //order number 없을 시, 거래소 페이지 이동
+                this.$router.push("tradeCenter");
+            }
+
             // 유져 데이터 정보 get
+            this.getOrderData();
 
             //취소 일경우 props로 판단 및 status 변경
             if (this.cancel === 'true') {
@@ -298,10 +227,28 @@
             }
         },
         methods: {
+            getOrderData() {
+                let self = this;
+                MainRepository.TradeProcess.setOrder({
+                    email: MainRepository.MyInfo.getUserInfo().email,
+                    orderNo: self.orderNo
+                }, function (result) {
+                    console.log(MainRepository.TradeProcess.getOrder());
+                    //self.init = true;
+                })
+            },
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-            onConfirm() {
+            onConfirm(pw) {
+                let self = this;
+                MainRepository.TradeProcess.onConfirm({
+                    email: MainRepository.MyInfo.getUserInfo().email,
+                    orderNo: self.orderNo,
+                    tradePassword: pw
+                }, function (result) {
+
+                });
                 // confirm
                 // post 작업 성공시
                 this.status = 'complete';
@@ -390,7 +337,7 @@
         margin: -7px;
     }
 
-    .tooltips .tooltip-content {
+    .tooltip-content {
         font-weight: 100;
     }
 

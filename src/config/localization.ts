@@ -162,7 +162,7 @@ const strings = new Map([
             HK: '還沒有帳戶嗎？'
     }],
     ['verify', {
-        KOR: '인증',
+        KOR: '인증하기',
         ENG: 'Verify',
         CN: '验证',
         HK: '驗證'
@@ -1912,7 +1912,7 @@ const strings = new Map([
         HK: '無記錄'
     }],
     ['modify', {
-        KOR: '수정',
+        KOR: '수정하기',
         ENG: 'Modify',
         CN: '修改',
         HK: '修改'
@@ -2020,7 +2020,7 @@ const strings = new Map([
         HK: '失敗'
     }],
     ['changePhone', {
-        KOR: '수정',
+        KOR: '수정하기',
         ENG: 'Change',
         CN: '更改',
         HK: '更改'

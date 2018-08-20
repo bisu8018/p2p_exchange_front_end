@@ -804,7 +804,9 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
-                MainRepository.Common.setPaymentMethod(function (result) {
+                MainRepository.Common.setPaymentMethod({
+                    email : MainRepository.MyInfo.getUserInfo().email
+                },function (result) {
                 })
             },
             onToggle: function (type) {

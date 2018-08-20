@@ -10,7 +10,8 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function () {
+                function (code) {
+                    AxiosService.showErrorPopup(code)
                 })
         },
         // 인증코드 전송
@@ -31,7 +32,8 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function () {
+                function (code) {
+                    AxiosService.showErrorPopup(code)
                 })
         },
         // 인증코드 검증
@@ -48,7 +50,8 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function () {
+                function (code) {
+                    AxiosService.showErrorPopup(code)
                 })
         },
         // 로그인 체크
@@ -60,6 +63,7 @@ export default {
                 headers: {
                     'Content-Type': 'application/json',
                 }
+
             })
                 .then((response) => {
                     if (response.data.code === 0) {
@@ -104,7 +108,8 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () {
+                function (code) {
+                    AxiosService.showErrorPopup(code)
                 })
         },
         //결제수단 설정

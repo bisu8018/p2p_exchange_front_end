@@ -36,6 +36,7 @@ import Order from "@/vuex/model/Order";
 import {doesHttpOnlyCookieExist} from "@/common/common";
 import RouterController from "@/vuex/controller/RouterController";
 import TradeFilter from "@/vuex/model/TradeFilter";
+import TradeController from "@/vuex/controller/TradeController";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 
 let myTradeController : MyTradeController;
@@ -49,6 +50,7 @@ let marketPriceController: MarketPriceController;
 let commonController: CommonController;
 let balanceController: BalanceController;
 let routerController: RouterController;
+let tradeController: TradeController;
 
 let store: Store<any>;
 let instance: any;
@@ -66,6 +68,7 @@ export default {
         myTradeController = new MyTradeController(store);
         commonController = new CommonController(store);
         balanceController = new BalanceController(store);
+        tradeController = new TradeController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -105,8 +108,6 @@ export default {
 
                 self.Balance.setBalances(function () {});
 
-                // 이후 아래 코드로 변경할 것
-                self.Common.setPaymentMethod(function () {});
                 // 객체형으로 관리하도록 변경 필요
                 self.MyInfo.loadMyPaymentMethods();
                 callback();
@@ -133,7 +134,8 @@ export default {
         },
     },
     Common: {
-        setPaymentMethod: function (callback: any) {
+        //sell/buy 프로세스 상대방 결제수단 정보 get
+        setPaymentMethod: function (data: any, callback: any) {
             CommonService.info.setPaymentMethod({
                 email : instance.MyInfo.getUserInfo().email
             },function (result) {
@@ -709,8 +711,38 @@ export default {
             })
         }
     },
-
-
+    TradeProcess: {
+        setOrder: function (data: any, callback: any) {
+            OrderService.getOrder(data, function (result) {
+                let tradeProcess = new Order(result);
+                tradeController.setOrder(tradeProcess);
+                callback();
+            })
+        },
+        getOrder: function () {
+            return tradeController.getOrder();
+        },
+        onPaid: function (data: any, callback: any) {
+            OrderService.onPaid(data, function (result) {
+                callback(result);
+            })
+        },
+        onCancel: function (data: any, callback: any) {
+            OrderService.onCancel(data, function (result) {
+                callback(result);
+            })
+        },
+        onAppeal: function (data: any, callback: any) {
+            OrderService.onAppeal(data, function (result) {
+                callback(result);
+            })
+        },
+        onConfirm: function (data: any, callback: any) {
+            OrderService.onAppeal(data, function (result) {
+                callback(result);
+            })
+        }
+    },
     MarketPrice: {
         controller(): MarketPriceController {
             return marketPriceController;
