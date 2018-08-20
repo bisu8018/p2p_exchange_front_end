@@ -11,8 +11,7 @@
         <div v-if="!isMobile">
             <v-layout mb-2 color-darkgray row wrap>
                 <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
-                <v-flex md1 text-md-left>{{$str("orderType")}}</v-flex>
-                <v-flex md1 text-md-left>{{$str("volume")}}</v-flex>
+                <v-flex md2 text-md-left>{{$str("orderType")}}</v-flex>
                 <v-flex md2 text-md-left>{{$str("amount")}}</v-flex>
                 <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
                 <v-flex md3 text-md-left>{{$str("time")}}</v-flex>

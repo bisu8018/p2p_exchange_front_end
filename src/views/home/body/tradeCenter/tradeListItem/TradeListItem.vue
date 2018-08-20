@@ -594,7 +594,7 @@
 
                 } else if (type === 'fromValue') {
                     let tempTovalue = this.fromValue * this.user.fixedPrice;
-                    if (tempTovalue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
+                    if (tempTovalue > this.user.maxLimit) {
                         this.verify_warning_fromValue = Vue.prototype.$str("Enter less than maximum limit");
                         this.warning_fromValue = true;
                         return false;
@@ -617,26 +617,35 @@
 
             },
             goTrade() {
+                let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
-                    let res = MainRepository.TradeView.createOrder(
-                        this.user.adNo,                           //adNo
-                        this.toValue,                             //amount
-                        this.fromValue,                           //coinCount
-                        MainRepository.Login.getUserInfo().memberNo,//customerMemberNo
-                        this.user.memberNo,                       //merchantMemberNo
-                        this.user.fixedPrice,                     //price
-                        this.tradePW                              //tradePassword
-                    );
-                    switch (this.user.tradeType) {
-                        case 'Buy':
-                            this.$router.push("/buy");
-                            break;
+                    MainRepository.TradeView.createOrder({
+                            email : MainRepository.Login.getUserInfo().email,
+                            adNo : this.user.adNo,
+                            amount :   this.toValue,
+                            coinCount : this.fromValue,
+                            customerMemberNo :  MainRepository.Login.getUserInfo().memberNo,
+                            merchantMemberNo :  this.user.memberNo,
+                            price : this.user.fixedPrice,
+                            status : "unpaid",
+                            tradePassword : this.tradePW,
+                    }, function (result) {
+                        let tradePage;
+                        switch (instance.user.tradeType) {
+                            case 'Buy':
+                                tradePage = "/buy?"+result
+                                instance.$router.push(tradePage);
+                                break;
 
-                        case 'Sell':
-                            this.$router.push("/sell");
-                            break;
+                            case 'Sell':
+                                tradePage = "/sell?"+orderNo
+                                instance.$router.push(tradePage);
+                                break;
 
-                    }
+                        }
+
+                    });
+
                 }
             },
             //trade modal에서 input에서 All 버튼 누를때

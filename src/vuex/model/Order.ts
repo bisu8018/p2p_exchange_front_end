@@ -3,6 +3,7 @@ export default class Order {
     amount : number;
     coinCount : number;
     cryptocurrency: string;
+    currency : string;
     customerMemberNo : number;
     fileContent: string;
     getMyPaymentMethodSelectList : string;
@@ -26,9 +27,10 @@ export default class Order {
         this.referenceNo = Number(data.referenceNo) || 0;
         this.adNo = Number(data.adNo) || 0;
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency)
+        this.fileContent = data.fileContent;
         this.merchantMemberNo = Number(data.merchantMemberNo) || 0;
         this.customerMemberNo = Number(data.customerMemberNo) || 0;
-        this.fileContent = data.fileContent;
+        this.currency = data.currency;
         this.status = data.status || '';
         this.price = Number(data.price) || 0;
         this.coinCount = Number(data.coinCount) || 0;

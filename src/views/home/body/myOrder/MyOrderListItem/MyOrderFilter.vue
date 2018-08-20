@@ -93,7 +93,7 @@
                         <select v-model="modal_coinType" class="comp-selectbox h6">
                             <option value="BTC">BTC</option>
                             <option value="ETH">ETH</option>
-                            <option value="USDT">USDT</option>
+                            <option value="ALLB">ALLB</option>
                         </select>
                         <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                     </div>
@@ -282,18 +282,26 @@
                 if(type === 'date'){
                     this.start_date = '';
                     this.end_date = '';
+                    this.modal_start_date = "";
+                    this.modal_end_date = "";
                 }else if(type === 'orderStatus'){
                     this.orderStatus = '';
+                    this.modal_orderStatus = "";
                 }else if(type === 'orderNo'){
                     this.orderNo = '';
+                    this.modal_orderNo = "";
                 }else if(type === 'coinType'){
                     this.coinType = '';
+                    this.modal_coinType = "";
                 }else if(type === 'orderType'){
                     this.orderType = '';
+                    this.modal_orderType = "";
                 }else if(type === 'tradeType'){
                     this.tradeType = '';
+                    this.modal_tradeType = "";
                 }else if(type === 'currency'){
                     this.currency = '';
+                    this.modal_currency = "";
                 }
                 MainRepository.MyOrder.setFilter(this.start_date, this.end_date, this.orderStatus, this.orderNo,
                     this.coinType,  this.orderType, this.tradeType, this.currency)
