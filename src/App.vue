@@ -394,8 +394,8 @@
     }
 
 
-    .nav {
-        z-index: 101 !important;
+    .application .nav {
+        z-index: 999 !important;
     }
 
     /*폰트 색깔*/

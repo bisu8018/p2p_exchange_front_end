@@ -165,24 +165,26 @@
 
                         <!-- ongoing order 드롭다운 -->
                         <div class="dropdown-content myorder-dropdown">
-                            <v-layout pa-3 align-center>
-                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
-                                <v-spacer></v-spacer>
-                                <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
-                                <!--<div class="sprite-img ic-fix color-blue"></div>-->
-                            </v-layout>
-                            <v-divider></v-divider>
-
-                            <!-- ongoing items -->
-                            <div v-for="item in orderList">
-                                <my-order-simple-item
-                                        :data="item"
-                                />
+                            <div class="scroll-space">
+                                <v-layout pa-3 align-center>
+                                    <h3 class="medium">{{$str("Ongoing order")}}</h3>
+                                    <v-spacer></v-spacer>
+                                    <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
+                                    <!--<div class="sprite-img ic-fix color-blue"></div>-->
+                                </v-layout>
                                 <v-divider></v-divider>
-                            </div>
 
-                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
-                                {{$str("View All")}}
+                                <!-- ongoing items -->
+                                <div v-for="item in orderList">
+                                    <my-order-simple-item
+                                            :data="item"
+                                    />
+                                    <v-divider></v-divider>
+                                </div>
+
+                                <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
+                                    {{$str("View All")}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -444,7 +446,6 @@
         color: white;
         position: fixed;
         top: 0;
-        overflow: hidden;
         z-index: 999;
         width: 100%;
     }
@@ -509,7 +510,6 @@
         display: none;
         position: fixed;
         color: black;
-        overflow: hidden;
         min-width: 104px;
         box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
         z-index: 1;
@@ -541,33 +541,31 @@
         min-width: 306px;
         z-index: 2;
         top: 56px;
-        right: 50px;
+        right: 18px;
+        max-height: 332px;
+        overflow: visible;
+        position: absolute;
     }
 
     .myorder-dropdown:after{
         content: '';
         position: absolute;
         bottom: 100%;
-        right: 95%;
-        margin-left: -8px;
+        right: 24px;
         width: 0; height: 0;
         border-style: solid;
         border-bottom: 4px solid  #ffffff;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
-        border-color: transparent transparent  #ffffff transparent;
+        border-color: transparent transparent  #ffffff transparent ;
     }
 
-    @media (max-width: 768px) {
-        .myorder-dropdown{
-            right: 10px;
-        }
-        .myorder-dropdown:after{
-            left: 95%;
-            margin-left: -8px;
-        }
+    .scroll-space {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        max-height: 332px;
     }
-
     /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
         display: block;
       }

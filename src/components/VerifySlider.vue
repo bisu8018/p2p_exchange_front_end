@@ -240,9 +240,9 @@
     }
 
     .transition-animation {
-        -webkit-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
+        -webkit-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
     }
 
     .drag_verify .dv_handler_bg {
@@ -303,7 +303,7 @@
         background: -webkit-gradient(linear,left top,right top,color-stop(0,#4d4d4d),color-stop(.4,#4d4d4d),color-stop(.5,#fff),color-stop(.6,#4d4d4d),color-stop(1,#4d4d4d));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        -webkit-animation: isMove 3s infinite running;
+        -webkit-animation: isMove 4s infinite running;
         -webkit-text-size-adjust: none;
         width: 100%;
         display: inline-block;
@@ -313,10 +313,10 @@
 
     @keyframes isMove {
         0% {
-            background-position: -200px 0;
+            background-position: -100px 0;
         }
         100% {
-            background-position: 200px 0;
+            background-position: 100px 0;
         }
     }
 
