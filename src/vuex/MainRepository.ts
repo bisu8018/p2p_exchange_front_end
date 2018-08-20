@@ -262,16 +262,8 @@ export default {
         }
     },
     MyInfo: {
-        // 유저 정보 VUEX 저장
-        setUserInfo(callback : any) {
-            AccountService.Account.getUserInfo(function (result) {
-                let userInfo = new Account(result);
-                accountController.setUserInfo(userInfo);
-                if(AxiosService.DEBUG()){
-                    console.log(result);
-                }
-                callback();
-            });
+        controller(): AccountController {
+            return accountController;
         },
         getUserInfo() {
             return accountController.getUserInfo();
