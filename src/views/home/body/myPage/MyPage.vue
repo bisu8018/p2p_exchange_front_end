@@ -36,7 +36,7 @@
         <!-- 우측 세부 정보 -->
         <div class="otherInfo-wrapper">
 
-            <!-- 1. Account & Security -->
+            <!-- ############## 1. Account & Security ############## -->
             <div class="section-border">
 
                 <!-- Header -->
@@ -63,7 +63,7 @@
                     </li>
 
                     <!-- 내용 -->
-                    <li>
+                    <li class="caption-wrapper">
                         <span class="color-black" v-if="!emailVerification.isNull()">{{$str('bound')}}</span>
                         <span class="color-darkgray" v-else>{{$str('unbound')}}</span>
                         <span class="caption pl-4"> *{{$str('emailSecurityExplain')}}</span>
@@ -96,7 +96,7 @@
                     </li>
 
                     <!-- 내용 -->
-                    <li>
+                    <li class="caption-wrapper">
                         <span class="color-black" v-if="!phoneVerification.isNull()">{{$str('bound')}}</span>
                         <span class="color-darkgray" v-else>{{$str('unbound')}}</span>
                         <span class="caption pl-4"> *{{$str('phoneSecurityExplain')}}</span>
@@ -135,7 +135,7 @@
                     </li>
 
                     <!-- 내용 -->
-                    <li>
+                    <li class="caption-wrapper">
                         <span class="color-black">{{emailVerification.email}}</span>
                     </li>
                     <li></li>
@@ -150,7 +150,7 @@
                     </li>
 
                     <!-- 내용 -->
-                    <li>
+                    <li class="caption-wrapper">
                         <span class="color-black">{{member_no}}</span>
                     </li>
                     <li></li>
@@ -165,7 +165,7 @@
                     </li>
 
                     <!-- 내용 -->
-                    <li>
+                    <li class="caption-wrapper">
                         <span class="color-black">******</span>
                     </li>
 
@@ -186,7 +186,7 @@
                     </li>
 
                     <!-- 내용 -->
-                    <li>
+                    <li class="caption-wrapper">
                         <span class="color-black">******</span>
                     </li>
 
@@ -199,13 +199,181 @@
                 </ul>
             </div>
 
-            <!-- 2. ID Verification -->
+            <!--  ############## 2. ID Verification ##############  -->
+            <div class="section-border">
 
-            <!-- 3. Payment Methods -->
+                <!-- Header -->
+                <div class="otherInfo-header">
+                    <h4>{{$str('idVerification')}}</h4>
+                    <div class="header-detail">
+                        <p class="caption mt-3">{{$str('idVerificationExplain')}}</p>
+                    </div>
+                </div>
 
-            <!-- 4. Block List -->
+                <!-- Body -->
+                <!-- 1. ID Verification -->
+                <ul class="otherInfo-body">
+                    <!-- 아이콘, 서브타이틀 -->
+                    <li class="otherInfo-subtitle">
+                        <div class="sprite-img ic-id"></div>
+                        <p>{{$str('idVerification')}}</p>
+                    </li>
 
-            <!-- 5. History -->
+                    <!-- 내용 -->
+                    <li class="caption-wrapper">
+                        <span class="color-darkgray" v-if="!idVerification.isNull()">
+                            {{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}
+                        </span>
+                        <span class="color-darkgray" v-else>
+                            {{$str('unverified')}}
+                        </span>
+                    </li>
+
+                    <!-- 버튼, 토글 등 -->
+                    <li class="btn-wrapper">
+                        <span v-if="!idVerification.isNull() && idVerification.identification_no != undefined">
+                            {{$str('verifySliderSuccess')}}
+                        </span>
+                        <span v-else>
+                            <a>{{$str('verify')}}</a>
+                        </span>
+                    </li>
+                </ul>
+
+                <!-- 2. Advanced Verification -->
+                <ul class="otherInfo-body">
+                    <!-- 아이콘, 서브타이틀 -->
+                    <li class="otherInfo-subtitle">
+                        <div class="sprite-img ic-advanced"></div>
+                        <p>{{$str('advancedVerification')}}</p>
+                    </li>
+
+                    <!-- 내용 -->
+                    <li class="caption-wrapper">
+                        <span class="color-darkgray">
+                            {{$str('unverified')}}
+                        </span>
+                    </li>
+
+                    <!-- 버튼, 토글 등 -->
+                    <li class="btn-wrapper">
+                        <span v-if="!idVerification.isNull() && idVerification.identification_no != undefined">
+                            {{$str('verifySliderSuccess')}}
+                        </span>
+                        <span v-else>
+                            <a>{{$str('verify')}}</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ############### 3. Payment Methods ############### -->
+            <div class="section-border">
+
+                <!-- Header -->
+                <div class="otherInfo-header">
+                    <h4>{{$str('paymentMethod')}}</h4>
+                    <div class="header-detail">
+                        <p class="caption mt-3">{{$str('paymentMethodExplain')}}</p>
+                    </div>
+                </div>
+
+                <!-- Body : isEmpty -->
+                <div class="ta-center py-3" v-if="paymentMethod === ''">
+                    <p class="pt-2 pb-3 color-darkgray">{{$str('nullPaymentMethod')}}</p>
+                    <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
+                </div>
+
+                <!-- Body : !isEmpty -->
+                <div v-else>
+
+                    <!-- 1. Alipay -->
+                    <ul v-if="paymentMethod.alipay" class="otherInfo-body">
+                        <!-- 아이콘, 서브타이틀 -->
+                        <li class="otherInfo-subtitle">
+                            <div class="sprite-img ic-alipay"></div>
+                            <p>{{$str('alipayText')}}</p>
+                        </li>
+
+                        <!-- 내용 -->
+                        <li class="caption-wrapper">
+                            <span class="color-darkgray">
+                                {{paymentMethod.alipay.id}} {{paymentMethod.alipay.owner_name}} {{paymentMethod.alipay.alipay_id}}
+                            </span>
+                        </li>
+
+                        <!-- 버튼, 토글 등 -->
+                        <li class="btn-wrapper">
+                            <span>
+                                <a>{{$str('modify')}}</a>
+                                <toggle @click="onToggle('alipay')"
+                                        :toggle="paymentMethod.alipay.active_yn"
+                                        class="ml-3 c-pointer" />
+                            </span>
+                        </li>
+                    </ul>
+
+                    <!-- 2. Wechatpay -->
+                    <ul v-if="paymentMethod.wechat" class="otherInfo-body">
+                        <!-- 아이콘, 서브타이틀 -->
+                        <li class="otherInfo-subtitle">
+                            <div class="sprite-img ic-wechatpay"></div>
+                            <p>{{$str('wechatPayText')}}</p>
+                        </li>
+
+                        <!-- 내용 -->
+                        <li class="caption-wrapper">
+                            <span class="color-darkgray">
+                                {{paymentMethod.wechat.id}} {{paymentMethod.wechat.owner_name}} {{paymentMethod.wechat.wechat_id}}
+                            </span>
+                        </li>
+
+                        <!-- 버튼, 토글 등 -->
+                        <li class="btn-wrapper">
+                            <span>
+                                <a>{{$str('modify')}}</a>
+                                <toggle @click="onToggle('wechatPay')"
+                                        :toggle="paymentMethod.wechat.active_yn"
+                                        class="ml-3 c-pointer" />
+                            </span>
+                        </li>
+                    </ul>
+
+                    <!-- 3. 은행계좌 -->
+                    <ul class="otherInfo-body" v-if="paymentMethod.bank">
+                        <!-- 아이콘, 서브타이틀 -->
+                        <li class="otherInfo-subtitle">
+                            <div class="sprite-img ic-bank"></div>
+                            <p>{{$str('bankAccountText')}}</p>
+                        </li>
+
+                        <!-- 내용 -->
+                        <li class="caption-wrapper">
+                            <span class="color-darkgray">
+                                {{paymentMethod.bank_account}} {{paymentMethod.bank.owner_name}} {{paymentMethod.bank_name}} {{paymentMethod.bank_branch_info}}
+                            </span>
+                        </li>
+
+                        <!-- 버튼, 토글 등 -->
+                        <li class="btn-wrapper">
+                            <span>
+                                <a>{{$str('modify')}}</a>
+                                <toggle @click="onToggle('bankAccount')"
+                                        :toggle="paymentMethod.bank.active_yn"
+                                        class="ml-3 c-pointer" />
+                            </span>
+                        </li>
+                    </ul>
+
+                    <div class="ta-center py-3">
+                        <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ###############  4. Block List ###############  -->
+
+            <!-- #################  5. History ################# -->
         </div>
 
 
@@ -1224,6 +1392,7 @@
         -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
         padding: 0 24px;
+        margin-bottom: 48px;
     }
 
     .otherInfo-wrapper ul,
@@ -1255,11 +1424,14 @@
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
-        width: 60%;
     }
 
     ul > li:first-child {
         width: 30%;
+    }
+
+    ul .caption-wrapper {
+        width: 60%;
     }
 
     ul > li:last-child {
@@ -1319,29 +1491,71 @@
         ul > li {
             display: block;
             width: 100%;
-            padding-left: 40px;
         }
 
         ul > li:first-child {
             width: 100%;
             margin-bottom: 12px;
-            padding: 0;
         }
 
         ul > li:last-child {
-            position: absolute;
-            top: 32px;
-            right: 0;
-            padding: 0;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        ul .caption-wrapper {
+            width: 100%;
+            padding-left: 40px;
         }
 
         ul > li:last-child span {
             display: block;
-            margin-bottom: 8px;
         }
 
         .btn-wrapper span {
             display: block;
+        }
+
+        .mypage-wrapper a {
+            font-size: 12px;
+            letter-spacing: 0;
+            text-align: center;
+            background-color: #214ea1 !important;
+            color: #fff !important;
+            line-height: 1;
+            padding: 10px 14px;
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transition: all 0.1s ease-out;
+            -o-transition: all 0.1s ease-out;
+            transition: all 0.1s ease-out;
+            border-radius: 4px;
+            margin: 0 0 0 8px;
+        }
+
+        .mypage-wrapper .a-txt {
+            font-size: 12px;
+            letter-spacing: 0;
+            text-align: center;
+            color: #214ea1 !important;
+            background-color: #fff !important;
+            line-height: 1;
+            padding: 10px 14px;
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transition: all 0.1s ease-out;
+            -o-transition: all 0.1s ease-out;
+            transition: all 0.1s ease-out;
+            border-radius: 4px;
+            margin: 0 0 0 8px;
+        }
+
+        .mypage-wrapper a:hover {
+            opacity: .6;
+        }
+
+        .mypage-wrapper .py-3:hover {
+            opacity: 1;
         }
     }
 
