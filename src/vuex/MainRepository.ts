@@ -527,7 +527,6 @@ export default {
         },
         initPage(){
             this.setFilter({
-            AdService.getMyAds({
                 email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : '',
                 searchEndTime : '',
@@ -561,7 +560,7 @@ export default {
         },
         load(){
             AdService.getMyAds({
-                email : instance.Login.getUserInfo().email,
+                email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyAdsFilter().searchStartTime,
                 searchEndTime : myTradeController.getMyAdsFilter().searchEndTime,
                 status : myTradeController.getMyAdsFilter().status,
@@ -620,7 +619,7 @@ export default {
         },
         load(){
             OrderService.getMyOrder({
-                email : instance.Login.getUserInfo().email,
+                email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
                 searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
                 status : myTradeController.getMyOrderFilter().status,

@@ -27,7 +27,6 @@ export default class MyTradeFilter {
         this.currency = data.currency || '';
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
-        console.log(data);
     }
 
     update (data: any){
@@ -43,7 +42,7 @@ export default class MyTradeFilter {
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
-        console.log(data);
+        
     }
 
     toLowerCase(tradeType){
