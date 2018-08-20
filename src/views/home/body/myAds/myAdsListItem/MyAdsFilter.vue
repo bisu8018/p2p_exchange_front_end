@@ -3,7 +3,8 @@
         <v-flex xs12 md12 >
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-                      v-if=" start_date === '' && end_date === '' && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
+                      v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
+                      && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                    @click.stop="isModal = !isModal">filter_list</i>
 
@@ -189,7 +190,8 @@
                 return MainRepository.State.isMobile();
             },
             showDateChip(){
-                return (this.start_date !== "") &&(this.end_date !== "");
+                return (this.start_date !== undefined && this.start_date !== "")
+                    &&(this.end_date !== undefined && this.end_date !== "");
             }
         },
         methods: {
@@ -200,9 +202,9 @@
                 this.modal_end_date = value;
             },
             onSearch() {
-                //MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
-                  //  this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
-                // AXIOS GET 작업 진행
+                MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
+                    this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
+
                 this.isModal = false;
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
@@ -242,18 +244,28 @@
             // 칩 x버튼 눌렀을 시 삭제
             chipDelete (type) {
                 if(type === 'date'){
-                    this.date = '';
-                }else if(type === 'modal_orderNo'){
+                    this.start_date = '';
+                    this.end_date = '';
+                    this.modal_start_date = "";
+                    this.modal_end_date = "";
+                }else if(type === 'orderNo'){
+                    this.orderNo = '';
                     this.modal_orderNo = '';
-                }else if(type === 'modal_coinType'){
+                }else if(type === 'coinType'){
+                    this.coinType = '';
                     this.modal_coinType = '';
-                }else if(type === 'modal_adsType'){
+                }else if(type === 'adsType'){
+                    this.adsType = '';
                     this.modal_adsType = '';
-                }else if(type === 'modal_tradeType'){
+                }else if(type === 'tradeType'){
+                    this.tradeType = '';
                     this.modal_tradeType = '';
-                }else if(type === 'modal_currency'){
+                }else if(type === 'currency'){
+                    this.currency = '';
                     this.modal_currency = '';
                 }
+                MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
+                    this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
             }
         },
 

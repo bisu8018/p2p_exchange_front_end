@@ -14,35 +14,6 @@
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
                     <v-spacer></v-spacer>
 
-                    <!--MyOrder-->
-                    <div class="dropdown" v-if="isLogin">
-                        <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
-
-                        <!-- ongoing order 드롭다운 -->
-                        <div class="dropdown-content myorder-dropdown">
-
-                            <v-layout pa-3 align-center>
-                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
-                                <v-spacer></v-spacer>
-                                <!--<div class="color-blue mr-2">{{$str("Fixed")}}</div>-->
-                                <!--<div class="sprite-img ic-fix color-blue"></div>-->
-                            </v-layout>
-                            <v-divider></v-divider>
-
-                            <!-- ongoing items -->
-                            <div v-for="item in orderList">
-                                <my-order-simple-item
-                                    :data="item"
-                                />
-                                <v-divider></v-divider>
-                            </div>
-
-                            <div @click="goMyOrder()" class="ta-right color-blue text-white-hover my-3 mr-3 c-pointer">
-                                {{$str("View All")}}
-                            </div>
-                        </div>
-                    </div>
-
                     <!--햄버거 bar-->
                     <div class="mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
@@ -441,7 +412,11 @@
                 this.$router.push("/myPage");
             },
             goMyOrder() {
-                this.$router.push("/myOrder");
+                if (this.isMobile) {
+                    this.$router.push("/myOrderSimpleMobile");
+                } else {
+                    this.$router.push("/myOrder");
+                }
             },
             goMyAds() {
                 this.$router.push("/myAds");

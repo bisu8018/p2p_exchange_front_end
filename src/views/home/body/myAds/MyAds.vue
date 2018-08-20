@@ -5,7 +5,7 @@
             <v-flex md2 xs12 class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</v-flex>
             <v-spacer></v-spacer>
             <v-flex md10 xs12>
-                <my-ads-filter class="myOrderFilter"></my-ads-filter>
+                <my-ads-filter></my-ads-filter>
             </v-flex>
         </v-layout>
 
@@ -67,8 +67,7 @@
                 return MainRepository.State.isMobile();
             },
             haveItems(){
-                //return (MainRepository.Pagination.getTotalCount() >0)
-                return true;
+                return (MainRepository.Pagination.getTotalCount() >0)
             },
             AdsLists() {
                 return MainRepository.MyAds.getPage();

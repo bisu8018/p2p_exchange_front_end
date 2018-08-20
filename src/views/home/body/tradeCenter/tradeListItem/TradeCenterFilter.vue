@@ -183,9 +183,9 @@
         <!--right filter-->
         <v-flex md4 offset-md1 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
-            <h6  class="statusChip" @click="transisModal('open')">{{nationality}}</h6>
+            <h6  class="statusChip" @click="transisModal('open')">{{ getCountryName(nationality) }}</h6>
             <h6  class="statusChip" @click="transisModal('open')">{{currency}}</h6>
-            <h6  class=" statusChip" @click="transisModal('open')">{{paymentMethod}}</h6>
+            <h6  class=" statusChip" @click="transisModal('open')">{{ getPaymentName(paymentMethod) }}</h6>
             <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
               <v-layout align-center row fill-height>
                 {{amount}}
@@ -242,6 +242,7 @@
     import MainRepository from '../../../../../vuex/MainRepository';
     import SelectBox from '@/components/SelectBox.vue';
     import {abUtils} from "../../../../../common/utils";
+    import {findCountryName, findPaymentName} from "../../../../../common/common";
 
     export default Vue.extend({
         name: "TradeCenterFilter",
@@ -251,9 +252,9 @@
         data: () => ({
             isAmout : true,
             isModal: false,
-            nationality: 'All countries',
+            nationality: 'ALL',
             currency: 'CNY',
-            paymentMethod: 'All Payments',
+            paymentMethod: 'ALL',
             amount : '',
             isRightClicked : false, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
 
@@ -274,9 +275,47 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-
+        },
+        created(){
+            let cureentURL = window.location.href
+            var param = cureentURL.split('?');
+            if(param[1] === 'main') {
+                //main에서 바로 넘어오는경우 정보 동기화.
+                this.tradeCoin = MainRepository.TradeView.getSelectFilter().cryptocurrency;
+                this.tradeType = MainRepository.TradeView.getSelectFilter().tradeType;
+                this.nationality = MainRepository.TradeView.getSelectFilter().nationality;
+                this.currency = MainRepository.TradeView.getSelectFilter().currency;
+                this.paymentMethod = MainRepository.TradeView.getSelectFilter().paymentMethods;
+                this.amount = MainRepository.TradeView.getSelectFilter().amount;
+                //tradeCoin의 순서 배치
+                if(this.tradeCoin == 'ethereum'){
+                    this.tokens = {left: 'ALLB',center: 'ETH',right: 'BTC',}
+                }
+                else if (this.tradeCoin == 'ALLB'){
+                    this.tokens = {left: 'BTC',center: 'ALLB',right: 'ETH',}
+                }
+                //TradeType 수정.
+                if(this.tradeType == 'buy'){
+                    this.tradeType = 'Sell'
+                } else{
+                    this.tradeType = 'Buy'
+                }
+                //amount 수정.
+                if (this.amount === 0) {
+                    this.amount = '';
+                }//paymentMethod 수정.
+                if(this.paymentMethod ===''){
+                    this.paymentMethod = 'ALL'
+                }
+            }
         },
         methods : {
+            getPaymentName(name) {
+                return findPaymentName(name);
+            },
+            getCountryName(name) {
+                return findCountryName(name);
+            },
             setBuyInfo(item){
                 this.tradeType = "Buy";
                 //스타일을 위한 class binding을 위한 함수.
@@ -367,39 +406,6 @@
                 }
                 if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                     return this.amount = abUtils.toDeleteZero(temp);
-                }
-            }
-        },
-        created(){
-            let cureentURL = window.location.href
-            var param = cureentURL.split('?');
-            if(param[1] === 'main') {
-                //main에서 바로 넘어오는경우 정보 동기화.
-                this.tradeCoin = MainRepository.TradeView.getSelectFilter().cryptocurrency;
-                this.tradeType = MainRepository.TradeView.getSelectFilter().tradeType;
-                this.nationality = MainRepository.TradeView.getSelectFilter().nationality;
-                this.currency = MainRepository.TradeView.getSelectFilter().currency;
-                this.paymentMethod = MainRepository.TradeView.getSelectFilter().paymentMethods;
-                this.amount = MainRepository.TradeView.getSelectFilter().amount;
-                //tradeCoin의 순서 배치
-                if(this.tradeCoin == 'ethereum'){
-                    this.tokens = {left: 'ALLB',center: 'ETH',right: 'BTC',}
-                }
-                else if (this.tradeCoin == 'ALLB'){
-                    this.tokens = {left: 'BTC',center: 'ALLB',right: 'ETH',}
-                }
-                //TradeType 수정.
-                if(this.tradeType == 'buy'){
-                    this.tradeType = 'Sell'
-                } else{
-                    this.tradeType = 'Buy'
-                }
-                //amount 수정.
-                if (this.amount === 0) {
-                    this.amount = '';
-                }//paymentMethod 수정.
-                if(this.paymentMethod ===''){
-                    this.paymentMethod = 'ALL'
                 }
             }
         },

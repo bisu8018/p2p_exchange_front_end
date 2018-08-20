@@ -13,6 +13,7 @@ import BlockAd from '../views/home/body/postAd/block/Block.vue'
 import Buy from '../views/home/body/trade/buy/Buy.vue'
 import Sell from '../views/home/body/trade/sell/Sell.vue'
 import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
+import MyOrderSimpleMobile from '../views/home/body/myOrder/MyOrderSimpleMobile.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
 import Balances from '../views/home/body/balances/Balances.vue'
 import MyPage from '../views/home/body/myPage/MyPage.vue'
@@ -92,6 +93,11 @@ export default new Router({
             path: '/myOrder',
             name: 'myOrder',
             component: MyOrder,
+        },
+        {
+            path: '/myOrderSimpleMobile',
+            name: 'myOrderSimpleMobile',
+            component: MyOrderSimpleMobile,
         },
         {
             path: '/myAds',
