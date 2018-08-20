@@ -61,42 +61,6 @@
         data: () => ({
             pageSize : 10,
             pageType : "myAds",
-            adsLists: [
-                {
-                    no: '6517',
-                    token: 'ETH',
-                    amount: 6,
-                    minLimit: 124,
-                    maxLimit: 224,
-                    price: 44.0,
-                    time: '11:59:59',
-                    currency: 'CNY',
-                    adsType: 'sell'
-
-                },
-                {
-                    no: '6518',
-                    token: 'ETH',
-                    amount: 2,
-                    minLimit: 124,
-                    maxLimit: 224,
-                    price: 44.0,
-                    time: '11:59:59',
-                    currency: 'CNY',
-                    adsType: 'buy'
-                },
-                {
-                    no: '6519',
-                    token: 'BTC',
-                    amount: 0.1,
-                    minLimit: 124,
-                    maxLimit: 224,
-                    price: 44.0,
-                    time: '11:59:59',
-                    currency: 'CNY',
-                    adsType: 'sell'
-                },
-            ],
         }),
         computed: {
             isMobile() {

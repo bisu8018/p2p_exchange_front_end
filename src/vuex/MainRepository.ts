@@ -588,7 +588,6 @@ export default {
 
                 //전체 item list model화 시켜 주기
                 let result = data.myAdsList
-                console.log(result);
                 let myAdsList: TradeItem[] = [];
                 for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
@@ -669,12 +668,12 @@ export default {
                 page : '1',
                 size : '10',
             }, function (data) {
-                console.log(data.ordersList);
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
 
                 //전체 item list model화 시켜 주기
                 let result = data.ordersList
+                console.log(result);
                 let myOrderList: Order[] = [];
                 for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
@@ -714,7 +713,7 @@ export default {
                 orderType : orderType,
                 tradeType : tradeType,
                 currency : currency,
-                page : instance.paginationController.getPage(),
+                page : 1,
                 size : '10',
             }, function (data) {
                 let totalCount = data.totalCount;

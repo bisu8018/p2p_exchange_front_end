@@ -45,7 +45,7 @@
             <div class="sprite-img ic-no-ad-lg no-more-ads">
             </div>
             <div class="color-gray no-more-ads-text">
-                {{$str("No more ads")}}
+                {{$str("No more orders")}}
             </div>
         </div>
     </div>
@@ -66,8 +66,7 @@
                 return MainRepository.State.isMobile();
             },
             haveItems(){
-                //return (MainRepository.Pagination.getTotalCount() >0)
-                return true;
+                return (MainRepository.Pagination.getTotalCount() >0)
             },
             OrderLists() {
                 return MainRepository.MyOrder.getPage();
@@ -77,44 +76,6 @@
         data: () => ({
             pageSize : 10,
             pageType : 'MyOrder',
-            orderLists: [
-                {
-                    orderNo: '6517',
-                    exType: 'ETH',
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    price: 44.0,
-                    time: '11:59:59',
-                    status: 'Unpaid',
-                    partner: 'dean',
-                    currency: 'CNY',
-                    tradeType : 'sell'
-                },
-                {
-                    orderNo: '6517',
-                    exType: 'ETH',
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    price: 44.0,
-                    time: '11:59:59',
-                    status: 'Cancelled',
-                    partner: 'jack',
-                    currency: 'CNY',
-                    tradeType : 'sell'
-                },
-                {
-                    orderNo: '6517',
-                    exType: 'ETH',
-                    exNum: 66.0,
-                    totalPrice: 224,
-                    price: 44.0,
-                    time: '11:59:59',
-                    status: 'Complete',
-                    partner: 'tom',
-                    currency: 'CNY',
-                    tradeType : 'buy'
-                },
-            ],
         }),
         created() {
             // 로그인 확인 -> Login 으로

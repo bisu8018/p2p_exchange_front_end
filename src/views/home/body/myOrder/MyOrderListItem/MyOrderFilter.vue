@@ -222,7 +222,8 @@
                 return MainRepository.State.isMobile();
             },
             showDateChip(){
-                return (this.start_date !== "") &&(this.end_date !== "");
+                return (this.start_date !== undefined && this.start_date !== "")
+                    &&(this.end_date !== undefined && this.end_date !== "");
             }
         },
         methods: {
@@ -233,9 +234,8 @@
                 this.modal_end_date = value;
             },
             onSearch() {
-                // AXIOS GET 작업 진행
-                //MainRepository.MyOrder.setFilter(this.modal_start_date, this.modal_end_date, this.modal_orderStatus, this.modal_orderNo,
-                //   this.modal_coinType,  this.modal_orderType, this.modal_tradeType, this.modal_currency)
+                MainRepository.MyOrder.setFilter(this.modal_start_date, this.modal_end_date, this.modal_orderStatus, this.modal_orderNo,
+                   this.modal_coinType,  this.modal_orderType, this.modal_tradeType, this.modal_currency)
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
                 this.orderStatus = this.modal_orderStatus;
@@ -292,6 +292,8 @@
                 }else if(type === 'currency'){
                     this.currency = '';
                 }
+                MainRepository.MyOrder.setFilter(this.start_date, this.end_date, this.orderStatus, this.orderNo,
+                    this.coinType,  this.orderType, this.tradeType, this.currency)
             }
         },
 

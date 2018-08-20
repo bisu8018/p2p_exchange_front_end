@@ -2563,11 +2563,11 @@ const strings = new Map([
         CN: '交易数量',
         HK: '交易數量'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['No more orders', {
+        KOR: '주문 없음',
+        ENG: 'No more orders',
+        CN: '没有更多的订单',
+        HK: '沒有更多的訂單'
     }],
     ['', {
         KOR: '',

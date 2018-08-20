@@ -12,7 +12,6 @@ export default {
             })
     },
     getMyOrder:function (data: any, callback: any) {
-        console.log(data);
         AxiosService._requestWithUrlPram('order/my', 'GET', data ,
             function (data: any) {
                 callback(data)

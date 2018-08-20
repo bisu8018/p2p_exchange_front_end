@@ -12,17 +12,17 @@
         <v-flex xs7 text-xs-left color-darkgray>{{$str("orderType")}}</v-flex>
         <v-flex xs5 text-xs-right>
           <span class="mr-4 color-green bold" v-if="orderlist.tradeType === 'sell'">
-                  {{$str("sell")}}
-                  </span>
+            {{$str("sell")}}
+          </span>
           <span class="mr-4 color-orange-price bold" v-if="orderlist.tradeType === 'buy'">
-                        {{$str("buy")}}
-                      </span>
-          {{orderlist.exType}}
+            {{$str("buy")}}
+          </span>
+          {{orderlist.cryptocurrency}}
         </v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("Trade Num")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.exNum}}</v-flex>
+        <v-flex xs5 text-xs-right>{{orderlist.coinCount}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("TotalPrice")}}</v-flex>
@@ -68,7 +68,7 @@
             </span>
             <span>{{orderlist.cryptocurrency}}</span>
         </v-flex>
-        <v-flex  md1 text-md-left>{{orderlist.exNum}}</v-flex>
+        <v-flex  md1 text-md-left>{{orderlist.coinCount}}</v-flex>
         <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
         <v-flex  md1 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
         <v-flex  md3 text-md-left>{{orderlist.registerDatetime.dayOfWeek}}</v-flex>
