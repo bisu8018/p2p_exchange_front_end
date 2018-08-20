@@ -37,10 +37,15 @@ export enum VuexTypes {
     //======================================
     //              MyTrade(My Ads & My Orders)
     // =====================================
+    //myAds
     SET_MYADSLIST_DATA = 'myads/SET_MYADSLIST_DATA',
     SET_MYADSFILTER_DATA = 'myads/SET_MYADSFILTER_DATA',
-
+    UPDATE_MYADSFILTER_DATA = 'myads/UPDATE_MYADSFILTER_DATA',
+    //myOrder
     SET_MYORDERSLIST_DATA = 'myorder/SET_MYORDERSLIST_DATA',
+    SET_MYORDERFILTER_DATA = 'myorder/SET_MYORDERFILTER_DATA',
+    UPDATE_MYORDERFILTER_DATA = 'myorder/UPDATE_MYORDERFILTER_DATA',
+
 
 
     //======================================

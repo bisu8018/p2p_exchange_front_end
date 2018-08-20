@@ -23,6 +23,7 @@ export default class TradeItem {
     counterpartyFilterMobileVerificationYn : boolean;
     counterpartyFilterDoNotOtherMerchantsYn : boolean;
     termsAgreeYn : number;
+    registerDatetime: number;
 
     //postAD에 없는 userData
     email : string;
@@ -64,6 +65,7 @@ export default class TradeItem {
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || true;
         this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || true;
         this.termsAgreeYn = Number(data.termsAgreeYn) || -1;
+        this.registerDatetime = Number(data.registerDatetime)
 
         this.email = data.email || 'ABC';
         this.isLogin = data.isLogin || true;

@@ -237,8 +237,16 @@
                 this.modal_end_date = value;
             },
             onSearch() {
-                MainRepository.MyOrder.setFilter(this.modal_start_date, this.modal_end_date, this.modal_orderStatus, this.modal_orderNo,
-                   this.modal_coinType,  this.modal_orderType, this.modal_tradeType, this.modal_currency)
+                MainRepository.MyOrder.updatePage({
+                        searchStartTime : this.modal_start_date,
+                        searchEndTime : this.modal_end_date,
+                        status : this.modal_orderStatus,
+                        orderNo : this.modal_orderNo,
+                        cryptocurrency : this.modal_coinType,
+                        orderType : this.modal_orderType,
+                        tradeType : this.modal_tradeType,
+                        currency : this.modal_currency,
+                   });
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
                 this.orderStatus = this.modal_orderStatus;
@@ -303,8 +311,16 @@
                     this.currency = '';
                     this.modal_currency = "";
                 }
-                MainRepository.MyOrder.setFilter(this.start_date, this.end_date, this.orderStatus, this.orderNo,
-                    this.coinType,  this.orderType, this.tradeType, this.currency)
+                MainRepository.MyOrder.updatePage({
+                    searchStartTime : this.modal_start_date,
+                    searchEndTime : this.modal_end_date,
+                    status : this.modal_orderStatus,
+                    orderNo : this.modal_orderNo,
+                    cryptocurrency : this.modal_coinType,
+                    orderType : this.modal_orderType,
+                    tradeType : this.modal_tradeType,
+                    currency : this.modal_currency,
+                });
             }
         },
 
