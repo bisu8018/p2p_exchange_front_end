@@ -40,7 +40,7 @@
             <div class="section-border">
 
                 <!-- Header -->
-                <div class="otherInfo-header">
+                <div class="account-header">
                     <h4>{{$str('accountSecurity')}}</h4>
                     <div class="header-detail">
                         <p class="h6 mb-3">
@@ -372,751 +372,40 @@
             </div>
 
             <!-- ###############  4. Block List ###############  -->
+            <div class="section-border">
+
+                <!-- Header -->
+                <div class="otherInfo-header">
+                    <h4>{{$str('blockList')}}</h4>
+                    <div class="header-detail">
+                        <p class="caption mt-3">{{$str('blockListExplain')}}</p>
+                    </div>
+                </div>
+
+                <!-- Body : isEmpty -->
+                <div class="ta-center py-3" v-if="blockList === ''">
+                    <p class="pt-2 pb-3 color-darkgray">{{$str('noMoreRecords')}}</p>
+                </div>
+
+                <!-- Body : !isEmpty -->
+                <div v-else>
+                    <div class="blocked-user-item" v-for="block in blockList">
+                        <div>
+                            <avatar :email="block.email"></avatar>
+                            <p class="color-blue text-white-hover c-pointer">{{block.nickName}}</p>
+                        </div>
+                        <div>
+                            <a>{{$str('unblock')}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- #################  5. History ################# -->
         </div>
 
 
     </div>
-
-    <!--<div>-->
-        <!--&lt;!&ndash;=========================모바일 환경=========================&ndash;&gt;-->
-        <!--<div v-if="isMobile">-->
-            <!--<v-layout class="mt-5">-->
-                <!--<v-flex xs12 text-md-left text-xs-left>-->
-
-                    <!--&lt;!&ndash;***************      첫번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;사용자 정보&ndash;&gt;-->
-
-                    <!--<big-avatar-->
-                            <!--:me=true-->
-                            <!--class="f-left mr-3">-->
-                    <!--</big-avatar>-->
-                    <!--<h5 class="color-blue">{{nickName}}</h5>-->
-                    <!--<h5 class="color-darkgray">UID: {{member_no}}</h5>-->
-                    <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                    <!--&lt;!&ndash;***************      두번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;거래 횟수&ndash;&gt;-->
-
-                    <!--<h5 class="color-darkgray">{{$str('trades')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span class="color-black">99999999999999 {{$str('times')}}</span>-->
-                    <!--</h5>-->
-                    <!--<h5 class="color-darkgray">{{$str('avgRelease')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span-->
-                            <!--class="color-black">99999999999999 {{$str('minuteText')}}</span></h5>-->
-                    <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                    <!--&lt;!&ndash;***************      세번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;계정생성시간&ndash;&gt;-->
-
-                    <!--<h5 class="color-darkgray">{{$str('accountCreatedTime')}} {{register_datetime}}</h5>-->
-                    <!--<h5 class="color-darkgray mb-5">99999999999999 , {{$str('noRecord')}}</h5>-->
-
-                    <!--&lt;!&ndash;***************      네번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;계정 및 보안&ndash;&gt;-->
-
-                    <!--<div class="section-border pa-4 mb-5">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold mb-3">{{$str('accountSecurity')}}</h4>-->
-                            <!--<h5 class="color-darkgray text-md-right mb-3">{{$str('securityLevel')}} :&nbsp;&nbsp;&nbsp;&nbsp;-->
-                                <!--<span class="color-red" v-if="getSecurityLevel === 1">{{$str('low')}}</span>-->
-                                <!--<span class="color-orange" v-else-if="getSecurityLevel === 2">{{$str('medium')}}</span>-->
-                                <!--<span class="color-green" v-else>{{$str('high')}}</span></h5>-->
-                        <!--</v-layout>-->
-                        <!--<p class="text-xs-left color-darkgray">*{{$str('securityExplain')}}</p>-->
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs8>-->
-                                <!--<div class="sprite-img ic-email f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('email')}}</h5>-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-black" v-if="!emailVerification.isNull()">-->
-                                    <!--{{$str('bound')}}</h5>-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs4 class="mt-3  pr-3 text-xs-right">-->
-                                <!--<h6 v-if="!emailVerification.isNull()">-->
-                                    <!--<a class="color-blue text-white-hover c-pointer">{{$str('bound')}}</a>-->
-                                <!--</h6>-->
-                                <!--<h6 v-else>-->
-                                    <!--<a class="color-darkgray text-white-hover c-pointer"-->
-                                       <!--v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'"-->
-                                       <!--@click="goTurnOff">{{$str('turnOff')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer"-->
-                                       <!--v-else-if="emailVerification != 'turn_on'"-->
-                                       <!--@click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>-->
-                                <!--</h6>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs12><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs5>-->
-                                <!--<div class="sprite-img ic-phone f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('phone')}}</h5>-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-black" v-if="!phoneVerification.isNull()">-->
-                                    <!--{{$str('bound')}}</h5>-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unbound')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs7 class="mt-3  pr-3 text-xs-right">-->
-                                <!--<h6 v-if="!phoneVerification.isNull()">-->
-                                    <!--<a class="color-blue">{{$str('bound')}}</a>-->
-                                <!--</h6>-->
-                                <!--<h6 v-else>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer " v-if="phoneVerification.isNull()"-->
-                                       <!--@click="goLink('phone')">{{$str('bind')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer" v-if="!phoneVerification.isNull()">{{$str('changePhone')}}</a>-->
-                                    <!--<a class="color-darkgray text-white-hover c-pointer ml-3"-->
-                                       <!--v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'">{{$str('turnOff')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer ml-3"-->
-                                       <!--@click="onModal('phoneTurnOn')"-->
-                                       <!--v-else-if="!phoneVerification.isNull() && phoneVerification.status != 'turn_on'">{{$str('turnOn')}}</a>-->
-                                <!--</h6>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs12><p class="color-darkgray">*{{$str('phoneSecurityExplain')}}</p></v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs12>-->
-                                <!--<div class="sprite-img ic-account f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('account')}}</h5><h5-->
-                                    <!--class="ml-4 pl-3 color-black">-->
-                                <!--{{emailVerification.email}}</h5></v-flex>-->
-                        <!--</v-layout>-->
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs12>-->
-                                <!--<div class="sprite-img ic-uid f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">UID</h5><h5 class="ml-4 pl-3 color-black">-->
-                                <!--{{member_no}}</h5>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs8>-->
-                                <!--<div class="sprite-img ic-password f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('password')}}</h5><h5-->
-                                    <!--class="ml-4 pl-3 color-black">-->
-                                <!--******</h5></v-flex>-->
-                            <!--<v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a @click="goChangePassword"-->
-                                                                               <!--class="color-blue text-white-hover c-pointer">{{$str('modify')}}</a>-->
-                            <!--</h6></v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs8>-->
-                                <!--<div class="sprite-img ic-password f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('tradePwText')}}</h5>-->
-                                <!--<h5 class="ml-4 pl-3 color-black">******</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs4 class="mt-3 pr-3 text-xs-right"><h6><a-->
-                                    <!--class="color-blue text-white-hover c-pointer" @click="goReset">{{$str('reset')}}</a>-->
-                            <!--</h6></v-flex>-->
-                        <!--</v-layout>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      다섯번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;신분증 인증&ndash;&gt;-->
-
-                    <!--<div class="mt-5 section-border mb-5 pa-4">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold">{{$str('idVerification')}}</h4>-->
-                            <!--<h6 class="color-darkgray mt-3">{{$str('idVerificationExplain')}}</h6>-->
-                        <!--</v-layout>-->
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs8>-->
-                                <!--<div class="sprite-img ic-id f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('idVerification')}}</h5>-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-black"-->
-                                    <!--v-if="!idVerification.isNull()">-->
-                                    <!--{{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}</h5>-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-darkgray" v-else>{{$str('unverified')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs4 class="mt-3 pr-2 text-xs-right">-->
-                                <!--<span class="color-darkgray h6"-->
-                                      <!--v-if="!idVerification.isNull() && idVerification.identification_no != undefined">{{$str('verifySliderSuccess')}}</span>-->
-                                <!--<a class="color-blue c-pointer h6" v-else>{{$str('verify')}}</a>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                        <!--<v-layout wrap row>-->
-                            <!--<v-flex xs8>-->
-                                <!--<div class="sprite-img ic-advanced f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray mb-3">{{$str('advancedVerification')}}</h5>-->
-                                <!--&lt;!&ndash;<h5 class="mb-3 ml-4 pl-3 color-black" >{{$str('verifySliderSuccess')}}</h5>&ndash;&gt;-->
-                                <!--<h5 class="mb-3 ml-4 pl-3 color-darkgray">{{$str('unverified')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex xs4 class="mt-3 pr-2 text-xs-right">-->
-                                <!--<a class="color-blue text-white-hover h6 c-pointer">{{$str('verify')}}</a>-->
-                                <!--&lt;!&ndash;<span class="color-darkgray h6" >- -</span>&ndash;&gt;-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      여섯번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;결제수단 목록&ndash;&gt;-->
-
-                    <!--<div class="mt-5 section-border mb-5 pa-4">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold">{{$str('paymentMethod')}}</h4>-->
-                            <!--<h6 class="color-darkgray mt-3">{{$str('paymentMethodExplain')}}</h6>-->
-                        <!--</v-layout>-->
-
-                        <!--<span v-if="paymentMethod != ''">-->
-                            <!--&lt;!&ndash;알리페이&ndash;&gt;-->
-                            <!--<v-layout wrap row v-if="paymentMethod.alipay">-->
-                                <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                                <!--<v-flex xs12>-->
-                                    <!--<div class="sprite-img ic-alipay f-left mr-3"></div>-->
-                                    <!--<h5 class="color-darkgray mb-3">{{$str('alipayText')}}</h5><h5-->
-                                        <!--class="mb-3 ml-4 pl-3 color-black">-->
-                                    <!--{{paymentMethod.alipay.id}} {{paymentMethod.alipay.owner_name}} {{paymentMethod.alipay.alipay_id}}</h5></v-flex>-->
-                                <!--<v-layout class="vertical-center">-->
-                                    <!--<v-flex xs6 class="text-xs-right mr-4"><h6><a class="color-blue text-white-hover">{{$str('modify')}}</a>-->
-                                    <!--</h6>-->
-                                    <!--</v-flex>-->
-                                    <!--<v-flex xs6>-->
-                                        <!--<span @click="onToggle('alipay')"><toggle :toggle="paymentMethod.alipay.active_yn"-->
-                                                                                  <!--class="c-pointer"></toggle></span>-->
-                                    <!--</v-flex>-->
-                                <!--</v-layout>-->
-                            <!--</v-layout>-->
-
-                            <!--&lt;!&ndash;위챗페이&ndash;&gt;-->
-                            <!--<v-layout wrap row v-if="paymentMethod.wechat">-->
-                                <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                                <!--<v-flex xs12>-->
-                                    <!--<div class="sprite-img ic-wechatpay f-left mr-3"></div>-->
-                                    <!--<h5 class="color-darkgray mb-3">{{$str('wechatPayText')}}</h5><h5-->
-                                        <!--class="mb-3 ml-4 pl-3 color-black">-->
-                                    <!--{{paymentMethod.wechat.id}} {{paymentMethod.wechat.owner_name}} {{paymentMethod.wechat.wechat_id}}</h5></v-flex>-->
-                                <!--<v-layout class="vertical-center">-->
-                                    <!--<v-flex xs6 class="text-xs-right mr-4"><h6><a class="color-blue">{{$str('modify')}}</a>-->
-                                    <!--</h6>-->
-                                    <!--</v-flex>-->
-                                    <!--<v-flex xs6>-->
-                                        <!--<span @click="onToggle('wechatPay')"><toggle-->
-                                                <!--:toggle="paymentMethod.wechat.active_yn"-->
-                                                <!--class="c-pointer"></toggle></span>-->
-                                    <!--</v-flex>-->
-                                <!--</v-layout>-->
-                            <!--</v-layout>-->
-
-                            <!--&lt;!&ndash;은행계좌&ndash;&gt;-->
-                            <!--<v-layout wrap row v-if="paymentMethod.bank">-->
-                                <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                                <!--<v-flex xs12>-->
-                                    <!--<div class="sprite-img ic-bank f-left mr-3"></div>-->
-                                    <!--<h5 class="color-darkgray mb-3">{{$str('bankAccountText')}}</h5><h5-->
-                                        <!--class="mb-3 ml-4 pl-3 color-black">-->
-                                    <!--{{paymentMethod.bank_account}} {{paymentMethod.bank.owner_name}} {{paymentMethod.bank_name}} {{paymentMethod.bank_branch_info}}</h5></v-flex>-->
-                                <!--<v-layout class="vertical-center">-->
-                                    <!--<v-flex xs6 class="text-xs-right mr-4"><h6><a class="color-blue">{{$str('modify')}}</a>-->
-                                    <!--</h6>-->
-                                    <!--</v-flex>-->
-                                    <!--<v-flex xs6>-->
-                                        <!--<span @click="onToggle('bankAccount')"><toggle-->
-                                                <!--:toggle="paymentMethod.bank.active_yn"-->
-                                                <!--class="c-pointer"></toggle></span>-->
-                                    <!--</v-flex>-->
-                                <!--</v-layout>-->
-                            <!--</v-layout>-->
-                        <!--</span>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                        <!--<span v-if="paymentMethod === ''">-->
-                          <!--<h5 class="color-darkgray mb-3 mt-4 text-xs-center">{{$str('nullPaymentMethod')}}</h5>-->
-                        <!--</span>-->
-
-                        <!--&lt;!&ndash;결제수단 추가&ndash;&gt;-->
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md12>-->
-                                <!--<h5 class="text-xs-center">-->
-                                    <!--<a class="color-blue text-white-hover c-pointer" @click="onModal('addPayment')">{{$str('addPayment')}}</a>-->
-                                <!--</h5></v-flex>-->
-                        <!--</v-layout>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      일곱번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;차단 목록&ndash;&gt;-->
-
-                    <!--<div class="mt-5 section-border pt-4 pr-4 pl-4 mb-5 pb-4">-->
-                        <!--<v-layout column mb-4>-->
-                            <!--<h4 class="bold">{{$str('blockList')}}</h4>-->
-                            <!--<h6 class="color-darkgray mt-3">{{$str('blockListExplain')}}</h6>-->
-                        <!--</v-layout>-->
-                        <!--<span v-if="blockList != ''">-->
-                            <!--<v-layout wrap row class="vertical-center flex-divide-top-block"-->
-                                      <!--v-for="block in blockList">-->
-                                <!--<v-flex xs8 class="vertical-center">-->
-                                    <!--<avatar :email="block.email" class="mr-3 f-left"></avatar>-->
-                                    <!--<h5 class="color-blue text-white-hover c-pointer">{{block.nickName}}</h5></v-flex>-->
-                                <!--<v-flex xs4 text-xs-right pr-3><h6><a class="color-blue text-white-hover c-pointer">{{$str('unblock')}}</a>-->
-                                <!--</h6></v-flex>-->
-                            <!--</v-layout>-->
-                        <!--</span>-->
-                        <!--<span v-else>-->
-                            <!--<div class="color-darkgray text-md-center text-xs-center flex-divide-top-block">{{$str('noMoreRecords')}}</div>-->
-                        <!--</span>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      여덞번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--<div class="mt-5 section-border pa-4 ">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold">{{$str('history')}}</h4>-->
-                            <!--<v-layout class="vertical-center mt-4">-->
-                                <!--<h4 class="color-darkgray medium mr-4a">-->
-                                    <!--<a class="color-darkgray" @click="onSelection('login')"-->
-                                       <!--v-bind:class="{'active-history' : selection_login}">{{$str('loginText')}}</a>-->
-                                <!--</h4>-->
-                                <!--<v-divider inset vertical></v-divider>-->
-                                <!--<h4 class="color-darkgray medium  ml-4">-->
-                                    <!--<a class="color-darkgray" @click="onSelection('security')"-->
-                                       <!--v-bind:class="{'active-history' : selection_security}">{{$str('securitySettings')}}</a>-->
-                                <!--</h4>-->
-                            <!--</v-layout>-->
-                        <!--</v-layout>-->
-
-
-                        <!--&lt;!&ndash;로그인 선택 시&ndash;&gt;-->
-                        <!--<span v-if=" selection_login  && loginHistory != ''">-->
-                            <!--<v-layout wrap row flex-divide-bottom mb-4 pb-4 v-for="data in loginHistory">-->
-                                <!--<v-flex xs12 class="text-xs-left">-->
-                                    <!--<div class="vertical-center mb-2">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">{{$str('date')}}:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.register_datetime}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                    <!--<div class="vertical-center mb-2">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">{{$str('Type')}}:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.type}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                    <!--<div class="vertical-center mb-2">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">IP:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.ip}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                    <!--<div class="vertical-center">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">{{$str('status')}}:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.status === 'success' ? $str('successful') : $str('failed')}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                <!--</v-flex>-->
-                            <!--</v-layout>-->
-                        <!--</span>-->
-                        <!--<span v-else>-->
-                             <!--<div class="color-darkgray  mt-4a text-md-center text-xs-center">{{$str('noMoreRecords')}}</div>-->
-                        <!--</span>-->
-
-                        <!--&lt;!&ndash;보안 설정 선택 시&ndash;&gt;-->
-                        <!--<span v-else-if=" !selection_login && securitySettings != ''">-->
-                            <!--<v-layout wrap row flex-divide-bottom mb-4 pb-4 v-for="data in securitySettings">-->
-                                <!--<v-flex xs12 class="text-xs-left">-->
-                                    <!--<div class="vertical-center mb-2">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">{{$str('date')}}:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.register_datetime}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                    <!--<div class="vertical-center mb-2">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">{{$str('securitySettings')}}:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.type}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                    <!--<div class="vertical-center mb-2">-->
-                                        <!--<v-flex xs4 class="flex-pl-0 vertical-center">-->
-                                            <!--<h5 class="color-darkgray text-xs-left">IP:</h5>-->
-                                        <!--</v-flex>-->
-                                        <!--<v-flex xs8 class="flex-pr-0">-->
-                                            <!--<h5 class="color-black">{{data.ip}}</h5>-->
-                                        <!--</v-flex>-->
-                                    <!--</div>-->
-                                <!--</v-flex>-->
-                            <!--</v-layout>-->
-                        <!--</span>-->
-                        <!--<span v-else>-->
-                             <!--<div class="color-darkgray  mt-4a text-md-center text-xs-center">{{$str('noMoreRecords')}}</div>-->
-                        <!--</span>-->
-
-
-                        <!--<span v-if="blockList != ''" >-->
-                            <!--<Pagination class="text-md-center mt-5 mb-4"></Pagination>-->
-                        <!--</span>-->
-                    <!--</div>-->
-                <!--</v-flex>-->
-            <!--</v-layout>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;=========================데스크탑 환경=========================&ndash;&gt;-->
-        <!--<div v-else>-->
-            <!--<v-layout class="mt-5">-->
-
-                <!--&lt;!&ndash;***************      첫번째       *********&ndash;&gt;-->
-                <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                <!--&lt;!&ndash;사용자 정보&ndash;&gt;-->
-
-                <!--<v-flex md3 text-md-left text-xs-left>-->
-                    <!--<big-avatar-->
-                            <!--:me=true-->
-                            <!--class="f-left mr-3">-->
-                    <!--</big-avatar>-->
-                    <!--<h5 class="color-blue">{{nickName}}</h5>-->
-                    <!--<h5 class="color-darkgray">UID: {{member_no}}</h5>-->
-                    <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                    <!--<h5 class="color-darkgray">{{$str('trades')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span class="color-black">99999999999999 {{$str('times')}}</span>-->
-                    <!--</h5>-->
-                    <!--<h5 class="color-darkgray">{{$str('avgRelease')}} :&nbsp;&nbsp;&nbsp;&nbsp;<span-->
-                            <!--class="color-black">99999999999999 {{$str('minuteText')}}</span></h5>-->
-                    <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                    <!--<h5 class="color-darkgray">{{$str('accountCreatedTime')}} {{register_datetime}}</h5>-->
-                    <!--<h5 class="color-darkgray mb-5">99999999999999 , {{$str('noRecord')}}</h5>-->
-                <!--</v-flex>-->
-
-
-                <!--<v-flex md9 wrap row text-md-left text-xs-left>-->
-                    <!--<div class="section-border ml-3 mr-3 mb-3 pa-4 mb-5">-->
-                        <!--<v-layout>-->
-                            <!--<h4 class="bold">{{$str('accountSecurity')}}</h4>-->
-                            <!--<v-spacer></v-spacer>-->
-                            <!--<h5 class="color-darkgray text-md-right mb-3">{{$str('securityLevel')}} :&nbsp;&nbsp;&nbsp;&nbsp;-->
-                                <!--<span class="color-red" v-if="getSecurityLevel === 1">{{$str('low')}}</span>-->
-                                <!--<span class="color-orange" v-else-if="getSecurityLevel === 2">{{$str('medium')}}</span>-->
-                                <!--<span class="color-green" v-else>{{$str('high')}}</span></h5>-->
-                        <!--</v-layout>-->
-                        <!--<p class="text-md-right color-darkgray">*{{$str('securityExplain')}}</p>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;이메일 연동&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-email f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('email')}}</h5></v-flex>-->
-                            <!--<v-flex md2>-->
-                                <!--<h5 class="color-black" v-if="!emailVerification.isNull()">{{$str('bound')}}</h5>-->
-                                <!--<h5 class="color-darkgray" v-else>{{$str('unbound')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex md4><p class="color-darkgray">*{{$str('emailSecurityExplain')}}</p></v-flex>-->
-                            <!--<v-flex md2 text-xs-right>-->
-                                <!--<h6 v-if="emailVerification.isNull()">-->
-                                    <!--<a class="color-blue text-white-hover c-pointer">{{$str('bound')}}</a>-->
-                                <!--</h6>-->
-                                <!--<h6 v-else>-->
-                                    <!--<a class="color-darkgray text-white-hover c-pointer"-->
-                                       <!--v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'"-->
-                                       <!--@click="goTurnOff">{{$str('turnOff')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer"-->
-                                       <!--v-else-if="emailVerification != 'turn_on'"-->
-                                       <!--@click="onModal('emailTurnOn')">{{$str('turnOn')}}</a>-->
-                                <!--</h6>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;전화 연동&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-phone f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('phone')}}</h5></v-flex>-->
-                            <!--<v-flex md2><h5 class="color-black" v-if="!phoneVerification.isNull()">{{$str('bound')}}</h5>-->
-                                <!--<h5 class="color-darkgray" v-else>{{$str('unbound')}}</h5></v-flex>-->
-                            <!--<v-flex md4><p class="color-darkgray">*{{$str('phoneSecurityExplain')}}</p></v-flex>-->
-                            <!--<v-flex md2 text-xs-right>-->
-                                <!--<h6 v-if="phoneVerification.isNull()">-->
-                                    <!--<a class="color-blue">{{$str('bound')}}</a>-->
-                                <!--</h6>-->
-                                <!--<h6 v-else>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer " v-if="phoneVerification.isNull()"-->
-                                       <!--@click="goLink('phone')">{{$str('bind')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer" v-if="!phoneVerification.isNull()">{{$str('changePhone')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer ml-3"-->
-                                       <!--v-if="emailVerification.status === 'turn_on' && phoneVerification.status === 'turn_on'">{{$str('turnOff')}}</a>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer ml-3"-->
-                                       <!--@click="onModal('phoneTurnOn')"-->
-                                       <!--v-else-if="!phoneVerification.isNull() && phoneVerification.status != 'turn_on'">{{$str('turnOn')}}</a>-->
-                                <!--</h6>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;계정&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-account f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('account')}}</h5></v-flex>-->
-                            <!--<v-flex md2><h5>{{emailVerification.email}}</h5></v-flex>-->
-                            <!--<v-flex md4></v-flex>-->
-                            <!--<v-flex md2></v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;UID&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-uid f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">UID</h5></v-flex>-->
-                            <!--<v-flex md2><h5>{{member_no}}</h5></v-flex>-->
-                            <!--<v-flex md4></v-flex>-->
-                            <!--<v-flex md2></v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;비밀번호&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-password f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('password')}}</h5></v-flex>-->
-                            <!--<v-flex md2><h5 class="color-darkgray">******</h5></v-flex>-->
-                            <!--<v-flex md4></v-flex>-->
-                            <!--<v-flex md2 text-xs-right ><h6><a @click="goChangePassword"-->
-                                               <!--class="color-blue text-white-hover c-pointer">{{$str('modify')}}</a></h6>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;거래 비밀번호&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-password f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('tradePwText')}}</h5></v-flex>-->
-                            <!--<v-flex md2><h5 class="color-darkgray">******</h5></v-flex>-->
-                            <!--<v-flex md4></v-flex>-->
-                            <!--<v-flex md2 text-xs-right><h6><a class="color-blue text-white-hover c-pointer" @click="goReset">{{$str('reset')}}</a>-->
-                            <!--</h6></v-flex>-->
-                        <!--</v-layout>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      두번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--<div class="mt-6 section-border ma-3 mb-5 pa-4">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold">{{$str('idVerification')}}</h4>-->
-                            <!--<h6 class="color-darkgray mt-3">{{$str('idVerificationExplain')}}</h6>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;신분증 인증&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-id f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('idVerification')}}</h5></v-flex>-->
-                            <!--<v-flex md2 >-->
-                                <!--<h5 class="color-black" v-if="!idVerification.isNull()">-->
-                                    <!--{{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}</h5>-->
-                                <!--<h5 class="color-darkgray" v-else>{{$str('unverified')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex md4></v-flex>-->
-                            <!--<v-flex md2 text-xs-right>-->
-                                <!--<span class="color-darkgray h6"-->
-                                      <!--v-if="!idVerification.isNull() && idVerification.identification_no != undefined">{{$str('verifySliderSuccess')}}</span>-->
-                                <!--<a class="color-blue c-pointer h6 " v-else>{{$str('verify')}}</a>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--&lt;!&ndash;고급인증&ndash;&gt;-->
-
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-flex md4>-->
-                                <!--<div class="sprite-img ic-advanced f-left mr-3"></div>-->
-                                <!--<h5 class="color-darkgray">{{$str('advancedVerification')}}</h5></v-flex>-->
-                            <!--<v-flex md2>-->
-                                <!--&lt;!&ndash;<h5 class="mb-3 ml-4 pl-3 color-black" >{{$str('verifySliderSuccess')}}</h5>&ndash;&gt;-->
-                                <!--<h5 class="color-darkgray">{{$str('unverified')}}</h5>-->
-                            <!--</v-flex>-->
-                            <!--<v-flex md4></v-flex>-->
-                            <!--<v-flex md2></v-flex>-->
-                        <!--</v-layout>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      세번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;결제수단 목록&ndash;&gt;-->
-
-                    <!--<div class="mt-6 section-border ma-3 mb-5 pa-4">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold">{{$str('paymentMethod')}}</h4>-->
-                            <!--<h6 class="color-darkgray mt-3">{{$str('paymentMethodExplain')}}</h6>-->
-                        <!--</v-layout>-->
-
-                        <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-
-                        <!--<div v-for="item in paymentMethods">-->
-                            <!--<my-payment-item-->
-                                    <!--:item="item"-->
-                            <!--/>-->
-                        <!--</div>-->
-
-                        <!--&lt;!&ndash;결제수단 추가&ndash;&gt;-->
-                        <!--<v-layout wrap row class="vertical-center">-->
-                            <!--<v-divider class="mt-4 mb-4"></v-divider>-->
-                            <!--<v-flex md12>-->
-                                <!--<h5 class="text-md-center">-->
-                                    <!--<h5 class="color-darkgray mb-3" v-if="paymentMethod === ''">-->
-                                        <!--{{$str('nullPaymentMethod')}}</h5>-->
-                                    <!--<a class="color-blue text-white-hover c-pointer" @click="onModal('addPayment')">{{$str('addPayment')}}</a>-->
-                                <!--</h5>-->
-                            <!--</v-flex>-->
-                        <!--</v-layout>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      네번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;차단목록&ndash;&gt;-->
-
-                    <!--<div class="mt-6 section-border ma-3  pt-4 pr-4 pl-4 pb-4 mb-5">-->
-                        <!--<v-layout column mb-4>-->
-                            <!--<h4 class="bold">{{$str('blockList')}}</h4>-->
-                            <!--<h6 class="color-darkgray mt-3">{{$str('blockListExplain')}}</h6>-->
-                        <!--</v-layout>-->
-
-                        <!--<span v-if="blockList != ''">-->
-                            <!--<div class="color-darkgray mt-5 mb-4 text-md-center " v-if="blockList === ''">-->
-                                <!--{{$str('noMoreRecords')}}-->
-                            <!--</div>-->
-                            <!--<v-layout wrap row class="vertical-center flex-divide-top-block" v-for="block in blockList">-->
-                                <!--<v-flex md10 class="vertical-center">-->
-                                    <!--<avatar :email="block.email" class="mr-3 f-left"></avatar>-->
-                                    <!--<h5 class="color-blue c-pointer text-white-hover ">{{block.nickName}}</h5></v-flex>-->
-                                <!--<v-flex md2><a class="h6 color-blue text-white-hover c-pointer">{{$str('unblock')}}</a>-->
-                                <!--</v-flex>-->
-                            <!--</v-layout>-->
-                         <!--</span>-->
-                        <!--<span v-else>-->
-                            <!--<div class="color-darkgray mt-4a  text-md-center text-xs-center flex-divide-top-block">{{$str('noMoreRecords')}}</div>-->
-                        <!--</span>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;***************      다섯번째       *********&ndash;&gt;-->
-                    <!--&lt;!&ndash;***************       섹션        *********&ndash;&gt;-->
-
-                    <!--<div class="mt-6 section-border ma-3 pa-4 ">-->
-                        <!--<v-layout column>-->
-                            <!--<h4 class="bold">{{$str('history')}}</h4>-->
-                            <!--<v-layout class="vertical-center mb-5 mt-4">-->
-                                <!--<h4 class="color-darkgray medium mr-4a">-->
-                                    <!--<a class="color-darkgray" @click="onSelection('login')"-->
-                                       <!--v-bind:class="{'active-history' : selection_login}">{{$str('loginText')}}</a>-->
-                                <!--</h4>-->
-                                <!--<v-divider inset vertical></v-divider>-->
-                                <!--<h4 class="color-darkgray medium mr-4a ml-4">-->
-                                    <!--<a class="color-darkgray" @click="onSelection('security')"-->
-                                       <!--v-bind:class="{'active-history' : selection_security}">{{$str('securitySettings')}}</a>-->
-                                <!--</h4>-->
-                            <!--</v-layout>-->
-                        <!--</v-layout>-->
-
-                        <!--&lt;!&ndash;로그인 선택 시&ndash;&gt;-->
-                        <!--<span v-if="selection_login  && loginHistory != ''">-->
-                            <!--<v-layout class="vertical-center flex-divide-bottom-block pb-2">-->
-                                <!--<v-flex md4><div class="color-darkgray h5">{{$str('date')}}</div></v-flex>-->
-                                <!--<v-flex md3><div class="color-darkgray h5">{{$str('Type')}}</div></v-flex>-->
-                                <!--<v-flex md3><div class="color-darkgray h5">IP</div></v-flex>-->
-                                <!--<v-flex md2><div-->
-                                        <!--class="color-darkgray h5 text-xs-right">{{$str('status')}}</div></v-flex>-->
-                            <!--</v-layout>-->
-                             <!--<v-layout class="vertical-center flex-divide-bottom-block pt-4 pb-4"-->
-                                       <!--v-for="data in loginHistory">-->
-                                <!--<v-flex md4><div class="color-black h5">{{data.register_datetime}}</div></v-flex>-->
-                                <!--<v-flex md3><div class="color-black h5">{{data.type}}</div></v-flex>-->
-                                <!--<v-flex md3><div class="color-black h5">{{data.ip}}</div></v-flex>-->
-                                <!--<v-flex md2><div class="color-black h5 text-xs-right">{{data.status === 'success' ? $str('successful') : $str('failed')}}</div></v-flex>-->
-                            <!--</v-layout>-->
-                        <!--</span>-->
-
-                        <!--&lt;!&ndash;보안 설정 선택 시&ndash;&gt;-->
-                        <!--<span v-else-if=" !selection_login && securitySettings != ''">-->
-                            <!--<v-layout class="vertical-center flex-divide-bottom pb-2">-->
-                                <!--<v-flex md4><div class="color-darkgray h5">{{$str('date')}}</div></v-flex>-->
-                                <!--<v-flex md5><div class="color-darkgray h5">{{$str('securitySettings')}}</div></v-flex>-->
-                                <!--<v-flex md3><div class="color-darkgray h5">IP</div></v-flex>-->
-                            <!--</v-layout>-->
-                               <!--<v-layout class="vertical-center flex-divide-bottom pt-4 pb-4"-->
-                                         <!--v-for="data in securitySettings">-->
-                                <!--<v-flex md4><div class="color-black h5">{{data.register_datetime}}</div></v-flex>-->
-                                <!--<v-flex md5><div class="color-black h5">{{data.type}}</div></v-flex>-->
-                                <!--<v-flex md3><div class="color-black h5">{{data.ip}}</div></v-flex>-->
-                            <!--</v-layout>-->
-                        <!--</span>-->
-
-                        <!--<span v-if="blockList === ''" >-->
-                            <!--<div class="color-darkgray mt-5 mb-4 text-md-center text-xs-center">{{$str('noMoreRecords')}}</div>-->
-                        <!--</span>-->
-                        <!--<span v-else>-->
-                            <!--<Pagination class="text-md-center mt-5 mb-4"></Pagination>-->
-                        <!--</span>-->
-                    <!--</div>-->
-                <!--</v-flex>-->
-            <!--</v-layout>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;결제수단 추가 모달&ndash;&gt;-->
-        <!--<my-page-modal :show="showModal" :type="modalType" :phoneNumber="phoneVerification.phoneNumber"-->
-                       <!--:email="emailVerification.email"-->
-                       <!--v-on:close="onClose" v-on:paymentMethod="getPaymentMethod"-->
-                       <!--v-on:turnon="onTurnOn" v-on:nickName="nickName"></my-page-modal>-->
-    <!--</div>-->
 </template>
 
 <script>
@@ -1350,7 +639,8 @@
         color: #9294a6;
     }
 
-    .mypage-wrapper .color-black {
+    .mypage-wrapper .color-black,
+    .mypage-wrapper .color-darkgray {
         white-space: nowrap;
     }
 
@@ -1396,7 +686,8 @@
     }
 
     .otherInfo-wrapper ul,
-    .otherInfo-header {
+    .account-header,
+    .blocked-user-item {
         border-bottom: 1px solid #d1d1d1;
         padding: 24px 0;
         display: -webkit-box;
@@ -1409,11 +700,26 @@
         position: relative;
     }
 
-    .otherInfo-wrapper ul:last-child {
+    .otherInfo-header {
+        border-bottom: 1px solid #d1d1d1;
+        padding: 24px 0;
+        display: block;
+        position: relative;
+    }
+
+    .otherInfo-wrapper ul:last-child,
+    .blocked-user-item:last-child {
        border-bottom: none;
     }
 
-    .otherInfo-header .header-detail {
+    .blocked-user-item p {
+        display: inline-block;
+        font-size: 14px;
+        color: #214ea1;
+        margin-left: 16px;
+    }
+
+    .account-header .header-detail {
         text-align: right;
     }
 
@@ -1477,6 +783,7 @@
             justify-content: flex-start;
         }
 
+        .account-header .header-detail,
         .otherInfo-header .header-detail {
             text-align: left;
         }
@@ -1554,7 +861,7 @@
             opacity: .6;
         }
 
-        .mypage-wrapper .py-3:hover {
+        .mypage-wrapper .a-txt:hover {
             opacity: 1;
         }
     }
