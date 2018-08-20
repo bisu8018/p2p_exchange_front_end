@@ -175,12 +175,14 @@
                 }
             },
             dragFinish: function (e) {
-                this.isAnimation = true;
                 if (this.isMoving && !this.isPassing) {
-                    var _x = (e.pageX || e.changedTouches[0].pageX) - this.x;
+                    let _x = (e.pageX || e.changedTouches[0].pageX) - this.x;
                     if (_x < (this.slidebarWidth - this.slidebarHeight)) {
-                        this.$refs.handler.style.left = '0';
-                        this.$refs.progressBar.style.width = '0';
+                        this.isAnimation = true;
+                        this.$nextTick(() => {
+                            this.$refs.handler.style.left = '0';
+                            this.$refs.progressBar.style.width = '0';
+                        })
                     }
                     this.isMoving = false;
                     this.showDim = false;
