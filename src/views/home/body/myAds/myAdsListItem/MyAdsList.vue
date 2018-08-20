@@ -33,7 +33,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Time</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.time}}</v-flex>
+                <v-flex xs9 text-xs-right>{{transTime}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Control</v-flex>
@@ -64,8 +64,8 @@
                 <v-flex md1 text-md-left>{{adslist.volumeAvailable}}</v-flex>
                 <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.cryptocurrency}}</v-flex>
                 <v-flex md1 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
-                <v-flex md2 text-md-left>{{adslist.time}}</v-flex>
-                <v-flex md3 text-md-right color-blue>
+                <v-flex md3 text-md-left>{{transTime}}</v-flex>
+                <v-flex md2 text-md-right color-blue>
                     <span class="text-white-hover c-pointer ">{{$str('edit')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showEnableDialog = true">{{$str('enable')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showDeleteDialog = true">{{$str('delete')}}</span>
@@ -129,6 +129,7 @@
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
+    import {abUtils} from '@/common/utils';
 
     export default {
         name: "MyAdsList",
@@ -144,6 +145,10 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            transTime(){
+                let time = abUtils.isLocaleDateTime(this.adslist.registerDatetime);
+                return time;
+            }
 
         },
         methods: {},

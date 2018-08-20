@@ -42,7 +42,7 @@ export default class MyTradeFilter {
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
-        
+
     }
 
     toLowerCase(tradeType){
