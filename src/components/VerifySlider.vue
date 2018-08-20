@@ -12,7 +12,9 @@
              @touchmove="dragMoving"
              @touchend="dragFinish">
             <div class="dv_progress_bar" ref="progressBar" :style="progressBarStyle"></div>
-            <div class="dv_text" :style="textStyle" ref="message">{{message}}</div>
+            <div class="dv_text" :style="textStyle" ref="message">
+                <span :class="{ 'verfity-txt_animation' : !isVerified  }">{{message}}</span>
+            </div>
             <div class="dv_handler dv_handler_bg" @mousedown="dragStart"
                  ref="handler" :style="handlerStyle" @touchstart="dragStart">
                 <i class="handlerIcon">
@@ -39,6 +41,7 @@
                 vIcon: "keyboard_arrow_right",
                 text: Vue.prototype.$str("verifySliderPlaceholder"),
                 successText: Vue.prototype.$str("verifySliderSuccess"),
+                isVerified: false,
                 showDim: false,
             }
         },
@@ -184,6 +187,7 @@
                 this.isPassing = true;
                 this.isMoving = false;
                 this.vIcon = "check";
+                this.isVerified = true;
                 //this.$refs.progressBar.style.background = 'this.completedBg';
                 this.$refs.message.style.textAlign = 'left';
                 this.$refs.message.style.color = '#214ea1';
@@ -226,6 +230,10 @@
         top: 0px;
         left: 0px;
         width: 40px !important;
+        -webkit-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+        cursor: move;
     }
 
     .drag_verify .dv_handler_bg {
@@ -259,8 +267,8 @@
         -ms-user-select: none;
         font-size: 12px !important;
         letter-spacing: 0 !important;
-        text-align: left;
         padding-left: 52px;
+        text-align: center;
     }
 
     .verify-icon {
@@ -280,5 +288,37 @@
         bottom: 0;
         right: 0;
         left: 0;
+    }
+
+    .verfity-txt_animation {
+        background: -webkit-gradient(linear,left top,right top,color-stop(0,#4d4d4d),color-stop(.4,#4d4d4d),color-stop(.5,#fff),color-stop(.6,#4d4d4d),color-stop(1,#4d4d4d));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-animation: isMove 3s infinite running;
+        -webkit-text-size-adjust: none;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        padding-right: 40px;
+    }
+
+    @keyframes isMove {
+        0% {
+            background-position: -200px 0;
+        }
+        100% {
+            background-position: 200px 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        @keyframes isMove {
+            0% {
+                background-position: -100px 0;
+            }
+            100% {
+                background-position: 100px 0;
+            }
+        }
     }
 </style>
