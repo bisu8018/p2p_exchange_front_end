@@ -321,7 +321,7 @@
                 return MainRepository.State.isMobile();
             },
             isLogin() {
-                return MainRepository.Login.isLogin();
+                return MainRepository.MyInfo.isLogin();
             },
             orderList() {
                 return MainRepository.MyOrder.getPage();

@@ -85,10 +85,10 @@
         },
         computed: {
             isLogin() {
-                if (MainRepository.Login.isLogin()) {
+                if (MainRepository.MyInfo.isLogin()) {
                     MainRepository.router().goMain();
                 }
-                return MainRepository.Login.isLogin();
+                return MainRepository.MyInfo.isLogin();
             }
         },
         methods: {

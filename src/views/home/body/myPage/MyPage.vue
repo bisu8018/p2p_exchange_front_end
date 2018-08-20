@@ -757,9 +757,9 @@
             showModal: false,
             modalType: '',
 
-            member_no: MainRepository.Login.getUserInfo().memberNo,
-            nickName: MainRepository.Login.getUserInfo().nickname,
-            register_datetime: MainRepository.Login.getUserInfo().createDatetime,
+            member_no: MainRepository.MyInfo.getUserInfo().memberNo,
+            nickName: MainRepository.MyInfo.getUserInfo().nickname,
+            register_datetime: MainRepository.MyInfo.getUserInfo().createDatetime,
 
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
@@ -789,12 +789,12 @@
                 return securedIdNo;
             },
             paymentMethods() {
-                return MainRepository.Login.getMyPaymentMethods();
+                return MainRepository.MyInfo.getMyPaymentMethods();
             },
         },
         created() {
             // 로그인 확인 -> Login 으로
-            if (!MainRepository.Login.isLogin()) {
+            if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
                 return;
             }
@@ -812,7 +812,7 @@
             });
 
             // 유저 결제수단 정보 GET
-            MainRepository.Login.loadMyPaymentMethods();
+            MainRepository.MyInfo.loadMyPaymentMethods();
 
             // 차단 리스트 정보 GET
             MainRepository.MyPage.getBlockList(function (blockList) {

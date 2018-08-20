@@ -101,7 +101,7 @@ export default {
     _requestWithPath: function (url: string, type: string, data: any, success: any, failure: any) {
 
         data = data || {};
-        let path =  {email : MainRepository.Login.getUserInfo().email};
+        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
         let param = qs.stringify(path);
         let _url = url + '?' + param;
         this._request(
@@ -114,7 +114,7 @@ export default {
     },
     _requestWithBodyAndEmail: function (url: string, type: string, data: any, success: any, failure: any) {
         data = data || {};
-        let path =  {email : MainRepository.Login.getUserInfo().email};
+        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
         let param = qs.stringify(path);
         let _url = url + '?' + param;
         this._request(

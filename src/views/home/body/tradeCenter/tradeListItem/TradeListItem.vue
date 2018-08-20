@@ -569,7 +569,7 @@
             },
             setNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
-                return (MainRepository.Login.getUserInfo().nickname !== '')
+                return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             }
 
         },
@@ -620,11 +620,11 @@
                 let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
                     MainRepository.TradeView.createOrder({
-                            email : MainRepository.Login.getUserInfo().email,
+                            email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
                             amount :   this.toValue,
                             coinCount : this.fromValue,
-                            customerMemberNo :  MainRepository.Login.getUserInfo().memberNo,
+                            customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
                             merchantMemberNo :  this.user.memberNo,
                             price : this.user.fixedPrice,
                             status : "unpaid",
@@ -730,7 +730,7 @@
             //원격 Drawer를 향해 set 해줌
             changeDrawer() {
                 /////////////login 안했을때 login창으로 돌려보냄////////
-                if (!MainRepository.Login.isLogin()) {
+                if (!MainRepository.MyInfo.isLogin()) {
                     MainRepository.router().goLogin();
                     return;
                 }
