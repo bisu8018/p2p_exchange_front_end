@@ -16,7 +16,7 @@ export default class Order {
     paymentWindow : string;
     price : number;
     referenceNo : number;
-    registerDatetime : object;
+    registerDatetime : number;
     status : string;
     tradeType : string;
 
