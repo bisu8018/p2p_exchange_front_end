@@ -321,7 +321,7 @@
                 return MainRepository.State.isMobile();
             },
             isLogin() {
-                return MainRepository.Login.getUserInfo().email === '' ? false : true;
+                return MainRepository.Login.isLogin();
             },
             orderList() {
                 return MainRepository.MyOrder.getPage();

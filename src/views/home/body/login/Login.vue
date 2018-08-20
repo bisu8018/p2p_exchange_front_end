@@ -141,7 +141,6 @@
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
                    }).then((response) => {
-
                        this.$router.push('tradeCenter');
                    })
 
