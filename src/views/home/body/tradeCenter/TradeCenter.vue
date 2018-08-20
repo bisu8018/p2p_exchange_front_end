@@ -112,6 +112,9 @@
             MainRepository.TradeView.load(() => {
                 this.showProgress = false;
             })
+
+            // Buy/Sell 로 선택된 item 초기화
+            MainRepository.TradeView.setchangeDrawer(-1);
         },
         computed: {
             TradeItemLists(){
