@@ -17,7 +17,6 @@ export default {
                 callback(data)
             },
             function (error) {
-                console.log(error);
                 //실패시 이곳을 탐
             })
     },
