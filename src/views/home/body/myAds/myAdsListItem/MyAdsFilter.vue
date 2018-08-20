@@ -4,7 +4,7 @@
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
-                      && orderNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
+                      && adNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                    @click.stop="isModal = !isModal">filter_list</i>
 
@@ -29,10 +29,10 @@
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('tradeType')">close</i>
                     </v-layout>
                 </h6>
-                <h6 class="statusChip" v-if="orderNo != ''">
+                <h6 class="statusChip" v-if="adNo != ''">
                     <v-layout align-center row fill-height>
-                        {{orderNo}}
-                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('orderNo')">close</i>
+                        {{adNo}}
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('adNo')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="adsType != ''">
@@ -152,14 +152,14 @@
             end_date: "",
             coinType: "",
             tradeType: "",
-            orderNo: "",
+            adNo: "",
             adsType: "",
             currency: '',
             modal_start_date: "",
             modal_end_date: "",
             modal_coinType: "",
             modal_tradeType: "",
-            modal_orderNo: "",
+            modal_adNo: "",
             modal_adsType: "",
             modal_currency: '',
             //clear기능 때문에 공통 컴포넌트 사용 불가
@@ -202,15 +202,21 @@
                 this.modal_end_date = value;
             },
             onSearch() {
-                MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
-                    this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
-
+                MainRepository.MyAds.updatePage({
+                    searchStartTime : this.modal_start_date,
+                    searchEndTime : this.modal_end_date,
+                    cryptocurrency : this.modal_coinType,
+                    orderType : this.modal_tradeType,
+                    adNo : this.modal_adNo,
+                    adsType : this.modal_adsType,
+                    currency : this.modal_currency,
+                });
                 this.isModal = false;
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
                 this.coinType = this.modal_coinType;
                 this.tradeType = this.modal_tradeType;
-                this.orderNo = this.modal_orderNo;
+                this.adNo = this.modal_adNo;
                 this.adsType = this.modal_adsType;
                 this.currency = this.modal_currency;
 
@@ -220,7 +226,7 @@
                 this.modal_end_date = "";
                 this.modal_coinType = "";
                 this.modal_tradeType = "";
-                this.modal_orderNo = "";
+                this.modal_adNo = "";
                 this.modal_adsType = "";
                 this.modal_currency = "";
                 this.clear = null;
@@ -231,14 +237,14 @@
                 this.modal_end_date = "";
                 this.modal_coinType = "";
                 this.modal_tradeType = "";
-                this.modal_orderNo = "";
+                this.modal_adNo = "";
                 this.modal_adsType = "";
                 this.modal_currency = "";
             },
             // 자연수 체크
             onCheckNum() {
-                if (!abUtils.isNaturalNumber(this.orderNo)) {
-                    this.orderNo = "";
+                if (!abUtils.isNaturalNumber(this.adNo)) {
+                    this.adNo = "";
                 }
             },
             // 칩 x버튼 눌렀을 시 삭제
@@ -248,9 +254,9 @@
                     this.end_date = '';
                     this.modal_start_date = "";
                     this.modal_end_date = "";
-                }else if(type === 'orderNo'){
-                    this.orderNo = '';
-                    this.modal_orderNo = '';
+                }else if(type === 'adNo'){
+                    this.adNo = '';
+                    this.modal_adNo = '';
                 }else if(type === 'coinType'){
                     this.coinType = '';
                     this.modal_coinType = '';
@@ -264,8 +270,15 @@
                     this.currency = '';
                     this.modal_currency = '';
                 }
-                MainRepository.MyAds.setFilter(this.modal_start_date,this.modal_start_date, this.modal_coinType,
-                    this.modal_tradeType,this.modal_orderNo, this.modal_adsType, this.modal_currency);
+                MainRepository.MyAds.updatePage({
+                    searchStartTime : this.modal_start_date,
+                    searchEndTime : this.modal_end_date,
+                    cryptocurrency : this.modal_coinType,
+                    orderType : this.modal_tradeType,
+                    adNo : this.modal_adNo,
+                    adsType : this.modal_adsType,
+                    currency : this.modal_currency,
+                });
             }
         },
 

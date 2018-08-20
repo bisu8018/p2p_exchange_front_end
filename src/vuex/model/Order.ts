@@ -1,5 +1,9 @@
+import PaymentMethod from './PaymentMethod';
+
 export default class Order {
     adNo : number;
+    email: string;
+    unreadMessageCount : number;
     amount : number;
     coinCount : number;
     cryptocurrency: string;
@@ -12,6 +16,7 @@ export default class Order {
     nickname: string;
     orderNo: number;
     paymentMethods : string;
+    filteredPaymentMethod : PaymentMethod[];
     paymentWindow : string;
     price : number;
     referenceNo : number;
@@ -20,8 +25,12 @@ export default class Order {
     tradeType : string;
 
 
+
+
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
+        this.email = data.email;
+        this.unreadMessageCount = Number(data.unreadMessageCount);
         this.referenceNo = Number(data.referenceNo) || 0;
         this.adNo = Number(data.adNo) || 0;
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency)
@@ -33,10 +42,14 @@ export default class Order {
         this.price = Number(data.price) || 0;
         this.coinCount = Number(data.coinCount) || 0;
         this.amount = Number(data.amount) || 0;
-        this.getMyPaymentMethodSelectList = data.getMyPaymentMethodSelectList || '';
+        this.getMyPaymentMethodSelectList = data.getMyPaymentMethodSelectList;
         this.memberNo = data.memberNo;
         this.nickname = data.nickname || '';
         this.paymentMethods = data.paymentMethods || '';
+        this.filteredPaymentMethod = [];
+        for(let key in data.filteredPaymentMethod) {
+            this.filteredPaymentMethod.push(new PaymentMethod(data.filteredPaymentMethod[key]));
+        }
         this.paymentWindow = data.paymentWindow || '';
         this.registerDatetime = data.registerDatetime || '';
         this.tradeType = data.tradeType || '';

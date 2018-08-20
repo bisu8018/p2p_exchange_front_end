@@ -32,12 +32,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import Toggle from '@/components/Toggle.vue';
+import PaymentMethod from "../../../../../vuex/model/PaymentMethod";
+import {abString} from "../../../../../config/localization";
 
 export default Vue.extend({
     name: 'my-payment-item',
     components: { Toggle },
     props: {
-        item: {},
+        item: { type: PaymentMethod },
     },
     data() {
         return {
@@ -59,13 +61,13 @@ export default Vue.extend({
         initItem(item) {
             switch (item.type) {
                 case this.type.alipay:
-                    return this.$str('alipayText');
+                    return abString('alipayText');
 
                 case this.type.wechat:
-                    return this.$str('wechatPayText');
+                    return abString('wechatPayText');
 
                 default:
-                    return this.$str('bankAccountText');
+                    return abString('bankAccountText');
             }
         },
         onModify() {
@@ -74,14 +76,16 @@ export default Vue.extend({
         onToggle() {
             switch (this.item.type) {
                 case this.type.alipay:
-                    // Server 요청 -> 콜백 -> vuex 바꾸기
-                    return this.$str('alipayText');
+                    // 서버 요청
+                    break;
 
                 case this.type.wechat:
-                    return this.$str('wechatPay');
+                    // 서버 요청
+                    break;
 
                 default:
-                    return this.$str('bankAccountText');
+                    // 서버 요청
+                    break;
             }
         }
     }

@@ -629,11 +629,11 @@
                             price : this.user.fixedPrice,
                             status : "unpaid",
                             tradePassword : this.tradePW,
-                    }, function (result) {
+                    }, function (orderNo) {
                         let tradePage;
                         switch (instance.user.tradeType) {
                             case 'Buy':
-                                tradePage = "/buy?"+result
+                                tradePage = "/buy?"+orderNo
                                 instance.$router.push(tradePage);
                                 break;
 
@@ -738,7 +738,8 @@
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
             goUserPage() {
-                this.$router.push("/userpage");
+                let user = "/userpage?"+this.user.memberNo
+                this.$router.push(user);
             },
 
         },

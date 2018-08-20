@@ -37,8 +37,9 @@ import {doesHttpOnlyCookieExist} from "@/common/common";
 import RouterController from "@/vuex/controller/RouterController";
 import TradeFilter from "@/vuex/model/TradeFilter";
 import TradeController from "@/vuex/controller/TradeController";
+import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 
-let myTradeController: MyTradeController;
+let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
 let tradelistController: TradeListController;
 let stateController: StateController;
@@ -136,7 +137,7 @@ export default {
         //sell/buy 프로세스 상대방 결제수단 정보 get
         setPaymentMethod: function (data: any, callback: any) {
             CommonService.info.setPaymentMethod({
-                email : instance.Login.getUserInfo().email
+                email : instance.MyInfo.getUserInfo().email
             },function (result) {
                 const paymentMethod_map = {
                     alipay : {},
@@ -165,12 +166,12 @@ export default {
         }
     },
     Balance: {
-        setBalances: function (callback: any) {
-            BalanceService.getBalances({
-                email: instance.Login.getUserInfo().email
-            }, function (result) {
-                let balance = new Balance('');
-                const balance_map = {};
+        setBalances: function (callback:any) {
+          BalanceService.getBalances({
+              email: instance.MyInfo.getUserInfo().email
+          }, function (result) {
+              let balance = new Balance('');
+              const balance_map = {};
 
               for (let i = 0; i < result.length; i++) {
                   const balance_tmp = result[i];
@@ -425,43 +426,43 @@ export default {
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
             var LeftFilterArr = {
-                cryptocurrency: cryptocurrency,
-                tradeType: tradeType,
-                page: 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
+                cryptocurrency : cryptocurrency,
+                tradeType :   tradeType,
+                page : 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
             };
             //page는 1로 초기화
             instance.Pagination.setPage(1,);
             instance.TradeView.updateSelectPage(LeftFilterArr);      //필터에 맞게 화면 재구성
         },
-        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string) {
+        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string){
             //amount 에 들어간 값이 없을때
-            if (amount == '') {
+            if(amount ==''){
                 amount = '0'
             }
             var RightFilterArr = {
-                nationality: instance.SelectBox.controller().getCountry(),
-                paymentMethods: instance.SelectBox.controller().getPayment(),
-                currency: instance.SelectBox.controller().getCurrency(),
-                amount: Number(amount),
+                nationality : instance.SelectBox.controller().getCountry(),
+                paymentMethods : instance.SelectBox.controller().getPayment(),
+                currency : instance.SelectBox.controller().getCurrency(),
+                amount :  Number(amount),
                 page: 1,
             };
             instance.Pagination.setPage(1,);//page는 1로 초기화
             instance.TradeView.updateSelectPage(RightFilterArr);     //필터에 맞게 화면 재구성
         },
 
-        setchangeDrawer(adNo: number) {
+        setchangeDrawer(adNo: number){
             let tempNo = tradelistController.getDrawerID();
-            if (tempNo === adNo) {
+            if(tempNo === adNo){
                 tradelistController.setDrawerID(0)
             }
-            else {
+            else{
                 tradelistController.setDrawerID(adNo)
             }
         },
-        getDrawer() {
+        getDrawer(){
             return tradelistController.getDrawerID();
         },
-        createOrder: function (data: any, callback: any) {
+        createOrder: function (data : any, callback: any) {
             OrderService.addOrder(data, function (result) {
                 callback(result);
             })
@@ -487,18 +488,22 @@ export default {
         getTotalCount() {
             return paginationController.getTotalCount();
         },
-        setPage(page: number, size: number, type: string) {
+        setPage(page: number, size : number, type : string) {
             //현재 page set
             paginationController.setPage(page);
             //pagination에서 직접버튼을 눌렀을때만 아래의 case 따라 page update 시켜줌.
-            if (type !== '') {
+            if(type !==''){
                 switch (type) {
                     case 'tradecenter':     //tradecenter page 일때.
-                        instance.TradeView.updateSelectPage({page: page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
+                        instance.TradeView.updateSelectPage({page : page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
+                        break;
+
+                    case 'MyOrder':
+                        instance.MyOrder.updatePage({page : page});
                         break;
 
                     case 'MyAds':
-
+                        instance.MyAds.updatePage({page : page});
                         break;
                     default :
 
@@ -518,23 +523,56 @@ export default {
         // //    여기까지 선언하다 막힘.
         // },
     },
-    MyAds: {
+    MyAds:{
         controller(): MyTradeController {
             return myTradeController;
         },
-        initPage() {
+        initPage(){
+            this.setFilter({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10'
+            })
+            this.load();
+        },
+        initData(){
+            myTradeController.setMyAdsFilter({
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',
+            })
+            //pagination 초기화
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
+        load(){
             AdService.getMyAds({
-                email: instance.Login.getUserInfo().email,
-                searchStartTime: '',
-                searchEndTime: '',
-                status: '',
-                orderNo: '',
-                cryptocurrency: '',
-                orderType: '',
-                tradeType: '',
-                currency: '',
-                page: '1',
-                size: '10',
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : myTradeController.getMyAdsFilter().searchStartTime,
+                searchEndTime : myTradeController.getMyAdsFilter().searchEndTime,
+                status : myTradeController.getMyAdsFilter().status,
+                adNo : myTradeController.getMyAdsFilter().adNo,
+                cryptocurrency : myTradeController.getMyAdsFilter().cryptocurrency,
+                orderType : myTradeController.getMyAdsFilter().orderType,
+                tradeType : myTradeController.getMyAdsFilter().tradeType,
+                currency : myTradeController.getMyAdsFilter().currency,
+                page : myTradeController.getMyAdsFilter().page,
+                size : '10',
             }, function (data) {
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
@@ -542,7 +580,7 @@ export default {
                 //전체 item list model화 시켜 주기
                 let result = data.myAdsList
                 let myAdsList: TradeItem[] = [];
-                for (let key in result) {
+                for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
                     myAdsList.push(itemList);
@@ -550,56 +588,14 @@ export default {
                 myTradeController.setMyAdsItems(myAdsList);
             })
         },
-        initData() {
-            myTradeController.setMyAdsFilter({
-                searchStartTime: '',
-                searchEndTime: '',
-                status: '',
-                orderNo: '',
-                cryptocurrency: '',
-                orderType: '',
-                tradeType: '',
-                currency: '',
-                page: '1',
-                size: '10',
-            })
-            //pagination 초기화
-            paginationController.setPage(1);
-            paginationController.setTotalCount(1);
+        setFilter( data){
+            myTradeController.setMyAdsFilter(new MyTradeFilter(data));
         },
-        setFilter(start_date: string, end_date: string, coinType: string, tradeType: string,
-                  orderNo: number, adsType: string, currency: string,) {
-            AdService.getMyAds({
-                email: instance.Login.getUserInfo().email,
-                searchStartTime: start_date,
-                searchEndTime: end_date,
-                status: '',
-                orderNo: orderNo,
-                cryptocurrency: coinType,
-                orderType: adsType,
-                tradeType: tradeType,
-                currency: currency,
-                page: instance.paginationController.getPage(),
-                size: '10',
-            }, function (data) {
-                let totalCount = data.totalCount;
-                paginationController.setTotalCount(totalCount);
-
-                //전체 item list model화 시켜 주기
-                let result = data.adList
-                let myAdsList: TradeItem[] = [];
-                for (let key in result) {
-                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
-                    let itemList: TradeItem = new TradeItem(result[key])
-                    myAdsList.push(itemList);
-                }
-                myTradeController.setMyAdsItems(myAdsList);
-            })
+        updatePage(data){
+            myTradeController.updateMyAdsFilter(data);
+            this.load();
         },
-        updatePage() {
-
-        },
-        getPage() {
+        getPage(){
             return myTradeController.getMyAdsItems();
         },
     },
@@ -607,19 +603,35 @@ export default {
         controller(): MyTradeController {
             return myTradeController;
         },
-        initPage() {
+        initPage(){
+            this.setFilter({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',})
+            this.load();
+
+        },
+        load(){
             OrderService.getMyOrder({
-                email: instance.Login.getUserInfo().email,
-                searchStartTime: '',
-                searchEndTime: '',
-                status: '',
-                orderNo: '',
-                cryptocurrency: '',
-                orderType: '',
-                tradeType: '',
-                currency: '',
-                page: '1',
-                size: '10',
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
+                searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
+                status : myTradeController.getMyOrderFilter().status,
+                orderNo : myTradeController.getMyOrderFilter().orderNo,
+                cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
+                orderType : myTradeController.getMyOrderFilter().orderType,
+                tradeType : myTradeController.getMyOrderFilter().tradeType,
+                currency : myTradeController.getMyOrderFilter().currency,
+                page : myTradeController.getMyOrderFilter().page,
+                size : '10',
             }, function (data) {
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
@@ -627,7 +639,7 @@ export default {
                 //전체 item list model화 시켜 주기
                 let result = data.ordersList
                 let myOrderList: Order[] = [];
-                for (let key in result) {
+                for(let key in result){
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
@@ -635,77 +647,39 @@ export default {
                 myTradeController.setMyOrderItems(myOrderList);
             })
         },
-        initData() {
-            myTradeController.setMyOrderFilter({
-                email: instance.Login.getUserInfo().email,
-                searchStartTime: '',
-                searchEndTime: '',
-                status: '',
-                orderNo: '',
-                cryptocurrency: '',
-                orderType: '',
-                tradeType: '',
-                currency: '',
-                page: '1',
-                size: '10',
+        initData(){
+            this.setFilter({
+                searchStartTime : '',
+                searchEndTime : '',
+                status : '',
+                orderNo : '',
+                cryptocurrency : '',
+                orderType : '',
+                tradeType : '',
+                currency : '',
+                page : '1',
+                size : '10',
             })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        setFilter(start_date: string, end_date: string, status: string, orderNo: number, cryptocurrency: string,
-                  orderType: string, tradeType: string, currency: string,) {
-            OrderService.getMyOrder({
-                email: instance.Login.getUserInfo().email,
-                searchStartTime: start_date,
-                searchEndTime: end_date,
-                status: status,
-                orderNo: orderNo,
-                cryptocurrency: this.transCryptocurrency(cryptocurrency),
-                orderType: orderType,
-                tradeType: tradeType,
-                currency: currency,
-                page: 1,
-                size: '10',
-            }, function (data) {
-                let totalCount = data.totalCount;
-                paginationController.setTotalCount(totalCount);
-
-                //전체 item list model화 시켜 주기
-                let result = data.ordersList
-                let myOrderList: Order[] = [];
-                for (let key in result) {
-                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
-                    let itemList: Order = new Order(result[key])
-                    myOrderList.push(itemList);
-                }
-                myTradeController.setMyOrderItems(myOrderList);
-            })
+        setFilter(data){
+            myTradeController.setMyOrderFilter(
+                new MyTradeFilter(data)
+            )
         },
-        updatePage() {
-
+        updatePage(data){
+            myTradeController.updateMyOrderFilter(data);
+            this.load();
         },
-        getPage() {
+        getPage(){
             return myTradeController.getMyOrderItems();
         },
-        transCryptocurrency(cryptocurrency: string) {
-            switch (cryptocurrency) {
-                case 'BTC':
-                    return 'bitcoin';
 
-                case 'ETH':
-                    return 'ethereum';
-                case 'ALLB':
-                    return 'allb';
-
-                default:
-                    return 'bitcoin';
-
-            }
-        }
     },
-    AD: {
-        postAD: function (data: any, callback: any) {
+    AD : {
+        postAD: function (data : any, callback: any) {
             AdService.postAD(data, function (result) {
                 callback(result);
             })

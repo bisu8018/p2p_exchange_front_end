@@ -31,7 +31,7 @@
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.registerDatetime.dayOfWeek}}</v-flex>
+        <v-flex xs5 text-xs-right>{{orderlist.registerDatetime}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}}</v-flex>
@@ -68,7 +68,7 @@
         </v-flex>
         <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
         <v-flex  md1 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
-        <v-flex  md3 text-md-left>{{orderlist.registerDatetime.dayOfWeek}}</v-flex>
+        <v-flex  md3 text-md-left>{{transTime}}</v-flex>
         <v-flex  md2>
           <v-layout align-center>
             <div class="sprite-img mr-2" :class="statusImg"></div>
@@ -86,6 +86,7 @@
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
+    import {abUtils} from '@/common/utils';
     export default {
         name: "MyOrderList",
         props : {
@@ -99,11 +100,15 @@
             isMobile(){
                 return MainRepository.State.isMobile();
             },
+            transTime(){
+                let time = abUtils.isLocaleDateTime(this.orderlist.registerDatetime);
+                return time;
+            }
 
         },
         methods : {
             goUserPage(){
-                let userpage = "/userpage?"+this.orderlist.partner;
+                let userpage = "/userpage?"+this.orderlist.merchantMemberNo;
                 this.$router.push(userpage);
             },
             goTrade(){
