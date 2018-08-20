@@ -2,26 +2,22 @@
     <div>
         <v-parallax style="height: 600px;" v-if="!isMobile">
             <v-carousel delimiter-icon="remove" lazy style="height: 600px;">
-              <div v-if="currentLang=== 'EN'">
-                <v-carousel-item :src="require('@/assets/img/1_page_english.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_2.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_3.png')"></v-carousel-item>
-              </div>
-              <div v-else-if="currentLang=== 'KO'">
-                <v-carousel-item :src="require('@/assets/img/landing_1.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_2.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_3.png')"></v-carousel-item>
-              </div>
-              <div v-if="currentLang=== 'HK'">
-                <v-carousel-item :src="require('@/assets/img/landing_1.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_2.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_3.png')"></v-carousel-item>
-              </div>
-              <div v-else>
-                <v-carousel-item :src="require('@/assets/img/landing_1.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_2.png')"></v-carousel-item>
-                <v-carousel-item :src="require('@/assets/img/landing_3.png')"></v-carousel-item>
-              </div>
+              <v-carousel-item v-if="currentLang === 'EN'" :src="require('@/assets/img/1_page_english.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang === 'EN'" :src="require('@/assets/img/2_page_english.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang === 'EN'" :src="require('@/assets/img/3_page_english.png')"></v-carousel-item>
+
+              <v-carousel-item v-if="currentLang === 'KO'" :src="require('@/assets/img/1_page_korean.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang === 'KO'" :src="require('@/assets/img/2_page_korean.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang === 'KO'" :src="require('@/assets/img/3_page_korean.png')"></v-carousel-item>
+
+              <v-carousel-item v-if="currentLang=== 'ZH'" :src="require('@/assets/img/1_page_chinese_g.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang=== 'ZH'" :src="require('@/assets/img/2_page_chinese_g.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang=== 'ZH'" :src="require('@/assets/img/3_page_chinese_g.png')"></v-carousel-item>
+
+              <v-carousel-item v-if="currentLang=== 'HK'" :src="require('@/assets/img/1_page_chinese_b.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang=== 'HK'" :src="require('@/assets/img/2_page_chinese_b.png')"></v-carousel-item>
+              <v-carousel-item v-if="currentLang=== 'HK'" :src="require('@/assets/img/3_page_chinese_b.png')"></v-carousel-item>
+
             </v-carousel>
         </v-parallax>
       <div v-if="isMobile" class="pageView mt-5">
