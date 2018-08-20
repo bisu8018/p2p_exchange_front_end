@@ -25,6 +25,8 @@ export default class PaymentMethod {
         this.alipayId = data.alipayId || '';
         this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl || '';
 
+        this.iconClass = '';
+
         this.checkViewModel();
     }
 
