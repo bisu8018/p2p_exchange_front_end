@@ -46,7 +46,7 @@ export default Vue.extend({
     },
     methods: {
         initItem(item) {
-            switch (item.type) {
+          /*  switch (item.type) {
                 case 'alipay':
                     this.iconClass = 'ic-alipay';
                     this.viewId = this.alipayId;
@@ -62,7 +62,7 @@ export default Vue.extend({
                 default:
                     this.iconClass ='ic-bank';
                     return this.$str('bankAccountText');
-            }
+            }*/
         }
     }
 });

@@ -140,6 +140,9 @@
                          //  'Accept': 'application/x-www-form-urlencoded',
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
+                   }).then((response) => {
+
+                       this.$router.push('tradeCenter');
                    })
 
            /*     LoginService.User.login({

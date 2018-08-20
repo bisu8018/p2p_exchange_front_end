@@ -24,7 +24,7 @@ import LinkAccount from '../views/home/body/myPage/additionalVue/LinkAccount.vue
 import RestTradePassword from '../views/home/body/myPage/additionalVue/ResetTradePassword.vue'
 
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     routes: [

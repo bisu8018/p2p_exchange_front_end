@@ -202,7 +202,6 @@ export default {
             });
         },
         getIdVerification: function (callback: any) {
-            console.log(instance.Login.getUserInfo().email);
             AccountService.Verification.idVerification({
                 email: instance.Login.getUserInfo().email
             }, function (result) {

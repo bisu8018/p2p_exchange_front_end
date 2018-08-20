@@ -1,4 +1,4 @@
-export default class Order {
+export default class Balance {
     ownerMemberNo: number;
     cryptocurrency : string;
     depositType: string;

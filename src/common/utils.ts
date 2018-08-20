@@ -104,6 +104,7 @@ export var abUtils = {
     isLocaleDateTime: function (time){
         let localeDate = new Date(time);
         return localeDate;
-    }
+    },
+
 };
 

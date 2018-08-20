@@ -138,7 +138,7 @@
                                 <div>{{$str("MyPage")}}</div>
                             </button>
                         </v-flex>
-                        <form action="/logout" method="post" ref="logout" @click="onLogout">
+                        <form action="/logout" method="post" ref="logout" @click="onLogout" id="logoutFormMobile">
                             <v-flex xs12 class="verticalcentertext" @click="goLogOut()">
                                 <button class="text-xs-left ml-3">
                                     <div>{{$str("LogOut")}}</div>
@@ -245,7 +245,7 @@
                                 <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
                                     {{$str("Merchant")}}
                                 </div>
-                                <form action="/logout" method="post" ref="logout"
+                                <form action="/logout" method="post" ref="logout" id="logoutFormDesktop"
                                       @click="onLogout">
                                     <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
                                         {{$str("LogOut")}}
@@ -303,6 +303,7 @@
     import Vue from 'vue';
     import Avatar from '@/components/Avatar.vue';
     import MyOrderSimpleItem from './body/myOrder/MyOrderListItem/MyOrderSimpleItem'
+    import axios from 'axios'
 
     import {
         abGetLang,
@@ -351,9 +352,57 @@
             this.currentLang = abGetLang();
         },
         methods: {
+            serializeserialize (form) { console.log(form);
+                var field,
+                    l,
+                    s = [];
 
+                if (typeof form == 'object' && form.nodeName == "FORM") {
+                    var len = form.elements.length;
+
+                    for (var i = 0; i < len; i++) {
+                        field = form.elements[i];
+                        if (field.name && !field.disabled && field.type != 'button' && field.type != 'file' && field.type != 'hidden' && field.type != 'reset' && field.type != 'submit') {
+                            if (field.type == 'select-multiple') {
+                                l = form.elements[i].options.length;
+
+                                for (var j = 0; j < l; j++) {
+                                    if (field.options[j].selected) {
+                                        s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[j].value);
+                                    }
+                                }
+                            }
+                            else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
+                                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                            }
+                        }
+                    }
+                }
+                return s.join('&').replace(/%20/g, '+');
+            },
             onLogout() {
-                this.$refs.logout.submit();
+                //this.$refs.logout.submit();
+                let self = this;
+                let data;
+                if(MainRepository.State.isMobile()){
+                    data = "logoutFormMobile"
+                }else{
+                    data = "logoutFormDesktop"
+                }
+
+
+                axios({
+                    method: 'POST',
+                    url: '/logout',
+                    data: self.serializeserialize(document.getElementById(data)),
+                    withCredentials: true,
+                    headers: {
+                        //  'Accept': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                }).then((response) => {
+                    this.$router.push('tradeCenter');
+                })
             },
             goSignup() {
                 this.$router.push("/signup");
@@ -420,8 +469,7 @@
         color: white;
         position: fixed;
         top: 0;
-        overflow-x: hidden;
-        overflow-y: visible;
+        overflow: hidden;
         z-index: 999;
         width: 100%;
     }
