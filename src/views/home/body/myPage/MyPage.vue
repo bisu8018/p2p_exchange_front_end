@@ -5,9 +5,7 @@
         <div class="myInfo-wrapper">
             <!-- 닉네임, 아바타 -->
             <div class="pt-0">
-                <big-avatar
-                        :me="true"
-                />
+                <big-avatar :me="true" />
                 <div class="ml-3">
                     <p class="color-blue mb-1">{{nickName}}</p>
                     <p class="color-darkgray">UID: {{member_no}}</p>
@@ -425,18 +423,10 @@
 
                     <!-- menu -->
                     <div class="history-login mobile-hide">
-                        <div>
-                            {{$str('date')}}
-                        </div>
-                        <div>
-                            {{$str('Type')}}
-                        </div>
-                        <div>
-                            IP
-                        </div>
-                        <div>
-                            {{$str('status')}}
-                        </div>
+                        <div>{{$str('date')}}</div>
+                        <div>{{$str('Type')}}</div>
+                        <div>IP</div>
+                        <div>{{$str('status')}}</div>
                     </div>
 
                     <!-- 내용 -->
@@ -460,8 +450,6 @@
 
             </div>
         </div>
-
-
     </div>
 </template>
 
