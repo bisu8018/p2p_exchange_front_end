@@ -291,15 +291,14 @@ export default {
         },
         updateMyPamentMethods: function () {
             let self = this;
-
-
             self.loadMyPaymentMethods();
 
         },
 
         getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
-        }
+        },
+
     },
     Users: {
         //다른 유저 정보 GET
@@ -316,7 +315,34 @@ export default {
             AccountService.Account.isUserActive(data, function (result) {
                 callback(result);
             })
-        }
+        },
+        ///UserPage에서 user의 과거 이력data GET
+        getUserPageHistoryInfo(data : number, callback: any){
+            AdService.getUserPageHistoryInfo(data, function (result) {
+                callback(result);
+            })
+        },
+        getUserPageAdsList(data : number, callback: any){
+            AdService.getUserPageAdsList(data, function (result) {
+
+                let BuyLists: TradeItem[] = [];
+                let SellLists: TradeItem[] = [];
+                let tempLists = {};
+                for(let key in result){
+
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: TradeItem = new TradeItem(result[key])
+                    if(itemList.tradeType ==='Buy'){
+                        BuyLists.push(itemList);
+                    }else if(itemList.tradeType ==='Sell'){
+                        SellLists.push(itemList);
+                    }
+                }
+                tempLists = {BuyLists, SellLists};
+                callback(tempLists);
+            })
+        },
+
     },
     // SignUp: {},
     Service: {

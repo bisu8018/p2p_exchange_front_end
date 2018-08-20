@@ -249,16 +249,20 @@
                 return this.amount - this.fee;
             },
             getBalance() {
-                if (this.tokenlist.name === 'BTC'){
-                    return MainRepository.Balance.getBalance()['bitcoin'].availableAmount
-                }
-                else if(this.tokenlist.name === 'ETH'){
-                    return MainRepository.Balance.getBalance()['ethereum'].availableAmount
+                if(Object.keys(MainRepository.Balance.getBalance()).length > 0) {
+                    if (this.tokenlist.name === 'BTC') {
+                        return MainRepository.Balance.getBalance()['bitcoin'].availableAmount
+                    }
+                    else if (this.tokenlist.name === 'ETH') {
+                        return MainRepository.Balance.getBalance()['ethereum'].availableAmount
+                    }
+                    else {
+                        return 0;
+                    }
                 }
                 else {
-                    this.balance = 0;
-                    return 0;
-                }
+                        return 0;
+                    }
             }
         },
         methods : {

@@ -38,8 +38,9 @@
             <v-layout mt-4a mb-3 align-center justify-center row wrap>
                 <div class=" p-relative vertical-center mb-2">
                     <input type="checkbox" v-model="isAgree" id="termsCheckbox">
-                    <label for="termsCheckbox"><span><i class="material-icons">done</i></span></label>
+                    <label for="termsCheckbox"><span><i class="material-icons">done</i></span>
                     <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
+                    </label>
                 </div>
                 <span class="color-blue mb-2 c-pointer">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
             </v-layout>
