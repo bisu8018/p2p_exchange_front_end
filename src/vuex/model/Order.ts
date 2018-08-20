@@ -1,5 +1,6 @@
 export default class Order {
     adNo : number;
+    email: string;
     amount : number;
     coinCount : number;
     cryptocurrency: string;
@@ -24,6 +25,7 @@ export default class Order {
 
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
+        this.email = data.email;
         this.referenceNo = Number(data.referenceNo) || 0;
         this.adNo = Number(data.adNo) || 0;
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency)

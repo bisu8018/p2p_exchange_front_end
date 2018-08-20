@@ -15,7 +15,9 @@
             <div class="dv_text" :style="textStyle" ref="message">
                 <span :class="{ 'verfity-txt_animation' : !isVerified  }">{{message}}</span>
             </div>
-            <div class="dv_handler dv_handler_bg" @mousedown="dragStart"
+            <div class="dv_handler dv_handler_bg"
+                 :class="{ 'transition-animation' : isAnimation }"
+                 @mousedown="dragStart"
                  ref="handler" :style="handlerStyle" @touchstart="dragStart">
                 <i class="handlerIcon">
                     <v-icon dark class="verify-icon" standard>{{vIcon}}</v-icon>
@@ -43,6 +45,7 @@
                 successText: Vue.prototype.$str("verifySliderSuccess"),
                 isVerified: false,
                 showDim: false,
+                isAnimation: false,
             }
         },
         props: {
@@ -147,6 +150,7 @@
             },
             dragStart: function (e) {
                 if (!this.isPassing) {
+                    this.isAnimation = false;
                     this.showDim = true;
                     this.isMoving = true;
                     var handler = this.$refs.handler;
@@ -171,6 +175,7 @@
                 }
             },
             dragFinish: function (e) {
+                this.isAnimation = true;
                 if (this.isMoving && !this.isPassing) {
                     var _x = (e.pageX || e.changedTouches[0].pageX) - this.x;
                     if (_x < (this.slidebarWidth - this.slidebarHeight)) {
@@ -181,6 +186,7 @@
                     this.showDim = false;
                 }
             },
+
             //Verify Completed Bar
             passVerify: function () {
                 this.showDim = false;
@@ -230,10 +236,13 @@
         top: 0px;
         left: 0px;
         width: 40px !important;
-        -webkit-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
         cursor: move;
+    }
+
+    .transition-animation {
+        -webkit-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
     }
 
     .drag_verify .dv_handler_bg {
@@ -294,7 +303,7 @@
         background: -webkit-gradient(linear,left top,right top,color-stop(0,#4d4d4d),color-stop(.4,#4d4d4d),color-stop(.5,#fff),color-stop(.6,#4d4d4d),color-stop(1,#4d4d4d));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        -webkit-animation: isMove 3s infinite running;
+        -webkit-animation: isMove 4s infinite running;
         -webkit-text-size-adjust: none;
         width: 100%;
         display: inline-block;
@@ -304,10 +313,10 @@
 
     @keyframes isMove {
         0% {
-            background-position: -200px 0;
+            background-position: -100px 0;
         }
         100% {
-            background-position: 200px 0;
+            background-position: 100px 0;
         }
     }
 
