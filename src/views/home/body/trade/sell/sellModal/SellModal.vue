@@ -19,7 +19,7 @@
                     <div class="color-black mb-2">
                         {{$str("tradePwText")}}
                     </div>
-                   <input type="text" class="input mb-4" :placeholder="$str('tradePwText')"/>
+                   <input type="text" class="input mb-4" :placeholder="$str('tradePwText')" v-model="tradePassword"/>
                     <label class="color-black "><input type="checkbox" v-model="confirmCheckbox"/>  {{$str("confirmCheckbox")}}</label>
                 </span>
             </div>
@@ -42,6 +42,7 @@
             return {
                 appealReason: "",
                 appealDetails: "",
+                tradePassword: "",
                 confirmCheckbox: false
             }
         },
@@ -50,7 +51,7 @@
                 this.$emit('close');
             },
             onConfirm: function () {
-                this.$emit('confirm');
+                this.$emit('confirm',this.tradePassword);
             },
             onAppeal: function () {
                 this.$emit('appeal');

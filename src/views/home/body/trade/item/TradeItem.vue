@@ -1,91 +1,114 @@
 <template>
     <v-layout wrap row>
-      <v-divider class="mt-4 mb-4"></v-divider>
-      <v-flex xs12>
-        <div class="sprite-img f-left mr-3" :class="item.iconClass"></div>
+        <!--알리페이 결제-->
+        <v-flex xs6 md2 mb-3 >
+            <div class="text-xs-left vertical-center">
+                <div class="sprite-img ic-alipay d-inline-block"></div>
+                <span class="ml-2 color-darkgray">
+                        {{$str("alipayText")}}
+                    </span>
+            </div>
+        </v-flex>
+        <!--알리페이 정보-->
+        <v-flex xs6 md4 mb-3 >
+            <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
+                {{alipay_address}}
+            </div>
+        </v-flex>
 
-        <h5 class="color-darkgray mb-3"> {{ initItem(item) }}</h5>
-        <h5 class="mb-3 ml-4 pl-3 color-black" v-if="item.type === type.alipay">
-          {{ item.id }} {{ item.ownerName }} {{ item.alipay_id }}
-        </h5>
-        <h5 class="mb-3 ml-4 pl-3 color-black" v-if="item.type === type.wechat">
-          {{ item.id }} {{ item.ownerName }} {{ item.wechat_id }}
-        </h5>
-        <h5 class="mb-3 ml-4 pl-3 color-black" v-if="item.type === type.bank">
-          {{item.bankAccount}} {{ item.bank.ownerName }} {{item.bankName}} {{item.bankBranchInfo}}
-        </h5>
-      </v-flex>
-      <v-layout class="vertical-center">
-        <v-flex xs6 class="text-xs-right mr-4">
-          <h6><a class="color-blue text-white-hover" @click="onModify">{{$str('modify')}}</a></h6>
+        <!--위챗페이 결제-->
+        <v-flex xs6 md2 mb-3 >
+            <div class="text-xs-left vertical-center ">
+                <div class="sprite-img ic-wechatpay d-inline-block"></div>
+                <span class="ml-2 color-darkgray">
+                        {{$str("wechatPayText")}}
+                    </span>
+            </div>
         </v-flex>
-        <v-flex xs6>
-          <span @click="onToggle()">
-            <toggle :toggle="item.activeYn"
-                    class="c-pointer"></toggle>
-          </span>
+        <!--위챗페이정보-->
+        <v-flex xs6 md4 mb-3 >
+            <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
+                {{wechatpay_address}}
+            </div>
         </v-flex>
-      </v-layout>
+        <!--위챗페이 QR코드-->
+        <v-flex xs12 md6 mb-3 text-md-left text-xs-right >
+            <label @click="onQRcode('wechat')" class="c-pointer  d-block vertical-center">
+                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                <div class="d-inline-block color-black h6"> QR Code</div>
+            </label>
+        </v-flex>
+        <!--은행 계좌 결제-->
+        <v-flex xs6 md2 mb-3 v-if="bankAccount === 'Y'">
+            <div class="text-xs-left vertical-center">
+                <div class="sprite-img ic-bank d-inline-block"></div>
+                <span class="ml-2 color-darkgray">
+                        {{$str("bankAccountText")}}
+                    </span>
+            </div>
+        </v-flex>
+        <!--은행계좌 정보-->
+        <v-flex xs6 md10 mb-3 v-if="bankAccount === 'Y'">
+            <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
+                {{bankaccount_address}}
+            </div>
+        </v-flex>
     </v-layout>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Toggle from '@/components/Toggle.vue';
+    import Vue from 'vue';
 
-export default Vue.extend({
-    name: 'my-payment-item',
-    components: { Toggle },
-    props: {
-        item: {},
-    },
-    data() {
-        return {
-            itemId: '',
-            type: {
-                alipay: 'alipay',
-                wechat: 'wechat',
-                bank: 'bank'
-            }
-        }
-    },
-    computed: {
-
-    },
-    created() {
-
-    },
-    methods: {
-        initItem(item) {
-            switch (item.type) {
-                case this.type.alipay:
-                    return this.$str('alipayText');
-
-                case this.type.wechat:
-                    return this.$str('wechatPayText');
-
-                default:
-                    return this.$str('bankAccountText');
+    export default Vue.extend({
+        name: 'trade-item',
+        props: {
+            item: {},
+        },
+        data() {
+            return {
+                itemId: '',
+                type: {
+                    alipay: 'alipay',
+                    wechat: 'wechat',
+                    bank: 'bank'
+                }
             }
         },
-        onModify() {
+        computed: {},
+        created() {
 
         },
-        onToggle() {
-            switch (this.item.type) {
-                case this.type.alipay:
-                    // Server 요청 -> 콜백 -> vuex 바꾸기
-                    return this.$str('alipayText');
+        methods: {
+            initItem(item) {
+                switch (item.type) {
+                    case this.type.alipay:
+                        return this.$str('alipayText');
 
-                case this.type.wechat:
-                    return this.$str('wechatPay');
+                    case this.type.wechat:
+                        return this.$str('wechatPayText');
 
-                default:
-                    return this.$str('bankAccountText');
+                    default:
+                        return this.$str('bankAccountText');
+                }
+            },
+            onModify() {
+
+            },
+            onToggle() {
+                switch (this.item.type) {
+                    case this.type.alipay:
+                        // Server 요청 -> 콜백 -> vuex 바꾸기
+                        return this.$str('alipayText');
+
+                    case this.type.wechat:
+                        return this.$str('wechatPay');
+
+                    default:
+                        return this.$str('bankAccountText');
+                }
             }
         }
-    }
-});
+    });
 </script>
 
 <style scoped>

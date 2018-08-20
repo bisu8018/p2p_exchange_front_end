@@ -42,9 +42,9 @@
                     <!--이의제기 이유 selectbox-->
                     <div class="p-relative mb-4">
                         <select class="comp-selectbox h6" id="appealReasonSelectbox" v-model="appealReason">
-                            <option value="notpay">The counterparty doesn’t pay</option>
-                            <option value="notrelease">The counterparty doesn’t release</option>
-                            <option value="noanswer">No answer</option>
+                            <option value="notPaid">The counterparty doesn’t pay</option>
+                            <option value="notRelease">The counterparty doesn’t release</option>
+                            <option value="noAnswer">No answer</option>
                             <option value="cheating">Cheating</option>
                             <option value="other">Other</option>
                         </select>
@@ -116,7 +116,12 @@
                 this.$emit('cancel');
             },
             onAppeal: function () {
-                this.$emit('appeal');
+                let appeal = {
+                    appealReason : this.appealReason,
+                    details : this.appealDetails,
+                    status : 'registered',
+                };
+                this.$emit('appeal', appeal);
             },
             onCancelAppeal: function () {
                 this.$emit('cancelAppeal');

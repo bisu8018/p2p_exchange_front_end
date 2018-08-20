@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 mr-3 ml-3 p-relative" v-if="init === true">
+    <div class="mt-5 mb-5 mr-3 ml-3 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
@@ -38,67 +38,12 @@
             </div>
         </v-layout>
         <v-layout wrap row v-if="status != 'cancel'" :class="{'mb-4' : isMobile()}">
-            <!--알리페이 결제-->
-            <v-flex xs6 md2 mb-3 v-if="alipay === 'Y'">
-                <div class="text-xs-left vertical-center">
-                    <div class="sprite-img ic-alipay d-inline-block"></div>
-                    <span class="ml-2 color-darkgray">
-                        {{$str("alipayText")}}
-                    </span>
-                </div>
-            </v-flex>
-            <!--알리페이 정보-->
-            <v-flex xs6 md4 mb-3 v-if="alipay === 'Y'">
-                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                    {{alipay_address}}
-                </div>
-            </v-flex>
-            <!--알리페이 QR코드-->
-            <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="alipay === 'Y'">
-                <label @click="onQRcode('alipay')" class="c-pointer vertical-center d-block">
-                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                    <div class="d-inline-block color-black h6"> QR Code</div>
-                </label>
-            </v-flex>
-            <!--위챗페이 결제-->
-            <v-flex xs6 md2 mb-3 v-if="wechat === 'Y'">
-                <div class="text-xs-left vertical-center ">
-                    <div class="sprite-img ic-wechatpay d-inline-block"></div>
-                    <span class="ml-2 color-darkgray">
-                        {{$str("wechatPayText")}}
-                    </span>
-                </div>
-            </v-flex>
-            <!--위챗페이정보-->
-            <v-flex xs6 md4 mb-3 v-if="wechat === 'Y'">
-                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                    {{wechatpay_address}}
-                </div>
-            </v-flex>
-            <!--위챗페이 QR코드-->
-            <v-flex xs12 md6 mb-3 text-md-left text-xs-right v-if="wechat === 'Y'">
-                <label @click="onQRcode('wechat')" class="c-pointer  d-block vertical-center">
-                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                    <div class="d-inline-block color-black h6"> QR Code</div>
-                </label>
-            </v-flex>
-            <!--은행 계좌 결제-->
-            <v-flex xs6 md2 mb-3 v-if="bankAccount === 'Y'">
-                <div class="text-xs-left vertical-center">
-                    <div class="sprite-img ic-bank d-inline-block"></div>
-                    <span class="ml-2 color-darkgray">
-                        {{$str("bankAccountText")}}
-                    </span>
-                </div>
-            </v-flex>
-            <!--은행계좌 정보-->
-            <v-flex xs6 md10 mb-3 v-if="bankAccount === 'Y'">
-                <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                    {{bankaccount_address}}
-                </div>
-            </v-flex>
+            <div v-for="item in paymentMethods">
+            <trade-item :item="item" ></trade-item>
+            </div>
+
         </v-layout>
-        <v-layout wrap row >
+        <v-layout wrap row>
             <v-flex xs12 md3>
                 <!--status cancel 일 시 설명 문구-->
                 <div class="cancel-explain mb-4" v-if="status ==='cancel'">
@@ -124,7 +69,7 @@
                     {{$str("paymentExplain4")}}
                 </span>
                     <!--buying 상태 일때-->
-                    <span v-if="status === 'buying'" class="mb-2">
+                    <span v-if="status === 'paid'" class="mb-2">
                     {{$str("buyingExplain1")}}
 
                         <!--{{volumeTotal}} 가격 , {{token}} 단위-->
@@ -136,15 +81,15 @@
                     {{$str("buyingExplain3")}}
                     </span>
 
-                    <span v-if="status === 'buying'">
+                    <span v-if="status === 'paid'">
                       <!--{{$str("buyingExplain4")}}-->
                     </span>
-                    <span v-else-if="status === 'paid' || status === 'cancel'">
+                    <span v-else-if="status === 'transfer' || status === 'cancel'">
                     {{$str("cancel")}} {{$str("complete")}},
                     </span>
 
                     <!--status cancel 일 시 설명 문구-->
-                    <span v-if="status === 'appeal'">
+                    <span v-if="status === 'complaining'">
                         {{$str("appealCodeExplain")}}
                         {{appealCode}} ,
                     </span>
@@ -175,7 +120,7 @@
 
 
             <!--buying process indicator buying 상태 일때-->
-            <v-flex xs12 mb-4 v-if="status === 'buying'" >
+            <v-flex xs12 mb-4 v-if="status === 'paid'">
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
@@ -187,7 +132,7 @@
             </v-flex>
 
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
-            <v-flex xs12 md12  mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'paid'">
+            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'transfer'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3 ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
@@ -195,13 +140,13 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex  xs12 md12 mb-4  cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
-                <i class="material-icons cancel-icon">cancel</i>
+            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
+                <i class="material-icons cancel-icon" @click="onCancel">cancel</i>
             </v-flex>
 
 
             <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
-            <v-flex xs6 md12 mb-4  cancel-icon-wrapper text-xs-left v-if="status === 'appeal'">
+            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'complaining'">
                 <i class="material-icons  warning-icon ">error</i>
             </v-flex>
 
@@ -220,18 +165,18 @@
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
             <v-flex xs12 mb-4a text-md-left text-xs-left
-                    v-if="status != 'paid' && status != 'cancel' && status !='appeal'">
+                    v-if="status != 'transfer' && status != 'cancel' && status !='complaining'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
                        @click="onModal('cancel')">
-                <input v-if="status === 'buying'" class="text-white-hover btn-rounded-white" type="button"
+                <input v-if="status === 'paid'" class="text-white-hover btn-rounded-white" type="button"
                        :value="$str('appeal')" @click="onModal('appeal')">
             </v-flex>
 
             <!--이의제기 취소 버튼 (appeal 상태일때)-->
             <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                    v-if="status === 'appeal'" :class="{'pt-4' : isMobile()}">
-                <a class="color-blue btn-blue-hover" @click="onModal('cancelAppeal')">{{$str('cancelModalButton')}}</a>
+                    v-if="status === 'complaining'" :class="{'pt-4' : isMobile()}">
+                <a class="color-blue text-white-hover" @click="onModal('cancelAppeal')">{{$str('cancelModalButton')}}</a>
             </v-flex>
         </v-layout>
 
@@ -265,13 +210,13 @@
     import Vue from 'vue';
     import BuyModal from './buyModal/BuyModal.vue'
     import MainRepository from "../../../../../vuex/MainRepository";
-    import Chat from "@/components/Chat.vue"
-
+    import Chat from "@/components/Chat.vue";
+    import TradeItem from "../item/TradeItem"
 
     export default Vue.extend({
         name: 'buy',
         components: {
-            BuyModal, Chat
+            BuyModal, Chat, TradeItem
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
@@ -286,6 +231,7 @@
             merchant_member_no: MainRepository.TradeProcess.getOrder().merchantMemberNo,
             customer_member_no: MainRepository.TradeProcess.getOrder().customerMemberNo,
             status: MainRepository.TradeProcess.getOrder().status,     //unpaid -> buying -> paid   그리고   cancel, appeal
+            paymentMethods : MainRepository.TradeProcess.getOrder().paymentMethods,
 
             alipay: 'Y',
             wechat: 'Y',
@@ -297,20 +243,20 @@
             modalType: '',
             appealCode: 977057,
 
-            init : false,
+            init: false,
             showModal: false,
         }),
         computed: {
-          getOrderNumber () {
-              let orderNoDigits = this.orderNo.length;
-              let zeroDigits = 8 - orderNoDigits;
-              let addZero = '';
-              for(let i = 0 ; i < zeroDigits; i++){
-                  addZero += "0"
-              }
-              let temp = addZero + this.orderNo;
-              return temp;
-          },
+            getOrderNumber() {
+                let orderNoDigits = this.orderNo.length;
+                let zeroDigits = 8 - orderNoDigits;
+                let addZero = '';
+                for (let i = 0; i < zeroDigits; i++) {
+                    addZero += "0"
+                }
+                let temp = addZero + this.orderNo;
+                return temp;
+            },
         },
         beforeCreate() {
 
@@ -319,9 +265,9 @@
             //order no GET from url param
             var url = location.href;
             var parameters = url.slice(url.indexOf('?') + 1, url.length);
-            if(parameters.substr(0,4) != 'http'){
+            if (parameters.substr(0, 4) != 'http') {
                 this.orderNo = parameters;
-            }else{
+            } else {
                 //order number 없을 시, 거래소 페이지 이동
                 this.$router.push("tradeCenter");
             }
@@ -342,40 +288,26 @@
         },
         methods: {
             getOrderData() {
-                let self= this;
+                let self = this;
                 MainRepository.TradeProcess.setOrder({
-                    email : MainRepository.Login.getUserInfo().email,
-                    orderNo : self.orderNo
-                },function (result) {
+                    email: MainRepository.MyInfo.getUserInfo().email,
+                    orderNo: self.orderNo
+                }, function (result) {
                     console.log(MainRepository.TradeProcess.getOrder());
-                    self.init = true;
+                    //self.init = true;
                 })
             },
             isMobile() {
                 return MainRepository.State.isMobile();
-            },
-            onPaid() {
-                let self = this;
-                MainRepository.TradeProcess.onPaid({
-                    orderNo : Number(self.orderNo)
-                },function (result) {
-
-                });
-
-                // buying 구매 중 단계
-                // post 작업 성공시
-                this.status = 'buying';
-
-                this.onClose();
             },
             onClose() {
                 this.showModal = false;
             },
             onCopy(type) {
                 let copyTemp;
-                if(type == 'reference' ){
+                if (type == 'reference') {
                     copyTemp = (document.querySelector('#referenceNum')as HTMLInputElement);
-                }else{
+                } else {
                     copyTemp = (document.querySelector('#amountValue')as HTMLInputElement);
                 }
 
@@ -387,16 +319,36 @@
                 }
                 document.execCommand('copy');
             },
-            onCancel() {
-                this.showModal = false;
-                // *************************************post작업 성공시
-                this.status = 'cancel';
-
+            //paid 버튼 클릭 후
+            onPaid() {
+                let self = this;
+                MainRepository.TradeProcess.onPaid(
+                    Number(self.orderNo)
+                    , function (result) {
+                        self.status = 'paid';
+                        self.onClose();
+                    });
             },
-            onAppeal() {
-                this.showModal = false;
-                // *************************************post작업 성공시
-                this.status = 'appeal';
+            //cancel 버튼 클릭 후
+            onCancel() {
+                let self = this;
+                MainRepository.TradeProcess.onCancel(
+                    Number(self.orderNo)
+                    , function (result) {
+                        self.status = 'cancel';
+                        self.onClose();
+                    });
+            },
+            //appeal 한 후
+            onAppeal(data) {
+                let self = this;
+                data['orderNo'] =Number(self.orderNo);
+                MainRepository.TradeProcess.onAppeal(
+                    data
+                    , function (result) {
+                        self.status = 'complaining';
+                        self.onClose();
+                    });
             },
             onModal(type) {
                 this.showModal = true;
@@ -405,7 +357,7 @@
             onCancelAppeal() {
                 this.showModal = false;
                 // *************************************post작업 성공시
-                this.status = 'buying';
+                this.status = 'paid';
             },
             onQRcode(type) {
                 if (type === "alipay") {

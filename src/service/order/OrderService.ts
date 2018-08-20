@@ -35,11 +35,38 @@ export default {
             })
     },
     onPaid : function (data : any, callback: any) {
-        AxiosService._requestWithPath('order/paid', 'PUT', data ,
+        let url = 'order/' + data + '/paid';
+        AxiosService._requestWithPath(url, 'PUT', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onCancel : function (data : any, callback: any) {
+        AxiosService._requestWithPath('order/cancel', 'PUT', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onAppeal : function (data : any, callback: any) {
+        AxiosService._requestWithPath('order/appeal', 'PUT', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onConfirm : function (data : any, callback: any) {
+        let url = 'order/' + data + '/paid';
+        AxiosService._requestWithPath('order/appeal', 'PUT', data,
             function (data: any) {
                 callback(data)
             },
             function () {
             })
     }
+
 }
