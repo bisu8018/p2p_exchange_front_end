@@ -21,11 +21,11 @@
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("Trade Num")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("volume")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.coinCount}}</v-flex>
       </v-layout>
-      <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("TotalPrice")}}</v-flex>
+      <v-layout>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("amount")}}</v-flex>
         <v-flex xs5 text-xs-right>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
