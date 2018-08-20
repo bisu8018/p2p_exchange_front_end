@@ -1,16 +1,17 @@
 <template>
-    <v-layout class="my-order-simple_wrapper" row>
+    <v-layout class="my-order-simple_wrapper" row @click="goTradePage">
         <!--avatar-->
         <avatar></avatar>
         <!-- merchant 정보-->
-        <div>
-           <span class="mr-2 ml-3 color-darkgray text-md-left">
-               <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
-               Buy BTC Total Price: 200 CNY
-           </span>
-           <div class="ml-3 text-md-left">
-               Please pay - 00:14:32
-           </div>
+        <div class="ml-3">
+            <h5 class="color-darkgray">
+                <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
+                {{ data.tradeType }} | {{ data.cryptocurrency }} | Total Price: {{ data.price }}
+                <!--Buy BTC Total Price: 200 CNY-->
+            </h5>
+            <h5>
+                Please pay - 00:14:32
+            </h5>
         </div>
         <span class="badge">1</span>
     </v-layout>
@@ -22,9 +23,26 @@
     export default {
         name: "my-order-simple-item",
         components: {Avatar},
+        props: {
+            data: {}
+        },
         methods: {
             goMyOrder() {
                 this.$router.push("/myOrder");
+            },
+            goTradePage(){
+                let tradePage;
+                switch (this.data.tradeType) {
+                    case 'buy':
+                        tradePage = "/buy?"+this.data.orderNo;
+                        this.$router.push(tradePage);
+                        break;
+
+                    case 'sell':
+                        tradePage = "/sell?"+this.data.orderNo;
+                        this.$router.push(tradePage);
+                        break;
+                }
             },
         }
     }
@@ -35,9 +53,22 @@
         cursor: pointer;
         padding: 16px 12px;
         text-align: left;
+        font-size: 14px;
+        -moz-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
     }
 
     .my-order-simple_wrapper:hover {
         background-color: rgba(49,110,228, .1);
+    }
+
+    .my-order-simple_wrapper h5 {
+        line-height: 1.3;
+    }
+
+    .my-order-simple_wrapper .badge {
+        position: absolute;
+        right: 12px;
     }
 </style>

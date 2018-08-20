@@ -30,10 +30,14 @@
                             <v-divider></v-divider>
 
                             <!-- ongoing items -->
-                            <my-order-simple-item />
+                            <div v-for="item in orderList">
+                                <my-order-simple-item
+                                    :data="item"
+                                />
+                                <v-divider></v-divider>
+                            </div>
 
-                            <v-divider></v-divider>
-                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover mt-4 mb-4 mr-3 c-pointer">
+                            <div @click="goMyOrder()" class="ta-right color-blue text-white-hover my-3 mr-3 c-pointer">
                                 {{$str("View All")}}
                             </div>
                         </div>
@@ -184,7 +188,9 @@
 
                     <!--MyOrder-->
                     <div class="dropdown">
-                        <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">{{$str("order")}}</button>
+                        <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">
+                            {{$str("order")}}
+                        </button>
 
                         <!-- ongoing order 드롭다운 -->
                         <div class="dropdown-content myorder-dropdown">
@@ -197,24 +203,14 @@
                             <v-divider></v-divider>
 
                             <!-- ongoing items -->
-                            <my-order-simple-item />
+                            <div v-for="item in orderList">
+                                <my-order-simple-item
+                                        :data="item"
+                                />
+                                <v-divider></v-divider>
+                            </div>
 
-                            <!--<v-layout row pl-3 pr-3 pt-4 pb-4>-->
-                                <!--&lt;!&ndash;avatar&ndash;&gt;-->
-                                <!--<avatar :me= true ></avatar>-->
-                                <!--&lt;!&ndash; merchant 정보&ndash;&gt;-->
-                                <!--<span>-->
-                                    <!--<span class="mr-2 ml-3 color-darkgray text-md-left" >-->
-                                        <!--&lt;!&ndash;{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}&ndash;&gt;-->
-                                        <!--Buy BTC Total Price: 200 CNY-->
-                                    <!--</span>-->
-                                    <!--<div class="ml-3 text-md-left">Please pay - 00:14:32</div>-->
-                                <!--</span>-->
-                                <!--<span class="badge">1</span>-->
-                            <!--</v-layout>-->
-
-                            <v-divider></v-divider>
-                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover mt-4 mb-4 mr-3 c-pointer">
+                            <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
                                 {{$str("View All")}}
                             </div>
                         </div>
@@ -346,6 +342,9 @@
             },
             isLogin() {
                 return MainRepository.Login.getUserInfo().email === '' ? false : true;
+            },
+            orderList() {
+                return MainRepository.MyOrder.getPage();
             }
         },
         created() {
@@ -519,7 +518,7 @@
         min-width: 306px;
         z-index: 2;
         top: 56px;
-        right: unset;
+        right: 50px;
     }
 
     .myorder-dropdown:after{
@@ -533,7 +532,7 @@
         border-bottom: 4px solid  #ffffff;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
-        border-color: transparent transparent  #ffffff transparent ;
+        border-color: transparent transparent  #ffffff transparent;
     }
 
     @media (max-width: 768px) {

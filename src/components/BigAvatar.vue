@@ -71,11 +71,12 @@
     margin-right: auto;
     color: #ffffff;
     font-size: 22px;
+    text-transform: uppercase;
   }
   .loginCircle{
-    position: relative;
-    top: -12px;
-    left: 28px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     height: 14px;
     width: 14px;
     border-radius: 100%;

@@ -1419,11 +1419,12 @@
         border-radius: 100px;
         text-align:center;
         font-size: 12px;
+        line-height: 13px;
         color: #ffffff;
         width: 17px;
         height: 17px;
         margin : auto 0 auto 0;
-        padding : auto 0 auto 0;
+        padding : 2px 0 2px 0;
         cursor : pointer;
 
         -moz-border-radius : 100px;

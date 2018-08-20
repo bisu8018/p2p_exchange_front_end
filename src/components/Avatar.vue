@@ -1,11 +1,11 @@
 <template>
-  <span class="avatarWraaper">
+  <div class="avatarWraaper">
     <span class="mainCircle" v-bind:style="{background: bgColor}" :class="{ blueBg:!me }">
       <span class="firstWord">{{name}}</span>
     </span>
     <div class="loginCircle" v-bind:style="{background: loginColor}">
     </div>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -16,7 +16,7 @@
         name: "Avatar",
         props: ['email', 'me'],
         data: () => ({
-            loginColor: '',
+            loginColor: '#c8c8c8',
             name: '',
             bgColor: '',
         }),
@@ -61,8 +61,11 @@
 <style scoped>
 
     .avatarWraaper {
-
         position: relative;
+        height: 34px;
+        width: 34px;
+        display: inline-block;
+        vertical-align: middle;
     }
 
     .mainCircle {
@@ -71,7 +74,6 @@
         border-radius: 100%;
         align-items: center;
         display: flex;
-
     }
 
     .firstWord {
@@ -79,12 +81,14 @@
         margin-right: auto;
         color: #ffffff;
         font-size: 16px;
+        line-height: 16px;
+        text-transform: uppercase;
     }
 
     .loginCircle {
-        position: relative;
-        margin-top: -8px;
-        left: 24px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
         height: 10px;
         width: 10px;
         border-radius: 100%;
