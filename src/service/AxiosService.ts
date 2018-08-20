@@ -64,12 +64,9 @@ export default {
                     //  console.log('Status: ' + status);
                     // 401 Error
                     if (status === 401 || status === 502) {
-                        // Vue.prototype.$eventBus.$emit('goLogin', status)
-                        //Vue.$router.push("/login");
-                        //Vue.prototype.$eventBus.$emit('showAlert', status);
                         window.location.replace(self.getRootUrl() + '/login')
                     } else {
-                        failure()
+                        failure(status)
                     }
                 } else if (error.request) {
                     // The request was made but no response was received
@@ -167,15 +164,8 @@ export default {
     //     action
     //   )
     // },
-    // showErrorPopup: function (ErrorModel: ErrorModel) {
-    //
-    //   if(ErrorModel.code === 9008){
-    //     MainRepository.getRouterController().goReferral(ErrorModel.message);
-    //   } else {
-    //     showOneBtnDialog(ErrorModel.message, 'CLOSE', true,function () {
-    //       ErrorModel.action()
-    //     });
-    //   }
-    // },
+    showErrorPopup: function (code) {
+        Vue.prototype.$eventBus.$emit('showAlert', code);
+    },
 }
 
