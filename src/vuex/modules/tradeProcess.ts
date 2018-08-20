@@ -1,15 +1,16 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
+import Order from "@/vuex/model/Order";
 
 const mutations = {
-    [VuexTypes.SET_BALANCE_DATA](state: any, balance: any) {
-        state.getBalance = balance;
+    [VuexTypes.SET_TRADE_PROCESS_DATA](state: any, tradeProcess: any) {
+        state.getTradeProcess = tradeProcess;
     },
 };
 
 
 const actions = {
-    [VuexTypes.SET_BALANCE_DATA](context: any, balance: any) {
-        context.commit(VuexTypes.SET_BALANCE_DATA, balance)
+    [VuexTypes.SET_TRADE_PROCESS_DATA](context: any, tradeProcess: any) {
+        context.commit(VuexTypes.SET_TRADE_PROCESS_DATA, tradeProcess)
     },
 
 };
@@ -17,11 +18,10 @@ const actions = {
 const getters = {
 };
 
-let getBalance = {
-};
+let getTradeProcess = new Order('');
 
 const state = {
-    getBalance: getBalance,
+    getTradeProcess: getTradeProcess,
 };
 export default {
     namespaced: false,

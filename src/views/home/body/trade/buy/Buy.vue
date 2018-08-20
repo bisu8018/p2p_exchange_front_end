@@ -337,7 +337,12 @@
         },
         methods: {
             getOrderData() {
+                MainRepository.TradeProcess.setOrder({
+                  email : MainRepository.Login.getUserInfo().email,
 
+                },function (result) {
+
+                })
             },
             isMobile() {
                 return MainRepository.State.isMobile();

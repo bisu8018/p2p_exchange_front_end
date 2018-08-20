@@ -60,6 +60,7 @@ export default {
                 headers: {
                     'Content-Type': 'application/json',
                 }
+
             })
                 .then((response) => {
                     if (response.data.code === 0) {
