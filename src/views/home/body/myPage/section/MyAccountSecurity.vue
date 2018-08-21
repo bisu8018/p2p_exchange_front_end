@@ -164,7 +164,7 @@
 </template>
 
 <script>
-    import BtnMypage from "./item/BtnMypage";
+    import BtnMypage from "../item/BtnMypage";
 
     export default {
         name: "my-account-security",

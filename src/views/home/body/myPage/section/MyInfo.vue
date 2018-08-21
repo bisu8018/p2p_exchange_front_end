@@ -1,6 +1,7 @@
 <template>
     <!-- 좌측 내 정보 -->
     <div class="my-info-wrapper">
+
         <!-- 닉네임, 아바타 -->
         <div class="pt-0">
             <big-avatar :me="true" />
@@ -31,8 +32,8 @@
 </template>
 
 <script>
-    import BigAvatar from "../../../../components/BigAvatar";
-    import {abUtils} from "../../../../common/utils";
+    import BigAvatar from "../../../../../components/BigAvatar";
+    import {abUtils} from "../../../../../common/utils";
 
     export default {
         components: {BigAvatar},

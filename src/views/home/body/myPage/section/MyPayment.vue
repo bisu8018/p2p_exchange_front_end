@@ -44,9 +44,9 @@
 </template>
 
 <script>
-    import PaymentItem from "./item/PaymentItem";
-    import BtnMypage from "./item/BtnMypage";
-    import MyPageModal from "./item/MyPageModal";
+    import PaymentItem from "../item/PaymentItem";
+    import BtnMypage from "../item/BtnMypage";
+    import MyPageModal from "../item/MyPageModal";
 
     export default {
         components: {
@@ -107,5 +107,24 @@
 </script>
 
 <style scoped>
+    .a-txt {
+        font-size: 12px;
+        letter-spacing: 0;
+        text-align: center;
+        color: #214ea1 !important;
+        background-color: #fff !important;
+        line-height: 1;
+        padding: 10px 14px;
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transition: all 0.1s ease-out;
+        -o-transition: all 0.1s ease-out;
+        transition: all 0.1s ease-out;
+        border-radius: 4px;
+        margin: 0 0 0 8px;
+    }
 
+    .a-txt:hover {
+        opacity: 1;
+    }
 </style>

@@ -4,7 +4,7 @@
         <!-- 좌측 내 정보 -->
         <div class="myInfo-wrapper">
             <my-info
-                    :my-info="myInfo"
+                :my-info="myInfo"
             />
         </div>
 
@@ -18,7 +18,7 @@
                 :my-info="myInfo"
             />
 
-            <!--  2. ID Verification -->
+            <!-- 2. ID Verification -->
             <my-id-verification
                 :id-verification="idVerification"
             />
@@ -32,85 +32,16 @@
             />
 
             <!-- 4. Block List -->
-            <div class="myPage-box">
-
-                <!-- Header -->
-                <div class="otherInfo-header">
-                    <h4>{{$str('blockList')}}</h4>
-                    <div class="header-detail">
-                        <p class="caption mt-3">{{$str('blockListExplain')}}</p>
-                    </div>
-                </div>
-
-                <!-- Body : isEmpty -->
-                <div class="ta-center py-3" v-if="blockList.length === 0">
-                    <p class="pt-2 pb-3 color-darkgray">{{$str('noMoreRecords')}}</p>
-                </div>
-
-                <!-- Body : !isEmpty -->
-                <div v-else>
-                    <div class="blocked-user-item" v-for="block in blockList">
-                        <block-list-item
-                                :data="block"
-                        />
-
-                    </div>
-                </div>
-            </div>
+            <my-block-list
+               :block-list="blockList"
+            />
 
             <!-- 5. History -->
-            <div class="myPage-box pb-4">
-
-                <!-- Header -->
-                <div class="otherInfo-header history-header">
-                    <h4>{{$str('history')}}</h4>
-                    <div class="history-tab_wrapper">
-                        <h5 class="color-darkgray mr-4" v-bind:class="{'active-history' : selection_login}"
-                            @click="onSelection('login')">
-                            {{$str('loginText')}}
-                        </h5>
-                        <v-divider class="d-inline-block" inset vertical />
-                        <h5 class="color-darkgray ml-4" v-bind:class="{'active-history' : selection_security}"
-                            @click="onSelection('security')">
-                            {{$str('securitySettings')}}
-                        </h5>
-                    </div>
-                </div>
-
-                <!-- 로그인 선택 시 -->
-                <div v-if=" selection_login  && tempLogin !== ''">
-
-                    <!-- menu -->
-                    <div class="history-login mobile-hide">
-                        <div>{{$str('date')}}</div>
-                        <div>{{$str('Type')}}</div>
-                        <div>IP</div>
-                        <div>{{$str('status')}}</div>
-                    </div>
-
-                    <!-- 내용 -->
-                    <div v-for="data in tempLogin">
-                        <div class="history-login history-login-detail">
-                            <div>
-                                <span class="label-mobile-history">{{$str('date')}}: </span> {{data.register_datetime}}
-                            </div>
-                            <div>
-                                <span class="label-mobile-history">{{$str('Type')}}: </span> {{data.type}}
-                            </div>
-                            <div>
-                                <span class="label-mobile-history">IP: </span> {{data.ip}}
-                            </div>
-                            <div>
-                                <span class="label-mobile-history">{{$str('status')}}: </span> {{data.status === 'success' ? $str('successful') : $str('failed')}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <my-history
+                :login-history="tempLogin"
+                :security-settings="tempSecurity"
+            />
         </div>
-
-
     </div>
 </template>
 
@@ -129,14 +60,18 @@
     import BtnMypage from "./item/BtnMypage";
     import BlockListItem from "./item/BlockListItem";
     import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
-    import MyIdVerification from "./MyIdVerification";
-    import MyAccountSecurity from "./MyAccountSecurity";
-    import MyInfo from "./MyInfo";
-    import MyPayment from "./MyPayment";
+    import MyIdVerification from "./section/MyIdVerification";
+    import MyAccountSecurity from "./section/MyAccountSecurity";
+    import MyInfo from "./section/MyInfo";
+    import MyPayment from "./section/MyPayment";
+    import MyBlockList from "./section/MyBlockList";
+    import MyHistory from "./section/MyHistory";
 
     export default {
         name: "MyPage",
         components: {
+            MyHistory,
+            MyBlockList,
             MyPayment,
             MyInfo,
             MyAccountSecurity,
@@ -148,28 +83,6 @@
             BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem
         },
         data: () => ({
-            selection_login: true,
-            selection_security: false,
-
-            blockList: '',
-            loginHistory: '',
-            securitySettings: '',
-            tempLogin: [
-                {
-                    register_datetime : '00:00:00',
-                    type: 'web',
-                    ip: '000.000.000.000',
-                    status: 'successful'
-                },
-                {
-                    register_datetime : '00:00:00',
-                    type: 'web',
-                    ip: '000.000.000.000',
-                    status: 'successful'
-                }
-            ],
-
-            // *********** NEW DATA ************* //
             showModal: false,
             modalType: '',
 
@@ -177,14 +90,80 @@
             idVerification: new IdVerification(''),
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
+            blockList: '',
+            loginHistory: '',
+            securitySettings: '',
 
+            tempLogin: [
+                {
+                    register_datetime : '00:00:00',
+                    type: 'web',
+                    ip: '000.000.000.000',
+                    status: 'fail'
+                },
+                {
+                    register_datetime : '00:00:00',
+                    type: 'web',
+                    ip: '000.000.000.000',
+                    status: 'success'
+                }
+            ],
+
+            tempSecurity: [
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+                {
+                    date : '00:00:00',
+                    type: 'Turn on email authentication',
+                    ip: '000.000.000.000',
+                },
+            ],
         }),
         computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
-
-            paymentMethod () {
+           paymentMethod () {
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
         },
@@ -193,16 +172,6 @@
 
             // 유저 결제수단 정보 GET
             MainRepository.MyInfo.loadMyPaymentMethods();
-
-            // 로그인 기록 정보 GET
-            MainRepository.MyPage.getLoginHistory(function (loginHistory) {
-                self.loginHistory = loginHistory;
-            });
-
-            // 보안 설정 정보 GET
-            MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
-                self.securitySettings = securitySettings;
-            });
 
 
             // *********** NEW CREATED ************* //
@@ -230,6 +199,16 @@
             MainRepository.MyPage.getBlockList(function (blockList) {
                 self.blockList = blockList;
             });
+
+            // GET Login History
+            MainRepository.MyPage.getLoginHistory(function (loginHistory) {
+                self.loginHistory = loginHistory;
+            });
+
+            // GET Security Settings
+            MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
+                self.securitySettings = securitySettings;
+            });
         },
         mounted() {
             if (this.myInfo.nickname === '') {
@@ -237,27 +216,12 @@
                 this.showModal = true;
             }
         },
-        methods: {
-            onSelection(type) {
-                if (type === 'login') {
-                    this.selection_security = false;
-                    this.selection_login = true;
-                } else {
-                    this.selection_login = false;
-                    this.selection_security = true;
-                }
-            },
-
-            // *********** NEW METHODS ************* //
-
-        }
     }
 </script>
 
 <style scoped>
-    /*
-        New CSS
-    */
+
+    /* My Page CSS */
     .mypage-wrapper {
         text-align: left;
         padding-top: 48px;
@@ -290,13 +254,13 @@
         color: #fff !important;
     }
 
-    /* 우측 나의 정보 */
+    /* 우측 나의 정보 레이아웃 */
     .myInfo-wrapper {
         width: 282px;
         position: relative;
     }
 
-    /* 좌측 기타 정보 */
+    /* 좌측 기타 정보 레이아웃 */
     .otherInfo-wrapper {
         width: calc(100% - 282px);
         padding-left: 24px;
@@ -331,132 +295,4 @@
         }
 
     }
-
-    @media (max-width: 768px) {
-        .btn-wrapper span {
-            display: block;
-        }
-
-        .mypage-wrapper a {
-            font-size: 12px;
-            letter-spacing: 0;
-            text-align: center;
-            background-color: #214ea1 !important;
-            color: #fff !important;
-            line-height: 1;
-            padding: 10px 14px;
-            display: inline-block;
-            vertical-align: middle;
-            -webkit-transition: all 0.1s ease-out;
-            -o-transition: all 0.1s ease-out;
-            transition: all 0.1s ease-out;
-            border-radius: 4px;
-            margin: 0 0 0 8px;
-        }
-
-        .mypage-wrapper .a-txt {
-            font-size: 12px;
-            letter-spacing: 0;
-            text-align: center;
-            color: #214ea1 !important;
-            background-color: #fff !important;
-            line-height: 1;
-            padding: 10px 14px;
-            display: inline-block;
-            vertical-align: middle;
-            -webkit-transition: all 0.1s ease-out;
-            -o-transition: all 0.1s ease-out;
-            transition: all 0.1s ease-out;
-            border-radius: 4px;
-            margin: 0 0 0 8px;
-        }
-
-        .mypage-wrapper a:hover {
-            opacity: .6;
-        }
-
-        .mypage-wrapper .a-txt:hover {
-            opacity: 1;
-        }
-    }
-
-
-
-    /*
-        New CSS END
-    */
-
-
-
-
-    .flex-pl-0 {
-        padding-left: 0px;
-    }
-
-    .flex-divide-bottom-block {
-        border-bottom: solid 1px #d1d1d1;
-        height: 82px;
-    }
-
-    .flex-divide-top-block {
-        border-top: solid 1px #d1d1d1;
-        padding-top: 20px;
-        margin-top: 20px;
-    }
-
-    .flex-divide-bottom {
-        border-bottom: solid 1px #d1d1d1;
-    }
-
-    .flex-pr-0 {
-        padding-right: 0px;
-    }
-
-    .section-border {
-
-    }
-
-    .v-divider--vertical {
-        height: 26px !important;
-    }
-
-    .active-history {
-        color: #214ea1;
-        text-decoration: underline;
-        font-weight: bold;
-    }
-
-    .history-wrapper {
-        display: inherit;
-        width: 100%;
-        height: 36px;
-    }
-
-    .selection-selected {
-        background: #214ea1 !important;
-        color: white !important;
-    }
-
-    .selection {
-        border: 1px solid #214ea1;
-        background: white;
-        color: #214ea1;
-        height: 100%;
-        width: 50%;
-        font-size: 12px;
-        text-align: center;
-        padding-top: 8px;
-        cursor: pointer;
-    }
-
-    .selection-border-login {
-        border-radius: 22px 0 0 22px;
-    }
-
-    .selection-border-security {
-        border-radius: 0 22px 22px 0;
-    }
-
-
-
 </style>
