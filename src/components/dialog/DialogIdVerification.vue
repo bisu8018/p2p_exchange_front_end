@@ -124,8 +124,8 @@
                 this.$emit('close', item);
             },
             onDone() {
-                if (this.onCheckFirst() && this.onCheckLast() && this.onCheckIdNum()) {
-                    this.showDialog = false;
+                if (this.onCheckName() && this.onCheckIdNum()) {
+                    this.onClose();
                     // this.showSuccessModal = true;
                 }
             }
