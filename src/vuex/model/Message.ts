@@ -1,8 +1,11 @@
+import {abUtils} from "@/common/utils";
+
 export default class Message {
     orderNo: number;
     message : string;
     attachedImgUrl : string;
     registerMemberNo : number;
+    registerDatetime: number;
     isMine : boolean;
 
     constructor (data: any) {
@@ -15,6 +18,11 @@ export default class Message {
             this.registerMemberNo = Number(data.registerMemberNo);
         }
         this.isMine = data.isMine;
+        this.registerDatetime = data.registerDatetime;
+    }
+
+    getDate(): string {
+        return abUtils.toChatTimeFormat(new Date(this.registerDatetime));
     }
 
     isNull (): boolean {

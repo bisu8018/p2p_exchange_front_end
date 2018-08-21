@@ -93,6 +93,21 @@ export var abUtils = {
           return '';
       }
    },
+    toChatTimeFormat: function (date: any) {
+        if (date) {
+            return moment(date).format("HH:mm:ss");
+        } else {
+            return '';
+        }
+    },
+    // 챗팅에 사용하는 타임 포맷
+    toChatServerTimeFormat: function (date: any) {
+        if (date) {
+            return moment(date).format("YYYY-MM-DD HH:mm:ss");
+        } else {
+            return '';
+        }
+    },
   isEmpty: function (value: any) {
     return ( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) )
   },

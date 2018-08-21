@@ -80,17 +80,22 @@
     import Avatar from './Avatar.vue';
     import ChatService from "../service/chat/ChatService";
     import {abUtils} from "../common/utils";
+    import Order from "../vuex/model/Order"
 
     export default Vue.extend({
         name: 'chat',
         components: {
             Avatar
         },
-        props: ['orderNo','merchant_member_no','customer_member_no','merchantEmail', 'customerEmail', 'customerNickname', 'merchantNickname' ],
+        props: {
+            order: { type: Order }
+        },
         data: () => ({
             inputValue: "",
             transactionNum: '',
             messageList : [],
+
+            msgInterval : {},
 
             //파일 첨부
             file: '',
@@ -108,45 +113,51 @@
             },
             counterPartyNickname () {
                 let name;
-                if(MainRepository.MyInfo.getUserInfo().nickname === this.merchantNickname){
-                    name = this.customerNickname;
+                if(MainRepository.MyInfo.getUserInfo().nickname === this.order.merchantNickname){
+                    name = this.order.customerNickname;
                 }else{
-                    name = this.merchantNickname;
+                    name = this.order.merchantNickname;
                 }
                 return name;
             },
             counterPartyMemberNo () {
                 let num;
-                if(MainRepository.MyInfo.getUserInfo().memberNo === this.merchant_member_no){
-                    num = this.customer_member_no;
+                if(MainRepository.MyInfo.getUserInfo().memberNo === this.order.merchantMemberNo){
+                    num = this.order.customerMemberNo;
                 }else{
-                    num = this.merchant_member_no;
+                    num = this.order.merchantMemberNo;
                 }
                 return num;
             },
             counterPartyEmail () {
                 let email;
-                if(MainRepository.MyInfo.getUserInfo().email === this.merchantEmail){
-                    email = this.customerEmail;
+                if(MainRepository.MyInfo.getUserInfo().email === this.order.merchantEmail){
+                    email = this.order.customerEmail;
                 }else{
-                    email = this.merchantEmail;
+                    email = this.order.merchantEmail;
                 }
                 return email;
             },
         },
         created() {
-
+            MainRepository.Message.createRoom(() => {});
         },
-        mounted: function () {
+        mounted() {
             this.scrollBottom();
-            this.$nextTick(function () {
-                this.getMessage();
-                setInterval(function () {
-                    this.getMessage();
-                }.bind(this), 5000);
+            this.$nextTick(() => {
+                this.msgInterval = setInterval(() => {
+                    this.updateMsg()
+                }, 5000);
             })
         },
+        beforeDestroy() {
+            clearInterval(this.msgInterval);
+        },
         methods: {
+            updateMsg() {
+                MainRepository.Message.updateMsg(() => {});
+            },
+
             getMessage: function () {
                 let self = this;
                 // 메세지 AXIOS GET
@@ -222,7 +233,7 @@
 
             },
             scrollBottom() {
-                var chatWrapper = document.getElementById("contentsWrapper");
+                let chatWrapper = document.getElementById("contentsWrapper");
                 chatWrapper.scrollTop = chatWrapper.scrollHeight;
             }
         }
