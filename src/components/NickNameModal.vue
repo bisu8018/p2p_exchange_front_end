@@ -98,6 +98,8 @@
                 this.$emit('close');
             },
             onComplete: function (type) {
+
+
                 // post 작업 완료 후 진행
                 this.$emit('nickName');
 

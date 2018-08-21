@@ -1,5 +1,5 @@
 <!--사용법-->
-<!--<chat :nickName="nickName" :merchant_member_no = "merchant_member_no" :transactionNum="transactionNum" :isLogin="isLogin" :message="message" :color="color" :orderNumber="orderNumber"></chat>-->
+<!--<chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>-->
 
 
 <template>
@@ -7,7 +7,7 @@
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
                 <avatar
-                        :memberNo = member_no>
+                        :email = counterPartyMemberNo>
                 </avatar>
             </div>
             <div class="text-xs-left pt-twenty">
@@ -21,15 +21,16 @@
         </div>
         <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
             <div v-for="data in message">
-                <div class="mb-3 display-flex" v-if="data.register_member_no != member_no">
+                <!--상대방-->
+                <div class="mb-3 display-flex" v-if="data.register_member_no === counterPartyMemberNo">
                     <div>
                         <avatar
-                                :memberNo = member_no>
+                                :email = counterPartyMemberNo>
                         </avatar>
                     </div>
                     <div class="pl-2">
                         <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
-                            {{getDate(data.register_datetime)}}
+                            {{getDate(data.registerDatetime)}}
                             <!--<span>{{getDateTime('date')}}</span>-->
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
@@ -37,11 +38,13 @@
                         </div>
                     </div>
                 </div>
+
+                <!--자신-->
                 <div class="mb-3 display-flex " v-else>
                     <v-spacer></v-spacer>
                     <div class="pr-2">
                         <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                            {{getDate(data.register_datetime)}}
+                            {{getDate(data.registerDatetime)}}
                             <!--<span>{{getDateTime('date')}}</span>-->
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
@@ -50,7 +53,7 @@
                     </div>
                     <div>
                         <avatar
-                                :memberNo = member_no>
+                                :email = myMemberNo>
                         </avatar>
                     </div>
                 </div>
@@ -77,6 +80,10 @@
 
     export default Vue.extend({
         name: 'chat',
+        components: {
+            Avatar
+        },
+        props: ['orderNo','merchant_member_no','customer_member_no'],
         data: () => ({
             inputValue: "",
             transactionNum: '',
@@ -87,14 +94,15 @@
             file: '',
             image: '',
         }),
-        components: {
-            Avatar
-        },
+
         created() {
-            //상대방 정보 get AXIOS
+            //유저 정보 GET AXIOS
+            MainRepository.Users.getOtherUsers(this.email, function (result) {
+
+            });
 
         },
-        props: ['orderNo','merchant_member_no','customer_member_no'],
+
         mounted: function () {
             this.scrollBottom();
             this.$nextTick(function () {
@@ -104,15 +112,30 @@
                 }.bind(this), 5000);
             })
         },
+        computed: {
+            myMemberNo () {
+              return MainRepository.MyInfo.getUserInfo().memberNo;
+            },
+            counterPartyMemberNo () {
+                let num;
+                if(MainRepository.MyInfo.getUserInfo().memberNo === this.merchant_member_no){
+                    num = this.customer_member_no;
+                }else{
+                    num = this.merchant_member_no;
+                }
+                return num;
+            }
+        },
         methods: {
             getMessage: function () {
+                let self = this;
                 // 메세지 AXIOS GET
                 ChatService.message.getMessage({
-                        email: '',  //VUEX userInfo.nickName
+                        email: MainRepository.MyInfo.getUserInfo().email,  //VUEX userInfo.nickName
                         dateTime:  abUtils.getDateTime(),
-                        orderNo : this.orderNo
+                        orderNo : self.orderNo
                     }, function (result) {
-                        this.message.push(result.message);
+                    self.message = result;
                     }
                 )
             },
@@ -154,22 +177,22 @@
                 return MainRepository.State.isMobile();
             },
             onPost() {
+                let self = this;
                 // AXIOS post 전달
                 ChatService.message.postMessage({
                     attachedImgUrl: "",
-                    message: this.inputValue,
-                    orderNo: this.orderNo,
+                    message: self.inputValue,
+                    orderNo: self.orderNo,
+                    mine: true,
+                    registerMemberNo: MainRepository.MyInfo.getUserInfo().memberNo
                 }, function () {
                     //post 성공시 작업 진행
-                    this.message.push(postMessage);
+                    self.message.push(postMessage);
                 });
 
                 var postMessage = {
-                    isLogin: true,
-                    color: 'red',
-                    nickName: 'Max',
                     message: this.inputValue,
-                    register_member_no: this.member_no,
+                    register_member_no: this.myMemberNo,
                     register_datetime: '2018-07-30 14:01:00',
                 };
 
