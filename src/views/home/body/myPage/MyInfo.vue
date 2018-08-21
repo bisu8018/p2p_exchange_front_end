@@ -1,0 +1,82 @@
+<template>
+    <!-- 좌측 내 정보 -->
+    <div class="my-info-wrapper">
+        <!-- 닉네임, 아바타 -->
+        <div class="pt-0">
+            <big-avatar :me="true" />
+            <div class="ml-3">
+                <p class="color-blue mb-1">{{ myInfo.nickname }}</p>
+                <p class="color-darkgray">UID: {{ myInfo.memberNo }}</p>
+            </div>
+        </div>
+
+        <!-- 트레이드 횟수, 평균 시간 -->
+        <div class="d-block">
+            <p class="mb-1">
+                <span class="color-darkgray mr-2">{{ $str('trades') }}:</span>
+                <span class="color-black color-red"> 수정필요 {{ $str('times') }}</span>
+            </p>
+            <p>
+                <span class="color-darkgray mr-2">{{$str('avgRelease')}}:</span>
+                <span class="color-black color-red"> 수정필요 {{ $str('minuteText' )}}</span>
+            </p>
+        </div>
+
+        <!-- Create Account Time -->
+        <div class="color-darkgray d-block">
+            <p class="d-block">{{ $str('accountCreatedTime') }} {{ toTimeFormat(myInfo.createDatetime) }}, </p>
+            <p class="color-red">수정필요</p>
+        </div>
+    </div>
+</template>
+
+<script>
+    import BigAvatar from "../../../../components/BigAvatar";
+    import {abUtils} from "../../../../common/utils";
+
+    export default {
+        components: {BigAvatar},
+        name: "my-info",
+        props: {
+            myInfo: {}
+        },
+        methods: {
+            // 시간 포멧으로 바꿔줌
+            toTimeFormat(time) {
+                return abUtils.toTimeFormat(time);
+            },
+        }
+    }
+</script>
+
+<style scoped>
+
+    .my-info-wrapper > div {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border-bottom: solid 1px #d1d1d1;
+        padding: 24px 0;
+    }
+
+    .my-info-wrapper > div:last-child {
+        border-bottom: none;
+    }
+
+    @media (max-width: 940px) {
+        .my-info-wrapper > div {
+            display: block;
+        }
+
+        .my-info-wrapper > div:first-child {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+    }
+
+</style>

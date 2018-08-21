@@ -3,32 +3,9 @@
 
         <!-- 좌측 내 정보 -->
         <div class="myInfo-wrapper">
-            <!-- 닉네임, 아바타 -->
-            <div class="pt-0">
-                <big-avatar :me="true" />
-                <div class="ml-3">
-                    <p class="color-blue mb-1">{{ myInfo.nickname }}</p>
-                    <p class="color-darkgray">UID: {{ myInfo.memberNo }}</p>
-                </div>
-            </div>
-
-            <!-- 트레이드 횟수, 평균 시간 -->
-            <div class="d-block">
-                <p class="mb-1">
-                    <span class="color-darkgray mr-2">{{$str('trades')}}:</span>
-                    <span class="color-black color-red"> 수정필요 {{$str('times')}}</span>
-                </p>
-                <p>
-                    <span class="color-darkgray mr-2">{{$str('avgRelease')}}:</span>
-                    <span class="color-black color-red"> 수정필요 {{$str('minuteText')}}</span>
-                </p>
-            </div>
-
-            <!-- Create Account Time -->
-            <div class="color-darkgray d-block">
-                <p class="d-block">{{$str('accountCreatedTime')}} {{toTimeFormat(myInfo.createDatetime)}}, </p>
-                <p class="color-red">수정필요</p>
-            </div>
+            <my-info
+                    :my-info="myInfo"
+            />
         </div>
 
         <!-- 우측 세부 정보 -->
@@ -123,7 +100,7 @@
                 </div>
 
                 <!-- 로그인 선택 시 -->
-                <div v-if=" selection_login  && tempLogin != ''">
+                <div v-if=" selection_login  && tempLogin !== ''">
 
                     <!-- menu -->
                     <div class="history-login mobile-hide">
@@ -160,7 +137,6 @@
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
-    import {abUtils} from "../../../../common/utils";
     import BigAvatar from '@/components/BigAvatar.vue';
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
@@ -176,10 +152,12 @@
     import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
     import MyIdVerification from "./MyIdVerification";
     import MyAccountSecurity from "./MyAccountSecurity";
+    import MyInfo from "./MyInfo";
 
     export default {
         name: "MyPage",
         components: {
+            MyInfo,
             MyAccountSecurity,
             MyIdVerification,
             DialogIdVerification,
@@ -339,10 +317,7 @@
             },
 
             // *********** NEW METHODS ************* //
-            // 시간 포멧으로 바꿔줌
-            toTimeFormat(time) {
-                return abUtils.toTimeFormat(time);
-            },
+
             onUnblock() {
                 alert('블록 푸는 거 API 보내야함');
             },
@@ -392,22 +367,6 @@
         position: relative;
     }
 
-    .myInfo-wrapper > div {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        flex-wrap: wrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        border-bottom: solid 1px #d1d1d1;
-        padding: 24px 0;
-    }
-
-    .myInfo-wrapper > div:last-child {
-        border-bottom: none;
-    }
-
     /* 좌측 기타 정보 */
     .otherInfo-wrapper {
         width: calc(100% - 282px);
@@ -422,22 +381,16 @@
             display: block;
             padding: 0 3px;
         }
-        .myInfo-wrapper,
-        .otherInfo-wrapper {
+
+        .myInfo-wrapper {
             width: 100%;
             padding: 48px 0 0;
         }
 
-        .myInfo-wrapper > div {
-            display: block;
+        .otherInfo-wrapper {
+            width: 100%;
+            padding: 48px 0 0;
         }
-
-        .myInfo-wrapper > div:first-child {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-        }
-
 
         .otherInfo-header {
             justify-content: flex-start;
