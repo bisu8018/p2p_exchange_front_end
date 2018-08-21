@@ -11,8 +11,8 @@
           <div class="mb-2">
             <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
-              <span >0.00000 BTC </span>
-              <span >≈ 0.00000</span>
+              <span >{{EstimatedCryptocurrencyValue}} BTC </span>
+              <span >≈ {{EstimatedCurrencyValue}}</span>
               <span class="ml-4 p-relative color-blue">
                 <span>{{selectedCurrency}}</span>
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
@@ -177,6 +177,10 @@
     import BalanceTokenList from "./balanceList/BalanceTokenList"
     import BalanceDetailList from "./balanceList/BalanceDetailList"
     import DatePicker from '@/components/DatePicker.vue';
+    import Balance from "../../../../vuex/model/Balance";
+    import {abUtils} from "../../../../common/utils";
+    import Common from "../../../../service/common/CommonService";
+
     export default {
         name: "Balances",
         components: {
@@ -205,16 +209,13 @@
             types : [
                 {name : 'Buy'},
                 {name : 'Sell'},
-                {name : 'Transfer In'},
-                {name : 'Transfer Out'},
+                {name : 'Withdraw'},
                 {name : 'Deposit'},
-                {name : 'Legal service fee'},
             ],
             tokens : [
-                {name : 'BTC'},
-                {name : 'ETH'},
-                // {name : 'USDT'},
-                {name : 'ALLB'},
+                {name : 'BTC', fullname: 'bitcoin'},
+                {name : 'ETH', fullname: 'ethereum'},
+                {name : 'ALLB', fullname: 'allb'},
             ],
             currencyLists : [
                 {name : 'CNY'},
@@ -224,41 +225,17 @@
                 {name : 'CAD'},
                 {name : 'KRW'},
             ],
-
             tokenLists: [
-                {
-                    logo: 'BTC',
-                    name: 'BTC',
-                    OtcAvailable: 66.0,
-                    OtcFrozen: 0,
-                },
-                {
-                    logo: 'ETH',
-                    name: 'ETH',
-                    OtcAvailable: 66.0,
-                    OtcFrozen: 0,
-                },
-                // {
-                //     logo: 'USDT',
-                //     name: 'USDT',
-                //     OtcAvailable: 66.0,
-                //     OtcFrozen: 224,
-                //     ExAvailable: 44.0,
-                //     ExFrozen : 1234,
-                // },
-                {
-                    logo: 'ALLB',
-                    name: 'ALLB',
-                    OtcAvailable: 66.0,
-                    OtcFrozen: 0,
-                },
+                new Balance(''),
+                new Balance(''),
+                new Balance('')
             ],
             detailLists: [
                 {
                     type: 'Withdrawal',
                     coin: 'BTC',
                     time: '2018-07-03 18:53:08',
-                    amount: 224,
+                    amount: 0.1,
                     status: 'Under examination',
                     address: 'abcdabcdacbdasdfjkqlwer',
                     tag : '123456789',
@@ -270,7 +247,7 @@
                     type: 'Sell',
                     coin: 'BTC',
                     time: '2018-07-03 18:53:08',
-                    amount: 224,
+                    amount: 0.2,
                     status: 'Completed',
                     address: 'abcdabcdacbdasdfjkqlwer',
                     tag : '123456789',
@@ -282,7 +259,7 @@
                     type: 'Buy',
                     coin: 'BTC',
                     time: '2018-07-03 18:53:08',
-                    amount: 224,
+                    amount: 0.01,
                     status: 'Completed',
                     address: 'abcdabcdacbdasdfjkqlwer',
                     tag : '123456789',
@@ -294,7 +271,7 @@
                     type: 'Deposit',
                     coin: 'BTC',
                     time: '2018-07-03 18:53:08',
-                    amount: 224,
+                    amount: 0.03,
                     status: 'Under examination',
                     address: 'abcdabcdacbdasdfjkqlwer',
                     tag : '123456789',
@@ -303,24 +280,58 @@
                     processingTime: '2018-08-12 16:48:23',
                 },
             ],
+            marketPrice: '',
+            needMarketPrice: [0, 0],
+            EstimatedCryptocurrencyValue : '',
+            EstimatedCurrencyValue : '',
+
 
         }),
-        created() {
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-        },
-        mounted() {
-
-        },
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
 
         },
+        created() {
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.MyInfo.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+            //Balance 받아오기
+            this.tokenLists[0] = MainRepository.Balance.getBalance()['bitcoin'];
+            this.tokenLists[1] = MainRepository.Balance.getBalance()['ethereum'];
+            this.tokenLists[2].cryptoCurrency = 'ALLB';
+
+            //MarketPrice 가져오기
+            let self = this;
+            Common.info.getMarketPrice(function (data) {
+                self.marketPrice = data;
+            });
+
+            for(let j=0; j<2; j++){
+                for (let i = 0; i < 32; i++) {
+                    if (this.marketPrice[i].cryptocurrency === this.tokens.fullname[j]
+                        && this.marketPrice[i].currency === this.selectedCurrency) {
+                        this.needMarketPrice[j] = this.marketPrice[i].price;
+                        break;
+                    }
+                }
+            }
+
+
+            //estimatedValue 계산
+            this.EstimatedCryptocurrencyValue = this.needMarketPrice[0]*this.tokenLists[1].availableAmount/this.needMarketPrice[1];
+            this.EstimatedCryptocurrencyValue = this.EstimatedCryptocurrencyValue +this.tokenLists[0].availableAmount;
+            this.EstimatedCryptocurrencyValue = this.EstimatedCryptocurrencyValue.toFixed(6);
+
+            this.EstimatedCurrencyValue = this.EstimatedCryptocurrencyValue*this.needMarketPrice[0]
+        },
+        mounted() {
+
+        },
+
         methods: {
             onDate(value) {
                 this.selectedDate = value;

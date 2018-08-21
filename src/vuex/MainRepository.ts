@@ -107,7 +107,7 @@ export default {
                 accountController.setUserInfo(new Account(data));
 
                 self.Balance.setBalances(function () {});
-
+                self.Balance.setSecurityBalance(function () {});
                 // 객체형으로 관리하도록 변경 필요
                 self.MyInfo.loadMyPaymentMethods();
                 callback();
@@ -184,7 +184,16 @@ export default {
         },
         getBalance: function () {
             return balanceController.getBalance();
+        },
+        setSecurityBalance: function(callback:any){
+            BalanceService.getMySecurityBalance({
+                email: instance.MyInfo.getUserInfo().email
+            }, function(result){
+            //securityDeposit 해야함.
+
+            })
         }
+
     },
     MyPage: {
         getMemberVerification: function (callback: any) {
@@ -313,6 +322,15 @@ export default {
 
             })
         },
+        getOtherUsersbyMemberNo(memberNo : string, callback: any) {
+            AccountService.Account.getOtherUsersInfobyMemberNo({
+                memberNo: memberNo
+            }, function (result) {
+                let otherUserInfo = new OtherUsers(result);
+                callback(otherUserInfo);
+
+            })
+        },
         isUserActive(data : any, callback: any){
             AccountService.Account.isUserActive(data, function (result) {
                 callback(result);
@@ -344,6 +362,17 @@ export default {
                 callback(tempLists);
             })
         },
+        postBlockThisUser(data : number, callback: any){
+            AccountService.BlockList.postBlockUser(data, function (result) {
+                callback(result);
+            })
+        },
+        deleteBlockThisUser(data : number, callback: any){
+            AccountService.BlockList.deleteBlockUser(data, function (result) {
+                callback(result);
+            })
+        },
+
 
     },
     // SignUp: {},
