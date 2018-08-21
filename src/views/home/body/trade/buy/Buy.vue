@@ -88,7 +88,7 @@
                         {{$str("appealCodeExplain")}}
                         {{appealCode}} ,
                     </span>
-                    {{$str("referenceText")}} :
+                    <br/>{{$str("referenceText")}} :
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                     <!--{{거래번호}}-->
@@ -119,7 +119,7 @@
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
-                           :value="$str('buyingIndicator')"
+                           :value="$str('sellingIndicator')"
                            readonly>
                     <v-progress-circular indeterminate class="color-blue progress-circular"></v-progress-circular>
                     </span>

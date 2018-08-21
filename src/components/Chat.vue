@@ -22,7 +22,7 @@
         <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
             <div v-for="data in message">
                 <!--상대방-->
-                <div class="mb-3 display-flex" v-if="data.register_member_no === counterPartyMemberNo">
+                <div class="mb-3 display-flex" v-if="data.registerMemberNo === counterPartyMemberNo">
                     <div>
                         <avatar
                                 :email = counterPartyMemberNo>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="pl-2">
                         <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
-                            {{getDate(data.registerDatetime)}}
+                            {{getTime(data.registerDatetime)}}
                             <!--<span>{{getDateTime('date')}}</span>-->
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
@@ -44,7 +44,7 @@
                     <v-spacer></v-spacer>
                     <div class="pr-2">
                         <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                            {{getDate(data.registerDatetime)}}
+                            {{getTime(data.registerDatetime)}}
                             <!--<span>{{getDateTime('date')}}</span>-->
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
@@ -98,7 +98,6 @@
         created() {
             //유저 정보 GET AXIOS
             MainRepository.Users.getOtherUsers(this.email, function (result) {
-
             });
 
         },
@@ -113,7 +112,7 @@
             })
         },
         computed: {
-            myMemberNo () {
+            myMemberNo () {this.scrollBottom();
               return MainRepository.MyInfo.getUserInfo().memberNo;
             },
             counterPartyMemberNo () {
@@ -165,11 +164,11 @@
                 };
                 reader.readAsDataURL(this.file);
             },
-            getDate(date) {
-                let dateTime = String(date).split(' ');
-                return dateTime[0];
-            },
             getTime(date) {
+                let _date = new Date(date).toTimeString().substr(0,8);
+                return _date;
+            },
+            getDate(date) {
                 let dateTime = String(date).split(' ');
                 return dateTime[1];
             },
@@ -178,6 +177,7 @@
             },
             onPost() {
                 let self = this;
+                let postMessage;
                 // AXIOS post 전달
                 ChatService.message.postMessage({
                     attachedImgUrl: "",
@@ -187,14 +187,15 @@
                     registerMemberNo: MainRepository.MyInfo.getUserInfo().memberNo
                 }, function () {
                     //post 성공시 작업 진행
+                    postMessage = {
+                        message: this.inputValue,
+                        register_member_no: this.myMemberNo,
+                        registerDatetime: '2018-07-30 14:01:00',
+                    };
                     self.message.push(postMessage);
                 });
 
-                var postMessage = {
-                    message: this.inputValue,
-                    register_member_no: this.myMemberNo,
-                    register_datetime: '2018-07-30 14:01:00',
-                };
+
 
                 this.inputValue = "";
             },
