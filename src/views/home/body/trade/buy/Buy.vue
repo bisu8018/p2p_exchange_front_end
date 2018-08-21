@@ -6,107 +6,112 @@
                 Order : #{{getOrderNumber}}
 
             </div>
-            <div class="h1 bold color-black text-xs-left mb-3 line-height-1 ">
+            <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 <!--{{ad_type}} buy/sell -->
                 Buy
                 <!--{{volume}} 토큰량 -->
-                {{volumeTotal}}
-                <!--{{token}} 토큰종류-->
-                {{token}}
-                <!--{{nickname}} 닉네임-->
-                <div class="d-inline-block">From {{nickname}}</div>
+                {{order.coinCount}}
+                <!--{{order.cryptocurrency}} 토큰종류-->
+                {{order.cryptocurrency}}
+                <span class="mr-2"></span>
+                <!--{{order.merchantNickname}} 닉네임-->
+                <div class="d-inline-block"> From {{ order.merchantNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 line-height-1">
                 <div class="color-black mb-3 ">
                     {{$str('price')}} :
-                    <!--{{price}} 가격 -->
-                    <span class="ml-3 h3">{{price}}
-                        <!--{{currency}} 화폐단위-->  <!--{{currency}} 토큰종류-->
-                        {{currency}} / {{token}}</span>
+                    <!--{{order.price}} 가격 -->
+                    <span class="ml-3 h3">{{order.price}}
+                        <!--{{order.currency}} 화폐단위-->  <!--{{order.currency}} 토큰종류-->
+                        {{order.currency}} / {{order.cryptocurrency}}</span>
                 </div>
                 <div class="color-black">
                     {{$str('amount')}} :
-                    <!--{{price}} 가격 -->
+                    <!--{{order.price}} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
-                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{price}}
-                     <!--{{currency}} 화폐단위-->
-                        {{currency}}</span>
-                        <input type="text" :value="price" id="amountValue" class="referenceNum">
+                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{order.price}}
+                     <!--{{order.currency}} 화폐단위-->
+                        {{order.currency}}</span>
+                        <input type="text" :value="order.price" id="amountValue" class="referenceNum">
                         <span class="tooltip-content">Copy</span>
                     </div>
                 </div>
             </div>
         </v-layout>
-        <trade-item :item="getMyPaymentMethodSelectList" :status="status" ></trade-item>
+        <div v-if="order.status != 'cancel'" v-for="item in getMyPaymentMethodSelectList()">
+
+            <trade-item :item="item"></trade-item>
+
+        </div>
         <v-layout wrap row>
             <v-flex xs12 md3>
                 <!--status cancel 일 시 설명 문구-->
-                <div class="cancel-explain mb-4" v-if="status ==='cancel'">
+                <div class="cancel-explain mb-4" v-if="order.status ==='cancel'">
                     {{$str("cancelExplain")}}
                 </div>
             </v-flex>
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
-                <span v-if="status != 'cancel' && status === 'unpaid'" class="mb-3">
+                <span v-if="order.status != 'cancel' && order.status === 'unpaid'" class="mb-3">
                     <!--unpaid 상태 일때-->
                     {{$str("paymentExplain1")}}
-                    <!--{{price}} 가격, {{currency}} 화폐단위-->
-                    <span class="color-orange-price">{{price}} {{currency}}</span>
+                    <!--{{order.price}} 가격, {{order.currency}} 화폐단위-->
+                    <span class="color-orange-price">{{order.price}} {{order.currency}}</span>
                     {{$str("paymentExplain2")}}
 
-                    <!--{{nickname}} 닉네임-->
-                    {{nickname}}
+                    <!--{{order.merchantNickname}} 닉네임-->
+                    {{order.merchantNickname}}
                     {{$str("paymentExplain3")}}
 
-                    <!--{{paymentWindow}} 지불기간-->
+                    <!--{{order.paymentWindow}} 지불기간-->
                     <!--타이머 스크립트 작성 필요-->
-                    <span class="color-green">{{paymentWindow}}</span>
+                    <span class="color-green">{{order.paymentWindow}}</span>
                     {{$str("paymentExplain4")}}
                 </span>
                     <!--buying 상태 일때-->
-                    <span v-if="status === 'paid'" class="mb-2">
+                    <span v-if="order.status === 'paid'" class="mb-2">
                     {{$str("buyingExplain1")}}
 
-                        <!--{{volumeTotal}} 가격 , {{token}} 단위-->
-                    <span class="color-orange-price">{{volumeTotal}} {{token}}</span>
+                        <!--{{order.coinCount}} 가격 , {{order.cryptocurrency}} 단위-->
+                    <span class="color-orange-price">{{order.coinCount}} {{order.cryptocurrency}}</span>
                     {{$str("buyingExplain2")}}
 
-                        <!--{{nickname}} 닉네임-->
-                    {{nickname}}
+                        <!--{{order.merchantNickname}} 닉네임-->
+                    {{order.merchantNickname}}
                     {{$str("buyingExplain3")}}
                     </span>
 
-                    <span v-if="status === 'paid'">
+                    <span v-if="order.status === 'paid'">
                       <!--{{$str("buyingExplain4")}}-->
                     </span>
-                    <span v-else-if="status === 'transfer' || status === 'cancel'">
+                    <span v-else-if="order.status === 'transfer' || order.status === 'cancel'">
                     {{$str("cancel")}} {{$str("complete")}},
                     </span>
 
                     <!--status cancel 일 시 설명 문구-->
-                    <span v-if="status === 'complaining'">
+                    <span v-if="order.status === 'complaining'">
                         {{$str("appealCodeExplain")}}
                         {{appealCode}} ,
                     </span>
-                    <br/>{{$str("referenceText")}} :
+                    {{$str("referenceText")}} :
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                     <!--{{거래번호}}-->
-                    {{reference}}
+                    {{order.referenceNo}}
                     </span>
-                        <input type="text" :value="reference" id="referenceNum" class="referenceNum">
+                        <input type="text" :value="order.referenceNo" id="referenceNum" class="referenceNum">
                         <span class="tooltip-content">Copy</span>
                     </div>
                 </v-flex>
             </v-flex>
             <!--paid 버튼--><!--unpaid 상태 일때-->
-            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="status === 'unpaid'">
+            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="order.status === 'unpaid'">
                 <input type="button" class=" btn-blue btn-blue-hover"
                        :value="$str('paidText')" @click="onModal('paid')">
             </v-flex>
             <!--paid 설명-->
             <v-flex xs12 md10 text-md-left vertical-center>
-                <span :class="{'ml-2' : !isMobile()} " v-if="status === 'unpaid'"
+                <span :class="{'ml-2' : !isMobile()} " v-if="order.status === 'unpaid'"
                       class="vertical-center mb-4 payment-explain-wrapper color-orange-price h6 line-height-1 text-xs-left pt-2 pb-2 pr-2 pl-2">
                         <i class="material-icons color-orange-price mr-2 ">info</i>
                         {{$str('paymentText')}}
@@ -115,7 +120,7 @@
 
 
             <!--buying process indicator buying 상태 일때-->
-            <v-flex xs12 mb-4 v-if="status === 'paid'">
+            <v-flex xs12 mb-4 v-if="order.status === 'paid'">
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
@@ -127,7 +132,7 @@
             </v-flex>
 
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
-            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="status === 'transfer'">
+            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="order.status === 'transfer'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3 ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
@@ -135,13 +140,13 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'cancel'">
+            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="order.status === 'cancel'">
                 <i class="material-icons cancel-icon" @click="onCancel">cancel</i>
             </v-flex>
 
 
             <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
-            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="status === 'complaining'">
+            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="order.status === 'complaining'">
                 <i class="material-icons  warning-icon ">error</i>
             </v-flex>
 
@@ -160,25 +165,28 @@
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
             <v-flex xs12 mb-4a text-md-left text-xs-left
-                    v-if="status != 'transfer' && status != 'cancel' && status !='complaining'">
+                    v-if="order.status != 'transfer' && order.status != 'cancel' && order.status !='complaining'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
                        @click="onModal('cancel')">
-                <input v-if="status === 'paid'" class="text-white-hover btn-rounded-white" type="button"
+                <input v-if="order.status === 'paid'" class="text-white-hover btn-rounded-white" type="button"
                        :value="$str('appeal')" @click="onModal('appeal')">
             </v-flex>
 
             <!--이의제기 취소 버튼 (appeal 상태일때)-->
             <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                    v-if="status === 'complaining'" :class="{'pt-4' : isMobile()}">
-                <a class="color-blue text-white-hover" @click="onModal('cancelAppeal')">{{$str('cancelModalButton')}}</a>
+                    v-if="order.status === 'complaining'" :class="{'pt-4' : isMobile()}">
+                <a class="color-blue text-white-hover"
+                   @click="onModal('cancelAppeal')">{{$str('cancelModalButton')}}</a>
             </v-flex>
         </v-layout>
 
 
         <div>
             <!--채팅창-->
-            <chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>
+            <chat :orderNo="orderNo" :merchantEmail="order.merchantEmail" :customerEmail="order.customerEmail"
+                  :merchant_member_no="order.merchantMemberNo" :merchantNickname="order.merchantNickname" :customerNickname="order.customerNickname"
+                  :customer_member_no="order.customerMemberNo"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -219,54 +227,6 @@
             appealCode: 977057,
             showModal: false,
         }),
-        computed: {
-            volumeTotal() {
-                return  MainRepository.TradeProcess.getOrder().coinCount;
-            },
-            token() {
-                return MainRepository.TradeProcess.getOrder().cryptocurrency;
-            },
-            nickname() {
-                return MainRepository.TradeProcess.getOrder().nickname;
-            },
-            price() {
-                return MainRepository.TradeProcess.getOrder().price;
-            },
-            currency() {
-                return MainRepository.TradeProcess.getOrder().currency;
-            },
-            paymentWindow() {
-                return MainRepository.TradeProcess.getOrder().paymentWindow;
-            },
-            reference() {
-                return MainRepository.TradeProcess.getOrder().referenceNo;
-            },
-            merchant_member_no() {
-                return MainRepository.TradeProcess.getOrder().merchantMemberNo;
-            },
-            customer_member_no() {
-                return MainRepository.TradeProcess.getOrder().customerMemberNo;
-            },
-            status() { //unpaid -> buying -> paid   그리고   cancel, appeal
-                return MainRepository.TradeProcess.getOrder().status;
-            },
-            paymentMethods() {
-                return MainRepository.TradeProcess.getOrder().paymentMethods;
-            },
-            getMyPaymentMethodSelectList() {
-                return MainRepository.TradeProcess.getOrder().getMyPaymentMethodSelectList;
-            },
-            getOrderNumber() {
-                let orderNoDigits = this.orderNo.length;
-                let zeroDigits = 8 - orderNoDigits;
-                let addZero = '';
-                for (let i = 0; i < zeroDigits; i++) {
-                    addZero += "0"
-                }
-                let temp = addZero + this.orderNo;
-                return temp;
-            },
-        },
         created() {
             //order no GET from url param
             var url = location.href;
@@ -284,7 +244,7 @@
             //취소 일경우 props로 판단 및 status 변경
             // AIOS cancel
             if (this.cancel === 'true') {
-                this.status = 'cancel';
+
             }
 
             // 로그인 확인 -> Login 으로
@@ -293,7 +253,25 @@
                 return;
             }
         },
+        computed: {
+            order() {
+                return MainRepository.TradeProcess.getOrder();
+            },
+            getOrderNumber() {
+                let orderNoDigits = this.orderNo.length;
+                let zeroDigits = 8 - orderNoDigits;
+                let addZero = '';
+                for (let i = 0; i < zeroDigits; i++) {
+                    addZero += "0"
+                }
+                let temp = addZero + this.orderNo;
+                return temp;
+            },
+        },
         methods: {
+            getMyPaymentMethodSelectList() {
+                return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
+            },
             getOrderData() {
                 let self = this;
                 MainRepository.TradeProcess.setOrder({
@@ -332,7 +310,6 @@
                 this.showModal = false;
                 // *************************************post작업 성공시
                 this.getOrderData();
-                this.status = 'paid';
             },
             onQRcode(type) {
                 if (type === "alipay") {
@@ -347,7 +324,6 @@
                 MainRepository.TradeProcess.onPaid(
                     Number(self.orderNo)
                     , function (result) {
-                        self.status = 'paid';
                         self.getOrderData();
                         self.onClose();
                     });
@@ -358,7 +334,6 @@
                 MainRepository.TradeProcess.onCancel(
                     Number(self.orderNo)
                     , function (result) {
-                        self.status = 'cancel';
                         self.getOrderData();
                         self.onClose();
                     });
@@ -366,11 +341,10 @@
             //appeal 한 후
             onAppeal(data) {
                 let self = this;
-                data['orderNo'] =Number(self.orderNo);
+                data['orderNo'] = Number(self.orderNo);
                 MainRepository.TradeProcess.onAppeal(
                     data
                     , function (result) {
-                        self.status = 'complaining';
                         self.getOrderData();
                         self.onClose();
                     });
@@ -457,7 +431,6 @@
         position: absolute;
         left: -1000px;
     }
-
 
     .flex {
         padding-left: 0px !important;

@@ -1,11 +1,11 @@
 <template>
-  <div class="avatarWraaper">
+    <div class="avatarWraaper">
     <span class="mainCircle" v-bind:style="{background: bgColor}">
       <span class="firstWord">{{name}}</span>
     </span>
-    <div class="loginCircle" v-bind:style="{background: loginColor}">
+        <div class="loginCircle" v-bind:style="{background: loginColor}">
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -14,7 +14,20 @@
 
     export default {
         name: "Avatar",
-        props: ['email', 'me'],
+        props: {
+            email: {
+                type: String,
+                default: ''
+            },
+            me: {
+                type: Boolean,
+                default: false
+            },
+            chat: {
+                type: String,
+                default: '',
+            }
+        },
         data: () => ({
             loginColor: '#c8c8c8',
             name: '',
@@ -26,10 +39,10 @@
                 this.loginColor = '#59D817';
                 this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
                 this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
-            } else {
+            } else if(this.me === false && this.chat === ''){
                 //유저 정보 GET AXIOS
                 MainRepository.Users.getOtherUsers(this.email, function (result) {
-                    let otherUsersInfo = result ;
+                    let otherUsersInfo = result;
                     self.bgColor = otherUsersInfo.bgColor;
                     self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
                     self.getIsLogin()
@@ -38,7 +51,9 @@
                 //3분마다 로그인 확인 갱신
                 setInterval(function () {
                     self.getIsLogin();
-                },108000)
+                }, 3000)
+
+            }else if(this.me === false && this.chat != ''){
 
             }
         },
@@ -48,11 +63,11 @@
         methods: {
             getIsLogin() {
                 let self = this;
-              MainRepository.Users.isUserActive({
-                  email : self.email
-              },function (result) {
-                  return result
-              })
+                MainRepository.Users.isUserActive({
+                    email: self.email
+                }, function (result) {
+                    return result
+                })
             },
         }
     }

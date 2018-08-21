@@ -86,7 +86,7 @@ export default {
         },
         // 다른 유저 정보 get
         getOtherUsersInfo: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('member/them', 'GET', data,
+            AxiosService._requestWithUrlPram('member/them/byEmail', 'GET', data,
                 function (data: any) {
                     callback(data);
                 },
