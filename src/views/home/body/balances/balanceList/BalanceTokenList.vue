@@ -189,7 +189,7 @@
             <button class="btn-rounded-white text-white-hover" @click="showWithdrawModal = false" >
               <h6>{{$str("cancel")}}</h6>
             </button>
-            <button class="btn-rounded-blue btn-blue-hover" >
+            <button class="btn-rounded-blue btn-blue-hover" @click="goSMSVerification">
               <h6>{{$str("withdraw")}}</h6>
             </button>
           </div>
@@ -248,7 +248,7 @@
                 if(this.amount < this.fee){
                     return 0;
                 }
-                return this.amount - this.fee;
+                return (this.amount - this.fee);
             },
         },
 
@@ -327,6 +327,9 @@
                 //     copyTemp.select();
                 // }
                 // document.execCommand('copy');
+            },
+            goSMSVerification(){
+                this.$router.push("/smsVerification");
             },
         }
     }

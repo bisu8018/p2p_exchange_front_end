@@ -2584,11 +2584,11 @@ const strings = new Map([
         CN: '取消阻止此用户',
         HK: '取消阻止此用戶'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['Verification', {
+        KOR: '인증',
+        ENG: 'Verification',
+        CN: '验证',
+        HK: '驗證'
     }],
     ['', {
         KOR: '',
