@@ -684,6 +684,7 @@ export default {
             return myTradeController.getMyAdsItems();
         },
     },
+
     MyOrder: {
         controller(): MyTradeController {
             return myTradeController;
@@ -771,6 +772,30 @@ export default {
         }
     },
     TradeProcess: {
+        controller() {
+            return tradeController;
+        },
+
+        createOrder: function (data : any, callback: any) {
+            OrderService.addOrder(data, (orderNo) => {
+                this.loadCurrentOrder(orderNo, () => {
+                    callback(orderNo);
+                })
+            })
+        },
+
+        loadCurrentOrder: function (orderNo: number, callback: any) {
+            OrderService.getOrder(orderNo, function (data) {
+                tradeController.setOrder(data);
+                callback();
+            })
+        },
+
+        getCurrentOrder: function () {
+            return tradeController.getOrder();
+        },
+
+
         setOrder: function (data: any, callback: any) {
             OrderService.getOrder(data, function (result) {
                 let tradeProcess = new Order(result);
@@ -813,6 +838,29 @@ export default {
             callback();
         },
     },
+
+    Message: {
+        setChatAvatar: function  (data: any, callback: any) {
+            chatAvatarController.setChatAvatar(data);
+            callback();
+        },
+        getChatAvatar: function () {
+            return chatAvatarController.getChatAvatar();
+        },
+        updateChatAvatar: function  (data: any, callback: any) {
+            chatAvatarController.updateChatAvatar(data);
+            callback();
+        },
+
+        createRoom() {
+
+        },
+        updateMsg() {
+
+        },
+    },
+
+
     MarketPrice: {
         controller(): MarketPriceController {
             return marketPriceController;

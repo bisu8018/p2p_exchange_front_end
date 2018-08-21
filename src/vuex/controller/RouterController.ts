@@ -50,13 +50,27 @@ export default class RouterController {
                 r.push(url);
             });
         }*/
+    }
 
+    goTradeCenter() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push('tradeCenter');
+        });
     }
 
     goMerchant() {
         let r = this.router;
         Vue.nextTick(function () {
             r.push('/merchant');
+        });
+    }
+
+    goBuyOrSell(isBuy: boolean, orderNo: number) {
+        let url = (isBuy ? '/buy?' : '/sell?') + orderNo;
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push(url);
         });
     }
 }

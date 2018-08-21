@@ -619,7 +619,7 @@
             goTrade() {
                 let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
-                    MainRepository.TradeView.createOrder({
+                    MainRepository.TradeProcess.createOrder({
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
                             amount : this.toValue,
@@ -630,20 +630,8 @@
                             status : "unpaid",
                             tradePassword : this.tradePW,
                     }, function (orderNo) {
-                        let tradePage;
-                        switch (instance.user.tradeType) {
-                            case 'Buy':
-                                tradePage = "/buy?"+orderNo
-                                instance.$router.push(tradePage);
-                                break;
-
-                            case 'Sell':
-                                tradePage = "/sell?"+orderNo
-                                instance.$router.push(tradePage);
-                                break;
-
-                        }
-
+                        let isBuy = instance.user.tradeType === 'Buy';
+                        MainRepository.router().goBuyOrSell(isBuy, orderNo);
                     });
 
                 }

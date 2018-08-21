@@ -18,5 +18,16 @@ export default class TradeController {
     getOrder() {
         return this.store.state.tradeProcess.getTradeProcess;
     }
+
+
+
+    setCurrentOrder(tradeProcess: Order) {
+        this.store.dispatch(VuexTypes.SET_CURRENT_ORDER, tradeProcess);
+    }
+
+    getCurrentOrder() {
+        return this.store.state.tradeProcess.currentOrder;
+    }
+
 }
 
