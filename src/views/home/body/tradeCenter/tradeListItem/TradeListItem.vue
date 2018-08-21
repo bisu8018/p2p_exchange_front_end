@@ -622,8 +622,8 @@
                     MainRepository.TradeView.createOrder({
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
-                            amount :   this.toValue,
-                            coinCount : this.fromValue,
+                            amount : this.amount,
+                            coinCount : this.toValue/this.user.fixedPrice,
                             customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
                             merchantMemberNo :  this.user.memberNo,
                             price : this.user.fixedPrice,
@@ -764,21 +764,6 @@
                 self.marketPrice = data;
             });
         },
-        mounted() {
-            switch (this.user.rank) {
-                case 1:
-                    this.rankSrc = require('../../../../../assets/img/rank_crown.png');
-                    break;
-                case 2:
-                    this.rankSrc = require('../../../../../assets/img/rank_diamond.png');
-                    break;
-                default:
-                    this.rankSrc = '';
-            }
-
-        },
-
-
     }
 </script>
 
