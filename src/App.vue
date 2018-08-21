@@ -1689,4 +1689,21 @@
 
     /* MyInfo Item CSS END */
 
+
+    /* Dialog */
+    .dialog_btn-close {
+        position: absolute;
+        cursor: pointer;
+        right: 0;
+        top: 0;
+    }
+
+    .dialog_btn-close:hover {
+        opacity: .7;
+    }
+
+    .dialog--footer {
+        text-align: right;
+        margin: 24px 0 0;
+    }
 </style>

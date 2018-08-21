@@ -1972,7 +1972,7 @@ const strings = new Map([
         HK: '高'
     }],
     ['bound', {
-        KOR: '연동',
+        KOR: '연동됨',
         ENG: 'Bound',
         CN: '绑定',
         HK: '綁定'

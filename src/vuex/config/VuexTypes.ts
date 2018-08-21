@@ -82,6 +82,7 @@ export enum VuexTypes {
     //              Trade Process
     // =====================================
     SET_TRADE_PROCESS_DATA = 'tradeProcess/SET_TRADE_PROCESS_DATA',
+    SET_CURRENT_ORDER = 'tradeProcess/SET_CURRENT_ORDER',
 
 
     //======================================
@@ -90,6 +91,11 @@ export enum VuexTypes {
     SET_TRADE_CHAT_AVATAR = 'chatAvatar/SET_TRADE_CHAT_AVATAR',
     UPDATE_TRADE_CHAT_AVATAR = 'chatAvatar/UPDATE_TRADE_CHAT_AVATAR',
 
+    //======================================
+    //              Chat
+    // =====================================
+    SET_MSG_LIST = 'chat/SET_MSG_LIST',
+    ADD_MSG = 'chat/ADD_MSG',
 
 
 

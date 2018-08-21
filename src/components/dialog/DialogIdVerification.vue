@@ -4,7 +4,7 @@
 
             <!-- 헤더, 타이틀 -->
             <h3>{{ $str('idVerification') }}</h3>
-            <div class="btn--close">
+            <div class="dialog_btn-close">
                 <i class="material-icons " @click="onClose">close</i>
             </div>
             <h5 class="color-darkgray mt-3 mb-4">{{ $str('nickNameExplain') }}</h5>
@@ -43,7 +43,7 @@
             </div>
 
             <!-- footer, 버튼 영역 -->
-            <div class="dialog-id-verification_footer">
+            <div class="dialog--footer">
                 <button class="btn-rounded-white text-white-hover" @click="onClose">
                     <h6>{{$str("cancel")}}</h6>
                 </button>
@@ -139,23 +139,9 @@
         position: relative;
     }
 
-    .btn--close {
-        position: absolute;
-        cursor: pointer;
-        right: 0;
-        top: 0;
-    }
-
-    .btn--close:hover {
-        opacity: .7;
-    }
-
     .dialog-id-verification_wrapper h3 {
         font-weight: bold;
     }
 
-    .dialog-id-verification_footer {
-        text-align: right;
-        margin: 24px 0 0;
-    }
+
 </style>

@@ -3,32 +3,9 @@
 
         <!-- 좌측 내 정보 -->
         <div class="myInfo-wrapper">
-            <!-- 닉네임, 아바타 -->
-            <div class="pt-0">
-                <big-avatar :me="true" />
-                <div class="ml-3">
-                    <p class="color-blue mb-1">{{ myInfo.nickname }}</p>
-                    <p class="color-darkgray">UID: {{ myInfo.memberNo }}</p>
-                </div>
-            </div>
-
-            <!-- 트레이드 횟수, 평균 시간 -->
-            <div class="d-block">
-                <p class="mb-1">
-                    <span class="color-darkgray mr-2">{{$str('trades')}}:</span>
-                    <span class="color-black color-red"> 수정필요 {{$str('times')}}</span>
-                </p>
-                <p>
-                    <span class="color-darkgray mr-2">{{$str('avgRelease')}}:</span>
-                    <span class="color-black color-red"> 수정필요 {{$str('minuteText')}}</span>
-                </p>
-            </div>
-
-            <!-- Create Account Time -->
-            <div class="color-darkgray d-block">
-                <p class="d-block">{{$str('accountCreatedTime')}} {{toTimeFormat(myInfo.createDatetime)}}, </p>
-                <p class="color-red">수정필요</p>
-            </div>
+            <my-info
+                    :my-info="myInfo"
+            />
         </div>
 
         <!-- 우측 세부 정보 -->
@@ -46,37 +23,15 @@
                 :id-verification="idVerification"
             />
 
-            <!-- ############### 3. Payment Methods ############### -->
-            <div class="myPage-box">
+            <!-- 3. Payment Methods -->
+            <my-payment
+                :payment-method="paymentMethod"
+                :email-verification="emailVerification"
+                :phone-verification="phoneVerification"
+                :my-info="myInfo"
+            />
 
-                <!-- Header -->
-                <div class="otherInfo-header">
-                    <h4>{{$str('paymentMethod')}}</h4>
-                    <div class="header-detail">
-                        <p class="caption mt-3">{{$str('paymentMethodExplain')}}</p>
-                    </div>
-                </div>
-
-                <!-- Body : isEmpty -->
-                <div class="ta-center py-3" v-if="paymentMethod === ''">
-                    <p class="pt-2 pb-3 color-darkgray">{{$str('nullPaymentMethod')}}</p>
-                    <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
-                </div>
-
-                <!-- Body : !isEmpty -->
-                <div v-else>
-                    <span v-for="item in paymentMethod">
-                        <payment-item
-                                :data="item"
-                        />
-                    </span>
-                    <div class="ta-center py-3">
-                        <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ###############  4. Block List ###############  -->
+            <!-- 4. Block List -->
             <div class="myPage-box">
 
                 <!-- Header -->
@@ -103,7 +58,7 @@
                 </div>
             </div>
 
-            <!-- #################  5. History ################# -->
+            <!-- 5. History -->
             <div class="myPage-box pb-4">
 
                 <!-- Header -->
@@ -123,7 +78,7 @@
                 </div>
 
                 <!-- 로그인 선택 시 -->
-                <div v-if=" selection_login  && tempLogin != ''">
+                <div v-if=" selection_login  && tempLogin !== ''">
 
                     <!-- menu -->
                     <div class="history-login mobile-hide">
@@ -155,17 +110,17 @@
             </div>
         </div>
 
+
     </div>
 </template>
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
-    import {abUtils} from "../../../../common/utils";
     import BigAvatar from '@/components/BigAvatar.vue';
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
-    import MyPageModal from './myPageItem/MyPageModal.vue';
+    import MyPageModal from './item/MyPageModal.vue';
     import IdVerification from "../../../../vuex/model/IdVerification";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
@@ -176,23 +131,26 @@
     import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
     import MyIdVerification from "./MyIdVerification";
     import MyAccountSecurity from "./MyAccountSecurity";
+    import MyInfo from "./MyInfo";
+    import MyPayment from "./MyPayment";
 
     export default {
         name: "MyPage",
         components: {
+            MyPayment,
+            MyInfo,
             MyAccountSecurity,
             MyIdVerification,
             DialogIdVerification,
             BlockListItem,
             BtnMypage,
             PaymentItem,
-            BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
+            BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem
+        },
         data: () => ({
             selection_login: true,
             selection_security: false,
 
-            idVerification: new IdVerification(''),
-            paymentMethods: '',
             blockList: '',
             loginHistory: '',
             securitySettings: '',
@@ -211,13 +169,12 @@
                 }
             ],
 
-
-
             // *********** NEW DATA ************* //
             showModal: false,
             modalType: '',
 
             myInfo: '',
+            idVerification: new IdVerification(''),
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
 
@@ -227,18 +184,12 @@
                 return MainRepository.State.isMobile();
             },
 
-            // ************** NEW COMPUTED ************** //
             paymentMethod () {
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
         },
         created() {
             let self = this;
-
-            // 유저 ID 인증 정보 GET
-            MainRepository.MyPage.getIdVerification(function (idVerification) {
-                self.idVerification = idVerification;
-            });
 
             // 유저 결제수단 정보 GET
             MainRepository.MyInfo.loadMyPaymentMethods();
@@ -252,6 +203,7 @@
             MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
                 self.securitySettings = securitySettings;
             });
+
 
             // *********** NEW CREATED ************* //
             // 로그인 확인 -> Login 으로
@@ -286,18 +238,6 @@
             }
         },
         methods: {
-            onClose() {
-                this.showModal = false;
-                this.modalType = '';
-            },
-            getDate(date) {
-                let dateTime = String(date).split(' ');
-                return dateTime[0];
-            },
-            getTime(date) {
-                let dateTime = String(date).split(' ');
-                return dateTime[1];
-            },
             onSelection(type) {
                 if (type === 'login') {
                     this.selection_security = false;
@@ -307,45 +247,9 @@
                     this.selection_security = true;
                 }
             },
-            //결제수단 추가 모달 data get 및 결제수단 표시 설정
-            getPaymentMethod(value) {
-                //하기 코드 미사용 가능성 존재
-                if (value === 'alipay') {
-                    this.alipay_use = 'y';
-                } else if (value === 'wechat') {
-                    this.wechat_use = 'y';
-                } else {
-                    this.bank_use = 'y';
-                }
-                this.showModal = false;
-            },
-            onTurnOn() {
-                // phone 인증 정보 AXIOS GET
-                this.showModal = false;
-            },
-            goTurnOff(type) {
-                var url = "/turnOff";
-                if (type === 'email') {
-                    url += '?email';
-                } else {
-                    url += '?phone';
-                }
-                this.$router.push(url);
-
-            },
-            onModal(type) {
-                this.showModal = true;
-                this.modalType = type;
-            },
 
             // *********** NEW METHODS ************* //
-            // 시간 포멧으로 바꿔줌
-            toTimeFormat(time) {
-                return abUtils.toTimeFormat(time);
-            },
-            onUnblock() {
-                alert('블록 푸는 거 API 보내야함');
-            },
+
         }
     }
 </script>
@@ -392,22 +296,6 @@
         position: relative;
     }
 
-    .myInfo-wrapper > div {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        flex-wrap: wrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        border-bottom: solid 1px #d1d1d1;
-        padding: 24px 0;
-    }
-
-    .myInfo-wrapper > div:last-child {
-        border-bottom: none;
-    }
-
     /* 좌측 기타 정보 */
     .otherInfo-wrapper {
         width: calc(100% - 282px);
@@ -422,22 +310,16 @@
             display: block;
             padding: 0 3px;
         }
-        .myInfo-wrapper,
-        .otherInfo-wrapper {
+
+        .myInfo-wrapper {
             width: 100%;
             padding: 48px 0 0;
         }
 
-        .myInfo-wrapper > div {
-            display: block;
+        .otherInfo-wrapper {
+            width: 100%;
+            padding: 48px 0 0;
         }
-
-        .myInfo-wrapper > div:first-child {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-        }
-
 
         .otherInfo-header {
             justify-content: flex-start;

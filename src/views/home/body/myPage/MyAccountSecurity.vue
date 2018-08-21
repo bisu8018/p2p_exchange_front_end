@@ -53,24 +53,35 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
+
+                <!-- 등록이 되어 있을 때 -->
                 <span v-if="!phone.isNull()">
-                    <btn-mypage
-                            :txt="$str('bound')"
+
+                     <!-- 핸드폰 번호 바꾸기 버튼 -->
+                    <btn-mypage v-if="!phone.isNull()"
+                                :txt="$str('changePhone')"
+                                @click="goChangePhone"
                     />
+
+                    <!-- 비활성화 버튼 -->
+                    <btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"
+                                :txt="$str('turnOff')"
+                    />
+
+                    <!-- 활성화 버튼 -->
+                    <btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"
+                                :txt="$str('turnOn')"
+                                @click="onTurnOn"
+                    />
+                    <!--<h6 class="color-blue px-3">{{ $str('bound') }}</h6>-->
                 </span>
+
+                <!-- 등록이 되어 있지 않을 때 -->
                 <span v-else>
+                    <!-- 연동하기 버튼 -->
                     <btn-mypage v-if="phone.isNull()"
                             :txt="$str('bind')"
                             @click="goLink('phone')"
-                    />
-                    <btn-mypage v-else-if="!phone.isNull()"
-                            :txt="$str('changePhone')"
-                    />
-                    <btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"
-                            :txt="$str('turnOff')"
-                    />
-                    <btn-mypage v-else-if="!phone.isNull() && phone.status !== 'turn_on'"
-                                :txt="$str('turnOn')"
                     />
                 </span>
             </li>
@@ -192,6 +203,12 @@
             },
             goChangePassword() {
                 this.$router.push("/changePassword");
+            },
+            goChangePhone() {
+                alert('페이지 만들어야 함');
+            },
+            onTurnOn() {
+                alert('이건뭔가요?');
             },
             goReset() {
                 this.$router.push('/resetTradePassword');

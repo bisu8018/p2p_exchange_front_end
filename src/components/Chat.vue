@@ -22,14 +22,13 @@
             </div>
         </div>
         <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
-            <div v-for="data in message">
+            <div v-for="data in messageList">
                 <!--상대방-->
                 <div class="mb-3 display-flex" v-if="data.registerMemberNo === counterPartyMemberNo">
                     <div>
-                        <avatar v-if="counterPartyEmail != ''"
+                        <avatar v-if="counterPartyEmail !== ''"
                                 :email = counterPartyEmail
-                                :chat = "'sub'"
-                        >
+                                :chat = "'sub'">
                         </avatar>
                     </div>
                     <div class="pl-2">
@@ -81,76 +80,84 @@
     import Avatar from './Avatar.vue';
     import ChatService from "../service/chat/ChatService";
     import {abUtils} from "../common/utils";
+    import Order from "../vuex/model/Order"
 
     export default Vue.extend({
         name: 'chat',
         components: {
             Avatar
         },
-        props: ['orderNo','merchant_member_no','customer_member_no','merchantEmail', 'customerEmail', 'customerNickname', 'merchantNickname' ],
+        props: {
+            order: { type: Order }
+        },
         data: () => ({
             inputValue: "",
             transactionNum: '',
-            message : [],
+            messageList : [],
+
+            msgInterval : {},
 
             //파일 첨부
             file: '',
             image: '',
         }),
-
-        created() {
-        },
-
-        mounted: function () {
-            this.scrollBottom();
-            this.$nextTick(function () {
-                this.getMessage();
-                setInterval(function () {
-                    this.getMessage();
-                }.bind(this), 5000);
-            })
-        },
         computed: {
             myMemberNo () {this.scrollBottom();
-              return MainRepository.MyInfo.getUserInfo().memberNo;
+                return MainRepository.MyInfo.getUserInfo().memberNo;
             },
             myEmail() {
                 return MainRepository.MyInfo.getUserInfo().email;
             },
             myNickname() {
-              return MainRepository.MyInfo.getUserInfo().nickname;
+                return MainRepository.MyInfo.getUserInfo().nickname;
             },
             counterPartyNickname () {
                 let name;
-                if(MainRepository.MyInfo.getUserInfo().nickname === this.merchantNickname){
-                    name = this.customerNickname;
+                if(MainRepository.MyInfo.getUserInfo().nickname === this.order.merchantNickname){
+                    name = this.order.customerNickname;
                 }else{
-                    name = this.merchantNickname;
+                    name = this.order.merchantNickname;
                 }
                 return name;
             },
             counterPartyMemberNo () {
                 let num;
-                if(MainRepository.MyInfo.getUserInfo().memberNo === this.merchant_member_no){
-                    num = this.customer_member_no;
+                if(MainRepository.MyInfo.getUserInfo().memberNo === this.order.merchantMemberNo){
+                    num = this.order.customerMemberNo;
                 }else{
-                    num = this.merchant_member_no;
+                    num = this.order.merchantMemberNo;
                 }
                 return num;
             },
             counterPartyEmail () {
                 let email;
-                if(MainRepository.MyInfo.getUserInfo().email === this.merchantEmail){
-                    email = this.customerEmail;
+                if(MainRepository.MyInfo.getUserInfo().email === this.order.merchantEmail){
+                    email = this.order.customerEmail;
                 }else{
-                    email = this.merchantEmail;
+                    email = this.order.merchantEmail;
                 }
                 return email;
             },
-
-
+        },
+        created() {
+            MainRepository.Message.createRoom(() => {});
+        },
+        mounted() {
+            this.scrollBottom();
+            this.$nextTick(() => {
+                this.msgInterval = setInterval(() => {
+                    this.updateMsg()
+                }, 5000);
+            })
+        },
+        beforeDestroy() {
+            clearInterval(this.msgInterval);
         },
         methods: {
+            updateMsg() {
+                MainRepository.Message.updateMsg(() => {});
+            },
+
             getMessage: function () {
                 let self = this;
                 // 메세지 AXIOS GET
@@ -159,7 +166,7 @@
                         dateTime:  abUtils.getDateTime(),
                         orderNo : self.orderNo
                     }, function (result) {
-                    self.message = result;
+                    self.messageList = result;
                     }
                 )
             },
@@ -220,13 +227,13 @@
                         register_member_no: this.myMemberNo,
                         registerDatetime: new Date(),
                     };
-                    this.message.push(postMessage);
+                    this.messageList.push(postMessage);
                     this.inputValue = "";
                 }
 
             },
             scrollBottom() {
-                var chatWrapper = document.getElementById("contentsWrapper");
+                let chatWrapper = document.getElementById("contentsWrapper");
                 chatWrapper.scrollTop = chatWrapper.scrollHeight;
             }
         }

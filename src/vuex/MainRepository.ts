@@ -41,6 +41,10 @@ import TradeController from "@/vuex/controller/TradeController";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 import MerchantService from "@/service/merchant/MerchantService";
 import Merchant from "@/vuex/model/Merchant";
+import ChatService from "@/service/chat/ChatService";
+import {abUtils} from "@/common/utils";
+import MessageController from "@/vuex/controller/MessageController";
+import message from "@/vuex/modules/message";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -55,6 +59,7 @@ let balanceController: BalanceController;
 let routerController: RouterController;
 let tradeController: TradeController;
 let chatAvatarController: ChatAvatarController;
+let messageController: MessageController;
 
 let store: Store<any>;
 let instance: any;
@@ -74,6 +79,7 @@ export default {
         balanceController = new BalanceController(store);
         tradeController = new TradeController(store);
         chatAvatarController = new ChatAvatarController(store);
+        messageController = new MessageController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -684,6 +690,7 @@ export default {
             return myTradeController.getMyAdsItems();
         },
     },
+
     MyOrder: {
         controller(): MyTradeController {
             return myTradeController;
@@ -771,6 +778,30 @@ export default {
         }
     },
     TradeProcess: {
+        controller() {
+            return tradeController;
+        },
+
+        createOrder: function (data : any, callback: any) {
+            OrderService.addOrder(data, (orderNo) => {
+                this.loadCurrentOrder(orderNo, () => {
+                    callback(orderNo);
+                })
+            })
+        },
+
+        loadCurrentOrder: function (orderNo: number, callback: any) {
+            OrderService.getOrder(orderNo, function (data) {
+                tradeController.setOrder(data);
+                callback();
+            })
+        },
+
+        getCurrentOrder: function () {
+            return tradeController.getOrder();
+        },
+
+
         setOrder: function (data: any, callback: any) {
             OrderService.getOrder(data, function (result) {
                 let tradeProcess = new Order(result);
@@ -813,6 +844,52 @@ export default {
             callback();
         },
     },
+
+    Message: {
+        controller(): MessageController {
+            return messageController;
+        },
+
+        setChatAvatar: function  (data: any, callback: any) {
+            chatAvatarController.setChatAvatar(data);
+            callback();
+        },
+        getChatAvatar: function () {
+            return chatAvatarController.getChatAvatar();
+        },
+        updateChatAvatar: function  (data: any, callback: any) {
+            chatAvatarController.updateChatAvatar(data);
+            callback();
+        },
+
+        createRoom(callback: any) {
+            let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime);
+
+            ChatService.message.getMessage({
+                    email: instance.MyInfo.getUserInfo().email,
+                    dateTime:  _dateTime,
+                    orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
+                }, (data) => {
+                    this.controller().setMsgList(data);
+                    callback();
+                }
+            )
+        },
+
+        updateMsg(callback: any) {
+            ChatService.message.getMessage({
+                    email: instance.MyInfo.getUserInfo().email,  //VUEX userInfo.nickName
+                    dateTime: this.controller().getLatestMsgTime(),
+                    orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
+                }, (data) => {
+                    this.controller().setMsgList(data);
+                    callback();
+                }
+            )
+        },
+    },
+
+
     MarketPrice: {
         controller(): MarketPriceController {
             return marketPriceController;

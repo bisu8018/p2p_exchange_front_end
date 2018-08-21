@@ -7,38 +7,38 @@
 
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
-                <!--{{ad_type}} buy/sell -->
+                <!-- buy/sell -->
                 Buy
-                <!--{{volume}} 토큰량 -->
-                {{order.coinCount}}
-                <!--{{order.cryptocurrency}} 토큰종류-->
-                {{order.cryptocurrency}}
+                <!-- 토큰량 -->
+                {{currentOrder.coinCount}}
+                <!-- 토큰종류-->
+                {{currentOrder.cryptocurrency}}
                 <span class="mr-2"></span>
-                <!--{{order.merchantNickname}} 닉네임-->
-                <div class="d-inline-block"> From {{ order.merchantNickname }}</div>
+                <!-- 닉네임-->
+                <div class="d-inline-block"> From {{ currentOrder.merchantNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 line-height-1">
                 <div class="color-black mb-3 ">
                     {{$str('price')}} :
-                    <!--{{order.price}} 가격 -->
-                    <span class="ml-3 h3">{{order.price}}
-                        <!--{{order.currency}} 화폐단위-->  <!--{{order.currency}} 토큰종류-->
-                        {{order.currency}} / {{order.cryptocurrency}}</span>
+                    <!-- 가격 -->
+                    <span class="ml-3 h3">{{currentOrder.price}}
+                        <!-- 화폐단위-->  <!-- 토큰종류 -->
+                        {{currentOrder.currency}} / {{currentOrder.cryptocurrency}}</span>
                 </div>
                 <div class="color-black">
                     {{$str('amount')}} :
-                    <!--{{order.price}} 가격 -->
+                    <!--{{currentOrder.price}} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
-                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{order.price}}
-                     <!--{{order.currency}} 화폐단위-->
-                        {{order.currency}}</span>
-                        <input type="text" :value="order.price" id="amountValue" class="referenceNum">
+                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{currentOrder.price}}
+                     <!--{{currentOrder.currency}} 화폐단위-->
+                        {{currentOrder.currency}}</span>
+                        <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
                         <span class="tooltip-content">Copy</span>
                     </div>
                 </div>
             </div>
         </v-layout>
-        <div v-if="order.status != 'cancel'" v-for="item in getMyPaymentMethodSelectList()">
+        <div v-if="currentOrder.status != 'cancel'" v-for="item in getMyPaymentMethodSelectList()">
 
             <trade-item :item="item"></trade-item>
 
@@ -46,81 +46,83 @@
         <v-layout wrap row>
             <v-flex xs12 md3>
                 <!--status cancel 일 시 설명 문구-->
-                <div class="cancel-explain mb-4" v-if="order.status ==='cancel'">
+                <div class="cancel-explain mb-4" v-if="currentOrder.status ==='cancel'">
                     {{$str("cancelExplain")}}
                 </div>
             </v-flex>
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
-                <span v-if="order.status != 'cancel' && order.status === 'unpaid'" class="mb-3">
+                <span v-if="currentOrder.status != 'cancel' && currentOrder.status === 'unpaid'" class="mb-3">
                     <!--unpaid 상태 일때-->
                     {{$str("paymentExplain1")}}
-                    <!--{{order.price}} 가격, {{order.currency}} 화폐단위-->
-                    <span class="color-orange-price">{{order.price}} {{order.currency}}</span>
+                    <!--{{currentOrder.price}} 가격, {{currentOrder.currency}} 화폐단위-->
+                    <span class="color-orange-price">{{currentOrder.price}} {{currentOrder.currency}}</span>
                     {{$str("paymentExplain2")}}
 
-                    <!--{{order.merchantNickname}} 닉네임-->
-                    {{order.merchantNickname}}
+                    <!-- 닉네임-->
+                    {{currentOrder.merchantNickname}}
                     {{$str("paymentExplain3")}}
 
-                    <!--{{order.paymentWindow}} 지불기간-->
+                    <!-- 지불기간-->
                     <!--타이머 스크립트 작성 필요-->
-                    <span class="color-green">{{order.paymentWindow}}</span>
+                    <span class="color-green">{{currentOrder.paymentWindow}}</span>
                     {{$str("paymentExplain4")}}
                 </span>
                     <!--buying 상태 일때-->
-                    <span v-if="order.status === 'paid'" class="mb-2">
+                    <span v-if="currentOrder.status === 'paid'" class="mb-2">
                     {{$str("buyingExplain1")}}
 
-                        <!--{{order.coinCount}} 가격 , {{order.cryptocurrency}} 단위-->
-                    <span class="color-orange-price">{{order.coinCount}} {{order.cryptocurrency}}</span>
+                        <!--{{currentOrder.coinCount}} 가격 , {{currentOrder.cryptocurrency}} 단위-->
+                    <span class="color-orange-price">{{currentOrder.coinCount}} {{currentOrder.cryptocurrency}}</span>
                     {{$str("buyingExplain2")}}
 
-                        <!--{{order.merchantNickname}} 닉네임-->
-                    {{order.merchantNickname}}
+                        <!--{{currentOrder.merchantNickname}} 닉네임-->
+                    {{currentOrder.merchantNickname}}
                     {{$str("buyingExplain3")}}
                     </span>
 
-                    <span v-if="order.status === 'paid'">
-                      <!--{{$str("buyingExplain4")}}-->
+                    <!-- Paid 상태 -->
+                    <span v-if="currentOrder.status === 'paid'">
+                      {{$str("buyingExplain4")}}
                     </span>
-                    <span v-else-if="order.status === 'transfer' || order.status === 'cancel'">
+                    <!-- Transfer / Cancel 상태 -->
+                    <span v-else-if="currentOrder.status === 'transfer' || currentOrder.status === 'cancel'">
                     {{$str("cancel")}} {{$str("complete")}},
                     </span>
 
-                    <!--status cancel 일 시 설명 문구-->
-                    <span v-if="order.status === 'complaining'">
+                    <!-- Complaining 일 때 -->
+                    <span v-if="currentOrder.status === 'complaining'">
                         {{$str("appealCodeExplain")}}
                         {{appealCode}} ,
                     </span>
+
                     {{$str("referenceText")}} :
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                     <!--{{거래번호}}-->
-                    {{order.referenceNo}}
+                    {{currentOrder.referenceNo}}
                     </span>
-                        <input type="text" :value="order.referenceNo" id="referenceNum" class="referenceNum">
+                        <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
                         <span class="tooltip-content">Copy</span>
                     </div>
                 </v-flex>
             </v-flex>
             <!--paid 버튼--><!--unpaid 상태 일때-->
-            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="order.status === 'unpaid'">
+            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="currentOrder.status === 'unpaid'">
                 <input type="button" class=" btn-blue btn-blue-hover"
                        :value="$str('paidText')" @click="onModal('paid')">
             </v-flex>
             <!--paid 설명-->
             <v-flex xs12 md10 text-md-left vertical-center>
-                <span :class="{'ml-2' : !isMobile()} " v-if="order.status === 'unpaid'"
+                <span :class="{'ml-2' : !isMobile()} " v-if="currentOrder.status === 'unpaid'"
                       class="vertical-center mb-4 payment-explain-wrapper color-orange-price h6 line-height-1 text-xs-left pt-2 pb-2 pr-2 pl-2">
                         <i class="material-icons color-orange-price mr-2 ">info</i>
                         {{$str('paymentText')}}
                 </span>
             </v-flex>
 
-
             <!--buying process indicator buying 상태 일때-->
-            <v-flex xs12 mb-4 v-if="order.status === 'paid'">
+            <v-flex xs12 mb-4 v-if="currentOrder.status === 'paid'">
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
@@ -133,7 +135,7 @@
 
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
             <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
-                    v-else-if="order.status === 'transfer'">
+                    v-else-if="currentOrder.status === 'transfer'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3 ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
@@ -141,13 +143,13 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="order.status === 'cancel'">
+            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'cancel'">
                 <i class="material-icons cancel-icon" @click="onCancel">cancel</i>
             </v-flex>
 
 
             <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
-            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="order.status === 'complaining'">
+            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">
                 <i class="material-icons  warning-icon ">error</i>
             </v-flex>
 
@@ -166,17 +168,17 @@
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
             <v-flex xs12 mb-4a text-md-left text-xs-left
-                    v-if="order.status != 'transfer' && order.status != 'cancel' && order.status !='complaining'">
+                    v-if="currentOrder.status != 'transfer' && currentOrder.status != 'cancel' && currentOrder.status !='complaining'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
                        @click="onModal('cancel')">
-                <input v-if="order.status === 'paid'" class="text-white-hover btn-rounded-white" type="button"
+                <input v-if="currentOrder.status === 'paid'" class="text-white-hover btn-rounded-white" type="button"
                        :value="$str('appeal')" @click="onModal('appeal')">
             </v-flex>
 
             <!--이의제기 취소 버튼 (appeal 상태일때)-->
             <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                    v-if="order.status === 'complaining'" :class="{'pt-4' : isMobile()}">
+                    v-if="currentOrder.status === 'complaining'" :class="{'pt-4' : isMobile()}">
                 <a class="color-blue text-white-hover"
                    @click="onModal('cancelAppeal')">{{$str('cancelModalButton')}}</a>
             </v-flex>
@@ -185,10 +187,14 @@
 
         <div>
             <!--채팅창-->
-            <chat :orderNo="orderNo" :merchantEmail="order.merchantEmail" :customerEmail="order.customerEmail"
-                  :merchant_member_no="order.merchantMemberNo" :merchantNickname="order.merchantNickname"
-                  :customerNickname="order.customerNickname"
-                  :customer_member_no="order.customerMemberNo"></chat>
+            <chat
+                    :order = "currentOrder"
+                    :orderNo="orderNo" :merchantEmail="currentOrder.merchantEmail" :customerEmail="currentOrder.customerEmail"
+                  :merchant_member_no="currentOrder.merchantMemberNo" :merchantNickname="currentOrder.merchantNickname"
+                  :customerNickname="currentOrder.customerNickname"
+                  :customer_member_no="currentOrder.customerMemberNo">
+
+            </chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -229,35 +235,9 @@
             appealCode: 977057,
             showModal: false,
         }),
-        created() {
-            //order no GET from url param
-            var url = location.href;
-            var parameters = url.slice(url.indexOf('?') + 1, url.length);
-            if (parameters.substr(0, 4) != 'http') {
-                this.orderNo = parameters;
-            } else {
-                //order number 없을 시, 거래소 페이지 이동
-                this.$router.push("tradeCenter");
-            }
-
-            // 유져 데이터 정보 get
-            this.getOrderData();
-
-            //취소 일경우 props로 판단 및 status 변경
-            // AIOS cancel
-            if (this.cancel === 'true') {
-
-            }
-
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-        },
         computed: {
-            order() {
-                return MainRepository.TradeProcess.getOrder();
+            currentOrder() {
+                return MainRepository.TradeProcess.getCurrentOrder();
             },
             getOrderNumber() {
                 let orderNoDigits = this.orderNo.length;
@@ -270,6 +250,28 @@
                 return temp;
             },
         },
+        created() {
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.MyInfo.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+
+            let cureentURL = window.location.href;
+            let params = cureentURL.split('?');
+
+            if (params[1]) {
+                this.orderNo = params[1];
+            } else {
+                MainRepository.router().goTradeCenter();
+            }
+
+            //취소 일경우 props로 판단 및 status 변경
+            // AIOS cancel
+            if (this.cancel === 'true') {
+
+            }
+        },
         methods: {
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
@@ -280,6 +282,7 @@
                     email: MainRepository.MyInfo.getUserInfo().email,
                     orderNo: self.orderNo
                 }, function (result) {
+
                 })
             },
             isMobile() {
