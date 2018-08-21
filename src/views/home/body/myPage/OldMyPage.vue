@@ -755,7 +755,7 @@
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
-    import MyPageModal from './myPageItem/MyPageModal.vue';
+    import MyPageModal from './item/MyPageModal.vue';
     import PaymentMethod from "../../../../vuex/model/PaymentMethod";
     import IdVerification from "../../../../vuex/model/IdVerification";
     import LoginHistory from "../../../../vuex/model/LoginHistory";

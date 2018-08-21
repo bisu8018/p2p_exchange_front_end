@@ -13,10 +13,7 @@ export default {
             })
     },
     getMyOrder:function (data: any, callback: any) {
-        let _email = {
-            email : data.email
-        };
-        AxiosService._requestWithUrlPram(data.orderNo, 'GET', _email ,
+        AxiosService._requestWithUrlPram('order/my', 'GET', data ,
             function (data: any) {
                 callback(data)
             },
