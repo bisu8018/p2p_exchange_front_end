@@ -12,6 +12,7 @@ export default class Balance {
     estimatedValue: number;
 
     constructor (data: any) {
+        this.ownerMemberNo = 0;
         if (data.ownerMemberNo !== undefined) {
             this.ownerMemberNo = Number(data.ownerMemberNo);
         }
