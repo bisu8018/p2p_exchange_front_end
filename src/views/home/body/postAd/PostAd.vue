@@ -760,14 +760,11 @@
                 let bankToggle = this.bank_toggle_use ? 'bank' : '';
 
 
-                var paymentMethodsArr = {
-                    'alipay': alipayToggle,
-                    'wechat': wechatToggle,
-                    'bank': bankToggle,
-                };
-
-                var paymentMethods = JSON.stringify(paymentMethodsArr);
-
+                var paymentMethodsArr = [
+                    alipayToggle,
+                    wechatToggle,
+                    bankToggle
+                ];
                 MainRepository.AD.postAD({
                     autoReplay: self.autoReplay,
                     counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
@@ -782,7 +779,7 @@
                     memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
                     nationality: MainRepository.SelectBox.controller().getCountry(),
                     paymentWindow: Number(self.paymentWindow),
-                    paymentMethods: paymentMethods,
+                    paymentMethods: String(paymentMethodsArr),
                     priceType: self.priceType,
                     termsAgreeYn: self.agreeTerms,
                     termsOfTransaction: self.termsOfTransaction,

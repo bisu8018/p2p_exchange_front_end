@@ -7,7 +7,9 @@
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
                 <avatar v-if="counterPartyEmail != '' "
-                        :email = counterPartyEmail>
+                        :email = counterPartyEmail
+                        :chat = "'main'"
+                >
                 </avatar>
             </div>
             <div class="text-xs-left pt-twenty">
@@ -25,7 +27,9 @@
                 <div class="mb-3 display-flex" v-if="data.registerMemberNo === counterPartyMemberNo">
                     <div>
                         <avatar v-if="counterPartyEmail != ''"
-                                :email = counterPartyEmail>
+                                :email = counterPartyEmail
+                                :chat = "'sub'"
+                        >
                         </avatar>
                     </div>
                     <div class="pl-2">

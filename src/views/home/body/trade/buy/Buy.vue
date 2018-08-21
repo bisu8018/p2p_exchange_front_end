@@ -132,7 +132,8 @@
             </v-flex>
 
             <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
-            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center v-else-if="order.status === 'transfer'">
+            <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
+                    v-else-if="order.status === 'transfer'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3 ">{{$str('completedPayment')}}
                     <a class="color-blue text-white-hover">{{$str('tranferNow')}}</a>
@@ -185,7 +186,8 @@
         <div>
             <!--채팅창-->
             <chat :orderNo="orderNo" :merchantEmail="order.merchantEmail" :customerEmail="order.customerEmail"
-                  :merchant_member_no="order.merchantMemberNo" :merchantNickname="order.merchantNickname" :customerNickname="order.customerNickname"
+                  :merchant_member_no="order.merchantMemberNo" :merchantNickname="order.merchantNickname"
+                  :customerNickname="order.customerNickname"
                   :customer_member_no="order.customerMemberNo"></chat>
         </div>
 
@@ -331,12 +333,11 @@
             //cancel 버튼 클릭 후
             onCancel() {
                 let self = this;
-                MainRepository.TradeProcess.onCancel(
-                    Number(self.orderNo)
-                    , function (result) {
-                        self.getOrderData();
-                        self.onClose();
-                    });
+                MainRepository.TradeProcess.onCancel(Number(self.orderNo)
+                , function (result) {
+                    self.getOrderData();
+                    self.onClose();
+                });
             },
             //appeal 한 후
             onAppeal(data) {

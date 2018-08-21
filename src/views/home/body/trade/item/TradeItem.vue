@@ -58,7 +58,7 @@
                         return 'ic-alipay';
 
                     case 'wechat':
-                        return 'ic-wechat';
+                        return 'ic-wechatpay';
 
                     default:
                         return 'ic-bank';

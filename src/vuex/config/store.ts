@@ -9,6 +9,7 @@ import marketPrice from "@/vuex/modules/marketPrice";
 import common from "@/vuex/modules/common";
 import balance from "@/vuex/modules/balance";
 import tradeProcess from "@/vuex/modules/tradeProcess";
+import chatAvatar from "@/vuex/modules/chatAvatar";
 
 
 
@@ -24,7 +25,8 @@ export default {
         marketPrice,
         common,
         balance,
-        tradeProcess
+        tradeProcess,
+        chatAvatar
     },
     strict: true
 }

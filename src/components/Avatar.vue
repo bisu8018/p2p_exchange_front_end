@@ -35,27 +35,48 @@
         }),
         created() {
             let self = this;
-            if (this.me === true) {
-                this.loginColor = '#59D817';
-                this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
-                this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
-            } else if(this.me === false && this.chat === ''){
-                //유저 정보 GET AXIOS
-                MainRepository.Users.getOtherUsers(this.email, function (result) {
-                    let otherUsersInfo = result;
-                    self.bgColor = otherUsersInfo.bgColor;
-                    self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
-                    self.getIsLogin()
-                });
+            if(this.chat === ''){
+                if (this.me === true) {
+                    this.loginColor = '#59D817';
+                    this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
+                    this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
+                } else if(this.me === false){
+                    //유저 정보 GET AXIOS
+                    MainRepository.Users.getOtherUsers(this.email, function (result) {
+                        let otherUsersInfo = result;
+                        self.bgColor = otherUsersInfo.bgColor;
+                        self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
+                        self.getIsLogin();
 
-                //3분마다 로그인 확인 갱신
-                setInterval(function () {
-                    self.getIsLogin();
-                }, 3000)
+                    });
 
-            }else if(this.me === false && this.chat != ''){
+                    //3분마다 로그인 확인 갱신
+                    setInterval(function () {
+                        self.getIsLogin();
+                    }, 3000)
 
+                }
+            }else{
+                if(this.chat === 'main'){
+                    MainRepository.Users.getOtherUsers(this.email, function (result) {
+                        let otherUsersInfo = result;
+                        self.bgColor = otherUsersInfo.bgColor;
+                        self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
+                        MainRepository.TradeProcess.setChatAvatar(new {
+                            name : self.name,
+                            bgColor : self.bgColor
+                        },function () {
+                            setInterval(function () {
+                                self.getIsLogin();
+                            }, 3000)
+                        })
+                    });
+                }else{
+                    this.bgColor = MainRepository.TradeProcess.getChatAvatar().bgColor;
+                    this.name = MainRepository.TradeProcess.getChatAvatar().name;
+                }
             }
+
         },
         mounted() {
 
@@ -66,6 +87,14 @@
                 MainRepository.Users.isUserActive({
                     email: self.email
                 }, function (result) {
+                    if(self.me === false && self.chat === 'main'){
+
+                        MainRepository.TradeProcess.updateChatAvatar({
+                            isLogin : result
+                        },function () {
+                            
+                        })
+                    }
                     return result
                 })
             },

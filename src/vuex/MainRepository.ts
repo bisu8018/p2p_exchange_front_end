@@ -11,6 +11,7 @@ import BalanceController from "@/vuex/controller/BalanceController";
 import CommonController from "@/vuex/controller/CommonController";
 import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import AccountController from "@/vuex/controller/AccountController";
+import ChatAvatarController from "@/vuex/controller/ChatAvatarController";
 
 import AccountService from "@/service/account/AccountService";
 import TradeService from "@/service/trade/TradeService";
@@ -53,6 +54,7 @@ let commonController: CommonController;
 let balanceController: BalanceController;
 let routerController: RouterController;
 let tradeController: TradeController;
+let chatAvatarController: ChatAvatarController;
 
 let store: Store<any>;
 let instance: any;
@@ -71,6 +73,7 @@ export default {
         commonController = new CommonController(store);
         balanceController = new BalanceController(store);
         tradeController = new TradeController(store);
+        chatAvatarController = new ChatAvatarController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -314,7 +317,6 @@ export default {
         getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
         },
-
     },
     Users: {
         //다른 유저 정보 GET
@@ -785,7 +787,18 @@ export default {
             OrderService.onAppeal(data, function (result) {
                 callback(result);
             })
-        }
+        },
+        setChatAvatar: function  (data: any, callback: any) {
+            chatAvatarController.setChatAvatar(data);
+            callback();
+        },
+        getChatAvatar: function () {
+            return chatAvatarController.getChatAvatar();
+        },
+        updateChatAvatar: function  (data: any, callback: any) {
+            chatAvatarController.updateChatAvatar(data);
+            callback();
+        },
     },
     MarketPrice: {
         controller(): MarketPriceController {
