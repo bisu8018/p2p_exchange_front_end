@@ -8,7 +8,7 @@
             <div class=" sprite-img " :class="tokenImg"></div>
           </div>
           <div class=" mb-4">
-            <h4 class="bold">{{tokenlist.cryptoCurrency}}</h4>
+            <h4 class="bold">{{ getCryptoName(item.cryptoCurrency) }}</h4>
           </div>
         </v-flex>
         <!--1. OTC Account 카드-->
@@ -17,11 +17,11 @@
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{tokenlist.availableAmount}} {{tokenlist.cryptoCurrency}}</span>
+              <span>{{item.availableAmount}} {{getCryptoName(item.cryptoCurrency)  }}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{tokenlist.frozenAmount}} {{tokenlist.cryptoCurrency}}</span>
+              <span>{{item.frozenAmount}} {{getCryptoName(item.cryptoCurrency) }}</span>
             </v-layout>
           </div>
         </v-flex>
@@ -31,11 +31,11 @@
             <h4 class="mb-3 medium">{{$str("Exchange_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{tokenlist.ExAvailable}} {{tokenlist.name}}</span>
+              <span>{{item.ExAvailable}} {{item.name}}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{tokenlist.ExFrozen}} {{tokenlist.name}}</span>
+              <span>{{item.ExFrozen}} {{item.name}}</span>
             </v-layout>
           </div-->
         </v-flex>
@@ -59,23 +59,23 @@
         <v-layout row wrap>
           <!--header-->
           <div class-="text-xs-left">
-            <h3 class="bold">{{$str("Deposit")}} {{tokenlist.cryptoCurrency}}</h3>
+            <h3 class="bold">{{$str("Deposit")}} {{getCryptoName(item.cryptoCurrency) }}</h3>
           </div>
           <v-spacer></v-spacer>
           <div class="text-xs-right">
             <i class="material-icons color-black c-pointer" @click="showDepositModal = false">close</i>
           </div>
           <v-flex xs12 color-darkgray text-xs-center mt-3 mb-4>
-            {{tokenlist.cryptoCurrency}} {{$str("Deposit_Address")}}
+            {{getCryptoName(item.cryptoCurrency) }} {{$str("Deposit_Address")}}
           </v-flex>
           <v-flex xs12>
-            {{tokenlist.walletAddress}}
+            {{item.walletAddress}}
           </v-flex>
           <v-flex xs12 mt-3 mb-4>
             <h5 class="color-blue" @click.stop.prevent="onCopy()">
               {{$str("Copy")}}
             </h5>
-            <input type="hidden" :value="tokenlist.walletAddress" id="copy-code" >
+            <input type="hidden" :value="item.walletAddress" id="copy-code" >
           </v-flex>
           <v-flex xs12 mt-2 mb-4>
             <div class="sprite-img ic-qr"></div>
@@ -89,7 +89,7 @@
             <div class="mb-3">
               <h6>
                 {{$str("BalanceDepositExplain1-1")}}
-                {{tokenlist.cryptoCurrency}}
+                {{getCryptoName(item.cryptoCurrency) }}
                 {{$str("BalanceDepositExplain1-2")}}
               </h6>
             </div>
@@ -101,9 +101,9 @@
             <div class="mb-3">
               <h6>
                 {{$str("BalanceDepositExplain3-1")}}
-                0.001 {{tokenlist.cryptoCurrency}}.
+                0.001 {{getCryptoName(item.cryptoCurrency) }}.
                 {{$str("BalanceDepositExplain3-2")}}
-                0.001 {{tokenlist.cryptoCurrency}}.
+                0.001 {{getCryptoName(item.cryptoCurrency) }}.
               </h6>
             </div>
             <div class="mb-3">
@@ -125,7 +125,7 @@
           <div class="cs-flex mb-3">
             <!--header-->
             <div class=" h4 bold text-xs-left">
-              {{tokenlist.cryptoCurrency}} {{$str("withdraw")}}
+              {{getCryptoName(item.cryptoCurrency) }} {{$str("withdraw")}}
             </div>
             <v-spacer></v-spacer>
             <i class="material-icons color-black c-pointer" @click="showWithdrawModal = false">close</i>
@@ -155,7 +155,7 @@
             <div class="p-relative">
               <input name="amount" v-model="amount" type="text" class="input"
                      autocomplete="off" >
-              <button class="crypto-text">{{tokenlist.cryptoCurrency}}</button>
+              <button class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</button>
             </div>
           </div>
           <!-- 3. Fee 창-->
@@ -171,7 +171,7 @@
             <div class="p-relative">
               <input name="fee" v-model="fee" type="text" class="input"
                      autocomplete="off" disabled>
-              <button class="crypto-text">{{tokenlist.cryptoCurrency}}</button>
+              <button class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</button>
             </div>
           </div>
           <div class="cs-flex">
@@ -182,7 +182,7 @@
             <div class="p-relative">
               <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
                      autocomplete="off" disabled>
-              <button class="crypto-text">{{tokenlist.cryptoCurrency}}</button>
+              <button class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</button>
             </div>
           </div>
           <div class="text-xs-right">
@@ -200,9 +200,9 @@
             {{$str("tips")}}
           </h6>
           <h6 class="color-darkgray text-xs-left mb-3">
-            {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{tokenlist.cryptoCurrency}}
+            {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{getCryptoName(item.cryptoCurrency) }}
           </h6>
-          <h6 v-if="tokenlist.cryptoCurrency === 'ETH'" class="color-darkgray text-xs-left mb-3">
+          <h6 v-if="getCryptoName(item.cryptoCurrency)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
             {{$str("withdrawtipsETH1")}}<br>
             {{$str("withdrawtipsETH2")}}<br>
             {{$str("withdrawtipsETH3")}}
@@ -221,10 +221,12 @@
 
 <script>
     import MainRepository from '../../../../../vuex/MainRepository';
+    import Balance from '../../../../../vuex/model/Balance'
+
     export default {
         name: "BalanceTokenList",
         props : {
-            tokenlist : {},
+            item : { type: Balance },
         },
         data: () => ({
             istoken :[
@@ -278,7 +280,7 @@
             },
         },
         created(){
-            switch (this.tokenlist.name) {
+            switch (this.item.name) {
                 case 'BTC':
                     this.fee = 0.001
                     this.minAmount = 0.01
@@ -296,24 +298,36 @@
             }
         },
         mounted(){
-            switch (this.tokenlist.cryptoCurrency) {
+            switch (this.item.cryptoCurrency) {
                 case 'bitcoin':
                 case 'BTC':
-                    this.tokenlist.cryptoCurrency = 'BTC';
                     this.tokenImg = 'ic-btc-lg';
                     break;
                 case 'ethereum':
                 case 'ETH':
-                    this.tokenlist.cryptoCurrency = 'ETH';
                     this.tokenImg = 'ic-eth-lg';
                     break;
                 case 'allb':
                 case 'ALLB':
-                    this.tokenlist.cryptoCurrency = 'ALLB';
                     this.tokenImg = 'ic-allb-lg';
                     break;
             }
         },
+        methods: {
+            getCryptoName(curerncy) {
+                switch (curerncy) {
+                    case 'bitcoin':
+                    case 'BTC':
+                        return 'BTC';
+                    case 'ethereum':
+                    case 'ETH':
+                        return 'ETH';
+                    case 'allb':
+                    case 'ALLB':
+                        return 'ALLB';
+                }
+            }
+        }
     }
 </script>
 
