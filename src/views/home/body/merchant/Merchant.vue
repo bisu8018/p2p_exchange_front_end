@@ -33,13 +33,42 @@
             </v-flex>
 
         </v-layout>
-        <!--merchant 등록을 안했을때 나오는 기본화면-->
-        <div v-if="!alreadySuccess">
+
+        <!-- Registerd : 신청 대기 중 -->
+        <div v-if="myMerchantInfo.isRegistered()">
+            <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
+                <v-flex xs12 md1 pr-3 pt-2 text-md-right>
+                    <i class="material-icons">schedule</i>
+                </v-flex>
+                <v-flex xs12 md4 text-md-left pl-0><h2>{{$str("Your application is under review.")}}</h2></v-flex>
+            </v-layout>
+            <v-layout justify-center mb-6>
+                <v-flex md5 xs12>
+                    <h4> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h4>
+                </v-flex>
+            </v-layout>
+        </div>
+        <!-- Verified : 신청 완료 -->
+        <div v-else-if="myMerchantInfo.isVerified()">
+            <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
+                <v-flex xs12 md1 pr-3 pt-2 text-md-right>
+                    <i class="material-icons">schedule</i>
+                </v-flex>
+                <v-flex xs12 md4 text-md-left pl-0><h2>{{$str("Your application is under review.")}}</h2></v-flex>
+            </v-layout>
+            <v-layout justify-center mb-6>
+                <v-flex md5 xs12>
+                    <h4> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h4>
+                </v-flex>
+            </v-layout>
+        </div>
+        <!-- Unregisterd : 미등록 -->
+        <div v-else>
             <v-layout mt-4a mb-3 align-center justify-center row wrap>
                 <div class=" p-relative vertical-center mb-2">
                     <input type="checkbox" v-model="isAgree" id="termsCheckbox">
                     <label for="termsCheckbox"><span><i class="material-icons">done</i></span>
-                    <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
+                        <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
                     </label>
                 </div>
                 <span class="color-blue mb-2 c-pointer">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
@@ -54,20 +83,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <!-- 인증 제출을 이미 했을시 뜨는 화면-->
-        <div v-else>
-            <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
-                <v-flex xs12 md1 pr-3 pt-2 text-md-right>
-                    <i class="material-icons">schedule</i>
-                </v-flex>
-                <v-flex xs12 md4 text-md-left pl-0><h2>{{$str("Your application is under review.")}}</h2></v-flex>
-            </v-layout>
-            <v-layout justify-center mb-6>
-                <v-flex md5 xs12>
-                    <h4> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h4>
-                </v-flex>
-            </v-layout>
-        </div>
+
         <!--nickname 설정을 안했으면 띄우는 화면-->
         <nick-name-modal
                 v-if="!setNickName"
@@ -257,6 +273,9 @@
 
         }),
         computed: {
+            myMerchantInfo() {
+                return MainRepository.Merchant.getMyInfo();
+            },
             setNickName(){
                 //nickname이 없으면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')

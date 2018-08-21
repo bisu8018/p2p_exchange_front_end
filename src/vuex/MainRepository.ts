@@ -38,6 +38,8 @@ import RouterController from "@/vuex/controller/RouterController";
 import TradeFilter from "@/vuex/model/TradeFilter";
 import TradeController from "@/vuex/controller/TradeController";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
+import MerchantService from "@/service/merchant/MerchantService";
+import Merchant from "@/vuex/model/Merchant";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -110,6 +112,9 @@ export default {
 
                 // 객체형으로 관리하도록 변경 필요
                 self.MyInfo.loadMyPaymentMethods();
+
+                // 내 Merchant 정보
+                self.Merchant.loadMyMerchantInfo(function () {});
                 callback();
             },
             // 로그인 하지 않음
@@ -268,7 +273,7 @@ export default {
         controller(): AccountController {
             return accountController;
         },
-        getUserInfo() {
+        getUserInfo(): Account {
             return accountController.getUserInfo();
         },
         isLogin(): boolean {
@@ -544,10 +549,20 @@ export default {
         controller(): MerchantController {
             return merchantController
         },
-        // setMerchant (name: string) {
-        //     MerchantController.setMerchant(name);
-        // //    여기까지 선언하다 막힘.
-        // },
+        getMyInfo(): Merchant {
+            return merchantController.getMerchant();
+        },
+        loadMyMerchantInfo(callback: any) {
+            MerchantService.getMerchant((data) => {
+                this.controller().setMerchant(data);
+                callback();
+            })
+        },
+        postMerchant(callback: any) {
+            MerchantService.postMerchant(() => {
+                callback();
+            })
+        }
     },
     MyAds:{
         controller(): MyTradeController {

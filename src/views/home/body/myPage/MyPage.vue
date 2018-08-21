@@ -637,7 +637,6 @@
             goReset() {
                 this.$router.push('/resetTradePassword');
             },
-
         }
     }
 </script>
