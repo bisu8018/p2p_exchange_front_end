@@ -141,7 +141,8 @@
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
                    }).then((response) => {
-                       this.$router.push('tradeCenter');
+                       // this.$router.push('tradeCenter');
+                       window.location.replace(self.getRootUrl() + '/tradeCenter')
                    })
 
            /*     LoginService.User.login({
