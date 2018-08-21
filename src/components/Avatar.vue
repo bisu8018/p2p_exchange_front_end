@@ -47,7 +47,6 @@
                         self.bgColor = otherUsersInfo.bgColor;
                         self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
                         self.getIsLogin();
-
                     });
 
                     //3분마다 로그인 확인 갱신
@@ -56,13 +55,13 @@
                     }, 3000)
 
                 }
-            }else{
+            } else {
                 if(this.chat === 'main'){
-                    MainRepository.Users.getOtherUsers(this.email, function (result) {
+                    MainRepository.Users.getOtherUsers(this.email, (result) => {
                         let otherUsersInfo = result;
                         self.bgColor = otherUsersInfo.bgColor;
                         self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
-                        MainRepository.TradeProcess.setChatAvatar(new {
+                        MainRepository.Message.setChatAvatar(new {
                             name : self.name,
                             bgColor : self.bgColor
                         },function () {
@@ -72,8 +71,8 @@
                         })
                     });
                 }else{
-                    this.bgColor = MainRepository.TradeProcess.getChatAvatar().bgColor;
-                    this.name = MainRepository.TradeProcess.getChatAvatar().name;
+                    this.bgColor = MainRepository.Message.getChatAvatar().bgColor;
+                    this.name = MainRepository.Message.getChatAvatar().name;
                 }
             }
 

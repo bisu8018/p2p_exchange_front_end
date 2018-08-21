@@ -78,8 +78,6 @@
     import Vue from 'vue';
     import MainRepository from "@/vuex/MainRepository";
     import Avatar from './Avatar.vue';
-    import ChatService from "../service/chat/ChatService";
-    import {abUtils} from "../common/utils";
     import Order from "../vuex/model/Order"
 
     export default Vue.extend({
@@ -88,12 +86,11 @@
             Avatar
         },
         props: {
-            order: { type: Order }
+            order: {}
         },
         data: () => ({
             inputValue: "",
             transactionNum: '',
-            messageList : [],
 
             msgInterval : {},
 
@@ -102,6 +99,9 @@
             image: '',
         }),
         computed: {
+            messageList() {
+                return MainRepository.Message.controller().getMsgList();
+            },
             myMemberNo () {this.scrollBottom();
                 return MainRepository.MyInfo.getUserInfo().memberNo;
             },
@@ -140,15 +140,16 @@
             },
         },
         created() {
-            MainRepository.Message.createRoom(() => {});
+            MainRepository.Message.createRoom(() => {
+                this.$nextTick(() => {
+                    this.msgInterval = setInterval(() => {
+                        this.updateMsg()
+                    }, 5000);
+                })
+                this.scrollBottom();
+            });
         },
         mounted() {
-            this.scrollBottom();
-            this.$nextTick(() => {
-                this.msgInterval = setInterval(() => {
-                    this.updateMsg()
-                }, 5000);
-            })
         },
         beforeDestroy() {
             clearInterval(this.msgInterval);
@@ -156,19 +157,6 @@
         methods: {
             updateMsg() {
                 MainRepository.Message.updateMsg(() => {});
-            },
-
-            getMessage: function () {
-                let self = this;
-                // 메세지 AXIOS GET
-                ChatService.message.getMessage({
-                        email: MainRepository.MyInfo.getUserInfo().email,  //VUEX userInfo.nickName
-                        dateTime:  abUtils.getDateTime(),
-                        orderNo : self.orderNo
-                    }, function (result) {
-                    self.messageList = result;
-                    }
-                )
             },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
@@ -182,7 +170,6 @@
                     return false;
                 }
                 //this.handleFileUpload();
-
             },
             handleFileUpload() {
                 //첨부파일 사진 등록 및 출력
@@ -208,27 +195,11 @@
                 return MainRepository.State.isMobile();
             },
             onPost() {
-                let self = this;
-                let postMessage;
                 let tmpValue = this.inputValue.trim();
-                if(tmpValue != ''){
-                    // AXIOS post 전달
-                    ChatService.message.postMessage({
-                        attachedImgUrl: "",
-                        message: self.inputValue,
-                        orderNo: self.orderNo,
-                        mine: true,
-                        registerMemberNo: MainRepository.MyInfo.getUserInfo().memberNo
-                    }, function () {
-
+                if(tmpValue !== ''){
+                    MainRepository.Message.postMsg(this.inputValue, () => {
+                        this.updateMsg();
                     });
-                    postMessage = {
-                        message: self.inputValue,
-                        register_member_no: this.myMemberNo,
-                        registerDatetime: new Date(),
-                    };
-                    this.messageList.push(postMessage);
-                    this.inputValue = "";
                 }
 
             },

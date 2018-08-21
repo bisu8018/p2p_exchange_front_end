@@ -13,7 +13,7 @@
                 Please pay - 00:14:32
             </h5>
         </div>
-        <span v-if="newMsgNum !== 0" class="badge">{{ newMsgNum }}</span>
+        <span v-if="data.unreadMessageCount !== 0" class="badge">{{ data.unreadMessageCount }}</span>
     </v-layout>
 </template>
 
@@ -28,7 +28,7 @@
         },
         data() {
           return {
-              newMsgNum: 2,
+
           }
         },
         methods: {

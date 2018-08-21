@@ -784,9 +784,7 @@ export default {
 
         createOrder: function (data : any, callback: any) {
             OrderService.addOrder(data, (orderNo) => {
-                this.loadCurrentOrder(orderNo, () => {
-                    callback(orderNo);
-                })
+                callback(orderNo);
             })
         },
 
@@ -862,9 +860,9 @@ export default {
             callback();
         },
 
+
         createRoom(callback: any) {
             let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime);
-
             ChatService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,
                     dateTime:  _dateTime,
@@ -882,11 +880,23 @@ export default {
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-                    this.controller().setMsgList(data);
+                    this.controller().addMsg(data);
                     callback();
                 }
             )
         },
+
+        postMsg(msg: string, callback: any) {
+            ChatService.message.postMessage({
+                attachedImgUrl: "",
+                message: msg,
+                orderNo: instance.TradeProcess.getCurrentOrder().orderNo,
+                mine: true,
+                registerMemberNo: instance.MyInfo.getUserInfo().memberNo
+            }, function () {
+                callback();
+            });
+        }
     },
 
 

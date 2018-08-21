@@ -10,6 +10,7 @@ import common from "@/vuex/modules/common";
 import balance from "@/vuex/modules/balance";
 import tradeProcess from "@/vuex/modules/tradeProcess";
 import chatAvatar from "@/vuex/modules/chatAvatar";
+import message from "@/vuex/modules/message";
 
 
 
@@ -26,7 +27,8 @@ export default {
         common,
         balance,
         tradeProcess,
-        chatAvatar
+        chatAvatar,
+        message
     },
     strict: true
 }
