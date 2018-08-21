@@ -793,7 +793,7 @@
                     status: 'enable',
                     volumeAvailable: Number(self.volume),
                 }, function (result) {
-                    MainRepository.Balance.setBalances(function (result) {
+                    MainRepository.Balance.loadBalances(function () {
                         self.$router.push("tradeCenter");
                     });
                 })

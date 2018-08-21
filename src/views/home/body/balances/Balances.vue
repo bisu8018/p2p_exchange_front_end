@@ -11,10 +11,12 @@
           <div class="mb-2">
             <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
+              <!---->
               <span >{{EstimatedCryptocurrencyValue}} BTC </span>
               <span >≈ {{EstimatedCurrencyValue}}</span>
+
               <span class="ml-4 p-relative color-blue">
-                <span>{{selectedCurrency}}</span>
+                <span>{{ selectedCurrency }}</span>
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
                 <div class="dropdown-content" v-if="isdropdown">
                   <!-- 내 정보 list 버튼-->
@@ -39,11 +41,11 @@
     <!--좌우 padding 맞추기용.-->
     <v-flex>
       <div class="cs-roundborder">
-        <div  v-for="tokenlist in tokenLists" >
+        <div  v-for="item in balances" >
           <!--좌우 padding 맞춰주기 위해 사용.-->
           <v-flex>
             <balance-token-list
-                  :tokenlist="tokenlist"
+                  :item = "item"
             ></balance-token-list>
           </v-flex>
           <v-divider></v-divider>
@@ -204,7 +206,7 @@
             selectedDate : '',
             selectedType : '',
             selectedToken: '',
-            selectedCurrency : 'CNY',
+            selectedCurrencyData : 'CNY',
             clear: null,
             types : [
                 {name : 'Buy'},
@@ -285,13 +287,24 @@
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
 
-
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-
+            selectedCurrency: {
+                get() {
+                    return this.selectedCurrencyData;
+                },
+                set(value) {
+                    this.selectedCurrencyData = value;
+                    this.loadTotalEstimatedValue();
+                }
+            },
+            balances() {
+                this.loadTotalEstimatedValue();
+                return MainRepository.Balance.getBalances();
+            }
         },
         created() {
             // 로그인 확인 -> Login 으로
@@ -299,40 +312,20 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            //Balance 받아오기
-            this.tokenLists[0] = MainRepository.Balance.getBalance()['bitcoin'];
-            this.tokenLists[1] = MainRepository.Balance.getBalance()['ethereum'];
-            this.tokenLists[2].cryptoCurrency = 'ALLB';
 
-            //MarketPrice 가져오기
-            let self = this;
-            Common.info.getMarketPrice(function (data) {
-                self.marketPrice = data;
+            MainRepository.MarketPrice.load(() => {
+                MainRepository.Balance.loadBalances(() => {});
             });
-
-            for(let j=0; j<2; j++){
-                for (let i = 0; i < 32; i++) {
-                    if (this.marketPrice[i].cryptocurrency === this.tokens.fullname[j]
-                        && this.marketPrice[i].currency === this.selectedCurrency) {
-                        this.needMarketPrice[j] = this.marketPrice[i].price;
-                        break;
-                    }
-                }
-            }
-
-
-            //estimatedValue 계산
-            this.EstimatedCryptocurrencyValue = this.needMarketPrice[0]*this.tokenLists[1].availableAmount/this.needMarketPrice[1];
-            this.EstimatedCryptocurrencyValue = this.EstimatedCryptocurrencyValue +this.tokenLists[0].availableAmount;
-            this.EstimatedCryptocurrencyValue = this.EstimatedCryptocurrencyValue.toFixed(6);
-
-            this.EstimatedCurrencyValue = this.EstimatedCryptocurrencyValue*this.needMarketPrice[0]
         },
         mounted() {
 
         },
-
         methods: {
+            loadTotalEstimatedValue() {
+                let totalValue = MainRepository.Balance.controller().getTotalEstimatedValue(this.selectedCurrencyData);
+                this.EstimatedCryptocurrencyValue = totalValue.btc;
+                this.EstimatedCurrencyValue = totalValue.currency;
+            },
             onDate(value) {
                 this.selectedDate = value;
             },
@@ -361,7 +354,6 @@
             clickedCurrency(item){
                 this.selectedCurrency = item;
                 this.isdropdown = false;
-                console.log(this.selectedCurrency);
             },
             showDropdown(){
                 this.isdropdown = true;

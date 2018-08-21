@@ -3,15 +3,18 @@ import Balance from '../model/Balance'
 
 
 const mutations = {
-    [VuexTypes.SET_BALANCE_DATA](state: any, balance: any) {
-        state.getBalance = balance;
+    [VuexTypes.SET_BALANCE_DATA](state: any, data: any) {
+        state.balanceList = [];
+        for(let key in data) {
+            state.balanceList.push(new Balance(data[key]));
+        }
     },
 };
 
 
 const actions = {
-    [VuexTypes.SET_BALANCE_DATA](context: any, balance: any) {
-        context.commit(VuexTypes.SET_BALANCE_DATA, balance)
+    [VuexTypes.SET_BALANCE_DATA](context: any, data: any) {
+        context.commit(VuexTypes.SET_BALANCE_DATA, data)
     },
 
 };
@@ -19,11 +22,10 @@ const actions = {
 const getters = {
 };
 
-let getBalance = {
-};
+let balanceList: Balance[] = [];
 
 const state = {
-    getBalance: getBalance,
+    balanceList: balanceList,
 };
 export default {
     namespaced: false,
