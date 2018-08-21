@@ -46,7 +46,7 @@
 <script>
     import PaymentItem from "./item/PaymentItem";
     import BtnMypage from "./item/BtnMypage";
-    import MyPageModal from "./myPageItem/MyPageModal";
+    import MyPageModal from "./item/MyPageModal";
 
     export default {
         components: {

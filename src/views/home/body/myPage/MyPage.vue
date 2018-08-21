@@ -120,7 +120,7 @@
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
-    import MyPageModal from './myPageItem/MyPageModal.vue';
+    import MyPageModal from './item/MyPageModal.vue';
     import IdVerification from "../../../../vuex/model/IdVerification";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
@@ -250,9 +250,6 @@
 
             // *********** NEW METHODS ************* //
 
-            onUnblock() {
-                alert('블록 푸는 거 API 보내야함');
-            },
         }
     }
 </script>
