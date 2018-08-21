@@ -23,7 +23,7 @@
                 :id-verification="idVerification"
             />
 
-            <!-- ############### 3. Payment Methods ############### -->
+            <!-- 3. Payment Methods -->
             <div class="myPage-box">
 
                 <!-- Header -->
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <!-- ###############  4. Block List ###############  -->
+            <!-- 4. Block List -->
             <div class="myPage-box">
 
                 <!-- Header -->
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <!-- #################  5. History ################# -->
+            <!-- 5. History -->
             <div class="myPage-box pb-4">
 
                 <!-- Header -->
@@ -132,6 +132,16 @@
             </div>
         </div>
 
+        <!--결제수단 추가 모달-->
+        <my-page-modal :show="showModal"
+                       :type="modalType"
+                       :phoneNumber="phoneVerification.phoneNumber"
+                       :email="emailVerification.email"
+                       v-on:close="onClose"
+                       v-on:paymentMethod="getPaymentMethod"
+                       v-on:turnon="onTurnOn"
+                       v-on:nickName="myInfo.nickname"
+        />
     </div>
 </template>
 
@@ -164,12 +174,12 @@
             BlockListItem,
             BtnMypage,
             PaymentItem,
-            BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
+            BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem
+        },
         data: () => ({
             selection_login: true,
             selection_security: false,
 
-            idVerification: new IdVerification(''),
             paymentMethods: '',
             blockList: '',
             loginHistory: '',
@@ -189,13 +199,12 @@
                 }
             ],
 
-
-
             // *********** NEW DATA ************* //
             showModal: false,
             modalType: '',
 
             myInfo: '',
+            idVerification: new IdVerification(''),
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
 
@@ -205,18 +214,12 @@
                 return MainRepository.State.isMobile();
             },
 
-            // ************** NEW COMPUTED ************** //
             paymentMethod () {
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
         },
         created() {
             let self = this;
-
-            // 유저 ID 인증 정보 GET
-            MainRepository.MyPage.getIdVerification(function (idVerification) {
-                self.idVerification = idVerification;
-            });
 
             // 유저 결제수단 정보 GET
             MainRepository.MyInfo.loadMyPaymentMethods();
@@ -230,6 +233,7 @@
             MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
                 self.securitySettings = securitySettings;
             });
+
 
             // *********** NEW CREATED ************* //
             // 로그인 확인 -> Login 으로
