@@ -931,7 +931,7 @@ const strings = new Map([
     }],
     ['referenceText', {
         KOR: '지불 참조 번호',
-        ENG: 'Payment reference number',
+        ENG: 'Reference',
         CN: '支付参考编码',
         HK: '支付參考編碼'
     }],
@@ -1031,6 +1031,12 @@ const strings = new Map([
         ENG: 'Buyer is paying',
         CN: '买家正在支付',
         HK: '買家正在支付'
+    }],
+    ['sellingIndicator', {
+        KOR: '판매자가 전송중입니다',
+        ENG: 'Seller is releasing',
+        CN: '对方正在放币',
+        HK: '對方正在放幣'
     }],
     ['appeal', {
         KOR: '이의제기',

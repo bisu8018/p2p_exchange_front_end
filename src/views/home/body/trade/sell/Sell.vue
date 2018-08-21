@@ -14,7 +14,7 @@
                 <!--{{token}} 토큰종류-->
                 {{token}} To
                 <!--{{email}} 이메일-->
-                <div class="d-inline-block">{{email}}</div>
+                <div class="d-inline-block">{{nickname}}</div>
             </div>
             <div class="text-xs-left mb-4 line-height-1">
                 <div class="color-black mb-3 ">
@@ -37,14 +37,7 @@
                 </div>
             </div>
         </v-layout>
-        <v-layout wrap row v-if="status != 'cancel'" :class="{'mb-4' : isMobile()}">
-            <div v-for="item in paymentMethods">
-                <trade-item :item="item"></trade-item>
-            </div>
-
-        </v-layout>
-
-
+        <trade-item :item="getMyPaymentMethodSelectList" :status="status" ></trade-item>
         <div class="h4 bold color-black text-xs-left mb-4 line-height-1">
             <!--unpaid 상태 일때-->
             <div class="mb-2" v-if="status === 'unpaid'">
@@ -106,7 +99,7 @@
         </v-flex>
 
         <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
-        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="tatus === 'complete'">
+        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="status === 'complete'">
             <div><i class="material-icons check-icon">check_circle</i></div>
         </div>
         <!--데스크탑 환경에서 설명-->
@@ -149,7 +142,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import SellModal from './sellModal/SellModal.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
@@ -159,37 +152,52 @@
     export default Vue.extend({
         name: 'sell',
         components: {
-            SellModal, Chat
+            SellModal, Chat, TradeItem
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
             orderNo: 0,
-            volumeTotal: MainRepository.TradeProcess.getOrder().coinCount,
-            token: MainRepository.TradeProcess.getOrder().cryptocurrency,
-            nickname: MainRepository.TradeProcess.getOrder().nickname,
-            price: MainRepository.TradeProcess.getOrder().price,
-            currency: MainRepository.TradeProcess.getOrder().currency,
-            paymentWindow: MainRepository.TradeProcess.getOrder().paymentWindow,
-            reference: MainRepository.TradeProcess.getOrder().referenceNo,
-            merchant_member_no: MainRepository.TradeProcess.getOrder().merchantMemberNo,
-            customer_member_no: MainRepository.TradeProcess.getOrder().customerMemberNo,
-            status: MainRepository.TradeProcess.getOrder().status,    //unpaid -> paid -> complete  cancel, apeal
-            paymentMethods: MainRepository.TradeProcess.getOrder().paymentMethods,
-
-            alipay: 'Y',
-            wechat: 'Y',
-            bankAccount: 'Y',
-            alipay_address: '8888888888@qq.com 支付宝付款 直接扫码 安全便捷',
-            wechatpay_address: 'wwxx8888888888   微信支付直接扫码',
-            bankaccount_address: '8888888888  建设银行',
-
             modalType: '',
             appealCode: 977057,
-
-            showModal : false,
-
+            showModal: false,
         }),
         computed: {
+            volumeTotal() {
+                return  MainRepository.TradeProcess.getOrder().coinCount;
+            },
+            token() {
+                return MainRepository.TradeProcess.getOrder().cryptocurrency;
+            },
+            nickname() {
+                return MainRepository.TradeProcess.getOrder().nickname;
+            },
+            price() {
+                return MainRepository.TradeProcess.getOrder().price;
+            },
+            currency() {
+                return MainRepository.TradeProcess.getOrder().currency;
+            },
+            paymentWindow() {
+                return MainRepository.TradeProcess.getOrder().paymentWindow;
+            },
+            reference() {
+                return MainRepository.TradeProcess.getOrder().referenceNo;
+            },
+            merchant_member_no() {
+                return MainRepository.TradeProcess.getOrder().merchantMemberNo;
+            },
+            customer_member_no() {
+                return MainRepository.TradeProcess.getOrder().customerMemberNo;
+            },
+            status() { //unpaid -> buying -> paid   그리고   cancel, appeal
+                return MainRepository.TradeProcess.getOrder().status;
+            },
+            paymentMethods() {
+                return MainRepository.TradeProcess.getOrder().paymentMethods;
+            },
+            getMyPaymentMethodSelectList() {
+                return MainRepository.TradeProcess.getOrder().getMyPaymentMethodSelectList;
+            },
             getOrderNumber() {
                 let orderNoDigits = this.orderNo.length;
                 let zeroDigits = 8 - orderNoDigits;
@@ -233,8 +241,6 @@
                     email: MainRepository.MyInfo.getUserInfo().email,
                     orderNo: self.orderNo
                 }, function (result) {
-                    console.log(MainRepository.TradeProcess.getOrder());
-                    //self.init = true;
                 })
             },
             isMobile() {
@@ -258,7 +264,7 @@
                 this.showModal = false;
             },
             onCopy() {
-                let copyTemp = (document.querySelector('#referenceNum')as HTMLInputElement);
+                let copyTemp = document.querySelector('#referenceNum');
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
 
                 if (!isiOSDevice) {
@@ -361,14 +367,6 @@
         left: -1000px;
     }
 
-    .qr-code-img {
-        width: 14px;
-        height: 14px;
-    }
-
-    .line-height-apealcode {
-        line-height: 1.13;
-    }
 
     .flex {
         padding-left: 0px !important;

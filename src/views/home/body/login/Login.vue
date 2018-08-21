@@ -58,8 +58,7 @@
     import Vue from 'vue';
     import VerifySlider from "@/components/VerifySlider";
     import {abUtils} from '@/common/utils';
-    import LoginService from "../../../../service/login/LoginService";
-
+    import AxiosService from "@/service/AxiosService";
     import axios from 'axios'
     import MainRepository from "../../../../vuex/MainRepository";
 
@@ -141,7 +140,7 @@
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
                    }).then((response) => {
-                       this.$router.push('tradeCenter');
+                       window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
                    })
 
            /*     LoginService.User.login({
