@@ -622,7 +622,7 @@
                     MainRepository.TradeView.createOrder({
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
-                            amount : this.amount,
+                            amount : this.toValue,
                             coinCount : this.toValue/this.user.fixedPrice,
                             customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
                             merchantMemberNo :  this.user.memberNo,
