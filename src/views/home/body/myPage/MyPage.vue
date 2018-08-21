@@ -7,27 +7,27 @@
             <div class="pt-0">
                 <big-avatar :me="true" />
                 <div class="ml-3">
-                    <p class="color-blue mb-1">{{nickName}}</p>
-                    <p class="color-darkgray">UID: {{member_no}}</p>
+                    <p class="color-blue mb-1">{{ myInfo.nickname }}</p>
+                    <p class="color-darkgray">UID: {{ myInfo.memberNo }}</p>
                 </div>
             </div>
 
             <!-- 트레이드 횟수, 평균 시간 -->
-            <div>
+            <div class="d-block">
                 <p class="mb-1">
                     <span class="color-darkgray mr-2">{{$str('trades')}}:</span>
-                    <span class="color-black">99999999999999 {{$str('times')}}</span>
+                    <span class="color-black color-red"> 수정필요 {{$str('times')}}</span>
                 </p>
                 <p>
                     <span class="color-darkgray mr-2">{{$str('avgRelease')}}:</span>
-                    <span class="color-black">99999999999999 {{$str('minuteText')}}</span>
+                    <span class="color-black color-red"> 수정필요 {{$str('minuteText')}}</span>
                 </p>
             </div>
 
             <!-- Create Account Time -->
-            <div class="color-darkgray">
-                <p>{{$str('accountCreatedTime')}} {{register_datetime}}</p>
-                <p>99999999999999 , {{$str('noRecord')}}</p>
+            <div class="color-darkgray d-block">
+                <p class="d-block">{{$str('accountCreatedTime')}} {{toTimeFormat(myInfo.createDatetime)}}, </p>
+                <p class="color-red">수정필요</p>
             </div>
         </div>
 
@@ -56,8 +56,7 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-email"></div>
-                        <p>{{$str('email')}}</p>
+                        <div class="sprite-img ic-email"></div> <p>{{$str('email')}}</p>
                     </li>
 
                     <!-- 내용 -->
@@ -89,8 +88,7 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-phone"></div>
-                        <p>{{$str('phone')}}</p>
+                        <div class="sprite-img ic-phone"></div> <p>{{$str('phone')}}</p>
                     </li>
 
                     <!-- 내용 -->
@@ -128,13 +126,12 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-account"></div>
-                        <p>{{$str('account')}}</p>
+                        <div class="sprite-img ic-account"></div> <p>{{$str('account')}}</p>
                     </li>
 
                     <!-- 내용 -->
                     <li class="caption-wrapper">
-                        <span class="color-black">{{emailVerification.email}}</span>
+                        <span class="color-black">{{myInfo.email}}</span>
                     </li>
                     <li></li>
                 </ul>
@@ -143,13 +140,12 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-uid"></div>
-                        <p>UID</p>
+                        <div class="sprite-img ic-uid"></div> <p>UID</p>
                     </li>
 
                     <!-- 내용 -->
                     <li class="caption-wrapper">
-                        <span class="color-black">{{member_no}}</span>
+                        <span class="color-black">{{ myInfo.memberNo }}</span>
                     </li>
                     <li></li>
                 </ul>
@@ -158,13 +154,12 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-password"></div>
-                        <p>{{$str('password')}}</p>
+                        <div class="sprite-img ic-password"></div> <p>{{$str('password')}}</p>
                     </li>
 
                     <!-- 내용 -->
                     <li class="caption-wrapper">
-                        <span class="color-black">******</span>
+                        <span class="color-black"> ****** </span>
                     </li>
 
                     <!-- 버튼, 토글 등 -->
@@ -179,8 +174,7 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-password"></div>
-                        <p>{{$str('tradePwText')}}</p>
+                        <div class="sprite-img ic-password"></div> <p>{{$str('tradePwText')}}</p>
                     </li>
 
                     <!-- 내용 -->
@@ -213,15 +207,18 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-id"></div>
-                        <p>{{$str('idVerification')}}</p>
+                        <div class="sprite-img ic-id"></div> <p>{{$str('idVerification')}}</p>
                     </li>
 
                     <!-- 내용 -->
                     <li class="caption-wrapper">
+
+                        <!-- ID Verification 되었을 때 -->
                         <span class="color-darkgray" v-if="!idVerification.isNull()">
                             {{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}
                         </span>
+
+                        <!-- ID Verification 안 되었을 때 -->
                         <span class="color-darkgray" v-else>
                             {{$str('unverified')}}
                         </span>
@@ -229,7 +226,7 @@
 
                     <!-- 버튼, 토글 등 -->
                     <li class="btn-wrapper">
-                        <span v-if="!idVerification.isNull() && idVerification.identification_no != undefined">
+                        <span v-if="!idVerification.isNull() && idVerification.identification_no !== undefined">
                             {{$str('verifySliderSuccess')}}
                         </span>
                         <span v-else>
@@ -242,20 +239,19 @@
                 <ul class="otherInfo-body">
                     <!-- 아이콘, 서브타이틀 -->
                     <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-advanced"></div>
-                        <p>{{$str('advancedVerification')}}</p>
+                        <div class="sprite-img ic-advanced"></div> <p>{{$str('advancedVerification')}}</p>
                     </li>
 
                     <!-- 내용 -->
                     <li class="caption-wrapper">
-                        <span class="color-darkgray">
-                            {{$str('unverified')}}
-                        </span>
+
+                        <!-- Advanced Verification 되었을 때 -->
+                        <span class="color-darkgray"> {{$str('unverified')}} </span>
                     </li>
 
                     <!-- 버튼, 토글 등 -->
                     <li class="btn-wrapper">
-                        <span v-if="!idVerification.isNull() && idVerification.identification_no != undefined">
+                        <span v-if="!idVerification.isNull() && idVerification.identification_no !== undefined">
                             {{$str('verifySliderSuccess')}}
                         </span>
                         <span v-else>
@@ -284,85 +280,11 @@
 
                 <!-- Body : !isEmpty -->
                 <div v-else>
-
-                    <!-- 1. Alipay -->
-                    <ul v-if="paymentMethod.alipay" class="otherInfo-body">
-                        <!-- 아이콘, 서브타이틀 -->
-                        <li class="otherInfo-subtitle">
-                            <div class="sprite-img ic-alipay"></div>
-                            <p>{{$str('alipayText')}}</p>
-                        </li>
-
-                        <!-- 내용 -->
-                        <li class="caption-wrapper">
-                            <span class="color-darkgray">
-                                {{paymentMethod.alipay.id}} {{paymentMethod.alipay.owner_name}} {{paymentMethod.alipay.alipay_id}}
-                            </span>
-                        </li>
-
-                        <!-- 버튼, 토글 등 -->
-                        <li class="btn-wrapper">
-                            <span>
-                                <a>{{$str('modify')}}</a>
-                                <toggle @click="onToggle('alipay')"
-                                        :toggle="paymentMethod.alipay.active_yn"
-                                        class="ml-3 c-pointer" />
-                            </span>
-                        </li>
-                    </ul>
-
-                    <!-- 2. Wechatpay -->
-                    <ul v-if="paymentMethod.wechat" class="otherInfo-body">
-                        <!-- 아이콘, 서브타이틀 -->
-                        <li class="otherInfo-subtitle">
-                            <div class="sprite-img ic-wechatpay"></div>
-                            <p>{{$str('wechatPayText')}}</p>
-                        </li>
-
-                        <!-- 내용 -->
-                        <li class="caption-wrapper">
-                            <span class="color-darkgray">
-                                {{paymentMethod.wechat.id}} {{paymentMethod.wechat.owner_name}} {{paymentMethod.wechat.wechat_id}}
-                            </span>
-                        </li>
-
-                        <!-- 버튼, 토글 등 -->
-                        <li class="btn-wrapper">
-                            <span>
-                                <a>{{$str('modify')}}</a>
-                                <toggle @click="onToggle('wechatPay')"
-                                        :toggle="paymentMethod.wechat.active_yn"
-                                        class="ml-3 c-pointer" />
-                            </span>
-                        </li>
-                    </ul>
-
-                    <!-- 3. 은행계좌 -->
-                    <ul class="otherInfo-body" v-if="paymentMethod.bank">
-                        <!-- 아이콘, 서브타이틀 -->
-                        <li class="otherInfo-subtitle">
-                            <div class="sprite-img ic-bank"></div>
-                            <p>{{$str('bankAccountText')}}</p>
-                        </li>
-
-                        <!-- 내용 -->
-                        <li class="caption-wrapper">
-                            <span class="color-darkgray">
-                                {{paymentMethod.bank_account}} {{paymentMethod.bank.owner_name}} {{paymentMethod.bank_name}} {{paymentMethod.bank_branch_info}}
-                            </span>
-                        </li>
-
-                        <!-- 버튼, 토글 등 -->
-                        <li class="btn-wrapper">
-                            <span>
-                                <a>{{$str('modify')}}</a>
-                                <toggle @click="onToggle('bankAccount')"
-                                        :toggle="paymentMethod.bank.active_yn"
-                                        class="ml-3 c-pointer" />
-                            </span>
-                        </li>
-                    </ul>
-
+                    <span v-for="item in paymentMethod">
+                        <payment-item
+                                :data="item"
+                        />
+                    </span>
                     <div class="ta-center py-3">
                         <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
                     </div>
@@ -455,6 +377,7 @@
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
+    import {abUtils} from "../../../../common/utils";
     import BigAvatar from '@/components/BigAvatar.vue';
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
@@ -467,25 +390,23 @@
     import SecuritySettings from "../../../../vuex/model/SecuritySettings";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
-    import MyPaymentItem from "./item/MyPaymentItem"
+    import MyPaymentItem from "./item/ex/MyPaymentItem"
+    import PaymentItem from "./item/PaymentItem";
 
     export default {
         name: "MyPage",
-        components: {BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
+        components: {
+            PaymentItem,
+            BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
         data: () => ({
             selection_login: true,
             selection_security: false,
             showModal: false,
             modalType: '',
 
-            member_no: MainRepository.MyInfo.getUserInfo().memberNo,
-            nickName: MainRepository.MyInfo.getUserInfo().nickname,
-            register_datetime: MainRepository.MyInfo.getUserInfo().createDatetime,
 
-            emailVerification: new EmailVerification(''),
-            phoneVerification: new PhoneVerification(''),
             idVerification: new IdVerification(''),
-            paymentMethod: '',
+            paymentMethods: '',
             blockList: '',
             loginHistory: '',
             securitySettings: '',
@@ -503,43 +424,42 @@
                     status: 'successful'
                 }
             ],
+
+
+
+            // *********** NEW DATA ************* //
+            myInfo: '',
+            emailVerification: new EmailVerification(''),
+            phoneVerification: new PhoneVerification(''),
+
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
-            },
-            getSecurityLevel() {
-                let level = 1;
-                if (!this.phoneVerification.isNull()) {
-                    ++level;
-                }
-                if (this.nickName != '') {
-                    ++level;
-                }
-                return level;
             },
             getSecuredIdNo() {
                 let noLength = this.idVerification.identification_no.length;
                 let securedIdNo = this.idVerification.identification_no.substr(0, 2) + '*********' + this.idVerification.identification_no.substr(noLength - 2, 2);
                 return securedIdNo;
             },
-            paymentMethods() {
+
+            // ************** NEW COMPUTED ************** //
+            getSecurityLevel() {
+                let level = 1;
+                if (!this.phoneVerification.isNull()) {
+                    ++level;
+                }
+                if (this.myInfo.nickname != '') {
+                    ++level;
+                }
+                return level;
+            },
+            paymentMethod () {
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
         },
         created() {
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-
-            // 유저 인증 정보 GET
             let self = this;
-            MainRepository.MyPage.getMemberVerification(function (email, phone) {
-                self.emailVerification = email;
-                self.phoneVerification = phone;
-            });
 
             // 유저 ID 인증 정보 GET
             MainRepository.MyPage.getIdVerification(function (idVerification) {
@@ -548,11 +468,6 @@
 
             // 유저 결제수단 정보 GET
             MainRepository.MyInfo.loadMyPaymentMethods();
-
-            // 차단 리스트 정보 GET
-            MainRepository.MyPage.getBlockList(function (blockList) {
-                self.blockList = blockList;
-            });
 
             // 로그인 기록 정보 GET
             MainRepository.MyPage.getLoginHistory(function (loginHistory) {
@@ -563,9 +478,31 @@
             MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
                 self.securitySettings = securitySettings;
             });
+
+            // *********** NEW CREATED ************* //
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.MyInfo.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+
+            // GET My Info
+            self.myInfo = MainRepository.MyInfo.getUserInfo();
+
+            // GET User Verification Info
+
+            MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                self.emailVerification = email;
+                self.phoneVerification = phone;
+            });
+
+            // GET Block List
+            MainRepository.MyPage.getBlockList(function (blockList) {
+                self.blockList = blockList;
+            });
         },
         mounted() {
-            if (this.nickName === '') {
+            if (this.myInfo.nickname === '') {
                 this.modalType = 'nickName';
                 this.showModal = true;
             }
@@ -637,6 +574,13 @@
             goReset() {
                 this.$router.push('/resetTradePassword');
             },
+
+            // *********** NEW METHODS ************* //
+            // 시간 포멧으로 바꿔줌
+            toTimeFormat(time) {
+                return abUtils.toTimeFormat(time);
+            },
+
         }
     }
 </script>

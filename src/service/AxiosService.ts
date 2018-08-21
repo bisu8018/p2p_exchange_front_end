@@ -41,6 +41,9 @@ export default {
                 if (response.data.code === 0) {
                     success(response.data.result);
                 }
+                if (response.data.code === 499) {
+                    //window.location.replace(this.getRootUrl() + '/merchant');
+                }
                 //Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
             })
             .catch((error) => {

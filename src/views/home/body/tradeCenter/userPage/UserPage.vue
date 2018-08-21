@@ -4,17 +4,17 @@
     <div v-if="isMobile">
       <v-layout row wrap>
         <v-flex xs12 text-xs-left mt-5 mb-4>
-          <avatar
+          <avatar :email="merchant.email"
                 class="f-left mr-3">192.168
           </avatar>
           <h5 class="ml-3">
             <v-layout>
-              {{merchant.nickname}}
+              {{merchant.nickName}}
               <h5 class="userRank sprite-img ic-premium"></h5>
             </v-layout>
           </h5>
           <!--판매자 rank-->
-          <h6 class="ml-3 color-darkgray">Created at: {{merchant.register_datetime}}</h6>
+          <h6 class="ml-3 color-darkgray">Created at: {{transTime}}</h6>
         </v-flex>
         <v-flex xs12><v-divider></v-divider></v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>Security deposit</v-flex>
@@ -30,25 +30,25 @@
         <v-flex xs12><v-divider></v-divider></v-flex>
 
         <v-flex xs3 offset-xs2 text-xs-left mt-4>
-          <v-layout v-if="merchant.verifiedEmail" align-center>
+          <v-layout v-if="merchant.emailVerification" align-center>
             <h6>Email</h6>
             <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
         <v-flex xs7 text-xs-right mt-4>
-          <v-layout v-if="merchant.verifiedID" justify-end align-center >
+          <v-layout v-if="merchant.idVerification" justify-end align-center >
             <h6>ID Verification</h6>
             <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
         <v-flex xs3 offset-xs2 text-xs-left mt-3>
-          <v-layout v-if="merchant.verifiedPhone" align-center >
+          <v-layout v-if="merchant.phoneVerification" align-center >
             <h6>Phone</h6>
             <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
         <v-flex xs7 text-xs-right mt-3>
-          <v-layout v-if="merchant.verifiedAdvanced" justify-end align-center >
+          <v-layout v-if="merchant.advancedVerification" justify-end align-center >
             <h6>Advanced Verification</h6>
             <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
@@ -94,7 +94,7 @@
                     :email="merchant.email">
             </avatar>
             <span class="ml-3 color-blue">
-            {{merchant.nickname}}
+            {{merchant.nickName}}
             </span>
             <!--판매자 rank-->
             <span class="userRank sprite-img ic-premium"></span>
@@ -126,23 +126,23 @@
       <!--2번째 줄-->
       <v-layout mt-3 mb-4a>
         <v-flex md3 text-md-left>
-          <h6 class="color-darkgray">Created at : {{merchant.register_datetime}}</h6>
+          <h6 class="color-darkgray">Created at : {{transTime}}</h6>
         </v-flex>
         <v-flex md9>
           <v-layout justify-end >
-            <div v-if="merchant.verifiedEmail" class="vertical-center">
+            <div v-if="merchant.emailVerification" class="vertical-center">
               <h6 class="veri_icon">{{$str("email")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
             </div>
-            <div v-if="merchant.verifiedPhone" class="vertical-center">
+            <div v-if="merchant.phoneVerification" class="vertical-center">
               <h6 class="veri_icon">{{$str("Phone")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
             </div>
-            <div v-if="merchant.verifiedID" class="vertical-center">
+            <div v-if="merchant.idVerification" class="vertical-center">
               <h6 class="veri_icon">{{$str("ID_Verification")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 mr-4 veri_icon"></h6>
             </div>
-            <div v-if="merchant.verifiedAdvanced" class="vertical-center">
+            <div v-if="merchant.advancedVerification" class="vertical-center">
               <h6 class="veri_icon">{{$str("Advanced_Verification")}}</h6>
               <h6 class="ic-success-sm sprite-img ml-1 veri_icon"></h6>
             </div>
@@ -221,9 +221,16 @@
           <v-flex><v-divider></v-divider></v-flex>
         </div>
       </div>
+
       <v-flex text-md-right mt-3 mb-6>
-        {{$str("Do_not_want_to_trade_with_this_user?")}}
-        <span class="color-blue c-pointer" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
+        <div v-if="!blockThisMember">
+          {{$str("Do_not_want_to_trade_with_this_user?")}}
+          <span class="color-blue c-pointer" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
+        </div>
+        <div v-else>
+          {{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}
+          <span class="color-blue c-pointer" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
+        </div>
       </v-flex>
     </div>
 
@@ -234,7 +241,7 @@
           <h3 class="bold f-left">{{$str("Notice")}}</h3>
           <button class="f-right"><i class="material-icons " @click="showBlockModal = false">close</i></button>
         </v-flex>
-        <v-flex pl-3 pr-3 mb-4>
+        <v-flex pl-3 pr-3 mb-4 text-xs-left>
           <h5 class="color-darkgray">{{$str("Block_user_explain")}}</h5>
         </v-flex>
         <v-flex pl-3 pr-3>
@@ -242,7 +249,7 @@
             <button class="btn-rounded-white text-white-hover" @click="showBlockModal = false">
               <h6 >{{$str("cancel")}}</h6>
             </button>
-            <button class="btn-rounded-blue btn-blue-hover">
+            <button class="btn-rounded-blue btn-blue-hover" @click="blockThisUser">
               <h6 >{{$str("confirm")}}</h6>
             </button>
           </v-layout>
@@ -256,31 +263,36 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import UserTradeItem from "./userTradeItem/UserTradeItem"
     import Avatar from '@/components/Avatar.vue';
+    import {abUtils} from '@/common/utils';
 
     export default {
         name: "UserPage",
         components: {UserTradeItem,Avatar,},
         data: () =>({
             showBlockModal : false,
+            showUnBlockModal : false,
             showProgress : false,
             merchant:
                 {
-                    nickname: '데이터get 필요',
+                    nickName: '',
+                    email : '',
                     rank : 1,
                     securityDeposit: '',
                     completionRate: '',
                     tradeTimes: '',
                     tradeMonthTimes: '',
                     avgRelease: '',
-                    register_datetime : '데이터get 필요',
-                    verifiedEmail : true,
-                    verifiedID : true,
-                    verifiedPhone : true,
-                    verifiedAdvanced : true,
+                    createDatetime : '',
+                    emailVerification : false,
+                    idVerification : false,
+                    phoneVerification : false,
+                    advancedVerification : false,
                 }
             ,
             BuyLists: [],
             SellLists: [],
+            userMemberNo : '',
+            blockThisMember : false,
         }),
         computed: {
             isMobile() {
@@ -291,30 +303,77 @@
             },
             haveSellList(){
                 return (this.SellLists.length >0 );
+            },
+            transTime(){
+                let time = abUtils.isLocaleDateTime(this.merchant.createDatetime);
+                return time;
             }
         },
         created(){
             let cureentURL = window.location.href
             let param = cureentURL.split('?');
+            this.userMemberNo = Number(param[1])
             let self = this;
             this.showProgress = true;
+            //상단 과거 이력정보 5개
             MainRepository.Users.getUserPageHistoryInfo(
-                {memberNo : Number(param[1])},function (result) {
-                self.merchant.securityDeposit = result.securityDeposit
-                self.merchant.completionRate = result.completionRate
-                self.merchant.tradeTimes = result.tradeTimes
-                self.merchant.tradeMonthTimes = result.tradeMonthTimes
-                self.merchant.avgRelease = result.avgRelease
-            })
+                {memberNo : self.userMemberNo},function (result) {
+                    self.merchant.securityDeposit = result.securityDeposit
+                    self.merchant.completionRate = result.completionRate
+                    self.merchant.tradeTimes = result.tradeTimes
+                    self.merchant.tradeMonthTimes = result.tradeMonthTimes
+                    self.merchant.avgRelease = result.avgRelease
+                })
+            //상단 유저 인증정보
+            MainRepository.Users.getOtherUsersbyMemberNo(
+                    self.userMemberNo,function (result) {
+                    self.merchant.email = result.email
+                    self.merchant.nickName = result.nickName
+                    self.merchant.createDatetime = result.createDatetime
+                    self.merchant.emailVerification = result.emailVerification
+                    self.merchant.phoneVerification = result.phoneVerification
+                    self.merchant.idVerification = result.idVerification
+                })
+            //이 유저가 올린 ads 리스트
             MainRepository.Users.getUserPageAdsList(
-                {memberNo : Number(param[1])},function (result) {
+                {memberNo : self.userMemberNo},function (result) {
                     self.BuyLists = result.BuyLists
                     self.SellLists = result.SellLists
                     self.showProgress = false;
                 })
+            // 나의 block 리스트 정보 GET
+            MainRepository.MyPage.getBlockList(function (result) {
+                for(let key in result){
+                  if(self.userMemberNo === result[key].blockMemberNo){
+                      self.blockThisMember = true;
+                  }
+              }
+            })
 
         },
         methods:{
+            blockThisUser(){
+                let self = this;
+                MainRepository.Users.postBlockThisUser({
+                        memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
+                        blockMemberNo: self.userMemberNo
+                },function (result) {
+                        self.showBlockModal = false;
+                        self.blockThisMember = true;
+                    }
+                )
+            },
+            UnblockThisUser(){
+                let self = this;
+                MainRepository.Users.deleteBlockThisUser({
+                    email : MainRepository.MyInfo.getUserInfo().email,
+                    BlockMemberNo: self.userMemberNo
+                    },function (result) {
+                        self.showUnBlockModal = false;
+                        self.blockThisMember = false;
+                    }
+                )
+            }
         }
     }
 </script>

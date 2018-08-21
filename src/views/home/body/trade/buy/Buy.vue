@@ -37,12 +37,7 @@
                 </div>
             </div>
         </v-layout>
-        <v-layout wrap row v-if="status != 'cancel'" :class="{'mb-4' : isMobile()}">
-            <div v-for="item in paymentMethods">
-            <trade-item :item="item" ></trade-item>
-            </div>
-
-        </v-layout>
+        <trade-item :item="getMyPaymentMethodSelectList" :status="status" ></trade-item>
         <v-layout wrap row>
             <v-flex xs12 md3>
                 <!--status cancel 일 시 설명 문구-->
@@ -93,7 +88,7 @@
                         {{$str("appealCodeExplain")}}
                         {{appealCode}} ,
                     </span>
-                    {{$str("referenceText")}} :
+                    <br/>{{$str("referenceText")}} :
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                     <!--{{거래번호}}-->
@@ -124,7 +119,7 @@
                 <v-flex md3>
                     <span class="p-relative">
                     <input type="text" class="buying-process"
-                           :value="$str('buyingIndicator')"
+                           :value="$str('sellingIndicator')"
                            readonly>
                     <v-progress-circular indeterminate class="color-blue progress-circular"></v-progress-circular>
                     </span>
@@ -183,7 +178,7 @@
 
         <div>
             <!--채팅창-->
-            <!--<chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>-->
+            <chat :orderNo="orderNo" :merchant_member_no="merchant_member_no" :customer_member_no="customer_member_no"></chat>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -202,11 +197,10 @@
         <!--buy modal-->
         <buy-modal :show="showModal" :type="modalType" v-on:paymentConfirm="onPaid" v-on:close="onClose"
                    v-on:cancel="onCancel" v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></buy-modal>
-
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import BuyModal from './buyModal/BuyModal.vue'
     import MainRepository from "../../../../../vuex/MainRepository";
@@ -221,32 +215,47 @@
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
             orderNo: 0,
-            volumeTotal: MainRepository.TradeProcess.getOrder().coinCount,
-            token: MainRepository.TradeProcess.getOrder().cryptocurrency,
-            nickname: MainRepository.TradeProcess.getOrder().nickname,
-            price: MainRepository.TradeProcess.getOrder().price,
-            currency: MainRepository.TradeProcess.getOrder().currency,
-            paymentWindow: MainRepository.TradeProcess.getOrder().paymentWindow,
-            reference: MainRepository.TradeProcess.getOrder().referenceNo,
-            merchant_member_no: MainRepository.TradeProcess.getOrder().merchantMemberNo,
-            customer_member_no: MainRepository.TradeProcess.getOrder().customerMemberNo,
-            status: MainRepository.TradeProcess.getOrder().status,     //unpaid -> buying -> paid   그리고   cancel, appeal
-            paymentMethods : MainRepository.TradeProcess.getOrder().paymentMethods,
-
-            alipay: 'Y',
-            wechat: 'Y',
-            bankAccount: 'Y',
-            alipay_address: '8888888888@qq.com 支付宝付款 直接扫码 安全便捷',
-            wechatpay_address: 'wwxx8888888888   微信支付直接扫码',
-            bankaccount_address: '8888888888  建设银行',
-
             modalType: '',
             appealCode: 977057,
-
-            init: false,
             showModal: false,
         }),
         computed: {
+            volumeTotal() {
+                return  MainRepository.TradeProcess.getOrder().coinCount;
+            },
+            token() {
+                return MainRepository.TradeProcess.getOrder().cryptocurrency;
+            },
+            nickname() {
+                return MainRepository.TradeProcess.getOrder().nickname;
+            },
+            price() {
+                return MainRepository.TradeProcess.getOrder().price;
+            },
+            currency() {
+                return MainRepository.TradeProcess.getOrder().currency;
+            },
+            paymentWindow() {
+                return MainRepository.TradeProcess.getOrder().paymentWindow;
+            },
+            reference() {
+                return MainRepository.TradeProcess.getOrder().referenceNo;
+            },
+            merchant_member_no() {
+                return MainRepository.TradeProcess.getOrder().merchantMemberNo;
+            },
+            customer_member_no() {
+                return MainRepository.TradeProcess.getOrder().customerMemberNo;
+            },
+            status() { //unpaid -> buying -> paid   그리고   cancel, appeal
+                return MainRepository.TradeProcess.getOrder().status;
+            },
+            paymentMethods() {
+                return MainRepository.TradeProcess.getOrder().paymentMethods;
+            },
+            getMyPaymentMethodSelectList() {
+                return MainRepository.TradeProcess.getOrder().getMyPaymentMethodSelectList;
+            },
             getOrderNumber() {
                 let orderNoDigits = this.orderNo.length;
                 let zeroDigits = 8 - orderNoDigits;
@@ -257,9 +266,6 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
-        },
-        beforeCreate() {
-
         },
         created() {
             //order no GET from url param
@@ -276,6 +282,7 @@
             this.getOrderData();
 
             //취소 일경우 props로 판단 및 status 변경
+            // AIOS cancel
             if (this.cancel === 'true') {
                 this.status = 'cancel';
             }
@@ -293,8 +300,6 @@
                     email: MainRepository.MyInfo.getUserInfo().email,
                     orderNo: self.orderNo
                 }, function (result) {
-                    console.log(MainRepository.TradeProcess.getOrder());
-                    //self.init = true;
                 })
             },
             isMobile() {
@@ -306,9 +311,9 @@
             onCopy(type) {
                 let copyTemp;
                 if (type == 'reference') {
-                    copyTemp = (document.querySelector('#referenceNum')as HTMLInputElement);
+                    copyTemp = document.querySelector('#referenceNum');
                 } else {
-                    copyTemp = (document.querySelector('#amountValue')as HTMLInputElement);
+                    copyTemp = document.querySelector('#amountValue');
                 }
 
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
@@ -319,6 +324,23 @@
                 }
                 document.execCommand('copy');
             },
+            onModal(type) {
+                this.showModal = true;
+                this.modalType = type;
+            },
+            onCancelAppeal() {
+                this.showModal = false;
+                // *************************************post작업 성공시
+                this.getOrderData();
+                this.status = 'paid';
+            },
+            onQRcode(type) {
+                if (type === "alipay") {
+                    console.log("alipay qr code");
+                } else {
+                    console.log("wechat qr code");
+                }
+            },
             //paid 버튼 클릭 후
             onPaid() {
                 let self = this;
@@ -326,6 +348,7 @@
                     Number(self.orderNo)
                     , function (result) {
                         self.status = 'paid';
+                        self.getOrderData();
                         self.onClose();
                     });
             },
@@ -336,6 +359,7 @@
                     Number(self.orderNo)
                     , function (result) {
                         self.status = 'cancel';
+                        self.getOrderData();
                         self.onClose();
                     });
             },
@@ -347,25 +371,10 @@
                     data
                     , function (result) {
                         self.status = 'complaining';
+                        self.getOrderData();
                         self.onClose();
                     });
             },
-            onModal(type) {
-                this.showModal = true;
-                this.modalType = type;
-            },
-            onCancelAppeal() {
-                this.showModal = false;
-                // *************************************post작업 성공시
-                this.status = 'paid';
-            },
-            onQRcode(type) {
-                if (type === "alipay") {
-                    console.log("alipay qr code");
-                } else {
-                    console.log("wechat qr code");
-                }
-            }
         },
 
     });
@@ -449,14 +458,6 @@
         left: -1000px;
     }
 
-    .qr-code-img {
-        width: 14px;
-        height: 14px;
-    }
-
-    .line-height-apealcode {
-        line-height: 1.13;
-    }
 
     .flex {
         padding-left: 0px !important;

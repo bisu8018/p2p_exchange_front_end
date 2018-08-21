@@ -3,7 +3,7 @@
 <!--span은 toggle 내 click 이벤트 미동작으로 이용-->
 
 <template>
-  <div class="toggle-wrapper" v-bind:class="{'toggle-turn-on' : toggle}">
+  <div class="toggle-wrapper" v-bind:class="{'toggle-turn-on' : toggle}" @click="onToggle">
       <div class="circle-button"></div>
   </div>
 </template>
@@ -12,6 +12,11 @@
     export default {
         name: "toggle",
         props :['toggle'],
+        methods: {
+            onToggle(item) {
+                this.$emit('click', item);
+            }
+        }
     }
 </script>
 
