@@ -78,9 +78,7 @@
 </template>
 
 <script>
-    import MainRepository from "../../../../vuex/MainRepository";
     import BtnMypage from "./item/BtnMypage";
-    import IdVerification from "../../../../vuex/model/IdVerification";
     import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
 
     export default {
@@ -89,11 +87,11 @@
             DialogIdVerification,
             BtnMypage
         },
-        props: {},
+        props: {
+            idVerification: {}
+        },
         data() {
             return {
-                idVerification: new IdVerification(''),
-
                 // Dialog 관련
                 dialog_idVerification: false,
             }
@@ -116,14 +114,6 @@
                 alert('준비중입니다');
             }
         },
-        created() {
-            let self = this;
-
-            // 유저 ID 인증 정보 GET
-            MainRepository.MyPage.getIdVerification(function (idVerification) {
-                self.idVerification = idVerification;
-            });
-        }
     }
 </script>
 

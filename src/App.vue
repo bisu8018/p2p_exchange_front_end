@@ -1609,6 +1609,84 @@
 
     }
 
+
+    .history-header {
+        border-bottom: none;
+    }
+
+    .history-tab_wrapper {
+        padding-top: 18px;
+    }
+
+    .history-tab_wrapper h5 {
+        display: inline-block;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    .history-login {
+        display: flex;
+        color: #9294a6;
+        border-bottom: 1px solid #d1d1d1;
+        padding-bottom: 8px;
+    }
+
+    .history-login-detail{
+        color: #353535;
+        padding: 26px 0;
+        border-bottom: 1px solid #d1d1d1;
+    }
+
+    .history-login > div:nth-of-type(1) {
+        width: 30%;
+    }
+
+    .history-login > div:nth-of-type(2) {
+        width: 25%;
+    }
+
+    .history-login > div:nth-of-type(3) {
+        width: 25%;
+    }
+
+    .history-login > div:nth-of-type(4) {
+        width: 20%;
+        text-align: right;
+    }
+
+    .label-mobile-history {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-hide {
+            overflow: hidden;
+            display: block;
+            height: 1px;
+            background-color: #d1d1d1;
+            padding: 0;
+        }
+
+        .label-mobile-history {
+            color: #9294a6;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .history-login-detail{
+            display: block;
+        }
+
+        .history-login > div:nth-of-type(1),
+        .history-login > div:nth-of-type(2),
+        .history-login > div:nth-of-type(3),
+        .history-login > div:nth-of-type(4) {
+            width: 100%;
+            text-align: left;
+            padding: 8px 0;
+        }
+    }
+
     /* MyInfo Item CSS END */
 
 </style>
