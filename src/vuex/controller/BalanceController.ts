@@ -1,6 +1,7 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import {CurrencyType} from "@/vuex/model/CurrencyType";
+import Balance from "@/vuex/model/Balance";
 
 export default class AccountController {
     store: Store<any>;
@@ -19,6 +20,18 @@ export default class AccountController {
 
     getBalances() {
         return this.store.state.balance.balanceList;
+    }
+
+    findByCrptoCurrency(crpto: string) {
+        let result = new Balance('');
+
+        for(let i = 0; i < this.getBalances().length; i++) {
+            let _item = this.getBalances()[i];
+            if (_item.cryptoCurrency === crpto) {
+                result = _item;
+            }
+        }
+        return result;
     }
 
     getTotalEstimatedValue(currency: string) {
