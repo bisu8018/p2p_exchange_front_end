@@ -186,15 +186,10 @@
 
 
         <div>
-            <!--채팅창-->
-            <chat
-                    :order = "currentOrder"
-                    :orderNo="orderNo" :merchantEmail="currentOrder.merchantEmail" :customerEmail="currentOrder.customerEmail"
-                  :merchant_member_no="currentOrder.merchantMemberNo" :merchantNickname="currentOrder.merchantNickname"
-                  :customerNickname="currentOrder.customerNickname"
-                  :customer_member_no="currentOrder.customerMemberNo">
-
-            </chat>
+            <div v-if="isInitCompleted">
+                <!--채팅창-->
+                <chat :order = "currentOrder"></chat>
+            </div>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -234,6 +229,7 @@
             modalType: '',
             appealCode: 977057,
             showModal: false,
+            isInitCompleted: false,
         }),
         computed: {
             currentOrder() {
@@ -265,6 +261,10 @@
             } else {
                 MainRepository.router().goTradeCenter();
             }
+
+            MainRepository.TradeProcess.loadCurrentOrder(this.orderNo, () => {
+                this.isInitCompleted = true;
+            });
 
             //취소 일경우 props로 판단 및 status 변경
             // AIOS cancel

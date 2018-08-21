@@ -11,6 +11,7 @@ const mutations = {
         }
     },
     [VuexTypes.ADD_MSG](state: any, data: any) {
+        state.msgList.push(new Message(data));
     },
 };
 
@@ -30,7 +31,6 @@ const getters = {
 };
 
 let msgList: Message[] = [];
-
 const state = {
     msgList: msgList,
 };

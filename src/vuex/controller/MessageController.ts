@@ -24,7 +24,7 @@ export default class MessageController {
     }
 
     getLatestMsgTime(): string {
-        let latestMsg: Message = this.getMsgList().length[this.getMsgList().length-1];
+        let latestMsg: Message = this.getMsgList()[this.getMsgList().length-1];
         return abUtils.toChatServerTimeFormat(new Date(latestMsg.registerDatetime));
     }
 }

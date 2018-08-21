@@ -4,7 +4,7 @@ import ChatAvatar from "@/vuex/model/ChatAvatar";
 
 const mutations = {
     [VuexTypes.SET_TRADE_CHAT_AVATAR] (state: any, chatAvatar: ChatAvatar) {
-        state.chatAvatar = chatAvatar;
+        state.chatAvatar = new ChatAvatar(chatAvatar);
     },
     [VuexTypes.UPDATE_TRADE_CHAT_AVATAR] (state: any, chatAvatar: ChatAvatar) {
         state.chatAvatar.update(chatAvatar);
