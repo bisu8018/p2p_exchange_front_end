@@ -6,7 +6,8 @@ export default {
     message: {
         // CNY, USDT 코인 환율 select
         getMessage: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('message', 'GET', data ,
+            let url = 'message/' + data.orderNo;
+            AxiosService._requestWithUrlPram(url, 'GET', data ,
                 function (data: any) {
                     callback(data);
                 },

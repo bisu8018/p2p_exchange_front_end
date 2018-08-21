@@ -1,11 +1,11 @@
 <template>
-  <div class="avatarWraaper">
+    <div class="avatarWraaper">
     <span class="mainCircle" v-bind:style="{background: bgColor}">
       <span class="firstWord">{{name}}</span>
     </span>
-    <div class="loginCircle" v-bind:style="{background: loginColor}">
+        <div class="loginCircle" v-bind:style="{background: loginColor}">
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -14,7 +14,20 @@
 
     export default {
         name: "Avatar",
-        props: ['email', 'me'],
+        props: {
+            email: {
+                type: String,
+                default: ''
+            },
+            me: {
+                type: Boolean,
+                default: false
+            },
+            chat: {
+                type: String,
+                default: '',
+            }
+        },
         data: () => ({
             loginColor: '#c8c8c8',
             name: '',
@@ -22,25 +35,48 @@
         }),
         created() {
             let self = this;
-            if (this.me === true) {
-                this.loginColor = '#59D817';
-                this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
-                this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
-            } else {
-                //유저 정보 GET AXIOS
-                MainRepository.Users.getOtherUsers(this.email, function (result) {
-                    let otherUsersInfo = result ;
-                    self.bgColor = otherUsersInfo.bgColor;
-                    self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
-                    self.getIsLogin()
-                });
+            if(this.chat === ''){
+                if (this.me === true) {
+                    this.loginColor = '#59D817';
+                    this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
+                    this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
+                } else if(this.me === false){
+                    //유저 정보 GET AXIOS
+                    MainRepository.Users.getOtherUsers(this.email, function (result) {
+                        let otherUsersInfo = result;
+                        self.bgColor = otherUsersInfo.bgColor;
+                        self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
+                        self.getIsLogin();
 
-                //3분마다 로그인 확인 갱신
-                setInterval(function () {
-                    self.getIsLogin();
-                },108000)
+                    });
 
+                    //3분마다 로그인 확인 갱신
+                    setInterval(function () {
+                        self.getIsLogin();
+                    }, 3000)
+
+                }
+            }else{
+                if(this.chat === 'main'){
+                    MainRepository.Users.getOtherUsers(this.email, function (result) {
+                        let otherUsersInfo = result;
+                        self.bgColor = otherUsersInfo.bgColor;
+                        self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
+                        MainRepository.TradeProcess.setChatAvatar(new {
+                            name : self.name,
+                            bgColor : self.bgColor
+                        },function () {
+                            setInterval(function () {
+                                self.getIsLogin();
+                            }, 3000)
+                        })
+                    });
+                }else{
+                    this.bgColor = MainRepository.TradeProcess.getChatAvatar().bgColor;
+                    this.name = MainRepository.TradeProcess.getChatAvatar().name;
+                }
             }
+
         },
         mounted() {
 
@@ -48,11 +84,19 @@
         methods: {
             getIsLogin() {
                 let self = this;
-              MainRepository.Users.isUserActive({
-                  email : self.email
-              },function (result) {
-                  return result
-              })
+                MainRepository.Users.isUserActive({
+                    email: self.email
+                }, function (result) {
+                    if(self.me === false && self.chat === 'main'){
+
+                        MainRepository.TradeProcess.updateChatAvatar({
+                            isLogin : result
+                        },function () {
+                            
+                        })
+                    }
+                    return result
+                })
             },
         }
     }

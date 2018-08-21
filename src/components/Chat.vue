@@ -6,12 +6,14 @@
     <div :class="[isMobile() ? 'chat-wrapper-xs' : 'chat-wrapper-md']">
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
-                <avatar
-                        :email = counterPartyMemberNo>
+                <avatar v-if="counterPartyEmail != '' "
+                        :email = counterPartyEmail
+                        :chat = "'main'"
+                >
                 </avatar>
             </div>
             <div class="text-xs-left pt-twenty">
-                <span class="h5 bold color-black">{{nickName}}</span><br>
+                <span class="h5 bold color-black">{{counterPartyNickname}}</span><br>
                 <span class="h6 color-darkgray">Trades in 30 days : {{transactionNum}}</span>
             </div>
             <v-spacer></v-spacer>
@@ -24,8 +26,10 @@
                 <!--상대방-->
                 <div class="mb-3 display-flex" v-if="data.registerMemberNo === counterPartyMemberNo">
                     <div>
-                        <avatar
-                                :email = counterPartyMemberNo>
+                        <avatar v-if="counterPartyEmail != ''"
+                                :email = counterPartyEmail
+                                :chat = "'sub'"
+                        >
                         </avatar>
                     </div>
                     <div class="pl-2">
@@ -53,7 +57,7 @@
                     </div>
                     <div>
                         <avatar
-                                :email = myMemberNo>
+                                :me = true>
                         </avatar>
                     </div>
                 </div>
@@ -83,11 +87,10 @@
         components: {
             Avatar
         },
-        props: ['orderNo','merchant_member_no','customer_member_no'],
+        props: ['orderNo','merchant_member_no','customer_member_no','merchantEmail', 'customerEmail', 'customerNickname', 'merchantNickname' ],
         data: () => ({
             inputValue: "",
             transactionNum: '',
-
             message : [],
 
             //파일 첨부
@@ -96,10 +99,6 @@
         }),
 
         created() {
-            //유저 정보 GET AXIOS
-            MainRepository.Users.getOtherUsers(this.email, function (result) {
-            });
-
         },
 
         mounted: function () {
@@ -115,6 +114,21 @@
             myMemberNo () {this.scrollBottom();
               return MainRepository.MyInfo.getUserInfo().memberNo;
             },
+            myEmail() {
+                return MainRepository.MyInfo.getUserInfo().email;
+            },
+            myNickname() {
+              return MainRepository.MyInfo.getUserInfo().nickname;
+            },
+            counterPartyNickname () {
+                let name;
+                if(MainRepository.MyInfo.getUserInfo().nickname === this.merchantNickname){
+                    name = this.customerNickname;
+                }else{
+                    name = this.merchantNickname;
+                }
+                return name;
+            },
             counterPartyMemberNo () {
                 let num;
                 if(MainRepository.MyInfo.getUserInfo().memberNo === this.merchant_member_no){
@@ -123,7 +137,18 @@
                     num = this.merchant_member_no;
                 }
                 return num;
-            }
+            },
+            counterPartyEmail () {
+                let email;
+                if(MainRepository.MyInfo.getUserInfo().email === this.merchantEmail){
+                    email = this.customerEmail;
+                }else{
+                    email = this.merchantEmail;
+                }
+                return email;
+            },
+
+
         },
         methods: {
             getMessage: function () {
@@ -178,26 +203,27 @@
             onPost() {
                 let self = this;
                 let postMessage;
-                // AXIOS post 전달
-                ChatService.message.postMessage({
-                    attachedImgUrl: "",
-                    message: self.inputValue,
-                    orderNo: self.orderNo,
-                    mine: true,
-                    registerMemberNo: MainRepository.MyInfo.getUserInfo().memberNo
-                }, function () {
-                    //post 성공시 작업 진행
+                let tmpValue = this.inputValue.trim();
+                if(tmpValue != ''){
+                    // AXIOS post 전달
+                    ChatService.message.postMessage({
+                        attachedImgUrl: "",
+                        message: self.inputValue,
+                        orderNo: self.orderNo,
+                        mine: true,
+                        registerMemberNo: MainRepository.MyInfo.getUserInfo().memberNo
+                    }, function () {
+
+                    });
                     postMessage = {
-                        message: this.inputValue,
+                        message: self.inputValue,
                         register_member_no: this.myMemberNo,
-                        registerDatetime: '2018-07-30 14:01:00',
+                        registerDatetime: new Date(),
                     };
-                    self.message.push(postMessage);
-                });
+                    this.message.push(postMessage);
+                    this.inputValue = "";
+                }
 
-
-
-                this.inputValue = "";
             },
             scrollBottom() {
                 var chatWrapper = document.getElementById("contentsWrapper");

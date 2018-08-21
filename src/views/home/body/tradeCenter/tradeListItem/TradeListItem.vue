@@ -241,7 +241,7 @@
                             </div>
                             <!--trade PW. sell 일때만 활성화-->
                             <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
-                                <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
+                                <input type="password" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                                        :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
                                        @keyup="onNumberCheck('tradePW')"
                                        v-bind:class="{'warning-border' : warning_tradePassword}">
@@ -486,7 +486,7 @@
                         <v-flex md3 text-md-right>
                             <div v-if="user.tradeType =='Sell'">
                                 <div class="p-relative">
-                                    <input type="text" class="input userInput textLeftPlaceholder"
+                                    <input type="password" class="input userInput textLeftPlaceholder"
                                            name="tradePW" v-model="tradePW" :placeholder="$str('tradePwText')"
                                            @blur="onChecktradePassword"
                                            v-bind:class="{'warning-border' : warning_tradePassword}"

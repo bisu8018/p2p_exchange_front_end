@@ -71,16 +71,16 @@
           <v-flex xs12>
             {{item.walletAddress}}
           </v-flex>
-          <v-flex xs12 mt-3 mb-4>
+          <v-flex xs12 mt-3>
             <h5 class="color-blue" @click.stop.prevent="onCopy()">
               {{$str("Copy")}}
             </h5>
             <input type="hidden" :value="item.walletAddress" id="copy-code" >
           </v-flex>
-          <v-flex xs12 mt-2 mb-4>
-            <div class="sprite-img ic-qr"></div>
+          <v-flex xs12>
+            <img :src="qrCodeImgUrl"/>
           </v-flex>
-          <v-flex xs12 mt-2 mb-4 color-darkgray>
+          <v-flex xs12 mb-4 color-darkgray>
             {{$str("Or_scan_this_QR_code")}}
           </v-flex>
           <div class="horizontalDivider">
@@ -237,11 +237,11 @@
             showWithdrawModal : false,
             showDepositModal : false,
             tokenImg : '',
-            copyCode : '123456789abcdef',
             fee : 0,
             address : '',
             amount : '',
             minAmount : '',
+            qrCodeImgUrl: '',
         }),
         computed:{
             receiveAmount(){
@@ -251,46 +251,22 @@
                 return this.amount - this.fee;
             },
         },
-        methods : {
-            onCopy() {
-                let testingCodeToCopy = document.querySelector('#copy-code')
 
-                testingCodeToCopy.setAttribute('type', 'text')
-                testingCodeToCopy.select()
-                try {
-                    var successful = document.execCommand('copy');
-                    var msg = successful ? 'successful' : 'unsuccessful';
-                    alert('Testing code was copied ' + msg);
-                } catch (err) {
-                    alert('Oops, unable to copy');
-                }
-
-                /* unselect the range */
-                testingCodeToCopy.setAttribute('type', 'hidden')
-                window.getSelection().removeAllRanges()
-
-                // let copyTemp = (document.querySelector('#userURL'));
-                // let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-                //
-                // if (!isiOSDevice) {
-                //     copyTemp.setAttribute('type', 'text');
-                //     copyTemp.select();
-                // }
-                // document.execCommand('copy');
-            },
-        },
         created(){
-            switch (this.item.name) {
+            switch (this.item.cryptoCurrency) {
+                case 'bitcoin':
                 case 'BTC':
                     this.fee = 0.001
                     this.minAmount = 0.01
                     break;
 
+                case 'ethereum':
                 case 'ETH':
                     this.fee = 0.05
                     this.minAmount = 0.05
                     break;
 
+                case 'allb':
                 case 'ALLB':
                     this.fee = 0
                     this.minAmount = 0
@@ -312,6 +288,7 @@
                     this.tokenImg = 'ic-allb-lg';
                     break;
             }
+            this.qrCodeImgUrl = "http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+this.item.walletAddress;
         },
         methods: {
             getCryptoName(curerncy) {
@@ -326,7 +303,31 @@
                     case 'ALLB':
                         return 'ALLB';
                 }
-            }
+            },
+            onCopy() {
+                let testingCodeToCopy = document.querySelector('#copy-code')
+
+                testingCodeToCopy.setAttribute('type', 'text')
+                testingCodeToCopy.select()
+                try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                } catch (err) {
+                }
+
+                /* unselect the range */
+                testingCodeToCopy.setAttribute('type', 'hidden')
+                window.getSelection().removeAllRanges()
+
+                // let copyTemp = (document.querySelector('#userURL'));
+                // let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+                //
+                // if (!isiOSDevice) {
+                //     copyTemp.setAttribute('type', 'text');
+                //     copyTemp.select();
+                // }
+                // document.execCommand('copy');
+            },
         }
     }
 </script>
