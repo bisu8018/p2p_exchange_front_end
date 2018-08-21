@@ -11,11 +11,15 @@ export default class Message {
     constructor (data: any) {
         if (data.orderNo === undefined) {
             this.orderNo = Number(data.orderNo);
+        } else {
+            this.orderNo = -1
         }
         this.message = data.message;
         this.attachedImgUrl = data.attachedImgUrl;
         if (data.registerMemberNo === undefined) {
             this.registerMemberNo = Number(data.registerMemberNo);
+        } else {
+            this.registerMemberNo = -1;
         }
         this.isMine = data.isMine;
         this.registerDatetime = data.registerDatetime;
