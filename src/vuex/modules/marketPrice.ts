@@ -1,19 +1,22 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import MarketPrice from "@/vuex/model/MarketPrice";
+import Balance from "@/vuex/model/Balance";
 
 
 const mutations = {
-    [VuexTypes.SET_MARKET_PRICE] (state: any, priceList: MarketPrice[]) {
-        state.tradeFilter = priceList;
+    [VuexTypes.SET_MARKET_PRICE] (state: any, data: any) {
+        state.marketPriceList = [];
+        for(let key in data) {
+            state.marketPriceList.push(new MarketPrice(data[key]));
+        }
     },
 };
 
 
 const actions = {
-    [VuexTypes.SET_MARKET_PRICE] (context: any, priceList: MarketPrice[]) {
-        context.commit(VuexTypes.SET_MARKET_PRICE, priceList)
+    [VuexTypes.SET_MARKET_PRICE] (context: any, data: any) {
+        context.commit(VuexTypes.SET_MARKET_PRICE, data)
     },
-
 };
 
 const getters = {

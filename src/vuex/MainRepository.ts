@@ -174,6 +174,19 @@ export default {
         }
     },
     Balance: {
+        controller(): BalanceController {
+            return balanceController;
+        },
+        loadBalances: function (callback: any) {
+            BalanceService.getBalances({
+                email: instance.MyInfo.getUserInfo().email
+            }, function (result) {
+                balanceController.setBalance(result);
+            })
+        },
+        getBalances: function () {
+            return balanceController.getBalance();
+        },
         setBalances: function (callback:any) {
           BalanceService.getBalances({
               email: instance.MyInfo.getUserInfo().email

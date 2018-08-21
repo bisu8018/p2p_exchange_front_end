@@ -192,6 +192,8 @@
             </div>
 
             <!--  ############## 2. ID Verification ##############  -->
+            <!--<my-id-verification />-->
+
             <div class="section-border">
 
                 <!-- Header -->
@@ -230,7 +232,10 @@
                             {{$str('verifySliderSuccess')}}
                         </span>
                         <span v-else>
-                            <a>{{$str('verify')}}</a>
+                            <btn-mypage
+                                @click="onIdVerification"
+                                :txt="$str('verify')"
+                            />
                         </span>
                     </li>
                 </ul>
@@ -303,20 +308,17 @@
                 </div>
 
                 <!-- Body : isEmpty -->
-                <div class="ta-center py-3" v-if="blockList === ''">
+                <div class="ta-center py-3" v-if="blockList.length === 0">
                     <p class="pt-2 pb-3 color-darkgray">{{$str('noMoreRecords')}}</p>
                 </div>
 
                 <!-- Body : !isEmpty -->
                 <div v-else>
                     <div class="blocked-user-item" v-for="block in blockList">
-                        <div>
-                            <avatar :email="block.email"></avatar>
-                            <p class="color-blue text-white-hover c-pointer">{{block.nickName}}</p>
-                        </div>
-                        <div>
-                            <a>{{$str('unblock')}}</a>
-                        </div>
+                        <block-list-item
+                                :data="block"
+                        />
+
                     </div>
                 </div>
             </div>
@@ -372,6 +374,12 @@
 
             </div>
         </div>
+
+        <!-- Dialog -->
+        <dialog-id-verification
+            :showDialog="dialog_idVerification"
+            @close="offIdVerification"
+        />
     </div>
 </template>
 
@@ -383,27 +391,28 @@
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
     import MyPageModal from './myPageItem/MyPageModal.vue';
-    import PaymentMethod from "../../../../vuex/model/PaymentMethod";
     import IdVerification from "../../../../vuex/model/IdVerification";
-    import LoginHistory from "../../../../vuex/model/LoginHistory";
-    import Block from "../../../../vuex/model/Block";
-    import SecuritySettings from "../../../../vuex/model/SecuritySettings";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
     import MyPaymentItem from "./item/ex/MyPaymentItem"
     import PaymentItem from "./item/PaymentItem";
+    import BtnMypage from "./item/BtnMypage";
+    import BlockListItem from "./item/BlockListItem";
+    import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
+    import MyIdVerification from "./MyIdVerification";
 
     export default {
         name: "MyPage",
         components: {
+            MyIdVerification,
+            DialogIdVerification,
+            BlockListItem,
+            BtnMypage,
             PaymentItem,
             BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
         data: () => ({
             selection_login: true,
             selection_security: false,
-            showModal: false,
-            modalType: '',
-
 
             idVerification: new IdVerification(''),
             paymentMethods: '',
@@ -428,9 +437,15 @@
 
 
             // *********** NEW DATA ************* //
+            showModal: false,
+            modalType: '',
+
             myInfo: '',
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
+
+            // Dialog 관련
+            dialog_idVerification: false,
 
         }),
         computed: {
@@ -449,7 +464,7 @@
                 if (!this.phoneVerification.isNull()) {
                     ++level;
                 }
-                if (this.myInfo.nickname != '') {
+                if (this.myInfo.nickname !== '') {
                     ++level;
                 }
                 return level;
@@ -490,10 +505,14 @@
             self.myInfo = MainRepository.MyInfo.getUserInfo();
 
             // GET User Verification Info
-
             MainRepository.MyPage.getMemberVerification(function (email, phone) {
                 self.emailVerification = email;
                 self.phoneVerification = phone;
+            });
+
+            // GET User Id Verification
+            MainRepository.MyPage.getIdVerification(function (idVerification) {
+                self.idVerification = idVerification;
             });
 
             // GET Block List
@@ -508,10 +527,6 @@
             }
         },
         methods: {
-            onModal(type) {
-                this.showModal = true;
-                this.modalType = type;
-            },
             onClose() {
                 this.showModal = false;
                 this.modalType = '';
@@ -574,13 +589,25 @@
             goReset() {
                 this.$router.push('/resetTradePassword');
             },
+            onModal(type) {
+                this.showModal = true;
+                this.modalType = type;
+            },
 
             // *********** NEW METHODS ************* //
             // 시간 포멧으로 바꿔줌
             toTimeFormat(time) {
                 return abUtils.toTimeFormat(time);
             },
-
+            onUnblock() {
+                alert('블록 푸는 거 API 보내야함');
+            },
+            onIdVerification() {
+                this.dialog_idVerification = true;
+            },
+            offIdVerification() {
+                this.dialog_idVerification = false;
+            },
         }
     }
 </script>
