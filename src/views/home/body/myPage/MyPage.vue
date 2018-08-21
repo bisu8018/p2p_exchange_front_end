@@ -24,34 +24,12 @@
             />
 
             <!-- 3. Payment Methods -->
-            <div class="myPage-box">
-
-                <!-- Header -->
-                <div class="otherInfo-header">
-                    <h4>{{$str('paymentMethod')}}</h4>
-                    <div class="header-detail">
-                        <p class="caption mt-3">{{$str('paymentMethodExplain')}}</p>
-                    </div>
-                </div>
-
-                <!-- Body : isEmpty -->
-                <div class="ta-center py-3" v-if="paymentMethod === ''">
-                    <p class="pt-2 pb-3 color-darkgray">{{$str('nullPaymentMethod')}}</p>
-                    <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
-                </div>
-
-                <!-- Body : !isEmpty -->
-                <div v-else>
-                    <span v-for="item in paymentMethod">
-                        <payment-item
-                                :data="item"
-                        />
-                    </span>
-                    <div class="ta-center py-3">
-                        <a class="a-txt pb-2 ml-0" @click="onModal('addPayment')">{{$str('addPayment')}}</a>
-                    </div>
-                </div>
-            </div>
+            <my-payment
+                :payment-method="paymentMethod"
+                :email-verification="emailVerification"
+                :phone-verification="phoneVerification"
+                :my-info="myInfo"
+            />
 
             <!-- 4. Block List -->
             <div class="myPage-box">
@@ -132,16 +110,7 @@
             </div>
         </div>
 
-        <!--결제수단 추가 모달-->
-        <my-page-modal :show="showModal"
-                       :type="modalType"
-                       :phoneNumber="phoneVerification.phoneNumber"
-                       :email="emailVerification.email"
-                       v-on:close="onClose"
-                       v-on:paymentMethod="getPaymentMethod"
-                       v-on:turnon="onTurnOn"
-                       v-on:nickName="myInfo.nickname"
-        />
+
     </div>
 </template>
 
@@ -163,10 +132,12 @@
     import MyIdVerification from "./MyIdVerification";
     import MyAccountSecurity from "./MyAccountSecurity";
     import MyInfo from "./MyInfo";
+    import MyPayment from "./MyPayment";
 
     export default {
         name: "MyPage",
         components: {
+            MyPayment,
             MyInfo,
             MyAccountSecurity,
             MyIdVerification,
@@ -180,7 +151,6 @@
             selection_login: true,
             selection_security: false,
 
-            paymentMethods: '',
             blockList: '',
             loginHistory: '',
             securitySettings: '',
@@ -268,18 +238,6 @@
             }
         },
         methods: {
-            onClose() {
-                this.showModal = false;
-                this.modalType = '';
-            },
-            getDate(date) {
-                let dateTime = String(date).split(' ');
-                return dateTime[0];
-            },
-            getTime(date) {
-                let dateTime = String(date).split(' ');
-                return dateTime[1];
-            },
             onSelection(type) {
                 if (type === 'login') {
                     this.selection_security = false;
@@ -288,36 +246,6 @@
                     this.selection_login = false;
                     this.selection_security = true;
                 }
-            },
-            //결제수단 추가 모달 data get 및 결제수단 표시 설정
-            getPaymentMethod(value) {
-                //하기 코드 미사용 가능성 존재
-                if (value === 'alipay') {
-                    this.alipay_use = 'y';
-                } else if (value === 'wechat') {
-                    this.wechat_use = 'y';
-                } else {
-                    this.bank_use = 'y';
-                }
-                this.showModal = false;
-            },
-            onTurnOn() {
-                // phone 인증 정보 AXIOS GET
-                this.showModal = false;
-            },
-            goTurnOff(type) {
-                var url = "/turnOff";
-                if (type === 'email') {
-                    url += '?email';
-                } else {
-                    url += '?phone';
-                }
-                this.$router.push(url);
-
-            },
-            onModal(type) {
-                this.showModal = true;
-                this.modalType = type;
             },
 
             // *********** NEW METHODS ************* //
