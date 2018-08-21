@@ -486,7 +486,7 @@
                         <v-flex md3 text-md-right>
                             <div v-if="user.tradeType =='Sell'">
                                 <div class="p-relative">
-                                    <input type="number" class="input userInput textLeftPlaceholder"
+                                    <input type="text" class="input userInput textLeftPlaceholder"
                                            name="tradePW" v-model="tradePW" :placeholder="$str('tradePwText')"
                                            @blur="onChecktradePassword"
                                            v-bind:class="{'warning-border' : warning_tradePassword}"
@@ -657,7 +657,7 @@
                     this.toValue = this.user.maxLimit
                 }
                 else {
-                    this.toValue = this.user.volumeAvailable;
+                    this.toValue = this.user.volumeAvailable * this.user.fixedPrice;
                 }
                 this.warning_toValue = false;
                 this.warning_fromValue = false;

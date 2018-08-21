@@ -93,6 +93,14 @@ export default {
                 function () {
                 })
         },
+        getOtherUsersInfobyMemberNo: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('member/them/byMemberNo', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
         //유저 로그인 상태
         isUserActive: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('isUserActive', 'GET', data,
@@ -174,7 +182,23 @@ export default {
                 },
                 function () {
                 })
-        }
+        },
+        postBlockUser: function (data: any, callback: any) {
+            AxiosService._requestWithBodyAndEmail('member/block', 'POST', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
+        deleteBlockUser: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('member/block', 'DELETE', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
     },
     LoginHistory: {
         //유저 로그인 기록

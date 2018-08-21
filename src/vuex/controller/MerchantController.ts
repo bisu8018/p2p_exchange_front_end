@@ -9,11 +9,11 @@ export default class MerchantController {
     }
 
     // select box country
-    setMerchant(name: string){
-        this.store.dispatch(VuexTypes.SET_MERCHANT_DATA, name);
+    setMerchant(data: any){
+        this.store.dispatch(VuexTypes.SET_MERCHANT_DATA, data);
     }
 
     getMerchant() {
-        return this.store.state.merchant.MerchantInfo;
+        return this.store.state.merchant.merchant;
     }
 }

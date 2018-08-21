@@ -41,48 +41,4 @@ export default {
         },
     },
 
-    Bot: {
-        stopBot: function (botId: number, callback: any) {
-            AxiosService._requestWithPath('bot/' + botId + '/running/stop', 'PUT', '',
-                function (data: any) {
-                    callback(data);
-                },
-                function () {
-                })
-        },
-
-        updateTradingVolume: function (botId: number,
-                                       buyTradeMaxType: string, buyTradeMax: string,
-                                       sellTradeMaxType: string, sellTradeMax: string,
-                                       isUpdateBuyMax: boolean, isUpdateSellMax: boolean,
-                                       callback: any) {
-
-            AxiosService._requestWithPath('bot/' + botId + '/buyTradeMax' + '?' +
-                'buyTradeMaxType=' + buyTradeMaxType +
-                '&buyTradeMax=' + buyTradeMax +
-                '&sellTradeMaxType=' + sellTradeMaxType +
-                '&sellTradeMax=' + sellTradeMax +
-                '&isUpdateBuyMax=' + isUpdateBuyMax +
-                '&isUpdateSellMax=' + isUpdateSellMax
-                , 'PUT', '',
-                function (data: any) {
-                },
-                function () {
-                })
-        },
-
-        deleteBot: function (botId: number, callback: any) {
-            let data = {
-                "botId" : botId
-            }
-
-            AxiosService._requestWithUrlPram('bot', 'DELETE', data,
-                function (data: any) {
-                    callback(data);
-                },
-                function () {
-                })
-        },
-    },
-
 }

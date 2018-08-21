@@ -8,7 +8,7 @@
             <div class=" sprite-img " :class="tokenImg"></div>
           </div>
           <div class=" mb-4">
-            <h4 class="bold">{{tokenlist.name}}</h4>
+            <h4 class="bold">{{tokenlist.cryptoCurrency}}</h4>
           </div>
         </v-flex>
         <!--1. OTC Account 카드-->
@@ -17,11 +17,11 @@
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{getBalance}} {{tokenlist.name}}</span>
+              <span>{{tokenlist.availableAmount}} {{tokenlist.cryptoCurrency}}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{tokenlist.OtcFrozen}} {{tokenlist.name}}</span>
+              <span>{{tokenlist.frozenAmount}} {{tokenlist.cryptoCurrency}}</span>
             </v-layout>
           </div>
         </v-flex>
@@ -59,23 +59,23 @@
         <v-layout row wrap>
           <!--header-->
           <div class-="text-xs-left">
-            <h3 class="bold">{{$str("Deposit")}} {{tokenlist.name}}</h3>
+            <h3 class="bold">{{$str("Deposit")}} {{tokenlist.cryptoCurrency}}</h3>
           </div>
           <v-spacer></v-spacer>
           <div class="text-xs-right">
             <i class="material-icons color-black c-pointer" @click="showDepositModal = false">close</i>
           </div>
           <v-flex xs12 color-darkgray text-xs-center mt-3 mb-4>
-            {{tokenlist.name}} {{$str("Deposit_Address")}}
+            {{tokenlist.cryptoCurrency}} {{$str("Deposit_Address")}}
           </v-flex>
           <v-flex xs12>
-            {{copyCode}}
+            {{tokenlist.walletAddress}}
           </v-flex>
           <v-flex xs12 mt-3 mb-4>
             <h5 class="color-blue" @click.stop.prevent="onCopy()">
               {{$str("Copy")}}
             </h5>
-            <input type="hidden" :value="copyCode" id="copy-code" >
+            <input type="hidden" :value="tokenlist.walletAddress" id="copy-code" >
           </v-flex>
           <v-flex xs12 mt-2 mb-4>
             <div class="sprite-img ic-qr"></div>
@@ -89,7 +89,7 @@
             <div class="mb-3">
               <h6>
                 {{$str("BalanceDepositExplain1-1")}}
-                {{tokenlist.name}}
+                {{tokenlist.cryptoCurrency}}
                 {{$str("BalanceDepositExplain1-2")}}
               </h6>
             </div>
@@ -101,9 +101,9 @@
             <div class="mb-3">
               <h6>
                 {{$str("BalanceDepositExplain3-1")}}
-                0.001 {{tokenlist.name}}.
+                0.001 {{tokenlist.cryptoCurrency}}.
                 {{$str("BalanceDepositExplain3-2")}}
-                0.001 {{tokenlist.name}}.
+                0.001 {{tokenlist.cryptoCurrency}}.
               </h6>
             </div>
             <div class="mb-3">
@@ -125,7 +125,7 @@
           <div class="cs-flex mb-3">
             <!--header-->
             <div class=" h4 bold text-xs-left">
-              {{tokenlist.name}} {{$str("withdraw")}}
+              {{tokenlist.cryptoCurrency}} {{$str("withdraw")}}
             </div>
             <v-spacer></v-spacer>
             <i class="material-icons color-black c-pointer" @click="showWithdrawModal = false">close</i>
@@ -155,7 +155,7 @@
             <div class="p-relative">
               <input name="amount" v-model="amount" type="text" class="input"
                      autocomplete="off" >
-              <button class="crypto-text">{{tokenlist.name}}</button>
+              <button class="crypto-text">{{tokenlist.cryptoCurrency}}</button>
             </div>
           </div>
           <!-- 3. Fee 창-->
@@ -171,7 +171,7 @@
             <div class="p-relative">
               <input name="fee" v-model="fee" type="text" class="input"
                      autocomplete="off" disabled>
-              <button class="crypto-text">{{tokenlist.name}}</button>
+              <button class="crypto-text">{{tokenlist.cryptoCurrency}}</button>
             </div>
           </div>
           <div class="cs-flex">
@@ -182,7 +182,7 @@
             <div class="p-relative">
               <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
                      autocomplete="off" disabled>
-              <button class="crypto-text">{{tokenlist.name}}</button>
+              <button class="crypto-text">{{tokenlist.cryptoCurrency}}</button>
             </div>
           </div>
           <div class="text-xs-right">
@@ -200,9 +200,9 @@
             {{$str("tips")}}
           </h6>
           <h6 class="color-darkgray text-xs-left mb-3">
-            {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{tokenlist.name}}
+            {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{tokenlist.cryptoCurrency}}
           </h6>
-          <h6 v-if="tokenlist.name === 'ETH'" class="color-darkgray text-xs-left mb-3">
+          <h6 v-if="tokenlist.cryptoCurrency === 'ETH'" class="color-darkgray text-xs-left mb-3">
             {{$str("withdrawtipsETH1")}}<br>
             {{$str("withdrawtipsETH2")}}<br>
             {{$str("withdrawtipsETH3")}}
@@ -248,22 +248,6 @@
                 }
                 return this.amount - this.fee;
             },
-            getBalance() {
-                if(Object.keys(MainRepository.Balance.getBalance()).length > 0) {
-                    if (this.tokenlist.name === 'BTC') {
-                        return MainRepository.Balance.getBalance()['bitcoin'].availableAmount
-                    }
-                    else if (this.tokenlist.name === 'ETH') {
-                        return MainRepository.Balance.getBalance()['ethereum'].availableAmount
-                    }
-                    else {
-                        return 0;
-                    }
-                }
-                else {
-                        return 0;
-                    }
-            }
         },
         methods : {
             onCopy() {
@@ -312,14 +296,20 @@
             }
         },
         mounted(){
-            switch (this.tokenlist.name) {
+            switch (this.tokenlist.cryptoCurrency) {
+                case 'bitcoin':
                 case 'BTC':
+                    this.tokenlist.cryptoCurrency = 'BTC';
                     this.tokenImg = 'ic-btc-lg';
                     break;
+                case 'ethereum':
                 case 'ETH':
+                    this.tokenlist.cryptoCurrency = 'ETH';
                     this.tokenImg = 'ic-eth-lg';
                     break;
+                case 'allb':
                 case 'ALLB':
+                    this.tokenlist.cryptoCurrency = 'ALLB';
                     this.tokenImg = 'ic-allb-lg';
                     break;
             }

@@ -1105,13 +1105,13 @@ const strings = new Map([
         HK: '異議申請理由'
     }],
     ['details', {
-        KOR: '상세내용',
+        KOR: '세부정보',
         ENG: 'Details',
         CN: '详细内容',
         HK: '詳細内容'
     }],
     ['detailsPlaceholder', {
-        KOR: '이의제기 사유의 상세내용을 입력해 주십시오',
+        KOR: '이의제기 사유의 세부정보을 입력해 주십시오',
         ENG: 'Enter the details of appeal reasons',
         CN: '请填写投诉理由的详细内容。',
         HK: '請填寫異議申請理由的詳細内容。'
@@ -1436,7 +1436,7 @@ const strings = new Map([
         HK: '凍結帳戶'
     }],
     ['withdraw', {
-        KOR: '인출',
+        KOR: '출금',
         ENG: 'Withdraw',
         CN: '收回',
         HK: '收回'
@@ -1515,18 +1515,18 @@ const strings = new Map([
         'ALLB提取的天然氣限制為90000.如果交易使用超過90000天然氣，交易將失敗。ALLB將手動將您的資產退還給您的ALLB賬戶。 感謝你的理解。'
     }],
     ['withdrawTips1', {
-        KOR: '다른 지갑으로 인출',
+        KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 우리 직원으로부터 전화 나 이메일을 기다려주십시오.',
         ENG: '• For security reason, when you change security settings, change password and use new withdraw address, ' +
         'we will manually review your withdrawal. Please wait for phone calls or emails from our staff.',
-        CN: '撤回到另一个钱包',
-        HK: '撤回到另一個錢包'
+        CN: '出于安全原因，当您更改安全设置，更改密码并使用新的提款地址时，我们将手动审核您的提款。 请等待我们工作人员的电话或电子邮件。',
+        HK: '出於安全原因，當您更改安全設置，更改密碼並使用新的提款地址時，我們將手動審核您的提款。 請等待我們工作人員的電話或電子郵件。'
     }],
     ['withdrawTips2', {
-        KOR: '다른 지갑으로 인출',
+        KOR: '컴퓨터와 브라우저가 안전하고 정보가 변조되거나 유출되지 않도록하십시오.',
         ENG: '• Please make sure that your computer and browser are secure ' +
         'and your information is protected from being tampered or leaked.',
-        CN: '撤回到另一个钱包',
-        HK: '撤回到另一個錢包'
+        CN: '请确保您的计算机和浏览器安全，并保护您的信息不被篡改或泄露。',
+        HK: '請確保您的計算機和瀏覽器安全，並保護您的信息不被篡改或洩露。'
     }],
     ['All', {
         KOR: '전액',
@@ -1553,10 +1553,10 @@ const strings = new Map([
         HK: '或掃描此QR code'
     }],
     ['BalanceDepositExplain1-1', {
-        KOR: '위 주소에 어떠한 디지털 자산도 넣지 마세요.',
-        ENG: 'Please don\'t deposit any other digital assets except',
-        CN: '请不要存入任何数字资产',
-        HK: '請不要存入任何數字資產'
+        KOR: '• 위 주소에 어떠한 디지털 자산도 넣지 마세요.',
+        ENG: '• Please don\'t deposit any other digital assets except',
+        CN: '• 请不要存入任何数字资产',
+        HK: '• 請不要存入任何數字資產'
     }],
     ['BalanceDepositExplain1-2', {
         KOR: '를 제외한 다른 디지털 자산을 예치하지 마십시오.',
@@ -1565,18 +1565,18 @@ const strings = new Map([
         HK: '到上述地址'
     }],
     ['BalanceDepositExplain2', {
-        KOR: '위 주소로 입금하려면 전체 네트워크를 확인해야합니다. ' +
+        KOR: '• 위 주소로 입금하려면 전체 네트워크를 확인해야합니다. ' +
         '6 번의 확인 후에 도착할 것입니다. 일반적으로 약 10 ~ 60 분이 소요됩니다.',
-        ENG: 'Depositing to the above address requires confirmations of the entire network. It will arrive ' +
+        ENG: '• Depositing to the above address requires confirmations of the entire network. It will arrive ' +
         'after 6 confirmations. It will take about 10 to 60 mins usually.',
-        CN: '为了将账款汇入上述的地址，需要全面性地确认网路状态。确认 6 次后转帐即可完成。通常需要 10~60 分钟。',
-        HK: '爲了將帳款匯入上述的地址，需要全面性地確認網路狀態。確認 6 次後轉帳即可完成。通常需要 10~60 分鐘。'
+        CN: '• 为了将账款汇入上述的地址，需要全面性地确认网路状态。确认 6 次后转帐即可完成。通常需要 10~60 分钟。',
+        HK: '• 爲了將帳款匯入上述的地址，需要全面性地確認網路狀態。確認 6 次後轉帳即可完成。通常需要 10~60 分鐘。'
     }],
     ['BalanceDepositExplain3-1', {
-        KOR: '최소 입금액 :',
-        ENG: 'Minimum deposit amount:',
-        CN: '最低存款金额：',
-        HK: '最低存款金額：'
+        KOR: '• 최소 입금액 :',
+        ENG: '• Minimum deposit amount:',
+        CN: '• 最低存款金额：',
+        HK: '• 最低存款金額：'
     }],
     ['BalanceDepositExplain3-2', {
         KOR: '다음의 값보다 적게 적립되지 않습니다',
@@ -1585,19 +1585,19 @@ const strings = new Map([
         HK: '價格不會低於'
     }],
     ['BalanceDepositExplain4', {
-        KOR: '귀하의 입금 주소는 자주 변경되지 않습니다. ' +
+        KOR: '• 귀하의 입금 주소는 자주 변경되지 않습니다. ' +
         '모든 변경사항을, 당신의 공지 또는 이메일로 알려드립니다.',
-        ENG: 'Your deposit address won\'t be changed frequently.' +
+        ENG: '• Your deposit address won\'t be changed frequently.' +
         'Any changes, we will inform you by announcement or email.',
-        CN: '您的存款地址不会经常更改。如有任何更改，我们将通过公告或电子邮件通知您。',
-        HK: '您的匯入地址不會經常更改。若有任何更改，我們將通過公告或Email通知您。'
+        CN: '• 您的存款地址不会经常更改。如有任何更改，我们将通过公告或电子邮件通知您。',
+        HK: '• 您的匯入地址不會經常更改。若有任何更改，我們將通過公告或Email通知您。'
     }],
     ['BalanceDepositExplain5', {
-        KOR: '컴퓨터와 브라우저의 보안을 유지하시고, 귀하의 정보가 변조되거나 유출되지 않도록 하십시오.',
-        ENG: 'Please make sure that your computer and browser are secure ' +
+        KOR: '• 컴퓨터와 브라우저의 보안을 유지하시고, 귀하의 정보가 변조되거나 유출되지 않도록 하십시오.',
+        ENG: '• Please make sure that your computer and browser are secure ' +
         'and your information is protected from being tampered or leaked.',
-        CN: '请确保您的电脑与浏览器安全，并保护您的信息不被篡改或泄露。',
-        HK: '請確保您的電腦與瀏覽器安全\'，並保護您的信息不被篡改或泄露。'
+        CN: '• 请确保您的电脑与浏览器安全，并保护您的信息不被篡改或泄露。',
+        HK: '• 請確保您的電腦與瀏覽器安全\'，並保護您的信息不被篡改或泄露。'
 }],
 ['balanceDetailsFilterPlaceholder', {
     KOR: '날짜 / 타입 / 코인',
@@ -2547,9 +2547,6 @@ const strings = new Map([
         HK: '輸入少於可用'
     }],
 
-
-
-
     // 180819 이후 추가. 번역 필요함
     ['Ongoing order', {
         KOR: '진행 중인 주문',
@@ -2575,23 +2572,17 @@ const strings = new Map([
         CN: '没有更多的订单',
         HK: '沒有更多的訂單'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['This user cannot access your ads or trade with you cause you have blocked him/her.', {
+        KOR: '이 사용자는 차단된 유저로 광고에 액세스하거나 거래 할 수 없습니다.',
+        ENG: 'This user cannot access your ads or trade with you cause you have blocked him/her.',
+        CN: '由于您阻止了他/她，此用户无法访问您的广告或与您进行交易。',
+        HK: '由於您阻止了他/她，此用戶無法訪問您的廣告或與您進行交易。'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['Unblock this user', {
+        KOR: '사용자 차단 해제',
+        ENG: 'Unblock this user',
+        CN: '取消阻止此用户',
+        HK: '取消阻止此用戶'
     }],
     ['', {
         KOR: '',

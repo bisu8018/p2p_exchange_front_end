@@ -1,38 +1,27 @@
 export default class Merchant {
-    name: string;
-    rank: number;
-    isLogin: boolean;
-    color : string;
-    security_deposit : number;
-    tradeRate : number;
-    totalTrades: number;
-    trades_inMonth: number;
-    Avg_release: number;
-    register_datetime: string;
-    verifiedEmail: boolean;
-    verifiedID: boolean;
-    verifiedPhone: boolean;
-    verifiedAdvanced: boolean;
-
+    memberNo: number;
+    status : MerchantStatus;
 
     constructor (data: any) {
-        this.name = data.name;
-        this.rank = data.rank;
-        this.isLogin = data.isLogin ;
-        this.color = data.color ;
-        this.security_deposit = data.security_deposit ;
-        this.tradeRate = data.tradeRate;
-        this.totalTrades = data.totalTrades;
-        this.trades_inMonth = data.trades_inMonth;
-        this.Avg_release = data.Avg_release;
-        this.register_datetime = data.register_datetime;
-        this.verifiedEmail = data.verifiedEmail;
-        this.verifiedID = data.verifiedID;
-        this.verifiedPhone = data.verifiedPhone;
-        this.verifiedAdvanced = data.verifiedAdvanced;
+        this.memberNo = Number(data.memberNo);
+        this.status = data.status;
     }
 
-    isNull (): boolean {
-        return (this.name === undefined || this.name === '')
+    isUnregistered() {
+        return this.status === MerchantStatus.UNREGISTERED;
     }
+
+    isRegistered() {
+        return this.status === MerchantStatus.REGISTERED;
+    }
+
+    isVerified() {
+        return this.status === MerchantStatus.VERIFIED;
+    }
+}
+
+export enum MerchantStatus {
+    UNREGISTERED = 'unregistered',
+    REGISTERED = 'registered',
+    VERIFIED = 'verified',
 }

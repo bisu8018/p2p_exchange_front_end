@@ -51,7 +51,7 @@
                     <div class="submenu">
                         <div v-if="postadDrawer">
                             <!--post general AD-->
-                            <v-flex xs12 class="verticalcentertext" @click="goPostGeneralAd">
+                            <v-flex xs12 class="verticalcentertext" @click="goPostAd(false)">
                                 <button class="text-xs-left ml-5">
                                     <div flat>
                                         {{$str("Post_General_AD")}}
@@ -59,7 +59,7 @@
                                 </button>
                             </v-flex>
                             <!--post block AD-->
-                            <v-flex xs12 class="verticalcentertext" @click="goPostBlockAd">
+                            <v-flex xs12 class="verticalcentertext" @click="goPostAd(true)">
                                 <button class="text-xs-left ml-5">
                                     <div>
                                         {{$str("Post_Block_AD")}}
@@ -143,12 +143,12 @@
                     <!-- post AD 버튼 -->
                     <!-- default post AD 버튼-->
                     <div class="dropdown">
-                        <button class="ml-4a dropbtn" @click="goPostGeneralAd">{{$str("postAd")}}</button>
+                        <button class="ml-4a dropbtn" @click="goPostAd(false)">{{$str("postAd")}}</button>
                         <div class="dropdown-content" style="min-width: 140px;">
-                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostGeneralAd">
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostAd(false)">
                                 {{$str("Post_General_AD")}}
                             </div>
-                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostBlockAd">
+                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostAd(true)">
                                 {{$str("Post_Block_AD")}}
                             </div>
                         </div>
@@ -397,12 +397,9 @@
             goBlockTrade() {
                 this.$router.push("/blockTrade");
             },
-            goPostGeneralAd() {
-                this.$router.push("/generalAd");
-            },
-            goPostBlockAd() {
-                this.$router.push("/blockAd");
-                //this.$router.push("/postAd?block");
+            goPostAd(isBlock) {
+                // Merchant 확인 로직 포함됨
+                MainRepository.router().goPostAd(isBlock)
             },
             goMyInfo(myInfo) {
                 switch (myInfo) {
@@ -432,7 +429,7 @@
                 this.$router.push("/balances");
             },
             goMerchant() {
-                this.$router.push("/merchant");
+                MainRepository.router().goMerchant();
             },
 
             changeLang: function (userLang) {
