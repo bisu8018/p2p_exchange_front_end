@@ -10,7 +10,6 @@ export default class Order {
     currency : string;
     customerMemberNo : number;
     fileContent: string;
-    getMyPaymentMethodSelectList : string;
     memberNo: string;
     merchantMemberNo : number;
     nickname: string;
@@ -23,6 +22,11 @@ export default class Order {
     registerDatetime : object;
     status : string;
     tradeType : string;
+    merchantEmail : string;
+    customerEmail : string;
+    merchantNickname : string;
+    customerNickname : string;
+
 
 
 
@@ -42,7 +46,6 @@ export default class Order {
         this.price = Number(data.price) || 0;
         this.coinCount = Number(data.coinCount) || 0;
         this.amount = Number(data.amount) || 0;
-        this.getMyPaymentMethodSelectList = data.getMyPaymentMethodSelectList;
         this.memberNo = data.memberNo;
         this.nickname = data.nickname || '';
         this.paymentMethods = data.paymentMethods || '';
@@ -53,6 +56,10 @@ export default class Order {
         this.paymentWindow = data.paymentWindow || '';
         this.registerDatetime = data.registerDatetime || '';
         this.tradeType = data.tradeType || '';
+        this.merchantEmail = data.merchantEmail || '';
+        this.customerEmail = data.customerEmail || '';
+        this.merchantNickname = data.merchantNickname || '';
+        this.customerNickname = data.customerNickname || '';
 
     }
 

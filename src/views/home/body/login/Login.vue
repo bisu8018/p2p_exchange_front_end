@@ -126,7 +126,6 @@
                 this.$router.push("/findPassword");
             },
             onLogin() {
-                //Send Email verification codes to Server
                // document.getElementById("loginForm").submit();
                 let self = this;
 
@@ -136,7 +135,6 @@
                        data: self.serializeserialize(document.getElementById("loginForm")),
                        withCredentials: true,
                        headers: {
-                         //  'Accept': 'application/x-www-form-urlencoded',
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
                    }).then((response) => {
