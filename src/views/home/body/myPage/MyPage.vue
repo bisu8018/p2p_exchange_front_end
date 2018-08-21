@@ -35,7 +35,7 @@
         <div class="otherInfo-wrapper">
 
             <!-- ############## 1. Account & Security ############## -->
-            <div class="section-border">
+            <div class="myPage-box">
 
                 <!-- Header -->
                 <div class="account-header">
@@ -192,82 +192,10 @@
             </div>
 
             <!--  ############## 2. ID Verification ##############  -->
-            <!--<my-id-verification />-->
-
-            <div class="section-border">
-
-                <!-- Header -->
-                <div class="otherInfo-header">
-                    <h4>{{$str('idVerification')}}</h4>
-                    <div class="header-detail">
-                        <p class="caption mt-3">{{$str('idVerificationExplain')}}</p>
-                    </div>
-                </div>
-
-                <!-- Body -->
-                <!-- 1. ID Verification -->
-                <ul class="otherInfo-body">
-                    <!-- 아이콘, 서브타이틀 -->
-                    <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-id"></div> <p>{{$str('idVerification')}}</p>
-                    </li>
-
-                    <!-- 내용 -->
-                    <li class="caption-wrapper">
-
-                        <!-- ID Verification 되었을 때 -->
-                        <span class="color-darkgray" v-if="!idVerification.isNull()">
-                            {{idVerification.firstName}} {{idVerification.lastName}}, {{getSecuredIdNo}}
-                        </span>
-
-                        <!-- ID Verification 안 되었을 때 -->
-                        <span class="color-darkgray" v-else>
-                            {{$str('unverified')}}
-                        </span>
-                    </li>
-
-                    <!-- 버튼, 토글 등 -->
-                    <li class="btn-wrapper">
-                        <span v-if="!idVerification.isNull() && idVerification.identification_no !== undefined">
-                            {{$str('verifySliderSuccess')}}
-                        </span>
-                        <span v-else>
-                            <btn-mypage
-                                @click="onIdVerification"
-                                :txt="$str('verify')"
-                            />
-                        </span>
-                    </li>
-                </ul>
-
-                <!-- 2. Advanced Verification -->
-                <ul class="otherInfo-body">
-                    <!-- 아이콘, 서브타이틀 -->
-                    <li class="otherInfo-subtitle">
-                        <div class="sprite-img ic-advanced"></div> <p>{{$str('advancedVerification')}}</p>
-                    </li>
-
-                    <!-- 내용 -->
-                    <li class="caption-wrapper">
-
-                        <!-- Advanced Verification 되었을 때 -->
-                        <span class="color-darkgray"> {{$str('unverified')}} </span>
-                    </li>
-
-                    <!-- 버튼, 토글 등 -->
-                    <li class="btn-wrapper">
-                        <span v-if="!idVerification.isNull() && idVerification.identification_no !== undefined">
-                            {{$str('verifySliderSuccess')}}
-                        </span>
-                        <span v-else>
-                            <a>{{$str('verify')}}</a>
-                        </span>
-                    </li>
-                </ul>
-            </div>
+            <my-id-verification />
 
             <!-- ############### 3. Payment Methods ############### -->
-            <div class="section-border">
+            <div class="myPage-box">
 
                 <!-- Header -->
                 <div class="otherInfo-header">
@@ -297,7 +225,7 @@
             </div>
 
             <!-- ###############  4. Block List ###############  -->
-            <div class="section-border">
+            <div class="myPage-box">
 
                 <!-- Header -->
                 <div class="otherInfo-header">
@@ -324,7 +252,7 @@
             </div>
 
             <!-- #################  5. History ################# -->
-            <div class="section-border pb-4">
+            <div class="myPage-box pb-4">
 
                 <!-- Header -->
                 <div class="otherInfo-header history-header">
@@ -375,11 +303,6 @@
             </div>
         </div>
 
-        <!-- Dialog -->
-        <dialog-id-verification
-            :showDialog="dialog_idVerification"
-            @close="offIdVerification"
-        />
     </div>
 </template>
 
@@ -444,18 +367,10 @@
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
 
-            // Dialog 관련
-            dialog_idVerification: false,
-
         }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
-            },
-            getSecuredIdNo() {
-                let noLength = this.idVerification.identification_no.length;
-                let securedIdNo = this.idVerification.identification_no.substr(0, 2) + '*********' + this.idVerification.identification_no.substr(noLength - 2, 2);
-                return securedIdNo;
             },
 
             // ************** NEW COMPUTED ************** //
@@ -602,12 +517,6 @@
             onUnblock() {
                 alert('블록 푸는 거 API 보내야함');
             },
-            onIdVerification() {
-                this.dialog_idVerification = true;
-            },
-            offIdVerification() {
-                this.dialog_idVerification = false;
-            },
         }
     }
 </script>
@@ -628,21 +537,6 @@
         align-items: flex-start;
     }
 
-    .sprite-img {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .mypage-wrapper p {
-        font-size: 14px;
-    }
-
-    .mypage-wrapper h4 {
-        font-weight: bold;
-        color: #353535;
-        height: 24px;
-    }
-
     .mypage-wrapper a {
         font-size: 12px;
         letter-spacing: 0;
@@ -661,16 +555,6 @@
     .mypage-wrapper a:hover {
         background-color: #214ea1 !important;
         color: #fff !important;
-    }
-
-    .mypage-wrapper .caption {
-        font-size: 10px;
-        color: #9294a6;
-    }
-
-    .mypage-wrapper .color-black,
-    .mypage-wrapper .color-darkgray {
-        white-space: nowrap;
     }
 
     /* 우측 나의 정보 */
@@ -703,85 +587,6 @@
         position: relative;
     }
 
-    .otherInfo-wrapper .section-border {
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
-        -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
-        -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
-        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
-        padding: 0 24px;
-        margin-bottom: 48px;
-    }
-
-    .otherInfo-wrapper ul,
-    .account-header,
-    .blocked-user-item {
-        border-bottom: 1px solid #d1d1d1;
-        padding: 24px 0;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        justify-content: space-between;
-        position: relative;
-    }
-
-    .otherInfo-header {
-        border-bottom: 1px solid #d1d1d1;
-        padding: 24px 0;
-        display: block;
-        position: relative;
-    }
-
-    .otherInfo-wrapper ul:last-child,
-    .blocked-user-item:last-child {
-       border-bottom: none;
-    }
-
-    .blocked-user-item p {
-        display: inline-block;
-        font-size: 14px;
-        color: #214ea1;
-        margin-left: 16px;
-    }
-
-    .account-header .header-detail {
-        text-align: right;
-    }
-
-    ul > li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-    }
-
-    ul > li:first-child {
-        width: 30%;
-    }
-
-    ul .caption-wrapper {
-        width: 60%;
-    }
-
-    ul > li:last-child {
-        width: 25%;
-        text-align: right;
-        display: inline-block;
-    }
-
-    .otherInfo-subtitle p {
-        color: #9294A6;
-        margin-left: 16px;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
     /* 모바일 레이아웃 */
     @media (max-width: 940px) {
         .mypage-wrapper {
@@ -804,9 +609,6 @@
             display: flex;
         }
 
-        .section-border > div {
-            display: block;
-        }
 
         .otherInfo-header {
             justify-content: flex-start;
@@ -820,34 +622,6 @@
     }
 
     @media (max-width: 768px) {
-        .otherInfo-wrapper ul {
-            display: block;
-        }
-
-        ul > li {
-            display: block;
-            width: 100%;
-        }
-
-        ul > li:first-child {
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        ul > li:last-child {
-            width: 100%;
-            margin-top: 12px;
-        }
-
-        ul .caption-wrapper {
-            width: 100%;
-            padding-left: 40px;
-        }
-
-        ul > li:last-child span {
-            display: block;
-        }
-
         .btn-wrapper span {
             display: block;
         }

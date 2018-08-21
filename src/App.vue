@@ -1442,9 +1442,173 @@
         -ms-border-radius :100px;
         -khtml-border-radius : 100px;
         -o-border-radius :100px;
+    }
+
+    /* MyInfo Item CSS */
+    .mypage-wrapper .sprite-img {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .mypage-wrapper p {
+        font-size: 14px;
+    }
+
+    .mypage-wrapper h4 {
+        font-weight: bold;
+        color: #353535;
+        height: 24px;
+    }
+
+    .mypage-wrapper .caption {
+        font-size: 10px;
+        color: #9294a6;
+    }
+
+    .mypage-wrapper .color-black,
+    .mypage-wrapper .color-darkgray {
+        white-space: nowrap;
+    }
+
+    .myPage-box {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+        padding: 0 24px;
+        margin-bottom: 48px;
+    }
+
+    .account-header,
+    .blocked-user-item {
+        border-bottom: 1px solid #d1d1d1;
+        padding: 24px 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .otherInfo-header {
+        border-bottom: 1px solid #d1d1d1;
+        padding: 24px 0;
+        display: block;
+        position: relative;
+    }
+
+    .blocked-user-item p {
+        display: inline-block;
+        font-size: 14px;
+        color: #214ea1;
+        margin-left: 16px;
+    }
+
+    .account-header .header-detail {
+        text-align: right;
+    }
+
+    .otherInfo-subtitle p {
+        color: #9294A6;
+        margin-left: 16px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .otherInfo-body {
+        border-bottom: 1px solid #d1d1d1;
+        padding: 24px 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .myPage-box .otherInfo-body:last-child,
+    .blocked-user-item:last-child {
+        border-bottom: none;
+    }
+
+    .otherInfo-body > li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .otherInfo-body > li:first-child {
+        width: 30%;
+    }
+
+    .otherInfo-body .caption-wrapper {
+        width: 60%;
+    }
+
+    .otherInfo-body > li:last-child {
+        width: 25%;
+        text-align: right;
+        display: inline-block;
+    }
+
+    /* 모바일 레이아웃 */
+    @media (max-width: 940px) {
+        .myPage-box > div {
+            display: block;
+        }
+
+        .otherInfo-header {
+            justify-content: flex-start;
+        }
+
+        .account-header .header-detail,
+        .otherInfo-header .header-detail {
+            text-align: left;
+        }
 
     }
 
+    @media (max-width: 768px) {
+        .otherInfo-body {
+            display: block;
+        }
 
+        .otherInfo-body > li {
+            display: block;
+            width: 100%;
+        }
+
+        .otherInfo-body > li:first-child {
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .otherInfo-body > li:last-child {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .otherInfo-body .caption-wrapper {
+            width: 100%;
+            padding-left: 40px;
+        }
+
+        .otherInfo-body > li:last-child span {
+            display: block;
+        }
+
+    }
+
+    /* MyInfo Item CSS END */
 
 </style>
