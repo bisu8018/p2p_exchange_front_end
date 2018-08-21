@@ -22,7 +22,7 @@
                         {{$str("SMSverification")}}
                     </div>
                     <verification-code v-on:verify="onCheckVerificationCode(code,'phone')" :phone="phone"
-                                       :type="'phone'"></verification-code>
+                                       :type="'phone'" />
 
                     <!--이메일 -->
                     <div class=" color-black  mb-2 text-xs-left">
@@ -36,7 +36,7 @@
                         {{$str("emailVerification")}}
                     </div>
                     <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
-                                       :type="'email'"></verification-code>
+                                       :type="'email'" />
 
 
                 <div class="text-xs-right">
