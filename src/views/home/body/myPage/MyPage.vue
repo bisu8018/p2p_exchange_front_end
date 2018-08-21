@@ -303,20 +303,17 @@
                 </div>
 
                 <!-- Body : isEmpty -->
-                <div class="ta-center py-3" v-if="blockList === ''">
+                <div class="ta-center py-3" v-if="blockList.length === 0">
                     <p class="pt-2 pb-3 color-darkgray">{{$str('noMoreRecords')}}</p>
                 </div>
 
                 <!-- Body : !isEmpty -->
                 <div v-else>
                     <div class="blocked-user-item" v-for="block in blockList">
-                        <div>
-                            <avatar :email="block.email"></avatar>
-                            <p class="color-blue text-white-hover c-pointer">{{block.nickName}}</p>
-                        </div>
-                        <div>
-                            <a>{{$str('unblock')}}</a>
-                        </div>
+                        <block-list-item
+                                :data="block"
+                        />
+
                     </div>
                 </div>
             </div>
@@ -383,27 +380,24 @@
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
     import MyPageModal from './myPageItem/MyPageModal.vue';
-    import PaymentMethod from "../../../../vuex/model/PaymentMethod";
     import IdVerification from "../../../../vuex/model/IdVerification";
-    import LoginHistory from "../../../../vuex/model/LoginHistory";
-    import Block from "../../../../vuex/model/Block";
-    import SecuritySettings from "../../../../vuex/model/SecuritySettings";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
     import MyPaymentItem from "./item/ex/MyPaymentItem"
     import PaymentItem from "./item/PaymentItem";
+    import BtnMypage from "./item/BtnMypage";
+    import BlockListItem from "./item/BlockListItem";
 
     export default {
         name: "MyPage",
         components: {
+            BlockListItem,
+            BtnMypage,
             PaymentItem,
             BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
         data: () => ({
             selection_login: true,
             selection_security: false,
-            showModal: false,
-            modalType: '',
-
 
             idVerification: new IdVerification(''),
             paymentMethods: '',
@@ -428,6 +422,9 @@
 
 
             // *********** NEW DATA ************* //
+            showModal: false,
+            modalType: '',
+
             myInfo: '',
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
@@ -508,10 +505,6 @@
             }
         },
         methods: {
-            onModal(type) {
-                this.showModal = true;
-                this.modalType = type;
-            },
             onClose() {
                 this.showModal = false;
                 this.modalType = '';
@@ -580,7 +573,13 @@
             toTimeFormat(time) {
                 return abUtils.toTimeFormat(time);
             },
-
+            onUnblock() {
+                alert('블록 푸는 거 API 보내야함');
+            },
+            onModal(type) {
+                this.showModal = true;
+                this.modalType = type;
+            },
         }
     }
 </script>
