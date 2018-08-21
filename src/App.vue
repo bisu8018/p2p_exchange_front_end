@@ -594,6 +594,10 @@
         margin-bottom: 0 !important;
     }
 
+    button {
+        display: inline-block;
+    }
+
     button:focus {
         outline:0;
     }

@@ -230,7 +230,10 @@
                             {{$str('verifySliderSuccess')}}
                         </span>
                         <span v-else>
-                            <a>{{$str('verify')}}</a>
+                            <btn-mypage
+                                @click="onIdVerification"
+                                :txt="$str('verify')"
+                            />
                         </span>
                     </li>
                 </ul>
@@ -369,6 +372,12 @@
 
             </div>
         </div>
+
+        <!-- Dialog -->
+        <dialog-id-verification
+            :showDialog="dialog_idVerification"
+            @close="offIdVerification"
+        />
     </div>
 </template>
 
@@ -387,10 +396,12 @@
     import PaymentItem from "./item/PaymentItem";
     import BtnMypage from "./item/BtnMypage";
     import BlockListItem from "./item/BlockListItem";
+    import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
 
     export default {
         name: "MyPage",
         components: {
+            DialogIdVerification,
             BlockListItem,
             BtnMypage,
             PaymentItem,
@@ -428,6 +439,9 @@
             myInfo: '',
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
+
+            // Dialog 관련
+            dialog_idVerification: false,
 
         }),
         computed: {
@@ -567,6 +581,10 @@
             goReset() {
                 this.$router.push('/resetTradePassword');
             },
+            onModal(type) {
+                this.showModal = true;
+                this.modalType = type;
+            },
 
             // *********** NEW METHODS ************* //
             // 시간 포멧으로 바꿔줌
@@ -576,9 +594,11 @@
             onUnblock() {
                 alert('블록 푸는 거 API 보내야함');
             },
-            onModal(type) {
-                this.showModal = true;
-                this.modalType = type;
+            onIdVerification() {
+                this.dialog_idVerification = true;
+            },
+            offIdVerification() {
+                this.dialog_idVerification = false;
             },
         }
     }
