@@ -59,14 +59,54 @@
           </v-flex>
           <!--거래 버튼-->
           <v-flex xs5 text-xs-right>
-            <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-              {{tradeType}} {{user.cryptocurrency}}</button>
+            <button class="btn-rounded-blue medium" @click="changeDrawer">
+              {{user.tradeType}} {{user.cryptocurrency}}</button>
           </v-flex>
         </v-layout>
       </div>
+      <!-- Nicname 설정을 안했을경우 띄움-->
+      <v-flex v-if="drawer&& !setNickName">
+        <div class="mobileModal">
+          <v-layout>
+            <v-flex xs2 pl-2>
+              <avatar :me=true>
+              </avatar>
+            </v-flex>
+            <v-flex xs10 text-xs-left mb-4>
+              <h5 class="medium color-blue c-pointer text-white-hover">
+                {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+              </h5>
+              <a class="tooltip d-inline-block" v-if="user.rank==1">
+                <div class="sprite-img ic-premium ml-2"></div>
+                <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+              </a>
+              <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                <div class="sprite-img ic-certified ml-2"></div>
+                <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+              </a>
 
+              <h5 class="color-darkgray medium">
+                {{$str("Available")}} {{user.volumeAvailable}} {{user.cryptocurrency}}
+              </h5>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs7 offset-xs2 text-xs-left>
+                <span class="color-darkgray">
+                  {{$str("You need to complete the necessary transaction information.")}}
+                </span>
+              <span class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+            </v-flex>
+          </v-layout>
+          <v-layout mt-4a>
+            <v-flex xs4 offset-xs8>
+              <button class="btn-white " @click="changeDrawer">{{$str("cancel")}}</button>
+            </v-flex>
+          </v-layout>
+        </div>
+      </v-flex>
       <!--버튼 클릭시 거래를 위한 mobile modal-->
-      <div v-else class="mobileModal">
+      <div v-else-if="drawer" class="mobileModal">
         <!-- name-->
         <v-layout mt-4 align-center fill-height>
           <v-flex xs2 pl-2 >
@@ -79,7 +119,7 @@
             <span class="bold">{{user.cryptocurrency}}</span>
           </v-flex>
           <v-flex xs2 text-xs-center>
-            <button><i class="material-icons" @click="drawer = false">close</i></button>
+            <button><i class="material-icons" @click="changeDrawer">close</i></button>
           </v-flex>
         </v-layout>
         <!-- Volume -->
@@ -163,7 +203,7 @@
               </div>
             </div>
             <!--trade PW. sell 일때만 활성화-->
-            <div class="mt-3 p-relative" v-if="tradeType =='SELL'">
+            <div class="mt-3 p-relative" v-if="user.tradeType =='SELL'">
               <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                      :placeholder="$str('tradePwText')" @blur="onChecktradePassword" @keyup="onNumberCheck('tradePW')"
                      v-bind:class="{'warning-border' : warning_tradePassword}">
@@ -184,18 +224,16 @@
           </v-flex>
         </v-layout>
         <!--user Memo가 있을시-->
-        <v-layout v-if="user.memo !== '' " mt-4>
+        <v-layout v-if="user.termsOfTransaction !== '' " mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
             <h6 class="color-darkgray medium">
               {{$str("userMemo")}}： <br>
-              {{user.memo}}
+              {{user.termsOfTransaction}}
             </h6>
           </v-flex>
         </v-layout>
       </div>
-
     </div>
-
 
     <!--Web 일때-->
     <div v-else class="p-relative">
@@ -236,15 +274,56 @@
             <!--img와 button을 양쪽에 정렬시키기 위함.-->
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
-            <button class="btn-rounded-blue medium" @click="drawer = !drawer">
-              <h5>{{tradeType}} {{user.cryptocurrency}}</h5>
+            <button class="btn-rounded-blue medium" @click="changeDrawer">
+              <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
             </button>
           </v-layout>
         </v-flex>
       </v-layout>
-
+      <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
+      <v-flex v-if="drawer && !setNickName">
+        <div class="tradeWebModal">
+          <v-layout row wrap>
+            <v-flex md3 text-md-left>
+              <v-layout pl-4>
+                <!--avatar-->
+                <avatar :me=true>
+                </avatar>
+                <!-- merchant 정보-->
+                <span>
+                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover">
+                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                  </span>
+                  <!--판매자 rank-->
+                  <a class="tooltip d-inline-block" v-if="user.rank==1">
+                    <div class="sprite-img ic-premium ml-2"></div>
+                    <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+                  </a>
+                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                    <div class="sprite-img ic-certified ml-2"></div>
+                    <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+                  </a>
+                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                </span>
+              </v-layout>
+            </v-flex>
+            <v-flex md9>
+              <!--수직, 수평가운데 정렬.-->
+              <v-layout row align-center fill-height justify-end pr-4>
+                <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
+                <h5 class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">
+                  {{$str("Set up now.")}}</h5>
+                <v-divider class="mx-3" inset vertical></v-divider>
+                <button class="btn-rounded-white text-white-hover"
+                        @click="changeDrawer">{{$str("cancel")}}
+                </button>
+              </v-layout>
+            </v-flex>
+          </v-layout>
+        </div>
+      </v-flex>
       <!--Buy 를 위한 modal-->
-      <v-flex v-else >
+      <v-flex v-else-if="drawer" >
         <div class="tradeWebModal">
         <v-layout row wrap>
           <v-flex md3 text-md-left >
@@ -314,7 +393,7 @@
             </button>
             <!--cancel 버튼-->
             <button class="btn-rounded-white text-white-hover"
-                    @click="drawer = !drawer">{{$str("cancel")}}
+                    @click="changeDrawer">{{$str("cancel")}}
             </button>
           </v-flex>
         </v-layout>
@@ -339,7 +418,7 @@
             </div>
           </v-flex>
           <v-flex md3 text-md-right>
-            <div v-if="tradeType =='SELL'">
+            <div v-if="user.tradeType =='SELL'">
               <div class="p-relative">
                 <input type="number" class="input userInput textLeftPlaceholder"
                        name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
@@ -361,16 +440,21 @@
 
         <!-- 판매자가 남긴 요구 메모가 있을시-->
         <v-layout >
-          <v-flex md12 mt-5 mb-5 v-if="user.memo !== '' " margin-left-74 mr-4 text-md-left>
+          <v-flex md12 mt-5 mb-5 v-if="user.termsOfTransaction !== '' " margin-left-74 mr-4 text-md-left>
             <h6 class="color-darkgray">
               {{$str("userMemo")}}： <br>
-              {{user.memo}}
+              {{user.termsOfTransaction}}
             </h6>
           </v-flex>
         </v-layout>
         </div>
       </v-flex>
     </div>
+    <!--nickname설정을 위한 modal-->
+    <nick-name-modal
+            :show=showNickNameModal
+            v-on:close="closeNicknameModal"
+    ></nick-name-modal>
   </div>
 </template>
 
@@ -379,11 +463,15 @@
     import MainRepository from "../../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
     import {abUtils} from "../../../../../../common/utils";
+    import NickNameModal from '@/components/NickNameModal.vue';
 
     export default {
         name: "UserTradeItem",
+        components:{Avatar,NickNameModal},
+        props : {
+            user: {},
+        },
         data: () => ({
-            drawer: false,
             pwPlaceholder: 'Trade Password',
             toValue : '',
             fromValue : '',
@@ -391,6 +479,7 @@
             currency : 'CNY',   //현재 사용하고자 하는 화폐단위
             tradePW : '',       // Trade Password
             rankSrc : '',
+            showNickNameModal: false,        //nickname modal을 띄울려면 true로.
             verify_warning_toValue: "",
             verify_warning_fromValue: "",
             verify_warning_tradePassword: "",
@@ -401,15 +490,27 @@
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
 
         }),
-        components:{Avatar},
-        props : {
-            user: {},
 
+        computed : {
+            isMobile(){
+                return MainRepository.State.isMobile();
+            },
+            drawer() {
+                return (MainRepository.TradeView.getDrawer() == this.user.adNo);
+            },
+            setNickName() {
+                //nickname 설정이 필요하면 false, 설정이미 했으면 true
+                return (MainRepository.MyInfo.getUserInfo().nickname !== '')
+            }
         },
         methods : {
             onNumberCheck(type){
                 if(type ==='toValue'){
-                    this.onChecktoValue();
+                    if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
+                        this.verify_warning_toValue = Vue.prototype.$str("Enter less than maximum limit");
+                        this.warning_toValue = true;
+                        return false;
+                    }
                     let temp = this.toValue;
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.toValue = "";
@@ -418,11 +519,16 @@
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
                     //fromvalue 계산해줌
-                    this.fromValue = this.toValue/this.user.fixedPrice;
+                    this.fromValue = this.toValue / this.user.fixedPrice;
                     this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
 
                 }else if(type ==='fromValue'){
-                    this.onCheckfromValue()
+                    let tempTovalue = this.fromValue * this.user.fixedPrice;
+                    if (tempTovalue > this.user.maxLimit) {
+                        this.verify_warning_fromValue = Vue.prototype.$str("Enter less than maximum limit");
+                        this.warning_fromValue = true;
+                        return false;
+                    }
                     let temp = this.fromValue;
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.fromValue = "";
@@ -431,7 +537,7 @@
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
                     //toValue 계산해줌
-                    this.toValue = this.fromValue * this.tempMarketPrice;
+                    this.toValue = this.fromValue * this.user.fixedPrice;
                     this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
 
                 }else if(type ==='tradePW'){
@@ -442,14 +548,19 @@
             },
             fillAll(){
                 this.clickToAll = false;
+                this.clickFromAll = false;
                 //차후 내 잔고 불러와 마진고려해 수정해야함
-                if(this.user.volume*this.user.fixedPrice > this.user.maxLimit){
+                if (this.user.volumeAvailable * this.user.fixedPrice > this.user.maxLimit) {
                     this.toValue = this.user.maxLimit
                 }
-                else{this.toValue = this.user.volume;}
-                this.clickFromAll = false;
+                else {
+                    this.toValue = this.user.volumeAvailable;
+                }
+                this.warning_toValue = false;
+                this.warning_fromValue = false;
+
                 //fromvalue 계산해줌
-                this.fromValue = this.toValue/this.user.fixedPrice;
+                this.fromValue = this.toValue / this.user.fixedPrice;
                 this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
 
             },
@@ -464,17 +575,37 @@
                 }
             },
             onChecktoValue(){
+                //All 버튼 없애기.
+                this.clickToAll = false;
                 if (this.toValue === "") {
-                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    return false;
+                }
+                if (this.toValue < this.user.minLimit) {
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Enter more than minimum limit");
+                    return false;
+                }
+                if (this.toValue > this.user.maxLimit) {
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Enter less than maximum limit");
                     return false;
                 }
                 this.warning_toValue = false;
                 return true;
             },
             onCheckfromValue(){
-                if (this.fromValue === "") {
+                this.clickFromAll = false;
+                //All 버튼 없애기.
+                let tempTovalue = this.fromValue * this.user.fixedPrice;
+                if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    this.warning_fromValue = true;
+                    return false;
+                }
+                if (this.fromValue > this.user.volumeAvailable) {
+                    this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
                     return false;
                 }
@@ -491,52 +622,48 @@
                 return true;
             },
             goTrade(){
+                let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()) {
-                    switch (this.tradeType) {
-                        case 'BUY':
-                            this.$router.push("/buy");
-                            break;
-
-                        case 'SELL':
-                            //sell 모드 일때는 trade password를 추가로 검증해야함.
-                            if(this.onChecktradePassword()){
-                                this.$router.push("/sell");
+                    MainRepository.TradeView.createOrder({
+                        email : MainRepository.MyInfo.getUserInfo().email,
+                        adNo : this.user.adNo,
+                        amount :   this.toValue,
+                        coinCount : this.fromValue,
+                        customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
+                        merchantMemberNo :  this.user.memberNo,
+                        price : this.user.fixedPrice,
+                        status : "unpaid",
+                        tradePassword : this.tradePW,
+                    }, function (orderNo) {
+                        let tradePage;
+                        switch (instance.user.tradeType) {
+                            case 'Buy':
+                                tradePage = "/buy?"+orderNo
+                                instance.$router.push(tradePage);
                                 break;
-                            }
-                    }
+
+                            case 'Sell':
+                                tradePage = "/sell?"+orderNo
+                                instance.$router.push(tradePage);
+                                break;
+                        }
+                    });
                 }
             },
-
-        },
-        mounted(){
-            switch (this.user.rank) {
-                case 1:
-                    this.rankSrc = require('../../../../../../assets/img/rank_crown.png');
-                    break;
-                case 2:
-                    this.rankSrc = require('../../../../../../assets/img/rank_diamond.png');
-                    break;
-                default:
-                    this.rankSrc = '';
-            }
-            switch (this.user.tradeType){
-                case 'buy':
-                    this.user.tradeType = 'Sell';
-                    break;
-
-                case 'sell':
-                    this.user.tradeType = 'Buy';
-                    break;
-            }
-
-
-        },
-        computed : {
-            isMobile(){
-                return MainRepository.State.isMobile();
+            changeDrawer() {
+                /////////////login 안했을때 login창으로 돌려보냄////////
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return;
+                }
+                /////////////////////////////////
+                MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
-        },
+            closeNicknameModal() {
+                this.showNickNameModal = false;
+            },
 
+        },
     }
 </script>
 
