@@ -763,7 +763,7 @@
     import SecuritySettings from "../../../../vuex/model/SecuritySettings";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
-    import MyPaymentItem from "./item/MyPaymentItem"
+    import MyPaymentItem from "./item/ex/MyPaymentItem"
 
     export default {
         name: "MyPage",

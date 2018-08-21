@@ -38,6 +38,8 @@ import RouterController from "@/vuex/controller/RouterController";
 import TradeFilter from "@/vuex/model/TradeFilter";
 import TradeController from "@/vuex/controller/TradeController";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
+import MerchantService from "@/service/merchant/MerchantService";
+import Merchant from "@/vuex/model/Merchant";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -107,9 +109,12 @@ export default {
                 accountController.setUserInfo(new Account(data));
 
                 self.Balance.setBalances(function () {});
-
+                self.Balance.setSecurityBalance(function () {});
                 // 객체형으로 관리하도록 변경 필요
                 self.MyInfo.loadMyPaymentMethods();
+
+                // 내 Merchant 정보
+                self.Merchant.loadMyMerchantInfo(function () {});
                 callback();
             },
             // 로그인 하지 않음
@@ -184,7 +189,16 @@ export default {
         },
         getBalance: function () {
             return balanceController.getBalance();
+        },
+        setSecurityBalance: function(callback:any){
+            BalanceService.getMySecurityBalance({
+                email: instance.MyInfo.getUserInfo().email
+            }, function(result){
+            //securityDeposit 해야함.
+
+            })
         }
+
     },
     MyPage: {
         getMemberVerification: function (callback: any) {
@@ -268,7 +282,7 @@ export default {
         controller(): AccountController {
             return accountController;
         },
-        getUserInfo() {
+        getUserInfo(): Account {
             return accountController.getUserInfo();
         },
         isLogin(): boolean {
@@ -313,6 +327,15 @@ export default {
 
             })
         },
+        getOtherUsersbyMemberNo(memberNo : string, callback: any) {
+            AccountService.Account.getOtherUsersInfobyMemberNo({
+                memberNo: memberNo
+            }, function (result) {
+                let otherUserInfo = new OtherUsers(result);
+                callback(otherUserInfo);
+
+            })
+        },
         isUserActive(data : any, callback: any){
             AccountService.Account.isUserActive(data, function (result) {
                 callback(result);
@@ -344,6 +367,17 @@ export default {
                 callback(tempLists);
             })
         },
+        postBlockThisUser(data : number, callback: any){
+            AccountService.BlockList.postBlockUser(data, function (result) {
+                callback(result);
+            })
+        },
+        deleteBlockThisUser(data : number, callback: any){
+            AccountService.BlockList.deleteBlockUser(data, function (result) {
+                callback(result);
+            })
+        },
+
 
     },
     // SignUp: {},
@@ -544,10 +578,20 @@ export default {
         controller(): MerchantController {
             return merchantController
         },
-        // setMerchant (name: string) {
-        //     MerchantController.setMerchant(name);
-        // //    여기까지 선언하다 막힘.
-        // },
+        getMyInfo(): Merchant {
+            return merchantController.getMerchant();
+        },
+        loadMyMerchantInfo(callback: any) {
+            MerchantService.getMerchant((data) => {
+                this.controller().setMerchant(data);
+                callback();
+            })
+        },
+        postMerchant(callback: any) {
+            MerchantService.postMerchant(() => {
+                callback();
+            })
+        }
     },
     MyAds:{
         controller(): MyTradeController {

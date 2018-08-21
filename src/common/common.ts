@@ -108,8 +108,6 @@ export function findCountryName(code: string) {
         case 'ID': return 'Indonesia';
         case 'PH': return 'Philippines';
         case 'KH': return 'Cambodia';
-
-
     }
 }
 
