@@ -6,11 +6,19 @@ export default class Message {
     isMine : boolean;
 
     constructor (data: any) {
-        this.orderNo = Number(data.orderNo) || 0;
-        this.message = data.message || '';
-        this.attachedImgUrl = data.attachedImgUrl || '';
-        this.registerMemberNo = Number(data.registerMemberNo) || 0;
+        if (data.orderNo === undefined) {
+            this.orderNo = Number(data.orderNo);
+        }
+        this.message = data.message;
+        this.attachedImgUrl = data.attachedImgUrl;
+        if (data.registerMemberNo === undefined) {
+            this.registerMemberNo = Number(data.registerMemberNo);
+        }
         this.isMine = data.isMine;
+    }
+
+    isNull (): boolean {
+        return (this.orderNo === undefined)
     }
 }
 

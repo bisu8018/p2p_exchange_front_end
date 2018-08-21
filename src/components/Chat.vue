@@ -22,14 +22,13 @@
             </div>
         </div>
         <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
-            <div v-for="data in message">
+            <div v-for="data in messageList">
                 <!--상대방-->
                 <div class="mb-3 display-flex" v-if="data.registerMemberNo === counterPartyMemberNo">
                     <div>
-                        <avatar v-if="counterPartyEmail != ''"
+                        <avatar v-if="counterPartyEmail !== ''"
                                 :email = counterPartyEmail
-                                :chat = "'sub'"
-                        >
+                                :chat = "'sub'">
                         </avatar>
                     </div>
                     <div class="pl-2">
@@ -91,34 +90,21 @@
         data: () => ({
             inputValue: "",
             transactionNum: '',
-            message : [],
+            messageList : [],
 
             //파일 첨부
             file: '',
             image: '',
         }),
-
-        created() {
-        },
-
-        mounted: function () {
-            this.scrollBottom();
-            this.$nextTick(function () {
-                this.getMessage();
-                setInterval(function () {
-                    this.getMessage();
-                }.bind(this), 5000);
-            })
-        },
         computed: {
             myMemberNo () {this.scrollBottom();
-              return MainRepository.MyInfo.getUserInfo().memberNo;
+                return MainRepository.MyInfo.getUserInfo().memberNo;
             },
             myEmail() {
                 return MainRepository.MyInfo.getUserInfo().email;
             },
             myNickname() {
-              return MainRepository.MyInfo.getUserInfo().nickname;
+                return MainRepository.MyInfo.getUserInfo().nickname;
             },
             counterPartyNickname () {
                 let name;
@@ -147,8 +133,18 @@
                 }
                 return email;
             },
+        },
+        created() {
 
-
+        },
+        mounted: function () {
+            this.scrollBottom();
+            this.$nextTick(function () {
+                this.getMessage();
+                setInterval(function () {
+                    this.getMessage();
+                }.bind(this), 5000);
+            })
         },
         methods: {
             getMessage: function () {
@@ -159,7 +155,7 @@
                         dateTime:  abUtils.getDateTime(),
                         orderNo : self.orderNo
                     }, function (result) {
-                    self.message = result;
+                    self.messageList = result;
                     }
                 )
             },
@@ -220,7 +216,7 @@
                         register_member_no: this.myMemberNo,
                         registerDatetime: new Date(),
                     };
-                    this.message.push(postMessage);
+                    this.messageList.push(postMessage);
                     this.inputValue = "";
                 }
 

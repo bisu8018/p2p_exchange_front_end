@@ -1,4 +1,5 @@
 import AxiosService from "@/service/AxiosService";
+import MainRepository from "@/vuex/MainRepository";
 
 // 페이지네이션, 트레이드센터 데이터 및 트레이드센터 필터 포함 공통
 export default {
@@ -23,11 +24,9 @@ export default {
                 //실패시 이곳을 탐
             })
     },
-    getOrder: function (data : any, callback: any) {
-        // buy/sell process 이용
-        
-        let url = "order/" + data.orderNo;
-        AxiosService._requestWithUrlPram(url, 'GET', data ,
+    getOrder: function (orderNo : number, callback: any) {
+        let data = { email: MainRepository.MyInfo.getUserInfo().email };
+        AxiosService._requestWithUrlPram('order/' + orderNo, 'GET', data,
             function (data: any) {
                 callback(data)
             },
