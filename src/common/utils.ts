@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export var abUtils = {
   // 정수형인지
   isNaturalNumber: function (number: any) {
@@ -83,6 +85,14 @@ export var abUtils = {
     let regExp2 = /^(20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-3]):([0-5][0-9])$/;
     return regExp.test(input) || regExp2.test(input);
   },
+  // 시간 포맷으로 바꿔주깅
+  toTimeFormat: function (date: any) {
+      if (date) {
+          return moment(date).format("YYYY-MM-DD HH:mm");
+      } else {
+          return '';
+      }
+   },
   isEmpty: function (value: any) {
     return ( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) )
   },

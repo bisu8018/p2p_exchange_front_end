@@ -31,9 +31,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Toggle from '@/components/Toggle.vue';
-import PaymentMethod from "../../../../../vuex/model/PaymentMethod";
-import {abString} from "../../../../../config/localization";
+import Toggle from '../../../../../../components/Toggle.vue';
+import PaymentMethod from "../../../../../../vuex/model/PaymentMethod";
+import {abString} from "../../../../../../config/localization";
 
 export default Vue.extend({
     name: 'my-payment-item',
