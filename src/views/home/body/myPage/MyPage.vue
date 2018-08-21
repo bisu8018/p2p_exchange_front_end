@@ -192,6 +192,8 @@
             </div>
 
             <!--  ############## 2. ID Verification ##############  -->
+            <!--<my-id-verification />-->
+
             <div class="section-border">
 
                 <!-- Header -->
@@ -397,10 +399,12 @@
     import BtnMypage from "./item/BtnMypage";
     import BlockListItem from "./item/BlockListItem";
     import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
+    import MyIdVerification from "./MyIdVerification";
 
     export default {
         name: "MyPage",
         components: {
+            MyIdVerification,
             DialogIdVerification,
             BlockListItem,
             BtnMypage,
@@ -460,7 +464,7 @@
                 if (!this.phoneVerification.isNull()) {
                     ++level;
                 }
-                if (this.myInfo.nickname != '') {
+                if (this.myInfo.nickname !== '') {
                     ++level;
                 }
                 return level;
@@ -501,10 +505,14 @@
             self.myInfo = MainRepository.MyInfo.getUserInfo();
 
             // GET User Verification Info
-
             MainRepository.MyPage.getMemberVerification(function (email, phone) {
                 self.emailVerification = email;
                 self.phoneVerification = phone;
+            });
+
+            // GET User Id Verification
+            MainRepository.MyPage.getIdVerification(function (idVerification) {
+                self.idVerification = idVerification;
             });
 
             // GET Block List
