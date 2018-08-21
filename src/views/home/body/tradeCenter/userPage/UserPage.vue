@@ -342,13 +342,14 @@
                     self.showProgress = false;
                 })
             // 나의 block 리스트 정보 GET
+            if(MainRepository.MyInfo.isLogin()){
             MainRepository.MyPage.getBlockList(function (result) {
                 for(let key in result){
                   if(self.userMemberNo === result[key].blockMemberNo){
                       self.blockThisMember = true;
                   }
               }
-            })
+            })}
 
         },
         methods:{

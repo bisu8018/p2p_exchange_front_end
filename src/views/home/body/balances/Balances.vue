@@ -282,8 +282,6 @@
                     processingTime: '2018-08-12 16:48:23',
                 },
             ],
-            marketPrice: '',
-            needMarketPrice: [0, 0],
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
 
