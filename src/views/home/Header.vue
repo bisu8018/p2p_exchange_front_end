@@ -17,7 +17,7 @@
                     <!--햄버거 bar-->
                     <div class="p-relative mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
-                        <div class="new-msg-dot"></div>
+                        <div v-if="isLogin && totalMsgCount > 0" class="new-msg-dot"></div>
                     </div>
 
                 </v-layout>
@@ -90,7 +90,7 @@
                             <button class="text-xs-left ml-3">
                                 <div>{{$str("order")}}</div>
                             </button>
-                            <span class="badge ml-2">3</span>
+                            <span v-if="isLogin && totalMsgCount > 0" class="badge ml-2">{{ totalMsgCount }}</span>
                         </v-flex>
                         <v-flex xs12 class="verticalcentertext" @click="goBalances()">
                             <button class="text-xs-left ml-3">
@@ -160,7 +160,7 @@
                     <!-- 로그인시 내정보 버튼 -->
                     <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
 
-                    <span class="badge mr-1">3</span>
+                    <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
 
                     <!--MyOrder-->
                     <div class="dropdown">
@@ -184,12 +184,11 @@
                                     <my-order-simple-item
                                             :data="item"
                                     />
-                                    <v-divider></v-divider>
+                                    <v-divider />
                                 </div>
-
-                                <div @click="goMyOrder()" class="text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
-                                    {{$str("View All")}}
-                                </div>
+                            </div>
+                            <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
+                                {{$str("View All")}}
                             </div>
                         </div>
                     </div>
@@ -315,6 +314,7 @@
                 },
             ],
             currentLang: 'KO',
+            totalMsgCount: 5,
         }),
         computed: {
             isMobile() {
@@ -543,7 +543,7 @@
         z-index: 2;
         top: 56px;
         right: 18px;
-        max-height: 332px;
+        max-height: 384px;
         overflow: visible;
         position: absolute;
     }
@@ -565,8 +565,13 @@
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         position: relative;
-        max-height: 332px;
+        max-height: 336px;
     }
+
+    /*.myorder-footer {*/
+        /*position: absolute;*/
+        /*z-index: 2;*/
+    /*}*/
 
     .new-msg-dot {
         width: 7px;
