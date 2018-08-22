@@ -228,32 +228,22 @@ export default {
         },
         getLoginHistory: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: 1,
+                size: 10
             }, function (result) {
-                let loginHistory = new LoginHistory('');
-                const loginHistory_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const loginHistory_tmp = result[i];
-                    loginHistory = new LoginHistory(loginHistory_tmp)
-                    loginHistory_arr.push(loginHistory);
-                }
-                callback(loginHistory_arr);
+                let _loginHistory = new LoginHistory(result);
+                callback(_loginHistory);
             })
         },
         getSecuritySettings: function (callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: 1,
+                size: 10
             }, function (result) {
-                let securitySettings = new SecuritySettings('');
-                const securitySettings_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const securitySettings_tmp = result[i];
-                    securitySettings =  new SecuritySettings(securitySettings_tmp);
-                    securitySettings_arr.push(securitySettings);
-                }
-                callback(securitySettings_arr);
+                let _securitySettings = new SecuritySettings(result);
+                callback(_securitySettings);
             })
         }
     },
