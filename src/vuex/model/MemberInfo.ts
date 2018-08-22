@@ -1,35 +1,39 @@
 export default class MemberInfo {
     name: string;
+    nickName: string;
+    email : string;
     rank: number;
     isLogin: boolean;
     color : string;
-    security_deposit : number;
-    tradeRate : number;
-    totalTrades: number;
-    trades_inMonth: number;
-    Avg_release: number;
-    register_datetime: string;
-    verifiedEmail: boolean;
-    verifiedID: boolean;
-    verifiedPhone: boolean;
-    verifiedAdvanced: boolean;
+    securityDeposit : number;
+    completionRate : number;
+    tradeTimes: number;
+    tradeMonthTimes: number;
+    avgRelease: number;
+    createDatetime: string;
+    emailVerification: boolean;
+    idVerification: boolean;
+    phoneVerification: boolean;
+    advancedVerification: boolean;
 
 
     constructor (data: any) {
         this.name = data.name;
-        this.rank = data.rank;
+        this.email = data.email;
+        this.nickName = data.nickName;
+        this.rank = data.rank || 1;
         this.isLogin = data.isLogin ;
         this.color = data.color ;
-        this.security_deposit = data.security_deposit ;
-        this.tradeRate = data.tradeRate;
-        this.totalTrades = data.totalTrades;
-        this.trades_inMonth = data.trades_inMonth;
-        this.Avg_release = data.Avg_release;
-        this.register_datetime = data.register_datetime;
-        this.verifiedEmail = data.verifiedEmail;
-        this.verifiedID = data.verifiedID;
-        this.verifiedPhone = data.verifiedPhone;
-        this.verifiedAdvanced = data.verifiedAdvanced;
+        this.securityDeposit = data.securityDeposit ;
+        this.completionRate = data.completionRate;
+        this.tradeTimes = data.tradeTimes;
+        this.tradeMonthTimes = data.tradeMonthTimes;
+        this.avgRelease = data.avgRelease;
+        this.createDatetime = data.createDatetime;
+        this.emailVerification = data.emailVerification || false;
+        this.idVerification = data.idVerification || false;
+        this.phoneVerification = data.phoneVerification || false;
+        this.advancedVerification = data.advancedVerification || false;
     }
 
     isNull (): boolean {

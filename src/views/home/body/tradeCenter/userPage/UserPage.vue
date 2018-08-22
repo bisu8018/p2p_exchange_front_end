@@ -370,29 +370,27 @@
 
             blockThisUser(){
                 let self = this;
-                if(MainRepository.MyInfo.isLogin()){
-                  MainRepository.Users.postBlockThisUser({
-                          memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
-                          blockMemberNo: self.userMemberNo
-                  },function (result) {
-                          self.showBlockModal = false;
-                          self.blockThisMember = true;
-                      }
-                  )
-                }
+                MainRepository.Users.postBlockThisUser({
+                        memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
+                        blockMemberNo: self.userMemberNo
+                },function (result) {
+                        self.showBlockModal = false;
+                        self.blockThisMember = true;
+                    }
+                )
+
             },
             UnblockThisUser(){
                 let self = this;
-                if(MainRepository.MyInfo.isLogin()) {
-                    MainRepository.Users.deleteBlockThisUser({
-                            email: MainRepository.MyInfo.getUserInfo().email,
-                            BlockMemberNo: self.userMemberNo
-                        }, function (result) {
-                            self.showUnBlockModal = false;
-                            self.blockThisMember = false;
-                        }
-                    )
-                }
+                MainRepository.Users.deleteBlockThisUser({
+                        email: MainRepository.MyInfo.getUserInfo().email,
+                        BlockMemberNo: self.userMemberNo
+                    }, function (result) {
+                        self.showUnBlockModal = false;
+                        self.blockThisMember = false;
+                    }
+                )
+
             }
 
         }
