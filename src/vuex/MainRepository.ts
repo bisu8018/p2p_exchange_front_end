@@ -549,7 +549,7 @@ export default {
                         break;
 
                     case 'myAds':
-                        instance.MyAds.updatePage({page : page});
+                        instance.MyAds.updatePage(  {page : page});
                         break;
                     default :
 
@@ -617,7 +617,6 @@ export default {
             paginationController.setTotalCount(1);
         },
         load(){
-            console.log(myTradeController.getMyAdsFilter());
             AdService.getMyAds({
                 email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyAdsFilter().searchStartTime,
