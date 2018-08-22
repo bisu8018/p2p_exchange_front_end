@@ -255,10 +255,8 @@
                 MainRepository.router().goLogin();
                 return;
             }
-
             let cureentURL = window.location.href;
             let params = cureentURL.split('?');
-
             if (params[1]) {
                 this.orderNo = params[1];
             } else {
@@ -272,6 +270,26 @@
 
         },
         methods: {
+            getPaymentWindow() {
+                var startTime = Date.now();
+                let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
+                let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
+                let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
+                calcTime = calcTime/1000;
+                this.setTime = calcTime;
+                console.log(calcTime);
+                this.getTimer();
+            },
+            getTimer() {
+                this.start = setInterval(() => {
+                    if (this.setTime > 0) {
+                        this.setTime--;
+                    } else {
+                        clearInterval(this.start);
+                        //staus GET AXIOS
+                    }
+                }, 1000);
+            },
             init() {
                 this.limitTime = this.getLimitTime();
                 this.timerInterval = setInterval(() => {

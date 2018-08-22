@@ -31,7 +31,7 @@ export default class Account {
   }
 
   isLogin() {
-      return this.memberNo !== undefined && this.memberNo !== -1;
+      return this.email !== undefined && this.email !== '';
   }
 
   isNull (): boolean {

@@ -56,8 +56,11 @@ export default {
             })
     },
     onConfirm : function (data : any, callback: any) {
-        let url = 'order/' + data + '/paid';
-        AxiosService._requestWithPath('order/appeal', 'PUT', data,
+        let url = 'order/' + data.orderNo + '/confirmAndRelease';
+        let _data = {
+            tradePassword : data.tradePassword
+        };
+        AxiosService._requestWithBodyAndEmail(url, 'PUT', _data,
             function (data: any) {
                 callback(data)
             },

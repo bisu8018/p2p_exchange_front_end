@@ -2,6 +2,7 @@ import {Store} from "vuex";
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import Message from "@/vuex/model/Message";
 import {abUtils} from "@/common/utils";
+import MainRepository from "@/vuex/MainRepository";
 
 export default class MessageController {
     store: Store<any>;
@@ -24,7 +25,12 @@ export default class MessageController {
     }
 
     getLatestMsgTime(): string {
-        let latestMsg: Message = this.getMsgList()[this.getMsgList().length-1];
-        return abUtils.toChatServerTimeFormat(new Date(latestMsg.registerDatetime));
+        if(this.getMsgList().length === 0){
+            let registerDT = MainRepository.TradeProcess.getCurrentOrder().registerDatetime;
+            return abUtils.toChatServerTimeFormat(registerDT);
+        }else{
+            let latestMsg: Message = this.getMsgList()[this.getMsgList().length-1];
+            return abUtils.toChatServerTimeFormat(new Date(latestMsg.registerDatetime));
+        }
     }
 }
