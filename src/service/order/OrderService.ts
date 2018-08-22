@@ -58,7 +58,7 @@ export default {
     onConfirm : function (data : any, callback: any) {
         let url = 'order/' + data.orderNo + '/confirmAndRelease';
         let _data = {
-            test : data.tradePassword
+            tradePassword : data.tradePassword
         };
         AxiosService._requestWithBodyAndEmail(url, 'PUT', _data,
             function (data: any) {
