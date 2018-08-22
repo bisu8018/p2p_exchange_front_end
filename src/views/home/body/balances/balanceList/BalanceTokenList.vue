@@ -73,7 +73,7 @@
             <!--{{item.walletAddress}}-->
           </v-flex>
           <v-flex xs12 mt-3>
-            <h5 class="color-blue" @click.stop.prevent="onCopy()">
+            <h5 class="color-blue c-pointer" @click="onCopy()">
               {{$str("Copy")}}
             </h5>
           </v-flex>
