@@ -32,14 +32,13 @@
 </template>
 
 <script>
-    import BigAvatar from "../../../../../components/BigAvatar";
     import {abUtils} from "../../../../../common/utils";
     import Avatar from "../../../../../components/Avatar";
 
     export default {
         components: {
             Avatar,
-            BigAvatar},
+            },
         name: "my-info",
         props: {
             myInfo: {}

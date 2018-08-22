@@ -48,8 +48,6 @@
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
     import AccountService from "@/service/account/AccountService";
-    import BigAvatar from '@/components/BigAvatar.vue';
-    import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
     import MyPageModal from './item/MyPageModal.vue';
@@ -81,7 +79,7 @@
             BlockListItem,
             BtnMypage,
             PaymentItem,
-            BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem
+            Pagination, Toggle, MyPageModal, MyPaymentItem
         },
         data: () => ({
             showModal: false,
