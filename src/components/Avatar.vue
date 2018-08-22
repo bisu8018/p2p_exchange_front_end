@@ -35,7 +35,7 @@
         data: () => ({
             loginColor: '#c8c8c8',
             name: '',
-            bgColor: '',
+            bgColor: '#7f7f7f',
             msgInterval: {},
         }),
         computed: {

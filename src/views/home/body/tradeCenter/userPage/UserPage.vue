@@ -5,6 +5,7 @@
       <v-layout row wrap>
         <v-flex xs12 text-xs-left mt-5 mb-4>
           <avatar :email="merchant.email"
+                  v-if="merchant.email !== ''"
                 class="f-left mr-3">
           </avatar>
           <h5 class="ml-3">

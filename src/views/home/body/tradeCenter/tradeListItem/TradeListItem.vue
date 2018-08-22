@@ -15,7 +15,7 @@
 
                     <!-- 닉네임 -->
                     <div class="d-flex">
-                        <h5 class="color-blue text-white-hover c-pointer" @click="goUserPage">
+                        <h5 class="color-blue text-white-hover c-pointer" @click="onNicknameClick">
                             {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                         </h5>
                         <!-- user의 rank 이미지-->
@@ -95,7 +95,7 @@
                             </avatar>
                         </v-flex>
                         <v-flex xs10 text-xs-left mb-4>
-                            <h5 class="medium color-blue c-pointer text-white-hover" @click="goUserPage">
+                            <h5 class="medium color-blue c-pointer text-white-hover" @click="onNicknameClick">
                                 {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                             </h5>
                             <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -138,7 +138,7 @@
                         </v-flex>
                         <v-flex xs8 text-xs-left>
                             <v-layout>
-                                <h5 class="medium color-blue text-white-hover c-pointer" @click="goUserPage">
+                                <h5 class="medium color-blue text-white-hover c-pointer" @click="onNicknameClick">
                                     {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                                 </h5>
                                 <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -283,7 +283,7 @@
                         <avatar :email = "user.email">
                         </avatar>
                         <span class="ml-3 color-blue text-white-hover ">
-              <button @click="goUserPage">{{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)</button>
+              <button @click="onNicknameClick">{{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)</button>
             </span>
                         <!--판매자 rank-->
                         <a class="tooltip" v-if="user.rank==1">
@@ -344,7 +344,7 @@
                                 </avatar>
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover" @click="goUserPage">
+                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover" @click="onNicknameClick">
                     {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                   </span>
                                     <!--판매자 rank-->
@@ -387,7 +387,7 @@
 
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="goUserPage">
+                  <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="onNicknameClick">
                     {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                   </span>
                                     <!--판매자 rank-->
@@ -742,9 +742,8 @@
                 /////////////////////////////////
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
-            goUserPage() {
-                let user = "/userpage?"+this.user.memberNo
-                this.$router.push(user);
+            onNicknameClick() {
+                MainRepository.router().goUserPage(this.user.memberNo);
             },
 
         },
