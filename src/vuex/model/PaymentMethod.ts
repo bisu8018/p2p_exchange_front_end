@@ -1,3 +1,5 @@
+import Balance from "@/vuex/model/Balance";
+
 export default class PaymentMethod {
     type: string;
     activeYn: boolean;
@@ -43,6 +45,7 @@ export default class PaymentMethod {
                 break;
         }
     }
+
 
     isNull(): boolean {
         return (this.type === undefined || this.type === '')

@@ -81,7 +81,7 @@
     import Order from "../vuex/model/Order"
 
     export default Vue.extend({
-        name: 'chat',
+        name: 'message',
         components: {
             Avatar
         },
@@ -145,7 +145,7 @@
                     this.msgInterval = setInterval(() => {
                         this.updateMsg()
                     }, 5000);
-                })
+                });
                 this.scrollBottom();
             });
         },

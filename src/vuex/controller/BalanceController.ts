@@ -3,7 +3,7 @@ import {Store} from "vuex";
 import {CurrencyType} from "@/vuex/model/CurrencyType";
 import Balance from "@/vuex/model/Balance";
 
-export default class AccountController {
+export default class BalanceController {
     store: Store<any>;
 
     constructor (vuexStore: Store<any>) {

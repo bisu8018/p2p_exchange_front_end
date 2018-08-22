@@ -11,10 +11,7 @@
 
                     <!--사용자 정보-->
 
-                    <big-avatar
-                            :me=true
-                            class="f-left mr-3">
-                    </big-avatar>
+                    <avatar big me class="f-left mr-3" />
                     <h5 class="color-blue">{{nickName}}</h5>
                     <h5 class="color-darkgray">UID: {{member_no}}</h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
@@ -426,10 +423,7 @@
                 <!--사용자 정보-->
 
                 <v-flex md3 text-md-left text-xs-left>
-                    <big-avatar
-                            :me=true
-                            class="f-left mr-3">
-                    </big-avatar>
+                    <avatar big me class="f-left mr-3" />
                     <h5 class="color-blue">{{nickName}}</h5>
                     <h5 class="color-darkgray">UID: {{member_no}}</h5>
                     <v-divider class="mt-4 mb-4"></v-divider>
@@ -751,7 +745,6 @@
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
-    import BigAvatar from '@/components/BigAvatar.vue';
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
@@ -767,7 +760,7 @@
 
     export default {
         name: "MyPage",
-        components: {BigAvatar, Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
+        components: {Avatar, Pagination, Toggle, MyPageModal, MyPaymentItem},
         data: () => ({
             selection_login: true,
             selection_security: false,

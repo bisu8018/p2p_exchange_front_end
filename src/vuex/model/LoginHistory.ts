@@ -1,18 +1,18 @@
+import LoginHistoryList from "@/vuex/model/LoginHistoryList";
+
 export default class LoginHistory {
-    type: string;
-    ip: string;
-    status: string;
-    register_datetime: string;
+    loginHistoryList: LoginHistoryList;
+    totalCount: number;
+    pageNo: number;
 
 
     constructor(data: any) {
-        this.type = data.type || '';
-        this.ip = data.ip || '';
-        this.status = data.status || '';
-        this.register_datetime = data.register_datetime || '';
+        this.loginHistoryList = data.loginHistoryList;
+        this.totalCount = data.totalCount;
+        this.pageNo = data.pageNo;
     }
 
-    isNull(): boolean {
-        return (this.type === undefined || this.type === '')
-    }
+    // isNull(): boolean {
+    //     return (this.type === undefined || this.type === '')
+    // }
 }

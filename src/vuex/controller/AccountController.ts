@@ -1,6 +1,7 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import Account from "@/vuex/model/Account";
+import PaymentMethod from "@/vuex/model/PaymentMethod";
 
 export default class AccountController {
     store: Store<any>;
@@ -25,6 +26,16 @@ export default class AccountController {
         return this.store.state.account.myPaymentMethods;
     }
 
+    findPaymentMethods(type) {
+        let result = new PaymentMethod('');
 
+        for(let i = 0; i < this.getMyPaymentMethods().length; i++) {
+            let _item = this.getMyPaymentMethods()[i];
+            if (_item.type === type) {
+                result = _item;
+            }
+        }
+        return result;
+    }
 }
 

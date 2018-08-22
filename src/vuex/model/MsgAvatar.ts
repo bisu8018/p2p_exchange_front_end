@@ -1,12 +1,14 @@
-export default class ChatAvatar {
-    name: number;
+export default class MsgAvatar {
+    email: string;
+    name: string;
     bgColor: string;
-    isLogin: string;
+    isLogin: boolean;
 
-    constructor (data: any) {
-        this.name = data.memberNo || '';
-        this.bgColor = data.bgColor || '';
-        this.isLogin = data.isLogin || false;
+    constructor (email: string, name: string, bgColor: string, isLogin: boolean) {
+        this.email = email;
+        this.name = name;
+        this.bgColor = bgColor;
+        this.isLogin = isLogin;
     }
 
     update (data: any){

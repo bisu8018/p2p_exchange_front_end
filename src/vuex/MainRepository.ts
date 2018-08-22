@@ -8,10 +8,9 @@ import MyTradeController from "@/vuex/controller/MyTradeController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
 import BalanceController from "@/vuex/controller/BalanceController";
-import CommonController from "@/vuex/controller/CommonController";
 import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import AccountController from "@/vuex/controller/AccountController";
-import ChatAvatarController from "@/vuex/controller/ChatAvatarController";
+import MsgAvatarController from "@/vuex/controller/MsgAvatarController";
 
 import AccountService from "@/service/account/AccountService";
 import TradeService from "@/service/trade/TradeService";
@@ -41,7 +40,7 @@ import TradeController from "@/vuex/controller/TradeController";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 import MerchantService from "@/service/merchant/MerchantService";
 import Merchant from "@/vuex/model/Merchant";
-import ChatService from "@/service/chat/ChatService";
+import MessageService from "@/service/message/MessageService";
 import {abUtils} from "@/common/utils";
 import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
@@ -54,11 +53,10 @@ let merchantController: MerchantController;
 let paginationController: PaginationController;
 let accountController: AccountController;
 let marketPriceController: MarketPriceController;
-let commonController: CommonController;
 let balanceController: BalanceController;
 let routerController: RouterController;
 let tradeController: TradeController;
-let chatAvatarController: ChatAvatarController;
+let msgAvatarController: MsgAvatarController;
 let messageController: MessageController;
 
 let store: Store<any>;
@@ -75,10 +73,9 @@ export default {
         merchantController = new MerchantController(store);
         accountController = new AccountController(store);
         myTradeController = new MyTradeController(store);
-        commonController = new CommonController(store);
         balanceController = new BalanceController(store);
         tradeController = new TradeController(store);
-        chatAvatarController = new ChatAvatarController(store);
+        msgAvatarController = new MsgAvatarController(store);
         messageController = new MessageController(store);
 
         // 자기 참조할 때 씀
@@ -100,6 +97,8 @@ export default {
             instance.setInitCompleted(true);
         });
 
+        this.initInterval();
+
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
         //     this.State.controller().setCheckOs(1);
@@ -117,7 +116,7 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.setBalances(function () {});
+                self.Balance.loadBalances(function () {});
                 self.Balance.setSecurityBalance(function () {});
                 // 객체형으로 관리하도록 변경 필요
                 self.MyInfo.loadMyPaymentMethods();
@@ -131,6 +130,14 @@ export default {
                 callback();
             }
         );
+    },
+    // 주기적으로 작동하는 함수
+    initInterval() {
+        setInterval(() => {
+            if (this.MyInfo.isLogin()) {
+                this.MyOrder.load(true);
+            }
+        }, 10000)
     },
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
@@ -147,38 +154,6 @@ export default {
             return stateController.isInitCompleted();
         },
     },
-    Common: {
-        //sell/buy 프로세스 상대방 결제수단 정보 get
-        setPaymentMethod: function (data: any, callback: any) {
-            CommonService.info.setPaymentMethod({
-                email : instance.MyInfo.getUserInfo().email
-            },function (result) {
-                const paymentMethod_map = {
-                    alipay : {},
-                    wechat : {},
-                    bank : {}
-                };
-
-                for (let i = 0; i < result.length; i++) {
-                    const paymentMethod_tmp = result[i];
-                    let paymentMethod = new PaymentMethod(paymentMethod_tmp);
-                    if(paymentMethod.type === 'alipay'){
-                        paymentMethod_map.alipay = paymentMethod;
-                    }else if(paymentMethod.type === 'wechat'){
-                        paymentMethod_map.wechat = paymentMethod;
-                    }else{
-                        paymentMethod_map.bank = paymentMethod;
-                    }
-                }
-                //console.log(paymentMethod_map);
-                commonController.setPaymentMethod(paymentMethod_map);
-                callback();
-            })
-        },
-        getPaymentMethod: function () {
-            return commonController.getPaymentMethod();
-        }
-    },
     Balance: {
         controller(): BalanceController {
             return balanceController;
@@ -188,29 +163,11 @@ export default {
                 email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 balanceController.setBalance(result);
+                callback();
             })
         },
         getBalances: function () {
-            return balanceController.getBalance();
-        },
-        setBalances: function (callback:any) {
-          BalanceService.getBalances({
-              email: instance.MyInfo.getUserInfo().email
-          }, function (result) {
-              let balance = new Balance('');
-              const balance_map = {};
-
-              for (let i = 0; i < result.length; i++) {
-                  const balance_tmp = result[i];
-                  balance = new Balance(balance_tmp);
-                  balance_map[balance_tmp.cryptoCurrency] = balance;
-              }
-              balanceController.setBalance(balance_map);
-              callback(balance_map);
-          })
-        },
-        getBalance: function () {
-            return balanceController.getBalance();
+            return balanceController.getBalances();
         },
         setSecurityBalance: function(callback:any){
             BalanceService.getMySecurityBalance({
@@ -271,32 +228,22 @@ export default {
         },
         getLoginHistory: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: 1,
+                size: 10
             }, function (result) {
-                let loginHistory = new LoginHistory('');
-                const loginHistory_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const loginHistory_tmp = result[i];
-                    loginHistory = new LoginHistory(loginHistory_tmp)
-                    loginHistory_arr.push(loginHistory);
-                }
-                callback(loginHistory_arr);
+                let _loginHistory = new LoginHistory(result);
+                callback(_loginHistory);
             })
         },
         getSecuritySettings: function (callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: 1,
+                size: 10
             }, function (result) {
-                let securitySettings = new SecuritySettings('');
-                const securitySettings_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const securitySettings_tmp = result[i];
-                    securitySettings =  new SecuritySettings(securitySettings_tmp);
-                    securitySettings_arr.push(securitySettings);
-                }
-                callback(securitySettings_arr);
+                let _securitySettings = new SecuritySettings(result);
+                callback(_securitySettings);
             })
         }
     },
@@ -317,7 +264,7 @@ export default {
         },
 
         loadMyPaymentMethods: function () {
-            CommonService.info.setPaymentMethod({
+            AccountService.PaymentMethod.setPaymentMethod({
                 email : this.getUserInfo().email
             },function (result) {
                 let _payments: PaymentMethod[] = [];
@@ -726,15 +673,14 @@ export default {
                 currency : '',
                 page : '1',
                 size : '10',})
-            this.load();
-
+            this.load(false);
         },
-        load(){
+        load(isSimpleItem){
             OrderService.getMyOrder({
                 email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
                 searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
-                status : myTradeController.getMyOrderFilter().status,
+                status : isSimpleItem ? 'unpaid' : myTradeController.getMyOrderFilter().status,
                 orderNo : myTradeController.getMyOrderFilter().orderNo,
                 cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
                 orderType : myTradeController.getMyOrderFilter().orderType,
@@ -743,9 +689,6 @@ export default {
                 page : myTradeController.getMyOrderFilter().page,
                 size : '10',
             }, function (data) {
-                let totalCount = data.totalCount;
-                paginationController.setTotalCount(totalCount);
-
                 //전체 item list model화 시켜 주기
                 let result = data.ordersList
                 let myOrderList: Order[] = [];
@@ -754,7 +697,14 @@ export default {
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
-                myTradeController.setMyOrderItems(myOrderList);
+                if (isSimpleItem) {
+                    myTradeController.setMyUnpaidOrderItems(myOrderList);
+                } else {
+                    let totalCount = data.totalCount;
+                    paginationController.setTotalCount(totalCount);
+
+                    myTradeController.setMyOrderItems(myOrderList);
+                }
             })
         },
         initData(){
@@ -781,7 +731,7 @@ export default {
         },
         updatePage(data){
             myTradeController.updateMyOrderFilter(data);
-            this.load();
+            this.load(false);
         },
         getPage(){
             return myTradeController.getMyOrderItems();
@@ -848,39 +798,27 @@ export default {
                 callback(result);
             })
         },
-        setChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.setChatAvatar(data);
-            callback();
-        },
-        getChatAvatar: function () {
-            return chatAvatarController.getChatAvatar();
-        },
-        updateChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.updateChatAvatar(data);
-            callback();
-        },
     },
+    //채팅
     Message: {
         controller(): MessageController {
             return messageController;
         },
 
-        setChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.setChatAvatar(data);
+        setMsgAvatar: function  (data: any) {
+            msgAvatarController.setMsgAvatar(data);
+        },
+        getMsgAvatar: function () {
+            return msgAvatarController.getMsgAvatar();
+        },
+        updateMsgAvatar: function  (data: any, callback: any) {
+            msgAvatarController.updateMsgAvatar(data);
             callback();
         },
-        getChatAvatar: function () {
-            return chatAvatarController.getChatAvatar();
-        },
-        updateChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.updateChatAvatar(data);
-            callback();
-        },
-
 
         createRoom(callback: any) {
             let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime);
-            ChatService.message.getMessage({
+            MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,
                     dateTime:  _dateTime,
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
@@ -892,19 +830,20 @@ export default {
         },
 
         updateMsg(callback: any) {
-            ChatService.message.getMessage({
+            MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,  //VUEX userInfo.nickName
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-                    this.controller().addMsg(data);
+                console.log(data);
+                    //this.controller().addMsg(data);
                     callback();
                 }
             )
         },
 
         postMsg(msg: string, callback: any) {
-            ChatService.message.postMessage({
+            MessageService.message.postMessage({
                 attachedImgUrl: "",
                 message: msg,
                 orderNo: instance.TradeProcess.getCurrentOrder().orderNo,

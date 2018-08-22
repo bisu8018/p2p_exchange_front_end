@@ -790,7 +790,7 @@ const strings = new Map([
         HK: '對方限制'
     }],
     ['counterpartyFilterPlaceholder', {
-        KOR: '상대방이 거래량을 결정해야 합니다.',
+        KOR: '상대방의 거래 성공 횟수를 입력해 주십시오',
         ENG: 'Counterparty should complete the trade amount.',
         CN: '对方需要决定交易数量。',
         HK: '對方需要決定交易數量。'
@@ -2049,6 +2049,12 @@ const strings = new Map([
         CN: '姓名',
         HK: '姓名'
     }],
+    ['realName', {
+        KOR: '실명',
+        ENG: 'Real Name',
+        CN: '姓名',
+        HK: '姓名'
+    }],
     ['alipayPlaceholder', {
         KOR: '알리페이를 입력해 주십시오',
         ENG: 'Input Alipay',
@@ -2458,6 +2464,18 @@ const strings = new Map([
         ENG: 'Your application has been successfully submitted. We will complete the review within 2 working days.',
         CN: '您的申请已成功提交。我们将在2天工作日内完成审核。',
         HK: '您的申請已成功提交。我們將在2天工作日內完成審核。'
+    }],
+    ['OTC Merchant application is approved.', {
+        KOR: '',
+        ENG: 'OTC Merchant application is approved.',
+        CN: '',
+        HK: ''
+    }],
+    ['Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!', {
+        KOR: '',
+        ENG: 'Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!',
+        CN: '',
+        HK: ''
     }],
 
     ['Photo of Identification', {

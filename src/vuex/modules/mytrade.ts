@@ -31,6 +31,10 @@ const mutations = {
     [VuexTypes.UPDATE_MYORDERFILTER_DATA] (state: any, data: any) {
         state.myOrderFilter.update(data);
     },
+    // 페이지 아이템 리스트
+    [VuexTypes.SET_MY_UNPAID_ORDER_LIST] (state: any, myOrderItems: Order[]) {
+        state.myUnpaidOrderItems = myOrderItems;
+    },
 
 };
 
@@ -62,6 +66,9 @@ const actions = {
     [VuexTypes.UPDATE_MYORDERFILTER_DATA] (context: any, data: object) {
         context.commit(VuexTypes.UPDATE_MYORDERFILTER_DATA, data)
     },
+    [VuexTypes.SET_MY_UNPAID_ORDER_LIST] (context: any, myOrderItems: Order[]) {
+        context.commit(VuexTypes.SET_MY_UNPAID_ORDER_LIST, myOrderItems)
+    },
 
 };
 
@@ -72,6 +79,7 @@ let myOrderFilter = new MyTradeFilter('');
 let myAdsFilter = new MyTradeFilter('');  
 let myAdsItems : TradeItem[] = [];
 let myOrderItems : Order[] = [];
+let myUnpaidOrderItems : Order[] = [];
 
 
 const state= {
@@ -79,7 +87,7 @@ const state= {
     myOrderFilter: myOrderFilter,
     myAdsItems: myAdsItems,
     myAdsFilter: myAdsFilter,
-
+    myUnpaidOrderItems: myUnpaidOrderItems,
 }
 
 export default {

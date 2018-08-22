@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "strict": false,    //빌드 충돌 체크 옵션
+    "strict": true,    //빌드 충돌 체크 옵션
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",

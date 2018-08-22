@@ -4,7 +4,7 @@
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
                 Order : #{{getOrderNumber}}
-
+{{getPaymentWindow}}
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 <!-- buy/sell -->
@@ -188,7 +188,7 @@
         <div>
             <div v-if="isInitCompleted">
                 <!--채팅창-->
-                <chat :order = "currentOrder"></chat>
+                <message :order = "currentOrder"></message>
             </div>
         </div>
 
@@ -215,13 +215,14 @@
     import Vue from 'vue';
     import BuyModal from './buyModal/BuyModal.vue'
     import MainRepository from "../../../../../vuex/MainRepository";
-    import Chat from "@/components/Chat.vue";
+    import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
+    import {abUtils} from "../../../../../common/utils";
 
     export default Vue.extend({
         name: 'buy',
         components: {
-            BuyModal, Chat, TradeItem
+            BuyModal, Message, TradeItem
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
@@ -245,6 +246,30 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
+            getPaymentWindow() {
+                var startTime = Date.now();
+               console.log(startTime)
+               console.log(new Date(startTime))
+                let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
+                console.log(_t)
+                console.log(new Date(_t))
+                let __t = _t - startTime;
+                let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
+                let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
+                console.log(__t)
+                console.log(__t/1000/60)
+                console.log(calcTime)
+                calcTime = (calcTime/1000)/60;
+                console.log(calcTime)
+
+
+                /*  var startMsec = startTime.getMilliseconds();
+                 console.log(startMsec)
+                 startTime.setTime(5000000);
+                 var elapsed = (startTime.getTime() - startMsec) / 1000;
+                 return abUtils.toChatTimeFormat(elapsed);*/
+
+            },
         },
         created() {
             // 로그인 확인 -> Login 으로
@@ -266,13 +291,9 @@
                 this.isInitCompleted = true;
             });
 
-            //취소 일경우 props로 판단 및 status 변경
-            // AIOS cancel
-            if (this.cancel === 'true') {
-
-            }
         },
         methods: {
+
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
             },

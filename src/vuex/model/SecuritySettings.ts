@@ -1,16 +1,14 @@
+import SecuritySettingHistoryList from "@/vuex/model/SecuritySettingHistoryList";
+
 export default class SecuritySettings {
-    type: string;
-    ip: string;
-    register_datetime: string;
+    securitySettingHistoryList: SecuritySettingHistoryList;
+    totalCount: Number;
+    pageNo: Number;
 
 
     constructor(data: any) {
-        this.type = data.type || '';
-        this.ip = data.ip || '';
-        this.register_datetime = data.register_datetime || '';
-    }
-
-    isNull(): boolean {
-        return (this.type === undefined || this.type === '')
+        this.securitySettingHistoryList = data.securitySettingHistoryList;
+        this.totalCount = data.totalCount;
+        this.pageNo = data.pageNo || 1;
     }
 }

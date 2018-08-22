@@ -45,6 +45,7 @@ export enum VuexTypes {
     SET_MYORDERSLIST_DATA = 'myorder/SET_MYORDERSLIST_DATA',
     SET_MYORDERFILTER_DATA = 'myorder/SET_MYORDERFILTER_DATA',
     UPDATE_MYORDERFILTER_DATA = 'myorder/UPDATE_MYORDERFILTER_DATA',
+    SET_MY_UNPAID_ORDER_LIST = 'myorder/SET_MY_UNPAID_ORDER_LIST',
 
 
 
@@ -66,13 +67,6 @@ export enum VuexTypes {
     // =====================================
     SET_MARKET_PRICE = 'market/SET_MARKET_PRICE',
 
-
-    //======================================
-    //              Common
-    // =====================================
-    SET_PAYMENT_METHOD = 'common/SET_PAYMENT_METHOD',
-
-
     //======================================
     //              Balance
     // =====================================
@@ -86,16 +80,16 @@ export enum VuexTypes {
 
 
     //======================================
-    //              Chat Avatar
+    //              Msg Avatar
     // =====================================
-    SET_TRADE_CHAT_AVATAR = 'chatAvatar/SET_TRADE_CHAT_AVATAR',
-    UPDATE_TRADE_CHAT_AVATAR = 'chatAvatar/UPDATE_TRADE_CHAT_AVATAR',
+    SET_TRADE_MSG_AVATAR = 'chatAvatar/SET_TRADE_MSG_AVATAR',
+    UPDATE_TRADE_MSG_AVATAR = 'chatAvatar/UPDATE_TRADE_MSG_AVATAR',
 
     //======================================
-    //              Chat
+    //              Message
     // =====================================
-    SET_MSG_LIST = 'chat/SET_MSG_LIST',
-    ADD_MSG = 'chat/ADD_MSG',
+    SET_MSG_LIST = 'message/SET_MSG_LIST',
+    ADD_MSG = 'message/ADD_MSG',
 
 
 
