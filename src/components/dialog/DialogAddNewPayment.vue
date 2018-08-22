@@ -189,6 +189,7 @@
     export default {
         name: "dialog-add-new-payment",
         props: {
+            data: {},
             showDialog: {
                 type: Boolean,
                 default: () => false
@@ -272,7 +273,7 @@
         },
         data() {
             return {
-                paymentMethods: new PaymentMethod(''),
+                // paymentMethods: '',
 
                 warning_name: false,
                 warning_alipay: false,
@@ -298,7 +299,18 @@
                 } else {
                     return this.$str('paymentMethod');
                 }
+            },
+            paymentMethods() {
+                // 수정모드일 때 : 기존 데이터 가져오기
+                if (this.edit) {
+                    return new PaymentMethod(this.data);
+                } else {
+                    return new PaymentMethod('');
+                }
             }
+        },
+        created() {
+
         }
     }
 </script>

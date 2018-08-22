@@ -22,7 +22,7 @@
             />
             <toggle :toggle="data.activeYn"
                     class="ml-3 c-pointer"
-                    @click="onToggle"
+                    @click="onToggle()"
             />
         </div>
     </div>
@@ -55,7 +55,7 @@
             onEdit(item) {
                 this.$emit('edit', item);
             },
-            onToggle() {
+            onToggle(item) {
                 this.$emit('toggle', item);
             },
             paymentType() {

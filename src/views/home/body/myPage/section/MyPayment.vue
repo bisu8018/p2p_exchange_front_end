@@ -5,6 +5,7 @@
         <dialog-add-new-payment
                 :showDialog="showModal"
                 :my-info="myInfo"
+                :data="paymentMethodItem"
                 :edit="isEdit"
                 @close="onClose"
                 @done="onAddPayment"
@@ -29,7 +30,7 @@
             <span v-for="item in paymentMethod">
                 <payment-item
                         :data="item"
-                        @edit="onEdit"
+                        @edit="onEdit(item)"
                         @toggle="onToggle"
                 />
             </span>
@@ -67,6 +68,7 @@
             return {
                 showModal: false,
                 isEdit: false,
+                paymentMethodItem: {},
             }
         },
         methods: {
@@ -80,9 +82,10 @@
             onAddPayment() {
                 // this.$router.push('/myPage')
             },
-            onEdit() {
+            onEdit(item) {
                 this.showModal = true;
                 this.isEdit = true;
+                this.paymentMethodItem = item;
             },
             onToggle() {
 
