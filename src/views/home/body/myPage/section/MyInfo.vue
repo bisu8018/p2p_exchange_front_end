@@ -26,7 +26,7 @@
         <!-- Create Account Time -->
         <div class="color-darkgray d-block">
             <p class="d-block">{{ $str('accountCreatedTime') }} {{ toTimeFormat(myInfo.createDatetime) }}, </p>
-            <p>{{ myOrderStat.tradeMonthTimes }}</p>
+            <p>{{ monthTradeTxt }}</p>
         </div>
     </div>
 </template>
@@ -43,6 +43,18 @@
         props: {
             myInfo: {},
             myOrderStat: {},
+        },
+        data() {
+            return {
+                monthTradeTxt: '',
+            }
+        },
+        created() {
+          if (this.myOrderStat.tradeMonthTimes > 0) {
+              this.monthTradeTxt = this.myOrderStat.tradeMonthTimes;
+          } else {
+              this.monthTradeTxt = 'No Trade Records'
+          }
         },
         methods: {
             // 시간 포멧으로 바꿔줌
