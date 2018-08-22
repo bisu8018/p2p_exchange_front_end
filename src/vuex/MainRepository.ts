@@ -100,6 +100,8 @@ export default {
             instance.setInitCompleted(true);
         });
 
+        this.initInterval();
+
         // 운영체제 체크
         // if (/Android/i.test(navigator.userAgent)) { // 안드로이드 체크
         //     this.State.controller().setCheckOs(1);
@@ -131,6 +133,12 @@ export default {
                 callback();
             }
         );
+    },
+    // 주기적으로 작동하는 함수
+    initInterval() {
+        setInterval(() => {
+            this.MyOrder.load(true);
+        }, 10000)
     },
     //서버 데이터 초기화 완료 체크
     setInitCompleted(isCompleted: boolean) {
@@ -708,15 +716,14 @@ export default {
                 currency : '',
                 page : '1',
                 size : '10',})
-            this.load();
-
+            this.load(false);
         },
-        load(){
+        load(isSimpleItem){
             OrderService.getMyOrder({
                 email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
                 searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
-                status : myTradeController.getMyOrderFilter().status,
+                status : isSimpleItem ? 'unpaid' : myTradeController.getMyOrderFilter().status,
                 orderNo : myTradeController.getMyOrderFilter().orderNo,
                 cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
                 orderType : myTradeController.getMyOrderFilter().orderType,
@@ -736,7 +743,11 @@ export default {
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
-                myTradeController.setMyOrderItems(myOrderList);
+                if (isSimpleItem) {
+                    myTradeController.setMyUnpaidOrderItems(myOrderList);
+                } else {
+                    myTradeController.setMyOrderItems(myOrderList);
+                }
             })
         },
         initData(){

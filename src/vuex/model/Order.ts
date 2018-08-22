@@ -28,9 +28,6 @@ export default class Order {
     customerNickname : string;
 
 
-
-
-
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
         this.email = data.email;
@@ -60,7 +57,6 @@ export default class Order {
         this.customerEmail = data.customerEmail || '';
         this.merchantNickname = data.merchantNickname || '';
         this.customerNickname = data.customerNickname || '';
-
     }
 
     transCryptocurrency(cryptocurrency){

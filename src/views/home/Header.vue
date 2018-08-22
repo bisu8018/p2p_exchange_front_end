@@ -17,7 +17,7 @@
                     <!--햄버거 bar-->
                     <div class="p-relative mr-3">
                         <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
-                        <div v-if="isLogin && totalMsgCount > 0" class="new-msg-dot"></div>
+                        <div v-if="isLogin && totalMsgCount > 0 && orderList.length > 0" class="new-msg-dot"></div>
                     </div>
 
                 </v-layout>
@@ -324,11 +324,15 @@
                 return MainRepository.MyInfo.isLogin();
             },
             orderList() {
-                return MainRepository.MyOrder.getPage();
+                this.totalMsgCount = MainRepository.MyOrder.controller().getUnreadMsgCount();
+                return MainRepository.MyOrder.controller().getMyUnpaidOrderItems();
             }
         },
         created() {
             this.currentLang = abGetLang();
+
+            // 시작하자마자 한번 실행
+            MainRepository.MyOrder.load(true);
         },
         methods: {
             serializeserialize (form) { console.log(form);

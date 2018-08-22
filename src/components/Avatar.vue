@@ -52,7 +52,7 @@
                     //3분마다 로그인 확인 갱신
                     setInterval(function () {
                         self.getIsLogin();
-                    }, 3000)
+                    }, 30000)
 
                 }
             } else {
@@ -67,7 +67,7 @@
                         },function () {
                             setInterval(function () {
                                 self.getIsLogin();
-                            }, 3000)
+                            }, 30000)
                         })
                     });
                 }else{

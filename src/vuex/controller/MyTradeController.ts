@@ -48,6 +48,22 @@ export default class MyTradeController{
     }
 
     //10개씩 item 설정
+    setMyUnpaidOrderItems(orderItems : Order[]) {
+        this.store.dispatch(VuexTypes.SET_MY_UNPAID_ORDER_LIST, orderItems);
+    }
+    getMyUnpaidOrderItems(): Order[] {
+        return this.store.state.mytrade.myUnpaidOrderItems;
+    }
+    getUnreadMsgCount() {
+        let _cnt = 0;
+        for (let key in this.getMyUnpaidOrderItems()) {
+            let item: Order = this.getMyUnpaidOrderItems()[key];
+            _cnt += item.unreadMessageCount;
+        }
+        return _cnt;
+    }
+
+    //10개씩 item 설정
     setMyOrderItems(orderItems : Order[]) {
         this.store.dispatch(VuexTypes.SET_MYORDERSLIST_DATA, orderItems);
     }
