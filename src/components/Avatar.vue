@@ -32,6 +32,7 @@
             loginColor: '#c8c8c8',
             name: '',
             bgColor: '',
+            msgInterval: {},
         }),
         created() {
             let self = this;
@@ -50,9 +51,9 @@
                     });
 
                     //3분마다 로그인 확인 갱신
-                    setInterval(function () {
+                    this.msgInterval = setInterval(function () {
                         self.getIsLogin();
-                    }, 3000)
+                    }, 180000)
 
                 }
             } else {
@@ -61,24 +62,27 @@
                         let otherUsersInfo = result;
                         self.bgColor = otherUsersInfo.bgColor;
                         self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
-                        MainRepository.Message.setChatAvatar(new {
+                        MainRepository.Message.setMsgAvatar(new {
                             name : self.name,
                             bgColor : self.bgColor
                         },function () {
-                            setInterval(function () {
+                            self.msgInterval = setInterval(function () {
                                 self.getIsLogin();
-                            }, 3000)
+                            }, 180000)
                         })
                     });
                 }else{
-                    this.bgColor = MainRepository.Message.getChatAvatar().bgColor;
-                    this.name = MainRepository.Message.getChatAvatar().name;
+                    this.bgColor = MainRepository.Message.getMsgAvatar().bgColor;
+                    this.name = MainRepository.Message.getMsgAvatar().name;
                 }
             }
 
         },
         mounted() {
 
+        },
+        beforeDestroy() {
+            clearInterval(this.msgInterval);
         },
         methods: {
             getIsLogin() {
@@ -88,7 +92,7 @@
                 }, function (result) {
                     if(self.me === false && self.chat === 'main'){
 
-                        MainRepository.TradeProcess.updateChatAvatar({
+                        MainRepository.Message.updateMsgAvatar({
                             isLogin : result
                         },function () {
                             

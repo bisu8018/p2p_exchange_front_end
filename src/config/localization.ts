@@ -790,7 +790,7 @@ const strings = new Map([
         HK: '對方限制'
     }],
     ['counterpartyFilterPlaceholder', {
-        KOR: '상대방이 거래량을 결정해야 합니다.',
+        KOR: '상대방의 거래 성공 횟수를 입력해 주십시오',
         ENG: 'Counterparty should complete the trade amount.',
         CN: '对方需要决定交易数量。',
         HK: '對方需要決定交易數量。'
@@ -2046,6 +2046,12 @@ const strings = new Map([
     ['name', {
         KOR: '성명',
         ENG: 'Name',
+        CN: '姓名',
+        HK: '姓名'
+    }],
+    ['realName', {
+        KOR: '실명',
+        ENG: 'Real Name',
         CN: '姓名',
         HK: '姓名'
     }],

@@ -125,7 +125,7 @@ export default {
             let url = 'payment/';
             url += type;
 
-            AxiosService._requestWithUrlPram(url, 'POST', data,
+            AxiosService._requestWithBodyAndEmail(url, 'POST', data,
                 function (data: any) {
                     callback(data);
                 },
@@ -168,6 +168,15 @@ export default {
             AxiosService._requestWithUrlPram('payment', 'GET', data,
                 function (data: any) {
                     callback(data);
+                },
+                function () {
+                })
+        },
+        setPaymentMethod: function (data : any, callback: any) {
+            AxiosService._requestWithUrlPram('payment', 'GET', data,
+                function (data) {
+                    callback(data);
+                    return;
                 },
                 function () {
                 })

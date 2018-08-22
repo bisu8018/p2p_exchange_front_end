@@ -23,15 +23,13 @@
     </v-layout>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'trade-item',
-        props: {
-            item: {},
-        },
+        props: ['item'],
         data() {
             return {
                 itemId: '',

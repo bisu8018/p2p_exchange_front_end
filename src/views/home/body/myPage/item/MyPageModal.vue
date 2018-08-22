@@ -211,7 +211,7 @@
                         {{$str("tradePwText")}}
                     </div>
                     <div class="p-relative">
-                        <input type="text" class="input" :placeholder="$str('tradePwPlaceholder')"
+                        <input type="password" class="input" :placeholder="$str('tradePwPlaceholder')"
                                v-model="tradePassword"
                                v-bind:class="{'warning-border' : warning_trade_password}" @keyup="onCheckTradePassword">
                         <div class="warning-text-wrapper">

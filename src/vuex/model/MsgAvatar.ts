@@ -1,4 +1,4 @@
-export default class ChatAvatar {
+export default class MsgAvatar {
     name: number;
     bgColor: string;
     isLogin: string;

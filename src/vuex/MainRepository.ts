@@ -8,10 +8,9 @@ import MyTradeController from "@/vuex/controller/MyTradeController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
 import BalanceController from "@/vuex/controller/BalanceController";
-import CommonController from "@/vuex/controller/CommonController";
 import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import AccountController from "@/vuex/controller/AccountController";
-import ChatAvatarController from "@/vuex/controller/ChatAvatarController";
+import MsgAvatarController from "@/vuex/controller/MsgAvatarController";
 
 import AccountService from "@/service/account/AccountService";
 import TradeService from "@/service/trade/TradeService";
@@ -41,7 +40,7 @@ import TradeController from "@/vuex/controller/TradeController";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 import MerchantService from "@/service/merchant/MerchantService";
 import Merchant from "@/vuex/model/Merchant";
-import ChatService from "@/service/chat/ChatService";
+import MessageService from "@/service/message/MessageService";
 import {abUtils} from "@/common/utils";
 import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
@@ -54,11 +53,10 @@ let merchantController: MerchantController;
 let paginationController: PaginationController;
 let accountController: AccountController;
 let marketPriceController: MarketPriceController;
-let commonController: CommonController;
 let balanceController: BalanceController;
 let routerController: RouterController;
 let tradeController: TradeController;
-let chatAvatarController: ChatAvatarController;
+let msgAvatarController: MsgAvatarController;
 let messageController: MessageController;
 
 let store: Store<any>;
@@ -75,10 +73,9 @@ export default {
         merchantController = new MerchantController(store);
         accountController = new AccountController(store);
         myTradeController = new MyTradeController(store);
-        commonController = new CommonController(store);
         balanceController = new BalanceController(store);
         tradeController = new TradeController(store);
-        chatAvatarController = new ChatAvatarController(store);
+        msgAvatarController = new MsgAvatarController(store);
         messageController = new MessageController(store);
 
         // 자기 참조할 때 씀
@@ -117,7 +114,7 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.setBalances(function () {});
+                self.Balance.loadBalances(function () {});
                 self.Balance.setSecurityBalance(function () {});
                 // 객체형으로 관리하도록 변경 필요
                 self.MyInfo.loadMyPaymentMethods();
@@ -147,38 +144,6 @@ export default {
             return stateController.isInitCompleted();
         },
     },
-    Common: {
-        //sell/buy 프로세스 상대방 결제수단 정보 get
-        setPaymentMethod: function (data: any, callback: any) {
-            CommonService.info.setPaymentMethod({
-                email : instance.MyInfo.getUserInfo().email
-            },function (result) {
-                const paymentMethod_map = {
-                    alipay : {},
-                    wechat : {},
-                    bank : {}
-                };
-
-                for (let i = 0; i < result.length; i++) {
-                    const paymentMethod_tmp = result[i];
-                    let paymentMethod = new PaymentMethod(paymentMethod_tmp);
-                    if(paymentMethod.type === 'alipay'){
-                        paymentMethod_map.alipay = paymentMethod;
-                    }else if(paymentMethod.type === 'wechat'){
-                        paymentMethod_map.wechat = paymentMethod;
-                    }else{
-                        paymentMethod_map.bank = paymentMethod;
-                    }
-                }
-                //console.log(paymentMethod_map);
-                commonController.setPaymentMethod(paymentMethod_map);
-                callback();
-            })
-        },
-        getPaymentMethod: function () {
-            return commonController.getPaymentMethod();
-        }
-    },
     Balance: {
         controller(): BalanceController {
             return balanceController;
@@ -188,29 +153,11 @@ export default {
                 email: instance.MyInfo.getUserInfo().email
             }, function (result) {
                 balanceController.setBalance(result);
+                callback();
             })
         },
         getBalances: function () {
-            return balanceController.getBalance();
-        },
-        setBalances: function (callback:any) {
-          BalanceService.getBalances({
-              email: instance.MyInfo.getUserInfo().email
-          }, function (result) {
-              let balance = new Balance('');
-              const balance_map = {};
-
-              for (let i = 0; i < result.length; i++) {
-                  const balance_tmp = result[i];
-                  balance = new Balance(balance_tmp);
-                  balance_map[balance_tmp.cryptoCurrency] = balance;
-              }
-              balanceController.setBalance(balance_map);
-              callback(balance_map);
-          })
-        },
-        getBalance: function () {
-            return balanceController.getBalance();
+            return balanceController.getBalances();
         },
         setSecurityBalance: function(callback:any){
             BalanceService.getMySecurityBalance({
@@ -317,7 +264,7 @@ export default {
         },
 
         loadMyPaymentMethods: function () {
-            CommonService.info.setPaymentMethod({
+            AccountService.PaymentMethod.setPaymentMethod({
                 email : this.getUserInfo().email
             },function (result) {
                 let _payments: PaymentMethod[] = [];
@@ -830,40 +777,28 @@ export default {
                 callback(result);
             })
         },
-        setChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.setChatAvatar(data);
-            callback();
-        },
-        getChatAvatar: function () {
-            return chatAvatarController.getChatAvatar();
-        },
-        updateChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.updateChatAvatar(data);
-            callback();
-        },
     },
-
+    //채팅
     Message: {
         controller(): MessageController {
             return messageController;
         },
 
-        setChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.setChatAvatar(data);
+        setMsgAvatar: function  (data: any, callback: any) {
+            msgAvatarController.setMsgAvatar(data);
             callback();
         },
-        getChatAvatar: function () {
-            return chatAvatarController.getChatAvatar();
+        getMsgAvatar: function () {
+            return msgAvatarController.getMsgAvatar();
         },
-        updateChatAvatar: function  (data: any, callback: any) {
-            chatAvatarController.updateChatAvatar(data);
+        updateMsgAvatar: function  (data: any, callback: any) {
+            msgAvatarController.updateMsgAvatar(data);
             callback();
         },
-
 
         createRoom(callback: any) {
             let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime);
-            ChatService.message.getMessage({
+            MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,
                     dateTime:  _dateTime,
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
@@ -875,19 +810,20 @@ export default {
         },
 
         updateMsg(callback: any) {
-            ChatService.message.getMessage({
+            MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,  //VUEX userInfo.nickName
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-                    this.controller().addMsg(data);
+                console.log(data);
+                    //this.controller().addMsg(data);
                     callback();
                 }
             )
         },
 
         postMsg(msg: string, callback: any) {
-            ChatService.message.postMessage({
+            MessageService.message.postMessage({
                 attachedImgUrl: "",
                 message: msg,
                 orderNo: instance.TradeProcess.getCurrentOrder().orderNo,

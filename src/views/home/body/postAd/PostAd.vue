@@ -80,7 +80,7 @@
                     <div class="p-relative mb-3">
                         <select class="comp-selectbox h6" v-model="priceType">
                             <option value="fixedprice">{{$str("fixedPrice")}}</option>
-                            <option value="floatprice">{{$str("floatPrice")}}</option>
+                            <!--<option value="floatprice">{{$str("floatPrice")}}</option>-->
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -651,13 +651,13 @@
                 return abUtils.toMoneyFormat(this.fixedPrice);
             },
             getAlipay() {
-                return MainRepository.Common.getPaymentMethod().alipay;
+                return MainRepository.MyInfo.controller().findPaymentMethods('alipay');
             },
             getWechat() {
-                return MainRepository.Common.getPaymentMethod().wechat;
+                return MainRepository.MyInfo.controller().findPaymentMethods('wechat');
             },
             getBank() {
-                return MainRepository.Common.getPaymentMethod().bank;
+                return MainRepository.MyInfo.controller().findPaymentMethods('bank');
             },
             getCryptoCurrency() {
                 if (this.cryptocurrency === 'bitcoin') {
@@ -669,10 +669,10 @@
                 }
             },
             getBalance() {
-                if(Object.keys(MainRepository.Balance.getBalance()).length > 0){
+                if(Object.keys(MainRepository.Balance.getBalances()).length > 0){
                     if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin' ) {
-                        this.balance = MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
-                        return MainRepository.Balance.getBalance()[this.cryptocurrency].availableAmount;
+                        this.balance = MainRepository.Balance.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
+                        return this.balance
                     } else {
                         this.balance = 0;
                         return 0;
@@ -791,7 +791,7 @@
                     volumeAvailable: Number(self.volume),
                 }, function (result) {
                     MainRepository.Balance.loadBalances(function () {
-                        self.$router.push("tradeCenter");
+                        MainRepository.router().goTradeCenter();
                     });
                 })
             },

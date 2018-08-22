@@ -121,10 +121,10 @@
         </v-flex>
         <div>
             <!--채팅창-->
-            <chat :orderNo="orderNo" :merchantEmail="order.merchantEmail" :customerEmail="order.customerEmail"
+            <message :orderNo="orderNo" :merchantEmail="order.merchantEmail" :customerEmail="order.customerEmail"
                   :merchant_member_no="order.merchantMemberNo" :merchantNickname="order.merchantNickname"
                   :customerNickname="order.customerNickname"
-                  :customer_member_no="order.customerMemberNo"></chat>
+                  :customer_member_no="order.customerMemberNo"></message>
         </div>
 
         <!--모바일 환경에서 설명-->
@@ -154,13 +154,13 @@
     import Vue from 'vue';
     import SellModal from './sellModal/SellModal.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
-    import Chat from "@/components/Chat.vue";
+    import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
 
     export default Vue.extend({
         name: 'sell',
         components: {
-            SellModal, Chat, TradeItem
+            SellModal, Message, TradeItem
         },
         props: ['cancel'], // 외부에서 취소버튼 눌러 접근할 경우 props에 true값 전달
         data: () => ({
