@@ -63,7 +63,7 @@
           <v-flex xs12 text-xs-left mt-5 mb-2>
             <h3 class="bold">Online Sell</h3>
           </v-flex>
-          <div  v-for="user in SellLists" >
+          <div  v-for="user in BuyLists" >
               <user-trade-item
                       :user="user"
               ></user-trade-item>
@@ -75,7 +75,7 @@
         <v-flex text-xs-left mt-5 mb-2>
           <h3 class="bold">Online Buy</h3>
         </v-flex>
-        <div  v-for="user in BuyLists">
+        <div  v-for="user in SellLists">
           <user-trade-item
                   :user="user"
           ></user-trade-item>

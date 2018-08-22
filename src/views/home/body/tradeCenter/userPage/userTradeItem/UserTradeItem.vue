@@ -2,7 +2,6 @@
 <!--merchant 부분만 조금 다름-->
 <template>
   <div>
-
     <!-- mobile 일때-->
     <div v-if="isMobile" class="p-relative">
       <!--거래 list -->
@@ -26,7 +25,7 @@
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
-          <v-flex xs6 text-xs-right> {{user.volume}} {{user.cryptocurrency}} </v-flex>
+          <v-flex xs6 text-xs-right> {{user.volumeAvailable}} {{user.cryptocurrency}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
@@ -74,7 +73,7 @@
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
               <h5 class="medium color-blue c-pointer text-white-hover">
-                {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                {{user.nickname}} ( {{user.volumeAvailable}} | {{user.tradeRate}}%)
               </h5>
               <a class="tooltip d-inline-block" v-if="user.rank==1">
                 <div class="sprite-img ic-premium ml-2"></div>
@@ -126,11 +125,11 @@
         <v-layout medium>
           <v-flex xs4  offset-xs2 text-xs-left>
             <h5 class="color-darkgray">
-              {{$str("Available")}} :
+              {{$str("Available")}} :tradeType
             </h5>
           </v-flex>
           <v-flex xs4 offset-xs1 text-xs-right>
-            <h5>{{user.volume}} {{user.cryptocurrency}}</h5>
+            <h5>{{user.volumeAvailable}} {{user.cryptocurrency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -203,7 +202,7 @@
               </div>
             </div>
             <!--trade PW. sell 일때만 활성화-->
-            <div class="mt-3 p-relative" v-if="user.tradeType =='SELL'">
+            <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
               <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                      :placeholder="$str('tradePwText')" @blur="onChecktradePassword" @keyup="onNumberCheck('tradePW')"
                      v-bind:class="{'warning-border' : warning_tradePassword}">
@@ -250,7 +249,7 @@
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volume}} {{user.cryptocurrency}} </v-flex>
+        <v-flex md2 text-md-left >{{user.volumeAvailable}} {{user.cryptocurrency}} </v-flex>
         <!--limits-->
         <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         <!--price-->
@@ -292,7 +291,7 @@
                 <!-- merchant 정보-->
                 <span>
                   <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover">
-                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                    {{user.nickname}} ( {{user.volumeAvailable}} | {{user.tradeRate}}%)
                   </span>
                   <!--판매자 rank-->
                   <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -334,7 +333,7 @@
               <span v-else class="sprite-img ic-allb-lg"> </span>
               <span>
                 <span class="ml-3 bold">{{user.cryptocurrency}}</span>
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volume}} {{user.cryptocurrency}}</div>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
               </span>
             </v-layout>
           </v-flex>
@@ -418,7 +417,7 @@
             </div>
           </v-flex>
           <v-flex md3 text-md-right>
-            <div v-if="user.tradeType =='SELL'">
+            <div v-if="user.tradeType =='Sell'">
               <div class="p-relative">
                 <input type="number" class="input userInput textLeftPlaceholder"
                        name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
