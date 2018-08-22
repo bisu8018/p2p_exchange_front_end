@@ -1,5 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import Balance from '../model/Balance'
+import Withdraw from "@/vuex/model/Withdraw";
 
 
 const mutations = {
@@ -9,12 +10,18 @@ const mutations = {
             state.balanceList.push(new Balance(data[key]));
         }
     },
+    [VuexTypes.SET_WITHDRAW_DATA] (state: any, withdraw: any) {
+        state.withdraw = withdraw;
+    },
 };
 
 
 const actions = {
     [VuexTypes.SET_BALANCE_DATA](context: any, data: any) {
         context.commit(VuexTypes.SET_BALANCE_DATA, data)
+    },
+    [VuexTypes.SET_WITHDRAW_DATA](context: any, withdraw: any) {
+        context.commit(VuexTypes.SET_WITHDRAW_DATA, withdraw)
     },
 
 };
@@ -23,9 +30,11 @@ const getters = {
 };
 
 let balanceList: Balance[] = [];
+let withdraw = new Withdraw('');
 
 const state = {
     balanceList: balanceList,
+    withdraw : withdraw,
 };
 export default {
     namespaced: false,

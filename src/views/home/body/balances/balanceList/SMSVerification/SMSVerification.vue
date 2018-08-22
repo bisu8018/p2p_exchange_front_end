@@ -34,7 +34,7 @@
         <div class=" color-black  mb-2 text-xs-left">
           {{$str("emailVerification")}}
         </div>
-        <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
+        <verification-code v-on:verify="onCheckVerificationCode(code,'deposit')" :email="email"
                              :type="'email'"></verification-code>
         <div class="text-xs-right">
           <button class="btn-white  button-style" @click="goBalances">{{$str('cancel')}}</button>
@@ -97,7 +97,8 @@
               },
               onChange() {
                   if(this.verifiedAll == true){
-                    this.$router.push("/successWithdraw");
+                      MainRepository.Balance.postWithdraw()
+                      this.$router.push("/successWithdraw");
                   }
               },
               // 인증코드 체크

@@ -17,4 +17,12 @@ export default {
             function () {
             })
     },
+    postWithdraw: function (data: any, callback: any) {
+        AxiosService._requestWithBodyAndEmail('balance', 'POST', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
 }
