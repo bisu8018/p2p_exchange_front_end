@@ -83,7 +83,6 @@
             }
         },
         mounted() {
-
         },
         beforeDestroy() {
             clearInterval(this.msgInterval);

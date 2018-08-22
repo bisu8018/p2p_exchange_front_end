@@ -4,10 +4,11 @@
     <div v-if="isMobile">
       <v-layout row wrap>
         <v-flex xs12 text-xs-left mt-5 mb-4>
-          <avatar :email="merchant.email"
-                  v-if="merchant.email !== ''"
-                class="f-left mr-3">
-          </avatar>
+          <div v-if="merchant.email !== ''">
+            <avatar :email="merchant.email"
+                    class="f-left mr-3">
+            </avatar>
+          </div>
           <h5 class="ml-3">
             <v-layout>
               {{merchant.nickName}}
@@ -107,9 +108,11 @@
       <v-layout class="userWebList" align-center justify-center fill-height mt-5 mb-4>
         <v-flex  md3 text-md-left>
           <v-layout align-center>
-            <avatar
-                    :email="merchant.email">
-            </avatar>
+            <div v-if="merchant.email !== ''">
+              <avatar :email="merchant.email"
+                      class="f-left mr-3">
+              </avatar>
+            </div>
             <span class="ml-3 color-blue">
             {{merchant.nickName}}
             </span>
@@ -290,7 +293,7 @@
     import UserTradeItem from "./userTradeItem/UserTradeItem"
     import Avatar from '@/components/Avatar.vue';
     import {abUtils} from '@/common/utils';
-    import Merchant from "../../../../../vuex/model/MemberInfo";
+    import MemberInfo from "../../../../../vuex/model/MemberInfo";
 
     export default {
         name: "UserPage",
@@ -299,7 +302,7 @@
             showBlockModal : false,
             showUnBlockModal : false,
             showProgress : false,
-            merchant: new Merchant('') ,
+            merchant: new MemberInfo('') ,
             BuyLists: [],
             SellLists: [],
             userMemberNo : '',
