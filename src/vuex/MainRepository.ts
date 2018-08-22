@@ -549,7 +549,7 @@ export default {
                         instance.MyOrder.updatePage({page : page});
                         break;
 
-                    case 'MyAds':
+                    case 'myAds':
                         instance.MyAds.updatePage({page : page});
                         break;
                     default :
@@ -618,6 +618,7 @@ export default {
             paginationController.setTotalCount(1);
         },
         load(){
+            console.log(myTradeController.getMyAdsFilter());
             AdService.getMyAds({
                 email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyAdsFilter().searchStartTime,
@@ -633,7 +634,6 @@ export default {
             }, function (data) {
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
-
                 //전체 item list model화 시켜 주기
                 let result = data.myAdsList
                 let myAdsList: TradeItem[] = [];
@@ -646,7 +646,9 @@ export default {
             })
         },
         setFilter( data){
-            myTradeController.setMyAdsFilter(new MyTradeFilter(data));
+            myTradeController.setMyAdsFilter(
+                new MyTradeFilter(data)
+            );
         },
         updatePage(data){
             myTradeController.updateMyAdsFilter(data);

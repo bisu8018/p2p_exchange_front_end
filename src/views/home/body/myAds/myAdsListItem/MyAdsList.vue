@@ -10,10 +10,10 @@
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('adsType')}}</v-flex>
                 <v-flex xs9 text-xs-right>
-                    <span class="mr-4 color-green bold" v-if="adslist.tradeType === 'Sell'">
+                    <span class="mr-4 color-green bold" v-if="adslist.tradeType === 'Buy'">
                   {{$str("sell")}}
                   </span>
-                    <span class="mr-4 color-orange-price bold" v-if="adslist.tradeType === 'Buy'">
+                    <span class="mr-4 color-orange-price bold" v-if="adslist.tradeType === 'Sell'">
                         {{$str("buy")}}
                       </span>
                     {{adslist.cryptocurrency}}
@@ -52,10 +52,10 @@
                 <v-flex md2 text-md-left color-blue>{{adslist.adNo}}</v-flex>
                 <v-flex md1 text-md-left>
                     <v-layout justify-space-between>
-                        <h5 class="color-green bold" v-if="adslist.tradeType === 'Sell'">
+                        <h5 class="color-green bold" v-if="adslist.tradeType === 'Buy'">
                             {{$str("sell")}}
                         </h5>
-                        <h5 class="color-orange-price bold" v-if="adslist.tradeType === 'Buy'">
+                        <h5 class="color-orange-price bold" v-if="adslist.tradeType === 'Sell'">
                             {{$str("buy")}}
                         </h5>
                     {{adslist.cryptocurrency}}

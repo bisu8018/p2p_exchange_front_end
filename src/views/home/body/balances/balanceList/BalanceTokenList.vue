@@ -69,7 +69,7 @@
             {{getCryptoName(item.cryptoCurrency) }} {{$str("Deposit_Address")}}
           </v-flex>
           <v-flex xs12>
-            <input :value="item.walletAddress" disabled id="copy-code">
+            <input type="text" id="copy-code" :value="item.walletAddress" class="wallet-address" disabled  >
             <!--{{item.walletAddress}}-->
           </v-flex>
           <v-flex xs12 mt-3>
@@ -308,7 +308,6 @@
 
                 let copyLink = document.querySelector('#copy-code');
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-
                 if (isiOSDevice) {
 
                     let editable = copyLink.contentEditable;
@@ -398,5 +397,9 @@
     .right-button {
       margin-top : 30px;
     }
+  }
+  .wallet-address{
+    width: 100%;
+    text-align: center;
   }
 </style>

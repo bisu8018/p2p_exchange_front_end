@@ -12,7 +12,7 @@ const mutations = {
         state.myAdsItems = myAdsItems;
     },
     // 페이지 필터
-    [VuexTypes.SET_MYADSFILTER_DATA] (state: any, myAdsFilter: MyTradeFilter) {
+    [VuexTypes.SET_MYADSFILTER_DATA] (state: any, myAdsFilter: any) {
         state.myAdsFilter = myAdsFilter;
     },
     [VuexTypes.UPDATE_MYADSFILTER_DATA] (state: any, data: any) {
