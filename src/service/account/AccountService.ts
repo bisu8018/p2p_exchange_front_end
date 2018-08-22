@@ -131,12 +131,7 @@ export default {
             let url = 'payment/';
             url += paymentMethod.type;
 
-            let data =
-                {
-                    "paymentMethod" : paymentMethod
-                };
-
-            AxiosService._requestWithBodyAndEmail(url, 'POST', data,
+            AxiosService._requestWithBodyAndEmail(url, 'POST', paymentMethod,
                 function (data: any) {
                     callback(data);
                 },

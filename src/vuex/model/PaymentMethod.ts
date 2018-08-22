@@ -25,12 +25,12 @@ export default class PaymentMethod {
         this.bankAccount = data.bankAccount || '';
         this.bankBranchInfo = data.bankBranchInfo || '';
         this.bankName = data.bankName || '';
-        this.memberNo = data.memberNo || null;
+        this.memberNo = data.memberNo || 0;
         this.modifyDatetime = data.modifyDatetime;
-        this.modifyMemberNo = data.modifyMemberNo || null;
+        this.modifyMemberNo = data.modifyMemberNo || 0;
         this.ownerName = data.ownerName || '';
         this.registerDatetime = data.registerDatetime || '';
-        this.registerMemberNo = data.registerMemberNo || null;
+        this.registerMemberNo = data.registerMemberNo || 0;
         this.type = data.type || '';
         this.wechatId = data.wechatId || '';
         this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl || '';
@@ -48,12 +48,11 @@ export default class PaymentMethod {
             case 'wechat':
                 this.iconClass ='ic-wechat';
                 break;
-            default:
+            case 'bank':
                 this.iconClass ='ic-bank';
                 break;
         }
     }
-
 
     isNull(): boolean {
         return (this.type === undefined || this.type === '')

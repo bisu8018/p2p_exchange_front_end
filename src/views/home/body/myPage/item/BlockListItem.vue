@@ -60,8 +60,6 @@
                         email : MainRepository.MyInfo.getUserInfo().email,
                         BlockMemberNo: num,
                     }, function (result) {
-                        // self.showUnBlockModal = false;
-                        // self.blockThisMember = false;
                         self.onCheckUnblock = false;
                         self.$eventBus.$emit('showAlert', 0);
                     }
