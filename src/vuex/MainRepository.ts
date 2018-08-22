@@ -185,8 +185,8 @@ export default {
                 new Withdraw(data)
             )
         },
-        getWithdraw(){
-            return balanceController.getWithdraw;
+        getWithdraw: function (){
+            return balanceController.getWithdraw();
         },
         postWithdraw: function (callback: any) {
             BalanceService.postWithdraw({
