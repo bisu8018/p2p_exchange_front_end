@@ -331,7 +331,7 @@
         created() {
             this.currentLang = abGetLang();
 
-            if (this.MyInfo.isLogin()) {
+            if (MainRepository.MyInfo.isLogin()) {
                 // 시작하자마자 한번 실행
                 MainRepository.MyOrder.load(true);
             }
