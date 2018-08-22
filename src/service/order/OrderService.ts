@@ -56,8 +56,8 @@ export default {
             })
     },
     onConfirm : function (data : any, callback: any) {
-        let url = 'order/' + data + '/paid';
-        AxiosService._requestWithPath('order/appeal', 'PUT', data,
+        let url = 'order/' + data.orderNo + '/confirmAndRelease';
+        AxiosService._requestWithBodyAndEmail(url, 'PUT', data,
             function (data: any) {
                 callback(data)
             },

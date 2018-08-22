@@ -1,5 +1,5 @@
 export default class MsgAvatar {
-    name: number;
+    name: string;
     bgColor: string;
     isLogin: string;
 

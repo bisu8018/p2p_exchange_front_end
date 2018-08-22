@@ -786,7 +786,7 @@ export default {
             })
         },
         onConfirm: function (data: any, callback: any) {
-            OrderService.onAppeal(data, function (result) {
+            OrderService.onConfirm(data, function (result) {
                 callback(result);
             })
         },
@@ -828,8 +828,9 @@ export default {
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-                console.log(data);
-                    //this.controller().addMsg(data);
+                if(data.length != 0){
+                    this.controller().addMsg(data[0]);
+                }
                     callback();
                 }
             )
