@@ -13,6 +13,7 @@
         <!--/>-->
         <dialog-add-new-payment
                 :showDialog="showModal"
+                :my-info="myInfo"
                 @close="onClose"
         />
 
@@ -32,11 +33,11 @@
 
         <!-- Body : !isEmpty -->
         <div v-else>
-                    <span v-for="item in paymentMethod">
-                        <payment-item
-                                :data="item"
-                        />
-                    </span>
+            <span v-for="item in paymentMethod">
+                <payment-item
+                        :data="item"
+                />
+            </span>
             <div class="ta-center py-3">
                 <btn-mypage
                         @click="onModal('addPayment')"
