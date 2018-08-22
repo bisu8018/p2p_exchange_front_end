@@ -86,9 +86,10 @@
                 this.showModal = true;
                 this.isEdit = true;
                 this.paymentMethodItem = item;
+                // put API 가 ... 없... 어.... 수정... 못 해........
             },
             onToggle() {
-
+                // put API 가 ... 없... 어.... 수정... 못 해........
             },
 
 
