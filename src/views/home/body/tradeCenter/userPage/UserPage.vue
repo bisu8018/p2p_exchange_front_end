@@ -5,7 +5,7 @@
       <v-layout row wrap>
         <v-flex xs12 text-xs-left mt-5 mb-4>
           <avatar :email="merchant.email"
-                class="f-left mr-3">192.168
+                class="f-left mr-3">
           </avatar>
           <h5 class="ml-3">
             <v-layout>
@@ -14,7 +14,7 @@
             </v-layout>
           </h5>
           <!--판매자 rank-->
-          <h6 class="ml-3 color-darkgray">Created at: {{transTime}}</h6>
+          <h6 class="ml-3 color-darkgray">Created at: {{transTime(merchant.createDatetime)}}</h6>
         </v-flex>
         <v-flex xs12><v-divider></v-divider></v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>Security deposit</v-flex>
@@ -55,20 +55,21 @@
         </v-flex>
       </v-layout>
       <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
-      <!--SELL-->
-      <div v-if="haveSellList && !showProgress">
-        <v-flex xs12 text-xs-left mt-5 mb-2>
-          <h3 class="bold">Online Sell</h3>
-        </v-flex>
-        <div  v-for="user in SellLists" >
-            <user-trade-item
-                    :user="user"
-            ></user-trade-item>
-          <v-flex><v-divider></v-divider></v-flex>
+      <div v-if="!showBlockView">
+        <!--SELL-->
+        <div v-if="haveSellList && !showProgress">
+          <v-flex xs12 text-xs-left mt-5 mb-2>
+            <h3 class="bold">Online Sell</h3>
+          </v-flex>
+          <div  v-for="user in SellLists" >
+              <user-trade-item
+                      :user="user"
+              ></user-trade-item>
+            <v-flex><v-divider></v-divider></v-flex>
+          </div>
         </div>
-      </div>
-      <!--Buy-->
-      <div v-if="haveBuyList && !showProgress">
+        <!--Buy-->
+        <div v-if="haveBuyList && !showProgress">
         <v-flex text-xs-left mt-5 mb-2>
           <h3 class="bold">Online Buy</h3>
         </v-flex>
@@ -79,9 +80,24 @@
           <v-flex><v-divider></v-divider></v-flex>
         </div>
       </div>
+      </div>
+      <v-flex v-else >
+        <div class="no-online-border">
+          <div class="sprite-img ic-no-ad-lg no-more-ads"></div>
+          <div class="color-gray ">
+            {{$str("No Online advertisement")}}
+          </div>
+        </div>
+      </v-flex>
       <v-flex text-xs-right color-darkgray mt-3 mb-5>
-        Do not want to trade with this user?<br>
-        <span class="color-blue" @click="showBlockModal = true"> Block this user</span>
+        <div v-if="!showBlockView">
+          {{$str("Do_not_want_to_trade_with_this_user?")}}
+          <span class="color-blue c-pointer" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
+        </div>
+        <div v-else>
+          {{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}
+          <span class="color-blue c-pointer" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
+        </div>
       </v-flex>
     </div>
     <!--Web 일때-->
@@ -126,7 +142,7 @@
       <!--2번째 줄-->
       <v-layout mt-3 mb-4a>
         <v-flex md3 text-md-left>
-          <h6 class="color-darkgray">Created at : {{transTime}}</h6>
+          <h6 class="color-darkgray">Created at : {{transTime(merchant.createDatetime)}}</h6>
         </v-flex>
         <v-flex md9>
           <v-layout justify-end >
@@ -150,80 +166,89 @@
         </v-flex>
       </v-layout>
       <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
-      <div v-if="haveBuyList && !showProgress">
-        <!--Online Sell title-->
-        <v-flex text-md-left mb-4 bold>
-          <h3>{{$str("Online_Sell")}}</h3>
-        </v-flex>
-        <!-- chart의 title들 -->
-        <v-layout mb-3>
-          <v-flex  md3 text-md-left color-darkgray>
-            {{$str("Coin")}}
+      <div v-if="!showBlockView">
+        <div v-if="haveBuyList && !showProgress">
+          <!--Online Sell title-->
+          <v-flex text-md-left mb-4 bold>
+            <h3>{{$str("Online_Sell")}}</h3>
           </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("Available")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("limits")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("price")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("paymentMethod")}}
-          </v-flex>
-          <v-flex  md1 text-md-right color-darkgray>
-            {{$str("control")}}
-          </v-flex>
-        </v-layout>
-        <v-flex><v-divider></v-divider></v-flex>
-
-        <!-- user item list들 10개씩 출력-->
-        <div v-for="user in BuyLists"  >
-          <user-trade-item
-                  :user ="user"
-          ></user-trade-item>
+          <!-- chart의 title들 -->
+          <v-layout mb-3>
+            <v-flex  md3 text-md-left color-darkgray>
+              {{$str("Coin")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("Available")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("limits")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("price")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("paymentMethod")}}
+            </v-flex>
+            <v-flex  md1 text-md-right color-darkgray>
+              {{$str("control")}}
+            </v-flex>
+          </v-layout>
           <v-flex><v-divider></v-divider></v-flex>
+
+          <!-- user item list들 10개씩 출력-->
+          <div v-for="user in BuyLists"  >
+            <user-trade-item
+                    :user ="user"
+            ></user-trade-item>
+            <v-flex><v-divider></v-divider></v-flex>
+          </div>
+        </div>
+        <!--Online Buy title-->
+        <div v-if="haveSellList && !showProgress">
+          <v-flex text-md-left mb-4 mt-4a bold>
+            <h3>{{$str("Online_Buy")}}</h3>
+          </v-flex>
+          <!-- chart의 title들 -->
+          <v-layout mb-3>
+            <v-flex  md3 text-md-left color-darkgray>
+              {{$str("Coin")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("Available")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("limits")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("price")}}
+            </v-flex>
+            <v-flex  md2 text-md-left color-darkgray>
+              {{$str("paymentMethod")}}
+            </v-flex>
+            <v-flex  md1 text-md-right color-darkgray>
+              {{$str("control")}}
+            </v-flex>
+          </v-layout>
+          <v-flex><v-divider></v-divider></v-flex>
+          <!-- user item list들 10개씩 출력-->
+          <div v-for="user in SellLists"  >
+            <user-trade-item
+                    :user ="user"
+            ></user-trade-item>
+            <v-flex><v-divider></v-divider></v-flex>
+          </div>
         </div>
       </div>
-      <!--Online Buy title-->
-      <div v-if="haveSellList && !showProgress">
-        <v-flex text-md-left mb-4 mt-4a bold>
-          <h3>{{$str("Online_Buy")}}</h3>
-        </v-flex>
-        <!-- chart의 title들 -->
-        <v-layout mb-3>
-          <v-flex  md3 text-md-left color-darkgray>
-            {{$str("Coin")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("Available")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("limits")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("price")}}
-          </v-flex>
-          <v-flex  md2 text-md-left color-darkgray>
-            {{$str("paymentMethod")}}
-          </v-flex>
-          <v-flex  md1 text-md-right color-darkgray>
-            {{$str("control")}}
-          </v-flex>
-        </v-layout>
-        <v-flex><v-divider></v-divider></v-flex>
-        <!-- user item list들 10개씩 출력-->
-        <div v-for="user in SellLists"  >
-          <user-trade-item
-                  :user ="user"
-          ></user-trade-item>
-          <v-flex><v-divider></v-divider></v-flex>
+      <v-flex v-else >
+        <div class="no-online-border">
+          <div class="sprite-img ic-no-ad-lg no-more-ads"></div>
+          <div class="color-gray ">
+            {{$str("No Online advertisement")}}
+          </div>
         </div>
-      </div>
-
+      </v-flex>
       <v-flex text-md-right mt-3 mb-6>
-        <div v-if="!blockThisMember">
+        <div v-if="!showBlockView">
           {{$str("Do_not_want_to_trade_with_this_user?")}}
           <span class="color-blue c-pointer" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
         </div>
@@ -264,6 +289,7 @@
     import UserTradeItem from "./userTradeItem/UserTradeItem"
     import Avatar from '@/components/Avatar.vue';
     import {abUtils} from '@/common/utils';
+    import Merchant from "../../../../../vuex/model/MemberInfo";
 
     export default {
         name: "UserPage",
@@ -272,23 +298,7 @@
             showBlockModal : false,
             showUnBlockModal : false,
             showProgress : false,
-            merchant:
-                {
-                    nickName: '',
-                    email : '',
-                    rank : 1,
-                    securityDeposit: '',
-                    completionRate: '',
-                    tradeTimes: '',
-                    tradeMonthTimes: '',
-                    avgRelease: '',
-                    createDatetime : '',
-                    emailVerification : false,
-                    idVerification : false,
-                    phoneVerification : false,
-                    advancedVerification : false,
-                }
-            ,
+            merchant: new Merchant('') ,
             BuyLists: [],
             SellLists: [],
             userMemberNo : '',
@@ -304,9 +314,8 @@
             haveSellList(){
                 return (this.SellLists.length >0 );
             },
-            transTime(){
-                let time = abUtils.isLocaleDateTime(this.merchant.createDatetime);
-                return time;
+            showBlockView(){
+                return this.blockThisMember
             }
         },
         created(){
@@ -343,38 +352,49 @@
                 })
             // 나의 block 리스트 정보 GET
             if(MainRepository.MyInfo.isLogin()){
-            MainRepository.MyPage.getBlockList(function (result) {
-                for(let key in result){
-                  if(self.userMemberNo === result[key].blockMemberNo){
-                      self.blockThisMember = true;
-                  }
-              }
-            })}
+              MainRepository.MyPage.getBlockList(function (result) {
+                  for(let key in result){
+                    if(self.userMemberNo == result[key].blockMemberNo){
+
+                        self.blockThisMember = true;
+                    }
+                }
+              })
+            }
 
         },
         methods:{
+            transTime(time){
+                return abUtils.toTimeFormat(time);
+            },
+
             blockThisUser(){
                 let self = this;
-                MainRepository.Users.postBlockThisUser({
-                        memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
-                        blockMemberNo: self.userMemberNo
-                },function (result) {
-                        self.showBlockModal = false;
-                        self.blockThisMember = true;
-                    }
-                )
+                if(MainRepository.MyInfo.isLogin()){
+                  MainRepository.Users.postBlockThisUser({
+                          memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
+                          blockMemberNo: self.userMemberNo
+                  },function (result) {
+                          self.showBlockModal = false;
+                          self.blockThisMember = true;
+                      }
+                  )
+                }
             },
             UnblockThisUser(){
                 let self = this;
-                MainRepository.Users.deleteBlockThisUser({
-                    email : MainRepository.MyInfo.getUserInfo().email,
-                    BlockMemberNo: self.userMemberNo
-                    },function (result) {
-                        self.showUnBlockModal = false;
-                        self.blockThisMember = false;
-                    }
-                )
+                if(MainRepository.MyInfo.isLogin()) {
+                    MainRepository.Users.deleteBlockThisUser({
+                            email: MainRepository.MyInfo.getUserInfo().email,
+                            BlockMemberNo: self.userMemberNo
+                        }, function (result) {
+                            self.showUnBlockModal = false;
+                            self.blockThisMember = false;
+                        }
+                    )
+                }
             }
+
         }
     }
 </script>
@@ -398,4 +418,18 @@
     margin-top: 80px;
   }
 
+  .no-more-ads{
+    margin: 0px auto 16px auto;
+  }
+  .no-online-border{
+    border-radius: 2px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+    padding-top: 112px;
+    padding-bottom: 112px;
+  }
+  @media only screen and (max-width: 959px) {
+    .no-online-border{
+      margin-top: 48px;
+    }
+  }
 </style>
