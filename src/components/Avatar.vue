@@ -67,8 +67,8 @@
                     )
                 } else {
                     // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
+                    let _msgAvatar = MainRepository.Message.msgAvatar().get();
                     if (this.chat === 'sub') {
-                        let _msgAvatar = MainRepository.Message.msgAvatar().get();
                         this.setAvatar(
                             _msgAvatar.name,
                             _msgAvatar.bgColor,
@@ -80,6 +80,7 @@
                             this.setAvatar(
                                 userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
                                 userInfo.bgColor,
+                                _msgAvatar.isLogin
                             );
                             // 채팅일 경우 -> MsgAvatar 에 저장
                             if (this.chat === 'main') {
