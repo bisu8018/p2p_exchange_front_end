@@ -53,6 +53,7 @@ export default class BalanceController {
     }
 
     getWithdraw(){
+
         return this.store.state.balance.withdraw
     }
 }

@@ -16,6 +16,7 @@ export default class Withdraw {
         this.ownerMemberNo = data.ownerMemberNo || '';
         this.receiveAmount = data.receiveAmount || '';
     }
+
 }
 
 

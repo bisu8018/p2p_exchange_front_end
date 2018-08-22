@@ -1801,11 +1801,17 @@ const strings = new Map([
         CN: '总交易量',
         HK: '總交易量'
     }],
-    ['Min', {
+    ['min', {
         KOR: '분',
         ENG: 'Min',
         CN: '分钟',
         HK: '分鐘'
+    }],
+    ['sec', {
+        KOR: '초',
+        ENG: 'Sec',
+        CN: '秒',
+        HK: '秒'
     }],
 
     //My page

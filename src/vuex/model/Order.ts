@@ -26,6 +26,7 @@ export default class Order {
     customerEmail : string;
     merchantNickname : string;
     customerNickname : string;
+    appealList : object;
 
 
     constructor (data: any) {
@@ -57,17 +58,19 @@ export default class Order {
         this.customerEmail = data.customerEmail || '';
         this.merchantNickname = data.merchantNickname || '';
         this.customerNickname = data.customerNickname || '';
+        this.appealList = data.appealList || '';
     }
 
     transCryptocurrency(cryptocurrency){
+        console.log(cryptocurrency)
         switch (cryptocurrency) {
             case 'bitcoin':
-                return 'BTC'
+                return 'BTC';
 
             case 'ethereum':
-                return 'ETH'
+                return 'ETH';
             default:
-                return 'ALLB'
+                return 'ALLB';
         }
     }
 }
