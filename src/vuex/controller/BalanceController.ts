@@ -2,6 +2,7 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import {CurrencyType} from "@/vuex/model/CurrencyType";
 import Balance from "@/vuex/model/Balance";
+import Withdraw from "@/vuex/model/Withdraw";
 
 export default class BalanceController {
     store: Store<any>;
@@ -46,6 +47,13 @@ export default class BalanceController {
         }
 
         return _totalValue;
+    }
+    setWithdraw(withdraw : Withdraw){
+        this.store.dispatch(VuexTypes.SET_WITHDRAW_DATA, withdraw);
+    }
+
+    getWithdraw(){
+        return this.store.state.balance.withdraw
     }
 }
 

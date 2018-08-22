@@ -13,7 +13,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{}}:
+            {{currentWithdraw.cryptoCurrency}}:
           </v-flex>
         </v-layout>
         <v-layout mb-3>
@@ -23,7 +23,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{}}:
+            {{currentWithdraw.addressTo}}:
           </v-flex>
         </v-layout>
         <v-layout mb-3>
@@ -33,7 +33,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{}}:
+            {{currentWithdraw.receiveAmount}}:
           </v-flex>
         </v-layout>
         <v-layout mb-4a>
@@ -57,12 +57,22 @@
 </template>
 
 <script>
+    import MainRepository from "../../../../../../vuex/MainRepository";
+
     export default {
         name: "SuccessWithdraw",
         data: function () {
             return {
 
             }
+        },
+        computed: {
+          currentWithdraw(){
+              return MainRepository.Balance.getWithdraw()
+            }
+        },
+        created(){
+
         },
     }
 </script>

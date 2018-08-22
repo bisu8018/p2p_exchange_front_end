@@ -307,6 +307,7 @@
             onCopy() {
 
                 let copyLink = document.querySelector('#copy-code');
+
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
                 if (isiOSDevice) {
 
@@ -331,6 +332,7 @@
                 } else {
                     copyLink.setAttribute('type', 'text');
                     copyLink.select();
+
                 }
 
                 document.execCommand('copy');
@@ -340,7 +342,14 @@
 
             },
             goSMSVerification(){
-
+                MainRepository.Balance.setWithdraw({
+                    addressTo : this.address,
+                    amount : this.amount,
+                    cryptoCurrency : this.item.cryptoCurrency,
+                    fee : this.fee,
+                    ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
+                    receiveAmount : this.receiveAmount
+                })
                 this.$router.push("/smsVerification");
             },
         }
