@@ -36,8 +36,15 @@
             onClose(item) {
                 this.$emit('close', item);
             },
-            onDone() {
+            onCheckName() {
+                return true;
+            },
+            onCheckIdNum() {
+                return true;
+            },
+            onDone(item) {
                 if (this.onCheckName() && this.onCheckIdNum()) {
+                    this.$emit('done', item);
                     this.onClose();
                     // this.showSuccessModal = true;
                 }
