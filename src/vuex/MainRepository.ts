@@ -348,18 +348,11 @@ export default {
                 callback(tempLists);
             })
         },
-        postBlockThisUser(data : number, callback: any){
+        postBlockThisUser(data : any, callback: any){
             AccountService.BlockList.postBlockUser(data, function (result) {
                 callback(result);
             })
         },
-        // deleteBlockThisUser(email:string, blockMemberNo : number, callback: any){
-        //     AccountService.BlockList.deleteBlockUser({
-        //         email, blockMemberNo
-        //     }, function (result) {
-        //         callback(result);
-        //     })
-        // },
         deleteBlockThisUser(data: any, callback: any){
             AccountService.BlockList.deleteBlockUser(data, function (result) {
                 callback(result);
