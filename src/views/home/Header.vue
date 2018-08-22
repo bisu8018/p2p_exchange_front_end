@@ -331,8 +331,10 @@
         created() {
             this.currentLang = abGetLang();
 
-            // 시작하자마자 한번 실행
-            MainRepository.MyOrder.load(true);
+            if (this.MyInfo.isLogin()) {
+                // 시작하자마자 한번 실행
+                MainRepository.MyOrder.load(true);
+            }
         },
         methods: {
             serializeserialize (form) { console.log(form);
