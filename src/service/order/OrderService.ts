@@ -74,8 +74,8 @@ export default {
             })
     },
     onAppealCancel : function (data : any, callback: any) {
-        let url = 'order/' + data.orderNo + '/appeal';
-        AxiosService._requestWithPlainBody(url, 'PUT', data.tradePassword,
+        let url = 'order/' + data.orderNo + '/appeal/' + data.appealNo + '/cancel';
+        AxiosService._requestWithBodyAndEmail(url, 'PUT', data.tradePassword,
             function (data: any) {
                 callback(data)
             },

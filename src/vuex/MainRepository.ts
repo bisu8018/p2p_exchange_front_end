@@ -850,7 +850,7 @@ export default {
             })
         },
         onAppealCancel: function (data: any, callback: any) {
-            OrderService.onAppeal(data, function (result) {
+            OrderService.onAppealCancel(data, function (result) {
                 callback(result);
             })
         },

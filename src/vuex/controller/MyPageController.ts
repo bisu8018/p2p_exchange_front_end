@@ -7,7 +7,8 @@ export default class MyPageController {
     paymentMethod: PaymentMethod;
 
     constructor (vuexStore: Store<any>) {
-        this.store = vuexStore
+        this.store = vuexStore;
+        this.paymentMethod = new PaymentMethod('');
     }
 }
 

@@ -62,14 +62,15 @@ export default class Order {
     }
 
     transCryptocurrency(cryptocurrency){
+        console.log(cryptocurrency)
         switch (cryptocurrency) {
             case 'bitcoin':
-                return 'BTC'
+                return 'BTC';
 
             case 'ethereum':
-                return 'ETH'
+                return 'ETH';
             default:
-                return 'ALLB'
+                return 'ALLB';
         }
     }
 }

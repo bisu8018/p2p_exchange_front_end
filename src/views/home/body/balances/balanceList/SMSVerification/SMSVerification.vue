@@ -98,7 +98,7 @@
               },
               onChange() {
                   if(this.verifiedAll == true){
-                      MainRepository.Balance.postWithdraw(function () {
+                      MainRepository.Balance.postWithdraw(() => {
                           this.$router.push("/successWithdraw");
                       });
                   }

@@ -276,13 +276,18 @@
                 this.timerInterval = setInterval(() => {
                     this.limitTime = this.getLimitTime();
                     // 만료되었을 경우
-                    if (this.limitTime === '00:00') {
+                    if (this.limitTime === '0 Min 0 Sec') {
 
                     }
                 }, 1000)
             },
             getLimitTime() {
-                return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
+                let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
+                // let min = time.substr(0,2);
+                // let sec = time.substr(3,2);
+                let min = time.split(':')[0];
+                let sec = time.split(':')[1];
+                return min + ' ' + Vue.prototype.$str('min') + ' ' + sec + ' ' + Vue.prototype.$str('sec');
             },
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
@@ -325,7 +330,12 @@
                 let orderInfo = MainRepository.TradeProcess.getCurrentOrder();
                 let appealList = orderInfo.appealList[0];
                 if(orderInfo.status === 'complaining' && appealList.status === 'registered'){
-
+                    MainRepository.TradeProcess.onAppealCancel({
+                        orderNo : orderInfo.orderNo,
+                        appealNo : appealList.appealNo
+                    },function () {
+                        
+                    })
                 }
 
                 // *************************************post작업 성공시
