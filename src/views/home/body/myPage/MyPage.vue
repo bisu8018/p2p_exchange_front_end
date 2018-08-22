@@ -47,6 +47,7 @@
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
+    import AccountService from "@/service/account/AccountService";
     import BigAvatar from '@/components/BigAvatar.vue';
     import Avatar from '@/components/Avatar.vue';
     import Pagination from '@/components/Pagination.vue';
@@ -209,6 +210,7 @@
             MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
                 self.securitySettings = securitySettings;
             });
+
         },
         mounted() {
             if (this.myInfo.nickname === '') {

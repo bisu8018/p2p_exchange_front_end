@@ -223,12 +223,11 @@ export default {
     SecuritySettings: {
         //유저 보안 설정 변경 기록
         getSecuritySettings: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('security/history', 'GET', data,
+            AxiosService._requestWithBodyAndEmail('security/history', 'GET', data,
                 function (data: any) {
                     callback(data);
                 },
-                function () {
-                })
+                function () { })
         }
     }
 }
