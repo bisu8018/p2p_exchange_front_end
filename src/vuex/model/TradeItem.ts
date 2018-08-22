@@ -30,10 +30,7 @@ export default class TradeItem {
     wechat_id: string;
     alipay_id: string;
     // volume: number; // 이건 위의 volume이랑 다른 것임. 차후 재설정 필요.
-
     ownerMember : MemberInfo;
-
-
 
 
 
