@@ -4,7 +4,6 @@
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{order_number}} 주문번호-->
                 Order : #{{getOrderNumber}}
-{{getPaymentWindow}}
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 <!-- buy/sell -->
@@ -65,7 +64,7 @@
 
                     <!-- 지불기간-->
                     <!--타이머 스크립트 작성 필요-->
-                    <span class="color-green">{{currentOrder.paymentWindow}}</span>
+                    <span class="color-green">{{ limitTime }}</span>
                     {{$str("paymentExplain4")}}
                 </span>
                     <!--buying 상태 일때-->
@@ -218,6 +217,7 @@
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
     import {abUtils} from "../../../../../common/utils";
+    import {getLimitTime} from "../../../../../common/common";
 
     export default Vue.extend({
         name: 'buy',
@@ -231,6 +231,8 @@
             appealCode: 977057,
             showModal: false,
             isInitCompleted: false,
+            limitTime: '',
+            timerInterval: {},
         }),
         computed: {
             currentOrder() {
@@ -245,30 +247,6 @@
                 }
                 let temp = addZero + this.orderNo;
                 return temp;
-            },
-            getPaymentWindow() {
-                var startTime = Date.now();
-               console.log(startTime)
-               console.log(new Date(startTime))
-                let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
-                console.log(_t)
-                console.log(new Date(_t))
-                let __t = _t - startTime;
-                let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
-                let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
-                console.log(__t)
-                console.log(__t/1000/60)
-                console.log(calcTime)
-                calcTime = (calcTime/1000)/60;
-                console.log(calcTime)
-
-
-                /*  var startMsec = startTime.getMilliseconds();
-                 console.log(startMsec)
-                 startTime.setTime(5000000);
-                 var elapsed = (startTime.getTime() - startMsec) / 1000;
-                 return abUtils.toChatTimeFormat(elapsed);*/
-
             },
         },
         created() {
@@ -289,11 +267,20 @@
 
             MainRepository.TradeProcess.loadCurrentOrder(this.orderNo, () => {
                 this.isInitCompleted = true;
+                this.init();
             });
 
         },
         methods: {
-
+            init() {
+                this.limitTime = this.getLimitTime();
+                this.timerInterval = setInterval(() => {
+                    this.limitTime = this.getLimitTime();
+                }, 1000)
+            },
+            getLimitTime() {
+                return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
+            },
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
             },

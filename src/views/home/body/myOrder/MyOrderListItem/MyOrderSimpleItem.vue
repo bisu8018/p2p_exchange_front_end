@@ -10,7 +10,7 @@
                 <!--Buy BTC Total Price: 200 CNY-->
             </h5>
             <h5>
-                Please pay - 00:14:32
+                Please pay - {{ limitTime }}
             </h5>
         </div>
         <span v-if="data.unreadMessageCount !== 0" class="badge">{{ data.unreadMessageCount }}</span>
@@ -19,6 +19,7 @@
 
 <script>
     import Avatar from '@/components/Avatar.vue';
+    import {getLimitTime} from "../../../../../common/common";
 
     export default {
         name: "my-order-simple-item",
@@ -28,10 +29,20 @@
         },
         data() {
           return {
-
+              limitTime: '',
+              timerInterval: {},
           }
         },
+        created() {
+            this.limitTime = this.getLimitTime();
+            this.timerInterval = setInterval(() => {
+                this.limitTime = this.getLimitTime();
+            }, 1000)
+        },
         methods: {
+            getLimitTime() {
+              return getLimitTime(this.data.registerDatetime, this.data.paymentWindow);
+            },
             goMyOrder() {
                 this.$router.push("/myOrder");
             },

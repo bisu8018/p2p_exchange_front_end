@@ -287,9 +287,10 @@
                 MainRepository.router().goLogin();
                 return;
             }
+
+            MainRepository.Merchant.loadMyMerchantInfo(function () {});
         },
         methods :{
-
             showDialog(){
                 if(this.isAgree == true){
                     //nickname설정을 해야할때

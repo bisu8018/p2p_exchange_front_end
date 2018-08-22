@@ -38,6 +38,11 @@
             bgColor: '#7f7f7f',
             msgInterval: {},
         }),
+        watch: {
+            email() {
+                this.init();
+            }
+        },
         computed: {
             msgAvatar() {
                 this.bgColor = MainRepository.Message.msgAvatar().get().bgColor;
@@ -46,48 +51,49 @@
             },
         },
         created() {
-            // 내 아바타일 때
-            if (this.me) {
-                this.setAvatar(
-                    MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0],
-                    MainRepository.MyInfo.getUserInfo().bgColor,
-                    true,
-                )
-            } else {
-                // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
-                if (this.chat === 'sub') {
-                    let _msgAvatar = MainRepository.Message.msgAvatar().get();
-                    this.setAvatar(
-                        _msgAvatar.name,
-                        _msgAvatar.bgColor,
-                        _msgAvatar.isLogin
-                    )
-                } else {
-                    // 로그인 상태 요청
-                    MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
-                        this.setAvatar(
-                            userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
-                            userInfo.bgColor,
-                        );
-                        // 채팅일 경우 -> MsgAvatar 에 저장
-                        if (this.chat === 'main') {
-                            MainRepository.Message.msgAvatar().set({
-                                email: this.email,
-                                name: self.name,
-                                bgColor: self.bgColor
-                            })
-                        }
-                        this.initInterval();
-                    });
-                }
-            }
-        },
-        mounted() {
+            this.init();
         },
         beforeDestroy() {
             clearInterval(this.msgInterval);
         },
         methods: {
+            init() {
+                // 내 아바타일 때
+                if (this.me) {
+                    this.setAvatar(
+                        MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0],
+                        MainRepository.MyInfo.getUserInfo().bgColor,
+                        true,
+                    )
+                } else {
+                    // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
+                    if (this.chat === 'sub') {
+                        let _msgAvatar = MainRepository.Message.msgAvatar().get();
+                        this.setAvatar(
+                            _msgAvatar.name,
+                            _msgAvatar.bgColor,
+                            _msgAvatar.isLogin
+                        )
+                    } else {
+                        // 로그인 상태 요청
+                        MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
+                            this.setAvatar(
+                                userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
+                                userInfo.bgColor,
+                            );
+                            // 채팅일 경우 -> MsgAvatar 에 저장
+                            if (this.chat === 'main') {
+                                MainRepository.Message.msgAvatar().set({
+                                    email: this.email,
+                                    name: self.name,
+                                    bgColor: self.bgColor
+                                })
+                            }
+                            this.initInterval();
+                        });
+                    }
+                }
+            },
             setAvatar(name, bgColor, isLogin) {
                 this.name = name;
                 this.bgColor = bgColor;
