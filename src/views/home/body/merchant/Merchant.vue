@@ -37,10 +37,10 @@
         <!-- Registerd : 신청 대기 중 -->
         <div v-if="myMerchantInfo.isRegistered()">
             <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
-                <v-flex xs12 md1 pr-3 pt-2 text-md-right>
-                    <i class="material-icons">schedule</i>
+                <v-flex xs12 md4 pl-0>
+                    <i class="material-icons d-inline-block pt-1 pr-2">schedule</i>
+                    <h2 class="d-inline-block">{{$str("Your application is under review.")}}</h2>
                 </v-flex>
-                <v-flex xs12 md4 text-md-left pl-0><h2>{{$str("Your application is under review.")}}</h2></v-flex>
             </v-layout>
             <v-layout justify-center mb-6>
                 <v-flex md5 xs12>
@@ -51,14 +51,14 @@
         <!-- Verified : 신청 완료 -->
         <div v-else-if="myMerchantInfo.isVerified()">
             <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
-                <v-flex xs12 md1 pr-3 pt-2 text-md-right>
-                    <i class="material-icons">schedule</i>
+                <v-flex xs12 md5 pl-0>
+                    <i class="material-icons d-inline-block pt-1 pr-2 check-icon">check_circle</i>
+                    <h2 class="d-inline-block">{{$str("OTC Merchant application is approved.")}}</h2>
                 </v-flex>
-                <v-flex xs12 md4 text-md-left pl-0><h2>{{$str("Your application is under review.")}}</h2></v-flex>
             </v-layout>
             <v-layout justify-center mb-6>
                 <v-flex md5 xs12>
-                    <h4> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h4>
+                    <h4> {{$str("Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!")}}</h4>
                 </v-flex>
             </v-layout>
         </div>
@@ -445,6 +445,15 @@
         position: absolute !important;
         bottom : -20px !important;
         right: 0px;
+    }
+
+    .status-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .check-icon {
+        color: #71aa3a;
     }
 
 </style>

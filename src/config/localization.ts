@@ -2459,6 +2459,18 @@ const strings = new Map([
         CN: '您的申请已成功提交。我们将在2天工作日内完成审核。',
         HK: '您的申請已成功提交。我們將在2天工作日內完成審核。'
     }],
+    ['OTC Merchant application is approved.', {
+        KOR: '',
+        ENG: 'OTC Merchant application is approved.',
+        CN: '',
+        HK: ''
+    }],
+    ['Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!', {
+        KOR: '',
+        ENG: 'Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!',
+        CN: '',
+        HK: ''
+    }],
 
     ['Photo of Identification', {
         KOR: '신분증 사진',
