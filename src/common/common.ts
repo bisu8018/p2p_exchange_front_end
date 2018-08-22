@@ -41,6 +41,33 @@ export function deleteCookie(name) {
     if (getCookie(name)) document.cookie = name + "=" + ";expires=Thu, 01-Jan-70 00:00:01 GMT";
 }
 
+export function getLimitTime(from: number, limit: number): string {
+    // Get todays date and time
+    let fromDate = new Date(from);
+
+    // let countDownDate = new Date(
+    //     fromDate.getFullYear() + "-" + (fromDate.getMonth()+1) + "-" + fromDate.getDate() + " " +
+    //     fromDate.getHours() + ":" + (fromDate.getMinutes() + limit) + ":" + fromDate.getSeconds()
+    // );
+    let countDownDate = new Date(fromDate.getTime() + (limit * 60 *1000));
+    let now = new Date().getTime();
+
+    // Find the distance between now an the count down date
+    let distance = countDownDate.getTime() - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (distance < 0) {
+        return "00:00:00";
+    } else {
+        return ((hours < 10) ? '0' : '') + hours +
+            ":" + ((minutes < 10) ? '0' : '') + minutes +
+            ":" + ((seconds < 10) ? '0' : '') + seconds;
+    }
+}
 
 export function setTimer() {
     // 1초 마다 Update

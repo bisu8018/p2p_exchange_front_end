@@ -301,7 +301,6 @@ export default {
             }, function (result) {
                 let otherUserInfo = new OtherUsers(result);
                 callback(otherUserInfo);
-
             })
         },
         isUserActive(data : any, callback: any){

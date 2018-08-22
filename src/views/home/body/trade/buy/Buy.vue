@@ -64,7 +64,7 @@
 
                     <!-- 지불기간-->
                     <!--타이머 스크립트 작성 필요-->
-                    <span class="color-green">{{setPaymentWindow}}</span>
+                    <span class="color-green">{{ limitTime }}</span>
                     {{$str("paymentExplain4")}}
                 </span>
                     <!--buying 상태 일때-->
@@ -217,6 +217,7 @@
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
     import {abUtils} from "../../../../../common/utils";
+    import {getLimitTime} from "../../../../../common/common";
 
     export default Vue.extend({
         name: 'buy',
@@ -230,8 +231,8 @@
             appealCode: 977057,
             showModal: false,
             isInitCompleted: false,
-            setTime: 0,
-            start: {}
+            limitTime: '',
+            timerInterval: {},
         }),
         computed: {
             currentOrder() {
@@ -247,38 +248,8 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
-            setPaymentWindow() {
-                let min;
-                let sec;
-                let t = this.setTime;
-                console.log(t);
-                // 정수로부터 남은 분, 초 단위 계산
-                min = Math.floor(t/ 60);
-                sec = Math.floor(t - min*60);
-
-                // mm:ss 형태를 유지하기 위해 한자리 수일 때 0 추가
-                if(min < 10) min = "0" + min;
-                if(sec < 10) sec = "0" + sec;
-                return(min + "분 " + sec + "초");
-            },
-        },
-        beforeDestroy() {
-            clearInterval(this.start);
         },
         created() {
-            //order no GET from url param
-            var url = location.href;
-            var parameters = url.slice(url.indexOf('?') + 1, url.length);
-            if (parameters.substr(0, 4) != 'http') {
-                this.orderNo = parameters;
-            } else {
-                //order number 없을 시, 거래소 페이지 이동
-                this.$router.push("tradeCenter");
-            }
-
-            // 유져 데이터 정보 get
-            this.getOrderData();
-
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
@@ -294,30 +265,49 @@
 
             MainRepository.TradeProcess.loadCurrentOrder(this.orderNo, () => {
                 this.isInitCompleted = true;
+                this.init();
             });
-            this.getPaymentWindow();
+        },
+        beforeDestroy() {
+            clearInterval(this.timerInterval);
         },
         methods: {
-            getPaymentWindow() {
-                var startTime = Date.now();
-                let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
-                let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
-                let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
-                calcTime = calcTime/1000;
-                this.setTime = calcTime;
-                console.log(calcTime);
-                this.getTimer();
-            },
-            getTimer() {
-                this.start = setInterval(() => {
-                    if (this.setTime > 0) { console.log(this.setTime)
-                        this.setTime--;
-                    } else {
-                        clearInterval(this.start);
-                        //staus GET AXIOS
+            init() {
+                this.limitTime = this.getLimitTime();
+                this.timerInterval = setInterval(() => {
+                    this.limitTime = this.getLimitTime();
+                    // 만료되었을 경우
+                    if (this.limitTime === '00:00:00') {
+
                     }
-                }, 1000);
+                }, 1000)
             },
+            getLimitTime() {
+                return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
+            },
+
+            // 코드 확인 후 삭제할것
+            // getPaymentWindow() {
+            //     var startTime = Date.now();
+            //     let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
+            //     let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
+            //     let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
+            //     calcTime = calcTime/1000;
+            //     this.setTime = calcTime;
+            //     console.log(calcTime);
+            //     this.getTimer();
+            // },
+            // getTimer() {
+            //     this.start = setInterval(() => {
+            //         if (this.setTime > 0) {
+            //             this.setTime--;
+            //         } else {
+            //             clearInterval(this.start);
+            //             //staus GET AXIOS
+            //         }
+            //     }, 1000);
+            // },
+
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
             },
