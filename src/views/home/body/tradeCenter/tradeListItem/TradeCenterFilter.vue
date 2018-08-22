@@ -2,7 +2,6 @@
   <v-layout mt-5>
     <div :class="{'layout_dim' : isModal }" @click="onOutsideClick"></div>
 
-    <!--left filter-->
       <!-- mobile 일때 -->
       <v-layout row wrap v-if="isMobile" mb-3>
         <!-- buy sell 버튼 -->
@@ -60,9 +59,9 @@
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
           <v-layout row class="statusBox" mt-4a pr-2>
-            <h6  class="statusChip" @click.stop="transisModal('open')">{{nationality}}</h6>
+            <h6  class="statusChip" @click.stop="transisModal('open')">{{getCountryName(nationality)}}</h6>
             <h6  class="statusChip" @click.stop="transisModal('open')">{{currency}}</h6>
-            <h6  class=" statusChip" @click.stop="transisModal('open')">{{paymentMethod}}</h6>
+            <h6  class=" statusChip" @click.stop="transisModal('open')">{{getPaymentName(paymentMethod)}}</h6>
             <!--amount 는 입력시에만 뜸-->
             <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
               <v-layout align-center row fill-height>
@@ -98,7 +97,7 @@
               <!-- amount 셀렉터 -->
               <v-flex xs12  text-xs-left cardText>{{$str("amount")}}</v-flex>
               <v-flex xs12 >
-                <input type="text" class="input" v-model="amount"
+                <input type="text" class="input" v-model="modal_amount"
                        :placeholder="$str('How_much_you_want_to_trade?')">
               </v-flex>
             </v-layout>
@@ -219,7 +218,7 @@
               <!-- amount 셀렉터 -->
               <v-flex xs12  text-xs-left cardText>{{$str("amount")}}</v-flex>
               <v-flex xs12 >
-                <input type="text" class="input" v-model="amount" @keyup="onNumberCheck()"
+                <input type="text" class="input" v-model="modal_amount" @keyup="onNumberCheck()"
                        :placeholder="$str('How_much_you_want_to_trade?')">
               </v-flex>
             </v-layout>
@@ -258,6 +257,7 @@
             currency: 'CNY',
             paymentMethod: 'ALL',
             amount : '',
+            modal_amount : '',
             isRightClicked : false, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
 
             clicked : [
@@ -273,6 +273,7 @@
                 right: 'ALLB',
             },
             showDim: false,
+
         }),
         computed: {
             isMobile() {
@@ -391,16 +392,17 @@
             //rightfilter의 search 클릭시
             onSearch(){
                 //입력된 정보들을 vuex로 set 시킴.
-                MainRepository.TradeView.setTradeRightFilter(this.nationality, this.paymentMethod, this.currency, this.amount);
+                MainRepository.TradeView.setTradeRightFilter(this.nationality, this.paymentMethod, this.currency, this.modal_amount);
                 this.nationality = MainRepository.SelectBox.controller().getCountry();
                 this.currency = MainRepository.SelectBox.controller().getCurrency();
                 this.paymentMethod = MainRepository.SelectBox.controller().getPayment();
-
+                this.amount = this.modal_amount
                 this.isModal = false; //modal 창 끄기.
             },
             //amount Chip에서 창 끌때
             removeAmount(){
                 this.amount = '';
+                this.modal_amount = '';
                 //amount를 default로 초기화 시키고, 다시 list호출.
                 MainRepository.TradeView.setTradeRightFilter(this.nationality, this.paymentMethod, this.currency, this.amount);
             },

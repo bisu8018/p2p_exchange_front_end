@@ -95,7 +95,7 @@
                             </avatar>
                         </v-flex>
                         <v-flex xs10 text-xs-left mb-4>
-                            <h5 class="medium color-blue c-pointer text-white-hover">
+                            <h5 class="medium color-blue c-pointer text-white-hover" @click="goUserPage">
                                 {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                             </h5>
                             <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -114,9 +114,9 @@
                     </v-layout>
                     <v-layout>
                         <v-flex xs7 offset-xs2 text-xs-left>
-                <span class="color-darkgray">
-                  {{$str("You need to complete the necessary transaction information.")}}
-                </span>
+                            <span class="color-darkgray">
+                              {{$str("You need to complete the necessary transaction information.")}}
+                            </span>
                             <span class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
                         </v-flex>
                     </v-layout>
@@ -344,7 +344,7 @@
                                 </avatar>
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover">
+                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover" @click="goUserPage">
                     {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                   </span>
                                     <!--판매자 rank-->

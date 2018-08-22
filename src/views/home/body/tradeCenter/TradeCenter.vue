@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--nickname 설정 안했을때 나오는 안내문구-->
-        <v-layout v-if="!setNickName" row wrap nickname-setUp>
+        <v-layout v-if="!setNickName && isLogin" row wrap nickname-setUp>
             <h6>{{$str("Before you start trading, you need to complete the necessary transaction information.")}}&nbsp;</h6>
             <a class="color-blue h6 text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</a>
         </v-layout>
@@ -65,7 +65,7 @@
             <div class="sprite-img ic-no-ad-lg no-more-ads">
             </div>
             <div class="color-gray no-more-ads-text">
-                No more ads
+                {{$str("No more ads")}}
             </div>
         </div>
     </div>
@@ -120,7 +120,6 @@
             TradeItemLists(){
                 //최신화된 model list를 불러옴.
                 return MainRepository.TradeView.getSelectPage();
-
             },
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -132,6 +131,9 @@
             setNickName(){
                 //nickname이 없으면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
+            },
+            isLogin(){
+              return MainRepository.MyInfo.getUserInfo().isLogin()
             }
         },
         methods: {
@@ -179,7 +181,6 @@
             margin: 48px auto 16px auto;
         }
     }
-
     .list_progress {
         margin-top: 80px;
     }

@@ -56,6 +56,7 @@
     import Pagination from '@/components/Pagination.vue';
     import MyOrderList from './MyOrderListItem/MyOrderList';
     import MyOrderFilter from './MyOrderListItem/MyOrderFilter';
+    import {abUtils} from '@/common/utils';
 
     export default {
         name: "MyOrder",
@@ -90,7 +91,11 @@
         },
         beforeDestroy(){
             MainRepository.MyAds.initData()
-        }
+        },
+
+        methods:{
+
+        },
 
 
     }
