@@ -198,10 +198,28 @@
             },
             onDone() {
                 let _paymentMethod = new PaymentMethod('');
-                _paymentMethod.activeYn = this.activeYn;
+                _paymentMethod.type = this.paymentMethod;
+                _paymentMethod.activeYn = 'y';
                 _paymentMethod.alipayId = this.alipayId;
                 _paymentMethod.alipayQrCodeImgUrl = this.alipayQrCodeImgUrl;
-
+                //
+                // {
+                //     "activeYn": "string",
+                //     "alipayId": "string",
+                //     "alipayQrCodeImgUrl": "string",
+                //     "bankAccount": "string",
+                //     "bankBranchInfo": "string",
+                //     "bankName": "string",
+                //     "memberNo": 0,
+                //     "modifyDatetime": "2018-08-22T15:15:28.719Z",
+                //     "modifyMemberNo": 0,
+                //     "ownerName": "string",
+                //     "registerDatetime": "2018-08-22T15:15:28.720Z",
+                //     "registerMemberNo": 0,
+                //     "type": "bankaccount",
+                //     "wechatId": "string",
+                //     "wechatQrCodeImgUrl": "string"
+                // }
 
                 let self = this;
 
@@ -210,7 +228,7 @@
                 //     this.onClearData();
                 // });
 
-                MainRepository.MyPage.setPaymentMethod('alipay', self.myInfo.email, function () {
+                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, _paymentMethod, function (data) {
 
                 });
 
@@ -238,8 +256,9 @@
         },
         data() {
             return {
+                paymentMethods: new PaymentMethod(''),
+
                 paymentMethod: '',
-                paymentMethods: '',
                 realName: '',
                 alipay: '',
                 wechat: '',

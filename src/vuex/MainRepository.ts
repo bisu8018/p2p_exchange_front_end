@@ -213,7 +213,7 @@ export default {
         //     })
         // },
         setPaymentMethod: function (email: string, paymentType: any, callback: any){
-            AccountService.Account.addPaymentMethod(paymentType, email, function (result) {
+            AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
                 callback(result);
             })
         },

@@ -1,6 +1,7 @@
 import AxiosService from "@/service/AxiosService";
 import User from "@/vuex/model/Account";
 import MainRepository from "@/vuex/MainRepository";
+import PaymentMethod from "@/vuex/model/PaymentMethod.ts"
 import axios from "axios";
 
 export default {
@@ -121,11 +122,16 @@ export default {
                 })
         },
         //결제수단 설정
-        addPaymentMethod: function (email: string, paymentMethod: any, callback: any) {
+        addPaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
             let url = 'payment/';
-            url += paymentMethod;
+            url += 'alipay';
 
-            AxiosService._requestWithBodyAndEmail(url, 'POST', paymentMethod,
+            let data =
+                {
+                    "paymentMethod" : paymentMethod
+                };
+
+            AxiosService._requestWithBodyAndEmail(url, 'POST', data,
                 function (data: any) {
                     callback(data);
                 },
