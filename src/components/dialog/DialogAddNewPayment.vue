@@ -225,8 +225,6 @@
                 //     goMyPage();
                 // });
 
-
-
                 CommonService.fileUpload.fileUpload({
                     file: self.file,
                     purpose: _paymentMethod
