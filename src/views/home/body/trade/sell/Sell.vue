@@ -42,7 +42,7 @@
             <trade-item :item="item"></trade-item>
 
         </div>
-        <div class="h4 bold color-black text-xs-left mb-4 line-height-1">
+        <div class="h4 bold color-black text-xs-left mb-4">
             <!--unpaid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
                 {{$str("payingExplain1")}}
@@ -64,8 +64,14 @@
                 {{$str("confirmgExplain3")}}
 
             </div>
+
             <div>
-                <span v-if="currentOrder.status === 'unpaid' || currentOrder.status === 'paid' ">
+                <!-- Complaining 일 때 -->
+                <span v-if="currentOrder.status === 'complaining'">
+                        {{ $str("appealCodeExplain") }}
+                        {{ appealCode }} ,
+                    </span>
+                <span v-if="currentOrder.status === 'unpaid' || currentOrder.status === 'paid'|| currentOrder.status === 'complaining' ">
                     {{$str("referenceText")}}
                 </span>
                 <span v-if="currentOrder.status === 'complete'">
@@ -103,9 +109,22 @@
         </v-flex>
 
         <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
-        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="currentOrder.status === 'complete'">
+      <!--  <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="currentOrder.status === 'complete'">
             <div><i class="material-icons check-icon">check_circle</i></div>
-        </div>
+        </div>-->
+
+        <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
+                v-else-if="currentOrder.status === 'complete'">
+            <div><i class="material-icons check-icon">check_circle</i></div>
+        </v-flex>
+
+        <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
+        <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">
+            <i class="material-icons  warning-icon ">error</i>
+        </v-flex>
+
+
+
         <!--데스크탑 환경에서 설명-->
         <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
             <p class="mb-1 h6 line-height-1">
@@ -118,12 +137,23 @@
                 {{$str('sellChecklist3')}}
             </p>
         </v-flex>
+
+
+        <!--이의제기 취소 버튼 (appeal 상태일때)-->
+        <v-flex xs6 md12 mb-4a text-md-left text-xs-right
+                v-if="currentOrder.status === 'complaining'" :class="{'pt-4' : isMobile()}">
+            <a class="color-blue text-white-hover"
+               @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
+        </v-flex>
+
         <div>
             <div v-if="isInitCompleted">
                 <!--채팅창-->
                 <message :order = "currentOrder"></message>
             </div>
         </div>
+
+
 
         <!--모바일 환경에서 설명-->
         <div class="h6 text-xs-left color-darkgray line-height-1 mt-4a" v-if="isMobile()">

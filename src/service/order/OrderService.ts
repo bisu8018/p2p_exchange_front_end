@@ -30,8 +30,7 @@ export default {
             function () { })
     },
     getOrder: function (orderNo : number, callback: any) {
-        let data = { email: MainRepository.MyInfo.getUserInfo().email };
-        AxiosService._requestWithUrlPram('order/' + orderNo, 'GET', data,
+        AxiosService._requestWithBodyAndEmail('order/' + orderNo, 'GET', '',
             function (data: any) {
                 callback(data)
             },
@@ -57,7 +56,8 @@ export default {
             })
     },
     onAppeal : function (data : any, callback: any) {
-        AxiosService._requestWithBodyAndEmail('order/appeal', 'PUT', data ,
+        let url = 'order/' + data.orderNo + '/appeal';
+        AxiosService._requestWithBodyAndEmail(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },
@@ -66,6 +66,15 @@ export default {
     },
     onConfirm : function (data : any, callback: any) {
         let url = 'order/' + data.orderNo + '/confirmAndRelease';
+        AxiosService._requestWithPlainBody(url, 'PUT', data.tradePassword,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+    onAppealCancel : function (data : any, callback: any) {
+        let url = 'order/' + data.orderNo + '/appeal';
         AxiosService._requestWithPlainBody(url, 'PUT', data.tradePassword,
             function (data: any) {
                 callback(data)

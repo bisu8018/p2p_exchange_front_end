@@ -16,7 +16,7 @@
                 <!-- 닉네임-->
                 <div class="d-inline-block"> From {{  currentOrder.merchantNickname  }}</div>
             </div>
-            <div class="text-xs-left mb-4 line-height-1">
+            <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
                     {{ $str('price') }} :
                     <!-- 가격 -->
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </v-layout>
-        <div v-if="currentOrder.status != 'cancel'" v-for="item in getMyPaymentMethodSelectList()">
+        <div v-if="currentOrder.status != 'cancelled'" v-for="item in getMyPaymentMethodSelectList()">
 
             <trade-item :item="item"></trade-item>
 
@@ -45,13 +45,13 @@
         <v-layout wrap row>
             <v-flex xs12 md3>
                 <!--status cancel 일 시 설명 문구-->
-                <div class="cancel-explain mb-4" v-if="currentOrder.status ==='cancel'">
+                <div class="cancel-explain mb-4" v-if="currentOrder.status ==='cancelled'">
                     {{ $str("cancelExplain") }}
                 </div>
             </v-flex>
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
-                <span v-if="currentOrder.status != 'cancel' && currentOrder.status === 'unpaid'" class="mb-3">
+                <span v-if="currentOrder.status != 'cancelled' && currentOrder.status === 'unpaid'" class="mb-3">
                     <!--unpaid 상태 일때-->
                     {{ $str("paymentExplain1") }}
                     <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
@@ -84,7 +84,7 @@
                       {{ $str("buyingExplain4") }}
                     </span>
                     <!-- Transfer / Cancel 상태 -->
-                    <span v-else-if="currentOrder.status === 'complete' || currentOrder.status === 'cancel'">
+                    <span v-else-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled'">
                     {{ $str("cancel") }} {{ $str("complete") }},
                     </span>
 
@@ -113,7 +113,7 @@
             <!--paid 설명-->
             <v-flex xs12 md10 text-md-left vertical-center>
                 <span :class="{'ml-2' : !isMobile()} " v-if="currentOrder.status === 'unpaid'"
-                      class="vertical-center mb-4 payment-explain-wrapper color-orange-price h6 line-height-1 text-xs-left pt-2 pb-2 pr-2 pl-2">
+                      class="vertical-center mb-4 payment-explain-wrapper color-orange-price h6 text-xs-left pt-2 pb-2 pr-2 pl-2">
                         <i class="material-icons color-orange-price mr-2 ">info</i>
                         {{ $str('paymentText') }}
                 </span>
@@ -131,7 +131,7 @@
                 </v-flex>
             </v-flex>
 
-            <!--거래완료 아이콘 및 메세지 (paid 상태일때)-->
+            <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
             <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
                     v-else-if="currentOrder.status === 'complete'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
@@ -141,7 +141,7 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'cancel'">
+            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'cancelled'">
                 <i class="material-icons cancel-icon" @click="onCancel">cancel</i>
             </v-flex>
 
@@ -153,20 +153,20 @@
 
             <!--데스크탑 환경에서 설명-->
             <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
-                <p class="mb-1 h6 line-height-1">
+                <p class="mb-1 h6 ">
                     {{ $str('transferChecklist1') }}
                 </p>
-                <p class="mb-1 h6 line-height-1">
+                <p class="mb-1 h6 ">
                     {{ $str('transferChecklist2') }}
                 </p>
-                <p class="mb-0 h6 line-height-1">
+                <p class="mb-0 h6 ">
                     {{ $str('transferChecklist3') }}
                 </p>
             </v-flex>
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
             <v-flex xs12 mb-4a text-md-left text-xs-left
-                    v-if="currentOrder.status != 'complete' && currentOrder.status != 'cancel' && currentOrder.status !='complaining'">
+                    v-if="currentOrder.status != 'complete' && currentOrder.status != 'cancelled' && currentOrder.status !='complaining'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
                        @click="onModal('cancel')">
@@ -191,7 +191,7 @@
         </div>
 
         <!--모바일 환경에서 설명-->
-        <div class="h6 text-xs-left color-darkgray line-height-1 mt-4a" v-if="isMobile()">
+        <div class="h6 text-xs-left color-darkgray  mt-4a" v-if="isMobile()">
             <p class="mb-1 h6">
                 {{ $str('transferChecklist1') }}
             </p>
@@ -284,38 +284,13 @@
             getLimitTime() {
                 return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
             },
-
-            // 코드 확인 후 삭제할것
-            // getPaymentWindow() {
-            //     var startTime = Date.now();
-            //     let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
-            //     let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
-            //     let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
-            //     calcTime = calcTime/1000;
-            //     this.setTime = calcTime;
-            //     console.log(calcTime);
-            //     this.getTimer();
-            // },
-            // getTimer() {
-            //     this.start = setInterval(() => {
-            //         if (this.setTime > 0) {
-            //             this.setTime--;
-            //         } else {
-            //             clearInterval(this.start);
-            //             //staus GET AXIOS
-            //         }
-            //     }, 1000);
-            // },
-
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
             },
             getOrderData() {
                 let self = this;
-                MainRepository.TradeProcess.setOrder({
-                    email: MainRepository.MyInfo.getUserInfo().email,
-                    orderNo: self.orderNo
-                }, function (result) {
+                MainRepository.TradeProcess.setOrder(self.orderNo
+                , function (result) {
 
                 })
             },
@@ -347,6 +322,12 @@
             },
             onCancelAppeal() {
                 this.showModal = false;
+                let orderInfo = MainRepository.TradeProcess.getCurrentOrder();
+                let appealList = orderInfo.appealList[0];
+                if(orderInfo.status === 'complaining' && appealList.status === 'registered'){
+
+                }
+
                 // *************************************post작업 성공시
                 this.getOrderData();
             },
@@ -457,7 +438,6 @@
         background-color: #f8f8fa;
         font-size: 14px;
         font-weight: bold;
-        line-height: 1;
         text-align: center;
         color: #9294a6;
         padding: 8px;

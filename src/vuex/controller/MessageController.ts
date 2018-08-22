@@ -24,13 +24,13 @@ export default class MessageController {
         this.store.dispatch(VuexTypes.ADD_MSG, data);
     }
 
-    getLatestMsgTime(): string {
+    getLatestMsgTime(): number {
         if(this.getMsgList().length === 0){
             let registerDT = MainRepository.TradeProcess.getCurrentOrder().registerDatetime;
-            return abUtils.toChatServerTimeFormat(registerDT);
+            return registerDT;
         }else{
             let latestMsg: Message = this.getMsgList()[this.getMsgList().length-1];
-            return abUtils.toChatServerTimeFormat(new Date(latestMsg.registerDatetime));
+            return latestMsg.registerDatetime;
         }
     }
 }
