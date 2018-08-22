@@ -69,7 +69,7 @@
                     {{$str("referenceText")}}
                 </span>
                 <span v-if="currentOrder.status === 'complete'">
-                    {{$str("complete")}},
+                    {{$str("complete")}}
                 </span>
 
                 :
