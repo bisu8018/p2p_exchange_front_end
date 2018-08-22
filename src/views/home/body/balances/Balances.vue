@@ -232,7 +232,6 @@
                 new Balance(''),
                 new Balance('')
             ],
-            /*
             detailLists: [
                 {
                     type: 'Withdrawal',
@@ -283,7 +282,6 @@
                     processingTime: '2018-08-12 16:48:23',
                 },
             ],
-            */
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
 
@@ -324,7 +322,7 @@
             loadTotalEstimatedValue() {
                 let totalValue = MainRepository.Balance.controller().getTotalEstimatedValue(this.selectedCurrencyData);
                 this.EstimatedCryptocurrencyValue = totalValue.btc;
-                this.EstimatedCurrencyValue = totalValue.currency;
+                this.EstimatedCurrencyValue = abUtils.toMoneyFormat(String(totalValue.currency));
             },
             onDate(value) {
                 this.selectedDate = value;

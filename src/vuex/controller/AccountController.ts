@@ -26,6 +26,8 @@ export default class AccountController {
         return this.store.state.account.myPaymentMethods;
     }
 
+
+
     findPaymentMethods(type) {
         let result = new PaymentMethod('');
 

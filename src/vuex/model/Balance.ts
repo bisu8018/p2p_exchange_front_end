@@ -9,7 +9,7 @@ export default class Balance {
     availableAmount : number;
     frozenAmount : number;
     walletAddress : string;
-    estimatedValue: number;
+    btcAmount: number;
 
     constructor (data: any) {
         this.ownerMemberNo = 0;
@@ -22,12 +22,12 @@ export default class Balance {
         this.availableAmount = Number(data.availableAmount) || 0;
         this.frozenAmount = Number(data.frozenAmount) || 0;
         this.walletAddress = data.walletAddress || '';
-        this.estimatedValue = data.estimatedValue || 0;
+        this.btcAmount = data.btcAmount || 0;
     }
 
     calcTo(currency: CurrencyType): number {
         // 수량 * currency 가격
-        return MainRepository.MarketPrice.controller().findPriceByCurrency(currency) * this.estimatedValue;
+        return MainRepository.MarketPrice.controller().findPriceByCurrency(currency) * this.btcAmount;
     }
 
     isNull (): boolean {

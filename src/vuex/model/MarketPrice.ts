@@ -8,7 +8,7 @@ export default class MarketPrice {
     this.exchange = data.exchange;
     this.cryptocurrency = data.cryptocurrency;
     this.currency = data.currency;
-    this.price = data.nationality;
+    this.price = data.price;
   }
 
   isNull (): boolean {
