@@ -98,14 +98,11 @@ export default {
             failure
         )
     },
-    _requestWithPath: function (url: string, type: string, data: any, success: any, failure: any) {
-
+    _requestWithPath: function (path: string, type: string, data: any, success: any, failure: any) {
         data = data || {};
-        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
-        let param = qs.stringify(path);
-        let _url = url + '?' + param;
+
         this._request(
-            _url,
+            path,
             type,
             JSON.stringify(data),
             success,
@@ -121,6 +118,19 @@ export default {
             _url,
             type,
             JSON.stringify(data),
+            success,
+            failure
+        )
+    },
+    _requestWithPlainBody: function (url: string, type: string, data: any, success: any, failure: any) {
+        data = data || {};
+        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
+        let param = qs.stringify(path);
+        let _url = url + '?' + param;
+        this._request(
+            _url,
+            type,
+            data,
             success,
             failure
         )
