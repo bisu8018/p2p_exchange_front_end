@@ -122,9 +122,9 @@ export default {
                 })
         },
         //결제수단 설정
-        addPaymentMethod: function (type: string, data: any, callback: any) {
+        addPaymentMethod: function (paymentMethod: string, data: any, callback: any) {
             let url = 'payment/';
-            url += type;
+            url += paymentMethod;
 
             AxiosService._requestWithBodyAndEmail(url, 'POST', data,
                 function (data: any) {
@@ -224,7 +224,7 @@ export default {
     SecuritySettings: {
         //유저 보안 설정 변경 기록
         getSecuritySettings: function (data: any, callback: any) {
-            AxiosService._requestWithBodyAndEmail('security/history', 'GET', data,
+            AxiosService._requestWithUrlPram('security/history', 'GET', data,
                 function (data: any) {
                     callback(data);
                 },

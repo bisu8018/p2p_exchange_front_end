@@ -319,16 +319,9 @@
                 testingCodeToCopy.setAttribute('type', 'hidden')
                 window.getSelection().removeAllRanges()
 
-                // let copyTemp = (document.querySelector('#userURL'));
-                // let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-                //
-                // if (!isiOSDevice) {
-                //     copyTemp.setAttribute('type', 'text');
-                //     copyTemp.select();
-                // }
-                // document.execCommand('copy');
             },
             goSMSVerification(){
+
                 this.$router.push("/smsVerification");
             },
         }

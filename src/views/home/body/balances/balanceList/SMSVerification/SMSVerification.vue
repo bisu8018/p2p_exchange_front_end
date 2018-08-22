@@ -35,12 +35,12 @@
           {{$str("emailVerification")}}
         </div>
         <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
-                           :type="'email'"></verification-code>
-
-
+                             :type="'email'"></verification-code>
         <div class="text-xs-right">
           <button class="btn-white  button-style" @click="goBalances">{{$str('cancel')}}</button>
-          <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onChange">{{$str('change')}}
+          <button class="button-style ml-4a"
+                  :class="{'btn-blue btn-blue-hover ': verifiedAll, 'inactive' : !verifiedAll}"
+                  @click="onChange">{{$str('confirm')}}
           </button>
         </div>
       </div>
@@ -64,9 +64,7 @@
                   email: MainRepository.MyInfo.getUserInfo().email,
                   phone: MainRepository.MyInfo.getUserInfo().phoneNumber,
                   emailVerify: false,
-                  phoneVerify: false,
-                  phoneCode: '',
-                  emailCode : ''
+                  phoneVerify: true,      //차후 phone 가능시 false로 수정.
               }
           },
           created() {
@@ -81,6 +79,9 @@
                   var emailSplit = this.email.split('@');
                   var emailValue = emailSplit[0].substr(0, 2) + '****' + '@' + emailSplit[1];
                   return emailValue;
+              },
+              verifiedAll(){
+                  return (this.emailVerify && this.phoneVerify)
               }
           },
           methods: {
@@ -88,21 +89,16 @@
                   this.$router.push("/balances");
               },
               onCheck() {
-                  // Warnings in case of error in e-mail or password entry
-                  if ( this.emailVerify === true && this.phoneVerify === true) {
+                  //일단은 email만 되도록해놓음.
+                  // if ( this.emailVerify === true && this.phoneVerify === true) {
+                  if ( this.emailVerify === true) {
                       this.onChange();
                   }
               },
               onChange() {
-                  let self = this;
-                  // type 별로 AXIOS post 작업 진행
-                  AccountService.Account.checkVerificationCode('phone',{
-                      email : self.email,
-                      phoneNumber : self.phoneNumber,
-                      code : self.phoneCode
-                  },function (result) {
-                      this.$router.push("/successWithdraw");
-                  });
+                  if(this.verifiedAll == true){
+                    this.$router.push("/successWithdraw");
+                  }
               },
               // 인증코드 체크
               onCheckVerificationCode(code,type) {
@@ -113,6 +109,7 @@
                       this.phoneVerify = true;
                       this.phoneCode = code;
                   }
+
 
               },
           }
@@ -145,5 +142,12 @@
     color: #71aa3a !important;
     font-size: 10px;
     display: block !important;
+  }
+  .inactive{
+    /*사각형 파랑배경 흰색폰트 버튼*/
+    height: 40px;
+    background: #d1d1d1;
+    color: white;
+    border-radius: 3px;
   }
 </style>

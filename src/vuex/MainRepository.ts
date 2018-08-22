@@ -228,32 +228,22 @@ export default {
         },
         getLoginHistory: function (callback: any) {
             AccountService.LoginHistory.getLoginHistory({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: 1,
+                size: 10
             }, function (result) {
-                let loginHistory = new LoginHistory('');
-                const loginHistory_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const loginHistory_tmp = result[i];
-                    loginHistory = new LoginHistory(loginHistory_tmp)
-                    loginHistory_arr.push(loginHistory);
-                }
-                callback(loginHistory_arr);
+                let _loginHistory = new LoginHistory(result);
+                callback(_loginHistory);
             })
         },
         getSecuritySettings: function (callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: 1,
+                size: 10
             }, function (result) {
-                let securitySettings = new SecuritySettings('');
-                const securitySettings_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const securitySettings_tmp = result[i];
-                    securitySettings =  new SecuritySettings(securitySettings_tmp);
-                    securitySettings_arr.push(securitySettings);
-                }
-                callback(securitySettings_arr);
+                let _securitySettings = new SecuritySettings(result);
+                callback(_securitySettings);
             })
         }
     },
@@ -505,6 +495,25 @@ export default {
                 callback(result);
             })
         },
+        setCannotTrade(tradeCount: number, advanced: boolean, mobile: boolean, doNotMerchant){
+            let do_not_trade_message = '';
+            //차후 작업...
+            //현재거래중일때
+            // if(instance.MyInfo.getUserInfo().processingOrderCount === 0){
+            //     //  mobile 인증 안했을때
+            //     if(this.mobile && instance.MyInfo.getUserInfo().phoneNumber == ''){
+            //         do_not_trade_message += 'verify phone'
+            //     }
+            //     // advanced 인증 안했을때.
+            //     if(this.advanced && instance.MyInfo.getUserInfo().idVerifiedCount === 0){
+            //         do_not_trade_message += 'adv. verification'
+            //     }
+            // }else{
+            //     do_not_trade_message += 'transaction success'
+            // }
+            return do_not_trade_message;
+        },
+
 
     },
     SelectBox: {
@@ -647,7 +656,6 @@ export default {
             return myTradeController.getMyAdsItems();
         },
     },
-
     MyOrder: {
         controller(): MyTradeController {
             return myTradeController;
@@ -838,8 +846,6 @@ export default {
             });
         }
     },
-
-
     MarketPrice: {
         controller(): MarketPriceController {
             return marketPriceController;

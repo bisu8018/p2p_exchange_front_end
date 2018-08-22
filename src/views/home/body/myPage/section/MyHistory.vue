@@ -21,13 +21,13 @@
         <div v-if="selectedTab === 0">
 
             <!-- 로그인 히스토리가 없을 때 : Empty State -->
-            <div v-if="loginHistory.length === 0">
+            <div v-if="loginHistory.totalCount === 0">
                 <h5>{{ $str('noMoreRecords') }}</h5>
             </div>
 
 
             <!-- 로그인 히스토리가 있을 때 -->
-            <div v-else-if="loginHistory.length !== 0">
+            <div v-else-if="loginHistory.totalCount !== 0">
 
                 <!-- 표 헤더 : PC에서만 보인다 -->
                 <div class="history-login mobile-hide">
@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- 로그인 히스토리 리스트 -->
-                <div v-for="data in loginHistory">
+                <div v-for="data in loginHistory.loginHistoryList">
                     <history-login-item
                         :data="data"
                     />
@@ -50,12 +50,12 @@
         <div v-else-if="selectedTab === 1">
 
             <!-- 보안 설정 히스토리가 없을 때 : Empty State -->
-            <div v-if="securitySettings.length === 0">
+            <div v-if="securitySettings.totalCount === 0">
                 <h5>{{ $str('noMoreRecords') }}</h5>
             </div>
 
             <!-- 보안 설정 히스토리가 있을 때 -->
-            <div v-else-if="securitySettings.length !== 0">
+            <div v-else-if="securitySettings.totalCount !== 0">
 
                 <!-- 표 헤더 : PC에서만 보인다 -->
                 <div class="history-security mobile-hide">
@@ -65,7 +65,7 @@
                 </div>
 
                 <!-- 보안 설정 히스토리 리스트 -->
-                <div v-for="data in securitySettings">
+                <div v-for="data in securitySettings.securitySettingHistoryList">
                     <history-security-settings-item
                             :data="data"
                     />

@@ -3,15 +3,14 @@ export default class SecuritySettingHistoryList {
     memberNo: number;
     type: string;
     ip: string;
+    status: string;
 
     constructor(data: any) {
         this.historyNo = data.historyNo;
         this.memberNo = data.memberNo;
-        this.type = data.type || '';
-        this.ip = data.ip || '';
+        this.type = data.type;
+        this.ip = data.ip;
+        this.status = data.status;
     }
 
-    // isNull(): boolean {
-    //     return (this.type === undefined || this.type === '')
-    // }
 }

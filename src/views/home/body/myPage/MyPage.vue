@@ -38,8 +38,8 @@
 
             <!-- 5. History -->
             <my-history
-                :login-history="tempLogin"
-                :security-settings="tempSecurity"
+                :login-history="loginHistory"
+                :security-settings="securitySettings"
             />
         </div>
     </div>
@@ -92,74 +92,6 @@
             blockList: '',
             loginHistory: '',
             securitySettings: '',
-
-            tempLogin: [
-                {
-                    register_datetime : '00:00:00',
-                    type: 'web',
-                    ip: '000.000.000.000',
-                    status: 'fail'
-                },
-                {
-                    register_datetime : '00:00:00',
-                    type: 'web',
-                    ip: '000.000.000.000',
-                    status: 'success'
-                }
-            ],
-
-            tempSecurity: [
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-                {
-                    date : '00:00:00',
-                    type: 'Turn on email authentication',
-                    ip: '000.000.000.000',
-                },
-            ],
         }),
         computed: {
            paymentMethod () {
