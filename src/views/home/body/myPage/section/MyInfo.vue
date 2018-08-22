@@ -15,18 +15,18 @@
         <div class="d-block">
             <p class="mb-1">
                 <span class="color-darkgray mr-2">{{ $str('trades') }}:</span>
-                <span class="color-black color-red"> 수정필요 {{ $str('times') }}</span>
+                <span class="color-black"> {{ myOrderStat.tradeTimes }} {{ $str('times') }}</span>
             </p>
             <p>
                 <span class="color-darkgray mr-2">{{$str('avgRelease')}}:</span>
-                <span class="color-black color-red"> 수정필요 {{ $str('minuteText' )}}</span>
+                <span class="color-black"> {{ myOrderStat.avgRelease }} {{ $str('minuteText' )}}</span>
             </p>
         </div>
 
         <!-- Create Account Time -->
         <div class="color-darkgray d-block">
             <p class="d-block">{{ $str('accountCreatedTime') }} {{ toTimeFormat(myInfo.createDatetime) }}, </p>
-            <p class="color-red">수정필요</p>
+            <p>{{ monthTradeTxt }}</p>
         </div>
     </div>
 </template>
@@ -41,7 +41,20 @@
             },
         name: "my-info",
         props: {
-            myInfo: {}
+            myInfo: {},
+            myOrderStat: {},
+        },
+        data() {
+            return {
+                monthTradeTxt: '',
+            }
+        },
+        created() {
+          if (this.myOrderStat.tradeMonthTimes > 0) {
+              this.monthTradeTxt = this.myOrderStat.tradeMonthTimes;
+          } else {
+              this.monthTradeTxt = 'No Trade Records'
+          }
         },
         methods: {
             // 시간 포멧으로 바꿔줌

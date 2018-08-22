@@ -5,6 +5,7 @@
         <div class="myInfo-wrapper">
             <my-info
                 :my-info="myInfo"
+                :my-order-stat="myOrderStat"
             />
         </div>
 
@@ -86,6 +87,7 @@
             modalType: '',
 
             myInfo: '',
+            myOrderStat: '',
             idVerification: new IdVerification(''),
             emailVerification: new EmailVerification(''),
             phoneVerification: new PhoneVerification(''),
@@ -114,6 +116,11 @@
 
             // GET My Info
             self.myInfo = MainRepository.MyInfo.getUserInfo();
+
+            // GET My Order Stat
+            MainRepository.MyOrder.getMyOrderStat(self.myInfo.email, function(data) {
+                self.myOrderStat = data;
+            });
 
             // GET User Verification Info
             MainRepository.MyPage.getMemberVerification(function (email, phone) {
