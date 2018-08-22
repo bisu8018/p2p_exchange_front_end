@@ -4,16 +4,17 @@ export default class MsgAvatar {
     bgColor: string;
     isLogin: boolean;
 
-    constructor (email: string, name: string, bgColor: string, isLogin: boolean) {
-        this.email = email;
-        this.name = name;
-        this.bgColor = bgColor;
-        this.isLogin = isLogin;
+    constructor (data: any) {
+        this.email = data.email || '';
+        this.name = data.name || '';
+        this.bgColor = data.bgColor || '';
+        this.isLogin = data.isLogin || false;
     }
 
     update (data: any){
+        if(data.email !==undefined && data.email !==null) this.email = data.email;
+        if(data.name !==undefined && data.name !==null) this.name = data.name;
         if(data.isLogin !==undefined && data.isLogin !==null) this.isLogin = data.isLogin;
-        if(data.name !==undefined && data.isLogin !==null) this.name = data.name;
         if(data.bgColor !==undefined && data.bgColor !==null) this.bgColor = data.bgColor;
     }
 

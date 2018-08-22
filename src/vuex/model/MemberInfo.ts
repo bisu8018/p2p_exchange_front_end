@@ -19,7 +19,7 @@ export default class MemberInfo {
 
     constructor (data: any) {
         this.name = data.name;
-        this.email = data.email;
+        this.email = data.email || '';
         this.nickName = data.nickName;
         this.rank = data.rank || 1;
         this.isLogin = data.isLogin ;
