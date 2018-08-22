@@ -32,7 +32,7 @@
             </span>
             <div class="ta-center py-3">
                 <btn-mypage
-                        @click="onModal('addPayment')"
+                        @click="onModal"
                         :txt="$str('addPayment')"
                 />
             </div>
@@ -63,17 +63,15 @@
         data() {
             return {
                 showModal: false,
-                modalType: '',
             }
         },
         methods: {
-            onModal(type) {
+            onModal() {
                 this.showModal = true;
-                this.modalType = type;
+
             },
             onClose() {
                 this.showModal = false;
-                this.modalType = '';
             },
             onAddPayment() {
                 // this.$router.push('/myPage')
