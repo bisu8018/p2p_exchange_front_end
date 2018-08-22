@@ -11,10 +11,10 @@
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("orderType")}}</v-flex>
         <v-flex xs5 text-xs-right>
-          <span class="mr-2 color-green bold" v-if="orderlist.tradeType === 'sell'">
+          <span class="mr-2 color-green bold" v-if="orderlist.tradeType === 'buy'">
             {{$str("sell")}}
           </span>
-          <span class="mr-2 color-orange-price bold" v-if="orderlist.tradeType === 'buy'">
+          <span class="mr-2 color-orange-price bold" v-if="orderlist.tradeType === 'sell'">
             {{$str("buy")}}
           </span>
           <span class="mr-2">{{orderlist.coinCount}}</span>
@@ -57,10 +57,10 @@
           {{orderlist.orderNo}}
         </v-flex>
         <v-flex  md2 text-md-left>
-          <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'sell'">
+          <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'buy'">
                   {{$str("sell")}}
           </span>
-          <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'buy'">
+          <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'sell'">
                         {{$str("buy")}}
           </span>
           <span class="mr-2">{{orderlist.coinCount}}</span>
@@ -114,12 +114,12 @@
                 let tradePage;
                 switch (this.orderlist.tradeType) {
                     case 'buy':
-                        tradePage = "/buy?"+this.orderlist.orderNo
+                        tradePage = "/sell?"+this.orderlist.orderNo
                         this.$router.push(tradePage);
                         break;
 
                     case 'sell':
-                        tradePage = "/sell?"+this.orderlist.orderNo
+                        tradePage = "/buy?"+this.orderlist.orderNo
                         this.$router.push(tradePage);
                         break;
                 }

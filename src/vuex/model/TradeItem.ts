@@ -1,7 +1,10 @@
+import MemberInfo from "@/vuex/model/MemberInfo";
+
 export default class TradeItem {
     adNo : number;
     memberNo: number;
     nickname : string;
+    bgColor: string;
     email : string;
     tradeMonthTimes: number;
     completionRate: number;
@@ -21,15 +24,13 @@ export default class TradeItem {
     counterpartyFilterAdvancedVerificationYn : boolean;
     counterpartyFilterMobileVerificationYn : boolean;
     counterpartyFilterDoNotOtherMerchantsYn : boolean;
-
-
+    registerDatetime : string;
     rank : number;
     bank_account: string;
     wechat_id: string;
     alipay_id: string;
     // volume: number; // 이건 위의 volume이랑 다른 것임. 차후 재설정 필요.
-
-
+    ownerMember : MemberInfo;
 
 
 
@@ -37,6 +38,7 @@ export default class TradeItem {
         this.adNo = Number(data.adNo) || -1;
         this.memberNo = Number(data.memberNo) || -1;
         this.nickname = data.nickname || '';
+        this.bgColor = data.bgColor || '';
         this.email = data.email || '';
         this.tradeMonthTimes = Number(data.tradeMonthTimes) || 0;
         this.completionRate = Number(data.completionRate) || 0;
@@ -56,13 +58,15 @@ export default class TradeItem {
         this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || true;
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || true;
         this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || true;
-
+        this.registerDatetime = data.registerDatetime || '';
 
 
         this.rank = Number(data.rank) || 1;
         this.bank_account = this.splitPayment('bank_account') || '';
         this.wechat_id = this.splitPayment('wechat_id') || '';
         this.alipay_id = this.splitPayment('alipay_id') || '';
+
+        this.ownerMember = data.ownerMember;
 
     }
 

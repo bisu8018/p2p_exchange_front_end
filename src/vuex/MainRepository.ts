@@ -841,7 +841,7 @@ export default {
         },
 
         createRoom(callback: any) {
-            let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime);
+            let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime-3000);
             MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,
                     dateTime:  _dateTime,

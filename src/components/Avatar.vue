@@ -1,7 +1,7 @@
 <template>
     <div class="avatarWraaper" :class="{ 'avatar_wraaper_big' : big }">
     <span class="mainCircle" v-bind:style="{background: bgColor}">
-      <span class="firstWord">{{name}}</span>
+      <span class="firstWord">{{ name }}</span>
     </span>
         <div class="loginCircle" v-bind:style="{background: loginColor}">
         </div>
@@ -11,6 +11,7 @@
 
 <script>
     import MainRepository from "../vuex/MainRepository";
+    import MemberInfo from "../vuex/model/MemberInfo"
 
     export default {
         name: "Avatar",
@@ -31,6 +32,11 @@
                 type: Boolean,
                 default: false
             },
+            useMemberInfo: {
+                type: Boolean,
+                default: false
+            },
+            member: {}
         },
         data: () => ({
             loginColor: '#c8c8c8',
@@ -51,6 +57,9 @@
             },
         },
         created() {
+            if(!this.me && this.chat === ''){
+                this.checkLogin()
+            }
             this.init();
         },
         beforeDestroy() {
@@ -67,8 +76,14 @@
                     )
                 } else {
                     // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
-                    if (this.chat === 'sub') {
-                        let _msgAvatar = MainRepository.Message.msgAvatar().get();
+                    let _msgAvatar = MainRepository.Message.msgAvatar().get();
+                    if (this.useMemberInfo) {
+                        this.setAvatar(
+                            this.member.nickname === '' ? 'A' : this.member.nickname[0],
+                            this.member.bgColor,
+                            this.member.isLogin
+                        )
+                    } else if (this.chat === 'sub') {
                         this.setAvatar(
                             _msgAvatar.name,
                             _msgAvatar.bgColor,
@@ -80,6 +95,7 @@
                             this.setAvatar(
                                 userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
                                 userInfo.bgColor,
+                                userInfo.isLogin
                             );
                             // 채팅일 경우 -> MsgAvatar 에 저장
                             if (this.chat === 'main') {

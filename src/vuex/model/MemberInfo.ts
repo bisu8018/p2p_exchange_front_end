@@ -22,7 +22,7 @@ export default class MemberInfo {
         this.email = data.email || '';
         this.nickName = data.nickName;
         this.rank = data.rank || 1;
-        this.isLogin = data.isLogin ;
+        this.isLogin = data.isLogin;
         this.color = data.color ;
         this.securityDeposit = data.securityDeposit ;
         this.completionRate = data.completionRate;

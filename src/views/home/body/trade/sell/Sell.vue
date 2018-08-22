@@ -51,7 +51,7 @@
                 <span class="color-orange-price">{{currentOrder.price}} {{currentOrder.currency}}</span>
                 {{$str("payingExplain3")}}
                 <!--타이머 스크립트 작성 필요-->
-                <span class="color-green">{{currentOrder.paymentWindow}}</span>
+                <span class="color-green">{{ limitTime }}</span>
                 {{$str("payingExplain4")}}
             </div>
 
@@ -69,7 +69,7 @@
                     {{$str("referenceText")}}
                 </span>
                 <span v-if="currentOrder.status === 'complete'">
-                    {{$str("complete")}},
+                    {{$str("complete")}}
                 </span>
 
                 :
@@ -154,6 +154,7 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
+    import {getLimitTime} from "../../../../../common/common";
 
     export default Vue.extend({
         name: 'sell',
@@ -167,8 +168,8 @@
             appealCode: 977057,
             showModal: false,
             isInitCompleted: false,
-            setTime: 0,
-            start: {}
+            limitTime: '',
+            timerInterval: {},
         }),
         computed: {
             currentOrder() {
@@ -199,9 +200,6 @@
                 return(min + "분 " + sec + "초");
             },
         },
-        beforeDestroy() {
-            clearInterval(this.start);
-        },
         created() {
             //order no GET from url param
             var url = location.href;
@@ -231,10 +229,27 @@
 
             MainRepository.TradeProcess.loadCurrentOrder(this.orderNo, () => {
                 this.isInitCompleted = true;
+                this.init();
             });
-            this.getPaymentWindow();
+        },
+        beforeDestroy() {
+            clearInterval(this.timerInterval);
         },
         methods: {
+            init() {
+                this.limitTime = this.getLimitTime();
+                this.timerInterval = setInterval(() => {
+                    this.limitTime = this.getLimitTime();
+                    // 만료되었을 경우
+                    if (this.limitTime === '00:00') {
+
+                    }
+                }, 1000)
+            },
+            getLimitTime() {
+                return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
+            },
+
             getPaymentWindow() {
                 var startTime = Date.now();
                 let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
