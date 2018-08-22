@@ -12,7 +12,7 @@
           </div>
         </v-flex>
         <!--1. OTC Account 카드-->
-        <v-flex md3 xs12  text-xs-left>
+        <v-flex md4 xs12  text-xs-left>
           <div class="webCard">
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
@@ -26,7 +26,7 @@
           </div>
         </v-flex>
         <!--2. Exchange Account 날라감-->
-        <v-flex md5 xs12  text-xs-left >
+        <v-flex md4 xs12  text-xs-left >
           <!--div class="webCard">
             <h4 class="mb-3 medium">{{$str("Exchange_Account")}}</h4>
             <v-layout justify-space-between mb-2>
