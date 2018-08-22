@@ -13,7 +13,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{currentWithdraw.cryptoCurrency}}:
+            {{transCryptocurrency(currentWithdraw.cryptoCurrency)}}
           </v-flex>
         </v-layout>
         <v-layout mb-3>
@@ -23,7 +23,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{currentWithdraw.addressTo}}:
+            {{currentWithdraw.addressTo}}
           </v-flex>
         </v-layout>
         <v-layout mb-3>
@@ -33,7 +33,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{currentWithdraw.receiveAmount}}:
+            {{currentWithdraw.receiveAmount}}
           </v-flex>
         </v-layout>
         <v-layout mb-4a>
@@ -43,7 +43,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{}}:
+            {{transTime(processingTime)}}
           </v-flex>
         </v-layout>
         <v-divider></v-divider>
@@ -58,22 +58,43 @@
 
 <script>
     import MainRepository from "../../../../../../vuex/MainRepository";
-
-    export default {
+    import {abUtils} from '@/common/utils';
+    import Withdraw from "../../../../../../vuex/model/Withdraw";
+    export default{
         name: "SuccessWithdraw",
         data: function () {
             return {
-
+                processingTime : '',
+                currentWithdraw : new Withdraw(''),
             }
         },
         computed: {
-          currentWithdraw(){
-              return MainRepository.Balance.getWithdraw()
-            }
-        },
-        created(){
 
         },
+        created(){
+            let cureentURL = window.location.href
+            let param = cureentURL.split('?');
+            this.processingTime = param[1]
+            this.currentWithdraw = MainRepository.Balance.getWithdraw()
+
+        },
+        methods : {
+            transCryptocurrency(cryptocurrency){
+                switch (cryptocurrency) {
+                    case 'bitcoin':
+                        return 'BTC'
+
+                    case 'ethereum':
+                        return 'ETH'
+                }
+            },
+            transTime(time) {
+                return abUtils.toTimeFormat(time);
+            },
+            goHistory(){
+                this.$router.push("/balances");
+            }
+        }
     }
 </script>
 

@@ -1,33 +1,41 @@
-import Balance from "@/vuex/model/Balance";
-
 export default class PaymentMethod {
-    type: string;
-    activeYn: boolean;
-    ownerName: string;
-    bankName: string;
-    bankBranchInfo: string;
-    bankAccount: string;
-    wechatId: string;
-    wechatQrCodeImgUrl: string;
+    activeYn: string;
     alipayId: string;
     alipayQrCodeImgUrl: string;
+    bankAccount: string;
+    bankBranchInfo: string;
+    bankName: string;
+    memberNo: number;
+    modifyDatetime: string;
+    modifyMemberNo: number;
+    ownerName: string;
+    registerDatetime: string;
+    registerMemberNo: number;
+    type: string;
+    wechatId: string;
+    wechatQrCodeImgUrl: string;
 
     // viewModel
     iconClass: string;
 
     constructor(data: any) {
-        this.type = data.type || '';
-        this.activeYn = data.activeYn ==='y'? true : false;
-        this.ownerName = data.ownerName || '';
-        this.bankName = data.bankName || '';
-        this.bankBranchInfo = data.bankBranchInfo || '';
-        this.bankAccount = data.bankAccount || '';
-        this.wechatId = data.wechatId || '';
-        this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl || '';
+        this.activeYn = data.activeYn || 'n';
         this.alipayId = data.alipayId || '';
         this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl || '';
+        this.bankAccount = data.bankAccount || '';
+        this.bankBranchInfo = data.bankBranchInfo || '';
+        this.bankName = data.bankName || '';
+        this.memberNo = data.memberNo || 0;
+        this.modifyDatetime = data.modifyDatetime;
+        this.modifyMemberNo = data.modifyMemberNo || 0;
+        this.ownerName = data.ownerName || '';
+        this.registerDatetime = data.registerDatetime || '';
+        this.registerMemberNo = data.registerMemberNo || 0;
+        this.type = data.type || '';
+        this.wechatId = data.wechatId || '';
+        this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl || '';
 
-        this.iconClass = '';
+        this.iconClass = data.iconClass;
 
         this.checkViewModel();
     }
@@ -40,12 +48,11 @@ export default class PaymentMethod {
             case 'wechat':
                 this.iconClass ='ic-wechat';
                 break;
-            default:
+            case 'bank':
                 this.iconClass ='ic-bank';
                 break;
         }
     }
-
 
     isNull(): boolean {
         return (this.type === undefined || this.type === '')

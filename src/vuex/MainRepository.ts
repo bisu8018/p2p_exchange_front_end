@@ -185,8 +185,8 @@ export default {
                 new Withdraw(data)
             )
         },
-        getWithdraw(){
-            return balanceController.getWithdraw;
+        getWithdraw: function (){
+            return balanceController.getWithdraw();
         },
         postWithdraw: function (callback: any) {
             BalanceService.postWithdraw({
@@ -234,19 +234,11 @@ export default {
         //         callback(result);
         //     })
         // },
-        setPaymentMethod: function (paymentType: any, email: string, callback: any){
-            AccountService.Account.addPaymentMethod(paymentType, email, function (result) {
+        setPaymentMethod: function (email: string, paymentType: any, callback: any){
+            AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
                 callback(result);
             })
         },
-        // getMyOrderStat(email: string, callback: any) {
-        //     OrderService.getMyOrderStat({
-        //         email: email
-        //     }, function(data) {
-        //         let _orderStat = new OrderStat(data);
-        //         callback(_orderStat);
-        //     })
-        // },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.MyInfo.getUserInfo().email
@@ -370,19 +362,16 @@ export default {
                 callback(tempLists);
             })
         },
-        postBlockThisUser(data : number, callback: any){
+        postBlockThisUser(data: any, callback: any){
             AccountService.BlockList.postBlockUser(data, function (result) {
                 callback(result);
             })
         },
-        deleteBlockThisUser(email:string, blockMemberNo : number, callback: any){
-            AccountService.BlockList.deleteBlockUser({
-                email, blockMemberNo
-            }, function (result) {
+        deleteBlockThisUser(data: any, callback: any){
+            AccountService.BlockList.deleteBlockUser(data, function (result) {
                 callback(result);
             })
         },
-
 
     },
     // SignUp: {},
