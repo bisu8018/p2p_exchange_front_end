@@ -121,9 +121,9 @@ export default {
                 })
         },
         //결제수단 설정
-        addPaymentMethod: function (paymentMethod: any, email: string, callback: any) {
+        addPaymentMethod: function (email: string, paymentMethod: any, callback: any) {
             let url = 'payment/';
-            url += email;
+            url += paymentMethod;
 
             AxiosService._requestWithBodyAndEmail(url, 'POST', paymentMethod,
                 function (data: any) {
@@ -132,6 +132,7 @@ export default {
                 function () {
                 })
         },
+
         //패스워드 변경
         changePassword: function (data: any, callback: any) {
             AxiosService._requestWithBody('member/password', 'PUT', data,

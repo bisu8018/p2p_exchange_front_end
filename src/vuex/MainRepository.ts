@@ -212,19 +212,11 @@ export default {
         //         callback(result);
         //     })
         // },
-        setPaymentMethod: function (paymentType: any, email: string, callback: any){
+        setPaymentMethod: function (email: string, paymentType: any, callback: any){
             AccountService.Account.addPaymentMethod(paymentType, email, function (result) {
                 callback(result);
             })
         },
-        // getMyOrderStat(email: string, callback: any) {
-        //     OrderService.getMyOrderStat({
-        //         email: email
-        //     }, function(data) {
-        //         let _orderStat = new OrderStat(data);
-        //         callback(_orderStat);
-        //     })
-        // },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.MyInfo.getUserInfo().email
@@ -348,7 +340,7 @@ export default {
                 callback(tempLists);
             })
         },
-        postBlockThisUser(data : any, callback: any){
+        postBlockThisUser(data: any, callback: any){
             AccountService.BlockList.postBlockUser(data, function (result) {
                 callback(result);
             })

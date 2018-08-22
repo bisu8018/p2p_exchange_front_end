@@ -205,15 +205,27 @@
 
                 let self = this;
 
-                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, self.paymentMethod, function () {
-                    self.$emit('paymentMethod');
-                    this.onClearData();
+                // MainRepository.MyPage.setPaymentMethod(self.myInfo.email, self.paymentMethod, function () {
+                //     self.$emit('paymentMethod');
+                //     this.onClearData();
+                // });
+
+                MainRepository.MyPage.setPaymentMethod('alipay', self.myInfo.email, function () {
+
                 });
 
-                // MainRepository.Common.setPaymentMethod({
-                //     email : MainRepository.MyInfo.getUserInfo().email
+                self.$emit('paymentMethod');
+                this.onClearData();
+
+                // AccountService.Account.changePassword({
+                //     email : MainRepository.MyInfo.getUserInfo().email,
+                //     password: self.new_password
                 // },function (result) {
-                // })
+                //     // 성공후 router push
+                //     goMyPage();
+                // });
+
+
 
                 CommonService.fileUpload.fileUpload({
                     file: self.file,
@@ -222,6 +234,7 @@
                     console.log('File upload success.');
                 })
 
+                self.$eventBus.$emit('showAlert', 0);
                 this.onClose();
             }
         },
