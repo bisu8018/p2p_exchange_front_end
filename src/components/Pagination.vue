@@ -41,6 +41,7 @@
         methods: {
             onChanged() {
                 //버튼 클릭으로 페이지 전환시 페이지 번호를 set 해줌.
+                window.scrollTo(0, 0);
                 return MainRepository.Pagination.setPage(this.currentPage, this.size, this.type);
             }
         },
