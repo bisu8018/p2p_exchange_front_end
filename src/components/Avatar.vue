@@ -57,6 +57,9 @@
             },
         },
         created() {
+            if(!this.me && this.chat === ''){
+                this.checkLogin()
+            }
             this.init();
         },
         beforeDestroy() {

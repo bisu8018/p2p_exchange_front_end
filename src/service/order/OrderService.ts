@@ -1,5 +1,6 @@
 import AxiosService from "@/service/AxiosService";
 import MainRepository from "@/vuex/MainRepository";
+import qs from 'qs';
 
 // 페이지네이션, 트레이드센터 데이터 및 트레이드센터 필터 포함 공통
 export default {
@@ -64,7 +65,7 @@ export default {
     },
     onConfirm : function (data : any, callback: any) {
         let url = 'order/' + data.orderNo + '/confirmAndRelease';
-        AxiosService._requestWithBodyAndEmail(url, 'PUT', data,
+        AxiosService._requestWithPlainBody(url, 'PUT', data.tradePassword,
             function (data: any) {
                 callback(data)
             },

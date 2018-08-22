@@ -142,10 +142,11 @@
         },
         created() {
             MainRepository.Message.createRoom(() => {
+                this.updateMsg();
                 this.$nextTick(() => {
                     this.msgInterval = setInterval(() => {
                         this.updateMsg()
-                    }, 5000);
+                    }, 3000);
                 });
                 this.scrollBottom();
             });
