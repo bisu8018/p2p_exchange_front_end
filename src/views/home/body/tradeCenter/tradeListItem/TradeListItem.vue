@@ -16,7 +16,7 @@
                     <!-- 닉네임 -->
                     <div class="d-flex">
                         <h5 class="color-blue text-white-hover c-pointer" @click="onNicknameClick">
-                            {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                            {{user.nickname}} ( {{user.volumeAvailable}} | {{user.completionRate}}%)
                         </h5>
                         <!-- user의 rank 이미지-->
                         <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -283,8 +283,8 @@
                         <avatar :email = "user.email">
                         </avatar>
                         <span class="ml-3 color-blue text-white-hover ">
-              <button @click="onNicknameClick">{{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)</button>
-            </span>
+                          <button @click="onNicknameClick">{{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)</button>
+                        </span>
                         <!--판매자 rank-->
                         <a class="tooltip" v-if="user.rank==1">
                             <div class="sprite-img ic-premium ml-2"></div>
@@ -381,26 +381,26 @@
                     <v-layout row wrap>
                         <v-flex md3 text-md-left>
                             <v-layout row pl-4>
-                                <!--avatar-->
-                                <avatar :email = "user.email">
-                                </avatar>
+                            <!--avatar-->
+                            <avatar :email = "user.email">
+                            </avatar>
 
-                                <!-- merchant 정보-->
-                                <span>
-                  <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="onNicknameClick">
-                    {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
-                  </span>
-                                    <!--판매자 rank-->
-                  <a class="tooltip d-inline-block" v-if="user.rank==1">
-                    <div class="sprite-img ic-premium ml-2"></div>
-                    <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-                  </a>
-                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-                    <div class="sprite-img ic-certified ml-2"></div>
-                    <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-                  </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
-                </span>
+                            <!-- merchant 정보-->
+                            <span>
+                              <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="onNicknameClick">
+                                {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
+                              </span>
+                                                <!--판매자 rank-->
+                              <a class="tooltip d-inline-block" v-if="user.rank==1">
+                                <div class="sprite-img ic-premium ml-2"></div>
+                                <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+                              </a>
+                              <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                                <div class="sprite-img ic-certified ml-2"></div>
+                                <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+                              </a>
+                              <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                            </span>
                             </v-layout>
                         </v-flex>
                         <!--두번째열-->
