@@ -76,7 +76,7 @@
                 this.modalType = '';
             },
             onAddPayment() {
-                this.$router.push('/myPage')
+                // this.$router.push('/myPage')
             },
             onTurnOn() {
                 // phone 인증 정보 AXIOS GET
