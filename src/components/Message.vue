@@ -99,7 +99,7 @@
             image: '',
         }),
         computed: {
-            messageList() {console.log(MainRepository.Message.controller().getMsgList());
+            messageList() {
                 return MainRepository.Message.controller().getMsgList();
             },
             myMemberNo () {

@@ -244,7 +244,7 @@
             onClose(item) {
                 this.$emit('close', item);
             },
-            onDone() {
+            onDone(item) {
                 let self = this;
 
                 self.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
@@ -263,6 +263,7 @@
 
                 self.$eventBus.$emit('showAlert', 0);
                 this.onClose();
+                this.$emit('done', item);
             }
         },
         data() {

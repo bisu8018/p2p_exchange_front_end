@@ -2,19 +2,11 @@
     <div class="myPage-box">
 
         <!--결제수단 추가 모달-->
-        <!--<my-page-modal :show="showModal"-->
-                       <!--:type="modalType"-->
-                       <!--:phoneNumber="phoneVerification.phoneNumber"-->
-                       <!--:email="emailVerification.email"-->
-                       <!--v-on:close="onClose"-->
-                       <!--v-on:paymentMethod="getPaymentMethod"-->
-                       <!--v-on:turnon="onTurnOn"-->
-                       <!--v-on:nickName="myInfo.nickname"-->
-        <!--/>-->
         <dialog-add-new-payment
                 :showDialog="showModal"
                 :my-info="myInfo"
                 @close="onClose"
+                @done="onAddPayment"
         />
 
         <!-- Header -->
@@ -82,6 +74,9 @@
             onClose() {
                 this.showModal = false;
                 this.modalType = '';
+            },
+            onAddPayment() {
+                // this.$router.push('/myPage')
             },
             onTurnOn() {
                 // phone 인증 정보 AXIOS GET

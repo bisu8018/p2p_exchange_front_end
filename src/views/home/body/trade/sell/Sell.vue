@@ -42,7 +42,7 @@
             <trade-item :item="item"></trade-item>
 
         </div>
-        <div class="h4 bold color-black text-xs-left mb-4 line-height-1">
+        <div class="h4 bold color-black text-xs-left mb-4">
             <!--unpaid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
                 {{$str("payingExplain1")}}
@@ -64,8 +64,14 @@
                 {{$str("confirmgExplain3")}}
 
             </div>
+
             <div>
-                <span v-if="currentOrder.status === 'unpaid' || currentOrder.status === 'paid' ">
+                <!-- Complaining 일 때 -->
+                <span v-if="currentOrder.status === 'complaining'">
+                        {{ $str("appealCodeExplain") }}
+                        {{ appealCode }} ,
+                    </span>
+                <span v-if="currentOrder.status === 'unpaid' || currentOrder.status === 'paid'|| currentOrder.status === 'complaining' ">
                     {{$str("referenceText")}}
                 </span>
                 <span v-if="currentOrder.status === 'complete'">
@@ -103,9 +109,22 @@
         </v-flex>
 
         <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
-        <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="currentOrder.status === 'complete'">
+      <!--  <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="currentOrder.status === 'complete'">
             <div><i class="material-icons check-icon">check_circle</i></div>
-        </div>
+        </div>-->
+
+        <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
+                v-else-if="currentOrder.status === 'complete'">
+            <div><i class="material-icons check-icon">check_circle</i></div>
+        </v-flex>
+
+        <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
+        <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">
+            <i class="material-icons  warning-icon ">error</i>
+        </v-flex>
+
+
+
         <!--데스크탑 환경에서 설명-->
         <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
             <p class="mb-1 h6 line-height-1">
@@ -118,6 +137,15 @@
                 {{$str('sellChecklist3')}}
             </p>
         </v-flex>
+
+
+        <!--이의제기 취소 버튼 (appeal 상태일때)-->
+        <v-flex xs6 md12 mb-4a text-md-left text-xs-right
+                v-if="currentOrder.status === 'complaining'" :class="{'pt-4' : isMobile()}">
+            <a class="color-blue text-white-hover"
+               @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
+        </v-flex>
+
         <div>
             <div v-if="isInitCompleted">
                 <!--채팅창-->
@@ -141,7 +169,7 @@
         <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="currentOrder.status === 'paid'">
             <!--거래 성사 버튼 (confirm 상태 일때) -->
             <input class="text-white-hover btn-rounded-white h5" type="button"
-                   :value="$str('appeal')" @click="onModal('appeal')">
+                   :value="$str('appeal')" @click="onModal('appeal')"  v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal">
         </v-flex>
 
         <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"></sell-modal>
@@ -185,35 +213,8 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
-            setPaymentWindow() {
-                let min;
-                let sec;
-                let t = this.setTime;
-                console.log(t);
-                // 정수로부터 남은 분, 초 단위 계산
-                min = Math.floor(t/ 60);
-                sec = Math.floor(t - min*60);
-
-                // mm:ss 형태를 유지하기 위해 한자리 수일 때 0 추가
-                if(min < 10) min = "0" + min;
-                if(sec < 10) sec = "0" + sec;
-                return(min + "분 " + sec + "초");
-            },
         },
         created() {
-            //order no GET from url param
-            var url = location.href;
-            var parameters = url.slice(url.indexOf('?') + 1, url.length);
-            if (parameters.substr(0, 4) != 'http') {
-                this.orderNo = parameters;
-            } else {
-                //order number 없을 시, 거래소 페이지 이동
-                this.$router.push("tradeCenter");
-            }
-
-            // 유져 데이터 정보 get
-            this.getOrderData();
-
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
@@ -241,44 +242,27 @@
                 this.timerInterval = setInterval(() => {
                     this.limitTime = this.getLimitTime();
                     // 만료되었을 경우
-                    if (this.limitTime === '00:00') {
+                    if (this.limitTime === '0 Min 0 Sec') {
 
                     }
                 }, 1000)
             },
             getLimitTime() {
-                return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
-            },
-
-            getPaymentWindow() {
-                var startTime = Date.now();
-                let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
-                let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
-                let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
-                calcTime = calcTime/1000;
-                this.setTime = calcTime;
-                console.log(calcTime);
-                this.getTimer();
-            },
-            getTimer() {
-                this.start = setInterval(() => {
-                    if (this.setTime > 0) { console.log(this.setTime)
-                        this.setTime--;
-                    } else {
-                        clearInterval(this.start);
-                        //staus GET AXIOS
-                    }
-                }, 1000);
+                let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
+                // let min = time.substr(0,2);
+                // let sec = time.substr(3,2);
+                let min = time.split(':')[0];
+                let sec = time.split(':')[1];
+                return min + ' ' + Vue.prototype.$str('min') + ' ' + sec + ' ' + Vue.prototype.$str('sec');
             },
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
             },
             getOrderData() {
                 let self = this;
-                MainRepository.TradeProcess.setOrder({
-                    email: MainRepository.MyInfo.getUserInfo().email,
-                    orderNo: self.orderNo
-                }, function (result) {
+                MainRepository.TradeProcess.setOrder(self.orderNo
+                , function (result) {
+
                 })
             },
             isMobile() {
@@ -318,13 +302,40 @@
                 this.showModal = true;
                 this.modalType = type;
             },
+            onCancelAppeal() {
+                this.showModal = false;
+                let orderInfo = MainRepository.TradeProcess.getCurrentOrder();
+                let appealList = orderInfo.appealList[0];
+                if(orderInfo.status === 'complaining' && appealList.status === 'registered'){
+                    MainRepository.TradeProcess.onAppealCancel({
+                        orderNo : orderInfo.orderNo,
+                        appealNo : appealList.appealNo
+                    },function () {
+
+                    })
+                }
+
+                // *************************************post작업 성공시
+                this.getOrderData();
+            },
             onQRcode(type) {
                 if (type === "alipay") {
                     console.log("alipay qr code");
                 } else {
                     console.log("wechat qr code");
                 }
-            }
+            },
+            //appeal 한 후
+            onAppeal(data) {
+                let self = this;
+                data['orderNo'] = Number(self.orderNo);
+                MainRepository.TradeProcess.onAppeal(
+                    data
+                    , function (result) {
+                        self.getOrderData();
+                        self.onClose();
+                    });
+            },
         },
 
     });

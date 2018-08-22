@@ -838,6 +838,11 @@ export default {
                 callback(result);
             })
         },
+        onAppealCancel: function (data: any, callback: any) {
+            OrderService.onAppealCancel(data, function (result) {
+                callback(result);
+            })
+        },
         onConfirm: function (data: any, callback: any) {
             OrderService.onConfirm(data, function (result) {
                 callback(result);
@@ -854,7 +859,7 @@ export default {
         },
 
         createRoom(callback: any) {
-            let _dateTime = abUtils.toChatServerTimeFormat(instance.TradeProcess.getCurrentOrder().registerDatetime-3000);
+            let _dateTime =instance.TradeProcess.getCurrentOrder().registerDatetime-3000;
             MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,
                     dateTime:  _dateTime,
