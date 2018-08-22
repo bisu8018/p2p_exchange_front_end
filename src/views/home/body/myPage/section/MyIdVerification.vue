@@ -78,8 +78,8 @@
 </template>
 
 <script>
-    import BtnMypage from "./item/BtnMypage";
-    import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
+    import BtnMypage from "../item/BtnMypage";
+    import DialogIdVerification from "../../../../../components/dialog/DialogIdVerification";
 
     export default {
         name: "my-id-verification",
