@@ -10,7 +10,7 @@ const mutations = {
             state.balanceList.push(new Balance(data[key]));
         }
     },
-    [VuexTypes.SET_WITHDRAW_DATA] (state: any, withdraw: any) {
+    [VuexTypes.SET_WITHDRAW_DATA] (state: any, withdraw: Withdraw) {
         state.withdraw = withdraw;
     },
 };
@@ -20,7 +20,7 @@ const actions = {
     [VuexTypes.SET_BALANCE_DATA](context: any, data: any) {
         context.commit(VuexTypes.SET_BALANCE_DATA, data)
     },
-    [VuexTypes.SET_WITHDRAW_DATA](context: any, withdraw: any) {
+    [VuexTypes.SET_WITHDRAW_DATA](context: any, withdraw: Withdraw) {
         context.commit(VuexTypes.SET_WITHDRAW_DATA, withdraw)
     },
 

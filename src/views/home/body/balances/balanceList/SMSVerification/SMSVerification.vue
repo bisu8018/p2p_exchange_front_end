@@ -20,7 +20,7 @@
         <div class=" color-black  mb-2 text-xs-left">
           {{$str("SMSverification")}}
         </div>
-        <verification-code v-on:verify="onCheckVerificationCode(code,'phone')" :phone="phone"
+        <verification-code v-on:verify="onCheckVerificationCode('phone')" :phone="phone"
                            :type="'phone'"></verification-code>
 
         <!--이메일 -->
@@ -34,8 +34,8 @@
         <div class=" color-black  mb-2 text-xs-left">
           {{$str("emailVerification")}}
         </div>
-        <verification-code v-on:verify="onCheckVerificationCode(code,'deposit')" :email="email"
-                             :type="'email'"></verification-code>
+        <verification-code v-on:verify="onCheckVerificationCode('deposit')" :email="email"
+                             :type="'deposit'"></verification-code>
         <div class="text-xs-right">
           <button class="btn-white  button-style" @click="goBalances">{{$str('cancel')}}</button>
           <button class="button-style ml-4a"
@@ -65,6 +65,7 @@
                   phone: MainRepository.MyInfo.getUserInfo().phoneNumber,
                   emailVerify: false,
                   phoneVerify: true,      //차후 phone 가능시 false로 수정.
+
               }
           },
           created() {
@@ -97,18 +98,17 @@
               },
               onChange() {
                   if(this.verifiedAll == true){
-                      MainRepository.Balance.postWithdraw()
-                      this.$router.push("/successWithdraw");
+                      MainRepository.Balance.postWithdraw(function () {
+                          this.$router.push("/successWithdraw");
+                      });
                   }
               },
               // 인증코드 체크
-              onCheckVerificationCode(code,type) {
-                  if (type === 'email') {
+              onCheckVerificationCode(type) {
+                  if (type === 'deposit') {
                       this.emailVerify = true;
-                      this.emailCode = code;
                   } else {
                       this.phoneVerify = true;
-                      this.phoneCode = code;
                   }
 
 
