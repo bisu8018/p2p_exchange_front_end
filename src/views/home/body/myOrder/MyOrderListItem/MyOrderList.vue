@@ -131,8 +131,16 @@
                     this.statusImg = 'ic-unpaid';
                     break;
 
+                case 'paid':
+                    this.statusImg = 'ic-success-sm';
+                    break;
+
                 case 'cancelled':
                     this.statusImg = 'ic-cancel-sm';
+                    break;
+
+                case 'complaining':
+                    this.statusImg = 'ic-success-sm';
                     break;
 
                 case 'complete':

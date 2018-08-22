@@ -63,11 +63,12 @@
       <v-flex md4 xs12 p-relative mb-2>
         <v-layout row wrap class="statusBox">
           <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-               v-if=" selectedDate === '' && selectedType === '' && selectedToken === ''">
+               v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
+                && selectedType === '' && coin === ''">
             {{$str("balanceDetailsFilterPlaceholder")}}</div>
-          <div class="statusChip" v-if="selectedDate != ''">
+          <div class="statusChip" v-if="start_date != ''">
             <v-layout align-center row fill-height>
-            {{selectedDate}}
+              {{start_date}} - {{end_date}}
               <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('date')">close</i>
             </v-layout>
           </div>
@@ -77,9 +78,9 @@
               <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('type')">close</i>
             </v-layout>
           </div>
-          <div class="statusChip" v-if="selectedToken != ''">
+          <div class="statusChip" v-if="coin != ''">
             <v-layout align-center row fill-height>
-              {{selectedToken}}
+              {{coin}}
               <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('coin')">close</i>
             </v-layout>
           </div>
@@ -93,19 +94,21 @@
         <div class="cardModal cardModalMobile"  v-if="isModal">
           <v-layout row wrap>
 
-            <v-flex xs12 text-xs-left cardText>{{$str("date")}}</v-flex>
-            <!--date 셀렉터-->
-            <v-flex xs12 >
-              <div>
-                <date-picker v-on:date="onDate" :clear="clear"></date-picker>
-              </div>
+            <v-flex class="text-xs-left text-black mb-2">{{$str("start")}} {{$str("date")}}</v-flex>
+            <v-flex class="mb-4">
+              <date-picker :classname = 'startdateclass' v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
+            </v-flex>
+            <!--end date-->
+            <v-flex class="text-xs-left text-black mb-2">{{$str("end")}} {{$str("date")}}</v-flex>
+            <v-flex >
+              <date-picker :classname = "enddateclass" v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
             </v-flex>
 
             <!-- Type 셀렉터-->
             <v-flex xs12 text-xs-left cardText  >{{$str("Type")}}</v-flex>
             <v-flex xs12 >
               <div class="p-relative">
-                <select v-model="selectedType"  class="comp-selectbox">
+                <select v-model="modal_selectedType"  class="comp-selectbox">
                   <option v-for="type in types" v-bind:value="type.name" >{{type.name}}</option>
                 </select>
                 <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
@@ -115,7 +118,7 @@
             <v-flex xs12 text-xs-left cardText >{{$str("Coin")}}</v-flex>
             <v-flex xs12 >
               <div class="p-relative">
-                <select v-model="selectedToken"  class="comp-selectbox">
+                <select v-model="modal_coin"  class="comp-selectbox">
                   <option v-for="token in tokens" v-bind:value="token.name" >{{token.name}}</option>
                 </select>
                 <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
@@ -195,17 +198,20 @@
         data: () => ({
             pageSize: 10,
             pageType: 'balance',
-            alertStatus : '',
             isdropdown : false,
-            currency : 'CNY',
             isAmout : true,
             isModal: false,
-            country: 'China',
-            paymentMethod: 'All Payments',
+            startdateclass : 'startdateclass',
+            enddateclass : 'enddateclass',
             amount : '',
-            selectedDate : '',
+            start_date: "",
+            end_date: "",
             selectedType : '',
-            selectedToken: '',
+            coin: '',
+            modal_start_date: "",
+            modal_end_date: "",
+            modal_selectedType: "",
+            modal_coin: "",
             selectedCurrencyData : 'CNY',
             clear: null,
             types : [
@@ -324,30 +330,45 @@
                 this.EstimatedCryptocurrencyValue = totalValue.btc;
                 this.EstimatedCurrencyValue = abUtils.toMoneyFormat(String(totalValue.currency));
             },
-            onDate(value) {
-                this.selectedDate = value;
+            onStartDate(value) {
+                this.modal_start_date = value;
+            },
+            onEndDate(value) {
+                this.modal_end_date = value;
             },
             onClear() {
-                this.selectedDate = '';
-                this.selectedType = '';
-                this.selectedToken = '';
+                this. modal_start_date = ""
+                this. modal_end_date = ""
+                this. modal_selectedType = ""
+                this. modal_coin = ""
 
             },
             onSearch(){
+                //Axios 태우기
+                this.start_date = this.modal_start_date;
+                this.end_date = this.modal_end_date;
+                this.selectedType = this.modal_selectedType;
+                this.coin = this.modal_coin;
                 this.isModal = false;
             },
             chipDelete (type) {
                 switch (type) {
                     case 'date':
-                        this.selectedDate = '';
+                        this.start_date = '';
+                        this.modal_start_date = '';
+                        this.end_date = '';
+                        this.modal_end_date = '';
                         break;
                     case 'type':
                         this.selectedType = '';
+                        this.modal_selectedType = ''
                         break;
                     case 'coin':
-                        this.selectedToken = '';
+                        this.coin = '';
+                        this.modal_coin = '';
                         break;
                 }
+
             },
             clickedCurrency(item){
                 this.selectedCurrency = item;
