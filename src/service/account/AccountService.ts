@@ -124,7 +124,7 @@ export default {
         //결제수단 설정
         addPaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
             let url = 'payment/';
-            url += 'alipay';
+            url += paymentMethod.type;
 
             let data =
                 {

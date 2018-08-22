@@ -10,7 +10,7 @@
 
             <!-- 결제 수단 Select -->
             <div class="p-relative my-4">
-                <select class="comp-selectbox h6" v-model="paymentMethod" @change="onClearData">
+                <select class="comp-selectbox h6" v-model="paymentMethods.type" @change="onClearData">
                     <option value="" disabled selected
                             hidden>{{ $str('paymentMethodSelectboxPlaceholder') }}
                     </option>
@@ -22,7 +22,7 @@
             </div>
 
             <!-- PaymentMethod에 따라 바뀌는 영역 -->
-            <div class="mb-4" v-if="paymentMethod !== ''">
+            <div class="mb-4" v-if="paymentMethods.type !== ''">
 
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("name") }}</h5>
@@ -36,25 +36,27 @@
                 </div>
 
                 <!-- PaymentMethod === alipay -->
-                <div v-if="paymentMethod === 'alipay'">
+                <div v-if="paymentMethods.type === 'alipay'">
                     <h5 class="mb-2">{{ $str("alipayText") }}</h5>
                     <div class="p-relative mb-4">
-                        <input type="text" class="input" :placeholder="$str('alipayPlaceholder')" v-model="alipay"
-                               v-bind:class="{'warning-border' : warning_alipay}" @keyup="onCheckAlipay">
+                        <input type="text" class="input" :placeholder="$str('alipayPlaceholder')"
+                               v-model="paymentMethods.alipayId"
+                               :class="{'warning-border' : warning_alipay}" @keyup="onCheckAlipay">
                         <div class="warning-text-wrapper">
                         <span class="d-none"
-                              v-bind:class="{'warning-text' : warning_alipay}">{{ verify_warning_alipay }}</span>
+                              :class="{'warning-text' : warning_alipay}">{{ verify_warning_alipay }}</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- PaymentMethod === wechat -->
-                <div v-else-if="paymentMethod === 'wechat'">
+                <div v-else-if="paymentMethods.type === 'wechat'">
                     <div class=" color-black  mb-2 text-xs-left">
                         {{ $str("wechatPayText") }}
                     </div>
                     <div class="p-relative">
-                        <input type="text" class="input" :placeholder="$str('wechatPlaceholder')" v-model="wechat"
+                        <input type="text" class="input" :placeholder="$str('wechatPlaceholder')"
+                               v-model="paymentMethods.wechatId"
                                v-bind:class="{'warning-border' : warning_wechat}" @keyup="onCheckWechat">
                         <div class="warning-text-wrapper">
                         <span class="d-none"
@@ -64,13 +66,14 @@
                 </div>
 
                 <!-- PaymentMethod === bank -->
-                <div v-else-if="paymentMethod === 'bank'">
+                <div v-else-if="paymentMethods.type === 'bank'">
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("bankName")}}
                     </div>
                     <div class="p-relative">
-                        <input type="text" class="input" :placeholder="$str('bankNamePlaceholder')" v-model="bank"
-                               v-bind:class="{'warning-border' : warning_bank}" @keyup="onCheckBank">
+                        <input type="text" class="input" :placeholder="$str('bankNamePlaceholder')"
+                               v-model="paymentMethods.bankName"
+                               :class="{'warning-border' : warning_bank}" @keyup="onCheckBank">
                         <div class="warning-text-wrapper">
                         <span class="d-none"
                               v-bind:class="{'warning-text' : warning_bank}">{{ verify_warning_bank }}</span>
@@ -83,7 +86,7 @@
                 <div class="mb-4">
                     <label class="">
                         <div class="textarea-style p-relative"
-                             v-bind:class="{'warning-border' : warning_attachment_file}">
+                             :class="{'warning-border' : warning_attachment_file}">
                             <div v-if="file === ''" class="ma-4a">
                                 <input type="file" id="file" ref="file" v-on:change="onCheckAttachmentFile()"
                                        class="d-none"/>
@@ -91,7 +94,7 @@
                                     <div class="sprite-img ic-upload"></div>
                                 </div>
                                 <div class="color-darkgray h6">
-                                    {{paymentMethod === 'wechat' ? $str('wechatQrCodeExplain') :
+                                    {{paymentMethods.type === 'wechat' ? $str('wechatQrCodeExplain') :
                                     $str('alipayQrCodeExplain') }} (*.jpg / *.png / *.jpeg)
                                 </div>
                             </div>
@@ -99,13 +102,13 @@
                                 <img :src="image" class="attachment-img-style">
                                 <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
                                       @click="deleteFile()">
-                                    {{$str('delete')}}
+                                    {{ $str('delete') }}
                                     <i class="material-icons ">close</i>
                                 </span>
                             </div>
                             <div class="warning-text-wrapper warning-textArea-wrapper">
                                 <span class="d-none"
-                                      v-bind:class="{'warning-text' : warning_attachment_file}">{{verify_warning_attachment_file}}</span>
+                                      :class="{'warning-text' : warning_attachment_file}">{{verify_warning_attachment_file}}</span>
                             </div>
                         </div>
                     </label>
@@ -116,10 +119,10 @@
                 <div class="p-relative mb-4">
                     <input type="password" class="input" :placeholder="$str('tradePwPlaceholder')"
                            v-model="password"
-                           v-bind:class="{'warning-border' : warning_trade_password}" @keyup="onCheckTradePassword">
+                           :class="{'warning-border' : warning_trade_password}" @keyup="onCheckTradePassword">
                     <div class="warning-text-wrapper">
                         <span class="d-none"
-                              v-bind:class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
+                              :class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
                     </div>
                 </div>
             </div>
@@ -197,38 +200,11 @@
                 this.$emit('close', item);
             },
             onDone() {
-                let _paymentMethod = new PaymentMethod('');
-                _paymentMethod.type = this.paymentMethod;
-                _paymentMethod.activeYn = 'y';
-                _paymentMethod.alipayId = this.alipayId;
-                _paymentMethod.alipayQrCodeImgUrl = this.alipayQrCodeImgUrl;
-                //
-                // {
-                //     "activeYn": "string",
-                //     "alipayId": "string",
-                //     "alipayQrCodeImgUrl": "string",
-                //     "bankAccount": "string",
-                //     "bankBranchInfo": "string",
-                //     "bankName": "string",
-                //     "memberNo": 0,
-                //     "modifyDatetime": "2018-08-22T15:15:28.719Z",
-                //     "modifyMemberNo": 0,
-                //     "ownerName": "string",
-                //     "registerDatetime": "2018-08-22T15:15:28.720Z",
-                //     "registerMemberNo": 0,
-                //     "type": "bankaccount",
-                //     "wechatId": "string",
-                //     "wechatQrCodeImgUrl": "string"
-                // }
-
                 let self = this;
 
-                // MainRepository.MyPage.setPaymentMethod(self.myInfo.email, self.paymentMethod, function () {
-                //     self.$emit('paymentMethod');
-                //     this.onClearData();
-                // });
+                self.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
-                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, _paymentMethod, function (data) {
+                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, this.paymentMethods, function (data) {
 
                 });
 
@@ -245,7 +221,7 @@
 
                 CommonService.fileUpload.fileUpload({
                     file: self.file,
-                    purpose: _paymentMethod
+                    purpose: this.paymentMethods
                 }, function () {
                     console.log('File upload success.');
                 })

@@ -19,23 +19,23 @@ export default class PaymentMethod {
     iconClass: string;
 
     constructor(data: any) {
-        this.activeYn = data.activeYn;
-        this.alipayId = data.alipayId;
-        this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl;
-        this.bankAccount = data.bankAccount;
-        this.bankBranchInfo = data.bankBranchInfo;
-        this.bankName = data.bankName;
-        this.memberNo = data.memberNo;
+        this.activeYn = data.activeYn || 'n';
+        this.alipayId = data.alipayId || '';
+        this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl || '';
+        this.bankAccount = data.bankAccount || '';
+        this.bankBranchInfo = data.bankBranchInfo || '';
+        this.bankName = data.bankName || '';
+        this.memberNo = data.memberNo || null;
         this.modifyDatetime = data.modifyDatetime;
-        this.modifyMemberNo = data.modifyMemberNo;
-        this.ownerName = data.ownerName;
-        this.registerDatetime = data.registerDatetime;
-        this.registerMemberNo = data.registerMemberNo;
-        this.type = data.type;
-        this.wechatId = data.wechatId;
-        this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl;
+        this.modifyMemberNo = data.modifyMemberNo || null;
+        this.ownerName = data.ownerName || '';
+        this.registerDatetime = data.registerDatetime || '';
+        this.registerMemberNo = data.registerMemberNo || null;
+        this.type = data.type || '';
+        this.wechatId = data.wechatId || '';
+        this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl || '';
 
-        this.iconClass = '';
+        this.iconClass = data.iconClass;
 
         this.checkViewModel();
     }
