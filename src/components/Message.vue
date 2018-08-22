@@ -24,7 +24,7 @@
         <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
             <div v-for="data in messageList">
                 <!--상대방-->
-                <div class="mb-3 display-flex" v-if="data.registerMemberNo === counterPartyMemberNo">
+                <div class="mb-3 display-flex" v-if="data.mine === false">
                     <div>
                         <avatar v-if="counterPartyEmail !== ''"
                                 :email = counterPartyEmail
@@ -99,10 +99,11 @@
             image: '',
         }),
         computed: {
-            messageList() {
+            messageList() {console.log(MainRepository.Message.controller().getMsgList());
                 return MainRepository.Message.controller().getMsgList();
             },
-            myMemberNo () {this.scrollBottom();
+            myMemberNo () {
+                this.scrollBottom();
                 return MainRepository.MyInfo.getUserInfo().memberNo;
             },
             myEmail() {
@@ -149,14 +150,14 @@
                 this.scrollBottom();
             });
         },
-        mounted() {
-        },
         beforeDestroy() {
             clearInterval(this.msgInterval);
         },
         methods: {
             updateMsg() {
-                MainRepository.Message.updateMsg(() => {});
+                MainRepository.Message.updateMsg(() => {
+                    this.scrollBottom();
+                });
             },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
@@ -195,10 +196,14 @@
                 return MainRepository.State.isMobile();
             },
             onPost() {
+                let self = this;
                 let tmpValue = this.inputValue.trim();
+
                 if(tmpValue !== ''){
                     MainRepository.Message.postMsg(this.inputValue, () => {
-                        this.updateMsg();
+                        self.updateMsg();
+                        self.inputValue = '';
+                        this.scrollBottom();
                     });
                 }
 

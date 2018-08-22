@@ -6,7 +6,7 @@ export default class Message {
     attachedImgUrl : string;
     registerMemberNo : number;
     registerDatetime: number;
-    isMine : boolean;
+    mine : boolean;
 
     constructor (data: any) {
         if (data.orderNo === undefined) {
@@ -21,7 +21,7 @@ export default class Message {
         } else {
             this.registerMemberNo = -1;
         }
-        this.isMine = data.isMine;
+        this.mine = data.mine;
         this.registerDatetime = data.registerDatetime;
     }
 

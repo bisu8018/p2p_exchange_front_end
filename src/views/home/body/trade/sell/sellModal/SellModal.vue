@@ -19,7 +19,7 @@
                     <div class="color-black mb-2">
                         {{$str("tradePwText")}}
                     </div>
-                   <input type="text" class="input mb-4" :placeholder="$str('tradePwText')" v-model="tradePassword"/>
+                   <input type="password" class="input mb-4" :placeholder="$str('tradePwText')" v-model="tradePassword"/>
                     <label class="color-black "><input type="checkbox" v-model="confirmCheckbox"/>  {{$str("confirmCheckbox")}}</label>
                 </span>
             </div>

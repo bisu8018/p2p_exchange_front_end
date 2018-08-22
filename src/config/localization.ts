@@ -924,8 +924,8 @@ const strings = new Map([
         HK: '到'
     }],
     ['paymentExplain4', {
-        KOR: '분 이내 지불하셔야 합니다. ',
-        ENG: 'minute(s). ',
+        KOR: '이내 지불하셔야 합니다. ',
+        ENG: '. ',
         CN: '分钟内将完成支付',
         HK: '分鐘內將完成支付'
     }],
@@ -2052,8 +2052,8 @@ const strings = new Map([
     ['realName', {
         KOR: '실명',
         ENG: 'Real Name',
-        CN: '姓名',
-        HK: '姓名'
+        CN: '实名',
+        HK: '實名'
     }],
     ['alipayPlaceholder', {
         KOR: '알리페이를 입력해 주십시오',
