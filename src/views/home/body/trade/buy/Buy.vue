@@ -310,7 +310,7 @@
             },
             getTimer() {
                 this.start = setInterval(() => {
-                    if (this.setTime > 0) { console.log(this.setTime)
+                    if (this.setTime > 0) {
                         this.setTime--;
                     } else {
                         clearInterval(this.start);
