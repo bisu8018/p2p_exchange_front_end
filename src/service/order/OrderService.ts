@@ -48,7 +48,8 @@ export default {
             })
     },
     onCancel : function (data : any, callback: any) {
-        AxiosService._requestWithBodyAndEmail('order/cancel', 'PUT', data ,
+        let url = 'order/' + data.orderNo + '/cancel';
+        AxiosService._requestWithBodyAndEmail(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },

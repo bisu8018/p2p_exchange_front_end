@@ -370,8 +370,10 @@
             //cancel 버튼 클릭 후
             onCancel() {
                 let self = this;
-                MainRepository.TradeProcess.onCancel(Number(self.orderNo)
-                , function (result) {
+                MainRepository.TradeProcess.onCancel({
+                    orderNo : Number(self.orderNo),
+                    email : MainRepository.MyInfo.getUserInfo().email
+            }, function (result) {
                     self.getOrderData();
                     self.onClose();
                 });
