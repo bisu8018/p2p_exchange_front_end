@@ -3,22 +3,21 @@ import MsgAvatar from "@/vuex/model/MsgAvatar";
 
 
 const mutations = {
-    [VuexTypes.SET_TRADE_MSG_AVATAR] (state: any, msgAvatar: MsgAvatar) {
-        state.chatAvatar = new MsgAvatar(msgAvatar);
+    [VuexTypes.SET_TRADE_MSG_AVATAR] (state: any, data: any) {
+        state.msgAvatar = new MsgAvatar(data);
     },
-    [VuexTypes.UPDATE_TRADE_MSG_AVATAR] (state: any, msgAvatar: MsgAvatar) {
-        state.chatAvatar.update(msgAvatar);
+    [VuexTypes.UPDATE_TRADE_MSG_AVATAR] (state: any, data: any) {
+        state.msgAvatar.update(data);
     },
-
 };
 
 
 const actions = {
-    [VuexTypes.SET_TRADE_MSG_AVATAR] (context: any, msgAvatar: MsgAvatar) {
-        context.commit(VuexTypes.SET_TRADE_MSG_AVATAR, msgAvatar)
+    [VuexTypes.SET_TRADE_MSG_AVATAR] (context: any, data: any) {
+        context.commit(VuexTypes.SET_TRADE_MSG_AVATAR, data)
     },
-    [VuexTypes.UPDATE_TRADE_MSG_AVATAR] (context: any, msgAvatar: MsgAvatar) {
-        context.commit(VuexTypes.UPDATE_TRADE_MSG_AVATAR, msgAvatar)
+    [VuexTypes.UPDATE_TRADE_MSG_AVATAR] (context: any, data: any) {
+        context.commit(VuexTypes.UPDATE_TRADE_MSG_AVATAR, data)
     },
 };
 

@@ -1,10 +1,11 @@
 export default class TradeItem {
     adNo : number;
     memberNo: number;
-    bgColor : string;
     nickname : string;
+    email : string;
+    tradeMonthTimes: number;
+    completionRate: number;
     type : string;
-    nationality: string;
     currency: string;
     tradeType: string;
     cryptocurrency : string;
@@ -14,22 +15,14 @@ export default class TradeItem {
     volumeAvailable : number;
     minLimit : number;
     maxLimit : number;
-    paymentWindow : number;
     paymentMethods : string;
-    autoReply : string;
     termsOfTransaction : string;
     counterpartyFilterTradeCount : number;
     counterpartyFilterAdvancedVerificationYn : boolean;
     counterpartyFilterMobileVerificationYn : boolean;
     counterpartyFilterDoNotOtherMerchantsYn : boolean;
-    termsAgreeYn : number;
-    registerDatetime: number;
 
-    //postAD에 없는 userData
-    email : string;
-    isLogin : boolean;
-    color : string;
-    tradeRate: number;
+
     rank : number;
     bank_account: string;
     wechat_id: string;
@@ -43,10 +36,11 @@ export default class TradeItem {
     constructor (data: any) {
         this.adNo = Number(data.adNo) || -1;
         this.memberNo = Number(data.memberNo) || -1;
-        this.bgColor = data.bgColor || '#E25422';
-        this.nickname = data.nickname || 'string';
+        this.nickname = data.nickname || '';
+        this.email = data.email || '';
+        this.tradeMonthTimes = Number(data.tradeMonthTimes) || 0;
+        this.completionRate = Number(data.completionRate) || 0;
         this.type = data.type || '';
-        this.nationality = data.nationality || '';
         this.currency = data.currency || '';
         this.tradeType = this.transBuySell(data.tradeType) || '';
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency) || '';
@@ -57,20 +51,14 @@ export default class TradeItem {
         this.minLimit = Number(data.minLimit) || -1;
         this.maxLimit = Number(data.maxLimit) || -1;
         this.paymentMethods = data.paymentMethods || '';
-        this.paymentWindow = data.paymentWindow || '';
-        this.autoReply = data.autoReply || '';
         this.termsOfTransaction = data.termsOfTransaction || '';
         this.counterpartyFilterTradeCount = Number(data.counterpartyFilterTradeCount) || -1;
         this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || true;
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || true;
         this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || true;
-        this.termsAgreeYn = Number(data.termsAgreeYn) || -1;
-        this.registerDatetime = Number(data.registerDatetime)
 
-        this.email = data.email || 'ABC';
-        this.isLogin = data.isLogin || true;
-        this.color = data.color || '#8869CA';
-        this.tradeRate = Number(data.tradeRate) || 99;
+
+
         this.rank = Number(data.rank) || 1;
         this.bank_account = this.splitPayment('bank_account') || '';
         this.wechat_id = this.splitPayment('wechat_id') || '';

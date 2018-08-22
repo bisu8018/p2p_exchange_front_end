@@ -9,13 +9,13 @@
                 <v-layout mt-4 align-center fill-height>
                     <!-- 아바타 -->
                     <div class="mr-3">
-                        <avatar me>
+                        <avatar :email = "user.email">
                         </avatar>
                     </div>
 
                     <!-- 닉네임 -->
                     <div class="d-flex">
-                        <h5 class="color-blue text-white-hover c-pointer" @click="goUserPage">
+                        <h5 class="color-blue text-white-hover c-pointer" @click="onNicknameClick">
                             {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
                         </h5>
                         <!-- user의 rank 이미지-->
@@ -91,12 +91,12 @@
                 <div class="mobileModal">
                     <v-layout>
                         <v-flex xs2 pl-2>
-                            <avatar me>
+                            <avatar :email = "user.email">
                             </avatar>
                         </v-flex>
                         <v-flex xs10 text-xs-left mb-4>
-                            <h5 class="medium color-blue c-pointer text-white-hover" @click="goUserPage">
-                                {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                            <h5 class="medium color-blue c-pointer text-white-hover" @click="onNicknameClick">
+                                {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                             </h5>
                             <a class="tooltip d-inline-block" v-if="user.rank==1">
                                 <div class="sprite-img ic-premium ml-2"></div>
@@ -133,13 +133,13 @@
                     <!-- name-->
                     <v-layout>
                         <v-flex xs2 pl-2>
-                            <avatar :me=true>
+                            <avatar :email = "user.email">
                             </avatar>
                         </v-flex>
                         <v-flex xs8 text-xs-left>
                             <v-layout>
-                                <h5 class="medium color-blue text-white-hover c-pointer" @click="goUserPage">
-                                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                                <h5 class="medium color-blue text-white-hover c-pointer" @click="onNicknameClick">
+                                    {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                                 </h5>
                                 <a class="tooltip d-inline-block" v-if="user.rank==1">
                                     <div class="sprite-img ic-premium ml-2"></div>
@@ -280,10 +280,10 @@
                 <!--ㅡmerchant-->
                 <v-flex md3 text-md-left>
                     <v-layout align-center>
-                        <avatar :me=true>
+                        <avatar :email = "user.email">
                         </avatar>
                         <span class="ml-3 color-blue text-white-hover ">
-              <button @click="goUserPage">{{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)</button>
+              <button @click="onNicknameClick">{{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)</button>
             </span>
                         <!--판매자 rank-->
                         <a class="tooltip" v-if="user.rank==1">
@@ -340,12 +340,12 @@
                         <v-flex md3 text-md-left>
                             <v-layout pl-4>
                                 <!--avatar-->
-                                <avatar :me=true>
+                                <avatar :email = "user.email">
                                 </avatar>
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover" @click="goUserPage">
-                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover" @click="onNicknameClick">
+                    {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                   </span>
                                     <!--판매자 rank-->
                   <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -382,13 +382,13 @@
                         <v-flex md3 text-md-left>
                             <v-layout row pl-4>
                                 <!--avatar-->
-                                <avatar :me=true>
+                                <avatar :email = "user.email">
                                 </avatar>
 
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="goUserPage">
-                    {{user.nickname}} ( {{user.volume}} | {{user.tradeRate}}%)
+                  <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="onNicknameClick">
+                    {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                   </span>
                                     <!--판매자 rank-->
                   <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -573,6 +573,23 @@
             }
 
         },
+        created() {
+            //  trade를 막는 filter. 차후 백단 연결시 수정필요.
+            this.do_not_trade_message = MainRepository.TradeView.setCannotTrade(
+                this.user.counterpartyFilterTradeCount,
+                this.user.counterpartyFilterAdvancedVerificationYn,
+                this.user.counterpartyFilterMobileVerificationYn,
+                this.user.counterpartyFilterDoNotOtherMerchantsYn,
+            );
+            if(this.do_not_trade_message !== ''){
+                this.can_not_trade = true
+            }
+            //환율 및 유져 정보 get 필요
+            let self = this;
+            Common.info.getMarketPrice(function (data) {
+                self.marketPrice = data;
+            });
+        },
         methods: {
             onNumberCheck(type) {
                 if (type === 'toValue') {
@@ -725,32 +742,10 @@
                 /////////////////////////////////
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
-            goUserPage() {
-                let user = "/userpage?"+this.user.memberNo
-                this.$router.push(user);
+            onNicknameClick() {
+                MainRepository.router().goUserPage(this.user.memberNo);
             },
 
-        },
-        created() {
-            //  trade를 막는 filter. 차후 백단 연결시 수정필요.
-            //  mobile 인증 안했을때
-            if (!this.user.counterpartyFilterMobileVerificationYn) {
-                this.do_not_trade_message += 'verify phone'
-                this.can_not_trade = true;
-            }
-            // advanced 인증 안했을때.
-            if (!this.user.counterpartyFilterAdvancedVerificationYn) {
-                if (!this.do_not_trade_message == '') {
-                    this.do_not_trade_message += '/ '
-                }
-                this.do_not_trade_message += 'adv. verification'
-                this.can_not_trade = true;
-            }
-            //환율 및 유져 정보 get 필요
-            let self = this;
-            Common.info.getMarketPrice(function (data) {
-                self.marketPrice = data;
-            });
         },
     }
 </script>

@@ -75,4 +75,11 @@ export default class RouterController {
             r.push(url);
         });
     }
+
+    goUserPage(memberNo) {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/userpage?" + memberNo);
+        });
+    }
 }

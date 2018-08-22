@@ -8,12 +8,18 @@ export default class Account {
     phoneNumber: string;
     role: 'ROLE_CUSTOMER';
     createDatetime: string;
+    tradeTimes : number;
+    processingOrderCount : number;
+    idVerifiedCount : number;
     //encryptedPassword: string;
     //termsAgreeYn: true;
     //tradePassword: string
 
   constructor (data: any) {
       this.memberNo = data.memberNo || -1;
+      this.tradeTimes = data.tradeTimes || 0;
+      this.processingOrderCount = data.processingOrderCount || 0;
+      this.idVerifiedCount = data.idVerifiedCount || 0;
       this.bgColor = data.bgColor || '';
       this.email = data.email || '';
       this.membershipLevel = data.membershipLevel || 'none';

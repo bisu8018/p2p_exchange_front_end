@@ -1,15 +1,15 @@
 <template>
-    <div class="avatarWraaper">
+    <div class="avatarWraaper" :class="{ 'avatar_wraaper_big' : big }">
     <span class="mainCircle" v-bind:style="{background: bgColor}">
       <span class="firstWord">{{name}}</span>
     </span>
         <div class="loginCircle" v-bind:style="{background: loginColor}">
         </div>
+        <div v-if="chat !== '' && msgAvatar"></div>
     </div>
 </template>
 
 <script>
-    import AccountService from "@/service/account/AccountService";
     import MainRepository from "../vuex/MainRepository";
 
     export default {
@@ -26,86 +26,95 @@
             chat: {
                 type: String,
                 default: '',
-            }
+            },
+            big: {
+                type: Boolean,
+                default: false
+            },
         },
         data: () => ({
             loginColor: '#c8c8c8',
             name: '',
-            bgColor: '',
+            bgColor: '#7f7f7f',
             msgInterval: {},
         }),
+        computed: {
+            msgAvatar() {
+                this.bgColor = MainRepository.Message.msgAvatar().get().bgColor;
+                this.name = MainRepository.Message.msgAvatar().get().name;
+                return MainRepository.Message.msgAvatar().get();
+            },
+        },
         created() {
-            let self = this;
-            if(this.chat === '') {
-                if (this.me === true) {
-                    this.loginColor = '#59D817';
-                    this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
-                    this.bgColor = MainRepository.MyInfo.getUserInfo().bgColor;
-                } else if(this.me === false){
-                    //유저 정보 GET AXIOS
-                    MainRepository.Users.getOtherUsers(this.email, function (result) {
-                        let otherUsersInfo = result;
-                        self.bgColor = otherUsersInfo.bgColor;
-                        self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
-                        self.getIsLogin();
-                    });
-                    //3분마다 로그인 확인 갱신
-                    this.initInterval();
-                }
+            // 내 아바타일 때
+            if (this.me) {
+                this.setAvatar(
+                    MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0],
+                    MainRepository.MyInfo.getUserInfo().bgColor,
+                    true,
+                )
             } else {
-                if(this.chat === 'main'){
-                    MainRepository.Users.getOtherUsers(this.email, (result) => {
-                        let otherUsersInfo = result;
-                        self.bgColor = otherUsersInfo.bgColor;
-                        self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
-                        MainRepository.Message.setMsgAvatar(new {
-                            name : self.name,
-                            bgColor : self.bgColor
-                        },function () {
-                            self.initInterval();
-                        })
-                    });
+                // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
+                if (this.chat === 'sub') {
+                    let _msgAvatar = MainRepository.Message.msgAvatar().get();
+                    this.setAvatar(
+                        _msgAvatar.name,
+                        _msgAvatar.bgColor,
+                        _msgAvatar.isLogin
+                    )
                 } else {
-                    this.bgColor = MainRepository.Message.getMsgAvatar().bgColor;
-                    this.name = MainRepository.Message.getMsgAvatar().name;
+                    // 로그인 상태 요청
+                    MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
+                        this.setAvatar(
+                            userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
+                            userInfo.bgColor,
+                        );
+                        // 채팅일 경우 -> MsgAvatar 에 저장
+                        if (this.chat === 'main') {
+                            MainRepository.Message.msgAvatar().set({
+                                email: this.email,
+                                name: self.name,
+                                bgColor: self.bgColor
+                            })
+                        }
+                        this.initInterval();
+                    });
                 }
             }
         },
         mounted() {
-
         },
         beforeDestroy() {
             clearInterval(this.msgInterval);
         },
         methods: {
+            setAvatar(name, bgColor, isLogin) {
+                this.name = name;
+                this.bgColor = bgColor;
+                this.loginColor = isLogin ? '#59D817' : '#c8c8c8';
+            },
             //3분마다 로그인 확인 갱신
             initInterval() {
-                this.msgInterval = setInterval(function () {
-                    self.getIsLogin();
+                // 1회 바로 실행
+                this.checkLogin();
+
+                // 이후 3분마다 로그인 확인
+                this.msgInterval = setInterval(() => {
+                    this.checkLogin();
                 }, 180000)
             },
-            getIsLogin() {
-                let self = this;
+            checkLogin() {
                 MainRepository.Users.isUserActive({
-                    email: self.email
-                }, function (result) {
-                    if(self.me === false && self.chat === 'main'){
-
-                        MainRepository.Message.updateMsgAvatar({
-                            isLogin : result
-                        },function () {
-                            
-                        })
-                    }
-                    return result
-                })
+                    email: this.email
+                }, (result) => {
+                    MainRepository.Message.msgAvatar().update({ isLogin: result })
+                });
             },
         }
     }
 </script>
 
 <style scoped>
-
     .avatarWraaper {
         position: relative;
         height: 34px;
@@ -113,7 +122,6 @@
         display: inline-block;
         vertical-align: middle;
     }
-
     .mainCircle {
         height: 34px;
         width: 34px;
@@ -121,7 +129,6 @@
         align-items: center;
         display: flex;
     }
-
     .firstWord {
         margin-left: auto;
         margin-right: auto;
@@ -130,7 +137,6 @@
         line-height: 16px;
         text-transform: uppercase;
     }
-
     .loginCircle {
         position: absolute;
         bottom: 0;
@@ -139,6 +145,34 @@
         width: 10px;
         border-radius: 100%;
         border: solid 2px #ffffff;
+    }
+    /*  Big Size */
+    .avatar_wraaper_big {
+        height: 42px;
+        width: 42px;
+    }
+    .avatar_wraaper_big .mainCircle {
+        height: 42px;
+        width: 42px;
+        border-radius: 100%;
+        align-items: center;
+        display: flex;
+    }
+    .avatar_wraaper_big .firstWord {
+        margin-left: auto;
+        margin-right: auto;
+        color: #ffffff;
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+    .avatar_wraaper_big .loginCircle{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 14px;
+        width: 14px;
+        border-radius: 100%;
+        border: solid 3px #ffffff;
     }
 
 </style>

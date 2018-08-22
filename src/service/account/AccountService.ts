@@ -121,9 +121,9 @@ export default {
                 })
         },
         //결제수단 설정
-        addPaymentMethod: function (type: string, data: any, callback: any) {
+        addPaymentMethod: function (paymentMethod: string, data: any, callback: any) {
             let url = 'payment/';
-            url += type;
+            url += paymentMethod;
 
             AxiosService._requestWithBodyAndEmail(url, 'POST', data,
                 function (data: any) {
@@ -227,8 +227,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () {
-                })
+                function () { })
         }
     }
 }
