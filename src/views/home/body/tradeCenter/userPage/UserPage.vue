@@ -387,9 +387,9 @@
             UnblockThisUser(){
                 let self = this;
                 MainRepository.Users.deleteBlockThisUser({
-                        email: MainRepository.MyInfo.getUserInfo().email,
-                        BlockMemberNo: self.userMemberNo
-                    }, function (result) {
+                    email: MainRepository.MyInfo.getUserInfo().email,
+                    BlockMemberNo: self.userMemberNo
+                }, function (result) {
                         self.showUnBlockModal = false;
                         self.blockThisMember = false;
                     }
