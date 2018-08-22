@@ -37,6 +37,10 @@
             this.limitTime = this.getLimitTime();
             this.timerInterval = setInterval(() => {
                 this.limitTime = this.getLimitTime();
+                // 만료되었을 경우
+                if (this.limitTime === '00:00:00') {
+
+                }
             }, 1000)
         },
         methods: {

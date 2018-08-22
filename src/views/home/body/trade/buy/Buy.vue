@@ -267,38 +267,47 @@
                 this.isInitCompleted = true;
                 this.init();
             });
-
+        },
+        beforeDestroy() {
+            clearInterval(this.timerInterval);
         },
         methods: {
-            getPaymentWindow() {
-                var startTime = Date.now();
-                let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
-                let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
-                let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
-                calcTime = calcTime/1000;
-                this.setTime = calcTime;
-                console.log(calcTime);
-                this.getTimer();
-            },
-            getTimer() {
-                this.start = setInterval(() => {
-                    if (this.setTime > 0) {
-                        this.setTime--;
-                    } else {
-                        clearInterval(this.start);
-                        //staus GET AXIOS
-                    }
-                }, 1000);
-            },
             init() {
                 this.limitTime = this.getLimitTime();
                 this.timerInterval = setInterval(() => {
                     this.limitTime = this.getLimitTime();
+                    // 만료되었을 경우
+                    if (this.limitTime === '00:00:00') {
+
+                    }
                 }, 1000)
             },
             getLimitTime() {
                 return getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
             },
+
+            // 코드 확인 후 삭제할것
+            // getPaymentWindow() {
+            //     var startTime = Date.now();
+            //     let _t = MainRepository.TradeProcess.getOrder().registerDatetime;
+            //     let currentPaymentWindow = MainRepository.TradeProcess.getOrder().paymentWindow * 60 * 1000;
+            //     let calcTime = currentPaymentWindow - (startTime - _t); //clacTime < 0, status cancel
+            //     calcTime = calcTime/1000;
+            //     this.setTime = calcTime;
+            //     console.log(calcTime);
+            //     this.getTimer();
+            // },
+            // getTimer() {
+            //     this.start = setInterval(() => {
+            //         if (this.setTime > 0) {
+            //             this.setTime--;
+            //         } else {
+            //             clearInterval(this.start);
+            //             //staus GET AXIOS
+            //         }
+            //     }, 1000);
+            // },
+
             getMyPaymentMethodSelectList() {
                 return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
             },
