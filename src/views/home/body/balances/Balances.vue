@@ -232,6 +232,7 @@
                 new Balance(''),
                 new Balance('')
             ],
+            /*
             detailLists: [
                 {
                     type: 'Withdrawal',
@@ -282,6 +283,7 @@
                     processingTime: '2018-08-12 16:48:23',
                 },
             ],
+            */
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
 
