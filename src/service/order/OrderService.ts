@@ -21,6 +21,13 @@ export default {
                 //실패시 이곳을 탐
             })
     },
+    getMyOrderStat:function (data: any, callback: any) {
+        AxiosService._requestWithUrlPram('order/my/stats', 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () { })
+    },
     getOrder: function (orderNo : number, callback: any) {
         let data = { email: MainRepository.MyInfo.getUserInfo().email };
         AxiosService._requestWithUrlPram('order/' + orderNo, 'GET', data,
@@ -32,7 +39,7 @@ export default {
     },
     onPaid : function (data : any, callback: any) {
         let url = 'order/' + data + '/paid';
-        AxiosService._requestWithPath(url, 'PUT', data ,
+        AxiosService._requestWithUrlPram(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },

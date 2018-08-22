@@ -44,6 +44,7 @@ import MessageService from "@/service/message/MessageService";
 import {abUtils} from "@/common/utils";
 import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
+import OrderStat from "@/vuex/model/OrderStat";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -206,8 +207,8 @@ export default {
                 callback(idVerification);
             })
         },
-        setPaymentMethod: function (type: string, data: any, callback: any){
-            AccountService.Account.addPaymentMethod(type,data,function (result) {
+        setPaymentMethod: function (paymentMethod: string, data: any, callback: any){
+            AccountService.Account.addPaymentMethod(paymentMethod, data, function (result) {
                 callback(result);
             })
         },
@@ -707,6 +708,24 @@ export default {
 
                     myTradeController.setMyOrderItems(myOrderList);
                 }
+            })
+        },
+        // //다른 유저 정보 GET
+        // getOtherUsers(email : string, callback: any) {
+        //     AccountService.Account.getOtherUsersInfo({
+        //         email: email
+        //     }, function (result) {
+        //         let otherUserInfo = new OtherUsers(result);
+        //         callback(otherUserInfo);
+        //
+        //     })
+        // },
+        getMyOrderStat(email: string, callback: any) {
+            OrderService.getMyOrderStat({
+                email: email
+            }, function(data) {
+                let _orderStat = new OrderStat(data);
+                callback(_orderStat);
             })
         },
         initData(){
