@@ -2,7 +2,7 @@
     <div class="history-security-detail">
         <div>
             <span class="label-mobile-history">{{ $str('date') }}:</span>
-            {{ data.date }}
+            {{ toTimeFormat(data.registerDatetime) }}
         </div>
         <div>
             <span class="label-mobile-history">{{ $str('securitySettings') }}:</span>
@@ -16,10 +16,18 @@
 </template>
 
 <script>
+    import {abUtils} from "../../../../../common/utils";
+
     export default {
         name: "history-security-settings-item",
         props: {
             data: {}
+        },
+        methods: {
+            // 시간 포멧으로 바꿔줌
+            toTimeFormat(time) {
+                return abUtils.toTimeFormat(time);
+            },
         }
     }
 </script>

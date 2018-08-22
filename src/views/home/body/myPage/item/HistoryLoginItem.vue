@@ -2,7 +2,7 @@
     <div class="history-login-detail">
         <div>
             <span class="label-mobile-history">{{ $str('date') }}:</span>
-            {{ data.register_datetime }}
+            {{ toTimeFormat(data.registerDatetime) }}
         </div>
         <div>
             <span class="label-mobile-history">{{ $str('Type') }}:</span>
@@ -20,10 +20,18 @@
 </template>
 
 <script>
+    import {abUtils} from "../../../../../common/utils";
+
     export default {
         name: "history-login-item",
         props: {
             data: {}
+        },
+        methods: {
+            // 시간 포멧으로 바꿔줌
+            toTimeFormat(time) {
+                return abUtils.toTimeFormat(time);
+            },
         }
     }
 </script>

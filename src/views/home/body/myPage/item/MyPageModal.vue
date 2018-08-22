@@ -85,8 +85,9 @@
             </div>
 
             <div v-if="type === 'addPayment'">
+
                 <!--실명 입력-->
-                <div class="mb-4" v-if="paymentMethod != ''">
+                <div class="mb-4" v-if="paymentMethod !== ''">
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("name")}}
                     </div>
@@ -526,7 +527,6 @@
                     code: self.verificationCode,
                     status: 'turn_on'
                 }, function (result) {
-                    console.log("code check success");
                     self.verifyStatus = 'verified';
                     self.$emit('turnon');
                     this.onClearData();
