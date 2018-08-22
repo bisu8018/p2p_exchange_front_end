@@ -9,16 +9,20 @@
             </div>
         </v-flex>
         <!-- 정보-->
-        <v-flex xs6 md4 mb-3>
-            <div class="text-xs-left color-black line-height-1 text-xs-right text-md-left">
-                {{getInfo}}
+        <v-flex xs6 md4 mb-3 text-xs-right text-md-left>
+            <div class="text-xs-left color-black line-height-1  c-pointer tooltip">
+                <span slot="activator" @click="onCopy('getInfo')">{{getInfo}}</span>
+                <input type="text" :value="getInfo" id="getInfo" class="referenceNum">
+                <span class="tooltip-content">Copy</span>
             </div>
         </v-flex>
         <!-- QR코드-->
-        <v-flex xs12 md6 mb-3 text-xs-right c-pointer vertical-center v-if="item.type != 'bank'"
+        <v-flex xs12 md6 mb-3  c-pointer  text-xs-right text-md-left v-if="item.type != 'bank'"
                 @click="onQRcode('alipay')">
+            <div class="vertical-center d-inline-block">
             <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
             <div class="d-inline-block color-black h6"> QR Code</div>
+            </div>
         </v-flex>
     </v-layout>
 </template>
@@ -76,11 +80,21 @@
                 }
             }
         },
-        created() {
-        },
         methods: {
             isMobile() {
                 return MainRepository.State.isMobile();
+            },
+            onCopy() {
+                let copyTemp = document.querySelector('#getInfo');
+
+
+                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+                if (!isiOSDevice) {
+                    copyTemp.setAttribute('type', 'text');
+                    copyTemp.select();
+                }
+                document.execCommand('copy');
             },
         }
     });
@@ -96,4 +110,12 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
+    .referenceNum {
+        position: absolute;
+        left: -1000px;
+    }
+    .tooltip-content {
+        font-weight: 100;
+    }
+
 </style>

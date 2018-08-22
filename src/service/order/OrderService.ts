@@ -5,7 +5,7 @@ import qs from 'qs';
 // 페이지네이션, 트레이드센터 데이터 및 트레이드센터 필터 포함 공통
 export default {
     addOrder: function (data: any, callback: any) {
-        AxiosService._requestWithPath('order', 'POST', data ,
+        AxiosService._requestWithBodyAndEmail('order', 'POST', data ,
             function (data: any) {
                 callback(data)
             },
@@ -48,7 +48,8 @@ export default {
             })
     },
     onCancel : function (data : any, callback: any) {
-        AxiosService._requestWithBodyAndEmail('order/cancel', 'PUT', data ,
+        let url = 'order/' + data.orderNo + '/cancel';
+        AxiosService._requestWithBodyAndEmail(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },
@@ -56,7 +57,7 @@ export default {
             })
     },
     onAppeal : function (data : any, callback: any) {
-        AxiosService._requestWithPath('order/appeal', 'PUT', data ,
+        AxiosService._requestWithBodyAndEmail('order/appeal', 'PUT', data ,
             function (data: any) {
                 callback(data)
             },

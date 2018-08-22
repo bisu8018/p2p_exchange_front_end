@@ -13,8 +13,8 @@
                 </avatar>
             </div>
             <div class="text-xs-left pt-twenty">
-                <span class="h5 bold color-black">{{counterPartyNickname}}</span><br>
-                <span class="h6 color-darkgray">Trades in 30 days : {{transactionNum}}</span>
+                <span class="h5 bold color-black">{{ counterPartyNickname }}</span><br>
+                <span class="h6 color-darkgray">Trades in 30 days : {{ transactionNum }}</span>
             </div>
             <v-spacer></v-spacer>
             <div class="pt-4a pr-3 pl-3">
@@ -33,11 +33,11 @@
                     </div>
                     <div class="pl-2">
                         <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
-                            {{getTime(data.registerDatetime)}}
-                            <!--<span>{{getDateTime('date')}}</span>-->
+                            {{ getTime(data.registerDatetime) }}
+                            <!--<span>{{ getDateTime('date') }}</span>-->
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
-                            {{data.message}}
+                            {{ data.message }}
                         </div>
                     </div>
                 </div>
@@ -47,11 +47,11 @@
                     <v-spacer></v-spacer>
                     <div class="pr-2">
                         <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                            {{getTime(data.registerDatetime)}}
-                            <!--<span>{{getDateTime('date')}}</span>-->
+                            {{ getTime(data.registerDatetime) }}
+                            <!--<span>{{ getDateTime('date') }}</span>-->
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
-                            {{data.message}}
+                            {{ data.message }}
                         </div>
                     </div>
                     <div>

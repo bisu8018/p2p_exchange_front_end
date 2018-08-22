@@ -41,7 +41,7 @@ export default class BalanceController {
         };
 
         for (let key in this.getBalances()) {
-            _totalValue.btc += this.getBalances()[key].estimatedValue;
+            _totalValue.btc += this.getBalances()[key].btcAmount;
             _totalValue.currency += this.getBalances()[key].calcTo(currency)
         }
 

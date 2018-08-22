@@ -13,7 +13,7 @@ export default {
             })
     },
     getMerchant: function (callback: any) {
-        AxiosService._requestWithPath('merchant', 'GET', MainRepository.MyInfo.getUserInfo().email,
+        AxiosService._requestWithBodyAndEmail('merchant', 'GET', MainRepository.MyInfo.getUserInfo().email,
             function (data: any) {
                 callback(data);
             },

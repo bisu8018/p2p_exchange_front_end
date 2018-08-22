@@ -627,7 +627,8 @@
             },
             goTrade() {
                 let instance = this;
-                if (this.onChecktoValue() && this.onCheckfromValue()) {
+                if (this.onChecktoValue() && this.onCheckfromValue()
+                &&(this.user.tradeType === 'Buy'|| this.onChecktradePassword()) ) {
                     MainRepository.TradeProcess.createOrder({
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
@@ -699,9 +700,10 @@
                 return true;
             },
             onCheckfromValue() {
-                this.clickFromAll = false;
                 //All 버튼 없애기.
-                let tempTovalue = this.fromValue * this.user.fixedPrice;
+                this.clickFromAll = false;
+
+                let tempTovalue = (this.fromValue * this.user.fixedPrice).toFixed(0);
                 if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_fromValue = true;
