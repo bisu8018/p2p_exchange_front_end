@@ -71,6 +71,7 @@ export enum VuexTypes {
     //              Balance
     // =====================================
     SET_BALANCE_DATA = 'balance/SET_BALANCE_DATA',
+    SET_WITHDRAW_DATA = 'balance/SET_WITHDRAW_DATA',
 
     //======================================
     //              Trade Process

@@ -27,6 +27,9 @@ export default {
             } else if (type === 'phone') {     //휴대전화 인증코드
                 url = 'memberVerification/sms';
                 _type = 'PUT';
+            } else if (type === 'deposit') {     //출금시 이메일 인증코드
+                url = 'deposit/email';
+                _type = 'POST';
             }
             AxiosService._requestWithUrlPram(url, _type, data,
                 function (data: any) {
@@ -45,6 +48,8 @@ export default {
                 url = 'memberVerification/email/status'
             } else if (type === 'phone') {     //휴대전화 인증코드
                 url = 'memberVerification/sms/status'
+            } else if (type === 'deposit') {     //출금시 이메일 인증코드
+                url = 'deposit/email'
             }
             AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {

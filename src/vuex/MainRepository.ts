@@ -45,6 +45,7 @@ import {abUtils} from "@/common/utils";
 import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
 import OrderStat from "@/vuex/model/OrderStat";
+import Withdraw from "@/vuex/model/Withdraw";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -176,6 +177,27 @@ export default {
             }, function(result){
             //securityDeposit 해야함.
 
+            })
+        },
+        setWithdraw: function (data : any) {
+            console.log(data);
+            balanceController.setWithdraw(
+                new Withdraw(data)
+            )
+        },
+        getWithdraw(){
+            return balanceController.getWithdraw;
+        },
+        postWithdraw: function (callback: any) {
+            BalanceService.postWithdraw({
+                addressTo : balanceController.getWithdraw().addressTo,
+                amount : balanceController.getWithdraw().amount,
+                cryptoCurrency : balanceController.getWithdraw().cryptoCurrency,
+                fee : balanceController.getWithdraw().fee,
+                ownerMemberNo : balanceController.getWithdraw().ownerMemberNo,
+                receiveAmount : balanceController.getWithdraw().receiveAmount
+            }, function (result) {
+                callback(result);
             })
         }
 
