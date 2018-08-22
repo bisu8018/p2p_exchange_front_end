@@ -681,9 +681,6 @@ export default {
                 page : myTradeController.getMyOrderFilter().page,
                 size : '10',
             }, function (data) {
-                let totalCount = data.totalCount;
-                paginationController.setTotalCount(totalCount);
-
                 //전체 item list model화 시켜 주기
                 let result = data.ordersList
                 let myOrderList: Order[] = [];
@@ -695,6 +692,9 @@ export default {
                 if (isSimpleItem) {
                     myTradeController.setMyUnpaidOrderItems(myOrderList);
                 } else {
+                    let totalCount = data.totalCount;
+                    paginationController.setTotalCount(totalCount);
+
                     myTradeController.setMyOrderItems(myOrderList);
                 }
             })
@@ -797,9 +797,8 @@ export default {
             return messageController;
         },
 
-        setMsgAvatar: function  (data: any, callback: any) {
+        setMsgAvatar: function  (data: any) {
             msgAvatarController.setMsgAvatar(data);
-            callback();
         },
         getMsgAvatar: function () {
             return msgAvatarController.getMsgAvatar();

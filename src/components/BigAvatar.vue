@@ -1,8 +1,8 @@
 <template>
     <div class="avatarWraaper">
-    <span class="mainCircle" v-bind:style="{background: bgColor}">
-      <span class="firstWord">{{name}}</span>
-    </span>
+        <span class="mainCircle" v-bind:style="{background: bgColor}">
+          <span class="firstWord">{{name}}</span>
+        </span>
         <div class="loginCircle" v-bind:style="{background: loginColor}">
         </div>
     </div>

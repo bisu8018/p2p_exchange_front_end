@@ -4,7 +4,7 @@
 
         <!-- 닉네임, 아바타 -->
         <div class="pt-0">
-            <big-avatar :me="true" />
+            <avatar big me />
             <div class="ml-3">
                 <p class="color-blue mb-1">{{ myInfo.nickname }}</p>
                 <p class="color-darkgray">UID: {{ myInfo.memberNo }}</p>
@@ -34,9 +34,12 @@
 <script>
     import BigAvatar from "../../../../../components/BigAvatar";
     import {abUtils} from "../../../../../common/utils";
+    import Avatar from "../../../../../components/Avatar";
 
     export default {
-        components: {BigAvatar},
+        components: {
+            Avatar,
+            BigAvatar},
         name: "my-info",
         props: {
             myInfo: {}
