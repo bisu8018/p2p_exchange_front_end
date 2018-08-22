@@ -207,11 +207,24 @@ export default {
                 callback(idVerification);
             })
         },
-        setPaymentMethod: function (paymentMethod: string, data: any, callback: any){
-            AccountService.Account.addPaymentMethod(paymentMethod, data, function (result) {
+        // setPaymentMethod: function (paymentType: string, email: string, callback: any){
+        //     AccountService.Account.addPaymentMethod(paymentType, email, function (result) {
+        //         callback(result);
+        //     })
+        // },
+        setPaymentMethod: function (paymentType: any, email: string, callback: any){
+            AccountService.Account.addPaymentMethod(paymentType, email, function (result) {
                 callback(result);
             })
         },
+        // getMyOrderStat(email: string, callback: any) {
+        //     OrderService.getMyOrderStat({
+        //         email: email
+        //     }, function(data) {
+        //         let _orderStat = new OrderStat(data);
+        //         callback(_orderStat);
+        //     })
+        // },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.MyInfo.getUserInfo().email
