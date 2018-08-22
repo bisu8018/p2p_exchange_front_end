@@ -353,8 +353,10 @@ export default {
                 callback(result);
             })
         },
-        deleteBlockThisUser(data : number, callback: any){
-            AccountService.BlockList.deleteBlockUser(data, function (result) {
+        deleteBlockThisUser(email:string, blockMemberNo : number, callback: any){
+            AccountService.BlockList.deleteBlockUser({
+                email, blockMemberNo
+            }, function (result) {
                 callback(result);
             })
         },
