@@ -9,20 +9,16 @@ export default class ChatAvatarController {
         this.store = vuexStore
     }
 
-    setMsgAvatar(msgAvatar: MsgAvatar) {
-        this.store.dispatch(VuexTypes.SET_TRADE_MSG_AVATAR, msgAvatar);
+    set(data: any) {
+        this.store.dispatch(VuexTypes.SET_TRADE_MSG_AVATAR, data);
     }
 
-    getMsgAvatar() {
+    get(): MsgAvatar {
         return this.store.state.msgAvatar.msgAvatar;
     }
 
-    updateMsgAvatar(msgAvatar: MsgAvatar) {
-        this.store.dispatch(VuexTypes.UPDATE_TRADE_MSG_AVATAR, msgAvatar);
+    update(data: any) {
+        this.store.dispatch(VuexTypes.UPDATE_TRADE_MSG_AVATAR, data);
     }
-
-
-
-
 }
 

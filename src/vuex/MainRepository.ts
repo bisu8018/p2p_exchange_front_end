@@ -796,16 +796,8 @@ export default {
         controller(): MessageController {
             return messageController;
         },
-
-        setMsgAvatar: function  (data: any) {
-            msgAvatarController.setMsgAvatar(data);
-        },
-        getMsgAvatar: function () {
-            return msgAvatarController.getMsgAvatar();
-        },
-        updateMsgAvatar: function  (data: any, callback: any) {
-            msgAvatarController.updateMsgAvatar(data);
-            callback();
+        msgAvatar() : MsgAvatarController {
+            return msgAvatarController;
         },
 
         createRoom(callback: any) {

@@ -103,6 +103,7 @@ export default {
         },
         //유저 로그인 상태
         isUserActive: function (data: any, callback: any) {
+            console.log(data)
             AxiosService._requestWithUrlPram('isUserActive', 'GET', data,
                 function (data: any) {
                     callback(data);
