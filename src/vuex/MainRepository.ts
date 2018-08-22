@@ -134,7 +134,9 @@ export default {
     // 주기적으로 작동하는 함수
     initInterval() {
         setInterval(() => {
-            this.MyOrder.load(true);
+            if (this.MyInfo.isLogin()) {
+                this.MyOrder.load(true);
+            }
         }, 10000)
     },
     //서버 데이터 초기화 완료 체크
@@ -721,7 +723,7 @@ export default {
         },
         updatePage(data){
             myTradeController.updateMyOrderFilter(data);
-            this.load();
+            this.load(false);
         },
         getPage(){
             return myTradeController.getMyOrderItems();

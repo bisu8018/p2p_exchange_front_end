@@ -69,7 +69,7 @@
         <div class="mobileModal">
           <v-layout>
             <v-flex xs2 pl-2>
-              <avatar :me=true>
+              <avatar me>
               </avatar>
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
@@ -287,7 +287,7 @@
             <v-flex md3 text-md-left>
               <v-layout pl-4>
                 <!--avatar-->
-                <avatar :me=true>
+                <avatar me>
                 </avatar>
                 <!-- merchant 정보-->
                 <span>

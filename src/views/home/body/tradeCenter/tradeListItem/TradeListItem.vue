@@ -9,7 +9,7 @@
                 <v-layout mt-4 align-center fill-height>
                     <!-- 아바타 -->
                     <div class="mr-3">
-                        <avatar :me=true>
+                        <avatar me>
                         </avatar>
                     </div>
 
@@ -91,7 +91,7 @@
                 <div class="mobileModal">
                     <v-layout>
                         <v-flex xs2 pl-2>
-                            <avatar :me=true>
+                            <avatar me>
                             </avatar>
                         </v-flex>
                         <v-flex xs10 text-xs-left mb-4>

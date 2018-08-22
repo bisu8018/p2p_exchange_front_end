@@ -36,7 +36,7 @@
         }),
         created() {
             let self = this;
-            if(this.chat === ''){
+            if(this.chat === '') {
                 if (this.me === true) {
                     this.loginColor = '#59D817';
                     this.name = MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0];
@@ -49,12 +49,8 @@
                         self.name = otherUsersInfo.nickName === '' ? 'A' : otherUsersInfo.nickName[0];
                         self.getIsLogin();
                     });
-
                     //3분마다 로그인 확인 갱신
-                    this.msgInterval = setInterval(function () {
-                        self.getIsLogin();
-                    }, 180000)
-
+                    this.initInterval();
                 }
             } else {
                 if(this.chat === 'main'){
@@ -66,17 +62,14 @@
                             name : self.name,
                             bgColor : self.bgColor
                         },function () {
-                            self.msgInterval = setInterval(function () {
-                                self.getIsLogin();
-                            }, 180000)
+                            self.initInterval();
                         })
                     });
-                }else{
+                } else {
                     this.bgColor = MainRepository.Message.getMsgAvatar().bgColor;
                     this.name = MainRepository.Message.getMsgAvatar().name;
                 }
             }
-
         },
         mounted() {
 
@@ -85,6 +78,12 @@
             clearInterval(this.msgInterval);
         },
         methods: {
+            //3분마다 로그인 확인 갱신
+            initInterval() {
+                this.msgInterval = setInterval(function () {
+                    self.getIsLogin();
+                }, 180000)
+            },
             getIsLogin() {
                 let self = this;
                 MainRepository.Users.isUserActive({
