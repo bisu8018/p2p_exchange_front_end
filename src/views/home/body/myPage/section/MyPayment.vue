@@ -5,6 +5,7 @@
         <dialog-add-new-payment
                 :showDialog="showModal"
                 :my-info="myInfo"
+                :edit="isEdit"
                 @close="onClose"
                 @done="onAddPayment"
         />
@@ -28,6 +29,8 @@
             <span v-for="item in paymentMethod">
                 <payment-item
                         :data="item"
+                        @edit="onEdit"
+                        @toggle="onToggle"
                 />
             </span>
             <div class="ta-center py-3">
@@ -63,6 +66,7 @@
         data() {
             return {
                 showModal: false,
+                isEdit: false,
             }
         },
         methods: {
@@ -76,6 +80,16 @@
             onAddPayment() {
                 // this.$router.push('/myPage')
             },
+            onEdit() {
+                this.showModal = true;
+                this.isEdit = true;
+            },
+            onToggle() {
+
+            },
+
+
+            // ****** 이 아래로는 무슨 Methods인지 모르겠음...ㅜㅜ
             onTurnOn() {
                 // phone 인증 정보 AXIOS GET
                 this.showModal = false;
@@ -88,7 +102,6 @@
                     url += '?phone';
                 }
                 this.$router.push(url);
-
             },
             //결제수단 추가 모달 data get 및 결제수단 표시 설정
             getPaymentMethod(value) {

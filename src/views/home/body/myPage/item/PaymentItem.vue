@@ -18,7 +18,7 @@
         <div class="payment-toggle">
             <btn-mypage
                 :txt="$str('modify')"
-                @click="onModify"
+                @click="onEdit"
             />
             <toggle :toggle="data.activeYn"
                     class="ml-3 c-pointer"
@@ -36,7 +36,8 @@
         name: "payment-item",
         components: {
             BtnMypage,
-            Toggle},
+            Toggle
+        },
         props: {
             data: {}
         },
@@ -51,11 +52,11 @@
             }
         },
         methods: {
-            onModify() {
-                alert('수정하기 팝업 연결 필요')
+            onEdit(item) {
+                this.$emit('edit', item);
             },
             onToggle() {
-                alert('토글 버튼 클릭이벤트 & API 연결 필요')
+                this.$emit('toggle', item);
             },
             paymentType() {
                 if (this.data.type === 'alipay') {
@@ -69,7 +70,7 @@
                 } else if (this.data.type === 'bank') {
                     this.paymentImg = 'ic-bank';
                     this.paymentTxt = this.$str('bankAccountText');
-                    this.id = this.data.bankId;
+                    this.id = this.data.bankAccount;
                 }
             }
         },

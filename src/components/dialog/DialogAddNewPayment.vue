@@ -3,7 +3,7 @@
         <div class="dialog-add-new-payment_wrapper">
 
             <!-- 헤더, 타이틀 -->
-            <h3>{{ $str('paymentMethod') }}</h3>
+            <h3>{{ header }}</h3>
             <div class="dialog_btn-close">
                 <i class="material-icons " @click="onClose">close</i>
             </div>
@@ -194,6 +194,10 @@
                 default: () => false
             },
             myInfo: {},
+            edit: {
+                type: Boolean,
+                default: () => false
+            }
         },
         methods: {
             onCheckName() {
@@ -270,8 +274,6 @@
             return {
                 paymentMethods: new PaymentMethod(''),
 
-                paymentMethod: '',
-
                 warning_name: false,
                 warning_alipay: false,
                 warning_wechat: false,
@@ -287,6 +289,15 @@
                 verify_warning_trade_password: '',
                 verify_warning_bank_account: '',
                 file: '',
+            }
+        },
+        computed: {
+            header() {
+                if (this.edit) {
+                    return this.$str('editPayment');
+                } else {
+                    return this.$str('paymentMethod');
+                }
             }
         }
     }
