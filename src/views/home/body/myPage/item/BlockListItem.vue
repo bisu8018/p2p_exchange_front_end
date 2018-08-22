@@ -5,7 +5,7 @@
         <dialog-unblock
                 :showDialog="onCheckUnblock"
                 @close="offDialog"
-                @done="onUnblock(data.email, data.blockMemberNo)"
+                @done="onUnblock(data.blockMemberNo)"
         />
 
         <!-- item -->
@@ -54,16 +54,16 @@
                 this.onCheckUnblock = false;
             },
 
-            onUnblock(unblockEmail, num) {
+            onUnblock(num) {
                 let self = this;
-
                 MainRepository.Users.deleteBlockThisUser({
-                        email : unblockEmail,
+                        email : MainRepository.MyInfo.getUserInfo().email,
                         BlockMemberNo: num,
                     }, function (result) {
                         // self.showUnBlockModal = false;
                         // self.blockThisMember = false;
                         self.onCheckUnblock = false;
+                        self.$eventBus.$emit('showAlert', 0);
                     }
                 )
             },
