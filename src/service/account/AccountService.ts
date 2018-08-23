@@ -128,6 +128,10 @@ export default {
             let url = 'payment/';
             url += paymentMethod.type;
 
+            if (paymentMethod.type === 'bank') {
+                paymentMethod.type = 'bankaccount';
+            }
+
             AxiosService._requestWithBodyAndEmail(url, 'POST', paymentMethod,
                 function (data: any) {
                     callback(data);
