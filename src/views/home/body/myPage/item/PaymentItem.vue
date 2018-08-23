@@ -20,9 +20,9 @@
                 :txt="$str('modify')"
                 @click="onEdit"
             />
-            <toggle :toggle="data.activeYn"
+            <toggle :toggle="activeYn"
                     class="ml-3 c-pointer"
-                    @click="onToggle()"
+                    @click="onToggle"
             />
         </div>
     </div>
@@ -31,6 +31,8 @@
 <script>
     import Toggle from '@/components/Toggle.vue';
     import BtnMypage from "./BtnMypage";
+    import MainRepository from "../../../../../vuex/MainRepository";
+    import PaymentMethod from "../../../../../vuex/model/PaymentMethod";
 
     export default {
         name: "payment-item",
@@ -42,7 +44,18 @@
             data: {}
         },
         computed: {
+            activeYn: {
+                get() {
+                    if (this.data.activeYn === 'y') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                set(value) {
 
+                }
+            }
         },
         data() {
             return{
@@ -57,6 +70,22 @@
             },
             onToggle(item) {
                 this.$emit('toggle', item);
+
+                let self = this;
+                let _paymentMethods = new PaymentMethod('');
+                _paymentMethods = self.data;
+
+                console.log(_paymentMethods);
+
+                if (_paymentMethods.activeYn === 'y') {
+                    _paymentMethods.activeYn = 'n';
+                } else {
+                    _paymentMethods.activeYn = 'y';
+                }
+
+                MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
+                    // 리프레시 이벤트버스 날리기~~'ㅅ'
+                });
             },
             paymentType() {
                 if (this.data.type === 'alipay') {

@@ -314,7 +314,9 @@
 
                 self.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
-                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, this.paymentMethods, function (data) { });
+                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, this.paymentMethods, function (data) {
+                    // 이벤트버스 날리기~~'ㅅ'
+                });
 
                 self.$emit('paymentMethod');
                 this.onClearData();
