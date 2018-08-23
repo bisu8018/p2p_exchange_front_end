@@ -90,7 +90,6 @@
                     } else {
                         // 로그인 상태 요청
                         MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
-                            console.log(userInfo)
                             this.setAvatar(
                                 userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
                                 userInfo.bgColor,
