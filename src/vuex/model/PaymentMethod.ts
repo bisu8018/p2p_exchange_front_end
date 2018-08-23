@@ -6,10 +6,10 @@ export default class PaymentMethod {
     bankBranchInfo: string;
     bankName: string;
     memberNo: number;
-    modifyDatetime: string;
+    modifyDatetime: number;
     modifyMemberNo: number;
     ownerName: string;
-    registerDatetime: string;
+    registerDatetime: number;
     registerMemberNo: number;
     type: string;
     wechatId: string;
@@ -26,10 +26,10 @@ export default class PaymentMethod {
         this.bankBranchInfo = data.bankBranchInfo || '';
         this.bankName = data.bankName || '';
         this.memberNo = data.memberNo || 0;
-        this.modifyDatetime = data.modifyDatetime;
+        this.modifyDatetime = data.modifyDatetime || null;
         this.modifyMemberNo = data.modifyMemberNo || 0;
         this.ownerName = data.ownerName || '';
-        this.registerDatetime = data.registerDatetime || '';
+        this.registerDatetime = data.registerDatetime || null;
         this.registerMemberNo = data.registerMemberNo || 0;
         this.type = data.type || '';
         this.wechatId = data.wechatId || '';
