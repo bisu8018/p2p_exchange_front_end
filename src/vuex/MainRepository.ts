@@ -800,28 +800,17 @@ export default {
                 callback(orderNo);
             })
         },
-
-        loadCurrentOrder: function (orderNo: number, callback: any) {
-            OrderService.getOrder(orderNo, function (data) {
-                tradeController.setOrder(data);
-                callback();
-            })
-        },
-
         getCurrentOrder: function () {
-            return tradeController.getOrder();
+            return tradeController.getCurrentOrder();
         },
 
 
-        setOrder: function (data: any, callback: any) {
+        setCurrentOrder: function (data: any, callback: any) {
             OrderService.getOrder(data, function (result) {
                 let tradeProcess = new Order(result);
-                tradeController.setOrder(tradeProcess);
+                tradeController.setCurrentOrder(tradeProcess);
                 callback();
             })
-        },
-        getOrder: function () {
-            return tradeController.getOrder();
         },
         onPaid: function (data: any, callback: any) {
             OrderService.onPaid(data, function (result) {
@@ -845,6 +834,12 @@ export default {
         },
         onConfirm: function (data: any, callback: any) {
             OrderService.onConfirm(data, function (result) {
+                callback(result);
+            })
+        },
+        getOrderStatus: function (data: any, callback: any) {
+            OrderService.getOrderStatus(data, function (result) {
+                tradeController.updateOrderStatus(result);
                 callback(result);
             })
         },

@@ -2,7 +2,6 @@ import PaymentMethod from './PaymentMethod';
 
 export default class Order {
     adNo : number;
-    email: string;
     unreadMessageCount : number;
     amount : number;
     coinCount : number;
@@ -12,7 +11,6 @@ export default class Order {
     fileContent: string;
     memberNo: string;
     merchantMemberNo : number;
-    nickname: string;
     orderNo: number;
     paymentMethods : string;
     filteredPaymentMethod : PaymentMethod[];
@@ -31,11 +29,10 @@ export default class Order {
 
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
-        this.email = data.email;
         this.unreadMessageCount = Number(data.unreadMessageCount);
         this.referenceNo = Number(data.referenceNo) || 0;
         this.adNo = Number(data.adNo) || 0;
-        this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency)
+        this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency);
         this.fileContent = data.fileContent;
         this.merchantMemberNo = Number(data.merchantMemberNo) || 0;
         this.customerMemberNo = Number(data.customerMemberNo) || 0;
@@ -45,7 +42,6 @@ export default class Order {
         this.coinCount = Number(data.coinCount) || 0;
         this.amount = Number(data.amount) || 0;
         this.memberNo = data.memberNo;
-        this.nickname = data.nickname || '';
         this.paymentMethods = data.paymentMethods || '';
         this.filteredPaymentMethod = [];
         for(let key in data.filteredPaymentMethod) {
@@ -59,15 +55,21 @@ export default class Order {
         this.merchantNickname = data.merchantNickname || '';
         this.customerNickname = data.customerNickname || '';
         this.appealList = data.appealList || '';
+    };
+
+
+    update (data: any){ console.log(data);
+        if(data.status !== undefined && data.status !== null) this.status = data.status;
+        console.log(data);
     }
 
     transCryptocurrency(cryptocurrency){
-        console.log(cryptocurrency)
         switch (cryptocurrency) {
             case 'bitcoin':
+            case 'BTC':
                 return 'BTC';
-
             case 'ethereum':
+            case 'ETH':
                 return 'ETH';
             default:
                 return 'ALLB';

@@ -1,7 +1,7 @@
 <template>
     <div class=" mt-5">
         <v-flex xs12 class="text-xs-left h2 mb-4  bold">
-            {{message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject")}}
+            {{ message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject") }}
             <v-divider class="mt-4"></v-divider>
         </v-flex>
 
@@ -10,13 +10,13 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4>
-                {{$str('postAdIn')}}
+                {{ $str('postAdIn') }}
             </v-flex>
 
             <!--국가 select box-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5  color-black">{{$str("country")}}</div>
+                    <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
                         <select-box :selectBoxType="'signupCountry'"></select-box>
                     </div>
@@ -26,7 +26,7 @@
             <!--화폐 select box-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5  color-black">{{$str("currency")}}</div>
+                    <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
                         <select-box :selectBoxType="'currency'"></select-box>
                     </div>
@@ -36,11 +36,11 @@
             <!--buy/sell select box-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5  color-black">{{$str("tradeType")}}</div>
+                    <div class="text-xs-left mb-2 h5  color-black">{{ $str("tradeType") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
                         <select class="comp-selectbox h6" v-model="tradeType">
-                            <option value="buy">{{$str("buyText")}}</option>
-                            <option value="sell">{{$str("sellText")}}</option>
+                            <option value="buy">{{ $str("buyText") }}</option>
+                            <option value="sell">{{ $str("sellText") }}</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -50,7 +50,7 @@
             <!--코인 select box-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5  color-black">{{$str("cryptoCurrency")}}</div>
+                    <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
                         <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
                             <option value="bitcoin">BTC</option>
@@ -71,16 +71,16 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
-                {{$str('price')}}
+                {{ $str('price') }}
             </v-flex>
             <!--가격 유형 select box-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black ">{{$str("priceType")}}</div>
+                    <div class="text-xs-left mb-2 h5 color-black ">{{ $str("priceType") }}</div>
                     <div class="p-relative mb-3">
                         <select class="comp-selectbox h6" v-model="priceType">
-                            <option value="fixedprice">{{$str("fixedPrice")}}</option>
-                            <!--<option value="floatprice">{{$str("floatPrice")}}</option>-->
+                            <option value="fixedprice">{{ $str("fixedPrice") }}</option>
+                            <!--<option value="floatprice">{{ $str("floatPrice") }}</option>-->
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -92,7 +92,7 @@
                 <div>
                     <div class="text-xs-left mb-2 button- color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin")}}
+                        {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price}">
@@ -100,14 +100,14 @@
                                @keyup="onNumberCheck('price')"
                         >
                         <div class="border-indicator h6">
-                            {{priceType === 'fixedprice' ? getCurrency : '%'}}
+                            {{ priceType === 'fixedprice' ? getCurrency : '%' }}
                         </div>
                         <!--<div class="currency-indicator h6"
                              v-bind:class="{'warning-indicator' : warning_fixed_price}">
-                            {{getCurrency}}
+                            {{ getCurrency }}
                         </div>-->
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_fixed_price}">{{verify_warning_fixed_price}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_fixed_price}">{{ verify_warning_fixed_price }}</span>
                         </div>
                     </div>
                 </div>
@@ -116,10 +116,10 @@
             <!--환율 계산 표시-->
             <v-flex xs12 md4>
                 <div>
-                    <div class="text-xs-left h5 color-darkgray ">{{$str("priceText")}}</div>
+                    <div class="text-xs-left h5 color-darkgray ">{{ $str("priceText") }}</div>
                     <div class="price-clac-wrapper text-xs-left">
-                        <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{priceType === 'fixedprice' ?
-                            toMoneyFormat || 0 : getMarketPrice || 0}} {{getCurrency}}/{{getCryptoCurrency}}
+                        <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{ priceType === 'fixedprice' ?
+                            toMoneyFormat || 0 : getMarketPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
                         </div>
                     </div>
                 </div>
@@ -129,10 +129,10 @@
             <!--환율 설명-->
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
-                    <div class="price-calculate color-darkgray">{{$str("marektPrice")}} :
-                        {{getMarketPrice || 0}} {{getCurrency}}/{{getCryptoCurrency}}
+                    <div class="price-calculate color-darkgray">{{ $str("marektPrice") }} :
+                        {{ getMarketPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
                     </div>
-                    <div class="price-explain color-darkgray">{{$str("priceExplain")}}</div>
+                    <div class="price-explain color-darkgray">{{ $str("priceExplain") }}</div>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -145,7 +145,7 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4>
-                {{$str('limits')}}
+                {{ $str('limits') }}
             </v-flex>
 
             <!--거래가 입력-->
@@ -153,21 +153,21 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{$str("volumeText")}}
+                        {{ $str("volumeText") }}
                     </div>
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                         <input type="text" class="price-input" v-model="volume"
                                @keyup="onNumberCheck('volume')" ref="volume"
                                :placeholder="$str('volumePlaceholderMobile') + getBalance">
                         <div class="border-indicator h6">
-                            {{getCryptoCurrency}}
+                            {{ getCryptoCurrency }}
                         </div>
                         <!--<div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
-                            {{getCryptoCurrency}}
+                            {{ getCryptoCurrency }}
                         </div>-->
                         <div class="warning-text-wrapper">
                     <span class="d-none"
-                          v-bind:class="{'warning-text' : warning_volume}">{{verify_warning_volume}}</span>
+                          v-bind:class="{'warning-text' : warning_volume}">{{ verify_warning_volume }}</span>
                         </div>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{$str("minLimit")}}
+                        {{ $str("minLimit") }}
                     </div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_min_limit}">
@@ -186,13 +186,13 @@
                                @keyup="onNumberCheck('minLimit')"
                                v-model="minLimit">
                         <div class="border-indicator h6">
-                            {{getCurrency}}
+                            {{ getCurrency }}
                         </div>
                         <!--    <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
-                                {{getCurrency}}
+                                {{ getCurrency }}
                             </div>-->
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_min_limit}">{{verify_warning_min_limit}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_min_limit}">{{ verify_warning_min_limit }}</span>
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{$str("maxLimit")}}
+                        {{ $str("maxLimit") }}
                     </div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_max_limit}">
@@ -212,13 +212,13 @@
                                @keyup="onNumberCheck('maxLimit')"
                                v-model="maxLimit">
                         <div class="border-indicator h6">
-                            {{getCurrency}}
+                            {{ getCurrency }}
                         </div>
                         <!--  <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
-                              {{getCurrency}}
+                              {{ getCurrency }}
                           </div>-->
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_max_limit}">{{verify_warning_max_limit}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_max_limit}">{{ verify_warning_max_limit }}</span>
                         </div>
                     </div>
                 </div>
@@ -229,7 +229,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{$str("paymentWindow")}}
+                        {{ $str("paymentWindow") }}
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_payment_window}">
@@ -238,20 +238,20 @@
                                @keyup="onNumberCheck('paymentWindow')"
                                v-model="paymentWindow">
                         <div class="border-indicator h6">
-                            {{$str("minuteText")}}
+                            {{ $str("minuteText") }}
                         </div>
                         <!--  <div class="currency-indicator h6"
                                v-bind:class="{'warning-indicator' : warning_payment_window}">
-                              {{$str("minuteText")}}
+                              {{ $str("minuteText") }}
                           </div>-->
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_payment_window}">{{verify_warning_payment_window}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_payment_window}">{{ verify_warning_payment_window }}</span>
                         </div>
                     </div>
                 </div>
             </v-flex>
             <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left color-darkgray line-height-1a">{{$str("paymentWindowExplain")}}</div>
+                <div class="text-xs-left color-darkgray line-height-1a">{{ $str("paymentWindowExplain") }}</div>
             </v-flex>
             <v-flex xs12>
                 <v-divider class="mt-4"></v-divider>
@@ -263,13 +263,13 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
-                {{$str('paymentMethod')}}
+                {{ $str('paymentMethod') }}
             </v-flex>
 
             <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
             <!--알리페이 결제-->
             <v-flex xs12 md8>
-                <div class="text-xs-left display-flex mb-4" v-if="getAlipay.activeYn === true ">
+                <div class="text-xs-left display-flex mb-4" v-if="getAlipay.activeYn === 'y' ">
                     <v-flex xs1 pl-0 pr-0>
                         <span @click="onToggle('alipay')">
                             <toggle :toggle="alipay_toggle_use" class="c-pointer"></toggle>
@@ -279,10 +279,10 @@
                         <v-flex xs5 pl-0 pr-0 class="vertical-center ">
                             <div class="sprite-img ic-alipay d-inline-block"></div>
                             <span
-                                    class="ml-2 mr-1 color-darkgray absolute">{{$str("alipayText")}} : </span>
+                                    class="ml-2 mr-1 color-darkgray absolute">{{ $str("alipayText") }} : </span>
                         </v-flex>
                         <v-flex xs7 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{getAlipay.alipayId}}</div>
+                            <div class="d-inline-block">{{ getAlipay.alipayId }}</div>
                         </v-flex>
                     </v-flex>
                 </div>
@@ -290,7 +290,7 @@
 
             <!--위챗페이 결제-->
             <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4" v-if="getWechat.activeYn === true">
+                <div class="text-xs-left display-flex mb-4" v-if="getWechat.activeYn === 'y'">
                     <v-flex xs1 pl-0 pr-0>
                         <span @click="onToggle('wechatPay')">
                             <toggle :toggle="wechat_toggle_use" class="c-pointer"></toggle>
@@ -300,10 +300,10 @@
                         <v-flex xs5 pl-0 pr-0 class="vertical-center">
                             <div class="sprite-img ic-wechatpay d-inline-block"></div>
                             <span
-                                    class="ml-2 mr-1 color-darkgray absolute">{{$str("wechatPayText")}} : </span>
+                                    class="ml-2 mr-1 color-darkgray absolute">{{ $str("wechatPayText") }} : </span>
                         </v-flex>
                         <v-flex xs6 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{getWechat.wechatId}}</div>
+                            <div class="d-inline-block">{{ getWechat.wechatId }}</div>
                         </v-flex>
                     </v-flex>
 
@@ -312,7 +312,7 @@
 
             <!--은행 계좌 결제-->
             <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4 " v-if="getBank === true">
+                <div class="text-xs-left display-flex mb-4 " v-if="getBank.activeYn === 'y'">
                     <v-flex xs1 pl-0 pr-0>
                         <span @click="onToggle('bankAccount')">
                             <toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>
@@ -322,11 +322,11 @@
                         <v-flex xs5 pl-0 pr-0 class="vertical-center">
                             <div class="sprite-img ic-bank d-inline-block"></div>
                             <span
-                                    class="ml-2 mr-1 color-darkgray absolute">{{$str("bankAccountText")}} : </span>
+                                    class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>
                         </v-flex>
                         <v-flex xs6 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{getBank.bankName}}, {{getBank.bankBranchInfo}}
-                                {{getBank.bankAccount}}
+                            <div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}
+                                {{ getBank.bankAccount }}
                             </div>
                         </v-flex>
                     </v-flex>
@@ -337,15 +337,15 @@
             <v-flex xs12 md8 offset-md4 text-xs-left mb-4>
                 <span @click="onRefresh" class="p-relative refresh-btn btn-blue-hover h5 btn-rounded-blue c-pointer">
                     <i class="material-icons refresh-icon">sync</i>
-                    <span class="refresh-btn-span">{{$str('refreshBtnText')}}</span>
+                    <span class="refresh-btn-span">{{ $str('refreshBtnText') }}</span>
                 </span>
             </v-flex>
 
 
             <v-flex xs12 md8 offset-md4>
                 <div class="payment-explain text-xs-left line-height-1a">
-                    <span class="color-darkgray ">{{$str("paymentExplain")}}</span>
-                    <a class="text-white-hover color-blue" @click="goMyPage()">{{$str("clickHereText")}}</a>
+                    <span class="color-darkgray ">{{ $str("paymentExplain") }}</span>
+                    <a class="text-white-hover color-blue" @click="goMyPage()">{{ $str("clickHereText") }}</a>
                 </div>
             </v-flex>
 
@@ -359,12 +359,12 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
-                {{$str('autoReplyText')}}
+                {{ $str('autoReplyText') }}
             </v-flex>
             <!--자동 답글 입력-->
             <v-flex xs12 md8>
                 <div>
-                    <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{$str("autoReplyText")}}</div>
+                    <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{ $str("autoReplyText") }}</div>
                     <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('autoReplyPlaceholder')"
                           v-model="autoReplay"></textarea>
@@ -382,11 +382,11 @@
         <!--거래조항 입력-->
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
-                {{$str('termsTransactionText')}}
+                {{ $str('termsTransactionText') }}
             </v-flex>
             <v-flex xs12 md8>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{$str("termsTransactionText")}}
+                    <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("termsTransactionText") }}
                     </div>
                     <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('termsTransactionPlaceholder')"
@@ -404,14 +404,14 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
-                {{$str('counterpartyFilterText')}}
+                {{ $str('counterpartyFilterText') }}
             </v-flex>
             <!--상대방 제한사항 입력-->
             <v-flex xs12 md4>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{$str("counterpartyFilterText")}}
+                    <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("counterpartyFilterText") }}
                     </div>
-                    <div class="text-xs-left mb-2 h6 color-darkgray ">{{$str("counterpartyFilterPlaceholder")}}
+                    <div class="text-xs-left mb-2 h6 color-darkgray ">{{ $str("counterpartyFilterPlaceholder") }}
                     </div>
                     <div class="mb-4 p-relative">
                         <input class="input" type="text" v-bind:class="{'warning-border' : warning_counterparty}"
@@ -419,7 +419,7 @@
                                placeholder="0" v-model="counterpartyFilterTradeCount "
                                maxlength="2">
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_counterparty}">{{verify_warning_counterparty}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_counterparty}">{{ verify_warning_counterparty }}</span>
                         </div>
                     </div>
 
@@ -433,7 +433,7 @@
                             <span>
                                 <i class="material-icons">done</i>
                             </span>
-                            <h5 class="d-inline-block">{{$str("counterpartyCheckbox1")}}</h5>
+                            <h5 class="d-inline-block">{{ $str("counterpartyCheckbox1") }}</h5>
                         </label>
                     </div>
                     <div class="text-xs-left mb-4 ">
@@ -442,7 +442,7 @@
                             <span>
                                 <i class="material-icons">done</i>
                             </span>
-                            <h5 class="d-inline-block">{{$str("counterpartyCheckbox2")}}</h5>
+                            <h5 class="d-inline-block">{{ $str("counterpartyCheckbox2") }}</h5>
                         </label>
                     </div>
                     <div class="text-xs-left mb-4">
@@ -451,10 +451,10 @@
                             <span>
                                 <i class="material-icons">done</i>
                             </span>
-                            <h5 class="d-inline-block">{{$str("counterpartyCheckbox3")}}</h5>
+                            <h5 class="d-inline-block">{{ $str("counterpartyCheckbox3") }}</h5>
                         </label>
                     </div>
-                    <div class="text-xs-left h6 color-darkgray">{{$str("counterpartyExplain")}}</div>
+                    <div class="text-xs-left h6 color-darkgray">{{ $str("counterpartyExplain") }}</div>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -467,17 +467,17 @@
 
         <v-layout wrap row mb-4>
             <v-flex xs12 md4 h3 bold color-black text-xs-left v-if="!isMobile">
-                {{$str('tradePwText')}}
+                {{ $str('tradePwText') }}
             </v-flex>
             <!--거래 비밀번호 비교 입력-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{$str("tradePwText")}}</div>
+                    <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("tradePwText") }}</div>
                     <div class="p-relative">
                         <input type="password" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
                                :placeholder="$str('tradePwText')" v-model="tradePassword" @blur="onCheckTradePassword"/>
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{verify_warning_trade_password}}</span>
+                            <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
                         </div>
                     </div>
                 </div>
@@ -498,11 +498,11 @@
                             <span>
                                 <i class="material-icons">done</i>
                             </span>
-                    <h5 class="d-inline-block">{{$str("agreeTermsExplain")}}</h5>
+                    <h5 class="d-inline-block">{{ $str("agreeTermsExplain") }}</h5>
                 </label>
-                <a class=" color-blue text-white-hover" v-if="!isMobile">《{{$str("termsTrading")}}》</a>
+                <a class=" color-blue text-white-hover" v-if="!isMobile">《{{ $str("termsTrading") }}》</a>
             </v-flex>
-            <a class=" color-blue text-white-hover ml-4 mt-1" v-if="isMobile">《{{$str("termsTrading")}}》</a>
+            <a class=" color-blue text-white-hover ml-4 mt-1" v-if="isMobile">《{{ $str("termsTrading") }}》</a>
             <v-flex xs12 md3 offset-md4 mt-4>
                 <!--슬라이드 바 인증-->
                 <div class="verify-slider-wrapper mb-4">
@@ -512,7 +512,7 @@
                 </div>
                 <div>
                     <button @click='onCheck' class="color-blue btn-blue btn-blue-hover">
-                        {{$str("postAdBtn")}}
+                        {{ $str("postAdBtn") }}
                     </button>
                 </div>
             </v-flex>
@@ -801,7 +801,7 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
-                MainRepository.Common.setPaymentMethod({
+                MainRepository.MyInfo.loadMyPaymentMethods({
                     email : MainRepository.MyInfo.getUserInfo().email
                 },function (result) {
                 })

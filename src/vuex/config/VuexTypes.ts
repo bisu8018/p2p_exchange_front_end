@@ -76,8 +76,8 @@ export enum VuexTypes {
     //======================================
     //              Trade Process
     // =====================================
-    SET_TRADE_PROCESS_DATA = 'tradeProcess/SET_TRADE_PROCESS_DATA',
     SET_CURRENT_ORDER = 'tradeProcess/SET_CURRENT_ORDER',
+    UPDATE_CURRENT_ORDER = 'tradeProcess/UPDATE_CURRENT_ORDER',
 
 
     //======================================

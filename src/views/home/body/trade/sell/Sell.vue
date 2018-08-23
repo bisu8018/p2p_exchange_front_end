@@ -220,15 +220,15 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            let cureentURL = window.location.href;
-            let params = cureentURL.split('?');
+            let currentURL = window.location.href;
+            let params = currentURL.split('?');
             if (params[1]) {
                 this.orderNo = params[1];
             } else {
                 MainRepository.router().goTradeCenter();
             }
 
-            MainRepository.TradeProcess.loadCurrentOrder(this.orderNo, () => {
+            MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
                 this.isInitCompleted = true;
                 this.init();
             });
@@ -256,11 +256,11 @@
                 return min + ' ' + Vue.prototype.$str('min') + ' ' + sec + ' ' + Vue.prototype.$str('sec');
             },
             getMyPaymentMethodSelectList() {
-                return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
+                return MainRepository.TradeProcess.getCurrentOrder().filteredPaymentMethod
             },
             getOrderData() {
                 let self = this;
-                MainRepository.TradeProcess.setOrder(self.orderNo
+                MainRepository.TradeProcess.setCurrentOrder(self.orderNo
                 , function (result) {
 
                 })

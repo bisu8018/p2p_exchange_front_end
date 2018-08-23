@@ -10,23 +10,17 @@ export default class TradeController {
         this.store = vuexStore
     }
 
-    setOrder(tradeProcess: Order) {
-        this.store.dispatch(VuexTypes.SET_TRADE_PROCESS_DATA, tradeProcess);
-    }
-
-
-    getOrder() {
-        return this.store.state.tradeProcess.getTradeProcess;
-    }
-
-
 
     setCurrentOrder(tradeProcess: Order) {
         this.store.dispatch(VuexTypes.SET_CURRENT_ORDER, tradeProcess);
     }
 
-    getCurrentOrder() {
+    getCurrentOrder() { console.log( this.store.state.tradeProcess.currentOrder.status)
         return this.store.state.tradeProcess.currentOrder;
+    }
+
+    updateOrderStatus(status: string){ console.log(status);
+        this.store.dispatch(VuexTypes.UPDATE_CURRENT_ORDER, status);
     }
 
 }

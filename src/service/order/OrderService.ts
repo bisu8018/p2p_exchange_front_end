@@ -81,6 +81,15 @@ export default {
             },
             function () {
             })
-    }
+    },
+    getOrderStatus: function (data : any, callback: any) {
+        let url = 'order/' + data + '/status';
+        AxiosService._requestWithBodyAndEmail(url, 'GET', '',
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
 
 }

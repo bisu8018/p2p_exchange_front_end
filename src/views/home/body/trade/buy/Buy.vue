@@ -215,7 +215,6 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
-    import {abUtils} from "../../../../../common/utils";
     import {getLimitTime} from "../../../../../common/common";
 
     export default Vue.extend({
@@ -232,6 +231,7 @@
             isInitCompleted: false,
             limitTime: '',
             timerInterval: {},
+            checkStatus: {},
         }),
         computed: {
             currentOrder() {
@@ -254,48 +254,60 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            let cureentURL = window.location.href;
-            let params = cureentURL.split('?');
+            let currentURL = window.location.href;
+            let params = currentURL.split('?');
             if (params[1]) {
                 this.orderNo = params[1];
             } else {
                 MainRepository.router().goTradeCenter();
             }
 
-            MainRepository.TradeProcess.loadCurrentOrder(this.orderNo, () => {
+            MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
                 this.isInitCompleted = true;
                 this.init();
             });
         },
         beforeDestroy() {
             clearInterval(this.timerInterval);
+            clearInterval(this.checkStatus);
         },
         methods: {
+            //초기화 작업
             init() {
-                this.limitTime = this.getLimitTime();
-                this.timerInterval = setInterval(() => {
+                //payment window timer
+                if(this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
-                    // 만료되었을 경우
-                    if (this.limitTime === '0 Min 0 Sec') {
-
-                    }
-                }, 1000)
+                    this.timerInterval = setInterval(() => {
+                        this.limitTime = this.getLimitTime();
+                        // 만료되었을 경우
+                        if (this.limitTime === '0 Min 0 Sec') {
+                            this.getOrderStatus();
+                            clearInterval(this.timerInterval);
+                        }
+                    }, 1000)
+                }
+                if(this.currentOrder.status !== 'complete'){
+                    this.checkStatus = setInterval(() => {
+                        this.getOrderStatus();
+                        if (this.currentOrder.status === 'complete') {
+                            clearInterval(this.checkStatus);
+                        }
+                    }, 3000)
+                }
             },
             getLimitTime() {
                 let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
-                // let min = time.substr(0,2);
-                // let sec = time.substr(3,2);
                 let min = time.split(':')[0];
                 let sec = time.split(':')[1];
                 return min + ' ' + Vue.prototype.$str('min') + ' ' + sec + ' ' + Vue.prototype.$str('sec');
             },
             getMyPaymentMethodSelectList() {
-                return MainRepository.TradeProcess.getOrder().filteredPaymentMethod
+                return this.currentOrder.filteredPaymentMethod
             },
-            getOrderData() {
+            getOrderStatus() {
                 let self = this;
-                MainRepository.TradeProcess.setOrder(self.orderNo
-                , function (result) {
+                MainRepository.TradeProcess.getOrderStatus(self.orderNo
+                , (result) => {
 
                 })
             },
@@ -327,19 +339,17 @@
             },
             onCancelAppeal() {
                 this.showModal = false;
-                let orderInfo = MainRepository.TradeProcess.getCurrentOrder();
-                let appealList = orderInfo.appealList[0];
-                if(orderInfo.status === 'complaining' && appealList.status === 'registered'){
+                let self = this;
+                let appealList = this.currentOrder.appealList[0];
+                if(this.currentOrder.status === 'complaining' && appealList.status === 'registered'){
                     MainRepository.TradeProcess.onAppealCancel({
-                        orderNo : orderInfo.orderNo,
+                        orderNo : self.orderNo,
                         appealNo : appealList.appealNo
                     },function () {
-                        
+                        self.getOrderStatus();
                     })
                 }
 
-                // *************************************post작업 성공시
-                this.getOrderData();
             },
             onQRcode(type) {
                 if (type === "alipay") {
@@ -354,7 +364,7 @@
                 MainRepository.TradeProcess.onPaid(
                     Number(self.orderNo)
                     , function (result) {
-                        self.getOrderData();
+                        self.getOrderStatus();
                         self.onClose();
                     });
             },
@@ -365,7 +375,7 @@
                     orderNo : Number(self.orderNo),
                     email : MainRepository.MyInfo.getUserInfo().email
             }, function (result) {
-                    self.getOrderData();
+                    self.getOrderStatus();
                     self.onClose();
                 });
             },
@@ -376,7 +386,8 @@
                 MainRepository.TradeProcess.onAppeal(
                     data
                     , function (result) {
-                        self.getOrderData();
+                        self.appealCode = result;
+                        self.getOrderStatus();
                         self.onClose();
                     });
             },

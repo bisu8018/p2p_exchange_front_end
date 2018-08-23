@@ -323,8 +323,8 @@
             }
         },
         created(){
-            let cureentURL = window.location.href
-            let param = cureentURL.split('?');
+            let currentURL = window.location.href
+            let param = currentURL.split('?');
             this.userMemberNo = Number(param[1])
             let self = this;
             this.showProgress = true;

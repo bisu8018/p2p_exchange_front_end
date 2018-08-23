@@ -281,8 +281,8 @@
             },
         },
         created(){
-            let cureentURL = window.location.href
-            var param = cureentURL.split('?');
+            let currentURL = window.location.href
+            var param = currentURL.split('?');
             if(param[1] === 'main') {
                 //main에서 바로 넘어오는경우 정보 동기화.
                 this.tradeCoin = MainRepository.TradeView.getSelectFilter().cryptocurrency;

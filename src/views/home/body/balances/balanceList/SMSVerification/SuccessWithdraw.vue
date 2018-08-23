@@ -72,8 +72,8 @@
 
         },
         created(){
-            let cureentURL = window.location.href
-            let param = cureentURL.split('?');
+            let currentURL = window.location.href
+            let param = currentURL.split('?');
             this.processingTime = param[1]
             this.currentWithdraw = MainRepository.Balance.getWithdraw()
 

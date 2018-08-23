@@ -97,8 +97,8 @@
             showProgress : false,
         }),
         created() {
-            let cureentURL = window.location.href
-            let param = cureentURL.split('?');
+            let currentURL = window.location.href
+            let param = currentURL.split('?');
             //default filter값으로 list setting하기.
             if(this.message === "general"){
                 //main에서 search로 온 경우일때
