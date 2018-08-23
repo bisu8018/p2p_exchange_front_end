@@ -16,19 +16,19 @@
             </v-layout>
           </h5>
           <!--판매자 rank-->
-          <h6 class="ml-3 color-darkgray">Created at: {{transTime(merchant.createDatetime)}}</h6>
+          <h6 class="ml-3 color-darkgray">{{$str("accountCreatedTime")}}: {{transTime(merchant.createDatetime)}}</h6>
         </v-flex>
         <v-flex xs12><v-divider></v-divider></v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>Security deposit</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>{{$str("Security_Deposit")}}</v-flex>
         <v-flex xs4 text-xs-right mt-3 mb-2>{{merchant.securityDeposit}} BTC</v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>Completion rate</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Completion_rate")}}</v-flex>
         <v-flex xs4 text-xs-right mb-2>{{merchant.completionRate}} % </v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>Trades</v-flex>
-        <v-flex xs4 text-xs-right mb-2>{{merchant.tradeTimes}} Times</v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>Trades in 30days</v-flex>
-        <v-flex xs4 text-xs-right mb-2>{{merchant.tradeMonthTimes}} Times</v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-3>Avg release</v-flex>
-        <v-flex xs4 text-xs-right mb-3>{{merchant.avgRelease}} Min</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Trades")}}</v-flex>
+        <v-flex xs4 text-xs-right mb-2>{{merchant.tradeTimes}} {{$str("Times")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Trades_in_30_days")}}</v-flex>
+        <v-flex xs4 text-xs-right mb-2>{{merchant.tradeMonthTimes}} {{$str("Times")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-3>{{$str("Avg_release")}}</v-flex>
+        <v-flex xs4 text-xs-right mb-3>{{merchant.avgRelease}} {{$str("Min")}}</v-flex>
         <v-flex xs12><v-divider></v-divider></v-flex>
 
         <v-flex xs3 offset-xs2 text-xs-left mt-4>
@@ -57,9 +57,9 @@
         </v-flex>
       </v-layout>
       <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
-      <div v-if="!showBlockView">
+      <div v-if="!showBlockView&& haveItem && !showProgress">
         <!--SELL-->
-        <div v-if="haveSellList && !showProgress">
+        <div v-if="haveSellList ">
           <v-flex xs12 text-xs-left mt-5 mb-2>
             <h3 class="bold">Online Sell</h3>
           </v-flex>
@@ -71,7 +71,7 @@
           </div>
         </div>
         <!--Buy-->
-        <div v-if="haveBuyList && !showProgress">
+        <div v-if="haveBuyList">
         <v-flex text-xs-left mt-5 mb-2>
           <h3 class="bold">Online Buy</h3>
         </v-flex>
@@ -83,7 +83,7 @@
         </div>
       </div>
       </div>
-      <v-flex v-else >
+      <v-flex v-else-if="!showProgress" >
         <div class="no-online-border">
           <div class="sprite-img ic-no-ad-lg no-more-ads"></div>
           <div class="color-gray ">
@@ -146,7 +146,7 @@
       <!--2번째 줄-->
       <v-layout mt-3 mb-4a>
         <v-flex md3 text-md-left>
-          <h6 class="color-darkgray">Created at : {{transTime(merchant.createDatetime)}}</h6>
+          <h6 class="color-darkgray">{{$str("accountCreatedTime")}} : {{transTime(merchant.createDatetime)}}</h6>
         </v-flex>
         <v-flex md9>
           <v-layout justify-end >
@@ -170,8 +170,9 @@
         </v-flex>
       </v-layout>
       <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
-      <div v-if="!showBlockView">
-        <div v-if="haveBuyList && !showProgress">
+
+      <div v-if="!showBlockView && haveItem && !showProgress">
+        <div v-if="haveBuyList">
           <!--Online Sell title-->
           <v-flex text-md-left mb-4 bold>
             <h3>{{$str("Online_Sell")}}</h3>
@@ -208,7 +209,7 @@
           </div>
         </div>
         <!--Online Buy title-->
-        <div v-if="haveSellList && !showProgress">
+        <div v-if="haveSellList">
           <v-flex text-md-left mb-4 mt-4a bold>
             <h3>{{$str("Online_Buy")}}</h3>
           </v-flex>
@@ -243,7 +244,7 @@
           </div>
         </div>
       </div>
-      <v-flex v-else >
+      <v-flex v-else-if="!showProgress" >
         <div class="no-online-border">
           <div class="sprite-img ic-no-ad-lg no-more-ads"></div>
           <div class="color-gray ">
@@ -320,6 +321,9 @@
             },
             showBlockView(){
                 return this.blockThisMember
+            },
+            haveItem(){
+                return (this.haveBuyList&&this.haveSellList)
             }
         },
         created(){

@@ -72,6 +72,12 @@
 
         },
         created(){
+            // 로그인 확인 -> Login 으로
+            if (!MainRepository.MyInfo.isLogin()) {
+                MainRepository.router().goLogin();
+                return;
+            }
+
             let currentURL = window.location.href
             let param = currentURL.split('?');
             this.processingTime = param[1]

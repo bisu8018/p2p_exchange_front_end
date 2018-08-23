@@ -1418,10 +1418,32 @@
         height: 356px;
     }
 
+    .ic-404 {
+        background: 0px -772px;
+        width: 384px;
+        height: 356px;
+    }
+    .ic-appeal-sm {
+        background: 0px 0px;
+        width: 16px;
+        height: 16px;
+    }
+    .ic-paid-sm {
+        background: -16px 0px;
+        width: 16px;
+        height: 16px;
+    }
+
+
+
 
     .sprite-img {
         background-size: 384px 1128px;
         background-image: url(./assets/img/sprite_x2.png);
+    }
+    .sprite-img2 {
+        background-size: 150px 150px;
+        background-image: url(./assets/img/sprite_image-2.png);
     }
 
     .badge{

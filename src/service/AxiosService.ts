@@ -41,10 +41,8 @@ export default {
                 if (response.data.code === 0) {
                     success(response.data.result);
                 } else {
+                    this.showErrorPopup(response.data.code);
                     failure(response.data.code);
-                }
-                if (response.data.code === 499) {
-                    //window.location.replace(this.getRootUrl() + '/merchant');
                 }
                 //Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
             })
@@ -71,6 +69,7 @@ export default {
                     if (status === 401 || status === 502) {
                         window.location.replace(self.getRootUrl() + '/login')
                     } else {
+                        this.showErrorPopup(status);
                         failure(status)
                     }
                 } else if (error.request) {
@@ -149,36 +148,6 @@ export default {
         )
     },
 
-
-    // Error 처리 -> 참고 정도만 할것
-    // getErrorMessage: function (responseText: any): ErrorModel {
-    //   let code = responseText.code;
-    //   let serverMessage = responseText.message;
-    //   let text = '';
-    //   let action = function () {
-    //
-    //   };
-    //   let rootUrl = this.getRootUrl();
-    //
-    //   switch (Number(code)) {
-    //     case 401:
-    //       text = '장기간 미접속으로 세션이 만료되었습니다. 다시 로그인해주세요.';
-    //       action = function () {
-    //         window.location.replace(rootUrl + '/home')
-    //       };
-    //       break;
-    //     default:
-    //       text = serverMessage;
-    //       break
-    //   }
-    //
-    //   return new ErrorModel(
-    //     code, text,
-    //     text,
-    //     // + '  - ErrorCode(' + code + ')',
-    //     action
-    //   )
-    // },
     showErrorPopup: function (code) {
         Vue.prototype.$eventBus.$emit('showAlert', code);
     },
