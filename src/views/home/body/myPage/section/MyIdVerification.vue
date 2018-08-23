@@ -40,7 +40,7 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
-                <span v-if="!idVerification.isNull() && idVerification.identification_no !== undefined">
+                <span v-if="!idVerification.isNull() && idVerification.identificationNo !== undefined">
                     {{ $str('verifySliderSuccess') }}
                 </span>
                 <span v-else>
@@ -98,8 +98,8 @@
         },
         computed: {
             getSecuredIdNo() {
-                let noLength = this.idVerification.identification_no.length;
-                let securedIdNo = this.idVerification.identification_no.substr(0, 2) + '*********' + this.idVerification.identification_no.substr(noLength - 2, 2);
+                let noLength = this.idVerification.identificationNo.length;
+                let securedIdNo = this.idVerification.identificationNo.substr(0, 2) + '*********' + this.idVerification.identificationNo.substr(noLength - 2, 2);
                 return securedIdNo;
             },
         },
