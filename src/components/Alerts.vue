@@ -75,7 +75,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 434 : this.show(this.type.Error, "", "has_processing_order"); break;
                     case 435 : this.show(this.type.Error, "", "already_expired_order"); break;
                     case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
-                    case 500 : this.show(this.type.Error, "", "failed"); break;
+                    // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;
                     default : break;
