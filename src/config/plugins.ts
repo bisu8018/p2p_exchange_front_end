@@ -71,7 +71,6 @@ export default (Vue: any) => {
         return abString(key);
     }
 
-    // Localization
     Vue.prototype.$fixed = function (value: number, currency: string) {
         let fixedDigits = 0;
 
