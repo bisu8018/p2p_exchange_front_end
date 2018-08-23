@@ -6,7 +6,7 @@
         </div>
         <div>
             <span class="label-mobile-history">{{ $str('securitySettings') }}:</span>
-            {{ data.type }}
+            {{ txt }}
         </div>
         <div>
             <span class="label-mobile-history">IP:</span>
@@ -22,6 +22,25 @@
         name: "history-security-settings-item",
         props: {
             data: {}
+        },
+        data() {
+            return {
+                txt: '',
+            }
+        },
+        created() {
+            // data type에 따라 텍스트 바꿔주기
+            if (this.data.type === 'turn_on_email') {
+                this.txt = this.$str('Turn on email authentication');
+            } else if (this.data.type === 'add_id') {
+                this.txt = this.$str('Add Id verification');
+            } else if (this.data.type === 'add_passport') {
+                this.txt = this.$str('Add Advanced verification');
+            } else if (this.data.type === 'update_id') {
+                this.txt = this.$str('Update Id');
+            } else if (this.data.type === 'add_phone') {
+                this.txt = this.$str('Add phone');
+            }
         },
         methods: {
             // 시간 포멧으로 바꿔줌

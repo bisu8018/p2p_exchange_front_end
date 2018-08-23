@@ -53,7 +53,7 @@
           if (this.myOrderStat.tradeMonthTimes > 0) {
               this.monthTradeTxt = this.myOrderStat.tradeMonthTimes;
           } else {
-              this.monthTradeTxt = 'No Trade Records'
+              this.monthTradeTxt = this.$str('No Trade Records');
           }
         },
         methods: {
