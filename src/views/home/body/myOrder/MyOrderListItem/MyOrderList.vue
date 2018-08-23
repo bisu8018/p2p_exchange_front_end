@@ -67,9 +67,11 @@
           <span>{{orderlist.cryptocurrency}}</span>
         </v-flex>
         <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
-        <v-flex  md1 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
-        <v-flex  md3 text-md-left>{{transTime(orderlist.registerDatetime)}}</v-flex>
-        <v-flex  md2>
+        <v-flex  md2 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
+        <v-flex  md2 text-md-left>
+          <span class="ml-3">{{transTime(orderlist.registerDatetime)}}</span>
+        </v-flex>
+        <v-flex md2>
           <v-layout align-center>
             <div class="sprite-img mr-2" :class="statusImg"></div>
             <div>{{orderlist.status}}</div>
