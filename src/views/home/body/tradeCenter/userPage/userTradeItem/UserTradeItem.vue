@@ -419,7 +419,7 @@
           <v-flex md3 text-md-right>
             <div v-if="user.tradeType =='Sell'">
               <div class="p-relative">
-                <input type="number" class="input userInput textLeftPlaceholder"
+                <input type="password" class="input userInput textLeftPlaceholder"
                        name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
                        @blur="onChecktradePassword"
                        v-bind:class="{'warning-border' : warning_tradePassword}"
@@ -553,14 +553,13 @@
                     this.toValue = this.user.maxLimit
                 }
                 else {
-                    this.toValue = this.user.volumeAvailable;
+                    this.toValue = this.user.volumeAvailable * this.user.fixedPrice;
                 }
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
 
-                //fromvalue 계산해줌
-                this.fromValue = this.toValue / this.user.fixedPrice;
-                this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+                ////소수점 6번째자리까지 fromvalue 계산해줌
+                this.fromValue = Math.floor(this.toValue *1000000/ this.user.fixedPrice) / 1000000;
 
             },
             inputFocus(type){
@@ -597,7 +596,7 @@
             onCheckfromValue(){
                 this.clickFromAll = false;
                 //All 버튼 없애기.
-                let tempTovalue = this.fromValue * this.user.fixedPrice;
+                let tempTovalue = (this.fromValue * this.user.fixedPrice).toFixed(0);
                 if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_fromValue = true;

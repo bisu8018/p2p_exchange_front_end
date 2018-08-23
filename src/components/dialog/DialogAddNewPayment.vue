@@ -20,7 +20,7 @@
             </div>
 
             <!-- PaymentMethod에 따라 바뀌는 영역 -->
-            <div class="mb-4" v-if="paymentMethods.type !== ''">
+            <div>
 
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("name") }}</h5>

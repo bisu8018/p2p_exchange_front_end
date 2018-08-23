@@ -11,13 +11,19 @@
 
       <div v-if="!isMobile">
         <v-layout mb-2 color-darkgray>
-          <v-flex md2 text-md-left>{{$str("orderNo")}}</v-flex>
-          <v-flex md1 text-md-left>{{$str("adsType")}}</v-flex>
-          <v-flex md1 text-md-left>{{$str("amount")}}</v-flex>
+          <v-flex md2 text-md-left>
+            <v-layout justify-space-between>
+              <span>{{$str("orderNo")}}</span>
+              <span>{{$str("Type")}}</span>
+            </v-layout>
+          </v-flex>
+          <v-flex md2 text-md-left>{{$str("amount")}}</v-flex>
           <v-flex md2 text-md-left>{{$str("limits")}}</v-flex>
-          <v-flex md1 text-md-left>{{$str("price")}}</v-flex>
-          <v-flex md2 text-md-left>{{$str("time")}}</v-flex>
-          <v-flex md3 text-md-right>{{$str("control")}}</v-flex>
+          <v-flex md2 text-md-left>{{$str("price")}}</v-flex>
+          <v-flex md2 text-md-left>
+            <span class="ml-3">{{$str("time")}}</span>
+          </v-flex>
+          <v-flex md2 text-md-right>{{$str("control")}}</v-flex>
         </v-layout>
         <v-flex><v-divider></v-divider></v-flex>
       </div>

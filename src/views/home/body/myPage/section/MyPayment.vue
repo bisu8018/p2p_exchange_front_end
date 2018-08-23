@@ -74,6 +74,7 @@
         methods: {
             onModal() {
                 this.showModal = true;
+                this.isEdit = false;
 
             },
             onClose() {

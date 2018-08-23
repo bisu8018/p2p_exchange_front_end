@@ -28,8 +28,8 @@
             <li class="caption-wrapper">
 
                 <!-- ID Verification 되었을 때 -->
-                <span class="color-darkgray" v-if="!idVerification.isNull()">
-                    {{ idVerification.firstName }} {{ idVerification.lastName }}, {{ getSecuredIdNo }}
+                <span class="color-darkgray" v-if="idVerification.status === 'registered'">
+                    {{ idVerification.firstName }} {{ idVerification.lastName }}, {{ idVerification.identificationNo }}
                 </span>
 
                 <!-- ID Verification 안 되었을 때 -->
@@ -40,7 +40,7 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
-                <span v-if="!idVerification.isNull() && idVerification.identificationNo !== undefined">
+                <span v-if="idVerification.status === 'registered'">
                     {{ $str('verifySliderSuccess') }}
                 </span>
                 <span v-else>
@@ -97,11 +97,11 @@
             }
         },
         computed: {
-            getSecuredIdNo() {
-                let noLength = this.idVerification.identificationNo.length;
-                let securedIdNo = this.idVerification.identificationNo.substr(0, 2) + '*********' + this.idVerification.identificationNo.substr(noLength - 2, 2);
-                return securedIdNo;
-            },
+            // getSecuredIdNo() {
+            //     let noLength = this.idVerification.identificationNo;
+            //     let securedIdNo = this.idVerification.identificationNo.substr(0, 2) + '*********' + this.idVerification.identificationNo.substr(noLength - 2, 2);
+            //     return securedIdNo;
+            // },
         },
         methods: {
             onIdVerification() {
