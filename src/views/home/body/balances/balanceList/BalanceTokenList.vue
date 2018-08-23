@@ -70,7 +70,6 @@
           </v-flex>
           <v-flex xs12>
             <input type="text" id="copy-code" :value="item.walletAddress" class="wallet-address" disabled  >
-            <!--{{item.walletAddress}}-->
           </v-flex>
           <v-flex xs12 mt-3>
             <h5 class="color-blue c-pointer" @click="onCopy()">
@@ -305,41 +304,7 @@
                 }
             },
             onCopy() {
-
-                let copyLink = document.querySelector('#copy-code');
-
-                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-                if (isiOSDevice) {
-
-                    let editable = copyLink.contentEditable;
-                    let readOnly = copyLink.readOnly;
-
-                    copyLink.contentEditable = true;
-                    copyLink.readOnly = false;
-
-                    let range = document.createRange();
-                    range.selectNodeContents(copyLink);
-
-                    let selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-
-                    copyLink.setAttribute('type', 'text');
-                    copyLink.setSelectionRange(0, 999999);
-                    copyLink.contentEditable = editable;
-                    copyLink.readOnly = readOnly;
-
-                } else {
-                    copyLink.setAttribute('type', 'text');
-                    copyLink.select();
-
-                }
-
-                document.execCommand('copy');
-                setTimeout(function() {
-                    window.getSelection().removeAllRanges()
-                }, 100);
-
+                this.$clipboard(this.item.walletAddress)
             },
             goSMSVerification(){
                 MainRepository.Balance.setWithdraw({

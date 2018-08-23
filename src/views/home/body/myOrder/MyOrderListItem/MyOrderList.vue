@@ -67,9 +67,11 @@
           <span>{{orderlist.cryptocurrency}}</span>
         </v-flex>
         <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
-        <v-flex  md1 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
-        <v-flex  md3 text-md-left>{{transTime(orderlist.registerDatetime)}}</v-flex>
-        <v-flex  md2>
+        <v-flex  md2 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
+        <v-flex  md2 text-md-left>
+          <span class="ml-3">{{transTime(orderlist.registerDatetime)}}</span>
+        </v-flex>
+        <v-flex md2>
           <v-layout align-center>
             <div class="sprite-img mr-2" :class="statusImg"></div>
             <div>{{orderlist.status}}</div>
@@ -85,9 +87,11 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
     import {abUtils} from '@/common/utils';
-    export default {
+
+    export default Vue.extend({
         name: "MyOrderList",
         props : {
             orderlist : {},
@@ -111,16 +115,13 @@
                 this.$router.push(userpage);
             },
             goTrade(){
-                let tradePage;
                 switch (this.orderlist.tradeType) {
                     case 'buy':
-                        tradePage = "/sell?"+this.orderlist.orderNo
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
                         break;
 
                     case 'sell':
-                        tradePage = "/buy?"+this.orderlist.orderNo
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
                         break;
                 }
             }
@@ -149,7 +150,7 @@
             }
 
         },
-    }
+    })
 </script>
 
 <style scoped>

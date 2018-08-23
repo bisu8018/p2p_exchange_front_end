@@ -225,7 +225,15 @@ export default {
             AccountService.Verification.idVerification({
                 email: instance.MyInfo.getUserInfo().email
             }, function (result) {
-                let _idVerification = new IdVerification(result);
+                let _idVerification = new IdVerification('');
+
+                for (let i = 0; i < result.length; i++) {
+                    let idVerification_tmp = result[i];
+                    if (idVerification_tmp.type === 'passport') {
+                        _idVerification = new IdVerification(idVerification_tmp);
+                    }
+                }
+
                 callback(_idVerification);
             })
         },

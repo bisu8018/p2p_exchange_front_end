@@ -8,7 +8,7 @@
                 <v-flex xs9 text-xs-right color-blue>{{adslist.adNo}}</v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('adsType')}}</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('Type')}}</v-flex>
                 <v-flex xs9 text-xs-right>
                     <span class="mr-4 color-green bold" v-if="adslist.tradeType === 'Buy'">
                   {{$str("sell")}}
@@ -49,22 +49,26 @@
         <!-- Web 일때-->
         <div v-else>
             <v-layout pt-4 pb-4>
-                <v-flex md2 text-md-left color-blue>{{adslist.adNo}}</v-flex>
-                <v-flex md1 text-md-left>
+                <v-flex md2  color-blue>
                     <v-layout justify-space-between>
+                        <span class="color-blue">{{adslist.adNo}}</span>
                         <h5 class="color-green bold" v-if="adslist.tradeType === 'Buy'">
                             {{$str("sell")}}
                         </h5>
                         <h5 class="color-orange-price bold" v-if="adslist.tradeType === 'Sell'">
                             {{$str("buy")}}
                         </h5>
-                    {{adslist.cryptocurrency}}
                     </v-layout>
                 </v-flex>
-                <v-flex md1 text-md-left>{{adslist.volumeAvailable}}</v-flex>
+                <v-flex md2 text-md-left>
+                    <span>{{adslist.cryptocurrency}}</span>
+                    <span class="ml-2">{{adslist.volumeAvailable}}</span>
+                </v-flex>
                 <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.cryptocurrency}}</v-flex>
-                <v-flex md1 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
-                <v-flex md3 text-md-left>{{transTime(adslist.registerDatetime)}}</v-flex>
+                <v-flex md2 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
+                <v-flex md2 text-md-left>
+                    <span class="ml-3">{{transTime(adslist.registerDatetime)}}</span>
+                </v-flex>
                 <v-flex md2 text-md-right color-blue>
                     <span class="text-white-hover c-pointer ">{{$str('edit')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showEnableDialog = true">{{$str('enable')}}</span>
