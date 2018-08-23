@@ -86,10 +86,19 @@
 
         <!--nickname 설정을 안했으면 띄우는 화면-->
         <nick-name-modal
-                v-if="!setNickName"
                 :show = showNickNameModal
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
+
+
+        <!-- Dialog -->
+        <dialog-id-verification
+                :showDialog="showVeriModal"
+                @close="closeIdVerification"
+                @sucess="successIdVerification"
+        />
+
+
         <!--첫번째로 뜨는 정보 입력 dialog-->
         <v-dialog v-else v-model="showVeriModal" persistent>
             <v-layout row wrap>
@@ -122,7 +131,7 @@
                     <div class="p-relative">
                         <input name="First" v-model="FirstName" type="text" class="input"
                                @blur="onCheckFirst" :class="{'warning-border' : warning_first}"
-                              autocomplete="off" >
+                               autocomplete="off" >
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_first}">{{verify_warning_first}}</span>
                         </div>
@@ -195,6 +204,8 @@
                 </v-flex>
             </v-layout>
         </v-dialog>
+
+
         <!-- 정보 입력시 뜨는 공지창-->
         <v-dialog v-model="showSuccessModal" persistent>
             <v-layout row wrap>
@@ -217,7 +228,6 @@
                 </v-flex>
             </v-layout>
         </v-dialog>
-
     </div>
 
 </template>
@@ -226,51 +236,22 @@
     import Vue from 'vue';
     import NickNameModal from '@/components/NickNameModal.vue';
     import MainRepository from "../../../../vuex/MainRepository";
+    import IdVerification from "../../../../vuex/model/IdVerification"
+    import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
+
     export default {
         name: "merchant",
-        components:{NickNameModal},
+        components:{
+            DialogIdVerification,
+            NickNameModal},
         data: () => ({
+            idVerification: new IdVerification(''),
+
             isAgree : false,        //term에 대해 check click 한 경우
             showVeriModal : false,  //apply now 클릭했을때
             showSuccessModal : false,   //form 입력 성공했을때 띄우는 dialog
             alreadySuccess : false,     //이미 제출해놨을때 대체하여 띄워지는 하단부를 보여줌
             showNickNameModal : false,      //nickname modal을 띄울려면 true로.
-            FirstName : '',
-            LastName : '',
-            IDNum : '',
-            nationality: "CN",
-            verify_warning_first : "",
-            verify_warning_last : "",
-            verify_warning_IdNum : "",
-            verify_warning_attachment_file: '',
-            warning_first : false,
-            warning_last : false,
-            warning_IdNum : false,
-            warning_attachment_file : false,
-            //파일 첨부
-            file: '',
-            image: '',
-
-            countries: [
-                {country: 'China', code: 'CN'},
-                {country: 'Singapore', code: 'SG'},
-                {country: 'India', code: 'IN'},
-                {country: 'Vietnam', code: 'VN'},
-                {country: 'Canada', code: 'CA'},
-                {country: 'Australia', code: 'AU'},
-                {country: 'Korea', code: 'KR'},
-                {country: 'Switzerland', code: 'CH'},
-                {country: 'Netherlands', code: 'NL'},
-                {country: 'Taiwan', code: 'TW'},
-                {country: 'Russia', code: 'RU'},
-                {country: 'United Kingdom', code: 'UK'},
-                {country: 'Hong Kong(china)', code: 'HK'},
-                {country: 'Nigeria', code: 'NG'},
-                {country: 'Indonesia', code: 'ID'},
-                {country: 'Philippines', code: 'PH'},
-                {country: 'Cambodia', code: 'KH'}
-            ],
-
         }),
         computed: {
             myMerchantInfo() {
@@ -289,6 +270,11 @@
             }
 
             MainRepository.Merchant.loadMyMerchantInfo(function () {});
+
+            // GET User Id Verification
+            MainRepository.MyPage.getIdVerification(function (idVerification) {
+                self.idVerification = idVerification;
+            });
         },
         methods :{
             showDialog(){
@@ -303,12 +289,21 @@
                     }
                 }
             },
+            closeIdVerification() {
+                this.showVeriModal = false;
+            },
+            successIdVerification() {
+                this.showSuccessModal = true;
+            },
             goDone(){
                 if (this.onCheckFirst() && this.onCheckLast() && this.onCheckIdNum()) {
                     this.showVeriModal = false;
                     this.showSuccessModal = true;
                 }
             },
+
+
+
             onCheckFirst(){
                 if (this.FirstName === "") {
                     this.verify_warning_first= Vue.prototype.$str("Please enter your first name");
@@ -364,7 +359,6 @@
                 this.warning_attachment_file = false;
                 return true;
                 this.handleFileUpload();
-
             },
             handleFileUpload() {
                 //첨부파일 사진 등록 및 출력
