@@ -55,7 +55,6 @@
     import IdVerification from "../../../../vuex/model/IdVerification";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
-    import MyPaymentItem from "./item/ex/MyPaymentItem"
     import PaymentItem from "./item/PaymentItem";
     import BtnMypage from "./item/BtnMypage";
     import BlockListItem from "./item/BlockListItem";
@@ -80,7 +79,7 @@
             BlockListItem,
             BtnMypage,
             PaymentItem,
-            Pagination, Toggle, MyPageModal, MyPaymentItem
+            Pagination, Toggle, MyPageModal,
         },
         data: () => ({
             showModal: false,
