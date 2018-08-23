@@ -1629,6 +1629,13 @@
             display: block;
         }
 
+        .mypage-wrapper .caption {
+            color: #9294a6;
+            padding: 0 !important;
+            display: block;
+            margin-top: 12px;
+        }
+
     }
 
     /* MyInfo Item CSS END */

@@ -58,10 +58,10 @@
         </v-flex>
         <v-flex  md2 text-md-left>
           <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'buy'">
-                  {{$str("buy")}}
+                  {{$str("sell")}}
           </span>
           <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'sell'">
-                        {{$str("sell")}}
+                        {{$str("buy")}}
           </span>
           <span class="mr-2">{{orderlist.coinCount}}</span>
           <span>{{orderlist.cryptocurrency}}</span>
@@ -73,11 +73,11 @@
         </v-flex>
         <v-flex md2>
           <v-layout align-center>
-            <div class="mr-2" :class="statusImg"></div>
+            <div class="sprite-img mr-2" :class="statusImg"></div>
             <div>{{orderlist.status}}</div>
             <v-spacer></v-spacer>
             <span class="color-blue c-pointer text-white-hover" @click="goUserPage()">
-              {{orderlist.counterParty.nickname}}
+              {{orderlist.nickname}}
             </span>
           </v-layout>
         </v-flex>
@@ -87,9 +87,11 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
     import {abUtils} from '@/common/utils';
-    export default {
+
+    export default Vue.extend({
         name: "MyOrderList",
         props : {
             orderlist : {},
@@ -113,16 +115,13 @@
                 this.$router.push(userpage);
             },
             goTrade(){
-                let tradePage;
                 switch (this.orderlist.tradeType) {
                     case 'buy':
-                        tradePage = "/buy?"+this.orderlist.orderNo
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
                         break;
 
                     case 'sell':
-                        tradePage = "/sell?"+this.orderlist.orderNo
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
                         break;
                 }
             }
@@ -130,28 +129,28 @@
         mounted(){
             switch (this.orderlist.status) {
                 case 'unpaid':
-                    this.statusImg = 'ic-unpaid sprite-img ';
+                    this.statusImg = 'ic-unpaid';
                     break;
 
                 case 'paid':
-                    this.statusImg = 'ic-paid-sm sprite-img2';
+                    this.statusImg = 'ic-success-sm';
                     break;
 
                 case 'cancelled':
-                    this.statusImg = 'ic-cancel-sm sprite-img ';
+                    this.statusImg = 'ic-cancel-sm';
                     break;
 
                 case 'complaining':
-                    this.statusImg = 'ic-appeal-sm sprite-img2';
+                    this.statusImg = 'ic-success-sm';
                     break;
 
                 case 'complete':
-                    this.statusImg = 'ic-success-sm sprite-img ';
+                    this.statusImg = 'ic-success-sm';
                     break;
             }
 
         },
-    }
+    })
 </script>
 
 <style scoped>

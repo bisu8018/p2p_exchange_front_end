@@ -1063,10 +1063,10 @@ const strings = new Map([
         HK: '現在傳送'
     }],
     ['cancelExplain', {
-        KOR: '주문이 취소되었으며 결제 정보를 볼 수 없습니다',
-        ENG: 'Order cancelled, unable to view payment information',
-        CN: '订单已取消，无法查看支付信息',
-        HK: '訂單已取消，無法查看支付信息'
+        KOR: '주문이 취소되었으며 결제 정보를 볼 수 없습니다.',
+        ENG: 'Order cancelled, unable to view payment information.',
+        CN: '订单已取消，无法查看支付信息.',
+        HK: '訂單已取消，無法查看支付信息.'
     }],
     ['cancelModalContent', {
         KOR: '이 거래를 취소하시겠습니까?',

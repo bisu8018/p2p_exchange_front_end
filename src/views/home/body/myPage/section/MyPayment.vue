@@ -31,7 +31,6 @@
                 <payment-item
                         :data="item"
                         @edit="onEdit(item)"
-                        @toggle="onToggle"
                 />
             </span>
             <div class="ta-center py-3">
@@ -48,6 +47,7 @@
     import PaymentItem from "../item/PaymentItem";
     import BtnMypage from "../item/BtnMypage";
     import MyPageModal from "../item/MyPageModal";
+    import MainRepository from "../../../../../vuex/MainRepository";
     import DialogAddNewPayment from "../../../../../components/dialog/DialogAddNewPayment";
 
     export default {
@@ -74,6 +74,7 @@
         methods: {
             onModal() {
                 this.showModal = true;
+                this.isEdit = false;
 
             },
             onClose() {
@@ -86,11 +87,16 @@
                 this.showModal = true;
                 this.isEdit = true;
                 this.paymentMethodItem = item;
-                // put API 가 ... 없... 어.... 수정... 못 해........
             },
-            onToggle() {
-                // put API 가 ... 없... 어.... 수정... 못 해........
-            },
+            // onToggle(item) {
+            //     let self = this;
+            //     console.log(item);
+            //
+            //     item.activeYn = !item.activeYn;
+            //     MainRepository.MyPage.setPaymentMethod(self.MyInfo.email, item, function (data) {
+            //         // 리프레시 이벤트버스 날리기~~'ㅅ'
+            //     });
+            // },
 
 
             // ****** 이 아래로는 무슨 Methods인지 모르겠음...ㅜㅜ

@@ -8,8 +8,7 @@ export default {
             function () {
                 callback();
             },
-            function (code) {
-                AxiosService.showErrorPopup(code)
+            function () {
             })
     },
     getMerchant: function (callback: any) {

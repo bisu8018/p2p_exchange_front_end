@@ -2,90 +2,104 @@
     <div class="mt-5 mb-5 mr-3 ml-3 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
-                <!--{{order_number}} 주문번호-->
-                Order : #{{getOrderNumber}}
+                <!--{{ order_number }} 주문번호-->
+                Order : #{{ getOrderNumber }}
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
-                <!--{{ad_type}} buy/sell -->
+                <!--buy/sell -->
                 Sell
-                <!--{{volume}} 토큰량 -->
-                {{currentOrder.coinCount}}
+                <!--토큰량 -->
+                {{ currentOrder.coinCount }}
                 <!-- 토큰종류-->
-                {{currentOrder.cryptocurrency}}
+                {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block"> From {{ currentOrder.merchantNickname }}</div>
+                <div class="d-inline-block"> From {{  currentOrder.merchantNickname  }}</div>
             </div>
-            <div class="text-xs-left mb-4 line-height-1">
+            <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
-                    {{$str('price')}} :
+                    {{ $str('price') }} :
                     <!-- 가격 -->
-                    <span class="ml-3 h3">{{currentOrder.price}}
+                    <span class="ml-3 h3">{{ currentOrder.price }}
                         <!-- 화폐단위-->  <!-- 토큰종류 -->
-                        {{currentOrder.currency}} / {{currentOrder.cryptocurrency}}</span>
+                        {{ currentOrder.currency }} / {{ currentOrder.cryptocurrency }}</span>
                 </div>
                 <div class="color-black">
-                    {{$str('amount')}} :
-                    <!--{{currentOrder.price}} 가격 -->
+                    {{ $str('amount') }} :
+                    <!--{{ currentOrder.price }} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
-                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{currentOrder.price}}
-                     <!--{{currentOrder.currency}} 화폐단위-->
-                        {{currentOrder.currency}}</span>
+                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{ currentOrder.price }}
+                     <!--{{ currentOrder.currency }} 화폐단위-->
+                        {{ currentOrder.currency }}</span>
                         <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
                         <span class="tooltip-content">Copy</span>
                     </div>
                 </div>
             </div>
         </v-layout>
-        <div v-if="currentOrder.status != 'cancel'" v-for="item in getMyPaymentMethodSelectList()">
+        <div v-if="currentOrder.status != 'cancelled' && currentOrder.status != 'expired'" v-for="item in getMyPaymentMethodSelectList()">
 
             <trade-item :item="item"></trade-item>
 
         </div>
         <div class="h4 bold color-black text-xs-left mb-4">
+            <v-flex xs12 md4>
+                <!--status cancel 일 시 설명 문구-->
+                <div class="cancel-explain mb-4 " v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
+                    {{ $str("cancelExplain") }}
+                </div>
+            </v-flex>
             <!--unpaid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
-                {{$str("payingExplain1")}}
-                {{currentOrder.customerNickname}}
-                {{$str("payingExplain2")}}
-                <span class="color-orange-price">{{currentOrder.price}} {{currentOrder.currency}}</span>
-                {{$str("payingExplain3")}}
+                {{ $str("payingExplain1") }}
+                {{ currentOrder.customerNickname }}
+                {{ $str("payingExplain2") }}
+                <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
+                {{ $str("payingExplain3") }}
                 <!--타이머 스크립트 작성 필요-->
-                <span class="color-green">{{ limitTime }}</span>
-                {{$str("payingExplain4")}}
+                <span class="color-green">{{  limitTime  }}</span>
+                {{ $str("payingExplain4") }}
             </div>
 
             <!--confirm 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'paid'">
-                {{$str("confirmgExplain1")}}
-                {{currentOrder.customerNickname}}
-                {{$str("confirmgExplain2")}}
-                <span class="color-orange-price">{{currentOrder.price}} {{currentOrder.currency}}</span>
-                {{$str("confirmgExplain3")}}
+                {{ $str("confirmgExplain1") }}
+                {{ currentOrder.customerNickname }}
+                {{ $str("confirmgExplain2") }}
+                <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
+                {{ $str("confirmgExplain3") }}
 
             </div>
 
             <div>
+                <!-- complete / Cancel 상태 -->
+                <span v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                    {{ $str("cancel") }}
+                    </span>
+                <!-- complete / Cancel 상태 -->
+                <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                    {{ $str("complete") }},
+                    </span>
                 <!-- Complaining 일 때 -->
                 <span v-if="currentOrder.status === 'complaining'">
-                        {{ $str("appealCodeExplain") }}
-                        {{ appealCode }} ,
+                        {{  $str("appealCodeExplain")  }}
+                        {{  appealCode  }} ,
                     </span>
-                <span v-if="currentOrder.status === 'unpaid' || currentOrder.status === 'paid'|| currentOrder.status === 'complaining' ">
-                    {{$str("referenceText")}}
+                <span v-if="currentOrder.status !== 'complete'">
+                    {{ $str("referenceText") }}
                 </span>
                 <span v-if="currentOrder.status === 'complete'">
-                    {{$str("complete")}}
+                    {{ $str("complete") }}
                 </span>
 
                 :
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
-                    <!--{{거래번호}}-->
-                    {{currentOrder.referenceNo}}
+                    <!--{{ 거래번호 }}-->
+                    {{ currentOrder.referenceNo }}
                     </span>
                     <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
-                    <span class="tooltip-content">{{$str("Copy")}}</span>
+                    <span class="tooltip-content">{{ $str("Copy") }}</span>
                 </div>
             </div>
         </div>
@@ -109,13 +123,14 @@
         </v-flex>
 
         <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
-      <!--  <div class="mb-4a text-xs-left payment-complete-wrapper align-center" v-if="currentOrder.status === 'complete'">
-            <div><i class="material-icons check-icon">check_circle</i></div>
-        </div>-->
-
         <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
                 v-else-if="currentOrder.status === 'complete'">
             <div><i class="material-icons check-icon">check_circle</i></div>
+        </v-flex>
+
+        <!--거래 취소 아이콘 (cancel 상태일때)-->
+        <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+            <i class="material-icons cancel-icon" >cancel</i>
         </v-flex>
 
         <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
@@ -127,14 +142,14 @@
 
         <!--데스크탑 환경에서 설명-->
         <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
-            <p class="mb-1 h6 line-height-1">
-                {{$str('sellChecklist1')}}
+            <p class="mb-1 h6 ">
+                {{ $str('sellChecklist1') }}
             </p>
-            <p class="mb-1 h6 line-height-1">
-                {{$str('sellChecklist2')}}
+            <p class="mb-1 h6 ">
+                {{ $str('sellChecklist2') }}
             </p>
-            <p class="mb-0 h6 line-height-1">
-                {{$str('sellChecklist3')}}
+            <p class="mb-0 h6 ">
+                {{ $str('sellChecklist3') }}
             </p>
         </v-flex>
 
@@ -143,7 +158,7 @@
         <v-flex xs6 md12 mb-4a text-md-left text-xs-right
                 v-if="currentOrder.status === 'complaining'" :class="{'pt-4' : isMobile()}">
             <a class="color-blue text-white-hover"
-               @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
+               @click="onModal('cancelAppeal')">{{  $str('cancelModalButton')  }}</a>
         </v-flex>
 
         <div>
@@ -154,15 +169,15 @@
         </div>
 
         <!--모바일 환경에서 설명-->
-        <div class="h6 text-xs-left color-darkgray line-height-1 mt-4a" v-if="isMobile()">
+        <div class="h6 text-xs-left color-darkgray  mt-4a" v-if="isMobile()">
             <p class="mb-1 h6">
-                {{$str('sellChecklist1')}}
+                {{ $str('sellChecklist1') }}
             </p>
             <p class="mb-1 h6">
-                {{$str('sellChecklist2')}}
+                {{ $str('sellChecklist2') }}
             </p>
             <p class="mb-0 h6">
-                {{$str('sellChecklist3')}}
+                {{ $str('sellChecklist3') }}
             </p>
         </div>
 
@@ -198,6 +213,7 @@
             isInitCompleted: false,
             limitTime: '',
             timerInterval: {},
+            checkStatus: {},
         }),
         computed: {
             currentOrder() {
@@ -229,39 +245,61 @@
             }
 
             MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
+
+                //부적합한 유저 접근시 거래소 강제 이동
+                let myInfo = MainRepository.MyInfo.getUserInfo();
+                let tradeType = this.currentOrder.tradeType;
+                let merchantMemberNo =  this.currentOrder.merchantMemberNo;
+                if((tradeType === 'sell' && merchantMemberNo !== myInfo.memberNo) ||
+                    (tradeType === 'buy' && merchantMemberNo === myInfo.memberNo) ){
+                    MainRepository.router().goTradeCenter();
+                }
+
                 this.isInitCompleted = true;
                 this.init();
             });
         },
         beforeDestroy() {
             clearInterval(this.timerInterval);
+            clearInterval(this.checkStatus);
         },
         methods: {
+            //초기화 작업
             init() {
-                this.limitTime = this.getLimitTime();
-                this.timerInterval = setInterval(() => {
+                //payment window timer
+                if(this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
-                    // 만료되었을 경우
-                    if (this.limitTime === '0 Min 0 Sec') {
-
-                    }
-                }, 1000)
+                    this.timerInterval = setInterval(() => {
+                        this.limitTime = this.getLimitTime();
+                        // 만료되었을 경우
+                        if (this.limitTime === '0 Min 0 Sec') {
+                            this.getOrderStatus();
+                            clearInterval(this.timerInterval);
+                        }
+                    }, 1000)
+                }
+                if(this.currentOrder.status !== 'complete'){
+                    this.checkStatus = setInterval(() => {
+                        this.getOrderStatus();
+                        if (this.currentOrder.status === 'complete') {
+                            clearInterval(this.checkStatus);
+                        }
+                    }, 3000)
+                }
             },
             getLimitTime() {
                 let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
-                // let min = time.substr(0,2);
-                // let sec = time.substr(3,2);
                 let min = time.split(':')[0];
                 let sec = time.split(':')[1];
-                return min + ' ' + Vue.prototype.$str('min') + ' ' + sec + ' ' + Vue.prototype.$str('sec');
+                return min + ' ' + this.$str('min') + ' ' + sec + ' ' + this.$str('sec');
             },
             getMyPaymentMethodSelectList() {
-                return MainRepository.TradeProcess.getCurrentOrder().filteredPaymentMethod
+                return this.currentOrder.filteredPaymentMethod
             },
-            getOrderData() {
+            getOrderStatus() {
                 let self = this;
-                MainRepository.TradeProcess.setCurrentOrder(self.orderNo
-                , function (result) {
+                MainRepository.TradeProcess.getOrderStatus(self.orderNo
+                , (result) => {
 
                 })
             },
@@ -269,13 +307,12 @@
                 return MainRepository.State.isMobile();
             },
             onConfirm(pw) {
-                let self = this;
                 MainRepository.TradeProcess.onConfirm({
-                    orderNo: self.orderNo,
+                    orderNo: this.orderNo,
                     tradePassword: pw
-                }, function (result) {
-                    self.getOrderData();
-                    self.onClose();
+                }, (result) => {
+                    this.onClose();
+                    this.currentOrder();
                 });
 
             },
@@ -302,21 +339,21 @@
                 this.showModal = true;
                 this.modalType = type;
             },
+            //이의 제기 취소
             onCancelAppeal() {
                 this.showModal = false;
-                let orderInfo = MainRepository.TradeProcess.getCurrentOrder();
-                let appealList = orderInfo.appealList[0];
-                if(orderInfo.status === 'complaining' && appealList.status === 'registered'){
+                let self = this;
+                //이의제기 최신
+                let appealList = this.currentOrder.appealList[this.currentOrder.appealList.length-1];
+                if(this.currentOrder.status === 'complaining' && appealList.status === 'registered'){
                     MainRepository.TradeProcess.onAppealCancel({
-                        orderNo : orderInfo.orderNo,
+                        orderNo : self.orderNo,
                         appealNo : appealList.appealNo
                     },function () {
-
+                        self.getOrderStatus();
                     })
                 }
 
-                // *************************************post작업 성공시
-                this.getOrderData();
             },
             onQRcode(type) {
                 if (type === "alipay") {
@@ -332,7 +369,8 @@
                 MainRepository.TradeProcess.onAppeal(
                     data
                     , function (result) {
-                        self.getOrderData();
+                        self.appealCode = result;
+                        self.getOrderStatus();
                         self.onClose();
                     });
             },
@@ -404,7 +442,6 @@
         background-color: #f8f8fa;
         font-size: 14px;
         font-weight: bold;
-        line-height: 1;
         text-align: center;
         color: #9294a6;
         padding: 8px;
@@ -418,7 +455,6 @@
         position: absolute;
         left: -1000px;
     }
-
 
     .flex {
         padding-left: 0px !important;
