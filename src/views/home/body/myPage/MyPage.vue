@@ -104,10 +104,6 @@
         created() {
             let self = this;
 
-            // 유저 결제수단 정보 GET
-            MainRepository.MyInfo.loadMyPaymentMethods();
-
-
             // *********** NEW CREATED ************* //
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
@@ -134,6 +130,9 @@
                 console.log(idVerification);
                 self.idVerification = idVerification;
             });
+
+            // 유저 결제수단 정보 GET
+            MainRepository.MyInfo.loadMyPaymentMethods();
 
             // GET Block List
             MainRepository.MyPage.getBlockList(function (blockList) {
