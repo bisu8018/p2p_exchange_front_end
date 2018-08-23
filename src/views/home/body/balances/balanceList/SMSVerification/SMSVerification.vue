@@ -69,6 +69,12 @@
               }
           },
           created() {
+              // 로그인 확인 -> Login 으로
+              if (!MainRepository.MyInfo.isLogin()) {
+                  MainRepository.router().goLogin();
+                  return;
+              }
+
               window.scrollTo(0, 0);
           },
           computed: {

@@ -2620,23 +2620,23 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['No Online advertisement', {
+        KOR: '온라인 광고 없음',
+        ENG: 'No Online advertisement',
+        CN: '没有在线广告',
+        HK: '沒有在線廣告'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['Your certification order has been submitted.', {
+        KOR: '인증 주문이 제출되었습니다.',
+        ENG: 'Your certification order has been submitted.',
+        CN: '您的认证订单已提交。',
+        HK: '您的認證訂單已提交。'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['Please wait a minute.', {
+        KOR: '조금만 기다려주세요.',
+        ENG: 'Please wait a minute.',
+        CN: '请等一分钟。',
+        HK: '請等一分鐘。'
     }],
     ['', {
         KOR: '',

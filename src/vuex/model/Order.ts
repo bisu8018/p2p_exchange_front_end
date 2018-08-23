@@ -1,4 +1,5 @@
 import PaymentMethod from './PaymentMethod';
+import MsgAvatar from "@/vuex/model/MsgAvatar";
 
 export default class Order {
     adNo : number;
@@ -20,12 +21,14 @@ export default class Order {
     registerDatetime : object;
     status : string;
     tradeType : string;
+    orderTradeType : string;
     merchantEmail : string;
     customerEmail : string;
     merchantNickname : string;
     customerNickname : string;
     appealList : object;
-
+    counterParty : MsgAvatar;
+    statusImg : string;
 
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
@@ -50,14 +53,37 @@ export default class Order {
         this.paymentWindow = data.paymentWindow || '';
         this.registerDatetime = data.registerDatetime || '';
         this.tradeType = data.tradeType || '';
+        this.orderTradeType = data.orderTradeType || '';
         this.merchantEmail = data.merchantEmail || '';
         this.customerEmail = data.customerEmail || '';
         this.merchantNickname = data.merchantNickname || '';
         this.customerNickname = data.customerNickname || '';
         this.appealList = data.appealList || '';
+        this.counterParty = data.counterParty || new MsgAvatar('');
+        this.statusImg = this.setImg(this.status);
     };
 
+    setImg(data){
+        switch (data) {
+            case 'unpaid':
+                return 'ic-unpaid sprite-img ';
+            case 'paid':
+                return 'ic-paid-sm sprite-img2';
 
+
+            case 'cancelled':
+                return 'ic-cancel-sm sprite-img ';
+
+
+            case 'complaining':
+                return 'ic-appeal-sm sprite-img2';
+
+            case 'complete':
+                return 'ic-success-sm sprite-img ';
+        }
+        return '';
+
+    }
     update (data: any){
         if(data !== undefined && data !== null) this.status = data;
     }
