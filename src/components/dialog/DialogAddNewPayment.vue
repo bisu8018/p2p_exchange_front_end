@@ -10,7 +10,7 @@
 
             <!-- 결제 수단 Select -->
             <div class="p-relative my-4">
-                <select class="comp-selectbox h6" v-model="type" @change="onChangeSelect">
+                <select class="comp-selectbox h6" v-model="type" @change="onChangeSelect" :disabled="edit">
                     <option value="" disabled selected hidden>{{ $str('paymentMethodSelectboxPlaceholder') }}</option>
                     <option value="bank">{{ $str("bankAccountText") }}</option>
                     <option value="alipay">{{ $str("alipayText") }}</option>
@@ -250,7 +250,8 @@
                 },
                 set(value) {
                     this.typeData = value;
-                    return this.typeData;
+                    return value;
+
                 }
             }
         },
@@ -350,5 +351,10 @@
         border: solid 1px #8d8d8d;
         resize: none;
         text-align: center;
+    }
+
+    .dialog-add-new-payment_wrapper select:disabled {
+        opacity: .5;
+        cursor: not-allowed;
     }
 </style>
