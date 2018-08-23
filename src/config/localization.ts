@@ -2674,6 +2674,72 @@ const strings = new Map([
         CN: '其他',
         HK: '其他'
     }],
+    ['No Trade Records', {
+        KOR: '최근 한 달 동안 거래 내역이 없습니다',
+        ENG: 'No Trade Records',
+        CN: '',
+        HK: ''
+    }],
+    ['unBlockDialogTxt', {
+        KOR: '정말로 이 유저의 차단을 해제하시겠습니까?',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['Turn on email authentication', {
+        KOR: '이메일 연동',
+        ENG: 'Turn on email authentication',
+        CN: '',
+        HK: ''
+    }],
+    ['Add Id verification', {
+        KOR: '아이디 인증 등록',
+        ENG: 'Add Id verification',
+        CN: '',
+        HK: ''
+    }],
+    ['Add Advanced verification', {
+        KOR: '고급 인증 등록',
+        ENG: 'Add Advanced verification',
+        CN: '',
+        HK: ''
+    }],
+    ['Update Id', {
+        KOR: '아이디 업데이트',
+        ENG: 'Update Id',
+        CN: '',
+        HK: ''
+    }],
+    ['Add phone', {
+        KOR: '핸드폰 번호 등록',
+        ENG: 'Add phone',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
 ])
 
 export enum Lang {
