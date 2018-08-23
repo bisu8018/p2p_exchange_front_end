@@ -230,7 +230,7 @@ export default {
 
                 for (let i = 0; i < result.length; i++) {
                     let idVerification_tmp = result[i];
-                    if (idVerification_tmp.type === 'passport') {
+                    if (idVerification_tmp.type === 'id') {
                         _idVerification = new IdVerification(idVerification_tmp);
                     }
                 }
@@ -245,6 +245,11 @@ export default {
         },
         setPaymentMethod: function (email: string, paymentType: any, callback: any){
             AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
+                callback(result);
+            })
+        },
+        deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
+            AccountService.Account.deletePaymentMethod(email, paymentMethods, function (result) {
                 callback(result);
             })
         },
