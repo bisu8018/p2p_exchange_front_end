@@ -41,6 +41,8 @@
             <my-history
                 :login-history="loginHistory"
                 :security-settings="securitySettings"
+                @onLoginPage="onLoginPage"
+                @onHistoryPage="onHistoryPage"
             />
         </div>
     </div>
@@ -139,12 +141,12 @@
             });
 
             // GET Login History
-            MainRepository.MyPage.getLoginHistory(function (loginHistory) {
+            MainRepository.MyPage.getLoginHistory(1, function (loginHistory) {
                 self.loginHistory = loginHistory;
             });
 
             // GET Security Settings
-            MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
+            MainRepository.MyPage.getSecuritySettings(1, function (securitySettings) {
                 self.securitySettings = securitySettings;
             });
 
@@ -155,6 +157,20 @@
                 this.showModal = true;
             }
         },
+        methods: {
+            onLoginPage(num) {
+                let self = this;
+                MainRepository.MyPage.getLoginHistory(num, function (loginHistory) {
+                    self.loginHistory = loginHistory;
+                });
+            },
+            onHistoryPage(num) {
+                let self = this;
+                MainRepository.MyPage.getSecuritySettings(num, function (securitySettings) {
+                    self.securitySettings = securitySettings;
+                });
+            }
+        }
     }
 </script>
 
