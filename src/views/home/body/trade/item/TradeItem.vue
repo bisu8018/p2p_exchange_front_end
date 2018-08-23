@@ -17,11 +17,11 @@
             </div>
         </v-flex>
         <!-- QR코드-->
-        <v-flex xs12 md6 mb-3  c-pointer  text-xs-right text-md-left v-if="item.type != 'bank'"
+        <v-flex xs12 md6 mb-3  c-pointer   v-if="item.type != 'bank'"
                 @click="onQRcode('alipay')">
-            <div class="vertical-center ">
-            <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-            <div class="d-inline-block color-black h6"> QR Code</div>
+            <div class="vertical-center text-xs-right text-md-left ">
+                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                <div class="d-inline-block color-black h6"> QR Code</div>
             </div>
         </v-flex>
     </v-layout>
