@@ -1,7 +1,7 @@
 <template>
     <div class="avatarWraaper" :class="{ 'avatar_wraaper_big' : big }">
     <span class="mainCircle" v-bind:style="{background: bgColor}">
-      <span class="firstWord">{{ name }}</span>
+      <span class="firstWord">{{ nickname }}</span>
     </span>
         <div class="loginCircle" v-bind:style="{background: loginColor}">
         </div>
@@ -39,7 +39,7 @@
         },
         data: () => ({
             loginColor: '#c8c8c8',
-            name: '',
+            nickname: '',
             bgColor: '#7f7f7f',
             msgInterval: {},
         }),
@@ -51,7 +51,7 @@
         computed: {
             msgAvatar() {
                 this.bgColor = MainRepository.Message.msgAvatar().get().bgColor;
-                this.name = MainRepository.Message.msgAvatar().get().name;
+                this.nickname = MainRepository.Message.msgAvatar().get().nickname;
                 if(this.chat === 'sub'){
                     this.loginColor = MainRepository.Message.msgAvatar().get().isLogin ? '#59D817' : '#c8c8c8';
                 }
@@ -85,7 +85,7 @@
                         // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
                         let _msgAvatar = MainRepository.Message.msgAvatar().get();
                         this.setAvatar(
-                            _msgAvatar.name,
+                            _msgAvatar.nickname,
                             _msgAvatar.bgColor,
                             _msgAvatar.isLogin
                         );
@@ -101,7 +101,7 @@
                             if (this.chat === 'main') {
                                 MainRepository.Message.msgAvatar().set({
                                     email: this.email,
-                                    name: this.name,
+                                    nickname: this.nickname,
                                     bgColor: this.bgColor
                                 })
                             }
@@ -113,8 +113,8 @@
             setSub(){
 
             },
-            setAvatar(name, bgColor, isLogin) {
-                this.name = name;
+            setAvatar(nickname, bgColor, isLogin) {
+                this.nickname = nickname;
                 this.bgColor = bgColor;
                 this.loginColor = isLogin ? '#59D817' : '#c8c8c8';
             },
