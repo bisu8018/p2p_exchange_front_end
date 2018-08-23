@@ -11,11 +11,11 @@
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("orderType")}}</v-flex>
         <v-flex xs5 text-xs-right>
-          <span class="mr-2 color-green bold" v-if="orderlist.tradeType === 'buy'">
-            {{$str("sell")}}
-          </span>
-          <span class="mr-2 color-orange-price bold" v-if="orderlist.tradeType === 'sell'">
+          <span class="mr-2  color-orange-price bold" v-if="orderlist.orderTradeType === 'buy'">
             {{$str("buy")}}
+          </span>
+          <span class="mr-2 color-green bold" v-if="orderlist.orderTradeType === 'sell'">
+            {{$str("sell")}}
           </span>
           <span class="mr-2">{{orderlist.coinCount}}</span>
           {{orderlist.cryptocurrency}}
@@ -37,7 +37,7 @@
         <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}}</v-flex>
         <v-flex xs5 text-xs-right>
           <v-layout justify-end align-center>
-            <div class="sprite-img mr-2" :class="statusImg"></div>
+            <div class="mr-2" :class="orderlist.statusImg"></div>
             {{orderlist.status}}
           </v-layout>
         </v-flex>
@@ -57,11 +57,11 @@
           {{orderlist.orderNo}}
         </v-flex>
         <v-flex  md2 text-md-left>
-          <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'buy'">
-                  {{$str("sell")}}
+          <span class=" color-orange-price bold mr-2" v-if="orderlist.orderTradeType === 'buy'">
+                  {{$str("buy")}}
           </span>
-          <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'sell'">
-                        {{$str("buy")}}
+          <span class="color-green bold mr-2" v-if="orderlist.orderTradeType === 'sell'">
+                        {{$str("sell")}}
           </span>
           <span class="mr-2">{{orderlist.coinCount}}</span>
           <span>{{orderlist.cryptocurrency}}</span>
@@ -73,11 +73,11 @@
         </v-flex>
         <v-flex md2>
           <v-layout align-center>
-            <div class="sprite-img mr-2" :class="statusImg"></div>
+            <div class=" mr-2" :class="orderlist.statusImg"></div>
             <div>{{orderlist.status}}</div>
             <v-spacer></v-spacer>
             <span class="color-blue c-pointer text-white-hover" @click="goUserPage()">
-              {{orderlist.nickname}}
+              {{orderlist.counterParty.nickname}}
             </span>
           </v-layout>
         </v-flex>
@@ -97,7 +97,7 @@
             orderlist : {},
         },
         data: () => ({
-            statusImg : 'ic',
+            statusImg : '',
 
         }),
         computed : {
@@ -111,17 +111,23 @@
                 return abUtils.toTimeFormat(time);
             },
             goUserPage(){
-                let userpage = "/userpage?"+this.orderlist.merchantMemberNo;
-                this.$router.push(userpage);
+                let userMember = '';
+                if(MainRepository.MyInfo.getUserInfo().memberNo === this.orderlist.merchantMemberNo){
+                    userMember = this.orderlist.customerMemberNo;
+                }
+                else{
+                    userMember = this.orderlist.merchantMemberNo;
+                }
+                MainRepository.router().goUserPage(userMember);
             },
             goTrade(){
-                switch (this.orderlist.tradeType) {
+                switch (this.orderlist.orderTradeType) {
                     case 'buy':
-                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
+                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
                         break;
 
                     case 'sell':
-                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
+                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
                         break;
                 }
             }
@@ -129,23 +135,23 @@
         mounted(){
             switch (this.orderlist.status) {
                 case 'unpaid':
-                    this.statusImg = 'ic-unpaid';
+                    this.statusImg = 'ic-unpaid sprite-img ';
                     break;
 
                 case 'paid':
-                    this.statusImg = 'ic-success-sm';
+                    this.statusImg = 'ic-paid-sm sprite-img2';
                     break;
 
                 case 'cancelled':
-                    this.statusImg = 'ic-cancel-sm';
+                    this.statusImg = 'ic-cancel-sm sprite-img ';
                     break;
 
                 case 'complaining':
-                    this.statusImg = 'ic-success-sm';
+                    this.statusImg = 'ic-appeal-sm sprite-img2';
                     break;
 
                 case 'complete':
-                    this.statusImg = 'ic-success-sm';
+                    this.statusImg = 'ic-success-sm sprite-img ';
                     break;
             }
 
