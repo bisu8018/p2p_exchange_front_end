@@ -10,7 +10,7 @@
 
             <!-- 결제 수단 Select -->
             <div class="p-relative my-4">
-                <select class="comp-selectbox h6" v-model="paymentMethods.type" @change="onClearData">
+                <select class="comp-selectbox h6" v-model="type" @change="onChangeSelect">
                     <option value="" disabled selected hidden>{{ $str('paymentMethodSelectboxPlaceholder') }}</option>
                     <option value="bank">{{ $str("bankAccountText") }}</option>
                     <option value="alipay">{{ $str("alipayText") }}</option>
@@ -40,7 +40,7 @@
                 </div>
 
                 <!-- PaymentMethod === alipay -->
-                <div v-if="paymentMethods.type === 'alipay'">
+                <div v-if="type === 'alipay'">
                     <h5 class="mb-2">{{ $str("alipayText") }}</h5>
                     <div class="p-relative mb-4">
 
@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- PaymentMethod === wechat -->
-                <div v-else-if="paymentMethods.type === 'wechat'">
+                <div v-else-if="type === 'wechat'">
                     <h5 class="mb-2">{{ $str("wechatPayText") }}</h5>
                     <div class="p-relative">
                         <input type="text" class="input" :placeholder="$str('wechatPlaceholder')"
@@ -72,7 +72,7 @@
                 </div>
 
                 <!-- PaymentMethod === bank -->
-                <div v-else-if="paymentMethods.type === 'bank'">
+                <div v-else-if="type === 'bank'">
 
                     <!-- 은행 이름 -->
                     <div class="mb-4">
@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- QR Code -->
-                <div v-if="paymentMethods.type !== 'bank'">
+                <div v-if="type !== 'bank'">
                     <h5 class="mb-2">{{ $str("qrCode") }}</h5>
                     <div class="mb-4">
                         <label class="">
@@ -132,7 +132,7 @@
                                         <div class="sprite-img ic-upload"></div>
                                     </div>
                                     <div class="color-darkgray h6">
-                                        {{paymentMethods.type === 'wechat' ? $str('wechatQrCodeExplain') :
+                                        {{ type === 'wechat' ? $str('wechatQrCodeExplain') :
                                         $str('alipayQrCodeExplain') }} (*.jpg / *.png / *.jpeg)
                                     </div>
                                 </div>
@@ -200,6 +200,62 @@
                 default: () => false
             }
         },
+        data() {
+            return {
+                // paymentMethods: '',
+                typeData: '',
+
+                warning_name: false,
+                warning_alipay: false,
+                warning_wechat: false,
+                warning_bank: false,
+                warning_bank_accout: false,
+                warning_attachment_file: false,
+                warning_trade_password: false,
+                verify_warning_name: '',
+                verify_warning_alipay: '',
+                verify_warning_wechat: '',
+                verify_warning_bank: '',
+                verify_warning_attachment_file: '',
+                verify_warning_trade_password: '',
+                verify_warning_bank_account: '',
+                file: '',
+            }
+        },
+        computed: {
+            header() {
+                if (this.edit) {
+                    return this.$str('editPayment');
+                } else {
+                    return this.$str('paymentMethod');
+                }
+            },
+            paymentMethods() {
+                // 수정모드일 때 : 기존 데이터 가져오기
+                if (this.edit) {
+                    return new PaymentMethod(this.data);
+                } else {
+                    return new PaymentMethod('');
+                }
+            },
+            type: {
+                get() {
+                    // 수정모드일 때 : 기존 데이터 가져오기
+                    if (this.edit) {
+                        this.typeData = this.paymentMethods.type
+                    } else {
+                        this.typeData = '';
+                    }
+                    return this.typeData;
+                },
+                set(value) {
+                    this.typeData = value;
+                    return this.typeData;
+                }
+            }
+        },
+        created() {
+        },
         methods: {
             onCheckName() {
 
@@ -214,6 +270,9 @@
 
             },
             onClearData() {
+
+            },
+            onChangeSelect() {
 
             },
             onCheckBankAccount() {
@@ -271,47 +330,6 @@
                 this.$emit('done', item);
             }
         },
-        data() {
-            return {
-                // paymentMethods: '',
-
-                warning_name: false,
-                warning_alipay: false,
-                warning_wechat: false,
-                warning_bank: false,
-                warning_bank_accout: false,
-                warning_attachment_file: false,
-                warning_trade_password: false,
-                verify_warning_name: '',
-                verify_warning_alipay: '',
-                verify_warning_wechat: '',
-                verify_warning_bank: '',
-                verify_warning_attachment_file: '',
-                verify_warning_trade_password: '',
-                verify_warning_bank_account: '',
-                file: '',
-            }
-        },
-        computed: {
-            header() {
-                if (this.edit) {
-                    return this.$str('editPayment');
-                } else {
-                    return this.$str('paymentMethod');
-                }
-            },
-            paymentMethods() {
-                // 수정모드일 때 : 기존 데이터 가져오기
-                if (this.edit) {
-                    return new PaymentMethod(this.data);
-                } else {
-                    return new PaymentMethod('');
-                }
-            }
-        },
-        created() {
-
-        }
     }
 </script>
 
