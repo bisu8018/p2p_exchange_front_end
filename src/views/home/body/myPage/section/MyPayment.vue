@@ -2,19 +2,13 @@
     <div class="myPage-box">
 
         <!--결제수단 추가 모달-->
-        <!--<my-page-modal :show="showModal"-->
-                       <!--:type="modalType"-->
-                       <!--:phoneNumber="phoneVerification.phoneNumber"-->
-                       <!--:email="emailVerification.email"-->
-                       <!--v-on:close="onClose"-->
-                       <!--v-on:paymentMethod="getPaymentMethod"-->
-                       <!--v-on:turnon="onTurnOn"-->
-                       <!--v-on:nickName="myInfo.nickname"-->
-        <!--/>-->
         <dialog-add-new-payment
                 :showDialog="showModal"
                 :my-info="myInfo"
+                :data="paymentMethodItem"
+                :edit="isEdit"
                 @close="onClose"
+                @done="onAddPayment"
         />
 
         <!-- Header -->
@@ -36,11 +30,13 @@
             <span v-for="item in paymentMethod">
                 <payment-item
                         :data="item"
+                        @edit="onEdit(item)"
+                        @toggle="onToggle"
                 />
             </span>
             <div class="ta-center py-3">
                 <btn-mypage
-                        @click="onModal('addPayment')"
+                        @click="onModal"
                         :txt="$str('addPayment')"
                 />
             </div>
@@ -71,18 +67,33 @@
         data() {
             return {
                 showModal: false,
-                modalType: '',
+                isEdit: false,
+                paymentMethodItem: {},
             }
         },
         methods: {
-            onModal(type) {
+            onModal() {
                 this.showModal = true;
-                this.modalType = type;
+
             },
             onClose() {
                 this.showModal = false;
-                this.modalType = '';
             },
+            onAddPayment() {
+                // this.$router.push('/myPage')
+            },
+            onEdit(item) {
+                this.showModal = true;
+                this.isEdit = true;
+                this.paymentMethodItem = item;
+                // put API 가 ... 없... 어.... 수정... 못 해........
+            },
+            onToggle() {
+                // put API 가 ... 없... 어.... 수정... 못 해........
+            },
+
+
+            // ****** 이 아래로는 무슨 Methods인지 모르겠음...ㅜㅜ
             onTurnOn() {
                 // phone 인증 정보 AXIOS GET
                 this.showModal = false;
@@ -95,7 +106,6 @@
                     url += '?phone';
                 }
                 this.$router.push(url);
-
             },
             //결제수단 추가 모달 data get 및 결제수단 표시 설정
             getPaymentMethod(value) {

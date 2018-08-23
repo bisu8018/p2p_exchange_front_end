@@ -2614,9 +2614,9 @@ const strings = new Map([
         CN: '验证',
         HK: '驗證'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['editPayment', {
+        KOR: '결제수단 수정하기',
+        ENG: 'Edit a new payment method',
         CN: '',
         HK: ''
     }],

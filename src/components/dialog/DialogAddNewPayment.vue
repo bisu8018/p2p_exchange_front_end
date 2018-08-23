@@ -3,7 +3,7 @@
         <div class="dialog-add-new-payment_wrapper">
 
             <!-- 헤더, 타이틀 -->
-            <h3>{{ $str('paymentMethod') }}</h3>
+            <h3>{{ header }}</h3>
             <div class="dialog_btn-close">
                 <i class="material-icons " @click="onClose">close</i>
             </div>
@@ -189,11 +189,16 @@
     export default {
         name: "dialog-add-new-payment",
         props: {
+            data: {},
             showDialog: {
                 type: Boolean,
                 default: () => false
             },
             myInfo: {},
+            edit: {
+                type: Boolean,
+                default: () => false
+            }
         },
         methods: {
             onCheckName() {
@@ -244,7 +249,7 @@
             onClose(item) {
                 this.$emit('close', item);
             },
-            onDone() {
+            onDone(item) {
                 let self = this;
 
                 self.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
@@ -263,13 +268,12 @@
 
                 self.$eventBus.$emit('showAlert', 0);
                 this.onClose();
+                this.$emit('done', item);
             }
         },
         data() {
             return {
-                paymentMethods: new PaymentMethod(''),
-
-                paymentMethod: '',
+                // paymentMethods: '',
 
                 warning_name: false,
                 warning_alipay: false,
@@ -287,6 +291,26 @@
                 verify_warning_bank_account: '',
                 file: '',
             }
+        },
+        computed: {
+            header() {
+                if (this.edit) {
+                    return this.$str('editPayment');
+                } else {
+                    return this.$str('paymentMethod');
+                }
+            },
+            paymentMethods() {
+                // 수정모드일 때 : 기존 데이터 가져오기
+                if (this.edit) {
+                    return new PaymentMethod(this.data);
+                } else {
+                    return new PaymentMethod('');
+                }
+            }
+        },
+        created() {
+
         }
     }
 </script>
