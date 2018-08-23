@@ -46,6 +46,7 @@ import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
 import OrderStat from "@/vuex/model/OrderStat";
 import Withdraw from "@/vuex/model/Withdraw";
+import IdVerificationId from "@/vuex/model/IdVerificationId";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -237,8 +238,8 @@ export default {
                 callback(_idVerification);
             })
         },
-        postIdVerification: function (email: string, idVerification: IdVerification, callback: any) {
-            AccountService.Verification.postIdVerification(email, idVerification, function(result) {
+        postIdVerification: function (email: string, idVerificationId: IdVerificationId, callback: any) {
+            AccountService.Verification.postIdVerification(email, idVerificationId, function(result) {
                 callback(result);
             })
         },
