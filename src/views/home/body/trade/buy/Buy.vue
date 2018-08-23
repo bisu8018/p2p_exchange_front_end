@@ -14,7 +14,7 @@
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block"> From {{  currentOrder.merchantNickname  }}</div>
+                <div class="d-inline-block"> From {{ currentOrder.merchantNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -37,21 +37,24 @@
                 </div>
             </div>
         </v-layout>
-        <div v-if="currentOrder.status != 'cancelled'" v-for="item in getMyPaymentMethodSelectList()">
 
+        <div v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired'"
+             v-for="item in getMyPaymentMethodSelectList()">
             <trade-item :item="item"></trade-item>
-
         </div>
+
         <v-layout wrap row>
-            <v-flex xs12 md3>
+            <v-flex xs12 md4>
                 <!--status cancel 일 시 설명 문구-->
-                <div class="cancel-explain mb-4" v-if="currentOrder.status ==='cancelled'">
+                <div class="cancel-explain mb-4 "
+                     v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
                     {{ $str("cancelExplain") }}
                 </div>
             </v-flex>
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
-                <span v-if="currentOrder.status != 'cancelled' && currentOrder.status === 'unpaid'" class="mb-3">
+                <span v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired' && currentOrder.status === 'unpaid'"
+                      class="mb-3">
                     <!--unpaid 상태 일때-->
                     {{ $str("paymentExplain1") }}
                     <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
@@ -83,9 +86,13 @@
                     <span v-if="currentOrder.status === 'paid'">
                       {{ $str("buyingExplain4") }}
                     </span>
-                    <!-- Transfer / Cancel 상태 -->
-                    <span v-else-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled'">
-                    {{ $str("cancel") }} {{ $str("complete") }},
+                    <!-- complete / Cancel 상태 -->
+                    <span v-else-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                    {{ $str("cancel") }}
+                    </span>
+                    <!-- complete / Cancel 상태 -->
+                    <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                    {{ $str("complete") }},
                     </span>
 
                     <!-- Complaining 일 때 -->
@@ -141,8 +148,9 @@
             </v-flex>
 
             <!--거래 취소 아이콘 (cancel 상태일때)-->
-            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'cancelled'">
-                <i class="material-icons cancel-icon" @click="onCancel">cancel</i>
+            <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left
+                    v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                <i class="material-icons cancel-icon">cancel</i>
             </v-flex>
 
 
@@ -166,7 +174,7 @@
 
             <!--취소 및 이의제기 버튼 (paying buying 상태일때)-->
             <v-flex xs12 mb-4a text-md-left text-xs-left
-                    v-if="currentOrder.status != 'complete' && currentOrder.status != 'cancelled' && currentOrder.status !='complaining'">
+                    v-if="currentOrder.status != 'complete' && currentOrder.status != 'cancelled' && currentOrder.status != 'expired' &&currentOrder.status !='complaining'">
 
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
                        @click="onModal('cancel')">
@@ -186,7 +194,7 @@
         <div>
             <div v-if="isInitCompleted">
                 <!--채팅창-->
-                <message :order = "currentOrder"></message>
+                <message :order="currentOrder"></message>
             </div>
         </div>
 
@@ -248,6 +256,9 @@
                 return temp;
             },
         },
+        beforeCreate() {
+
+        },
         created() {
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
@@ -263,6 +274,16 @@
             }
 
             MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
+
+                //부적합한 유저 접근시 거래소 강제 이동
+                let myInfo = MainRepository.MyInfo.getUserInfo();
+                let tradeType = this.currentOrder.tradeType;
+                let merchantMemberNo =  this.currentOrder.merchantMemberNo;
+                if((tradeType === 'buy' && merchantMemberNo !== myInfo.memberNo) ||
+                    (tradeType === 'sell' && merchantMemberNo === myInfo.memberNo) ){
+                    MainRepository.router().goTradeCenter();
+                }
+
                 this.isInitCompleted = true;
                 this.init();
             });
@@ -275,7 +296,7 @@
             //초기화 작업
             init() {
                 //payment window timer
-                if(this.currentOrder.status === 'unpaid') {
+                if (this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
                     this.timerInterval = setInterval(() => {
                         this.limitTime = this.getLimitTime();
@@ -286,7 +307,7 @@
                         }
                     }, 1000)
                 }
-                if(this.currentOrder.status !== 'complete'){
+                if (this.currentOrder.status !== 'complete') {
                     this.checkStatus = setInterval(() => {
                         this.getOrderStatus();
                         if (this.currentOrder.status === 'complete') {
@@ -299,7 +320,7 @@
                 let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
                 let min = time.split(':')[0];
                 let sec = time.split(':')[1];
-                return min + ' ' + Vue.prototype.$str('min') + ' ' + sec + ' ' + Vue.prototype.$str('sec');
+                return min + ' ' + this.$str('min') + ' ' + sec + ' ' + this.$str('sec');
             },
             getMyPaymentMethodSelectList() {
                 return this.currentOrder.filteredPaymentMethod
@@ -307,9 +328,9 @@
             getOrderStatus() {
                 let self = this;
                 MainRepository.TradeProcess.getOrderStatus(self.orderNo
-                , (result) => {
+                    , (result) => {
 
-                })
+                    })
             },
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -337,15 +358,17 @@
                 this.showModal = true;
                 this.modalType = type;
             },
+            //이의 제기 취소
             onCancelAppeal() {
                 this.showModal = false;
                 let self = this;
-                let appealList = this.currentOrder.appealList[0];
-                if(this.currentOrder.status === 'complaining' && appealList.status === 'registered'){
+                //이의제기 최신
+                let appealList = this.currentOrder.appealList[this.currentOrder.appealList.length - 1];
+                if (this.currentOrder.status === 'complaining' && appealList.status === 'registered') {
                     MainRepository.TradeProcess.onAppealCancel({
-                        orderNo : self.orderNo,
-                        appealNo : appealList.appealNo
-                    },function () {
+                        orderNo: self.orderNo,
+                        appealNo: appealList.appealNo
+                    }, function () {
                         self.getOrderStatus();
                     })
                 }
@@ -372,9 +395,9 @@
             onCancel() {
                 let self = this;
                 MainRepository.TradeProcess.onCancel({
-                    orderNo : Number(self.orderNo),
-                    email : MainRepository.MyInfo.getUserInfo().email
-            }, function (result) {
+                    orderNo: Number(self.orderNo),
+                    email: MainRepository.MyInfo.getUserInfo().email
+                }, function (result) {
                     self.getOrderStatus();
                     self.onClose();
                 });

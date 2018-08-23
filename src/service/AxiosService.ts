@@ -40,6 +40,8 @@ export default {
                 }
                 if (response.data.code === 0) {
                     success(response.data.result);
+                } else {
+                    failure(response.data.code);
                 }
                 if (response.data.code === 499) {
                     //window.location.replace(this.getRootUrl() + '/merchant');

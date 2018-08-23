@@ -12,8 +12,7 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function (code) {
-                    AxiosService.showErrorPopup(code)
+                function () {
                 })
         },
         // 인증코드 전송
@@ -37,8 +36,7 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function (code) {
-                    AxiosService.showErrorPopup(code)
+                function () {
                 })
         },
         // 인증코드 검증
@@ -57,8 +55,7 @@ export default {
                 function (data: any) {
                     callback(data)
                 },
-                function (code) {
-                    AxiosService.showErrorPopup(code)
+                function () {
                 })
         },
         // 로그인 체크
@@ -123,8 +120,7 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function (code) {
-                    AxiosService.showErrorPopup(code)
+                function () {
                 })
         },
         //결제수단 설정

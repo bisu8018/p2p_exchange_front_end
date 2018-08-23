@@ -15,11 +15,11 @@ export default class TradeController {
         this.store.dispatch(VuexTypes.SET_CURRENT_ORDER, tradeProcess);
     }
 
-    getCurrentOrder() { console.log( this.store.state.tradeProcess.currentOrder.status)
+    getCurrentOrder() {
         return this.store.state.tradeProcess.currentOrder;
     }
 
-    updateOrderStatus(status: string){ console.log(status);
+    updateOrderStatus(status: string){
         this.store.dispatch(VuexTypes.UPDATE_CURRENT_ORDER, status);
     }
 

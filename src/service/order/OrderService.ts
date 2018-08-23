@@ -10,7 +10,6 @@ export default {
                 callback(data)
             },
             function () {
-                //실패시 이곳을 타게됨
             })
     },
     getMyOrder:function (data: any, callback: any) {
@@ -19,7 +18,7 @@ export default {
                 callback(data)
             },
             function () {
-                //실패시 이곳을 탐
+
             })
     },
     getMyOrderStat:function (data: any, callback: any) {

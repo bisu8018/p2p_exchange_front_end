@@ -61,14 +61,13 @@ export function getLimitTime(from: number, limit: number): string {
     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     if (distance < 0) {
-        //return "00:00";
-        return "0:0";
+        return "00:00";
+        //return "0:0";
     } else {
         // return  ((hours < 10) ? '0' : '') + hours + ":" +
-        // return ((minutes < 10) ? '0' : '') + minutes +
-        //     ":" + ((seconds < 10) ? '0' : '') + seconds;
-        return minutes +
-            ":" + seconds;
+        return ((minutes < 10) ? '0' : '') + minutes +
+             ":" + ((seconds < 10) ? '0' : '') + seconds;
+
     }
 }
 
