@@ -231,33 +231,12 @@
             },
         },
         created() {
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-            let currentURL = window.location.href;
-            let params = currentURL.split('?');
-            if (params[1]) {
-                this.orderNo = params[1];
-            } else {
-                MainRepository.router().goTradeCenter();
-            }
-
-            MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
-
-                //부적합한 유저 접근시 거래소 강제 이동
-                let myInfo = MainRepository.MyInfo.getUserInfo();
-                let tradeType = this.currentOrder.tradeType;
-                let merchantMemberNo =  this.currentOrder.merchantMemberNo;
-                if((tradeType === 'sell' && merchantMemberNo !== myInfo.memberNo) ||
-                    (tradeType === 'buy' && merchantMemberNo === myInfo.memberNo) ){
-                    MainRepository.router().goTradeCenter();
-                }
-
-                this.isInitCompleted = true;
+            this.init();
+        },
+        updated() {
+            if (this.orderNo !== this.getUrlParam()) {
                 this.init();
-            });
+            }
         },
         beforeDestroy() {
             clearInterval(this.timerInterval);
@@ -266,6 +245,48 @@
         methods: {
             //초기화 작업
             init() {
+                // 로그인 확인 -> Login 으로
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return;
+                }
+
+                // URL param 검사
+                let urlParam = this.getUrlParam();
+                if (urlParam === '') {
+                    MainRepository.router().goTradeCenter();
+                } else {
+                    this.orderNo = urlParam;
+                }
+
+                MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
+                    // 부적합한 유저 접근시 거래소 강제 이동
+                    let myInfo = MainRepository.MyInfo.getUserInfo();
+                    let tradeType = this.currentOrder.tradeType;
+                    let merchantMemberNo =  this.currentOrder.merchantMemberNo;
+                    let customerMemberNo = this.currentOrder.customerMemberNo;
+
+                    // 판매자 or 고객이 아닌 경우
+                    if (myInfo.memberNo !== customerMemberNo && myInfo.memberNo !== merchantMemberNo) {
+                        MainRepository.router().goTradeCenter();
+                    }
+                    // 판매자인 경우 Sell -> Buy 일 경우
+                    else if (myInfo.memberNo === merchantMemberNo && tradeType === 'buy') {
+                        MainRepository.router().goTradeCenter();
+                    }
+                    // 고객인 경우 Sell -> Sell 일 경우
+                    else if (myInfo.memberNo === customerMemberNo && tradeType === 'sell') {
+                        MainRepository.router().goTradeCenter();
+                    }
+
+                    this.isInitCompleted = true;
+                    this.initInterval();
+                });
+            },
+            initInterval() {
+                clearInterval(this.timerInterval);
+                clearInterval(this.checkStatus);
+
                 //payment window timer
                 if(this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
@@ -285,6 +306,15 @@
                             clearInterval(this.checkStatus);
                         }
                     }, 3000)
+                }
+            },
+            getUrlParam() {
+                let currentURL = window.location.href;
+                let params = currentURL.split('?');
+                if (params[1]) {
+                    return params[1];
+                } else {
+                    return '';
                 }
             },
             getLimitTime() {

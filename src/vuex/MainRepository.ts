@@ -880,6 +880,7 @@ export default {
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
+
                 if(data.length != 0){
                     this.controller().addMsg(data[0]);
                 }
