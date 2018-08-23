@@ -7,8 +7,8 @@
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
                 <avatar v-if="counterPartyEmail != '' "
-                        :email = counterPartyEmail
-                        :chat = "'main'"
+                        :email=counterPartyEmail
+                        :chat="'main'"
                 >
                 </avatar>
             </div>
@@ -27,8 +27,8 @@
                 <div class="mb-3 display-flex" v-if="data.mine === false">
                     <div>
                         <avatar v-if="counterPartyEmail !== ''"
-                                :email = counterPartyEmail
-                                :chat = "'sub'">
+                                :email=counterPartyEmail
+                                :chat="'sub'">
                         </avatar>
                     </div>
                     <div class="pl-2">
@@ -56,7 +56,7 @@
                     </div>
                     <div>
                         <avatar
-                                :me = true>
+                                :me=true>
                         </avatar>
                     </div>
                 </div>
@@ -92,7 +92,8 @@
             inputValue: "",
             transactionNum: '',
 
-            msgInterval : {},
+            msgInterval: {},
+            latestPostTime: 0,
 
             //파일 첨부
             file: '',
@@ -102,7 +103,7 @@
             messageList() {
                 return MainRepository.Message.controller().getMsgList();
             },
-            myMemberNo () {
+            myMemberNo() {
                 this.scrollBottom();
                 return MainRepository.MyInfo.getUserInfo().memberNo;
             },
@@ -112,29 +113,29 @@
             myNickname() {
                 return MainRepository.MyInfo.getUserInfo().nickname;
             },
-            counterPartyNickname () {
+            counterPartyNickname() {
                 let name;
-                if(MainRepository.MyInfo.getUserInfo().nickname === this.order.merchantNickname){
+                if (MainRepository.MyInfo.getUserInfo().nickname === this.order.merchantNickname) {
                     name = this.order.customerNickname;
-                }else{
+                } else {
                     name = this.order.merchantNickname;
                 }
                 return name;
             },
-            counterPartyMemberNo () {
+            counterPartyMemberNo() {
                 let num;
-                if(MainRepository.MyInfo.getUserInfo().memberNo === this.order.merchantMemberNo){
+                if (MainRepository.MyInfo.getUserInfo().memberNo === this.order.merchantMemberNo) {
                     num = this.order.customerMemberNo;
-                }else{
+                } else {
                     num = this.order.merchantMemberNo;
                 }
                 return num;
             },
-            counterPartyEmail () {
+            counterPartyEmail() {
                 let email;
-                if(MainRepository.MyInfo.getUserInfo().email === this.order.merchantEmail){
+                if (MainRepository.MyInfo.getUserInfo().email === this.order.merchantEmail) {
                     email = this.order.customerEmail;
-                }else{
+                } else {
                     email = this.order.merchantEmail;
                 }
                 return email;
@@ -186,7 +187,7 @@
                 reader.readAsDataURL(this.file);
             },
             getTime(date) {
-                let _date = new Date(date).toTimeString().substr(0,8);
+                let _date = new Date(date).toTimeString().substr(0, 8);
                 return _date;
             },
             getDate(date) {
@@ -199,12 +200,18 @@
             onPost() {
                 let tmpValue = this.inputValue.trim();
 
-                if(tmpValue !== ''){
-                    MainRepository.Message.postMsg(this.inputValue, () => {
-                        this.inputValue = '';
-                        this.updateMsg();
-                        this.scrollBottom();
-                    });
+                if (tmpValue !== '') {
+                    //도배 및 중복 값 입력 방지
+                    if (Date.now() - this.latestPostTime < 1000) {
+                        return false;
+                    } else {
+                        this.latestPostTime = Date.now();
+                        MainRepository.Message.postMsg(this.inputValue, () => {
+                            this.inputValue = '';
+                            this.updateMsg();
+                            this.scrollBottom();
+                        });
+                    }
                 }
 
             },
