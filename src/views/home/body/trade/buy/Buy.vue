@@ -9,7 +9,7 @@
                 <!-- buy/sell -->
                 Buy
                 <!-- 토큰량 -->
-                {{ currentOrder.coinCount }}
+                {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
@@ -74,7 +74,7 @@
                     {{ $str("buyingExplain1") }}
 
                         <!--{{ currentOrder.coinCount }} 가격 , {{ currentOrder.cryptocurrency }} 단위-->
-                    <span class="color-orange-price">{{ currentOrder.coinCount }} {{ currentOrder.cryptocurrency }}</span>
+                    <span class="color-orange-price">{{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }} {{ currentOrder.cryptocurrency }}</span>
                     {{ $str("buyingExplain2") }}
 
                         <!--{{ currentOrder.merchantNickname }} 닉네임-->

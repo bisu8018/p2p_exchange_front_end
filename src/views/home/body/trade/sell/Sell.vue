@@ -9,12 +9,12 @@
                 <!--buy/sell -->
                 Sell
                 <!--토큰량 -->
-                {{ currentOrder.coinCount }}
+                {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block"> From {{  currentOrder.merchantNickname  }}</div>
+                <div class="d-inline-block"> From {{ currentOrder.merchantNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -164,7 +164,7 @@
         <div>
             <div v-if="isInitCompleted">
                 <!--채팅창-->
-                <message :order = "currentOrder"></message>
+                <message :order="currentOrder"></message>
             </div>
         </div>
 
