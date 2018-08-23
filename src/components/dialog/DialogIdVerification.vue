@@ -12,7 +12,7 @@
             <!-- 국가 선택 Select -->
             <h5 class="mb-2">{{ $str("nationality") }}</h5>
             <div class="p-relative mb-4">
-                <select class="comp-selectbox h6" id="nationality" v-model="nationality">
+                <select class="comp-selectbox h6" id="nationality" v-model="idVerification.nationality">
                     <option v-for="country in countries" :value="country.code">
                         {{ country.country }}
                     </option>
@@ -23,7 +23,7 @@
             <!-- 실명 -->
             <h5 class="mb-2">{{ $str("realName") }}</h5>
             <div class="p-relative mb-4">
-                <input name="Last" v-model="realName" type="text" class="input"
+                <input name="Last" v-model="idVerification.firstName" type="text" class="input"
                        @blur="onCheckName" :class="{'warning-border' : warning_realName}"
                        autocomplete="off" >
                 <div class="warning-text-wrapper">
@@ -34,7 +34,7 @@
             <!-- ID Number -->
             <h5 class="mb-2">{{ $str("Identification Number") }}</h5>
             <div class="p-relative">
-                <input name="Identification" v-model="IDNum" type="text" class="input"
+                <input name="Identification" v-model="idVerification.identificationNo" type="text" class="input"
                        @blur="onCheckIdNum" :class="{'warning-border' : warning_IdNum}"
                        autocomplete="off" >
                 <div class="warning-text-wrapper">
@@ -57,6 +57,7 @@
 
 <script>
     import MainRepository from "../../vuex/MainRepository";
+    import IdVerification from "../../vuex/model/IdVerification";
 
     export default {
         name: "dialog-id-verification",
@@ -68,9 +69,8 @@
         },
         data() {
             return {
-                nationality: MainRepository.MyInfo.getUserInfo.nationality,
-                realName: '',
-                IDNum: '',
+                idVerification: new IdVerification(''),
+
                 warning_realName : false,
                 warning_IdNum : false,
                 verify_warning_realName : "",
@@ -95,6 +95,16 @@
                     {country: 'Philippines', code: 'PH'},
                     {country: 'Cambodia', code: 'KH'}
                 ],
+            }
+        },
+        created() {
+            this.idVerification.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+            this.idVerification.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+
+            for (let i ; i < this.countries.length; i++) {
+                if (MainRepository.MyInfo.getUserInfo().nationality === this.countries[i].code) {
+                    this.idVerification.nationality = this.countries[i].country;
+                }
             }
         },
         methods: {
@@ -124,9 +134,12 @@
                 this.$emit('close', item);
             },
             onDone() {
+                let self = this;
+
                 if (this.onCheckName() && this.onCheckIdNum()) {
+                    MainRepository.MyPage.postIdVerification(MainRepository.MyInfo.getUserInfo().email, self.idVerification, function(data){ });
+                    self.$eventBus.$emit('showAlert', 0);
                     this.onClose();
-                    // this.showSuccessModal = true;
                 }
             }
         },
