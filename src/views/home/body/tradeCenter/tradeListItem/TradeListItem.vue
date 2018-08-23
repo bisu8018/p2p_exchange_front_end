@@ -660,9 +660,8 @@
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
 
-                //fromvalue 계산해줌
-                this.fromValue = this.toValue / this.user.fixedPrice;
-                this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+                ////소수점 6번째자리까지 fromvalue 계산해줌
+                this.fromValue = Math.floor(this.toValue *1000000/ this.user.fixedPrice) / 1000000;
 
             },
             inputFocus(type) {
