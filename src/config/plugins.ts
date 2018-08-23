@@ -1,5 +1,7 @@
 import Vuetify from 'vuetify'
 import '../../node_modules/vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css'
+
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import {abString} from "@/config/localization";
