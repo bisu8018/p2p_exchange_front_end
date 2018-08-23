@@ -44,6 +44,16 @@
                     />
                 </div>
             </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                <v-pagination
+                        v-model="loginPage"
+                        @input="onLoginPage(loginPage)"
+                        :color="'TextBlue'"
+                        :length="pageLength('login')"
+                />
+            </div>
         </div>
 
         <!-- 보안 설정 텝 선택 시 -->
@@ -71,6 +81,16 @@
                     />
                 </div>
             </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                <v-pagination
+                        v-model="historyPage"
+                        @input="onHistoryPage(historyPage)"
+                        :color="'TextBlue'"
+                        :length="pageLength('security')"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -82,7 +102,8 @@
     export default {
         components: {
             HistorySecuritySettingsItem,
-            HistoryLoginItem},
+            HistoryLoginItem
+        },
         name: "my-history",
         props: {
             loginHistory: {},
@@ -94,12 +115,41 @@
                    this.$str('loginText'), this.$str('securitySettings')
                 ],
                 selectedTab: 0,
+                loginPage: 1,
+                historyPage: 1,
             }
+        },
+        computed: {
+
         },
         methods: {
             selectTab(num) {
                 this.selectedTab = num;
-            }
+            },
+            onLoginPage(num) {
+                this.$emit('onLoginPage', num);
+            },
+            onHistoryPage(num) {
+                this.$emit('onHistoryPage', num);
+            },
+            pageLength(type) {
+                let a = 0;
+
+                if (type === 'login') {
+                    a = this.loginHistory.totalCount;
+                } else if (type === 'security') {
+                    a = this.securitySettings.totalCount;
+                }
+                let result = 0;
+
+                // 나머지가 없을 때
+                if (a % 10 === 0 && a > 9) {
+                    result = a / 10;
+                } else if (a % 10 !== 0 && a > 9) {
+                    result = (parseInt(a / 10)) + 1;
+                }
+                return result;
+            },
         }
     }
 </script>
@@ -193,5 +243,11 @@
             text-align: left;
             padding: 8px 0;
         }
+    }
+
+    .pagination-wrapper {
+        max-width: 400px;
+        margin: auto;
+        text-align: center;
     }
 </style>
