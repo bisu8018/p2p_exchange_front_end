@@ -1,6 +1,5 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
-import {CurrencyType} from "@/vuex/model/CurrencyType";
 import Balance from "@/vuex/model/Balance";
 import Withdraw from "@/vuex/model/Withdraw";
 

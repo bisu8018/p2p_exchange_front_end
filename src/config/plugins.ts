@@ -5,6 +5,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import {abString} from "@/config/localization";
+import {CurrencyType} from "@/vuex/model/CurrencyType";
 export default (Vue: any) => {
     Vue.use(Vuex);
     Vue.use(VueRouter);
@@ -70,4 +71,22 @@ export default (Vue: any) => {
         return abString(key);
     }
 
+    // Localization
+    Vue.prototype.$fixed = function (value: number, currency: string) {
+        let fixedDigits = 0;
+
+        switch (currency) {
+            case CurrencyType.CNY: fixedDigits = 0; break;
+            case CurrencyType.KRW: fixedDigits = 0; break;
+            case CurrencyType.USD: fixedDigits = 3; break;
+            case CurrencyType.CAD: fixedDigits = 3; break;
+            case CurrencyType.INR: fixedDigits = 3; break;
+            case CurrencyType.SGD: fixedDigits = 3; break;
+            case 'BTC' :
+            case 'bitcoin': fixedDigits = 8; break;
+            case 'ETH' :
+            case 'ethereum': fixedDigits = 6; break;
+        }
+        return value.toFixed(fixedDigits);
+    }
 }
