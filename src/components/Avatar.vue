@@ -72,15 +72,16 @@
                         true,
                     )
                 } else {
-                    // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
-                    let _msgAvatar = MainRepository.Message.msgAvatar().get();
+                    // TradeCenter Item
                     if (this.useMemberInfo) {
                         this.setAvatar(
                             this.member.nickname === '' ? 'A' : this.member.nickname[0],
                             this.member.bgColor,
-                            this.member.isLogin
+                            this.member.isActive
                         )
                     } else if (this.chat === 'sub') {
+                        // 채팅 모드 : Sub -> Main Avatar 정보를 불러온다.
+                        let _msgAvatar = MainRepository.Message.msgAvatar().get();
                         this.setAvatar(
                             _msgAvatar.name,
                             _msgAvatar.bgColor,
@@ -89,10 +90,11 @@
                     } else {
                         // 로그인 상태 요청
                         MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
+                            console.log(userInfo)
                             this.setAvatar(
                                 userInfo.nickName === '' ? 'A' : userInfo.nickName[0],
                                 userInfo.bgColor,
-                                userInfo.isLogin
+                                false
                             );
                             // 채팅일 경우 -> MsgAvatar 에 저장
                             if (this.chat === 'main') {
@@ -126,7 +128,11 @@
                 MainRepository.Users.isUserActive({
                     email: this.email
                 }, (result) => {
-                    MainRepository.Message.msgAvatar().update({ isLogin: result })
+                    if (this.chat === 'main') {
+                        MainRepository.Message.msgAvatar().update({ isLogin: result })
+                    } else {
+                        this.loginColor = result ? '#59D817' : '#c8c8c8';
+                    }
                 });
             },
         }
