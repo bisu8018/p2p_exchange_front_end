@@ -269,34 +269,13 @@
             },
         },
         created() {
-
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-            let currentURL = window.location.href;
-            let params = currentURL.split('?');
-            if (params[1]) {
-                this.orderNo = params[1];
-            } else {
-                MainRepository.router().goTradeCenter();
-            }
-
-            MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
-
-                //부적합한 유저 접근시 거래소 강제 이동
-                let myInfo = MainRepository.MyInfo.getUserInfo();
-                let tradeType = this.currentOrder.tradeType;
-                let merchantMemberNo = this.currentOrder.merchantMemberNo;
-                if ((tradeType === 'buy' && merchantMemberNo !== myInfo.memberNo) ||
-                    (tradeType === 'sell' && merchantMemberNo === myInfo.memberNo)) {
-                    MainRepository.router().goTradeCenter();
-                }
-
-                this.isInitCompleted = true;
+            this.init();
+        },
+        updated() {
+            // 현재 view가 떠있는 상태에서 다른 order 요청시
+            if (this.orderNo !== this.getUrlParam()) {
                 this.init();
-            });
+            }
         },
         beforeDestroy() {
             clearInterval(this.timerInterval);
@@ -305,8 +284,52 @@
         methods: {
             //초기화 작업
             init() {
+                // 로그인 확인 -> Login 으로
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return;
+                }
+
+                // URL param 검사
+                let urlParam = this.getUrlParam();
+                if (urlParam === '') {
+                    MainRepository.router().goTradeCenter();
+                } else {
+                    this.orderNo = urlParam;
+                }
+
+                MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
+                    // 없는 orderNo일 경우 예외처리 추가
+
+                    // 부적합한 유저 접근시 거래소 강제 이동
+                    let myInfo = MainRepository.MyInfo.getUserInfo();
+                    let tradeType = this.currentOrder.tradeType;
+                    let merchantMemberNo =  this.currentOrder.merchantMemberNo;
+                    let customerMemberNo = this.currentOrder.customerMemberNo;
+
+                    // 판매자 or 고객이 아닌 경우
+                    if (myInfo.memberNo !== customerMemberNo && myInfo.memberNo !== merchantMemberNo) {
+                        MainRepository.router().goTradeCenter();
+                    }
+                    // 판매자인 경우 Buy -> Sell 일 경우
+                    else if (myInfo.memberNo === merchantMemberNo && tradeType === 'sell') {
+                        MainRepository.router().goTradeCenter();
+                    }
+                    // 고객인 경우 Buy -> Buy 일 경우
+                    else if (myInfo.memberNo === customerMemberNo && tradeType === 'buy') {
+                        MainRepository.router().goTradeCenter();
+                    }
+
+                    this.isInitCompleted = true;
+                    this.initInterval();
+                });
+            },
+            initInterval() {
+                clearInterval(this.timerInterval);
+                clearInterval(this.checkStatus);
+
                 //payment window timer
-                if (this.currentOrder.status === 'unpaid') {
+                if(this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
                     this.timerInterval = setInterval(() => {
                         this.limitTime = this.getLimitTime();
@@ -317,13 +340,22 @@
                         }
                     }, 1000)
                 }
-                if (this.currentOrder.status !== 'complete') {
+                if(this.currentOrder.status !== 'complete'){
                     this.checkStatus = setInterval(() => {
                         this.getOrderStatus();
                         if (this.currentOrder.status === 'complete') {
                             clearInterval(this.checkStatus);
                         }
                     }, 3000)
+                }
+            },
+            getUrlParam() {
+                let currentURL = window.location.href;
+                let params = currentURL.split('?');
+                if (params[1]) {
+                    return params[1];
+                } else {
+                    return '';
                 }
             },
             getLimitTime() {
