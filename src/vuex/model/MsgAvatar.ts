@@ -6,7 +6,7 @@ export default class MsgAvatar {
 
     constructor (data: any) {
         this.email = data.email || '';
-        this.nickname = data.name || '';
+        this.nickname = data.nickname || '';
         this.bgColor = data.bgColor || '';
         this.isLogin = data.isLogin || false;
     }
