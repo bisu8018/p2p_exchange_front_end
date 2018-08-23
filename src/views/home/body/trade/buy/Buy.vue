@@ -14,7 +14,7 @@
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block"> From {{ currentOrder.merchantNickname }}</div>
+                <div class="d-inline-block"> From {{ counterPartyNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -53,22 +53,22 @@
             </v-flex>
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
-                <span v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired' && currentOrder.status === 'unpaid'"
+                    <span v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired' && currentOrder.status === 'unpaid'"
                       class="mb-3">
-                    <!--unpaid 상태 일때-->
-                    {{ $str("paymentExplain1") }}
-                    <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
-                    <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
-                    {{ $str("paymentExplain2") }}
+                        <!--unpaid 상태 일때-->
+                        {{ $str("paymentExplain1") }}
+                        <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
+                        <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
+                        {{ $str("paymentExplain2") }}
 
-                    <!-- 닉네임-->
-                    {{ currentOrder.merchantNickname }}
-                    {{ $str("paymentExplain3") }}
+                        <!-- 닉네임-->
+                        {{ counterPartyNickname }}
+                        {{ $str("paymentExplain3") }}
 
-                    <!-- 지불기간-->
-                    <span class="color-green">{{  limitTime  }}</span>
-                    {{ $str("paymentExplain4") }}
-                </span>
+                        <!-- 지불기간-->
+                        <span class="color-green">{{  limitTime  }}</span>
+                        {{ $str("paymentExplain4") }}
+                    </span>
                     <!--buying 상태 일때-->
                     <span v-if="currentOrder.status === 'paid'" class="mb-2">
                     {{ $str("buyingExplain1") }}
@@ -77,8 +77,8 @@
                     <span class="color-orange-price">{{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }} {{ currentOrder.cryptocurrency }}</span>
                     {{ $str("buyingExplain2") }}
 
-                        <!--{{ currentOrder.merchantNickname }} 닉네임-->
-                    {{ currentOrder.merchantNickname }}
+                        <!--{{ counterPartyNickname }} 닉네임-->
+                    {{ counterPartyNickname }}
                     {{ $str("buyingExplain3") }}
                     </span>
 
@@ -245,6 +245,16 @@
             currentOrder() {
                 return MainRepository.TradeProcess.getCurrentOrder();
             },
+            counterPartyNickname() {    //상대방 닉네임 GET
+                let merchantMemberNo = this.currentOrder.merchantMemberNo;
+                let myNickname = MainRepository.MyInfo.getUserInfo().nickname;
+
+                if( merchantMemberNo === myNickname){
+                    return this.currentOrder.merchantNickname; //판매자 닉네임
+                }else{
+                    return this.currentOrder.customerNickname; //고객 닉네임
+                }
+            },
             getOrderNumber() {
                 let orderNoDigits = this.orderNo.length;
                 let zeroDigits = 8 - orderNoDigits;
@@ -255,9 +265,6 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
-        },
-        beforeCreate() {
-
         },
         created() {
             // 로그인 확인 -> Login 으로
@@ -278,9 +285,9 @@
                 //부적합한 유저 접근시 거래소 강제 이동
                 let myInfo = MainRepository.MyInfo.getUserInfo();
                 let tradeType = this.currentOrder.tradeType;
-                let merchantMemberNo =  this.currentOrder.merchantMemberNo;
-                if((tradeType === 'buy' && merchantMemberNo !== myInfo.memberNo) ||
-                    (tradeType === 'sell' && merchantMemberNo === myInfo.memberNo) ){
+                let merchantMemberNo = this.currentOrder.merchantMemberNo;
+                if ((tradeType === 'buy' && merchantMemberNo !== myInfo.memberNo) ||
+                    (tradeType === 'sell' && merchantMemberNo === myInfo.memberNo)) {
                     MainRepository.router().goTradeCenter();
                 }
 
