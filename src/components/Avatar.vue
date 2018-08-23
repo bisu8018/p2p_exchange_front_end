@@ -11,7 +11,6 @@
 
 <script>
     import MainRepository from "../vuex/MainRepository";
-    import MemberInfo from "../vuex/model/MemberInfo"
 
     export default {
         name: "Avatar",
@@ -53,6 +52,9 @@
             msgAvatar() {
                 this.bgColor = MainRepository.Message.msgAvatar().get().bgColor;
                 this.name = MainRepository.Message.msgAvatar().get().name;
+                if(this.chat === 'sub'){
+                    this.loginColor = MainRepository.Message.msgAvatar().get().isLogin ? '#59D817' : '#c8c8c8';
+                }
                 return MainRepository.Message.msgAvatar().get();
             },
         },
@@ -86,7 +88,8 @@
                             _msgAvatar.name,
                             _msgAvatar.bgColor,
                             _msgAvatar.isLogin
-                        )
+                        );
+                        console.log(_msgAvatar)
                     } else {
                         // 로그인 상태 요청
                         MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
@@ -99,14 +102,17 @@
                             if (this.chat === 'main') {
                                 MainRepository.Message.msgAvatar().set({
                                     email: this.email,
-                                    name: self.name,
-                                    bgColor: self.bgColor
+                                    name: this.name,
+                                    bgColor: this.bgColor
                                 })
                             }
                             this.initInterval();
                         });
                     }
                 }
+            },
+            setSub(){
+
             },
             setAvatar(name, bgColor, isLogin) {
                 this.name = name;
@@ -129,9 +135,10 @@
                 }, (result) => {
                     if (this.chat === 'main') {
                         MainRepository.Message.msgAvatar().update({ isLogin: result })
-                    } else {
-                        this.loginColor = result ? '#59D817' : '#c8c8c8';
+
                     }
+                        this.loginColor = result ? '#59D817' : '#c8c8c8';
+
                 });
             },
         }
