@@ -238,59 +238,10 @@
                 new Balance(''),
                 new Balance('')
             ],
-            detailLists: [
-                {
-                    type: 'Withdrawal',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.1,
-                    status: 'Under examination',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-                {
-                    type: 'Sell',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.2,
-                    status: 'Completed',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-                {
-                    type: 'Buy',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.01,
-                    status: 'Completed',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-                {
-                    type: 'Deposit',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.03,
-                    status: 'Under examination',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-            ],
+            detailLists: [],
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
-
+            balanceInterval: {},
         }),
         computed: {
             isMobile() {
@@ -320,9 +271,15 @@
             MainRepository.MarketPrice.load(() => {
                 MainRepository.Balance.loadBalances(() => {});
             });
-        },
-        mounted() {
 
+            this.balanceInterval = setInterval(() => {
+                MainRepository.MarketPrice.load(() => {
+                    MainRepository.Balance.loadBalances(() => {});
+                });
+            }, 5000);
+        },
+        beforeDestroy() {
+            clearInterval(this.balanceInterval);
         },
         methods: {
             loadTotalEstimatedValue() {
