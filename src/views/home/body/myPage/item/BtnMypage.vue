@@ -1,12 +1,17 @@
 <template>
-    <a class="btn-mypage" @click="onBtnClicked">{{ txt }}</a>
+    <a class="btn-mypage" :class="{ noBtnCss : noBtn }"
+       @click="onBtnClicked">{{ txt }}</a>
 </template>
 
 <script>
     export default {
         name: "btn-mypage",
         props: {
-            txt: {}
+            txt: {},
+            noBtn: {
+                type: Boolean,
+                default: ()=> false
+            }
         },
         methods: {
             onBtnClicked(item) {
@@ -58,6 +63,18 @@
         .btn-mypage:hover {
             opacity: .6;
         }
+    }
+
+    .noBtnCss {
+        color: #9294a6 !important;
+        background-color: transparent !important;
+        cursor: default;
+    }
+
+    .noBtnCss:hover {
+        opacity: 1;
+        color: #9294a6 !important;
+        background-color: transparent !important;
     }
 
 </style>

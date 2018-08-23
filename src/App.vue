@@ -1636,6 +1636,14 @@
             margin-top: 12px;
         }
 
+        .payment-toggle {
+            margin-top: 24px;
+        }
+
+        .btn-wrapper span {
+            margin-top: 12px;
+        }
+
     }
 
     /* MyInfo Item CSS END */
