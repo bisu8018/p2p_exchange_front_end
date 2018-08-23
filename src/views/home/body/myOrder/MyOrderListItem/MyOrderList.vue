@@ -85,9 +85,11 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
     import {abUtils} from '@/common/utils';
-    export default {
+
+    export default Vue.extend({
         name: "MyOrderList",
         props : {
             orderlist : {},
@@ -111,16 +113,13 @@
                 this.$router.push(userpage);
             },
             goTrade(){
-                let tradePage;
                 switch (this.orderlist.tradeType) {
                     case 'buy':
-                        tradePage = "/sell?"+this.orderlist.orderNo
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
                         break;
 
                     case 'sell':
-                        tradePage = "/buy?"+this.orderlist.orderNo
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
                         break;
                 }
             }
@@ -149,7 +148,7 @@
             }
 
         },
-    }
+    })
 </script>
 
 <style scoped>
