@@ -89,7 +89,6 @@
                             _msgAvatar.bgColor,
                             _msgAvatar.isLogin
                         );
-                        console.log(_msgAvatar)
                     } else {
                         // 로그인 상태 요청
                         MainRepository.Users.getOtherUsers(this.email, (userInfo) => {

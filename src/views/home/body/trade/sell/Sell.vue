@@ -307,13 +307,12 @@
                 return MainRepository.State.isMobile();
             },
             onConfirm(pw) {
-                let self = this;
                 MainRepository.TradeProcess.onConfirm({
-                    orderNo: self.orderNo,
+                    orderNo: this.orderNo,
                     tradePassword: pw
-                }, function (result) {
-                    self.getOrderData();
-                    self.onClose();
+                }, (result) => {
+                    this.onClose();
+                    this.currentOrder();
                 });
 
             },

@@ -197,13 +197,12 @@
                 return MainRepository.State.isMobile();
             },
             onPost() {
-                let self = this;
                 let tmpValue = this.inputValue.trim();
 
                 if(tmpValue !== ''){
                     MainRepository.Message.postMsg(this.inputValue, () => {
-                        self.updateMsg();
-                        self.inputValue = '';
+                        this.inputValue = '';
+                        this.updateMsg();
                         this.scrollBottom();
                     });
                 }
