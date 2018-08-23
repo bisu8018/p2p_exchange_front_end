@@ -732,6 +732,7 @@ export default {
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
+                // 알람용
                 if (isSimpleItem) {
                     myTradeController.setMyUnpaidOrderItems(myOrderList);
                 } else {
@@ -789,7 +790,6 @@ export default {
         getPage(){
             return myTradeController.getMyOrderItems();
         },
-
     },
     AD : {
         postAD: function (data : any, callback: any) {
