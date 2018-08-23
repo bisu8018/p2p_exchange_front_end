@@ -5,6 +5,7 @@ import Withdraw from "@/vuex/model/Withdraw";
 
 export default class BalanceController {
     store: Store<any>;
+    processingTime: string;
 
     constructor (vuexStore: Store<any>) {
         this.store = vuexStore
