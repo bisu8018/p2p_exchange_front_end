@@ -73,7 +73,6 @@
             OrderLists() {
                 return MainRepository.MyOrder.getPage();
             }
-
         },
         data: () => ({
             pageSize : 10,

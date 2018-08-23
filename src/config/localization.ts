@@ -2638,9 +2638,9 @@ const strings = new Map([
         CN: '请等一分钟。',
         HK: '請等一分鐘。'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Please pay', {
+        KOR: '지불 요청',
+        ENG: 'Please pay',
         CN: '',
         HK: ''
     }],

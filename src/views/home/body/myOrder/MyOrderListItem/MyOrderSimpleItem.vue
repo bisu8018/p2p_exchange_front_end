@@ -1,16 +1,16 @@
 <template>
     <v-layout class="my-order-simple_wrapper" row @click="goTradePage">
         <!--avatar-->
-        <avatar :email='data.email'></avatar>
+        <avatar useMemberInfo :member="data.counterParty"/>
         <!-- merchant 정보-->
         <div class="ml-3">
             <h5 class="color-darkgray">
                 <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
-                {{ data.tradeType }} | {{ data.cryptocurrency }} | Total Price: {{ data.price }}
+                {{ $str(data.orderTradeType) }} | {{ data.cryptocurrency }} | {{ $str('TotalPrice') }}: {{ data.price }}
                 <!--Buy BTC Total Price: 200 CNY-->
             </h5>
             <h5>
-                Please pay - {{ limitTime }}
+                {{ $str('Please pay') }} - {{ limitTime }}
             </h5>
         </div>
         <span v-if="data.unreadMessageCount !== 0" class="badge">{{ data.unreadMessageCount }}</span>
@@ -52,7 +52,7 @@
             },
             goTradePage(){
                 let tradePage;
-                switch (this.data.tradeType) {
+                switch (this.data.orderTradeType) {
                     case 'buy':
                         tradePage = "/buy?"+this.data.orderNo;
                         this.$router.push(tradePage);
