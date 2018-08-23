@@ -10,7 +10,7 @@
 
             <!-- 결제 수단 Select -->
             <div class="p-relative my-4">
-                <select class="comp-selectbox h6" v-model="type" @change="onChangeSelect" :disabled="edit">
+                <select class="comp-selectbox h6" v-model="type" :disabled="edit">
                     <option value="" disabled selected hidden>{{ $str('paymentMethodSelectboxPlaceholder') }}</option>
                     <option value="bank">{{ $str("bankAccountText") }}</option>
                     <option value="alipay">{{ $str("alipayText") }}</option>
@@ -249,9 +249,17 @@
                     return this.typeData;
                 },
                 set(value) {
-                    this.typeData = value;
-                    return value;
-
+                    if (value === 'alipay') {
+                        console.log(value);
+                        this.typeData = 'alipay';
+                    } else if (value === 'wechat') {
+                        this.typeData = 'wechat';
+                    } else if (value === 'bank') {
+                        this.typeData = 'bank';
+                    } else {
+                        this.typeData = '';
+                    }
+                    return this.typeData;
                 }
             }
         },
@@ -271,9 +279,6 @@
 
             },
             onClearData() {
-
-            },
-            onChangeSelect() {
 
             },
             onCheckBankAccount() {
