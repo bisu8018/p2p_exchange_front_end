@@ -3,6 +3,7 @@ import User from "@/vuex/model/Account";
 import MainRepository from "@/vuex/MainRepository";
 import PaymentMethod from "@/vuex/model/PaymentMethod.ts"
 import axios from "axios";
+import IdVerification from "@/vuex/model/IdVerification";
 
 export default {
     Account: {
@@ -162,6 +163,15 @@ export default {
         // 유저 신분증/여권 인증 정보
         idVerification: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('idverification', 'GET', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
+        // 유저 신분증/여권 인증 정보 POST
+        postIdVerification: function (email: string, _idverification: IdVerification, callback: any) {
+            AxiosService._requestWithBodyAndEmail('idverification', 'POST', _idverification,
                 function (data: any) {
                     callback(data);
                 },

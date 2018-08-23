@@ -225,15 +225,23 @@ export default {
             AccountService.Verification.idVerification({
                 email: instance.MyInfo.getUserInfo().email
             }, function (result) {
-                let idVerification = new IdVerification(result);
-                callback(idVerification);
+                let _idVerification = new IdVerification('');
+
+                for (let i = 0; i < result.length; i++) {
+                    let idVerification_tmp = result[i];
+                    if (idVerification_tmp.type === 'passport') {
+                        _idVerification = new IdVerification(idVerification_tmp);
+                    }
+                }
+
+                callback(_idVerification);
             })
         },
-        // setPaymentMethod: function (paymentType: string, email: string, callback: any){
-        //     AccountService.Account.addPaymentMethod(paymentType, email, function (result) {
-        //         callback(result);
-        //     })
-        // },
+        postIdVerification: function (email: string, idVerification: IdVerification, callback: any) {
+            AccountService.Verification.postIdVerification(email, idVerification, function(result) {
+                callback(result);
+            })
+        },
         setPaymentMethod: function (email: string, paymentType: any, callback: any){
             AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
                 callback(result);
