@@ -171,7 +171,7 @@
 
             <!-- footer, 버튼 영역 -->
             <div class="dialog--footer">
-                <button class="btn-rounded-white text-white-hover btn-delete" @click="onDelete"><h6 class="color-red">{{ $str("delete") }}</h6></button>
+                <button class="btn-rounded-white text-white-hover btn-delete" @click="onDelete" v-if="edit"><h6 class="color-red">{{ $str("delete") }}</h6></button>
                 <button class="btn-rounded-white text-white-hover" @click="onClose"><h6>{{ $str("cancel") }}</h6></button>
                 <button class="btn-rounded-blue btn-blue-hover" @click="onDone"><h6>{{ $str("Done") }}</h6></button>
             </div>
