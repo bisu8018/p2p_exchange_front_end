@@ -246,8 +246,8 @@
     }
 
     .pagination-wrapper {
-        max-width: 400px;
-        margin: auto;
+        max-width: 360px;
+        margin: 48px auto 24px;
         text-align: center;
     }
 </style>
