@@ -15,7 +15,7 @@
                     <!-- 닉네임 -->
                     <div class="d-flex">
                         <h5 class="color-blue text-white-hover c-pointer" @click="onNicknameClick">
-                            {{user.nickname}} ( {{user.volumeAvailable}} | {{user.completionRate}}%)
+                            {{user.nickname}} ( {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} | {{user.completionRate}}%)
                         </h5>
                         <!-- user의 rank 이미지-->
                         <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -35,7 +35,7 @@
                     <!-- Available volume -->
                     <ul>
                         <li>{{$str("Available")}} :</li>
-                        <li>{{user.volumeAvailable}} {{user.cryptocurrency}}</li>
+                        <li>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</li>
                     </ul>
 
                     <!-- Limits -->
@@ -106,7 +106,7 @@
                             </a>
 
                             <h5 class="color-darkgray medium">
-                                {{$str("Available")}} {{user.volumeAvailable}} {{user.cryptocurrency}}
+                                {{$str("Available")}} {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}
                             </h5>
                         </v-flex>
                     </v-layout>
@@ -160,7 +160,7 @@
                             </h5>
                         </v-flex>
                         <v-flex xs4 offset-xs1 text-xs-right>
-                            <h5>{{user.volumeAvailable}} {{user.cryptocurrency}}</h5>
+                            <h5>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</h5>
                         </v-flex>
                     </v-layout>
                     <!-- Limits -->
@@ -293,7 +293,7 @@
                     </v-layout>
                 </v-flex>
                 <!--available-->
-                <v-flex md2 text-md-left>{{user.volumeAvailable}} {{user.cryptocurrency}}</v-flex>
+                <v-flex md2 text-md-left>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</v-flex>
                 <!--limits-->
                 <v-flex md2 text-md-left>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</v-flex>
                 <!--price-->
@@ -350,7 +350,7 @@
                     <div class="sprite-img ic-certified ml-2"></div>
                     <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
                   </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
                 </span>
                             </v-layout>
                         </v-flex>
@@ -391,7 +391,7 @@
                                 <div class="sprite-img ic-certified ml-2"></div>
                                 <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
                               </a>
-                              <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                              <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
                             </span>
                             </v-layout>
                         </v-flex>
