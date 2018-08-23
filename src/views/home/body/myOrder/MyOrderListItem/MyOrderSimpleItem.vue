@@ -20,6 +20,7 @@
 <script>
     import Avatar from '@/components/Avatar.vue';
     import {getLimitTime} from "../../../../../common/common";
+    import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: "my-order-simple-item",
@@ -51,16 +52,14 @@
                 this.$router.push("/myOrder");
             },
             goTradePage(){
-                let tradePage;
+                this.$emit('click');
                 switch (this.data.orderTradeType) {
                     case 'buy':
-                        tradePage = "/buy?"+this.data.orderNo;
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(true, this.data.orderNo);
                         break;
 
                     case 'sell':
-                        tradePage = "/sell?"+this.data.orderNo;
-                        this.$router.push(tradePage);
+                        MainRepository.router().goBuyOrSell(false, this.data.orderNo);
                         break;
                 }
             },
