@@ -58,9 +58,8 @@ export default class Order {
     };
 
 
-    update (data: any){ console.log(data);
-        if(data.status !== undefined && data.status !== null) this.status = data.status;
-        console.log(data);
+    update (data: any){
+        if(data !== undefined && data !== null) this.status = data;
     }
 
     transCryptocurrency(cryptocurrency){
