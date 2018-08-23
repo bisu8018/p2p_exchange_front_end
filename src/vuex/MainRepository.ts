@@ -230,7 +230,7 @@ export default {
 
                 for (let i = 0; i < result.length; i++) {
                     let idVerification_tmp = result[i];
-                    if (idVerification_tmp.type === 'passport') {
+                    if (idVerification_tmp.type === 'id') {
                         _idVerification = new IdVerification(idVerification_tmp);
                     }
                 }
