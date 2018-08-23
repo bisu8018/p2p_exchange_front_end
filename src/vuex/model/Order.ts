@@ -1,4 +1,5 @@
 import PaymentMethod from './PaymentMethod';
+import MsgAvatar from "@/vuex/model/MsgAvatar";
 
 export default class Order {
     adNo : number;
@@ -25,7 +26,7 @@ export default class Order {
     merchantNickname : string;
     customerNickname : string;
     appealList : object;
-
+    counterParty : MsgAvatar;
 
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
@@ -55,6 +56,7 @@ export default class Order {
         this.merchantNickname = data.merchantNickname || '';
         this.customerNickname = data.customerNickname || '';
         this.appealList = data.appealList || '';
+        this.counterParty = data.counterParty || new MsgAvatar('');
     };
 
 

@@ -58,10 +58,10 @@
         </v-flex>
         <v-flex  md2 text-md-left>
           <span class="color-green bold mr-2" v-if="orderlist.tradeType === 'buy'">
-                  {{$str("sell")}}
+                  {{$str("buy")}}
           </span>
           <span class=" color-orange-price bold mr-2" v-if="orderlist.tradeType === 'sell'">
-                        {{$str("buy")}}
+                        {{$str("sell")}}
           </span>
           <span class="mr-2">{{orderlist.coinCount}}</span>
           <span>{{orderlist.cryptocurrency}}</span>
@@ -73,11 +73,11 @@
         </v-flex>
         <v-flex md2>
           <v-layout align-center>
-            <div class="sprite-img mr-2" :class="statusImg"></div>
+            <div class="mr-2" :class="statusImg"></div>
             <div>{{orderlist.status}}</div>
             <v-spacer></v-spacer>
             <span class="color-blue c-pointer text-white-hover" @click="goUserPage()">
-              {{orderlist.nickname}}
+              {{orderlist.counterParty.nickname}}
             </span>
           </v-layout>
         </v-flex>
@@ -116,12 +116,12 @@
                 let tradePage;
                 switch (this.orderlist.tradeType) {
                     case 'buy':
-                        tradePage = "/sell?"+this.orderlist.orderNo
+                        tradePage = "/buy?"+this.orderlist.orderNo
                         this.$router.push(tradePage);
                         break;
 
                     case 'sell':
-                        tradePage = "/buy?"+this.orderlist.orderNo
+                        tradePage = "/sell?"+this.orderlist.orderNo
                         this.$router.push(tradePage);
                         break;
                 }
@@ -130,23 +130,23 @@
         mounted(){
             switch (this.orderlist.status) {
                 case 'unpaid':
-                    this.statusImg = 'ic-unpaid';
+                    this.statusImg = 'ic-unpaid sprite-img ';
                     break;
 
                 case 'paid':
-                    this.statusImg = 'ic-success-sm';
+                    this.statusImg = 'ic-paid-sm sprite-img2';
                     break;
 
                 case 'cancelled':
-                    this.statusImg = 'ic-cancel-sm';
+                    this.statusImg = 'ic-cancel-sm sprite-img ';
                     break;
 
                 case 'complaining':
-                    this.statusImg = 'ic-success-sm';
+                    this.statusImg = 'ic-appeal-sm sprite-img2';
                     break;
 
                 case 'complete':
-                    this.statusImg = 'ic-success-sm';
+                    this.statusImg = 'ic-success-sm sprite-img ';
                     break;
             }
 
