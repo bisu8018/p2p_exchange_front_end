@@ -2644,29 +2644,35 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['appealReason1', {
+        KOR: '상대방이 지불하지 않음',
+        ENG: 'The counterparty doesn’t pay',
+        CN: '对方无支付',
+        HK: '對方無支付'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['appealReason2', {
+        KOR: '상대방이 보내주지 않음',
+        ENG: 'The counterparty doesn’t release',
+        CN: '对方无传送',
+        HK: '對方無傳送'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['appealReason3', {
+        KOR: '응답 없음',
+        ENG: 'No answer',
+        CN: '无答应',
+        HK: '無答應'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['appealReason4', {
+        KOR: '사기',
+        ENG: 'Cheating',
+        CN: '诈骗',
+        HK: '詐騙'
+    }],
+    ['appealReason5', {
+        KOR: '기타',
+        ENG: 'Other',
+        CN: '其他',
+        HK: '其他'
     }],
 ])
 

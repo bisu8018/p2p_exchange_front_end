@@ -54,7 +54,7 @@
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
                     <span v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired' && currentOrder.status === 'unpaid'"
-                      class="mb-3">
+                          class="mb-3">
                         <!--unpaid 상태 일때-->
                         {{ $str("paymentExplain1") }}
                         <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
@@ -98,7 +98,7 @@
                     <!-- Complaining 일 때 -->
                     <span v-if="currentOrder.status === 'complaining'">
                         {{ $str("appealCodeExplain") }}
-                        {{ appealCode }} ,
+                        {{ getAppeal.appealNo }} ,
                     </span>
 
                     {{ $str("referenceText") }} :
@@ -184,7 +184,7 @@
 
             <!--이의제기 취소 버튼 (appeal 상태일때)-->
             <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                    v-if="currentOrder.status === 'complaining'" :class="{'pt-4' : isMobile()}">
+                    v-if="currentOrder.status === 'complaining' && checkAppealBtn() === true " :class="{'pt-4' : isMobile()}">
                 <a class="color-blue text-white-hover"
                    @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
             </v-flex>
@@ -234,7 +234,6 @@
         data: () => ({
             orderNo: 0,
             modalType: '',
-            appealCode: 977057,
             showModal: false,
             isInitCompleted: false,
             limitTime: '',
@@ -249,9 +248,9 @@
                 let merchantMemberNo = this.currentOrder.merchantMemberNo;
                 let myNickname = MainRepository.MyInfo.getUserInfo().nickname;
 
-                if( merchantMemberNo === myNickname){
+                if (merchantMemberNo === myNickname) {
                     return this.currentOrder.merchantNickname; //판매자 닉네임
-                }else{
+                } else {
                     return this.currentOrder.customerNickname; //고객 닉네임
                 }
             },
@@ -265,8 +264,12 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
+            getAppeal() {
+                return this.currentOrder.appealList[this.currentOrder.appealList.length-1];
+            },
         },
         created() {
+
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
@@ -416,11 +419,17 @@
                 MainRepository.TradeProcess.onAppeal(
                     data
                     , function (result) {
-                        self.appealCode = result;
                         self.getOrderStatus();
                         self.onClose();
                     });
             },
+            checkAppealBtn () {
+                if(this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo){
+                    return true
+                } else{
+                    return false
+                }
+            }
         },
 
     });

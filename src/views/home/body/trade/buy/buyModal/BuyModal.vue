@@ -42,11 +42,11 @@
                     <!--이의제기 이유 selectbox-->
                     <div class="p-relative mb-4">
                         <select class="comp-selectbox h6" id="appealReasonSelectbox" v-model="appealReason">
-                            <option value="notPaid">The counterparty doesn’t pay</option>
-                            <option value="notRelease">The counterparty doesn’t release</option>
-                            <option value="noAnswer">No answer</option>
-                            <option value="cheating">Cheating</option>
-                            <option value="other">Other</option>
+                             <option value="notPaid">{{$str("appealReason1")}}</option>
+                            <option value="notRelease">{{$str("appealReason2")}}</option>
+                            <option value="noAnswer">{{$str("appealReason3")}}</option>
+                            <option value="cheating">{{$str("appealReason4")}}</option>
+                            <option value="other">{{$str("appealReason5")}}</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
                     </div>
@@ -85,7 +85,7 @@
                     </button>
                 </span>
 
-                <!--type이 appeal 상태 일 경우 확인 버튼-->
+                <!--type이 cancelAppeal 상태 일 경우 확인 버튼-->
                 <span v-if="type === 'cancelAppeal'">
                    <button @click="onCancelAppeal" class="h6 btn-rounded-blue btn-blue-hover">
                         {{$str("cancelModalButton")}}
