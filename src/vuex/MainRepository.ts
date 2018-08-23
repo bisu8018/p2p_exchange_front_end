@@ -248,6 +248,11 @@ export default {
                 callback(result);
             })
         },
+        deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
+            AccountService.Account.deletePaymentMethod(email, paymentMethods, function (result) {
+                callback(result);
+            })
+        },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.MyInfo.getUserInfo().email

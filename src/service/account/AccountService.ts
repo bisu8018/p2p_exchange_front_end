@@ -124,7 +124,7 @@ export default {
                 function () {
                 })
         },
-        //결제수단 설정
+        // 결제수단 설정
         addPaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
             let url = 'payment/';
             url += paymentMethod.type;
@@ -140,10 +140,23 @@ export default {
                 function () {
                 })
         },
+        // 결제수단 삭제
+        deletePaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
 
+            if (paymentMethod.type === 'bank') {
+                paymentMethod.type = 'bankaccount';
+            }
+
+            AxiosService._requestWithBody('payment', 'DELETE', paymentMethod,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
         //패스워드 변경
         changePassword: function (data: any, callback: any) {
-            AxiosService._requestWithBody('member/password', 'PUT', data,
+            AxiosService._requestWithBodyAndEmail('member/password', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },
