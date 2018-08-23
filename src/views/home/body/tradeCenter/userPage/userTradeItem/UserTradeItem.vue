@@ -517,6 +517,7 @@
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
+                    this.warning_toValue = false;
                     //fromvalue 계산해줌
                     this.fromValue = this.toValue / this.user.fixedPrice;
                     this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
@@ -535,6 +536,7 @@
                     if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
+                    this.warning_fromValue = false;
                     //toValue 계산해줌
                     this.toValue = this.fromValue * this.user.fixedPrice;
                     this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
