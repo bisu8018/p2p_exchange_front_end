@@ -108,7 +108,7 @@
         methods: {
             // 전체 값 체크
             onCheck() {
-                if (this.onCheckEmail() && this.verify && this.onCheckPassword() && this.onCheckTerms()) {
+                if (this.onCheckEmail() && this.verify && this.onCheckPassword() && this.onCheckTerms() && this.onCheckPasswordConfirm()) {
                     this.showModal = true;
                 }
             },

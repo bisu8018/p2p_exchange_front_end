@@ -66,6 +66,8 @@
             },
             onClose: function () {
                 this.$emit('close');
+                this.isVerified=  false;
+                this.warning_verify_terms = false
             },
         },
     }

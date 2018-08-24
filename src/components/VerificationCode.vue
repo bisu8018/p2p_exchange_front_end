@@ -10,15 +10,17 @@ onCheckVerificationCode() {
 this.verify = true;
 },
 
-필요에 따라 하기 함수 추가!
+필요에 따라  함수 추가!
 -->
+
+
 
 
 <template>
     <div class="p-relative" v-bind:class="{'pe-none' : verifyStatus === 'verified'}">
         <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4" maxlength="7"
                autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code, 'input-disabled' : verifyStatus === 'verified'}"
-               @keyup="onCheckVerificationCode">
+               @keyup="onCheckVerificationCode" @blur="onCheckVerificationCode">
         <span class="cs-click-send text-white-hover" @click="sendVerificationCode"
               v-if="verifyStatus === 'unverified'">{{$str("clickToSend")}}</span>
         <span class="cs-timer"
