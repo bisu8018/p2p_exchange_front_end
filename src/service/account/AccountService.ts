@@ -147,7 +147,7 @@ export default {
                 paymentMethod.type = 'bankaccount';
             }
 
-            AxiosService._requestWithBody('payment', 'DELETE', paymentMethod,
+            AxiosService._requestWithBodyAndEmail('payment', 'DELETE', paymentMethod,
                 function (data: any) {
                     callback(data);
                 },

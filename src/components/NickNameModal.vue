@@ -61,7 +61,7 @@
                 </button>
 
                 <!--닉네임 추가 확인 버튼-->
-                <button @click="onNickNameCheck" class="h6 btn-rounded-blue btn-blue-hover" >
+                <button @click="onNickNameCheck" class="h6 btn-rounded-blue btn-blue-hover">
                     {{$str("complete")}}
                 </button>
             </div>
