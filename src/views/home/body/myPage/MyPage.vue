@@ -163,6 +163,19 @@
             if (this.myInfo.nickname === '' || this.myInfo.nickname === null) {
                 this.showNicknameModal = true;
             }
+
+            this.$eventBus.$on('refreshMypage', (param) => {
+                switch (param) {
+                    case 'payment' : MainRepository.MyInfo.loadMyPaymentMethods(); break;
+                    case 'block' : MainRepository.MyPage.getBlockList(function (blockList) {
+                        self.blockList = blockList;
+                    }); break;
+
+                    default : break;
+                }
+            })
+
+
         },
         methods: {
             onLoginPage(num) {
