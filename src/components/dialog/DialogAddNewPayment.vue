@@ -280,7 +280,23 @@
 
             },
             onClearData() {
-
+              /*  this.paymentMethods.activeYn = 'n';
+                this.paymentMethods.alipayId = '';
+                this.paymentMethods.alipayQrCodeImgUrl = '';
+                this.paymentMethods.bankAccount = '';
+                this.paymentMethods.bankBranchInfo = '';
+                this.paymentMethods.bankName = '';
+                this.paymentMethods.memberNo = null;
+                this.paymentMethods.modifyDatetime = null;
+                this.paymentMethods.modifyMemberNo = null;
+                this.paymentMethods.ownerName = '';
+                this.paymentMethods.registerDatetime = null;
+                this.paymentMethods.registerMemberNo = null;
+                this.paymentMethods.type = '';
+                this.paymentMethods.wechatId = '';
+                this.paymentMethods.wechatQrCodeImgUrl = '';
+                this.typeData = '';
+                this.password = '';*/
             },
             onCheckBankAccount() {
 
@@ -331,7 +347,7 @@
 
             },
             onClose(item) {
-                //this.onClearData();
+                this.onClearData();
                 this.$emit('close', item);
             },
             onDone(item) {
