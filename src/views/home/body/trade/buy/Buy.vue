@@ -7,7 +7,7 @@
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 <!-- buy/sell -->
-                Buy
+                {{$str('buy')}}
                 <!-- 토큰량 -->
                 {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
                 <!-- 토큰종류-->
@@ -246,12 +246,13 @@
             },
             counterPartyNickname() {    //상대방 닉네임 GET
                 let merchantNickname = this.currentOrder.merchantNickname;
+                let customerNickname = this.currentOrder.customerNickname;
                 let customerMemberNo = this.currentOrder.customerMemberNo;
                 let myNickname = MainRepository.MyInfo.getUserInfo().nickname;
 
 
                 if (merchantNickname === myNickname) {
-                    return customerMemberNo; //판매자 닉네임
+                    return customerNickname; //판매자 닉네임
                 } else {
                     return merchantNickname; //고객 닉네임
                 }

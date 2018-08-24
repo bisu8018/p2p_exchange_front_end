@@ -62,6 +62,7 @@ this.verify = true;
             verify_warning_verification_code: "",
             verificationCode: "",
             warning_verification_code: false,
+            tmpCode : 0,
         }),
         methods: {
             // 시간 타이머 설정
@@ -82,17 +83,16 @@ this.verify = true;
             },
             // 인증코드 체크
             onCheckVerificationCode() {
-                let self = this;
                 if (this.verifyStatus === 'verifying') {
                     if (this.verificationCode === "") {
-                        self.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
-                        self.warning_verification_code = true;
+                        this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
+                        this.warning_verification_code = true;
                         return false;
-                    } else if (this.verificationCode.length >= 6) {
+                    } else if (this.verificationCode.length >= 6 && this.tmpCode !== this.verificationCode) {
                         this.checkVerificationCode();
                     }
                 }
-                self.warning_verification_code = false;
+                this.warning_verification_code = false;
                 return true;
 
             },
@@ -118,6 +118,7 @@ this.verify = true;
             //인증코드 체크
             checkVerificationCode() {
                 let self = this;
+                this.tmpCode = this.verificationCode;
                 AccountService.Account.checkVerificationCode(self.type, {
                     email: self.email,
                     code: self.verificationCode,
