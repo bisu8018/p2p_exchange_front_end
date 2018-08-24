@@ -670,10 +670,10 @@ const strings = new Map([
         HK: '最大限額'
     }],
     ['paymentWindow', {
-        KOR: '지불 기간',
-        ENG: 'Payment Window',
-        CN: '付款期限',
-        HK: '付款期限'
+        KOR: '지불 시한',
+        ENG: 'Pay limit',
+        CN: '支付时限',
+        HK: '支付時限'
     }],
     ['paymentWindowExplain', {
         KOR: '구매자는 지불 기간 내에 지불금을 이체해야 합니다. 그러지 못할 경우 거래는 자동으로 취소됩니다',
@@ -796,9 +796,9 @@ const strings = new Map([
         HK: '對方限制'
     }],
     ['counterpartyFilterPlaceholder', {
-        KOR: '상대방의 거래 성공 횟수를 입력해 주십시오',
-        ENG: 'Counterparty should complete the trade amount.',
-        CN: '对方需要决定交易数量。',
+        KOR: '해당 횟수 이상 거래 성공한 상대방만 거래 가능합니다.',
+        ENG: 'Counterparty should traded more than numbers below:',
+        CN: '对方需要成功一下交易次数：',
         HK: '對方需要決定交易數量。'
     }],
     ['counterpartyCheckbox1', {
@@ -1914,8 +1914,8 @@ const strings = new Map([
     ['paymentMethodExplain', {
         KOR: '보안상의 이유로 본인 계정만 허용됩니다. 사용 가능한 결제 수단은 구매자에게 최대 3개까지 표시됩니다.',
         ENG: 'For security reasons, only can use your own payment accounts. Available payment methods will be shown to the buyer 3 at most.',
-        CN: '为了保障账户安全，仅能用您的支付账户。可使用的支付方式最多将显示3种于对方。',
-        HK: '爲了保障帳戶安全，僅能用您的支付帳戶。可使用的支付方式最多將顯示3種於對方。'
+        CN: '为了保障账户安全，仅能用您的支付账户。可使用的支付方式于对方将显示最多3种。',
+        HK: '爲了保障帳戶安全，僅能用您的支付帳戶。可使用的支付方式於對方將顯示最多3種。'
     }],
     ['nullPaymentMethod', {
         KOR: '등록된 결제수단 없음',
@@ -2687,15 +2687,15 @@ const strings = new Map([
         HK: '其他'
     }],
     ['No Trade Records', {
-        KOR: '최근 한 달 동안 거래 내역이 없습니다',
+        KOR: '최근 30일 이내 거래 내역이 없습니다.',
         ENG: 'No Trade Records',
-        CN: '',
+        CN: '没有30日内交易记录',
         HK: ''
     }],
     ['unBlockDialogTxt', {
         KOR: '정말로 이 유저의 차단을 해제하시겠습니까?',
-        ENG: '',
-        CN: '',
+        ENG: 'Are you sure to unblock this user?',
+        CN: '您确定在黑名单解除此用户吗？',
         HK: ''
     }],
     ['Turn on email authentication', {
@@ -2705,21 +2705,21 @@ const strings = new Map([
         HK: ''
     }],
     ['turn_off_email', {
-        KOR: '',
+        KOR: '이메일 연동 해제',
         ENG: 'Turn off email authentication',
-        CN: '',
+        CN: '解除电子邮箱绑定',
         HK: ''
     }],
     ['turn_on_sms', {
-        KOR: '',
-        ENG: 'Turn on SMS',
-        CN: '',
+        KOR: '휴대폰 연동 설정',
+        ENG: 'Turn on SMS authentication',
+        CN: '绑定手机',
         HK: ''
     }],
-    ['turn_on_sms', {
-        KOR: '',
-        ENG: 'Turn off SMS',
-        CN: '',
+    ['turn_off_sms', {
+        KOR: '휴대폰 연동 해제',
+        ENG: 'Turn off SMS authentication',
+        CN: '解除绑定手机',
         HK: ''
     }],
     ['add_video', {
@@ -2741,15 +2741,15 @@ const strings = new Map([
         HK: ''
     }],
     ['Add Id verification', {
-        KOR: '아이디 인증 등록',
-        ENG: 'Add Id verification',
-        CN: '',
+        KOR: 'ID 인증 등록',
+        ENG: 'ID verification registered',
+        CN: '注册身份验证',
         HK: ''
     }],
     ['Add Advanced verification', {
         KOR: '고급 인증 등록',
-        ENG: 'Add Advanced verification',
-        CN: '',
+        ENG: 'Advanced verification registered',
+        CN: '注册高级验证',
         HK: ''
     }],
     ['Update Id', {
@@ -2759,16 +2759,16 @@ const strings = new Map([
         HK: ''
     }],
     ['Add phone', {
-        KOR: '핸드폰 번호 등록',
-        ENG: 'Add phone Number',
-        CN: '',
+        KOR: '휴대폰 번호 등록',
+        ENG: 'Mobile number registered',
+        CN: '注册手机号码',
         HK: ''
     }],
     ['인증이 진행 중입니다', {
         KOR: '인증이 진행 중입니다',
         ENG: 'Verifying',
-        CN: '验证中',
-        HK: '驗證中'
+        CN: '正在验证中',
+        HK: '正在驗證中'
     }],
     ['sending', {
         KOR: '전송 중...',
@@ -2777,7 +2777,7 @@ const strings = new Map([
         HK: '傳送中...'
     }],
     ['ALLB OTC', {
-        KOR: '',
+        KOR: 'ALLB OTC',
         ENG: 'ALLB OTC',
         CN: '埃尔比法币交易',
         HK: ''
