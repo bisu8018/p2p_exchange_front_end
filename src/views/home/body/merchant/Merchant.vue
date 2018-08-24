@@ -77,7 +77,7 @@
                 <v-flex xs12 md12 class="mb-6">
                     <!--위의 checkbox를 눌렀을때에만 버튼 활성화-->
                     <button class="pl-4 pr-4 btn-apply " :class="{'btn-blue btn-blue-hover ': isAgree, 'inactive' : !isAgree}"
-                            @click="showDialog">
+                            @click="checkValidity">
                         {{$str("ApplyNow")}}
                     </button>
                 </v-flex>
@@ -121,6 +121,8 @@
                 </v-flex>
             </v-layout>
         </v-dialog>
+
+        <div v-if="myInfo"></div>
     </div>
 
 </template>
@@ -145,6 +147,7 @@
             showSuccessModal : false,   //form 입력 성공했을때 띄우는 dialog
             alreadySuccess : false,     //이미 제출해놨을때 대체하여 띄워지는 하단부를 보여줌
             showNickNameModal : false,      //nickname modal을 띄울려면 true로.
+            runValidChk: false,
         }),
         computed: {
             myMerchantInfo() {
@@ -153,7 +156,10 @@
             setNickName(){
                 //nickname이 없으면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
-            }
+            },
+            myInfo() {
+                return MainRepository.MyInfo.getUserInfo();
+            },
         },
         created() {
             // 로그인 확인 -> Login 으로
@@ -161,7 +167,6 @@
                 MainRepository.router().goLogin();
                 return;
             }
-
             MainRepository.Merchant.loadMyMerchantInfo(function () {});
 
             // GET User Id Verification
@@ -170,15 +175,18 @@
             });
         },
         methods :{
-            showDialog(){
-                if(this.isAgree == true){
-                    //nickname설정을 해야할때
-                    if(!this.setNickName){
+            checkValidity() {
+                if (this.isAgree){
+                    if(this.myInfo.nickname === ""){
+                        this.runValidChk = true;
                         this.showNickNameModal = true;
                     }
-                    //nickname설정이 필요없을때
-                    else{
+                    else if(!this.myInfo.isIdVerified) {
+                        this.runValidChk = true;
                         this.showVeriModal = true;
+                    } else {
+                        this.runValidChk = false;
+                        this.showSuccessModal = true;
                     }
                 }
             },
@@ -189,92 +197,13 @@
                 this.showSuccessModal = true;
             },
             goDone(){
-                if (this.onCheckFirst() && this.onCheckLast() && this.onCheckIdNum()) {
-                    this.showVeriModal = false;
-                    this.showSuccessModal = true;
-                }
-            },
-
-
-
-            onCheckFirst(){
-                if (this.FirstName === "") {
-                    this.verify_warning_first= Vue.prototype.$str("Please enter your first name");
-                    this.warning_first = true;
-                    return false;
-                }
-                this.warning_first = false;
-                return true;
-            },
-            onCheckLast(){
-                if (this.LastName === "") {
-                    this.verify_warning_last= Vue.prototype.$str("Please enter your last name");
-                    this.warning_last = true;
-                    return false;
-                }
-                this.warning_last = false;
-                return true;
-
-            },
-            onCheckIdNum(){
-                if (this.IDNum === "") {
-                    this.verify_warning_IdNum= Vue.prototype.$str("Please enter your passport number");
-                    this.warning_IdNum = true;
-                    return false;
-                }
-                this.warning_IdNum = false;
-                return true;
+                this.showVeriModal = false;
+                this.showSuccessModal = true;
             },
             closeNicknameModal(){
                 this.showNickNameModal = false;
                 this.showVeriModal = true;
-            //    nickname 설정 성공시 성공했음을 알려주는 함수 전달이 필요할듯.
             },
-            //file 전송관련메서드
-            onCheckAttachmentFile() {
-                //첨부파일 타입, 확장자, 용량 체크
-                let fileInfo = this.$refs.file.files[0];
-                //let fileType = fileInfo.type.split("/")[0];
-                let fileExtension = fileInfo.type.split("/")[1];
-                let fileSize = fileInfo.size;
-                if (fileExtension != 'jpg' && fileExtension != 'png' && fileExtension != 'jpeg') {
-                    this.warning_attachment_file = true;
-                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileType');
-
-                    return false;
-                }
-                if (fileSize > 5000) {
-                    this.warning_attachment_file = true;
-                    this.verify_warning_attachment_file = Vue.prototype.$str('warningAttachmentFileSize');
-
-                    return false;
-                }
-                this.warning_attachment_file = false;
-                return true;
-                this.handleFileUpload();
-            },
-            handleFileUpload() {
-                //첨부파일 사진 등록 및 출력
-                this.file = this.$refs.file.files[0];
-                console.log(this.file);
-                let image = new Image();
-                let reader = new FileReader();
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(this.file);
-            },
-            // 첨부파일 서버 전송
-            submitFile() {
-                let formData = new FormData();
-                formData.append('file', this.file);
-            },
-            deleteFile() {
-                this.file = '';
-                this.image = '';
-            }
         },
 
     }

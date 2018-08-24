@@ -3,15 +3,20 @@
 
         <!-- 아이콘, 서브타이틀 -->
         <div class="payment-subtitle">
-            <div class="sprite-img" :class="paymentImg"></div>
-            <p>{{ paymentTxt }}</p>
+            <div v-if="data.type === 'alipay'" class="sprite-img ic-alipay"></div>
+            <div v-else-if="data.type === 'wechat'" class="sprite-img ic-wechatpay"></div>
+            <div v-else-if="data.type === 'bankaccount'" class="sprite-img ic-bank"></div>
+
+            <p v-if="data.type === 'alipay'">{{ $str('alipayText') }}</p>
+            <p v-else-if="data.type === 'wechat'">{{ $str('wechatPayText') }}</p>
+            <p v-else-if="data.type === 'bankaccount'">{{ $str('bankAccountText') }}</p>
         </div>
 
         <!-- 내용 -->
         <div class="payment-caption">
-            <span>
-                {{ id }} {{ data.ownerName }}
-            </span>
+            <span v-if="data.type === 'alipay'"> {{ data.alipayId }} {{ data.alipayId }}  {{ data.ownerName }} </span>
+            <span v-else-if="data.type === 'wechat'"> {{ data.wechatId }} {{ data.ownerName }} </span>
+            <span v-else-if="data.type === 'bankaccount'"> {{ data.bankName }} {{ data.bankAccount }} {{ data.bankBranchInfo }} {{ data.ownerName }} </span>
         </div>
 
         <!-- 버튼, 토글 등 -->
@@ -53,7 +58,7 @@
                     }
                 },
                 set(value) {
-
+                    return value;
                 }
             }
         },
@@ -87,24 +92,24 @@
                 MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
                 });
             },
-            paymentType() {
-                if (this.data.type === 'alipay') {
-                    this.paymentImg = 'ic-alipay';
-                    this.paymentTxt = this.$str('alipayText');
-                    this.id = this.data.alipayId;
-                } else if (this.data.type === 'wechat') {
-                    this.paymentImg = 'ic-wechatpay';
-                    this.paymentTxt = this.$str('wechatPayText');
-                    this.id = this.data.wechatId;
-                } else if (this.data.type === 'bankaccount') {
-                    this.paymentImg = 'ic-bank';
-                    this.paymentTxt = this.$str('bankAccountText');
-                    this.id = this.data.bankAccount;
-                }
-            }
+            // paymentType() {
+            //     if (this.data.type === 'alipay') {
+            //         this.paymentImg = 'ic-alipay';
+            //         this.paymentTxt = this.$str('alipayText');
+            //         this.id = this.data.alipayId;
+            //     } else if (this.data.type === 'wechat') {
+            //         this.paymentImg = 'ic-wechatpay';
+            //         this.paymentTxt = this.$str('wechatPayText');
+            //         this.id = this.data.wechatId;
+            //     } else if (this.data.type === 'bankaccount') {
+            //         this.paymentImg = 'ic-bank';
+            //         this.paymentTxt = this.$str('bankAccountText');
+            //         this.id = this.data.bankAccount;
+            //     }
+            // }
         },
         created() {
-            this.paymentType();
+
         }
     }
 </script>

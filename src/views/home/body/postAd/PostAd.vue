@@ -267,71 +267,90 @@
             </v-flex>
 
             <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
-            <!--알리페이 결제-->
-            <v-flex xs12 md8>
-                <div class="text-xs-left display-flex mb-4" v-if="getAlipay.activeYn === 'y' ">
-                    <v-flex xs1 pl-0 pr-0>
-                        <span @click="onToggle('alipay')">
+
+
+            <div class="payment-wrapper">
+
+                <!--알리페이 결제-->
+                <ul v-if="getAlipay.activeYn === 'y'">
+                    <li>
+                         <span @click="onToggle('alipay')">
                             <toggle :toggle="alipay_toggle_use" class="c-pointer"></toggle>
                         </span>
-                    </v-flex>
-                    <v-flex xs11>
-                        <v-flex xs5 pl-0 pr-0 class="vertical-center ">
-                            <div class="sprite-img ic-alipay d-inline-block"></div>
-                            <span
-                                    class="ml-2 mr-1 color-darkgray absolute">{{ $str("alipayText") }} : </span>
-                        </v-flex>
-                        <v-flex xs7 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{ getAlipay.alipayId }}</div>
-                        </v-flex>
-                    </v-flex>
-                </div>
-            </v-flex>
+                    </li>
+                    <li>
+                        <div class="sprite-img ic-alipay d-inline-block mr-2"></div><span class="color-darkgray">{{ $str("alipayText") }} : </span>{{ getAlipay.alipayId }}
+                    </li>
+                </ul>
 
-            <!--위챗페이 결제-->
-            <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4" v-if="getWechat.activeYn === 'y'">
-                    <v-flex xs1 pl-0 pr-0>
+                <!--위챗페이 결제-->
+                <ul v-if="getWechat.activeYn === 'y'">
+                    <li>
                         <span @click="onToggle('wechatPay')">
                             <toggle :toggle="wechat_toggle_use" class="c-pointer"></toggle>
                         </span>
-                    </v-flex>
-                    <v-flex xs11>
-                        <v-flex xs5 pl-0 pr-0 class="vertical-center">
-                            <div class="sprite-img ic-wechatpay d-inline-block"></div>
-                            <span
-                                    class="ml-2 mr-1 color-darkgray absolute">{{ $str("wechatPayText") }} : </span>
-                        </v-flex>
-                        <v-flex xs6 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{ getWechat.wechatId }}</div>
-                        </v-flex>
-                    </v-flex>
+                    </li>
+                    <li>
+                        <div class="sprite-img ic-wechatpay d-inline-block mr-2"></div><span class="color-darkgray">{{ $str("wechatPayText") }} :</span> {{ getWechat.wechatId }}
+                    </li>
+                </ul>
 
-                </div>
-            </v-flex>
-
-            <!--은행 계좌 결제-->
-            <v-flex xs12 md8 offset-md4>
-                <div class="text-xs-left display-flex mb-4 " v-if="getBank.activeYn === 'y'">
-                    <v-flex xs1 pl-0 pr-0>
+                <!--은행 계좌 결제-->
+                <ul v-if="getBank.activeYn === 'y'">
+                    <li>
                         <span @click="onToggle('bankAccount')">
                             <toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>
                         </span>
-                    </v-flex>
-                    <v-flex xs11>
-                        <v-flex xs5 pl-0 pr-0 class="vertical-center">
-                            <div class="sprite-img ic-bank d-inline-block"></div>
-                            <span
-                                    class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>
-                        </v-flex>
-                        <v-flex xs6 pl-0 pr-0 class="vertical-center ">
-                            <div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}
-                                {{ getBank.bankAccount }}
-                            </div>
-                        </v-flex>
-                    </v-flex>
-                </div>
-            </v-flex>
+                    </li>
+                    <li>
+                        <div class="sprite-img ic-bank d-inline-block mr-2"></div>
+                        <span class="color-darkgray">{{ $str("bankAccountText") }} : </span> {{ getBank.bankName }}, {{ getBank.bankBranchInfo }} {{ getBank.bankAccount }}
+                    </li>
+                </ul>
+            </div>
+
+
+            <!--<v-flex xs12 md8 offset-md4>-->
+                <!--<div class="text-xs-left display-flex mb-4" >-->
+                    <!--<v-flex xs1 pl-0 pr-0>-->
+
+                    <!--</v-flex>-->
+                    <!--<v-flex xs11>-->
+                        <!--<v-flex xs5 pl-0 pr-0 class="vertical-center">-->
+                            <!--<div class="sprite-img ic-wechatpay d-inline-block"></div>-->
+                            <!--<span-->
+                                    <!--class="ml-2 mr-1 color-darkgray absolute"> </span>-->
+                        <!--</v-flex>-->
+                        <!--<v-flex xs6 pl-0 pr-0 class="vertical-center ">-->
+                            <!--<div class="d-inline-block"></div>-->
+                        <!--</v-flex>-->
+                    <!--</v-flex>-->
+
+                <!--</div>-->
+            <!--</v-flex>-->
+
+
+            <!--<v-flex xs12 md8 offset-md4>-->
+                <!--<div class="text-xs-left display-flex mb-4 " v-if=">-->
+                    <!--<v-flex xs1 pl-0 pr-0>-->
+                        <!--<span @click="onToggle('bankAccount')">-->
+                            <!--<toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>-->
+                        <!--</span>-->
+                    <!--</v-flex>-->
+                    <!--<v-flex xs11>-->
+                        <!--<v-flex xs5 pl-0 pr-0 class="vertical-center">-->
+                            <!--<div class="sprite-img ic-bank d-inline-block"></div>-->
+                            <!--<span-->
+                                    <!--class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>-->
+                        <!--</v-flex>-->
+                        <!--<v-flex xs6 pl-0 pr-0 class="vertical-center ">-->
+                            <!--<div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}-->
+                                <!--{{ getBank.bankAccount }}-->
+                            <!--</div>-->
+                        <!--</v-flex>-->
+                    <!--</v-flex>-->
+                <!--</div>-->
+            <!--</v-flex>-->
 
             <!--결제수단 새로고침-->
             <v-flex xs12 md8 offset-md4 text-xs-left mb-4>
@@ -1070,6 +1089,19 @@
 
     textarea:-ms-input-placeholder {
         color: #9294a6;
+    }
+
+    .payment-wrapper {
+        margin-bottom: 28px;
+    }
+
+    .payment-wrapper ul {
+        margin-bottom: 12px;
+    }
+
+    .payment-wrapper li {
+        display: inline-block;
+        margin-right: 36px;
     }
 
 </style>
