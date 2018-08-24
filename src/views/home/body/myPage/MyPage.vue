@@ -41,6 +41,8 @@
             <my-history
                 :login-history="loginHistory"
                 :security-settings="securitySettings"
+                @onLoginPage="onLoginPage"
+                @onHistoryPage="onHistoryPage"
             />
         </div>
     </div>
@@ -102,10 +104,6 @@
         created() {
             let self = this;
 
-            // 유저 결제수단 정보 GET
-            MainRepository.MyInfo.loadMyPaymentMethods();
-
-
             // *********** NEW CREATED ************* //
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
@@ -129,8 +127,12 @@
 
             // GET User Id Verification
             MainRepository.MyPage.getIdVerification(function (idVerification) {
+                console.log(idVerification);
                 self.idVerification = idVerification;
             });
+
+            // 유저 결제수단 정보 GET
+            MainRepository.MyInfo.loadMyPaymentMethods();
 
             // GET Block List
             MainRepository.MyPage.getBlockList(function (blockList) {
@@ -138,12 +140,12 @@
             });
 
             // GET Login History
-            MainRepository.MyPage.getLoginHistory(function (loginHistory) {
+            MainRepository.MyPage.getLoginHistory(1, function (loginHistory) {
                 self.loginHistory = loginHistory;
             });
 
             // GET Security Settings
-            MainRepository.MyPage.getSecuritySettings(function (securitySettings) {
+            MainRepository.MyPage.getSecuritySettings(1, function (securitySettings) {
                 self.securitySettings = securitySettings;
             });
 
@@ -154,6 +156,20 @@
                 this.showModal = true;
             }
         },
+        methods: {
+            onLoginPage(num) {
+                let self = this;
+                MainRepository.MyPage.getLoginHistory(num, function (loginHistory) {
+                    self.loginHistory = loginHistory;
+                });
+            },
+            onHistoryPage(num) {
+                let self = this;
+                MainRepository.MyPage.getSecuritySettings(num, function (securitySettings) {
+                    self.securitySettings = securitySettings;
+                });
+            }
+        }
     }
 </script>
 

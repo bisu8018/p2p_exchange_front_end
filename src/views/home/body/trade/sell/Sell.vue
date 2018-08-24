@@ -9,12 +9,12 @@
                 <!--buy/sell -->
                 Sell
                 <!--토큰량 -->
-                {{ currentOrder.coinCount }}
+                {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block"> From {{  currentOrder.merchantNickname  }}</div>
+                <div class="d-inline-block"> From {{ counterPartyNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -37,22 +37,23 @@
                 </div>
             </div>
         </v-layout>
-        <div v-if="currentOrder.status != 'cancelled' && currentOrder.status != 'expired'" v-for="item in getMyPaymentMethodSelectList()">
 
+        <div v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired'"
+             v-for="item in getMyPaymentMethodSelectList()">
             <trade-item :item="item"></trade-item>
-
         </div>
         <div class="h4 bold color-black text-xs-left mb-4">
             <v-flex xs12 md4>
                 <!--status cancel 일 시 설명 문구-->
-                <div class="cancel-explain mb-4 " v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
+                <div class="cancel-explain mb-4 "
+                     v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
                     {{ $str("cancelExplain") }}
                 </div>
             </v-flex>
             <!--unpaid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
                 {{ $str("payingExplain1") }}
-                {{ currentOrder.customerNickname }}
+                {{ counterPartyNickname }}
                 {{ $str("payingExplain2") }}
                 <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
                 {{ $str("payingExplain3") }}
@@ -64,7 +65,7 @@
             <!--confirm 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'paid'">
                 {{ $str("confirmgExplain1") }}
-                {{ currentOrder.customerNickname }}
+                {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
                 <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
                 {{ $str("confirmgExplain3") }}
@@ -80,10 +81,11 @@
                 <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
                     {{ $str("complete") }},
                     </span>
+
                 <!-- Complaining 일 때 -->
                 <span v-if="currentOrder.status === 'complaining'">
-                        {{  $str("appealCodeExplain")  }}
-                        {{  appealCode  }} ,
+                        {{ $str("appealCodeExplain") }}
+                        {{ getAppeal.appealNo }} ,
                     </span>
                 <span v-if="currentOrder.status !== 'complete'">
                     {{ $str("referenceText") }}
@@ -129,15 +131,15 @@
         </v-flex>
 
         <!--거래 취소 아이콘 (cancel 상태일때)-->
-        <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
-            <i class="material-icons cancel-icon" >cancel</i>
+        <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left
+                v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+            <i class="material-icons cancel-icon">cancel</i>
         </v-flex>
 
         <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
         <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">
             <i class="material-icons  warning-icon ">error</i>
         </v-flex>
-
 
 
         <!--데스크탑 환경에서 설명-->
@@ -156,15 +158,17 @@
 
         <!--이의제기 취소 버튼 (appeal 상태일때)-->
         <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                v-if="currentOrder.status === 'complaining'" :class="{'pt-4' : isMobile()}">
+                v-if="currentOrder.status === 'complaining' && checkAppealBtn() === true "
+                :class="{'pt-4' : isMobile()}">
             <a class="color-blue text-white-hover"
-               @click="onModal('cancelAppeal')">{{  $str('cancelModalButton')  }}</a>
+               @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
         </v-flex>
+
 
         <div>
             <div v-if="isInitCompleted">
                 <!--채팅창-->
-                <message :order = "currentOrder"></message>
+                <message :order="currentOrder"></message>
             </div>
         </div>
 
@@ -184,10 +188,12 @@
         <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="currentOrder.status === 'paid'">
             <!--거래 성사 버튼 (confirm 상태 일때) -->
             <input class="text-white-hover btn-rounded-white h5" type="button"
-                   :value="$str('appeal')" @click="onModal('appeal')"  v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal">
+                   :value="$str('appeal')" @click="onModal('appeal')" v-on:appeal="onAppeal"
+                   v-on:cancelAppeal="onCancelAppeal">
         </v-flex>
 
-        <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"></sell-modal>
+        <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"
+                    v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></sell-modal>
     </div>
 </template>
 
@@ -208,7 +214,6 @@
         data: () => ({
             orderNo: 0,
             modalType: '',
-            appealCode: 977057,
             showModal: false,
             isInitCompleted: false,
             limitTime: '',
@@ -218,6 +223,16 @@
         computed: {
             currentOrder() {
                 return MainRepository.TradeProcess.getCurrentOrder();
+            },
+            counterPartyNickname() {    //상대방 닉네임 GET
+                let merchantMemberNo = this.currentOrder.merchantMemberNo;
+                let myNickname = MainRepository.MyInfo.getUserInfo().nickname;
+
+                if (merchantMemberNo === myNickname) {
+                    return this.currentOrder.merchantNickname; //판매자 닉네임
+                } else {
+                    return this.currentOrder.customerNickname; //고객 닉네임
+                }
             },
             getOrderNumber() {
                 let orderNoDigits = this.orderNo.length;
@@ -229,35 +244,18 @@
                 let temp = addZero + this.orderNo;
                 return temp;
             },
+            getAppeal() {
+                return this.currentOrder.appealList[this.currentOrder.appealList.length - 1];
+            },
         },
         created() {
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-            let currentURL = window.location.href;
-            let params = currentURL.split('?');
-            if (params[1]) {
-                this.orderNo = params[1];
-            } else {
-                MainRepository.router().goTradeCenter();
-            }
-
-            MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
-
-                //부적합한 유저 접근시 거래소 강제 이동
-                let myInfo = MainRepository.MyInfo.getUserInfo();
-                let tradeType = this.currentOrder.tradeType;
-                let merchantMemberNo =  this.currentOrder.merchantMemberNo;
-                if((tradeType === 'sell' && merchantMemberNo !== myInfo.memberNo) ||
-                    (tradeType === 'buy' && merchantMemberNo === myInfo.memberNo) ){
-                    MainRepository.router().goTradeCenter();
-                }
-
-                this.isInitCompleted = true;
+            this.init();
+        },
+        updated() {
+            // 현재 view가 떠있는 상태에서 다른 order 요청시
+            if (this.orderNo !== this.getUrlParam()) {
                 this.init();
-            });
+            }
         },
         beforeDestroy() {
             clearInterval(this.timerInterval);
@@ -266,8 +264,52 @@
         methods: {
             //초기화 작업
             init() {
+                // 로그인 확인 -> Login 으로
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return;
+                }
+
+                // URL param 검사
+                let urlParam = this.getUrlParam();
+                if (urlParam === '') {
+                    MainRepository.router().goTradeCenter();
+                } else {
+                    this.orderNo = urlParam;
+                }
+
+                MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
+                    // 없는 orderNo일 경우 예외처리 추가
+
+                    // 부적합한 유저 접근시 거래소 강제 이동
+                    let myInfo = MainRepository.MyInfo.getUserInfo();
+                    let tradeType = this.currentOrder.tradeType;
+                    let merchantMemberNo = this.currentOrder.merchantMemberNo;
+                    let customerMemberNo = this.currentOrder.customerMemberNo;
+
+                    // 판매자 or 고객이 아닌 경우
+                    if (myInfo.memberNo !== customerMemberNo && myInfo.memberNo !== merchantMemberNo) {
+                        MainRepository.router().goTradeCenter();
+                    }
+                    // 판매자인 경우 Sell -> Buy 일 경우
+                    else if (myInfo.memberNo === merchantMemberNo && tradeType === 'buy') {
+                        MainRepository.router().goTradeCenter();
+                    }
+                    // 고객인 경우 Sell -> Sell 일 경우
+                    else if (myInfo.memberNo === customerMemberNo && tradeType === 'sell') {
+                        MainRepository.router().goTradeCenter();
+                    }
+
+                    this.isInitCompleted = true;
+                    this.initInterval();
+                });
+            },
+            initInterval() {
+                clearInterval(this.timerInterval);
+                clearInterval(this.checkStatus);
+
                 //payment window timer
-                if(this.currentOrder.status === 'unpaid') {
+                if (this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
                     this.timerInterval = setInterval(() => {
                         this.limitTime = this.getLimitTime();
@@ -278,13 +320,22 @@
                         }
                     }, 1000)
                 }
-                if(this.currentOrder.status !== 'complete'){
+                if (this.currentOrder.status !== 'complete') {
                     this.checkStatus = setInterval(() => {
                         this.getOrderStatus();
                         if (this.currentOrder.status === 'complete') {
                             clearInterval(this.checkStatus);
                         }
                     }, 3000)
+                }
+            },
+            getUrlParam() {
+                let currentURL = window.location.href;
+                let params = currentURL.split('?');
+                if (params[1]) {
+                    return params[1];
+                } else {
+                    return '';
                 }
             },
             getLimitTime() {
@@ -299,9 +350,9 @@
             getOrderStatus() {
                 let self = this;
                 MainRepository.TradeProcess.getOrderStatus(self.orderNo
-                , (result) => {
+                    , (result) => {
 
-                })
+                    })
             },
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -344,12 +395,12 @@
                 this.showModal = false;
                 let self = this;
                 //이의제기 최신
-                let appealList = this.currentOrder.appealList[this.currentOrder.appealList.length-1];
-                if(this.currentOrder.status === 'complaining' && appealList.status === 'registered'){
+                let appealList = this.currentOrder.appealList[this.currentOrder.appealList.length - 1];
+                if (this.currentOrder.status === 'complaining' && appealList.status === 'registered') {
                     MainRepository.TradeProcess.onAppealCancel({
-                        orderNo : self.orderNo,
-                        appealNo : appealList.appealNo
-                    },function () {
+                        orderNo: self.orderNo,
+                        appealNo: appealList.appealNo
+                    }, function () {
                         self.getOrderStatus();
                     })
                 }
@@ -369,11 +420,17 @@
                 MainRepository.TradeProcess.onAppeal(
                     data
                     , function (result) {
-                        self.appealCode = result;
                         self.getOrderStatus();
                         self.onClose();
                     });
             },
+            checkAppealBtn() {
+                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
 
     });

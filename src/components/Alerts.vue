@@ -79,10 +79,8 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;
                     default : break;
-
                 }
             })
-
         },
         methods: {
             show(type, title, text) {

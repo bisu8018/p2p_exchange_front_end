@@ -47,6 +47,7 @@ import message from "@/vuex/modules/message";
 import OrderStat from "@/vuex/model/OrderStat";
 import Withdraw from "@/vuex/model/Withdraw";
 import BalanceHistory from "@/vuex/model/BalanceHistory";
+import IdVerificationId from "@/vuex/model/IdVerificationId";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -280,7 +281,7 @@ export default {
 
                 for (let i = 0; i < result.length; i++) {
                     let idVerification_tmp = result[i];
-                    if (idVerification_tmp.type === 'passport') {
+                    if (idVerification_tmp.type === 'id') {
                         _idVerification = new IdVerification(idVerification_tmp);
                     }
                 }
@@ -288,13 +289,18 @@ export default {
                 callback(_idVerification);
             })
         },
-        postIdVerification: function (email: string, idVerification: IdVerification, callback: any) {
-            AccountService.Verification.postIdVerification(email, idVerification, function(result) {
+        postIdVerification: function (email: string, idVerificationId: IdVerificationId, callback: any) {
+            AccountService.Verification.postIdVerification(email, idVerificationId, function(result) {
                 callback(result);
             })
         },
         setPaymentMethod: function (email: string, paymentType: any, callback: any){
             AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
+                callback(result);
+            })
+        },
+        deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
+            AccountService.Account.deletePaymentMethod(email, paymentMethods, function (result) {
                 callback(result);
             })
         },
@@ -313,27 +319,26 @@ export default {
                 callback(blockList_arr);
             })
         },
-        getLoginHistory: function (callback: any) {
+        getLoginHistory: function (page: number, callback: any) {
             AccountService.LoginHistory.getLoginHistory({
                 email: instance.MyInfo.getUserInfo().email,
-                page: 1,
+                page: page,
                 size: 10
             }, function (result) {
                 let _loginHistory = new LoginHistory(result);
                 callback(_loginHistory);
             })
         },
-        getSecuritySettings: function (callback: any) {
+        getSecuritySettings: function (page: number, callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
                 email: instance.MyInfo.getUserInfo().email,
-                page: 1,
+                page: page,
                 size: 10
             }, function (result) {
                 let _securitySettings = new SecuritySettings(result);
                 callback(_securitySettings);
             })
-        },
-
+        }
     },
     MyInfo: {
         controller(): AccountController {
@@ -789,6 +794,7 @@ export default {
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
+                // 알람용
                 if (isSimpleItem) {
                     myTradeController.setMyUnpaidOrderItems(myOrderList);
                 } else {
@@ -846,7 +852,6 @@ export default {
         getPage(){
             return myTradeController.getMyOrderItems();
         },
-
     },
     AD : {
         postAD: function (data : any, callback: any) {
@@ -937,9 +942,9 @@ export default {
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-                if(data.length != 0){
-                    this.controller().addMsg(data[0]);
-                }
+                    for(let key in data) {
+                        this.controller().addMsg(data[key]);
+                    }
                     callback();
                 }
             )

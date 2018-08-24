@@ -171,12 +171,9 @@
 
             <!-- footer, 버튼 영역 -->
             <div class="dialog--footer">
-                <button class="btn-rounded-white text-white-hover" @click="onClose">
-                    <h6>{{ $str("cancel") }}</h6>
-                </button>
-                <button class="btn-rounded-blue btn-blue-hover" @click="onDone">
-                    <h6>{{ $str("Done") }}</h6>
-                </button>
+                <button class="btn-rounded-white text-white-hover btn-delete" @click="onDelete" v-if="edit"><h6 class="color-red">{{ $str("delete") }}</h6></button>
+                <button class="btn-rounded-white text-white-hover" @click="onClose"><h6>{{ $str("cancel") }}</h6></button>
+                <button class="btn-rounded-blue btn-blue-hover" @click="onDone"><h6>{{ $str("Done") }}</h6></button>
             </div>
         </div>
     </v-dialog>
@@ -243,14 +240,11 @@
                     // 수정모드일 때 : 기존 데이터 가져오기
                     if (this.edit) {
                         this.typeData = this.paymentMethods.type
-                    } else {
-                        this.typeData = '';
                     }
                     return this.typeData;
                 },
                 set(value) {
                     if (value === 'alipay') {
-                        console.log(value);
                         this.typeData = 'alipay';
                     } else if (value === 'wechat') {
                         this.typeData = 'wechat';
@@ -259,7 +253,6 @@
                     } else {
                         this.typeData = '';
                     }
-                    return this.typeData;
                 }
             }
         },
@@ -316,26 +309,43 @@
             },
             onDone(item) {
                 let self = this;
+                this.paymentMethods.type = this.type;
+                this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+                this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+                this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
-                self.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
-
-                MainRepository.MyPage.setPaymentMethod(self.myInfo.email, this.paymentMethods, function (data) {
+                MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, function (data) {
                     // 이벤트버스 날리기~~'ㅅ'
                 });
 
-                self.$emit('paymentMethod');
+                this.$emit('paymentMethod');
                 this.onClearData();
 
                 CommonService.fileUpload.fileUpload({
-                    file: self.file,
+                    file: this.file,
                     purpose: this.paymentMethods
                 }, function () {
                     console.log('File upload success.');
                 })
 
-                self.$eventBus.$emit('showAlert', 0);
+                this.$eventBus.$emit('showAlert', 0);
                 this.onClose();
                 this.$emit('done', item);
+            },
+
+            onDelete() {
+                this.paymentMethods.type = this.type;
+                this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+                this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+                this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+
+                MainRepository.MyPage.deletePaymentMethod(this.myInfo.email, this.paymentMethods, function (data) {
+                    // 이벤트버스 날리기~~'ㅅ'
+                });
+
+                this.$eventBus.$emit('showAlert', 0);
+                this.onClose();
+                this.$emit('delete', item);
             }
         },
     }
@@ -363,5 +373,10 @@
     .dialog-add-new-payment_wrapper select:disabled {
         opacity: .5;
         cursor: not-allowed;
+    }
+
+    .btn-delete {
+        position: absolute;
+        left: 0;
     }
 </style>

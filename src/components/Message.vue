@@ -61,6 +61,27 @@
                     </div>
                 </div>
             </div>
+
+            <div v-for="localMsg in localMsgList">
+                <!--자신-->
+                <div class="mb-3 display-flex " v-if="showLocalMsg">
+                    <v-spacer></v-spacer>
+                    <div class="pr-2">
+                        <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
+                            {{ getTime(localMsg.registerDatetime) }}
+                            <!--<span>{{ getDateTime('date') }}</span>-->
+                        </div>
+                        <div class="chat-content-wrapper text-xs-left color-black h6">
+                            {{ localMsg.message }}
+                        </div>
+                    </div>
+                    <div>
+                        <avatar
+                                :me=true>
+                        </avatar>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="pl-3 input-wrapper">
             <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
@@ -98,9 +119,16 @@
             //파일 첨부
             file: '',
             image: '',
+            showLocalMsg: false,
+            localMsgList: [],
         }),
         computed: {
             messageList() {
+                this.$nextTick(() => {
+                    this.scrollBottom();
+                })
+                this.showLocalMsg = false;
+                this.localMsgList = [];
                 return MainRepository.Message.controller().getMsgList();
             },
             myMemberNo() {
@@ -149,7 +177,6 @@
                         this.updateMsg()
                     }, 3000);
                 });
-                this.scrollBottom();
             });
         },
         beforeDestroy() {
@@ -157,9 +184,7 @@
         },
         methods: {
             updateMsg() {
-                MainRepository.Message.updateMsg(() => {
-                    this.scrollBottom();
-                });
+                MainRepository.Message.updateMsg(() => {});
             },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
@@ -199,21 +224,24 @@
             },
             onPost() {
                 let tmpValue = this.inputValue.trim();
-
                 if (tmpValue !== '') {
                     //도배 및 중복 값 입력 방지
-                    if (Date.now() - this.latestPostTime < 1000) {
+                    if (Date.now() - this.latestPostTime < 100) {
                         return false;
                     } else {
                         this.latestPostTime = Date.now();
-                        MainRepository.Message.postMsg(this.inputValue, () => {
-                            this.inputValue = '';
-                            this.updateMsg();
-                            this.scrollBottom();
-                        });
+                        MainRepository.Message.postMsg(this.inputValue, () => { });
+                        this.createLocalMsg(this.inputValue);
+                        this.inputValue = '';
                     }
                 }
-
+            },
+            createLocalMsg(msg) {
+                this.showLocalMsg = true;
+                this.localMsgList.push({
+                    message : msg,
+                    registerDatetime : new Date().getTime()
+                })
             },
             scrollBottom() {
                 let chatWrapper = document.getElementById("contentsWrapper");

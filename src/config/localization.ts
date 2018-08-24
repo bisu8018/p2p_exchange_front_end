@@ -2643,6 +2643,83 @@ const strings = new Map([
         ENG: 'No more history',
         CN: '没有记录',
         HK: '沒有記錄'
+    ['Please pay', {
+        KOR: '지불 요청',
+        ENG: 'Please pay',
+        CN: '',
+        HK: ''
+    }],
+    ['appealReason1', {
+        KOR: '상대방이 지불하지 않음',
+        ENG: 'The counterparty doesn’t pay',
+        CN: '对方无支付',
+        HK: '對方無支付'
+    }],
+    ['appealReason2', {
+        KOR: '상대방이 보내주지 않음',
+        ENG: 'The counterparty doesn’t release',
+        CN: '对方无传送',
+        HK: '對方無傳送'
+    }],
+    ['appealReason3', {
+        KOR: '응답 없음',
+        ENG: 'No answer',
+        CN: '无答应',
+        HK: '無答應'
+    }],
+    ['appealReason4', {
+        KOR: '사기',
+        ENG: 'Cheating',
+        CN: '诈骗',
+        HK: '詐騙'
+    }],
+    ['appealReason5', {
+        KOR: '기타',
+        ENG: 'Other',
+        CN: '其他',
+        HK: '其他'
+    }],
+    ['No Trade Records', {
+        KOR: '최근 한 달 동안 거래 내역이 없습니다',
+        ENG: 'No Trade Records',
+        CN: '',
+        HK: ''
+    }],
+    ['unBlockDialogTxt', {
+        KOR: '정말로 이 유저의 차단을 해제하시겠습니까?',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['Turn on email authentication', {
+        KOR: '이메일 연동',
+        ENG: 'Turn on email authentication',
+        CN: '',
+        HK: ''
+    }],
+    ['Add Id verification', {
+        KOR: '아이디 인증 등록',
+        ENG: 'Add Id verification',
+        CN: '',
+        HK: ''
+    }],
+    ['Add Advanced verification', {
+        KOR: '고급 인증 등록',
+        ENG: 'Add Advanced verification',
+        CN: '',
+        HK: ''
+    }],
+    ['Update Id', {
+        KOR: '아이디 업데이트',
+        ENG: 'Update Id',
+        CN: '',
+        HK: ''
+    }],
+    ['Add phone', {
+        KOR: '핸드폰 번호 등록',
+        ENG: 'Add phone',
+        CN: '',
+        HK: ''
     }],
     ['', {
         KOR: '',

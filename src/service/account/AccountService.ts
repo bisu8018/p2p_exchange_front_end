@@ -4,6 +4,7 @@ import MainRepository from "@/vuex/MainRepository";
 import PaymentMethod from "@/vuex/model/PaymentMethod.ts"
 import axios from "axios";
 import IdVerification from "@/vuex/model/IdVerification";
+import IdVerificationId from "@/vuex/model/IdVerificationId";
 
 export default {
     Account: {
@@ -123,10 +124,14 @@ export default {
                 function () {
                 })
         },
-        //결제수단 설정
+        // 결제수단 설정
         addPaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
             let url = 'payment/';
             url += paymentMethod.type;
+
+            if (paymentMethod.type === 'bank') {
+                paymentMethod.type = 'bankaccount';
+            }
 
             AxiosService._requestWithBodyAndEmail(url, 'POST', paymentMethod,
                 function (data: any) {
@@ -135,10 +140,23 @@ export default {
                 function () {
                 })
         },
+        // 결제수단 삭제
+        deletePaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
 
+            if (paymentMethod.type === 'bank') {
+                paymentMethod.type = 'bankaccount';
+            }
+
+            AxiosService._requestWithBody('payment', 'DELETE', paymentMethod,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
         //패스워드 변경
         changePassword: function (data: any, callback: any) {
-            AxiosService._requestWithBody('member/password', 'PUT', data,
+            AxiosService._requestWithBodyAndEmail('member/password', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },
@@ -166,8 +184,8 @@ export default {
                 })
         },
         // 유저 신분증/여권 인증 정보 POST
-        postIdVerification: function (email: string, _idverification: IdVerification, callback: any) {
-            AxiosService._requestWithBodyAndEmail('idverification', 'POST', _idverification,
+        postIdVerification: function (email: string, _idverificationId: IdVerificationId, callback: any) {
+            AxiosService._requestWithBodyAndEmail('idverification', 'POST', _idverificationId,
                 function (data: any) {
                     callback(data);
                 },

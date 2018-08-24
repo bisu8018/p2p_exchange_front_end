@@ -337,6 +337,9 @@
             }
         },
         methods: {
+            onMyOrderItemClick() {
+
+            },
             serializeserialize (form) { console.log(form);
                 var field,
                     l,
