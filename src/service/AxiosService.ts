@@ -136,6 +136,16 @@ export default {
             failure
         )
     },
+    _requestWithOnlyBody: function (url: string, type: string, data: any, success: any, failure: any) {
+        data = data || {};
+        this._request(
+            url,
+            type,
+            data,
+            success,
+            failure
+        )
+    },
     _requestWithBody: function (url: string, type: string, data: any, success: any, failure: any) {
         data = data || {};
 
