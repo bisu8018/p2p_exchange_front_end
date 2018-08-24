@@ -297,11 +297,13 @@ export default {
         },
         setPaymentMethod: function (email: string, paymentType: any, callback: any){
             AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
+                instance.MyInfo.loadMyPaymentMethods(() => {})
                 callback(result);
             })
         },
         deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
             AccountService.Account.deletePaymentMethod(email, paymentMethods, function (result) {
+                instance.MyInfo.loadMyPaymentMethods(() => {})
                 callback(result);
             })
         },

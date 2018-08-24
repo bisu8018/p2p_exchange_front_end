@@ -61,7 +61,7 @@
                         BlockMemberNo: num,
                     }, function (result) {
                         self.onCheckUnblock = false;
-                        self.$eventBus.$emit('refreshMypage', 'block');
+                        self.$eventBus.$emit('refreshMypage');
                         self.$eventBus.$emit('showAlert', 0);
                     }
                 )

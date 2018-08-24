@@ -364,7 +364,6 @@
                 }else{
                     this.paymentMethods.wechatQrCodeImgUrl = this.image;
                     MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
-                        // 이벤트버스 날리기~~'ㅅ'
                     });
                 }
 
