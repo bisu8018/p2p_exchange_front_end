@@ -349,7 +349,6 @@
                         file: this.submitFile(),
                         purpose: _purpose
                     },  (url) => {
-                        console.log('File upload success.');
 
                         if(this.type === 'alipay'){
                             this.paymentMethods.alipayQrCodeImgUrl = url

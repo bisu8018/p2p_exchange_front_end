@@ -149,7 +149,6 @@
 
                 // GET User Id Verification
                 MainRepository.MyPage.getIdVerification(function (idVerification) {
-                    console.log(idVerification);
                     self.idVerification = idVerification;
                 });
 
