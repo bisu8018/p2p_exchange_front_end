@@ -357,7 +357,7 @@
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
                 //파일첨부
-                if(this.file !== ''){
+                if(this.file !== '' && this.type != 'bank'){
                     let _purpose = '';
                     if(this.paymentMethods.type === 'alipay'){
                         _purpose = 'alipay';
