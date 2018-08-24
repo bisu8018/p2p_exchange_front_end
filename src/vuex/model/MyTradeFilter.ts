@@ -42,7 +42,7 @@ export default class MyTradeFilter {
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.orderType !==undefined && data.orderType !==null) this.orderType = data.orderType;
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;
-        if(data.type !==undefined && data.type !==null) this.type = data.type;
+        if(data.type !==undefined && data.type !==null) this.type = this.transType(data.type);
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
     }
@@ -55,6 +55,24 @@ export default class MyTradeFilter {
             return 'sell';
         }
     }*/
+    transType(type){
+        switch (type) {
+            case 'Buy':
+                return 'buy'
+
+            case 'Sell':
+                return 'sell'
+
+            case 'Withdraw':
+                return 'withdraw'
+
+            case 'Deposit':
+                return 'deposit'
+
+            default:
+                return ""
+        }
+    }
 
     //보낼때는 약어를 fullname으로 보내야함.
     transCrptocurrency(cryptocurrency){
