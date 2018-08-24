@@ -578,7 +578,6 @@
             counterpartyCheckbox_third: false,
             tradePassword: "",
             agreeTerms: false,
-            adType: "piece",
 
 
             isVerified: false,
@@ -759,8 +758,11 @@
                     return this.counterpartyFilterTradeCount = abUtils.toDeleteZero(temp);
                 }
             },
-            onCheck: function () {
-                if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() && this.onCheckFixedPrice() && this.onCheckCounterparty()) {
+            onCheck: function () {      //최종 체크
+                if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() &&
+                    this.onCheckFixedPrice() && this.onCheckCounterparty() && this.onCheckToggle() && this.onCheckSlideBar &&
+                    this.onCheckTradePassword() && this.onCheckAgreeTerm()) {
+
                     this.onModal();
                 }
             },
@@ -777,7 +779,7 @@
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
                 let bankToggle = this.bank_toggle_use ? 'bank' : '';
-
+                let _adType = this.message === 'general' ? 'piece' : 'block';
 
                 var paymentMethodsArr = [
                     alipayToggle,
@@ -804,7 +806,7 @@
                     termsOfTransaction: self.termsOfTransaction,
                     tradePassword: self.tradePassword,
                     tradeType: self.tradeType,
-                    type: self.adType,
+                    type: _adType,
                     volume: Number(self.volume),
                     status: 'enable',
                     volumeAvailable: Number(self.volume),
@@ -820,7 +822,7 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
-                MainRepository.MyInfo.loadMyPaymentMethods(() => {});
+                MainRepository.MyInfo.loadMyPaymentMethods((result) => {})
             },
             onToggle: function (type) {
                 // 결제수단 별 토글버튼 on/off 로직
@@ -946,6 +948,32 @@
                 }
                 this.warning_trade_password = false;
                 return true;
+            },
+            onCheckAgreeTerm: function () {
+                //이용약관 체크
+                if (!this.agreeTerms) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4002);
+                    return false;
+                }
+                return true;
+
+            },
+            onCheckSlideBar: function () {
+                //인증바 체크
+                if (!this.isVerified) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4003);
+                    return false;
+                }
+                return true;
+
+            },
+            onCheckToggle: function () {
+                if (!this.alipay_toggle_use && !this.wechat_toggle_use && !this.bank_toggle_use) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4001);
+                    return false;
+                } else {
+                    return true
+                }
             },
             goMyPage() {
                 this.$router.push("/myPage");

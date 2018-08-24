@@ -77,6 +77,11 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
+
+                    //클라이언트 단 에러코드
+                    case 4001 : this.show(this.type.Error, "", this.$str('err_paymentMethodCheck')); break;
+                    case 4002 : this.show(this.type.Error, "", this.$str('err_agreeTermCheck')); break;
+                    case 4003 : this.show(this.type.Error, "", this.$str('verifySlider')); break;
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;
                     default : break;
                 }
