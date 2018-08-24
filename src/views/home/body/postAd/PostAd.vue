@@ -675,7 +675,7 @@
                 return MainRepository.MyInfo.controller().findPaymentMethods('wechat');
             },
             getBank() {
-                return MainRepository.MyInfo.controller().findPaymentMethods('bank');
+                return MainRepository.MyInfo.controller().findPaymentMethods('bankaccount');
             },
             getCryptoCurrency() {
                 if (this.cryptocurrency === 'bitcoin') {
@@ -778,7 +778,7 @@
                 //결제수단 토글 object 화
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
-                let bankToggle = this.bank_toggle_use ? 'bank' : '';
+                let bankToggle = this.bank_toggle_use ? 'bankaccount' : '';
                 let _adType = this.message === 'general' ? 'piece' : 'block';
 
                 var paymentMethodsArr = [
@@ -787,7 +787,7 @@
                     bankToggle
                 ];
                 MainRepository.AD.postAD({
-                    autoReplay: self.autoReplay,
+                    autoReply: self.autoReply,
                     counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
                     counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_third,
