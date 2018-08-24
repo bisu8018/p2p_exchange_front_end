@@ -129,7 +129,7 @@
         padding-right: 0px !important;
     }
     .referenceNum {
-        position: absolute;
+        position: absolute !important;
         left: -1000px;
     }
     .tooltip-content {

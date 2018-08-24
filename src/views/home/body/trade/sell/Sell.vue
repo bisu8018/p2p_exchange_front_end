@@ -506,7 +506,7 @@
     }
 
     .referenceNum {
-        position: absolute;
+        position: absolute !important;
         left: -1000px;
     }
 
