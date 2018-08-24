@@ -94,7 +94,6 @@
             showModal: false,
             modalType: '',
 
-            myInfo: '',
             myOrderStat: '',
             idVerification: new IdVerification(''),
             emailVerification: new EmailVerification(''),
@@ -106,7 +105,10 @@
             showNicknameModal: false,
         }),
         computed: {
-           paymentMethod () {
+            myInfo() {
+                return MainRepository.MyInfo.getUserInfo();
+            },
+            paymentMethod () {
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
         },
@@ -133,8 +135,7 @@
                     return;
                 }
 
-                // GET My Info
-                self.myInfo = MainRepository.MyInfo.getUserInfo();
+                MainRepository.MyInfo.loadMyInfo(() => {});
 
                 // GET My Order Stat
                 MainRepository.MyOrder.getMyOrderStat(self.myInfo.email, function(data) {
