@@ -28,10 +28,10 @@
                     {{ $str('amount') }} :
                     <!--{{ currentOrder.price }} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
-                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{ currentOrder.amount }}
-                     <!--{{ currentOrder.currency }} 화폐단위-->
-                        {{ currentOrder.currency }}</span>
-                        <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
+                         <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{ currentOrder.amount }}
+                             <!--{{ currentOrder.currency }} 화폐단위-->
+                            {{ currentOrder.currency }}</span>
+                            <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
                         <span class="tooltip-content">{{ $str("Copy") }}</span>
                     </div>
                 </div>
@@ -544,7 +544,7 @@
     }
 
     .referenceNum {
-        position: absolute;
+        position: absolute !important;
         left: -1000px;
     }
 
