@@ -44,13 +44,17 @@
                 @onLoginPage="onLoginPage"
                 @onHistoryPage="onHistoryPage"
             />
+
+            <nick-name-modal
+                :show="showNicknameModal"
+
+            />
         </div>
     </div>
 </template>
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
-    import AccountService from "@/service/account/AccountService";
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
     import MyPageModal from './item/MyPageModal.vue';
@@ -67,10 +71,12 @@
     import MyPayment from "./section/MyPayment";
     import MyBlockList from "./section/MyBlockList";
     import MyHistory from "./section/MyHistory";
+    import NickNameModal from "../../../../components/NickNameModal";
 
     export default {
         name: "MyPage",
         components: {
+            NickNameModal,
             MyHistory,
             MyBlockList,
             MyPayment,
@@ -95,6 +101,8 @@
             blockList: '',
             loginHistory: '',
             securitySettings: '',
+
+            showNicknameModal: false,
         }),
         computed: {
            paymentMethod () {
@@ -132,7 +140,7 @@
             });
 
             // 유저 결제수단 정보 GET
-            MainRepository.MyInfo.loadMyPaymentMethods();
+            MainRepository.MyInfo.loadMyPaymentMethods(() => {});
 
             // GET Block List
             MainRepository.MyPage.getBlockList(function (blockList) {
@@ -151,10 +159,23 @@
 
         },
         mounted() {
-            if (this.myInfo.nickname === '') {
-                this.modalType = 'nickName';
-                this.showModal = true;
+            // 처음 가입하고, 닉네임이 없을 때: <닉네임 설정 modal>이 떠야 한다ㅇㅁㅇ
+            if (this.myInfo.nickname === '' || this.myInfo.nickname === null) {
+                this.showNicknameModal = true;
             }
+
+            this.$eventBus.$on('refreshMypage', (param) => {
+                switch (param) {
+                    case 'payment' : MainRepository.MyInfo.loadMyPaymentMethods(); break;
+                    case 'block' : MainRepository.MyPage.getBlockList(function (blockList) {
+                        self.blockList = blockList;
+                    }); break;
+
+                    default : break;
+                }
+            })
+
+
         },
         methods: {
             onLoginPage(num) {

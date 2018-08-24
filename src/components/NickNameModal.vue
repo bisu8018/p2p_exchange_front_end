@@ -61,7 +61,7 @@
                 </button>
 
                 <!--닉네임 추가 확인 버튼-->
-                <button @click="onNickNameCheck" class="h6 btn-rounded-blue btn-blue-hover" >
+                <button @click="onNickNameCheck" class="h6 btn-rounded-blue btn-blue-hover">
                     {{$str("complete")}}
                 </button>
             </div>
@@ -71,7 +71,8 @@
 <script>
     import Vue from 'vue';
     import {abUtils} from '@/common/utils';
-
+    import AccountService from '../service/account/AccountService';
+    import MainRepository from '../vuex/MainRepository';
     export default {
         name: 'nickNameModal',
         props: ['show',],
@@ -98,11 +99,30 @@
                 this.$emit('close');
             },
             onComplete: function (type) {
-
+                let self = this;
+                if (type === 'nickName') {
+                    AccountService.Account.setNickName({
+                        email: MainRepository.MyInfo.getUserInfo().email,
+                        nickname: this.user.nick_name,
+                        tradePassword: this.new_password
+                    }, function (result) {
+                        AccountService.Account.checkLogin(
+                            function (data) {
+                                accountController.setUserInfo(new Account(data));
+                            }, function () {})
+                        self.$emit('close');
+                        self.onClearData();
+                    })
+                }
 
                 // post 작업 완료 후 진행
-                this.$emit('nickName');
 
+
+            },
+            onClearData() {
+                this.new_password =  '';
+                this.confirm_password= '';
+                this.user.nick_name = '';
             },
             onNickNameCheck() {
                 // 닉네임 && 거래 비밀번호 전체 검사

@@ -279,8 +279,6 @@
                 }
 
                 MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
-                    // 없는 orderNo일 경우 예외처리 추가
-
                     // 부적합한 유저 접근시 거래소 강제 이동
                     let myInfo = MainRepository.MyInfo.getUserInfo();
                     let tradeType = this.currentOrder.tradeType;
@@ -302,6 +300,9 @@
 
                     this.isInitCompleted = true;
                     this.initInterval();
+                }, () => {
+                    // 없는 orderNo일 경우
+                    MainRepository.router().goTradeCenter();
                 });
             },
             initInterval() {

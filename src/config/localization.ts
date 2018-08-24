@@ -2638,6 +2638,12 @@ const strings = new Map([
         CN: '请等一分钟。',
         HK: '請等一分鐘。'
     }],
+    ['No more history', {
+        KOR: '기록 없음',
+        ENG: 'No more history',
+        CN: '没有记录',
+        HK: '沒有記錄'
+    }],
     ['Please pay', {
         KOR: '지불 요청',
         ENG: 'Please pay',

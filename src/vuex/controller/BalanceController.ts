@@ -2,12 +2,15 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import Balance from "@/vuex/model/Balance";
 import Withdraw from "@/vuex/model/Withdraw";
+import BalanceHistory from "@/vuex/model/BalanceHistory";
+import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 
 export default class BalanceController {
     store: Store<any>;
-    processingTime: string;
+    processingTime: number;
 
     constructor (vuexStore: Store<any>) {
+        this.processingTime = 0;
         this.store = vuexStore
     }
 
@@ -56,5 +59,24 @@ export default class BalanceController {
 
         return this.store.state.balance.withdraw
     }
+
+    setBalanceHistoryLIst(balanceHistoryList : BalanceHistory[]){
+        this.store.dispatch(VuexTypes.SET_BALANCEHISTORYLIST_DATA, balanceHistoryList);
+
+    }
+    getBalanceHistoryList(){
+        return this.store.state.balance.balanceHistoryList
+    }
+    setHIstoryFilter(historyfilter :MyTradeFilter){
+        this.store.dispatch(VuexTypes.SET_BALANCEHISTORYFILTER_DATA, historyfilter);
+    }
+    getHistoryFilter() {
+        return this.store.state.balance.balanceHistoryFilter;
+    }
+
+    updateHistoryFilter(data : object) {
+        this.store.dispatch(VuexTypes.UPDATE_BALANCEHISTORYFILTER_DATA, data);
+    }
+
 }
 

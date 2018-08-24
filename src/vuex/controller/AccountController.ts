@@ -26,8 +26,6 @@ export default class AccountController {
         return this.store.state.account.myPaymentMethods;
     }
 
-
-
     findPaymentMethods(type) {
         let result = new PaymentMethod('');
 
@@ -35,6 +33,18 @@ export default class AccountController {
             let _item = this.getMyPaymentMethods()[i];
             if (_item.type === type) {
                 result = _item;
+            }
+        }
+        return result;
+    }
+
+    checkPaymentMethods(): boolean {
+        let result = false;
+
+        for(let i = 0; i < this.getMyPaymentMethods().length; i++) {
+            let _item = this.getMyPaymentMethods()[i];
+            if (_item.activeYn === 'y') {
+                result = true;
             }
         }
         return result;

@@ -126,7 +126,7 @@
             messageList() {
                 this.$nextTick(() => {
                     this.scrollBottom();
-                })
+                });
                 this.showLocalMsg = false;
                 this.localMsgList = [];
                 return MainRepository.Message.controller().getMsgList();

@@ -46,6 +46,7 @@ import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
 import OrderStat from "@/vuex/model/OrderStat";
 import Withdraw from "@/vuex/model/Withdraw";
+import BalanceHistory from "@/vuex/model/BalanceHistory";
 import IdVerificationId from "@/vuex/model/IdVerificationId";
 
 let myTradeController : MyTradeController;
@@ -119,13 +120,10 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.loadBalances(function () {});
-                self.Balance.setSecurityBalance(function () {});
-                // 객체형으로 관리하도록 변경 필요
-                self.MyInfo.loadMyPaymentMethods();
-
-                // 내 Merchant 정보
-                self.Merchant.loadMyMerchantInfo(function () {});
+                self.Balance.loadBalances(() => {});
+                self.Balance.setSecurityBalance(() => {});
+                self.MyInfo.loadMyPaymentMethods(() => {});
+                self.Merchant.loadMyMerchantInfo(() => {});
                 callback();
             },
             // 로그인 하지 않음
@@ -181,7 +179,6 @@ export default {
             })
         },
         setWithdraw: function (data : any) {
-            console.log(data);
             balanceController.setWithdraw(
                 new Withdraw(data)
             )
@@ -200,6 +197,61 @@ export default {
             }, function (result) {
                 callback(result);
             })
+        },
+        //Balance history
+        initHistoryData(){
+            this.setHIstoryFilter('')
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
+        initHistory(){
+            this.setHIstoryFilter({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : '',
+                searchEndTime : '',
+                type : '',
+                cryptocurrency : '',
+                page : '1',
+                size : '8'
+            })
+            this.loadHistory();
+        },
+        setHIstoryFilter(data){
+            balanceController.setHIstoryFilter(
+                new MyTradeFilter(data)
+            )
+        },
+        updateHistoryPage(data){
+            if(data.page === undefined){
+                balanceController.updateHistoryFilter({page : 1});
+                instance.Pagination.setPage(1,);
+            }
+            balanceController.updateHistoryFilter(data);
+            this.loadHistory();
+        },
+        loadHistory(){
+            BalanceService.getBalanceHistory({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : balanceController.getHistoryFilter().searchStartTime,
+                searchEndTime : balanceController.getHistoryFilter().searchEndTime,
+                type :  balanceController.getHistoryFilter().type,
+                cryptocurrency : balanceController.getHistoryFilter().cryptocurrency,
+                page : balanceController.getHistoryFilter().page,
+                size : '8'
+            }, function (data) {
+                //전체 item list model화 시켜 주기
+                let result = data.balanceHistoryList
+                let balanceHistoryList: BalanceHistory[] = [];
+                for(let key in result){
+                    let item: BalanceHistory = new BalanceHistory(result[key])
+                    balanceHistoryList.push(item);
+                }
+                paginationController.setTotalCount(data.totalCount);
+                balanceController.setBalanceHistoryLIst(balanceHistoryList);
+            })
+        },
+        getBalanceHistories(){
+            return balanceController.getBalanceHistoryList();
         }
 
     },
@@ -299,13 +351,39 @@ export default {
         isLogin(): boolean {
             return accountController.getUserInfo().isLogin();
         },
-        checkLoginBySession(): boolean {
-            let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
-            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-            return isLogin || isFirefox
-        },
+        // 인증 여부 체크
+        checkValidity(): boolean {
+            // NickName 설정 여부
+            if (this.getUserInfo().nickname === "") {
+                routerController.goMyPage();
+                return false;
+            }
 
-        loadMyPaymentMethods: function () {
+            // Id 인증 여부
+            if (this.controller().getUserInfo().idVerifiedCount === 0) {
+                routerController.goMyPage();
+                return false;
+            }
+
+            // Payment 등록 여부
+            if (!this.controller().checkPaymentMethods()) {
+                routerController.goMyPage();
+                return false;
+            }
+            return true;
+        },
+        loadMyInfo(callback: any) {
+            AccountService.Account.checkLogin(
+                // 로그인 유저 -> 유저 정보 Set
+                function (data) {
+                    accountController.setUserInfo(new Account(data));
+                    callback();
+                },
+                // 로그인 하지 않음
+                function () {}
+            );
+        },
+        loadMyPaymentMethods: function (callback: any) {
             AccountService.PaymentMethod.setPaymentMethod({
                 email : this.getUserInfo().email
             },function (result) {
@@ -314,14 +392,9 @@ export default {
                     _payments.push(new PaymentMethod(result[i]));
                 }
                 accountController.setMyPaymentMethods(_payments);
+                callback();
             })
         },
-        updateMyPamentMethods: function () {
-            let self = this;
-            self.loadMyPaymentMethods();
-
-        },
-
         getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
         },
@@ -592,6 +665,11 @@ export default {
                     case 'myAds':
                         instance.MyAds.updatePage(  {page : page});
                         break;
+
+                    case 'balance':
+                        instance.Balance.updateHistoryPage(  {page : page});
+                        break;
+
                     default :
 
                         break;
@@ -690,6 +768,10 @@ export default {
             );
         },
         updatePage(data){
+            if(data.page === undefined){
+                myTradeController.updateMyAdsFilter({page : 1});
+                instance.Pagination.setPage(1,);
+            }
             myTradeController.updateMyAdsFilter(data);
             this.load();
         },
@@ -790,7 +872,14 @@ export default {
             )
         },
         updatePage(data){
+            //pagination이 아닌 filter의 값 변경시
+            if(data.page === undefined){
+                myTradeController.updateMyOrderFilter({page : 1});
+                instance.Pagination.setPage(1,);
+            }
             myTradeController.updateMyOrderFilter(data);
+
+
             this.load(false);
         },
         getPage(){
@@ -819,11 +908,13 @@ export default {
         },
 
 
-        setCurrentOrder: function (data: any, callback: any) {
+        setCurrentOrder: function (data: any, success: any, fail: any) {
             OrderService.getOrder(data, function (result) {
                 let tradeProcess = new Order(result);
                 tradeController.setCurrentOrder(tradeProcess);
-                callback();
+                success();
+            }, function() {
+                fail();
             })
         },
         onPaid: function (data: any, callback: any) {

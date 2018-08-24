@@ -669,15 +669,15 @@
                 }
             },
             getBalance() {
-                if (Object.keys(MainRepository.Balance.getBalances()).length > 0) {
-                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin') {
+                if(Object.keys(MainRepository.Balance.getBalances()).length > 0){
+                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin' ) {
                         this.balance = MainRepository.Balance.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
                         return this.balance
                     } else {
                         this.balance = 0;
                         return 0;
                     }
-                } else {
+                }else {
                     this.balance = 0;
                     return 0;
                 }
