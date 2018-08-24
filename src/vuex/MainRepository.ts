@@ -46,6 +46,7 @@ import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
 import OrderStat from "@/vuex/model/OrderStat";
 import Withdraw from "@/vuex/model/Withdraw";
+import BalanceHistory from "@/vuex/model/BalanceHistory";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -180,7 +181,6 @@ export default {
             })
         },
         setWithdraw: function (data : any) {
-            console.log(data);
             balanceController.setWithdraw(
                 new Withdraw(data)
             )
@@ -199,6 +199,57 @@ export default {
             }, function (result) {
                 callback(result);
             })
+        },
+        //Balance history
+        initHistoryData(){
+            this.setHIstoryFilter('')
+            paginationController.setPage(1);
+            paginationController.setTotalCount(1);
+        },
+        initHistory(){
+            this.setHIstoryFilter({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : '',
+                searchEndTime : '',
+                type : '',
+                cryptocurrency : '',
+                page : '1',
+                size : '8'
+            })
+            this.loadHistory();
+        },
+        setHIstoryFilter(data){
+            balanceController.setHIstoryFilter(
+                new MyTradeFilter(data)
+            )
+        },
+        updateHistoryPage(data){
+            balanceController.updateHistoryFilter(data);
+            this.loadHistory();
+        },
+        loadHistory(){
+            BalanceService.getBalanceHistory({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : balanceController.getHistoryFilter().searchStartTime,
+                searchEndTime : balanceController.getHistoryFilter().searchEndTime,
+                type :  balanceController.getHistoryFilter().type,
+                cryptocurrency : balanceController.getHistoryFilter().cryptocurrency,
+                page : balanceController.getHistoryFilter().page,
+                size : '8'
+            }, function (data) {
+                //전체 item list model화 시켜 주기
+                let result = data.balanceHistoryList
+                let balanceHistoryList: BalanceHistory[] = [];
+                for(let key in result){
+                    let item: BalanceHistory = new BalanceHistory(result[key])
+                    balanceHistoryList.push(item);
+                }
+                paginationController.setTotalCount(data.totalCount);
+                balanceController.setBalanceHistoryLIst(balanceHistoryList);
+            })
+        },
+        getBalanceHistories(){
+            return balanceController.getBalanceHistoryList();
         }
 
     },
@@ -281,7 +332,8 @@ export default {
                 let _securitySettings = new SecuritySettings(result);
                 callback(_securitySettings);
             })
-        }
+        },
+
     },
     MyInfo: {
         controller(): AccountController {
@@ -586,6 +638,11 @@ export default {
                     case 'myAds':
                         instance.MyAds.updatePage(  {page : page});
                         break;
+
+                    case 'balance':
+                        instance.Balance.updateHistoryPage(  {page : page});
+                        break;
+
                     default :
 
                         break;

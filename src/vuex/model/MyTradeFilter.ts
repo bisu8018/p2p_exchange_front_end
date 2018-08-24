@@ -9,6 +9,7 @@ export default class MyTradeFilter {
     adsType : string;
     tradeType : string;
     currency: string;
+    type: string;
     page : number;
     size : number;
 
@@ -25,6 +26,7 @@ export default class MyTradeFilter {
         this.orderType = data.orderType || '';
         this.adsType = data.adsType || '';
         this.currency = data.currency || '';
+        this.type = data.type || '';
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
     }
@@ -40,9 +42,9 @@ export default class MyTradeFilter {
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.orderType !==undefined && data.orderType !==null) this.orderType = data.orderType;
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;
+        if(data.type !==undefined && data.type !==null) this.type = data.type;
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
-
     }
 
    /* toLowerCase(tradeType){

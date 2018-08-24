@@ -288,29 +288,37 @@
             },
             // 칩 x버튼 눌렀을 시 삭제
             chipDelete (type) {
-                if(type === 'date'){
-                    this.start_date = '';
-                    this.end_date = '';
-                    this.modal_start_date = "";
-                    this.modal_end_date = "";
-                }else if(type === 'orderStatus'){
-                    this.orderStatus = '';
-                    this.modal_orderStatus = "";
-                }else if(type === 'orderNo'){
-                    this.orderNo = '';
-                    this.modal_orderNo = "";
-                }else if(type === 'coinType'){
-                    this.coinType = '';
-                    this.modal_coinType = "";
-                }else if(type === 'orderType'){
-                    this.orderType = '';
-                    this.modal_orderType = "";
-                }else if(type === 'tradeType'){
-                    this.tradeType = '';
-                    this.modal_tradeType = "";
-                }else if(type === 'currency'){
-                    this.currency = '';
-                    this.modal_currency = "";
+                switch(type){
+                    case 'date':
+                        this.start_date = '';
+                        this.end_date = '';
+                        this.modal_start_date = "";
+                        this.modal_end_date = "";
+                        break;
+                    case 'orderStatus':
+                        this.orderStatus = '';
+                        this.modal_orderStatus = "";
+                        break;
+                    case 'orderNo':
+                        this.orderNo = '';
+                        this.modal_orderNo = "";
+                        break;
+                    case 'coinType':
+                        this.coinType = '';
+                        this.modal_coinType = "";
+                        break;
+                    case 'orderType':
+                        this.orderType = '';
+                        this.modal_orderType = "";
+                        break;
+                    case 'tradeType':
+                        this.tradeType = '';
+                        this.modal_tradeType = "";
+                        break;
+                    case 'currency':
+                        this.currency = '';
+                        this.modal_currency = "";
+                        break;
                 }
                 MainRepository.MyOrder.updatePage({
                     searchStartTime : this.modal_start_date,

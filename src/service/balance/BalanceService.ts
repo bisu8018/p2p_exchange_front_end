@@ -25,4 +25,12 @@ export default {
             function () {
             })
     },
+    getBalanceHistory: function (data: any, callback: any) {
+        AxiosService._requestWithUrlPram('balance/history', 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
 }

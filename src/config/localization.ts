@@ -2638,11 +2638,11 @@ const strings = new Map([
         CN: '请等一分钟。',
         HK: '請等一分鐘。'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['No more history', {
+        KOR: '기록 없음',
+        ENG: 'No more history',
+        CN: '没有记录',
+        HK: '沒有記錄'
     }],
     ['', {
         KOR: '',

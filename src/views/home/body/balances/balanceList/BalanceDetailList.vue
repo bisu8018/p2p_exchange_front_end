@@ -5,22 +5,22 @@
       <!--type-->
       <v-layout mb-2 mt-4>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Type")}} : </v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.type}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.depositType}}</v-flex>
       </v-layout>
       <!--coin-->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Coin")}}:</v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.coin}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.cryptocurrency}}</v-flex>
       </v-layout>
       <!-- time-->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("time")}}:</v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.time}}</v-flex>
+        <v-flex xs6 text-xs-right>{{transTime(detailList.registerDatetime)}}</v-flex>
       </v-layout>
       <!-- amount -->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("amount")}}:</v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.amount}} {{detailList.coin}}</v-flex>
+        <v-flex xs6 text-xs-right>{{detailList.amount}} {{detailList.cryptocurrency}}</v-flex>
       </v-layout>
       <!-- status -->
       <v-layout mb-2>
@@ -32,7 +32,7 @@
         <v-flex xs4 text-xs-left h5 color-darkgray>{{$str("action")}}:</v-flex>
         <v-flex xs8 text-xs-right>
           <button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button>
-          <button class="btn-rounded-blue btn-blue-hover "
+          <button v-if="showDetailBtn" class="btn-rounded-blue btn-blue-hover "
                   @click="drawer">{{$str("details")}}
           </button>
         </v-flex>
@@ -42,23 +42,25 @@
     <div v-else>
       <v-layout row wrap align-center fill-height class="webDetailWrapper">
         <v-flex md2 text-md-left>
-          {{detailList.type}}
+          {{detailList.depositType}}
         </v-flex>
         <v-flex md2 text-md-left>
-          {{detailList.coin}}
+          {{detailList.cryptocurrency}}
         </v-flex>
         <v-flex md2 text-md-left>
-          {{detailList.time}}
+          {{transTime(detailList.registerDatetime)}}
         </v-flex>
         <v-flex md2 text-md-right>
-          {{detailList.amount}} {{detailList.coin}}
+          {{detailList.amount}} {{detailList.cryptocurrency}}
         </v-flex>
         <v-flex md2 text-md-right>
           {{detailList.status}}
         </v-flex>
         <v-flex md2 text-md-right>
-          <button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button>
-          <button class="btn-rounded-blue btn-blue-hover "
+          <button v-if="detailList.status == 'Under examination'"
+                  class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}
+          </button>
+          <button v-if="showDetailBtn" class="btn-rounded-blue btn-blue-hover "
                   @click="drawer">{{$str("details")}}
           </button>
         </v-flex>
@@ -68,15 +70,11 @@
       <div class="detail-list-modal">
         <v-layout text-xs-left mb-2 >
           <v-flex md2 xs6 pl-4 >{{$str("Address")}}:</v-flex>
-          <v-flex md10 xs6>{{detailList.address}}</v-flex>
-        </v-layout>
-        <v-layout text-xs-left mb-2>
-          <v-flex md2 xs6 pl-4>{{$str("Tag")}}:</v-flex>
-          <v-flex md10 xs6> {{detailList.tag}}</v-flex>
+          <v-flex md10 xs6>{{detailList.addressTo}}</v-flex>
         </v-layout>
         <v-layout text-xs-left mb-2>
           <v-flex md2 xs6 pl-4>{{$str("TxID")}}:</v-flex>
-          <v-flex md10 xs6> {{detailList.TxID}}</v-flex>
+          <v-flex md10 xs6> {{detailList.txHash}}</v-flex>
         </v-layout>
         <v-layout text-xs-left mb-2>
           <v-flex md2 xs6 pl-4>{{$str("fee")}}:</v-flex>
@@ -93,6 +91,7 @@
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
+    import {abUtils} from '@/common/utils';
     export default {
         name: "BalanceDetailList",
         props : {
@@ -108,8 +107,14 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            showDetailBtn(){
+                return (this.detailList.depositType == 'Deposit'|| this.detailList.depositType == 'Withdrawal')
+            }
         },
         methods : {
+            transTime(time){
+                return abUtils.toTimeFormat(time);
+            },
             drawer(){
                 this.isdrawer = !this.isdrawer
             }

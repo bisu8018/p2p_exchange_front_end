@@ -159,19 +159,29 @@
       </v-layout>
       <v-flex><v-divider></v-divider></v-flex>
     </div>
-    <!--BalanceList-->
-    <div  v-for="detailList in detailLists" >
-      <balance-detail-list
-              :detailList="detailList"
-      ></balance-detail-list>
-      <v-flex><v-divider></v-divider></v-flex>
+    <div v-if="haveItems">
+      <!--BalanceList-->
+      <div  v-for="detailList in detailLists" >
+        <balance-detail-list
+                :detailList="detailList"
+        ></balance-detail-list>
+        <v-flex><v-divider></v-divider></v-flex>
+      </div>
+      <div class="mt-4">
+        <Pagination
+                :size="pageSize"
+                :type="pageType"
+        ></Pagination>
+      </div>
     </div>
-  <div class="mt-4">
-    <Pagination
-            :size="pageSize"
-            :type="pageType"
-    ></Pagination>
-  </div>
+    <!-- 해당되는 item이 1개도 없을때-->
+    <div v-else>
+      <div class="sprite-img ic-no-ad-lg no-more-ads">
+      </div>
+      <div class="color-gray no-more-ads-text">
+        {{$str("No more history")}}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -196,7 +206,7 @@
             DatePicker,
         },
         data: () => ({
-            pageSize: 10,
+            pageSize: 8,
             pageType: 'balance',
             isdropdown : false,
             isAmout : true,
@@ -238,56 +248,6 @@
                 new Balance(''),
                 new Balance('')
             ],
-            detailLists: [
-                {
-                    type: 'Withdrawal',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.1,
-                    status: 'Under examination',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-                {
-                    type: 'Sell',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.2,
-                    status: 'Completed',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-                {
-                    type: 'Buy',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.01,
-                    status: 'Completed',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-                {
-                    type: 'Deposit',
-                    coin: 'BTC',
-                    time: '2018-07-03 18:53:08',
-                    amount: 0.03,
-                    status: 'Under examination',
-                    address: 'abcdabcdacbdasdfjkqlwer',
-                    tag : '123456789',
-                    TxID: 'ancbdsaqwer',
-                    fee: '1000',
-                    processingTime: '2018-08-12 16:48:23',
-                },
-            ],
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
 
@@ -308,7 +268,13 @@
             balances() {
                 this.loadTotalEstimatedValue();
                 return MainRepository.Balance.getBalances();
-            }
+            },
+            detailLists(){
+                return MainRepository.Balance.getBalanceHistories();
+            },
+            haveItems(){
+                return (MainRepository.Pagination.getTotalCount() >0)
+            },
         },
         created() {
             // 로그인 확인 -> Login 으로
@@ -320,9 +286,13 @@
             MainRepository.MarketPrice.load(() => {
                 MainRepository.Balance.loadBalances(() => {});
             });
+            MainRepository.Balance.initHistory();
         },
         mounted() {
 
+        },
+        beforeDestroy(){
+          MainRepository.Balance.initHistoryData();
         },
         methods: {
             loadTotalEstimatedValue() {
@@ -337,14 +307,19 @@
                 this.modal_end_date = value;
             },
             onClear() {
-                this. modal_start_date = ""
-                this. modal_end_date = ""
-                this. modal_selectedType = ""
-                this. modal_coin = ""
-
+                this.modal_start_date = ""
+                this.modal_end_date = ""
+                this.modal_selectedType = ""
+                this.modal_coin = ""
             },
             onSearch(){
                 //Axios 태우기
+                MainRepository.Balance.updateHistoryPage({
+                    searchStartTime : this.modal_start_date,
+                    searchEndTime : this.modal_end_date,
+                    type : this.modal_selectedType,
+                    cryptocurrency : this.modal_coin,
+                });
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
                 this.selectedType = this.modal_selectedType;
@@ -368,7 +343,12 @@
                         this.modal_coin = '';
                         break;
                 }
-
+                MainRepository.Balance.updateHistoryPage({
+                    searchStartTime : this.modal_start_date,
+                    searchEndTime : this.modal_end_date,
+                    type : this.modal_selectedType,
+                    cryptocurrency : this.modal_coin,
+                });
             },
             clickedCurrency(item){
                 this.selectedCurrency = item;
@@ -520,5 +500,20 @@
     display: block;
   }
 
+  /*web 일때*/
+  @media only screen and (min-width: 960px) {
+    .no-more-ads{
+      margin: 120px auto 16px auto;
+    }
+    .no-more-ads-text{
+      margin-bottom: 56px;
+    }
 
+  }
+  /*mobile 일때*/
+  @media only screen and (max-width: 959px) {
+    .no-more-ads{
+      margin: 48px auto 16px auto;
+    }
+  }
 </style>

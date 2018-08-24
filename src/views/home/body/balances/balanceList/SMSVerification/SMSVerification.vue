@@ -106,8 +106,7 @@
                   let self = this;
                   if(this.verifiedAll == true){
                       MainRepository.Balance.postWithdraw(function (data){
-                          let url = "/successWithdraw"
-                              //+ data.processingTime
+                          let url = "/successWithdraw?" + data.txTime
                           self.$router.push(url);
                       });
                   }
