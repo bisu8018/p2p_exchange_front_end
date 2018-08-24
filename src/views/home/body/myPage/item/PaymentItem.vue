@@ -81,6 +81,7 @@
                 }
 
                 MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
+                    MainRepository.MyInfo.loadMyPaymentMethods(() => {})
                     // 리프레시 이벤트버스 날리기~~'ㅅ'
                 });
             },

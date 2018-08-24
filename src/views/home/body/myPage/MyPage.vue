@@ -132,7 +132,7 @@
             });
 
             // 유저 결제수단 정보 GET
-            MainRepository.MyInfo.loadMyPaymentMethods();
+            MainRepository.MyInfo.loadMyPaymentMethods(() => {});
 
             // GET Block List
             MainRepository.MyPage.getBlockList(function (blockList) {
