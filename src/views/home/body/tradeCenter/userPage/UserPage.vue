@@ -323,7 +323,7 @@
                 return this.blockThisMember
             },
             haveItem(){
-                return (this.haveBuyList&&this.haveSellList)
+                return (this.haveBuyList||this.haveSellList)
             }
         },
         created(){
