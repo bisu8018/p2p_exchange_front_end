@@ -255,7 +255,7 @@
                     </v-layout>
                     <v-layout mt-4>
                         <v-flex xs9 offset-xs2 text-xs-left>
-                            <h5 class="color-darkgray medium">{{$str("Payment_window_is_15minutes")}}</h5>
+                            <h5 class="color-darkgray medium">{{$str("Payment window is")}}{{user.paymentWindow}} {{$str("minuteText")}}</h5>
                         </v-flex>
                     </v-layout>
                     <!--user Memo가 있을시-->
@@ -490,7 +490,7 @@
                             </div>
                         </v-flex>
                         <v-flex md2 text-md-right>
-                            <h6 class="color-darkgray">{{$str("Payment_window_is_15minutes")}}</h6>
+                            <h6 class="color-darkgray">{{$str("Payment window is")}} {{user.paymentWindow}} {{$str("minuteText")}}</h6>
                         </v-flex>
                     </v-layout>
 

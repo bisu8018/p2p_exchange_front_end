@@ -337,11 +337,11 @@ const strings = new Map([
         CN: '商家备注',
         HK: '商家備注'
     }],
-    ['Payment_window_is_15minutes', {
-        KOR: '15분 후 거래화면이 닫힙니다.',
-        ENG: 'Payment window will be closed in 15minutes',
-        CN: '买方付款时限为15分钟',
-        HK: '買方付款時限為15分鐘'
+    ['Payment window is', {
+        KOR: '지불시간:  ',
+        ENG: 'Payment window time: ',
+        CN: '买方付款时限为',
+        HK: '買方付款時限為'
     }],
     ['Please_enter_a_vaild_number', {
         KOR: '올바른 숫자를 입력하십시오.',
