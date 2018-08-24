@@ -82,7 +82,7 @@
         </v-layout>
         <v-layout text-xs-left>
           <v-flex md2 xs6 pl-4>{{$str("Processing Time")}}:</v-flex>
-          <v-flex md10 xs6> {{detailList.processingTime}}</v-flex>
+          <v-flex md10 xs6> {{transTime(detailList.registerDatetime)}}</v-flex>
         </v-layout>
       </div>
     </v-flex>
