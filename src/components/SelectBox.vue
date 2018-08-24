@@ -99,11 +99,18 @@
                 {payment : 'Wechat', code : 'wechat'},
             ],
             phones : [
+                // {code : '0086', nation : 'China'},
+                // {code : '00852', nation : 'Hong Kong(China)'},
+                // {code : '00886', nation : 'Taiwan(China)'},
+                // {code : '0081', nation : 'Japan'},
+                // {code : '0082', nation : 'Korea'},
+                // {code : '0044', nation : 'United Kingdom'},
+
                 {code : '0086', nation : 'China'},
                 {code : '00852', nation : 'Hong Kong(China)'},
                 {code : '00886', nation : 'Taiwan(China)'},
                 {code : '0081', nation : 'Japan'},
-                {code : '0082', nation : 'Korea'},
+                {code : '+82', nation : 'Korea'},
                 {code : '0044', nation : 'United Kingdom'},
             ]
         }),
