@@ -448,6 +448,12 @@ const strings = new Map([
         CN: '从',
         HK: '從'
     }],
+    ['from', {
+        KOR: '에게',
+        ENG: 'from',
+        CN: '向',
+        HK: '從'
+    }],
     ['To', {
         KOR: '환전 후',
         ENG: 'To',
@@ -678,8 +684,8 @@ const strings = new Map([
     ['minuteText', {
         KOR: '분',
         ENG: 'Minutes',
-        CN: '分钟',
-        HK: '分鐘'
+        CN: '分',
+        HK: '分'
     }],
     ['sellText', {
         KOR: '판매',
@@ -1926,7 +1932,7 @@ const strings = new Map([
     ['modify', {
         KOR: '수정하기',
         ENG: 'Modify',
-        CN: '修改',
+        CN: '更改',
         HK: '修改'
     }],
     ['addPayment', {
@@ -2063,20 +2069,20 @@ const strings = new Map([
     }],
     ['alipayPlaceholder', {
         KOR: '알리페이를 입력해 주십시오',
-        ENG: 'Input Alipay',
-        CN: '请输入支付宝',
+        ENG: 'Input Alipay number',
+        CN: '请输入支付宝号码',
         HK: '請輸入支付寶'
     }],
     ['wechatPlaceholder', {
         KOR: '위챗페이를 입력해 주십시오',
-        ENG: 'Input Wechat',
-        CN: '请输入微信支付',
+        ENG: 'Input Wechat number',
+        CN: '请输入微信支付号码',
         HK: '請輸入微信支付'
     }],
     ['bankPlaceholder', {
         KOR: '은행 계좌를 입력해 주십시오',
-        ENG: 'Input Bank Account',
-        CN: '请输入银行账户',
+        ENG: 'Input Bank Account number',
+        CN: '请输入银行账户号码',
         HK: '請輸入銀行帳戶'
     }],
     ['qrCode', {
@@ -2401,7 +2407,7 @@ const strings = new Map([
     ['Identification Number', {
         KOR: '식별 번호',
         ENG: 'Identification Number',
-        CN: '识别编码',
+        CN: '身份证号码',
         HK: '識別編碼'
     }],
     ['e.g. Passport, ID or Driver\'s License', {
@@ -2575,13 +2581,13 @@ const strings = new Map([
     ['Ongoing order', {
         KOR: '진행 중인 주문',
         ENG: 'Ongoing order',
-        CN: '',
+        CN: '正在进行订单',
         HK: ''
     }],
     ['View All', {
         KOR: '모두 보기',
         ENG: 'View All',
-        CN: '',
+        CN: '更多',
         HK: ''
     }],
     ['Trade Num', {
@@ -2645,9 +2651,9 @@ const strings = new Map([
         HK: '沒有記錄'
     }],
     ['Please pay', {
-        KOR: '지불 요청',
+        KOR: '지불 시한',
         ENG: 'Please pay',
-        CN: '',
+        CN: '支付时限',
         HK: ''
     }],
     ['appealReason1', {
@@ -2695,7 +2701,7 @@ const strings = new Map([
     ['Turn on email authentication', {
         KOR: '이메일 연동',
         ENG: 'Turn on email authentication',
-        CN: '',
+        CN: '绑定电子邮箱',
         HK: ''
     }],
     ['turn_off_email', {
@@ -2770,6 +2776,85 @@ const strings = new Map([
         CN: '传送中...',
         HK: '傳送中...'
     }],
+    ['ALLB OTC', {
+        KOR: '',
+        ENG: 'ALLB OTC',
+        CN: '埃尔比法币交易',
+        HK: ''
+    }],
+    ['The world\'s leading P2P trading platform', {
+        KOR: '',
+        ENG: 'The world\'s leading P2P trading platform',
+        CN: '世界最佳法币交易平台',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+
+
 ])
 
 export enum Lang {

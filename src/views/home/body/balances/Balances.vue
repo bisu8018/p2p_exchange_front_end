@@ -12,11 +12,10 @@
             <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
               <!---->
-              <span >{{EstimatedCryptocurrencyValue}} BTC </span>
+              <span>{{EstimatedCryptocurrencyValue}} BTC </span>
               <span >≈ {{EstimatedCurrencyValue}}</span>
-
               <span class="ml-4 p-relative color-blue">
-                <span>{{ selectedCurrency }}</span>
+                <span>{{ selectedCurrency}}</span>
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
                 <div class="dropdown-content" v-if="isdropdown">
                   <!-- 내 정보 list 버튼-->
@@ -282,13 +281,16 @@
                 MainRepository.router().goLogin();
                 return;
             }
+            MainRepository.Balance.initHistory();
 
             this.balanceInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
                     MainRepository.Balance.loadBalances(() => {});
+                    MainRepository.Balance.loadHistory();       //History도 5초에 1번씩 불러오게 추가.
                 });
             }, 5000);
-            MainRepository.Balance.initHistory();
+
+
         },
         mounted() {
 

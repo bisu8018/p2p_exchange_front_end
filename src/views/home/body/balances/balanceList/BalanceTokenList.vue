@@ -69,7 +69,7 @@
             {{getCryptoName(item.cryptoCurrency) }} {{$str("Deposit_Address")}}
           </v-flex>
           <v-flex xs12>
-            <input type="text" id="copy-code" :value="item.walletAddress" class="wallet-address" disabled  >
+            <input type="text" id="copy-code" :value="item.walletAddress" class="wallet-address h6" disabled  >
           </v-flex>
           <v-flex xs12 mt-3>
             <h5 class="color-blue c-pointer" @click="onCopy()">

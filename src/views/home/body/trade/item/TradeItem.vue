@@ -13,7 +13,7 @@
             <div class="text-xs-left color-black line-height-1  c-pointer tooltip">
                 <span slot="activator" @click="onCopy('getInfo')">{{getInfo}}</span>
                 <input type="text" :value="getInfo" id="getInfo" class="referenceNum">
-                <span class="tooltip-content">Copy</span>
+                <span class="tooltip-content">{{ $str("Copy") }}</span>
             </div>
         </v-flex>
         <!-- QR코드-->

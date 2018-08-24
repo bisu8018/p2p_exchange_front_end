@@ -21,8 +21,8 @@
             </v-carousel>
         </v-parallax>
       <div v-if="isMobile" class="pageView mt-5">
-        <h2 class="bold">ALLB OTC</h2>
-        <h5 class="medium mt-3">The world's leading P2P trading platform</h5>
+        <h2 class="bold">{{ $str('ALLB OTC') }}</h2>
+        <h5 class="medium mt-3">{{ $str('The world\'s leading P2P trading platform')}}</h5>
       </div>
       <v-layout row wrap pageView mt-6>
         <!-- 국가 -->
@@ -33,8 +33,8 @@
         <v-flex xs6 md2 mb-4>
           <div class="p-relative">
             <select v-model="selectedTradeType" class="comp-selectbox o-none h6">
-              <option class="o-none">Buy</option>
-              <option class="o-none">Sell</option>
+              <option class="o-none">{{$str("buy")}}</option>
+              <option class="o-none">{{$str("sell")}}</option>
             </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
           </div>

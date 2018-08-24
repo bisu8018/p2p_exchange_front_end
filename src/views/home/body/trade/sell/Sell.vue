@@ -3,18 +3,18 @@
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 <!--{{ order_number }} 주문번호-->
-                Order : #{{ getOrderNumber }}
+                {{ $str('order') }} : #{{ getOrderNumber }}
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 <!--buy/sell -->
-                Sell
+                {{ $str('sell') }}
                 <!--토큰량 -->
                 {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block"> From {{ counterPartyNickname }}</div>
+                <div class="d-inline-block">  {{ $str('from') }} {{ counterPartyNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -32,7 +32,7 @@
                      <!--{{ currentOrder.currency }} 화폐단위-->
                         {{ currentOrder.currency }}</span>
                         <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
-                        <span class="tooltip-content">Copy</span>
+                        <span class="tooltip-content">{{ $str("Copy") }}</span>
                     </div>
                 </div>
             </div>
