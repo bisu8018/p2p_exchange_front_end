@@ -124,7 +124,7 @@
                         <label class="">
                             <div class="textarea-style p-relative"
                                  :class="{'warning-border' : warning_attachment_file}">
-                                <div v-if="file === ''" class="ma-4a">
+                                <div v-if="image === ''" class="ma-4a">
                                     <input type="file" id="file" ref="file"
                                            v-on:change="onCheckAttachmentFile()"
                                            class="d-none" />
@@ -217,6 +217,7 @@
                 verify_warning_trade_password: '',
                 verify_warning_bank_account: '',
                 file: '',
+                image: '',
             }
         },
         computed: {
@@ -254,9 +255,14 @@
                         this.typeData = '';
                     }
                 }
-            }
+            },
         },
         created() {
+        },
+        watch: {
+            typeData :  function (data) {
+                this.getImg();
+            }
         },
         methods: {
             onCheckName() {
@@ -277,8 +283,20 @@
             onCheckBankAccount() {
 
             },
-            onCheckAttachmentFile() {
-                //첨부파일 타입, 확장자, 용량 체크
+            getImg() {
+                let type = this.paymentMethods.type;
+                let alipay_img =  this.paymentMethods.alipayQrCodeImgUrl;
+                let wechat_img =  this.paymentMethods.wechatQrCodeImgUrl;
+
+                if(type === 'alipay' ){
+                    this.image = alipay_img;
+                }else if(type === 'wechat'){
+                    this.image = wechat_img;
+                }else{
+                    this.image = '';
+                }
+            },
+            onCheckAttachmentFile() {        //첨부파일 타입, 확장자, 용량 체크
                 let fileInfo = this.$refs.file.files[0];
                 let fileSize = fileInfo.size;
                 if (fileSize > 5e+6) {
@@ -289,17 +307,23 @@
                 this.warning_attachment_file = false;
                 this.handleFileUpload(fileInfo);
             },
-            handleFileUpload(fileInfo) {
-                //첨부파일 사진 등록 및 출력
+            handleFileUpload(fileInfo) {         //첨부파일 사진 등록 및 출력
                 this.file = fileInfo;
-                let image = new Image();
                 let reader = new FileReader();
-                let vm = this;
 
                 reader.onload = (e) => {
-                    vm.image = e.target.result;
+                    this.image = e.target.result;
                 };
                 reader.readAsDataURL(this.file);
+            },
+            submitFile() {      // 첨부파일 서버 전송
+                let formData = new FormData();
+                formData.append('file', this.file);
+                return formData;
+            },
+            deleteFile() {      //뷰단 첨부파일 데이터 제거
+                this.file = '';
+                this.image = '';
             },
             onCheckTradePassword() {
 
@@ -308,25 +332,44 @@
                 this.$emit('close', item);
             },
             onDone(item) {
-                let self = this;
                 this.paymentMethods.type = this.type;
                 this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
-                MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, function (data) {
-                    // 이벤트버스 날리기~~'ㅅ'
-                });
+                //파일첨부
+                if(this.file !== ''){
+                    let _purpose = '';
+                    if(this.paymentMethods.type === 'alipay'){
+                        _purpose = 'alipay';
+                    }else if(this.type === 'wechat'){
+                        _purpose = 'wechatpay'
+                    }
+                    CommonService.fileUpload.fileUpload({
+                        file: this.submitFile(),
+                        purpose: _purpose
+                    },  (url) => {
+                        console.log('File upload success.');
+
+                        if(this.type === 'alipay'){
+                            this.paymentMethods.alipayQrCodeImgUrl = url
+                        }else if(this.type === 'wechat'){
+                            this.paymentMethods.wechatQrCodeImgUrl = url
+                        }
+                        //파일 업로드 후 url 값 리턴 필요하므로 callback 내 삽입
+                        MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
+                            // 이벤트버스 날리기~~>ㅅ<
+                        });
+                    });
+                }else{
+                    this.paymentMethods.wechatQrCodeImgUrl = this.image;
+                    MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
+                        // 이벤트버스 날리기~~'ㅅ'
+                    });
+                }
 
                 this.$emit('paymentMethod');
                 this.onClearData();
-
-                CommonService.fileUpload.fileUpload({
-                    file: this.file,
-                    purpose: this.paymentMethods
-                }, function () {
-                    console.log('File upload success.');
-                })
 
                 this.$eventBus.$emit('showAlert', 0);
                 this.onClose();
@@ -378,5 +421,21 @@
     .btn-delete {
         position: absolute;
         left: 0;
+    }
+
+    .attachment-img-style {
+        height: 105px;
+        margin-top: 22px;
+    }
+
+    .image-delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 9px;
+    }
+
+    .warning-textArea-wrapper {
+        top: 153px !important;
     }
 </style>
