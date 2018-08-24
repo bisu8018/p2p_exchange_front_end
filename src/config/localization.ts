@@ -1241,8 +1241,8 @@ const strings = new Map([
     ['Export', {
         KOR: '내보내기',
         ENG: 'Export',
-        CN: '',
-        HK: ''
+        CN: '传送',
+        HK: '傳送'
     }],
     ['orderFilterPlaceholder', {
         KOR: '주문 날짜 / 상태 / 번호 / 통화',
@@ -2472,16 +2472,16 @@ const strings = new Map([
         HK: '您的申請已成功提交。我們將在2天工作日內完成審核。'
     }],
     ['OTC Merchant application is approved.', {
-        KOR: '',
+        KOR: 'OTC 판매자 신청이 승인되었습니다.',
         ENG: 'OTC Merchant application is approved.',
-        CN: '',
-        HK: ''
+        CN: '法币交易商人申请成功',
+        HK: 'OTC交易商人申請成功'
     }],
     ['Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!', {
-        KOR: '',
+        KOR: '귀하의 판매자 신청이 성공적으로 등록되었습니다. AllB OTC에서 광고를 등록할 수 있습니다!',
         ENG: 'Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!',
-        CN: '',
-        HK: ''
+        CN: '您的商家申请成功了。您可以在埃尔比法币交易所发广告！',
+        HK: '您的商家申請成功了。您可以在埃爾比OTC交易所發廣告！'
     }],
 
     ['Photo of Identification', {
@@ -2763,6 +2763,12 @@ const strings = new Map([
         ENG: 'Verifying',
         CN: '验证中',
         HK: '驗證中'
+    }],
+    ['sending', {
+        KOR: '전송 중...',
+        ENG: 'Sending...',
+        CN: '传送中...',
+        HK: '傳送中...'
     }],
 ])
 
