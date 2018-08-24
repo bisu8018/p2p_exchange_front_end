@@ -245,13 +245,15 @@
                 return MainRepository.TradeProcess.getCurrentOrder();
             },
             counterPartyNickname() {    //상대방 닉네임 GET
-                let merchantMemberNo = this.currentOrder.merchantMemberNo;
+                let merchantNickname = this.currentOrder.merchantNickname;
+                let customerMemberNo = this.currentOrder.customerMemberNo;
                 let myNickname = MainRepository.MyInfo.getUserInfo().nickname;
 
-                if (merchantMemberNo === myNickname) {
-                    return this.currentOrder.merchantNickname; //판매자 닉네임
+
+                if (merchantNickname === myNickname) {
+                    return customerMemberNo; //판매자 닉네임
                 } else {
-                    return this.currentOrder.customerNickname; //고객 닉네임
+                    return merchantNickname; //고객 닉네임
                 }
             },
             getOrderNumber() {
