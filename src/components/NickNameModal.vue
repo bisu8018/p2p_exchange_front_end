@@ -112,10 +112,7 @@
                         self.onClearData();
                     })
                 }
-
                 // post 작업 완료 후 진행
-
-
             },
             onClearData() {
                 this.new_password =  '';

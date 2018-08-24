@@ -93,7 +93,6 @@
         data: () => ({
             showModal: false,
             modalType: '',
-
             myOrderStat: '',
             idVerification: new IdVerification(''),
             emailVerification: new EmailVerification(''),
@@ -101,7 +100,6 @@
             blockList: '',
             loginHistory: '',
             securitySettings: '',
-
             showNicknameModal: false,
         }),
         computed: {
@@ -184,7 +182,8 @@
                 });
             },
             onCloseNicknameModal() {
-                this.showNickNameModal = false;
+                this.showNicknameModal = false;
+                console.log('')
             },
         }
     }
