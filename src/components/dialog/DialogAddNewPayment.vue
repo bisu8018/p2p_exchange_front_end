@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                 <div v-else class="text-xs-center p-relative">
-                                    <img :src="getImg" class="attachment-img-style">
+                                    <img :src="image" class="attachment-img-style">
                                     <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
                                           @click="deleteFile()">
                                     {{ $str('delete') }}
@@ -256,19 +256,13 @@
                     }
                 }
             },
-            getImg() {
-                if(this.type === 'alipay'){
-                    this.image = this.paymentMethods.alipayQrCodeImgUrl;
-                    return this.paymentMethods.alipayQrCodeImgUrl;
-                }else if(this.type === 'wechat'){
-                    this.image = this.paymentMethods.wechatQrCodeImgUrl;
-                    return this.paymentMethods.alipayQrCodeImgUrl;
-                }else{
-                    this.image = '';
-                }
-            }
         },
         created() {
+        },
+        watch: {
+            typeData :  function (data) {
+                this.getImg();
+            }
         },
         methods: {
             onCheckName() {
@@ -288,6 +282,19 @@
             },
             onCheckBankAccount() {
 
+            },
+            getImg() {
+                let type = this.paymentMethods.type;
+                let alipay_img =  this.paymentMethods.alipayQrCodeImgUrl;
+                let wechat_img =  this.paymentMethods.wechatQrCodeImgUrl;
+
+                if(type === 'alipay' ){
+                    this.image = alipay_img;
+                }else if(type === 'wechat'){
+                    this.image = wechat_img;
+                }else{
+                    this.image = '';
+                }
             },
             onCheckAttachmentFile() {        //첨부파일 타입, 확장자, 용량 체크
                 let fileInfo = this.$refs.file.files[0];
@@ -332,9 +339,15 @@
 
                 //파일첨부
                 if(this.file !== ''){
+                    let _purpose = '';
+                    if(this.paymentMethods.type === 'alipay'){
+                        _purpose = 'alipay';
+                    }else if(this.type === 'wechat'){
+                        _purpose = 'wechatpay'
+                    }
                     CommonService.fileUpload.fileUpload({
                         file: this.submitFile(),
-                        purpose: this.paymentMethods.type
+                        purpose: _purpose
                     },  (url) => {
                         console.log('File upload success.');
 
@@ -343,7 +356,6 @@
                         }else if(this.type === 'wechat'){
                             this.paymentMethods.wechatQrCodeImgUrl = url
                         }
-
                         //파일 업로드 후 url 값 리턴 필요하므로 callback 내 삽입
                         MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
                             // 이벤트버스 날리기~~>ㅅ<

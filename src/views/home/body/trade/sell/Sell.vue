@@ -28,7 +28,7 @@
                     {{ $str('amount') }} :
                     <!--{{ currentOrder.price }} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
-                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{ currentOrder.price }}
+                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{ currentOrder.amount }}
                      <!--{{ currentOrder.currency }} 화폐단위-->
                         {{ currentOrder.currency }}</span>
                         <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
@@ -55,7 +55,7 @@
                 {{ $str("payingExplain1") }}
                 {{ counterPartyNickname }}
                 {{ $str("payingExplain2") }}
-                <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
+                <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
                 {{ $str("payingExplain3") }}
                 <!--타이머 스크립트 작성 필요-->
                 <span class="color-green">{{  limitTime  }}</span>
@@ -67,7 +67,7 @@
                 {{ $str("confirmgExplain1") }}
                 {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
-                <span class="color-orange-price">{{ currentOrder.price }} {{ currentOrder.currency }}</span>
+                <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
                 {{ $str("confirmgExplain3") }}
 
             </div>
