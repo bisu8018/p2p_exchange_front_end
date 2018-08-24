@@ -562,7 +562,10 @@
             setNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
-            }
+            },
+            // nickName
+            // id
+            // payment
 
         },
         created() {
@@ -740,6 +743,13 @@
             onNicknameClick() {
                 MainRepository.router().goUserPage(this.user.memberNo);
             },
+            checkValid() {
+                // nickName없을때
+
+                // Id 인증 안했을때
+
+                // Payment
+            }
 
         },
     }
