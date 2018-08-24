@@ -36,6 +36,7 @@ this.verify = true;
     import Vue from 'vue';
     import AccountService from '@/service/account/AccountService';
     import {abUtils} from "../common/utils";
+    import MainRepository from "../vuex/MainRepository";
 
     export default Vue.extend({
         name: 'verificationCode',
@@ -51,7 +52,7 @@ this.verify = true;
             type: {
                 type: String,
                 default: 'signup'
-            }
+            },
         },
         data: () => ({
             setTime: 60,
@@ -95,10 +96,16 @@ this.verify = true;
             },
             // 인증 코드 전송
             sendVerificationCode() {
-                if(this.onCheckEmail() || this.onCheckEmail()){
+                if(this.onCheckEmail() || this.onCheckPhone()){
                     let self = this;
+                    let email = self.email;
+
+                    if (self.type === 'phone') {
+                        email = MainRepository.MyInfo.getUserInfo().email;
+                    }
+
                     AccountService.Account.sendVerificationCode(self.type, {
-                        email: self.email,
+                        email: email,
                         phoneNumber: self.phone,
                     }, function (result) {
                         self.verifyStatus = 'verifying';
@@ -130,9 +137,9 @@ this.verify = true;
             //전화 번호 체크
             // 문자전송은 유로이므로, 미리 체크 할 수 있도록 추가 필요
             onCheckPhone() {
-                if(!abUtils.isPhone(this.phoneNumber)){
-                    return false;
-                }
+                // if(!abUtils.isPhone(this.phone)){
+                //     return false;
+                // }
                 return true;
             }
         }
