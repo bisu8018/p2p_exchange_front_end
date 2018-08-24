@@ -155,7 +155,11 @@ export default {
                 })
         },
         //패스워드 변경
-        changePassword: function (data: any, callback: any) {
+        changePassword: function (currentPw: string, newPw: string, callback: any) {
+            let data ={
+                    "currentPassword": currentPw,
+                    "newPassword": newPw
+            };
             AxiosService._requestWithBodyAndEmail('member/password', 'PUT', data,
                 function (data: any) {
                     callback(data);
