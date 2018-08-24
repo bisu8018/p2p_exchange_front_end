@@ -2722,23 +2722,23 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['err_paymentMethodCheck', {
-        KOR: '지불 방법을 설정해주세요.',
-        ENG: 'Set at least one payment method',
-        CN: '设定最小一种以上的支付方式',
-        HK: '設定最小一種以上的支付方式'
+    ['인증이 진행 중입니다', {
+        KOR: '인증이 진행 중입니다',
+        ENG: 'Verifying',
+        CN: '验证中',
+        HK: '驗證中'
     }],
-    ['sending', {
-        KOR: '전송 중...',
-        ENG: 'Sending...',
-        CN: '传送中...',
-        HK: '傳送中...'
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
     }],
-    ['err_agreeTermCheck', {
-        KOR: '이용약관에 동의해주세요.',
-        ENG: 'Please accept the Terms of Service.',
-        CN: '请同意使用条款',
-        HK: '請同意使用條款'
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
     }],
     ['', {
         KOR: '',

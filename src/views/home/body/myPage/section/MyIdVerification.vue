@@ -5,6 +5,7 @@
         <dialog-id-verification
                 :showDialog="dialog_idVerification"
                 @close="offIdVerification"
+                @done="onDoneIdVerification"
         />
 
         <!-- Header -->
@@ -27,9 +28,14 @@
             <!-- 내용 -->
             <li class="caption-wrapper">
 
-                <!-- ID Verification 되었을 때 -->
+                <!-- ID Verification 진행 중일 때 -->
                 <span class="color-darkgray" v-if="idVerification.status === 'registered'">
-                    {{ idVerification.firstName }} {{ idVerification.lastName }}, {{ idVerification.identificationNo }}
+                     {{ $str('인증이 진행 중입니다') }}
+                </span>
+
+                <!-- ID Verification 되었을 때 -->
+                <span class="color-darkgray" v-else-if="idVerification.status === 'verified'">
+                   {{ idVerification.firstName }} {{ idVerification.lastName }}, {{ idVerification.identificationNo }}
                 </span>
 
                 <!-- ID Verification 안 되었을 때 -->
@@ -40,12 +46,21 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
+
+                <!-- 인증이 진행 중일 때 -->
                 <span v-if="idVerification.status === 'registered'">
+
+                </span>
+
+                <!-- 인증이 완료되었을 때 -->
+                <span v-else-if="idVerification.status === 'verified'">
                     <btn-mypage
-                        :txt="$str('verifySliderSuccess')"
-                        noBtn
+                            :txt="$str('verifySliderSuccess')"
+                            noBtn
                     />
                 </span>
+
+                <!-- 인증이 안 되었을 때 -->
                 <span v-else>
                     <btn-mypage
                             @click="onIdVerification"
@@ -115,6 +130,10 @@
             },
             onAdvancedVerification() {
                 alert('준비중입니다');
+            },
+            onDoneIdVerification() {
+                this.$eventBus.$emit('showAlert', 0);
+                this.$eventBus.$emit('refreshMypage');
             }
         },
     }
