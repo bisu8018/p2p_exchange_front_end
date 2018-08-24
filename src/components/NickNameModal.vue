@@ -61,7 +61,7 @@
                 </button>
 
                 <!--닉네임 추가 확인 버튼-->
-                <button @click="onNickNameCheck" class="h6 btn-rounded-blue btn-blue-hover" >
+                <button @click="onNickNameCheck" class="h6 btn-rounded-blue btn-blue-hover">
                     {{$str("complete")}}
                 </button>
             </div>
@@ -98,8 +98,6 @@
                 this.$emit('close');
             },
             onComplete: function (type) {
-
-
                 // post 작업 완료 후 진행
                 this.$emit('nickName');
 
@@ -107,7 +105,6 @@
             onNickNameCheck() {
                 // 닉네임 && 거래 비밀번호 전체 검사
                 if (this.onCheckNickName() && this.onCheckNewPassword() && this.onCheckPasswordConfirm() ) {
-
                     this.onComplete('nickName');
                 }
             },
