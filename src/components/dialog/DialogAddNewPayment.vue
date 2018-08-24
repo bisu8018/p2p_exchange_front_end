@@ -374,6 +374,7 @@
                         }else if(this.type === 'wechat'){
                             this.paymentMethods.wechatQrCodeImgUrl = url
                         }
+
                         //파일 업로드 후 url 값 리턴 필요하므로 callback 내 삽입
                         MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
                             // 이벤트버스 날리기~~>ㅅ<
