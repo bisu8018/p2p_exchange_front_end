@@ -122,6 +122,7 @@
                 let self = this;
                 MainRepository.MyPage.postIdVerification(MainRepository.MyInfo.getUserInfo().email, self.idVerification, function(data){ });
                 self.$eventBus.$emit('showAlert', 0);
+                self.$eventBus.$emit('refreshMypage');
                 this.onClose();
             }
         },
