@@ -2724,9 +2724,9 @@ const strings = new Map([
     }],
     ['인증이 진행 중입니다', {
         KOR: '인증이 진행 중입니다',
-        ENG: '',
-        CN: '',
-        HK: ''
+        ENG: 'Verifying',
+        CN: '验证中',
+        HK: '驗證中'
     }],
     ['', {
         KOR: '',
