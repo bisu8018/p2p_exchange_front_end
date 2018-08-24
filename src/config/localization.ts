@@ -2698,6 +2698,42 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['turn_off_email', {
+        KOR: '',
+        ENG: 'Turn off email authentication',
+        CN: '',
+        HK: ''
+    }],
+    ['turn_on_sms', {
+        KOR: '',
+        ENG: 'Turn on SMS',
+        CN: '',
+        HK: ''
+    }],
+    ['turn_on_sms', {
+        KOR: '',
+        ENG: 'Turn off SMS',
+        CN: '',
+        HK: ''
+    }],
+    ['add_video', {
+        KOR: '',
+        ENG: 'Add Video',
+        CN: '',
+        HK: ''
+    }],
+    ['update_passport', {
+        KOR: '',
+        ENG: 'Update Passport',
+        CN: '',
+        HK: ''
+    }],
+    ['update_video', {
+        KOR: '',
+        ENG: 'Update Video',
+        CN: '',
+        HK: ''
+    }],
     ['Add Id verification', {
         KOR: '아이디 인증 등록',
         ENG: 'Add Id verification',
@@ -2718,7 +2754,7 @@ const strings = new Map([
     }],
     ['Add phone', {
         KOR: '핸드폰 번호 등록',
-        ENG: 'Add phone',
+        ENG: 'Add phone Number',
         CN: '',
         HK: ''
     }],
@@ -2727,24 +2763,6 @@ const strings = new Map([
         ENG: 'Verifying',
         CN: '验证中',
         HK: '驗證中'
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
     }],
 ])
 

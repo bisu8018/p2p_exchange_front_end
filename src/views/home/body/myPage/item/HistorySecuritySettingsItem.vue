@@ -32,13 +32,25 @@
             // data type에 따라 텍스트 바꿔주기
             if (this.data.type === 'turn_on_email') {
                 this.txt = this.$str('Turn on email authentication');
+            } else if (this.data.type === 'turn_off_email') {
+                this.txt = this.$str('turn_off_email');
+            } else if (this.data.type === 'turn_on_sms') {
+                this.txt = this.$str('turn_on_sms');
+            } else if (this.data.type === 'turn_off_sms') {
+                this.txt = this.$str('turn_off_sms');
+            } else if (this.data.type === 'add_video') {
+                this.txt = this.$str('add_video');
+            } else if (this.data.type === 'update_passport') {
+                this.txt = this.$str('update_passport');
+            } else if (this.data.type === 'update_video') {
+                this.txt = this.$str('update_video');
             } else if (this.data.type === 'add_id') {
                 this.txt = this.$str('Add Id verification');
             } else if (this.data.type === 'add_passport') {
                 this.txt = this.$str('Add Advanced verification');
             } else if (this.data.type === 'update_id') {
                 this.txt = this.$str('Update Id');
-            } else if (this.data.type === 'add_phone') {
+            } else if (this.data.type === 'add_phone_number') {
                 this.txt = this.$str('Add phone');
             }
         },
