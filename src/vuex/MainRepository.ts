@@ -875,11 +875,13 @@ export default {
         },
 
 
-        setCurrentOrder: function (data: any, callback: any) {
+        setCurrentOrder: function (data: any, success: any, fail: any) {
             OrderService.getOrder(data, function (result) {
                 let tradeProcess = new Order(result);
                 tradeController.setCurrentOrder(tradeProcess);
-                callback();
+                success();
+            }, function() {
+                fail();
             })
         },
         onPaid: function (data: any, callback: any) {

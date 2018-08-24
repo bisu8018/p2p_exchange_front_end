@@ -28,12 +28,13 @@ export default {
             },
             function () { })
     },
-    getOrder: function (orderNo : number, callback: any) {
+    getOrder: function (orderNo : number, success: any, fail: any) {
         AxiosService._requestWithBodyAndEmail('order/' + orderNo, 'GET', '',
             function (data: any) {
-                callback(data)
+                success(data)
             },
-            function () {
+            function (code) {
+                fail()
             })
     },
     onPaid : function (data : any, callback: any) {
