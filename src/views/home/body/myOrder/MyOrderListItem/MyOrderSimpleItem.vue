@@ -6,7 +6,7 @@
         <div class="ml-3">
             <h5 class="color-darkgray">
                 <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
-                {{ $str(data.orderTradeType) }} | {{ data.cryptocurrency }} | {{ $str('TotalPrice') }}: {{ data.price }}
+                {{ $str(data.orderTradeType) }} | {{ data.cryptocurrency }} | {{ $str('TotalPrice') }}: {{ data.amount }}
                 <!--Buy BTC Total Price: 200 CNY-->
             </h5>
             <h5>

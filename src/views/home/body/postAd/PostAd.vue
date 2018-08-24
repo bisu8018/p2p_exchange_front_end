@@ -669,15 +669,15 @@
                 }
             },
             getBalance() {
-                if(Object.keys(MainRepository.Balance.getBalances()).length > 0){
-                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin' ) {
+                if (Object.keys(MainRepository.Balance.getBalances()).length > 0) {
+                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin') {
                         this.balance = MainRepository.Balance.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
                         return this.balance
                     } else {
                         this.balance = 0;
                         return 0;
                     }
-                }else {
+                } else {
                     this.balance = 0;
                     return 0;
                 }
@@ -740,8 +740,11 @@
                     return this.counterpartyFilterTradeCount = abUtils.toDeleteZero(temp);
                 }
             },
-            onCheck: function () {
-                if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() && this.onCheckFixedPrice() && this.onCheckCounterparty()) {
+            onCheck: function () {      //최종 체크
+                if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() &&
+                    this.onCheckFixedPrice() && this.onCheckCounterparty() && this.onCheckToggle() && this.onCheckSlideBar &&
+                    this.onCheckTradePassword() && this.onCheckAgreeTerm()) {
+
                     this.onModal();
                 }
             },
@@ -802,8 +805,8 @@
             onRefresh: function () {
                 //결제수단 새로고침 function
                 MainRepository.MyInfo.loadMyPaymentMethods({
-                    email : MainRepository.MyInfo.getUserInfo().email
-                },function (result) {
+                    email: MainRepository.MyInfo.getUserInfo().email
+                }, function (result) {
                 })
             },
             onToggle: function (type) {
@@ -930,6 +933,32 @@
                 }
                 this.warning_trade_password = false;
                 return true;
+            },
+            onCheckAgreeTerm: function () {
+                //이용약관 체크
+                if (!this.agreeTerms) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4002);
+                    return false;
+                }
+                return true;
+
+            },
+            onCheckSlideBar: function () {
+                //인증바 체크
+                if (!this.isVerified) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4003);
+                    return false;
+                }
+                return true;
+
+            },
+            onCheckToggle: function () {
+                if (!this.alipay_toggle_use && !this.wechat_toggle_use && !this.bank_toggle_use) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4001);
+                    return false;
+                } else {
+                    return true
+                }
             },
             goMyPage() {
                 this.$router.push("/myPage");

@@ -17,11 +17,20 @@
             </div>
         </v-flex>
         <!-- QR코드-->
-        <v-flex xs12 md6 mb-3  c-pointer   v-if="item.type != 'bank'"
-                @click="onQRcode('alipay')">
-            <div class="vertical-center text-xs-right text-md-left ">
-                <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
-                <div class="d-inline-block color-black h6"> QR Code</div>
+        <v-flex xs12 md6 mb-3  c-pointer   v-if="item.type != 'bank' && getImg !== ''">
+
+            <!--MyOrder-->
+            <div class="dropdown">
+                <div class="vertical-center text-xs-right text-md-left dropbtn">
+                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                    <div class="d-inline-block color-black h6"> QR Code</div>
+                </div>
+                <!-- ongoing order 드롭다운 -->
+                <div class="dropdown-content myorder-dropdown">
+                    <div class="pa-2" >
+                        <img :src="getImg" class="attachment-img-style"/>
+                    </div>
+                </div>
             </div>
         </v-flex>
     </v-layout>
@@ -78,6 +87,15 @@
                         let value = this.item.ownerName + ', ' + this.item.bankName + this.item.bankBranchInfo + this.item.bankAccount;
                         return value;
                 }
+            },
+            getImg(){
+                switch (this.item.type) {
+                    case  'alipay':
+                        return this.item.alipayQrCodeImgUrl;
+
+                    case 'wechat':
+                        return this.item.wechatQrCodeImgUrl;
+                }
             }
         },
         methods: {
@@ -118,4 +136,54 @@
         font-weight: 100;
     }
 
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        color: black;
+        min-width: 104px;
+        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+        z-index: 1;
+        border-radius: 2px;
+        font-weight: 400;
+        background-color: white;
+        left: -200px;
+        top: 30px;
+    }
+
+    .dropdown-content a {
+        color: black;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content,
+    .dropdown-content button {
+        display: block;
+    }
+    .myorder-dropdown:after{
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        width: 0; height: 0;
+        border-style: solid;
+        border-bottom: 4px solid  #ffffff;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        border-color: transparent transparent  #ffffff transparent ;
+        right: 16px;
+    }
+
+    .attachment-img-style {
+        height: 200px;
+        margin: 5px;
+    }
 </style>
