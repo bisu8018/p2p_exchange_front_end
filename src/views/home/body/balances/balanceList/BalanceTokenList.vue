@@ -17,11 +17,11 @@
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{item.availableAmount}} {{getCryptoName(item.cryptoCurrency)  }}</span>
+              <span>{{ $fixed(item.availableAmount, item.cryptoCurrency)}} {{getCryptoName(item.cryptoCurrency)  }}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{item.frozenAmount}} {{getCryptoName(item.cryptoCurrency) }}</span>
+              <span>{{ $fixed(item.frozenAmount, item.cryptoCurrency)}} {{getCryptoName(item.cryptoCurrency) }}</span>
             </v-layout>
           </div>
         </v-flex>

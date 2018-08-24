@@ -31,7 +31,7 @@
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.registerDatetime}}</v-flex>
+        <v-flex xs5 text-xs-right>{{transTime(orderlist.registerDatetime)}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}}</v-flex>
