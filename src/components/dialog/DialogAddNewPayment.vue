@@ -20,7 +20,7 @@
             </div>
 
             <!-- PaymentMethod에 따라 바뀌는 영역 -->
-            <div v-if="type !== ''">
+            <div>
 
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("name") }}</h5>
@@ -357,7 +357,7 @@
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
                 //파일첨부
-                if(this.file !== ''){
+                if(this.file !== '' && this.type != 'bank'){
                     let _purpose = '';
                     if(this.paymentMethods.type === 'alipay'){
                         _purpose = 'alipay';

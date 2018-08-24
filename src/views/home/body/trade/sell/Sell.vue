@@ -87,14 +87,7 @@
                         {{ $str("appealCodeExplain") }}
                         {{ getAppeal.appealNo }} ,
                     </span>
-                <span v-if="currentOrder.status !== 'complete'">
-                    {{ $str("referenceText") }}
-                </span>
-                <span v-if="currentOrder.status === 'complete'">
-                    {{ $str("complete") }}
-                </span>
-
-                :
+                    {{ $str("referenceText") }} :
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                     <!--{{ 거래번호 }}-->

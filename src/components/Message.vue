@@ -21,7 +21,7 @@
                 <i class="material-icons color-darkgray c-pointer">stay_current_portrait</i>
             </div>
         </div>
-        <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper">
+        <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper"  v-on:scroll.passive="scrollEvent">
             <div v-for="data in messageList">
                 <!--상대방-->
                 <div class="mb-3 display-flex" v-if="data.mine === false">
@@ -68,8 +68,7 @@
                     <v-spacer></v-spacer>
                     <div class="pr-2">
                         <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                            {{ getTime(localMsg.registerDatetime) }}
-                            <!--<span>{{ getDateTime('date') }}</span>-->
+                            {{ $str('sending') }}
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
                             {{ localMsg.message }}
@@ -85,7 +84,7 @@
         </div>
         <div class="pl-3 input-wrapper">
             <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
-                   @keypress.enter="onPost()" v-on:keyup.enter="scrollBottom()"/>
+                   @keypress.enter="onPost()"/>
             <div class="pr-3"><label><i
                     class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
                 <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
@@ -112,7 +111,8 @@
         data: () => ({
             inputValue: "",
             transactionNum: '',
-
+            st: 0,
+            needScrollDown: true,
             msgInterval: {},
             latestPostTime: 0,
 
@@ -121,11 +121,15 @@
             image: '',
             showLocalMsg: false,
             localMsgList: [],
+            isMsgInitCompleted: false,
         }),
         computed: {
             messageList() {
                 this.$nextTick(() => {
-                    this.scrollBottom();
+                    // 현재 스크롤이 최하단일경우 -> scroll
+                    if (this.needScrollDown) {
+                        this.scrollBottom();
+                    }
                 });
                 this.showLocalMsg = false;
                 this.localMsgList = [];
@@ -175,7 +179,7 @@
                 this.$nextTick(() => {
                     this.msgInterval = setInterval(() => {
                         this.updateMsg()
-                    }, 3000);
+                    }, 1000);
                 });
             });
         },
@@ -226,7 +230,7 @@
                 let tmpValue = this.inputValue.trim();
                 if (tmpValue !== '') {
                     //도배 및 중복 값 입력 방지
-                    if (Date.now() - this.latestPostTime < 100) {
+                    if (Date.now() - this.latestPostTime < 500) {
                         return false;
                     } else {
                         this.latestPostTime = Date.now();
@@ -235,6 +239,9 @@
                         this.inputValue = '';
                     }
                 }
+                this.$nextTick(() => {
+                    this.scrollBottom();
+                });
             },
             createLocalMsg(msg) {
                 this.showLocalMsg = true;
@@ -246,7 +253,15 @@
             scrollBottom() {
                 let chatWrapper = document.getElementById("contentsWrapper");
                 chatWrapper.scrollTop = chatWrapper.scrollHeight;
-            }
+            },
+            scrollEvent(e) {
+                this.offsetTop = e.target.scrollTop;
+                this.offsetTop = ((e.target.scrollTop || 0) - window.pageYOffset);
+                let a = this.$el.querySelector(".contents-wrapper").clientHeight;
+                let b = this.$el.querySelector(".contents-wrapper").scrollHeight;
+                this.st = b - (a + this.offsetTop);
+                this.needScrollDown = this.st < 120;
+            },
         }
     })
 </script>
