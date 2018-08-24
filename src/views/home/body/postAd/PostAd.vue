@@ -386,7 +386,7 @@
                     <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{ $str("autoReplyText") }}</div>
                     <div class="price-input-wrapper">
                 <textarea class="common-textarea" :placeholder="$str('autoReplyPlaceholder')"
-                          v-model="autoReplay"></textarea>
+                          v-model="autoReply"></textarea>
                     </div>
                 </div>
             </v-flex>
@@ -570,7 +570,7 @@
             alipay_toggle_use: false,
             wechat_toggle_use: false,
             bank_toggle_use: false,
-            autoReplay: "",
+            autoReply: "",
             termsOfTransaction: "",
             counterpartyFilterTradeCount: "",
             counterpartyCheckbox_first: false,

@@ -79,7 +79,7 @@
                 {currency : 'INR'},
                 {currency : 'VND'},
                 {currency : 'CAD'},
-                {currency : 'AUD'},
+              //  {currency : 'AUD'},
                 {currency : 'KRW'},
                 {currency : 'CHF'},
                 {currency : 'TWD'},
@@ -90,7 +90,7 @@
                 {currency : 'NGN'},
                 {currency : 'IDR'},
                 {currency : 'PHP'},
-                {currency : 'KHR'},
+               // {currency : 'KHR'},
             ],
             payments : [
                 {payment : 'All Payments', code : 'ALL'},
