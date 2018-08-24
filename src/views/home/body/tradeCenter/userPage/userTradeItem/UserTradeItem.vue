@@ -25,7 +25,7 @@
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
-          <v-flex xs6 text-xs-right> {{user.volumeAvailable}} {{user.cryptocurrency}} </v-flex>
+          <v-flex xs6 text-xs-right> {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
@@ -73,7 +73,7 @@
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
               <h5 class="medium color-blue c-pointer text-white-hover">
-                {{user.nickname}} ( {{user.volumeAvailable}} | {{user.tradeRate}}%)
+                {{user.nickname}} ( {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} | {{user.tradeRate}}%)
               </h5>
               <a class="tooltip d-inline-block" v-if="user.rank==1">
                 <div class="sprite-img ic-premium ml-2"></div>
@@ -85,7 +85,7 @@
               </a>
 
               <h5 class="color-darkgray medium">
-                {{$str("Available")}} {{user.volumeAvailable}} {{user.cryptocurrency}}
+                {{$str("Available")}} {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}
               </h5>
             </v-flex>
           </v-layout>
@@ -125,11 +125,11 @@
         <v-layout medium>
           <v-flex xs4  offset-xs2 text-xs-left>
             <h5 class="color-darkgray">
-              {{$str("Available")}} :tradeType
+              {{$str("Available")}}
             </h5>
           </v-flex>
           <v-flex xs4 offset-xs1 text-xs-right>
-            <h5>{{user.volumeAvailable}} {{user.cryptocurrency}}</h5>
+            <h5>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -249,7 +249,7 @@
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{user.volumeAvailable}} {{user.cryptocurrency}} </v-flex>
+        <v-flex md2 text-md-left >{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}} </v-flex>
         <!--limits-->
         <v-flex md2 text-md-left >{{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         <!--price-->
@@ -333,7 +333,7 @@
               <span v-else class="sprite-img ic-allb-lg"> </span>
               <span>
                 <span class="ml-3 bold">{{user.cryptocurrency}}</span>
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
               </span>
             </v-layout>
           </v-flex>

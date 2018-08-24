@@ -17,7 +17,7 @@
           <span class="mr-2 color-green bold" v-if="orderlist.orderTradeType === 'sell'">
             {{$str("sell")}}
           </span>
-          <span class="mr-2">{{orderlist.coinCount}}</span>
+          <span class="mr-2">{{ $fixed(orderlist.coinCount, orderlist.cryptocurrency)}}</span>
           {{orderlist.cryptocurrency}}
         </v-flex>
       </v-layout>
@@ -63,7 +63,7 @@
           <span class="color-green bold mr-2" v-if="orderlist.orderTradeType === 'sell'">
                         {{$str("sell")}}
           </span>
-          <span class="mr-2">{{orderlist.coinCount}}</span>
+          <span class="mr-2">{{ $fixed(orderlist.coinCount, orderlist.cryptocurrency)}}</span>
           <span>{{orderlist.cryptocurrency}}</span>
         </v-flex>
         <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>

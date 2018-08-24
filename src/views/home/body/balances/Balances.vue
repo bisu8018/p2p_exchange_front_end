@@ -160,18 +160,28 @@
       <v-flex><v-divider></v-divider></v-flex>
     </div>
     <!--BalanceList-->
-    <div  v-for="detailList in detailLists" >
-      <balance-detail-list
-              :detailList="detailList"
-      ></balance-detail-list>
-      <v-flex><v-divider></v-divider></v-flex>
+    <div v-if="haveItems">
+      <div  v-for="detailList in detailLists" >
+        <balance-detail-list
+                :detailList="detailList"
+        ></balance-detail-list>
+        <v-flex><v-divider></v-divider></v-flex>
+      </div>
+      <div class="mt-4">
+        <Pagination
+                :size="pageSize"
+                :type="pageType"
+        ></Pagination>
+      </div>
     </div>
-  <div class="mt-4">
-    <Pagination
-            :size="pageSize"
-            :type="pageType"
-    ></Pagination>
-  </div>
+    <!-- 해당되는 item이 1개도 없을때-->
+    <div v-else>
+      <div class="sprite-img ic-no-ad-lg no-more-ads">
+      </div>
+      <div class="color-gray no-more-ads-text">
+        {{$str("No more history")}}
+      </div>
+    </div>
   </div>
 </template>
 

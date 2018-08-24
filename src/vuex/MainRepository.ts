@@ -222,6 +222,10 @@ export default {
             )
         },
         updateHistoryPage(data){
+            if(data.page === undefined){
+                balanceController.updateHistoryFilter({page : 1});
+                instance.Pagination.setPage(1,);
+            }
             balanceController.updateHistoryFilter(data);
             this.loadHistory();
         },
@@ -764,6 +768,10 @@ export default {
             );
         },
         updatePage(data){
+            if(data.page === undefined){
+                myTradeController.updateMyAdsFilter({page : 1});
+                instance.Pagination.setPage(1,);
+            }
             myTradeController.updateMyAdsFilter(data);
             this.load();
         },
@@ -864,7 +872,14 @@ export default {
             )
         },
         updatePage(data){
+            //pagination이 아닌 filter의 값 변경시
+            if(data.page === undefined){
+                myTradeController.updateMyOrderFilter({page : 1});
+                instance.Pagination.setPage(1,);
+            }
             myTradeController.updateMyOrderFilter(data);
+
+
             this.load(false);
         },
         getPage(){
