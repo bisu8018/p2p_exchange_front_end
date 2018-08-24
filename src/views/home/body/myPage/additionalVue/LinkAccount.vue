@@ -24,7 +24,7 @@
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("SMSverification")}}
                         </div>
-                        <verification-code v-on:verify="onCheckVerificationCode" :phone="phone_number" :type="'phone'"></verification-code>
+                        <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + phone_number" :type="'phone'"></verification-code>
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
                 let self = this;
                 AccountService.Account.checkVerificationCode('phone', {
                     email: MainRepository.MyInfo.getUserInfo().email,
-                    phoneNumber: self.phone_number,
+                    phoneNumber: self.code_number + self.phone_number,
                     code: self.verificationCode,
                     status: 'turn_on'
                 }, function (result) {
@@ -109,6 +109,7 @@
             },
             // 인증코드 체크
             onCheckVerificationCode(code) {
+                console.log(code)
                 this.verify = true;
                 this.verificationCode = code;
             },

@@ -20,11 +20,11 @@
             </div>
 
             <!-- PaymentMethod에 따라 바뀌는 영역 -->
-            <div>
+            <div v-if="type !== ''">
 
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("name") }}</h5>
-                <div class="p-relative mb-4">
+                <div class="p-relative mb-4"  >
 
                     <!-- Input -->
                     <input type="text" class="input"
@@ -201,6 +201,7 @@
             return {
                 // paymentMethods: '',
                 typeData: '',
+                selectedType : '',
 
                 warning_name: false,
                 warning_alipay: false,
@@ -348,7 +349,7 @@
             },
             onClose(item) {
                 this.onClearData();
-                this.$emit('close', item);
+                this.$emit('close');
             },
             onDone(item) {
                 this.paymentMethods.type = this.type;
@@ -374,26 +375,25 @@
                         }else if(this.type === 'wechat'){
                             this.paymentMethods.wechatQrCodeImgUrl = url
                         }
-                        //파일 업로드 후 url 값 리턴 필요하므로 callback 내 삽입
-                        MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
-                            // 이벤트버스 날리기~~>ㅅ<
-                        });
+
+                        this.onPost();
                     });
                 }else{
-                    this.paymentMethods.wechatQrCodeImgUrl = this.image;
-                    MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
-                    });
+                   this.onPost();
                 }
 
-                this.$emit('paymentMethod');
-                this.onClearData();
+            },
+            onPost() {
+                MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
+                    this.$emit('paymentMethod');
 
-                this.$eventBus.$emit('showAlert', 0);
-                this.onClose();
-                this.$emit('done', item);
+                    this.$eventBus.$emit('showAlert', 0);
+                    this.onClose();
+                    this.$emit('done');
+                });
             },
 
-            onDelete() {
+            onDelete(item) {
                 this.paymentMethods.type = this.type;
                 this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
@@ -405,7 +405,7 @@
 
                 this.$eventBus.$emit('showAlert', 0);
                 this.onClose();
-                this.$emit('delete', item);
+                this.$emit('delete');
             }
         },
     }

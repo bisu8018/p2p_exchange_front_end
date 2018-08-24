@@ -116,12 +116,12 @@
             },
 
             onClose(item) {
-                this.$emit('close', item);
+                this.$emit('close');
             },
             onDone() {
                 let self = this;
                 MainRepository.MyPage.postIdVerification(MainRepository.MyInfo.getUserInfo().email, self.idVerification, function(data){ });
-                this.$emit('done', item);
+                this.$emit('done');
                 this.onClose();
             }
         },

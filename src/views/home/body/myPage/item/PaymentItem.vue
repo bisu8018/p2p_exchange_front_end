@@ -14,7 +14,7 @@
 
         <!-- 내용 -->
         <div class="payment-caption">
-            <span v-if="data.type === 'alipay'"> {{ data.alipayId }} {{ data.alipayId }}  {{ data.ownerName }} </span>
+            <span v-if="data.type === 'alipay'"> {{ data.alipayId }}  {{ data.ownerName }} </span>
             <span v-else-if="data.type === 'wechat'"> {{ data.wechatId }} {{ data.ownerName }} </span>
             <span v-else-if="data.type === 'bankaccount'"> {{ data.bankName }} {{ data.bankAccount }} {{ data.bankBranchInfo }} {{ data.ownerName }} </span>
         </div>

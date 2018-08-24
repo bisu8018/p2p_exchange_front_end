@@ -19,7 +19,7 @@ export default class PaymentMethod {
     iconClass: string;
 
     constructor(data: any) {
-        this.activeYn = data.activeYn || 'y';
+        this.activeYn = data.activeYn || 'n';
         this.alipayId = data.alipayId || '';
         this.alipayQrCodeImgUrl = data.alipayQrCodeImgUrl || '';
         this.bankAccount = data.bankAccount || '';
