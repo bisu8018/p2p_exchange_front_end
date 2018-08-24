@@ -14,7 +14,7 @@
             </div>
             <div class="text-xs-left pt-twenty">
                 <span class="h5 bold color-black">{{ counterPartyNickname }}</span><br>
-                <span class="h6 color-darkgray">Trades in 30 days : {{ transactionNum }}</span>
+                <span class="h6 color-darkgray">{{ $str('Trades_in_30_days') }} : {{ transactionNum }}</span>
             </div>
             <v-spacer></v-spacer>
             <div class="pt-4a pr-3 pl-3">

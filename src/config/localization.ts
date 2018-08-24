@@ -439,7 +439,7 @@ const strings = new Map([
     ['Balances', {
         KOR: '밸런스',
         ENG: 'Balances',
-        CN: '余额',
+        CN: '资产',
         HK: '餘額'
     }],
     ['From', {
@@ -975,20 +975,20 @@ const strings = new Map([
     ['sellChecklist1', {
         KOR: '1. 판매하는 자산은 이미 동결되어 있습니다. 송금을 받은 후 자산을 지불하려면 버튼을 클릭하십시오.',
         ENG: '1. The assets you sell are already frozen. Please click on the button to pay assets after you receive the transfer.',
-        CN: '您出售的资产已经被冻结。收到对方付款后想要支付资产的话，请点击此处。',
-        HK: '您出售的資產已經被凍結。收到對方付款後想要支付資產的話，請點擊此處。'
+        CN: '1. 您出售的资产已经被冻结。收到对方付款后想要支付资产的话，请点击此处。',
+        HK: '1. 您出售的資產已經被凍結。收到對方付款後想要支付資產的話，請點擊此處。'
     }],
     ['sellChecklist2', {
         KOR: '2. 만약 구매자가 당신에게 미리 자산을 공개해 달라고 부탁한다면, 그가 이야기하는 어떠한 이유도 믿지 마십시오. 불필요한 손실을 방지하려면 송금을 받은 후 자산을 공개해야 합니다.',
         ENG: '2. Please do not trust any excuses made by the buyer if he wants you to release the assets in advance. To avoid unnecessary loss, please make sure that you release the assets after you receive the transfer.',
-        CN: '如果买方要求提前公开资产，请不要相信对方的任何说辞并公开资产邀请。为了防止任何不必要的损失，请务必于收到买方的转账后再公开资产。',
-        HK: '若買方要求提前公開資產，請不要相信對方的任何説辭並公開資產邀請。爲了防止任何不必要的損失，請務必於收到匯款後再公開資產。'
+        CN: '2. 如果买方要求提前公开资产，请不要相信对方的任何说辞并公开资产邀请。为了防止任何不必要的损失，请务必于收到买方的转账后再公开资产。',
+        HK: '2. 若買方要求提前公開資產，請不要相信對方的任何説辭並公開資產邀請。爲了防止任何不必要的損失，請務必於收到匯款後再公開資產。'
     }],
     ['sellChecklist3', {
         KOR: '3. 수신 SMS를받은 후 사기성 SMS로 인한 실수로 자산을 공개할 수 있으므로, 온라인 은행이나 모바일 은행에 로그인하여 수신을 확인하십시오.',
         ENG: '3. After you receive the arrival SMS, please log into online bank or mobile bank to check the arrival because fraud SMS can make you release the assets by mistake.',
-        CN: '为了免于您因诈骗短信而不小心公开您的资产，请提前登入网上银行或手机的银行软件确认对方的转账。',
-        HK: '爲了免於您因詐騙簡訊而不小心公開您的資產，請提前登入網路銀行或手機的銀行APP確認對方的匯款。'
+        CN: '3. 为了免于您因诈骗短信而不小心公开您的资产，请提前登入网上银行或手机的银行软件确认对方的转账。',
+        HK: '3. 爲了免於您因詐騙簡訊而不小心公開您的資產，請提前登入網路銀行或手機的銀行APP確認對方的匯款。'
     }],
     ['confirmPayment', {
         KOR: '지불 승인',
@@ -1053,19 +1053,19 @@ const strings = new Map([
     ['complete', {
         KOR: '완료',
         ENG: 'Complete',
-        CN: '完成',
-        HK: '完成'
+        CN: '交易成功',
+        HK: '交易成功'
     }],
     ['completedPayment', {
-        KOR: '지금 거래소 계좌로 전송하여 거래를 시작하십시오!',
-        ENG: 'Now transfer to Exchange Account and start trading! ',
-        CN: '现在转到交易所帐户就开始交易！',
+        KOR: '거래가 완료되었습니다.',
+        ENG: 'Payment completed. ',
+        CN: '交易已经成功了！',
         HK: '現在轉到交易所帳戶就開始交易！'
     }],
     ['tranferNow', {
-        KOR: '지금 전송하기',
-        ENG: 'Transfer Now',
-        CN: '现在传送',
+        KOR: '잔고 조회',
+        ENG: 'Balances',
+        CN: '资产',
         HK: '現在傳送'
     }],
     ['cancelExplain', {
@@ -1164,16 +1164,10 @@ const strings = new Map([
         CN: '支付完成金额是',
         HK: '支付完成金額是'
     }],
-    ['confirmgExplain3', {
-        KOR: '입니다. ',
-        ENG: ', ',
-        CN: '',
-        HK: ''
-    }],
     ['confirmRelease', {
         KOR: '확인 및 공개',
         ENG: 'Confirm and release',
-        CN: '确认与公开',
+        CN: '确认与放行',
         HK: '確認與公開'
     }],
     ['confirmContents1', {
@@ -1223,7 +1217,7 @@ const strings = new Map([
     ['MyAds', {
         KOR: '내 광고내역',
         ENG: 'My Ads',
-        CN: '我的廣告',
+        CN: '我的广告',
         HK: '我的廣告'
     }],
     ['No', {
@@ -1515,14 +1509,13 @@ const strings = new Map([
         ENG: '• Transaction fee is not fixed which depends on the computational use (gas) required to complete the transaction. ' +
         'Gas limit on ALLB for withdrawal is 90000. If the transaction uses more than 90000 gas, the transaction will be failed. ' +
         'ALLB will refund your assets to your ALLB account manually. Thanks for your understanding.',
-        CN: '•交易费用不固定，取决于完成交易所需的计算用量（燃气）。' +
-        'ALLB提取的天然气限制为90000.如果交易使用超过90000天然气，交易将失败。ALLB将手动将您的资产退还给您的ALLB账户。 感谢你的理解。',
+        CN: '•交易费用不固定，取决于完成交易所需的计算用量（燃气）。 埃尔比提款的燃气限制为90000。若交易时使用超过90000然气，交易会失败，埃尔比手动将退款您的资产。',
         HK: '•交易費用不固定，取決於完成交易所需的計算用量（燃氣）。' +
         'ALLB提取的天然氣限制為90000.如果交易使用超過90000天然氣，交易將失敗。ALLB將手動將您的資產退還給您的ALLB賬戶。 感謝你的理解。'
     }],
     ['withdrawTips1', {
         KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 우리 직원으로부터 전화 나 이메일을 기다려주십시오.',
-        ENG: '• For security reason, when you change security settings, change password and use new withdraw address, ' +
+        ENG: '• For security reasons, when you change security settings, change password and use new withdraw address, ' +
         'we will manually review your withdrawal. Please wait for phone calls or emails from our staff.',
         CN: '出于安全原因，当您更改安全设置，更改密码并使用新的提款地址时，我们将手动审核您的提款。 请等待我们工作人员的电话或电子邮件。',
         HK: '出於安全原因，當您更改安全設置，更改密碼並使用新的提款地址時，我們將手動審核您的提款。 請等待我們工作人員的電話或電子郵件。'
@@ -1531,7 +1524,7 @@ const strings = new Map([
         KOR: '컴퓨터와 브라우저가 안전하고 정보가 변조되거나 유출되지 않도록하십시오.',
         ENG: '• Please make sure that your computer and browser are secure ' +
         'and your information is protected from being tampered or leaked.',
-        CN: '请确保您的计算机和浏览器安全，并保护您的信息不被篡改或泄露。',
+        CN: '请确保您的电脑和浏览器安全，并保护您的信息不被篡改或泄露。',
         HK: '請確保您的計算機和瀏覽器安全，並保護您的信息不被篡改或洩露。'
     }],
     ['All', {
@@ -1559,7 +1552,7 @@ const strings = new Map([
         HK: '或掃描此QR code'
     }],
     ['BalanceDepositExplain1-1', {
-        KOR: '• 위 주소에 어떠한 디지털 자산도 넣지 마세요.',
+        KOR: '• 위 주소에 ',
         ENG: '• Please don\'t deposit any other digital assets except',
         CN: '• 请不要存入任何数字资产',
         HK: '• 請不要存入任何數字資產'
@@ -1567,7 +1560,7 @@ const strings = new Map([
     ['BalanceDepositExplain1-2', {
         KOR: '를 제외한 다른 디지털 자산을 예치하지 마십시오.',
         ENG: 'to the above address.',
-        CN: '到上述地址',
+        CN: '例外的资产。',
         HK: '到上述地址'
     }],
     ['BalanceDepositExplain2', {
@@ -1591,12 +1584,12 @@ const strings = new Map([
         HK: '價格不會低於'
     }],
     ['BalanceDepositExplain4', {
-        KOR: '• 귀하의 입금 주소는 자주 변경되지 않습니다. ' +
+        KOR: '• 귀하의 입금 주소는 변경되지 않습니다. ' +
         '모든 변경사항을, 당신의 공지 또는 이메일로 알려드립니다.',
         ENG: '• Your deposit address won\'t be changed frequently.' +
         'Any changes, we will inform you by announcement or email.',
-        CN: '• 您的存款地址不会经常更改。如有任何更改，我们将通过公告或电子邮件通知您。',
-        HK: '• 您的匯入地址不會經常更改。若有任何更改，我們將通過公告或Email通知您。'
+        CN: '• 您的存款地址不会更改。如有任何更改，我们将通过公告或电子邮件通知您。',
+        HK: '• 您的匯入地址不會更改。若有任何更改，我們將通過公告或Email通知您。'
     }],
     ['BalanceDepositExplain5', {
         KOR: '• 컴퓨터와 브라우저의 보안을 유지하시고, 귀하의 정보가 변조되거나 유출되지 않도록 하십시오.',
@@ -1798,7 +1791,7 @@ const strings = new Map([
     ['Avg_release', {
         KOR: '평균 릴리즈',
         ENG: 'Avg release',
-        CN: '平均释放',
+        CN: '平均放行',
         HK: '平均釋放'
     }],
     ['Trades', {
