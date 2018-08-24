@@ -175,7 +175,7 @@
                 this.$nextTick(() => {
                     this.msgInterval = setInterval(() => {
                         this.updateMsg()
-                    }, 3000);
+                    }, 1000);
                 });
             });
         },
@@ -226,7 +226,7 @@
                 let tmpValue = this.inputValue.trim();
                 if (tmpValue !== '') {
                     //도배 및 중복 값 입력 방지
-                    if (Date.now() - this.latestPostTime < 100) {
+                    if (Date.now() - this.latestPostTime < 500) {
                         return false;
                     } else {
                         this.latestPostTime = Date.now();
