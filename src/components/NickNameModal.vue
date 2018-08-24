@@ -106,10 +106,8 @@
                         nickname: this.user.nick_name,
                         tradePassword: this.new_password
                     }, function (result) {
-                        AccountService.Account.checkLogin(
-                            function (data) {
-                                accountController.setUserInfo(new Account(data));
-                            }, function () {})
+                        MainRepository.MyInfo.loadMyInfo(() => {
+                        })
                         self.$emit('close');
                         self.onClearData();
                     })
