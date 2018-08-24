@@ -20,7 +20,7 @@
             </div>
 
             <!-- PaymentMethod에 따라 바뀌는 영역 -->
-            <div>
+            <div v-if="type !== ''">
 
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("name") }}</h5>
@@ -72,7 +72,7 @@
                 </div>
 
                 <!-- PaymentMethod === bank -->
-                <div v-else-if="type === 'bank'">
+                <div v-else-if="type === 'bank' || type === 'bankaccount'">
 
                     <!-- 은행 이름 -->
                     <div class="mb-4">
@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- QR Code -->
-                <div v-if="type !== 'bank'">
+                <div v-if="type !== 'bank' && type !== 'bankaccount'">
                     <h5 class="mb-2">{{ $str("qrCode") }}</h5>
                     <div class="mb-4">
                         <label class="">
@@ -347,6 +347,7 @@
 
             },
             onClose(item) {
+                this.onClearData();
                 this.$emit('close', item);
             },
             onDone(item) {
