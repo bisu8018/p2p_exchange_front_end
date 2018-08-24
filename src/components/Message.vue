@@ -85,7 +85,7 @@
         </div>
         <div class="pl-3 input-wrapper">
             <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
-                   v-on:keydown.enter="onPost()" v-on:keyup.enter="scrollBottom()"/>
+                   @keypress.enter="onPost()" v-on:keyup.enter="scrollBottom()"/>
             <div class="pr-3"><label><i
                     class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
                 <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
