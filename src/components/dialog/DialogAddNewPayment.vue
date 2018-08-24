@@ -280,7 +280,7 @@
 
             },
             onClearData() {
-                this.paymentMethods.activeYn = 'n';
+              /*  this.paymentMethods.activeYn = 'n';
                 this.paymentMethods.alipayId = '';
                 this.paymentMethods.alipayQrCodeImgUrl = '';
                 this.paymentMethods.bankAccount = '';
@@ -296,7 +296,7 @@
                 this.paymentMethods.wechatId = '';
                 this.paymentMethods.wechatQrCodeImgUrl = '';
                 this.typeData = '';
-                this.password = '';
+                this.password = '';*/
             },
             onCheckBankAccount() {
 
@@ -374,6 +374,7 @@
                         }else if(this.type === 'wechat'){
                             this.paymentMethods.wechatQrCodeImgUrl = url
                         }
+
                         //파일 업로드 후 url 값 리턴 필요하므로 callback 내 삽입
                         MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
                             // 이벤트버스 날리기~~>ㅅ<
@@ -393,7 +394,7 @@
                 this.$emit('done', item);
             },
 
-            onDelete() {
+            onDelete(item) {
                 this.paymentMethods.type = this.type;
                 this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
