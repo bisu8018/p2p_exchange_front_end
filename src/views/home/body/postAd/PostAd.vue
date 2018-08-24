@@ -675,7 +675,7 @@
                 return MainRepository.MyInfo.controller().findPaymentMethods('wechat');
             },
             getBank() {
-                return MainRepository.MyInfo.controller().findPaymentMethods('bank');
+                return MainRepository.MyInfo.controller().findPaymentMethods('bankaccount');
             },
             getCryptoCurrency() {
                 if (this.cryptocurrency === 'bitcoin') {
@@ -787,7 +787,7 @@
                     bankToggle
                 ];
                 MainRepository.AD.postAD({
-                    autoReplay: self.autoReplay,
+                    autoReply: self.autoReply,
                     counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
                     counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_third,
