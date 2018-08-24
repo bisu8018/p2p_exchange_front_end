@@ -68,8 +68,7 @@
                     <v-spacer></v-spacer>
                     <div class="pr-2">
                         <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                            {{ getTime(localMsg.registerDatetime) }}
-                            <!--<span>{{ getDateTime('date') }}</span>-->
+                            {{ $str('sending') }}
                         </div>
                         <div class="chat-content-wrapper text-xs-left color-black h6">
                             {{ localMsg.message }}
