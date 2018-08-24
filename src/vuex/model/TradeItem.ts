@@ -31,6 +31,7 @@ export default class TradeItem {
     alipay_id: string;
     // volume: number; // 이건 위의 volume이랑 다른 것임. 차후 재설정 필요.
     ownerMember : MemberInfo;
+    paymentWindow :number;
 
 
 
@@ -67,6 +68,7 @@ export default class TradeItem {
         this.alipay_id = this.splitPayment('alipay_id') || '';
 
         this.ownerMember = data.ownerMember;
+        this.paymentWindow = data.paymentWindow || 10;
 
     }
 
