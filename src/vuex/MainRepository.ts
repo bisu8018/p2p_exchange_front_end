@@ -286,7 +286,6 @@ export default {
                         _idVerification = new IdVerification(idVerification_tmp);
                     }
                 }
-
                 callback(_idVerification);
             })
         },
@@ -354,22 +353,28 @@ export default {
             return accountController.getUserInfo().isLogin();
         },
         // 인증 여부 체크
-        checkValidity(): boolean {
+        checkValidity(needGo): boolean {
             // NickName 설정 여부
             if (this.getUserInfo().nickname === "") {
-                routerController.goMyPage();
+                if (needGo) {
+                    routerController.goMyPage();
+                }
                 return false;
             }
 
             // Id 인증 여부
-            if (this.controller().getUserInfo().idVerifiedCount === 0) {
-                routerController.goMyPage();
+            if (!this.controller().getUserInfo().isIdVerified) {
+                if (needGo) {
+                    routerController.goMyPage();
+                }
                 return false;
             }
 
             // Payment 등록 여부
             if (!this.controller().checkPaymentMethods()) {
-                routerController.goMyPage();
+                if (needGo) {
+                    routerController.goMyPage();
+                }
                 return false;
             }
             return true;
