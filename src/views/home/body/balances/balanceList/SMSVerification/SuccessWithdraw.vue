@@ -78,9 +78,7 @@
                 return;
             }
 
-            let currentURL = window.location.href
-            let param = currentURL.split('?');
-            this.processingTime = param[1]
+            this.processingTime = MainRepository.Balance.controller().processingTime;
             this.currentWithdraw = MainRepository.Balance.getWithdraw()
 
         },

@@ -6,6 +6,7 @@
         <div class="loginCircle" v-bind:style="{background: loginColor}">
         </div>
         <div v-if="chat !== '' && msgAvatar"></div>
+        <div v-else-if="me && myInfo"></div>
     </div>
 </template>
 
@@ -56,6 +57,16 @@
                     this.loginColor = MainRepository.Message.msgAvatar().get().isLogin ? '#59D817' : '#c8c8c8';
                 }
                 return MainRepository.Message.msgAvatar().get();
+            },
+            myInfo() {
+                if (this.me) {
+                    this.setAvatar(
+                        MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0],
+                        MainRepository.MyInfo.getUserInfo().bgColor,
+                        true,
+                    )
+                }
+                return MainRepository.MyInfo.getUserInfo();
             },
         },
         created() {
