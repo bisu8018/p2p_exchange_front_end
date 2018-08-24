@@ -47,6 +47,7 @@
 
             <nick-name-modal
                 :show="showNicknameModal"
+                @close="onCloseNicknameModal"
 
             />
         </div>
@@ -148,7 +149,6 @@
 
                 // GET User Id Verification
                 MainRepository.MyPage.getIdVerification(function (idVerification) {
-                    console.log(idVerification);
                     self.idVerification = idVerification;
                 });
 
@@ -181,7 +181,10 @@
                 MainRepository.MyPage.getSecuritySettings(num, function (securitySettings) {
                     self.securitySettings = securitySettings;
                 });
-            }
+            },
+            onCloseNicknameModal() {
+                this.showNickNameModal = false;
+            },
         }
     }
 </script>
