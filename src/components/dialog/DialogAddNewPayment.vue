@@ -159,7 +159,7 @@
                 <div class="p-relative mb-4">
                     <input type="password" class="input"
                            :placeholder="$str('tradePwPlaceholder')"
-                           v-model="paymentMethods.password"
+                           v-model="password"
                            :class="{'warning-border' : warning_trade_password}"
                            @keyup="onCheckTradePassword" />
                     <div class="warning-text-wrapper">
@@ -218,6 +218,7 @@
                 verify_warning_bank_account: '',
                 file: '',
                 image: '',
+                password: '',
             }
         },
         computed: {
@@ -258,6 +259,7 @@
             },
         },
         created() {
+
         },
         watch: {
             typeData :  function (data) {
@@ -278,7 +280,23 @@
 
             },
             onClearData() {
-
+                this.paymentMethods.activeYn = 'n';
+                this.paymentMethods.alipayId = '';
+                this.paymentMethods.alipayQrCodeImgUrl = '';
+                this.paymentMethods.bankAccount = '';
+                this.paymentMethods.bankBranchInfo = '';
+                this.paymentMethods.bankName = '';
+                this.paymentMethods.memberNo = null;
+                this.paymentMethods.modifyDatetime = null;
+                this.paymentMethods.modifyMemberNo = null;
+                this.paymentMethods.ownerName = '';
+                this.paymentMethods.registerDatetime = null;
+                this.paymentMethods.registerMemberNo = null;
+                this.paymentMethods.type = '';
+                this.paymentMethods.wechatId = '';
+                this.paymentMethods.wechatQrCodeImgUrl = '';
+                this.typeData = '';
+                this.password = '';
             },
             onCheckBankAccount() {
 
