@@ -68,7 +68,6 @@
                 {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
                 <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
-                {{ $str("confirmgExplain3") }}
 
             </div>
 
@@ -142,7 +141,6 @@
             </p>
             <p class="mb-1 h6 ">
                 {{ $str('sellChecklist2') }}
-            </p>
             <p class="mb-0 h6 ">
                 {{ $str('sellChecklist3') }}
             </p>
@@ -339,7 +337,7 @@
                 let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
                 let min = time.split(':')[0];
                 let sec = time.split(':')[1];
-                return min + ' ' + this.$str('min') + ' ' + sec + ' ' + this.$str('sec');
+                return min + ' ' + this.$str('minuteText') + ' ' + sec + ' ' + this.$str('sec');
             },
             getMyPaymentMethodSelectList() {
                 return this.currentOrder.filteredPaymentMethod

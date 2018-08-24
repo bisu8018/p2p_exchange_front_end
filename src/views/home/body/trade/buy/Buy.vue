@@ -14,7 +14,7 @@
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
                 <!-- 닉네임-->
-                <div class="d-inline-block">  {{ counterPartyNickname }}</div>
+                <div class="d-inline-block"> {{ $str('from') }} {{ counterPartyNickname }}</div>
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -366,7 +366,7 @@
                 let time = getLimitTime(this.currentOrder.registerDatetime, this.currentOrder.paymentWindow);
                 let min = time.split(':')[0];
                 let sec = time.split(':')[1];
-                return min + ' ' + this.$str('min') + ' ' + sec + ' ' + this.$str('sec');
+                return min + ' ' + this.$str('minuteText') + ' ' + sec + ' ' + this.$str('sec');
             },
             getMyPaymentMethodSelectList() {
                 return this.currentOrder.filteredPaymentMethod
