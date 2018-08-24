@@ -20,7 +20,7 @@
       <!-- amount -->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("amount")}}:</v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.amount}} {{detailList.cryptocurrency}}</v-flex>
+        <v-flex xs6 text-xs-right>{{ $fixed(detailList.amount, detailList.cryptocurrency) }} {{detailList.cryptocurrency}}</v-flex>
       </v-layout>
       <!-- status -->
       <v-layout mb-2>
@@ -31,6 +31,7 @@
       <v-layout mb-4>
         <v-flex xs4 text-xs-left h5 color-darkgray>{{$str("action")}}:</v-flex>
         <v-flex xs8 text-xs-right>
+
           <button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button>
           <button v-if="showDetailBtn" class="btn-rounded-blue btn-blue-hover "
                   @click="drawer">{{$str("details")}}
@@ -51,7 +52,7 @@
           {{transTime(detailList.registerDatetime)}}
         </v-flex>
         <v-flex md2 text-md-right>
-          {{detailList.amount}} {{detailList.cryptocurrency}}
+          {{ $fixed(detailList.amount, detailList.cryptocurrency) }} {{detailList.cryptocurrency}}
         </v-flex>
         <v-flex md2 text-md-right>
           {{detailList.status}}
@@ -78,7 +79,9 @@
         </v-layout>
         <v-layout text-xs-left mb-2>
           <v-flex md2 xs6 pl-4>{{$str("fee")}}:</v-flex>
-          <v-flex md10 xs6> {{detailList.fee}}</v-flex>
+          <!-- {{detailList.fee}} -->
+          <v-flex md10 xs6>0</v-flex>
+
         </v-layout>
         <v-layout text-xs-left>
           <v-flex md2 xs6 pl-4>{{$str("Processing Time")}}:</v-flex>
