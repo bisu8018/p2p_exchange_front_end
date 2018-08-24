@@ -44,6 +44,12 @@ export default class RouterController {
             r.push(url);
         });
 
+        return;
+
+        if (!MainRepository.MyInfo.checkValidity(true)) {
+            return
+        }
+
         // 권한이 없을 경우 -> 서버에서 다시 한번 확인 -> Merchant
         if (!MainRepository.Merchant.getMyInfo().isVerified()) {
             MainRepository.Merchant.loadMyMerchantInfo(() => {
