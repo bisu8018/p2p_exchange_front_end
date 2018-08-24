@@ -2643,6 +2643,7 @@ const strings = new Map([
         ENG: 'No more history',
         CN: '没有记录',
         HK: '沒有記錄'
+    }],
     ['Please pay', {
         KOR: '지불 요청',
         ENG: 'Please pay',

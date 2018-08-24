@@ -7,9 +7,10 @@ import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 
 export default class BalanceController {
     store: Store<any>;
-    processingTime: string;
+    processingTime: number;
 
     constructor (vuexStore: Store<any>) {
+        this.processingTime = 0;
         this.store = vuexStore
     }
 
