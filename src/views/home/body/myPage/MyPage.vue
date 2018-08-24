@@ -47,6 +47,7 @@
 
             <nick-name-modal
                 :show="showNicknameModal"
+                @close="onCloseNicknameModal"
 
             />
         </div>
@@ -181,7 +182,10 @@
                 MainRepository.MyPage.getSecuritySettings(num, function (securitySettings) {
                     self.securitySettings = securitySettings;
                 });
-            }
+            },
+            onCloseNicknameModal() {
+                this.showNickNameModal = false;
+            },
         }
     }
 </script>
