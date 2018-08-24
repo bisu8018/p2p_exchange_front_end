@@ -8,7 +8,7 @@
                 <i class="material-icons " @click="onClose">close</i>
             </div>
 
-            <h5 class="color-darkgray mt-3 mb-4">{{ $str('This user cannot access your ads or trade with you once you have blocked him or her. Are your sure?') }}</h5>
+            <h5 class="color-darkgray mt-3 mb-4">{{ $str('unBlockDialogTxt') }}</h5>
 
             <!-- footer, 버튼 영역 -->
             <div class="dialog--footer">

@@ -86,115 +86,19 @@
 
         <!--nickname 설정을 안했으면 띄우는 화면-->
         <nick-name-modal
-                v-if="!setNickName"
                 :show = showNickNameModal
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
-        <!--첫번째로 뜨는 정보 입력 dialog-->
-        <v-dialog v-else v-model="showVeriModal" persistent>
-            <v-layout row wrap>
-                <!--header-->
-                <v-flex xs6 text-xs-left >
-                    <h3 class="bold">{{$str("ID_Verification")}}</h3>
-                </v-flex>
-                <v-flex xs6 text-xs-right>
-                    <button><i class="material-icons " @click="showVeriModal = false">close</i></button>
-                </v-flex>
-                <v-flex xs12 color-darkgray text-xs-left mt-3 mb-4>
-                    {{$str("nickNameExplain")}}
-                </v-flex>
-                <!-- 1. Nationality 창-->
-                <v-flex xs12 text-xs-left>
-                    {{$str("nationality")}}
-                </v-flex>
-                <v-flex xs12  mt-2 mb-4 >
-                    <div class="p-relative">
-                        <select class="comp-selectbox h6" id="nationality" v-model="nationality">
-                            <option v-for="country in countries" v-bind:value="country.code">{{country.country}}
-                            </option>
-                        </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
-                    </div>
-                </v-flex>
-                <!-- 2. First Name-->
-                <v-flex xs12 text-xs-left>{{$str("First Name")}}</v-flex>
-                <v-flex xs12 mt-2 mb-4>
-                    <div class="p-relative">
-                        <input name="First" v-model="FirstName" type="text" class="input"
-                               @blur="onCheckFirst" :class="{'warning-border' : warning_first}"
-                              autocomplete="off" >
-                        <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_first}">{{verify_warning_first}}</span>
-                        </div>
-                    </div>
-                </v-flex>
-                <!-- 3. Last Name 창-->
-                <v-flex xs12 text-xs-left>{{$str("Last Name")}}</v-flex>
-                <v-flex xs12 mt-2 mb-4>
-                    <div class="p-relative">
-                        <input name="Last" v-model="LastName" type="text" class="input"
-                               @blur="onCheckLast" :class="{'warning-border' : warning_last}"
-                               autocomplete="off" >
-                        <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_last}">{{verify_warning_last}}</span>
-                        </div>
-                    </div>
-                </v-flex>
-                <!--Identification Number-->
-                <v-flex xs12 text-xs-left>{{$str("Identification Number")}}</v-flex>
-                <v-flex xs12 text-xs-left color-darkgray>
-                    <h6>({{$str("e.g. Passport, ID or Driver's License")}})</h6>
-                </v-flex>
-                <v-flex xs12 mt-2 mb-4>
-                    <div class="p-relative">
-                        <input name="Identification" v-model="IDNum" type="text" class="input"
-                               @blur="onCheckIdNum" :class="{'warning-border' : warning_IdNum}"
-                               autocomplete="off" >
-                        <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_IdNum}">{{verify_warning_IdNum}}</span>
-                        </div>
-                    </div>
-                </v-flex>
-                <!-- Photo 올리기-->
-                <v-flex xs12 text-xs-left>{{$str("Photo of Identification")}}</v-flex>
-                <v-flex xs12 mt-2 mb-4>
-                    <label class="">
-                        <div class="textarea-style p-relative" v-bind:class="{'warning-border' : warning_attachment_file}">
-                            <div v-if="file === ''" class="ma-4a">
-                                <input type="file" id="file" ref="file" v-on:change="onCheckAttachmentFile()"
-                                       class="d-none"/>
-                                <div class="d-inline-block mt-2">
-                                    <div class="sprite-img ic-upload"></div>
-                                </div>
-                                <div class="color-darkgray h5">
-                                    {{$str('Upload photo of identification')}}
-                                </div>
-                            </div>
-                            <div v-else class="text-xs-center p-relative">
-                                <img :src="image" class="attachment-img-style">
-                                <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
-                                      @click="deleteFile()">
-                                    {{$str('delete')}}
-                                    <i class="material-icons ">close</i>
-                                </span>
-                            </div>
-                            <div class="warning-text-wrapper-photo">
-                                <span class="d-none"
-                                      v-bind:class="{'warning-text' : warning_attachment_file}">{{verify_warning_attachment_file}}</span>
-                            </div>
-                        </div>
-                    </label>
-                </v-flex>
-                <v-flex xs12 text-xs-right>
-                    <button class="btn-rounded-white text-white-hover" @click="showVeriModal = false" >
-                        <h6>{{$str("cancel")}}</h6>
-                    </button>
-                    <button class="btn-rounded-blue btn-blue-hover" @click="goDone">
-                        <h6>{{$str("Done")}}</h6>
-                    </button>
-                </v-flex>
-            </v-layout>
-        </v-dialog>
+
+
+        <!-- Dialog -->
+        <dialog-id-verification
+                :showDialog="showVeriModal"
+                @close="closeIdVerification"
+                @sucess="successIdVerification"
+        />
+
+
         <!-- 정보 입력시 뜨는 공지창-->
         <v-dialog v-model="showSuccessModal" persistent>
             <v-layout row wrap>
@@ -217,7 +121,6 @@
                 </v-flex>
             </v-layout>
         </v-dialog>
-
     </div>
 
 </template>
@@ -226,51 +129,22 @@
     import Vue from 'vue';
     import NickNameModal from '@/components/NickNameModal.vue';
     import MainRepository from "../../../../vuex/MainRepository";
+    import IdVerification from "../../../../vuex/model/IdVerification"
+    import DialogIdVerification from "../../../../components/dialog/DialogIdVerification";
+
     export default {
         name: "merchant",
-        components:{NickNameModal},
+        components:{
+            DialogIdVerification,
+            NickNameModal},
         data: () => ({
+            idVerification: new IdVerification(''),
+
             isAgree : false,        //term에 대해 check click 한 경우
             showVeriModal : false,  //apply now 클릭했을때
             showSuccessModal : false,   //form 입력 성공했을때 띄우는 dialog
             alreadySuccess : false,     //이미 제출해놨을때 대체하여 띄워지는 하단부를 보여줌
             showNickNameModal : false,      //nickname modal을 띄울려면 true로.
-            FirstName : '',
-            LastName : '',
-            IDNum : '',
-            nationality: "CN",
-            verify_warning_first : "",
-            verify_warning_last : "",
-            verify_warning_IdNum : "",
-            verify_warning_attachment_file: '',
-            warning_first : false,
-            warning_last : false,
-            warning_IdNum : false,
-            warning_attachment_file : false,
-            //파일 첨부
-            file: '',
-            image: '',
-
-            countries: [
-                {country: 'China', code: 'CN'},
-                {country: 'Singapore', code: 'SG'},
-                {country: 'India', code: 'IN'},
-                {country: 'Vietnam', code: 'VN'},
-                {country: 'Canada', code: 'CA'},
-                {country: 'Australia', code: 'AU'},
-                {country: 'Korea', code: 'KR'},
-                {country: 'Switzerland', code: 'CH'},
-                {country: 'Netherlands', code: 'NL'},
-                {country: 'Taiwan', code: 'TW'},
-                {country: 'Russia', code: 'RU'},
-                {country: 'United Kingdom', code: 'UK'},
-                {country: 'Hong Kong(china)', code: 'HK'},
-                {country: 'Nigeria', code: 'NG'},
-                {country: 'Indonesia', code: 'ID'},
-                {country: 'Philippines', code: 'PH'},
-                {country: 'Cambodia', code: 'KH'}
-            ],
-
         }),
         computed: {
             myMerchantInfo() {
@@ -289,6 +163,11 @@
             }
 
             MainRepository.Merchant.loadMyMerchantInfo(function () {});
+
+            // GET User Id Verification
+            MainRepository.MyPage.getIdVerification(function (idVerification) {
+                self.idVerification = idVerification;
+            });
         },
         methods :{
             showDialog(){
@@ -303,12 +182,21 @@
                     }
                 }
             },
+            closeIdVerification() {
+                this.showVeriModal = false;
+            },
+            successIdVerification() {
+                this.showSuccessModal = true;
+            },
             goDone(){
                 if (this.onCheckFirst() && this.onCheckLast() && this.onCheckIdNum()) {
                     this.showVeriModal = false;
                     this.showSuccessModal = true;
                 }
             },
+
+
+
             onCheckFirst(){
                 if (this.FirstName === "") {
                     this.verify_warning_first= Vue.prototype.$str("Please enter your first name");
@@ -364,7 +252,6 @@
                 this.warning_attachment_file = false;
                 return true;
                 this.handleFileUpload();
-
             },
             handleFileUpload() {
                 //첨부파일 사진 등록 및 출력

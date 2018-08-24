@@ -41,7 +41,10 @@
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
                 <span v-if="idVerification.status === 'registered'">
-                    {{ $str('verifySliderSuccess') }}
+                    <btn-mypage
+                        :txt="$str('verifySliderSuccess')"
+                        noBtn
+                    />
                 </span>
                 <span v-else>
                     <btn-mypage

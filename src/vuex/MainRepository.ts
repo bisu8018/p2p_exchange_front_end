@@ -268,20 +268,20 @@ export default {
                 callback(blockList_arr);
             })
         },
-        getLoginHistory: function (callback: any) {
+        getLoginHistory: function (page: number, callback: any) {
             AccountService.LoginHistory.getLoginHistory({
                 email: instance.MyInfo.getUserInfo().email,
-                page: 1,
+                page: page,
                 size: 10
             }, function (result) {
                 let _loginHistory = new LoginHistory(result);
                 callback(_loginHistory);
             })
         },
-        getSecuritySettings: function (callback: any) {
+        getSecuritySettings: function (page: number, callback: any) {
             AccountService.SecuritySettings.getSecuritySettings({
                 email: instance.MyInfo.getUserInfo().email,
-                page: 1,
+                page: page,
                 size: 10
             }, function (result) {
                 let _securitySettings = new SecuritySettings(result);
@@ -886,10 +886,9 @@ export default {
                     dateTime: this.controller().getLatestMsgTime(),
                     orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-
-                if(data.length != 0){
-                    this.controller().addMsg(data[0]);
-                }
+                    for(let key in data) {
+                        this.controller().addMsg(data[key]);
+                    }
                     callback();
                 }
             )

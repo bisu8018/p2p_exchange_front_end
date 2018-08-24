@@ -72,10 +72,7 @@
                 this.$emit('toggle', item);
 
                 let self = this;
-                let _paymentMethods = new PaymentMethod('');
-                _paymentMethods = self.data;
-
-                console.log(_paymentMethods);
+                let _paymentMethods = new PaymentMethod(self.data);
 
                 if (_paymentMethods.activeYn === 'y') {
                     _paymentMethods.activeYn = 'n';
