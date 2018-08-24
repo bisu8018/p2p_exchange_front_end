@@ -88,9 +88,8 @@
                 }
 
                 MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
-                    this.$eventBus.$emit('payment', item);
                     MainRepository.MyInfo.loadMyPaymentMethods(() => {})
-                    // 리프레시 이벤트버스 날리기~~'ㅅ'
+                    // this.$eventBus.$emit('payment', item);
                 });
             },
             paymentType() {
