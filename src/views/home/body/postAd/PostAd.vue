@@ -559,7 +559,6 @@
             counterpartyCheckbox_third: false,
             tradePassword: "",
             agreeTerms: false,
-            adType: "piece",
 
 
             isVerified: false,
@@ -761,7 +760,7 @@
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
                 let bankToggle = this.bank_toggle_use ? 'bank' : '';
-
+                let _adType = this.message === 'general' ? 'piece' : 'block';
 
                 var paymentMethodsArr = [
                     alipayToggle,
@@ -788,7 +787,7 @@
                     termsOfTransaction: self.termsOfTransaction,
                     tradePassword: self.tradePassword,
                     tradeType: self.tradeType,
-                    type: self.adType,
+                    type: _adType,
                     volume: Number(self.volume),
                     status: 'enable',
                     volumeAvailable: Number(self.volume),
@@ -804,10 +803,7 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
-                MainRepository.MyInfo.loadMyPaymentMethods({
-                    email: MainRepository.MyInfo.getUserInfo().email
-                }, function (result) {
-                })
+                MainRepository.MyInfo.loadMyPaymentMethods((result) => {})
             },
             onToggle: function (type) {
                 // 결제수단 별 토글버튼 on/off 로직
