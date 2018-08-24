@@ -10,7 +10,7 @@ export default class Account {
     createDatetime: string;
     tradeTimes : number;
     processingOrderCount : number;
-    idVerifiedCount : number;
+    isIdVerified: boolean;
     //encryptedPassword: string;
     //termsAgreeYn: true;
     //tradePassword: string
@@ -19,7 +19,7 @@ export default class Account {
       this.memberNo = data.memberNo || -1;
       this.tradeTimes = data.tradeTimes || 0;
       this.processingOrderCount = data.processingOrderCount || 0;
-      this.idVerifiedCount = data.idVerifiedCount || 0;
+      this.isIdVerified = data.isIdVerified || false;
       this.bgColor = data.bgColor || '';
       this.email = data.email || '';
       this.membershipLevel = data.membershipLevel || 'none';
