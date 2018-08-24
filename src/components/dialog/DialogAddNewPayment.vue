@@ -61,7 +61,7 @@
                 <!-- PaymentMethod === wechat -->
                 <div v-else-if="type === 'wechat'">
                     <h5 class="mb-2">{{ $str("wechatPayText") }}</h5>
-                    <div class="p-relative">
+                    <div class="p-relative mb-4">
                         <input type="text" class="input" :placeholder="$str('wechatPlaceholder')"
                                v-model="paymentMethods.wechatId"
                                v-bind:class="{'warning-border' : warning_wechat}" @keyup="onCheckWechat">
