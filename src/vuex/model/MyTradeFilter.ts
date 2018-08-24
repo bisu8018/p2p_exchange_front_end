@@ -64,7 +64,7 @@ export default class MyTradeFilter {
                 return 'sell'
 
             case 'Withdraw':
-                return 'withdraw'
+                return 'withdrawal'
 
             case 'Deposit':
                 return 'deposit'
