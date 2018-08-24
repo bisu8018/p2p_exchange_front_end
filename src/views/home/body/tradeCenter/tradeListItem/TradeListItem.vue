@@ -330,7 +330,7 @@
                 </v-flex>
             </v-layout>
             <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
-            <v-flex v-if="drawer && !setNickName">
+            <v-flex v-if="drawer && !isValid">
                 <div class="tradeWebModal">
                     <v-layout row wrap>
                         <v-flex md3 text-md-left>
@@ -358,7 +358,7 @@
                             <!--수직, 수평가운데 정렬.-->
                             <v-layout row align-center fill-height justify-end pr-4>
                                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
-                                <h5 class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">
+                                <h5 class="color-blue c-pointer text-white-hover" @click="onValidClick">
                                     {{$str("Set up now.")}}</h5>
                                 <v-divider class="mx-3" inset vertical></v-divider>
                                 <button class="btn-rounded-white text-white-hover"
@@ -511,6 +511,8 @@
                 :show=showNickNameModal
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
+
+        <div v-if="myPaments || myInfo"></div>
     </div>
 </template>
 
@@ -547,6 +549,7 @@
             marketPrice: '',
             tempMarketPrice: '',
 
+            isValid: false,
         }),
         props: {
             user: {},
@@ -563,10 +566,18 @@
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             },
-            // nickName
-            // id
-            // payment
-
+            myInfo() {
+                if (MainRepository.MyInfo.checkValidity(false)) {
+                    this.isValid = true;
+                }
+                return MainRepository.MyInfo.getUserInfo();
+            },
+            myPaments() {
+                if (MainRepository.MyInfo.checkValidity(false)) {
+                    this.isValid = true;
+                }
+                return MainRepository.MyInfo.getMyPaymentMethods();
+            }
         },
         created() {
             //  trade를 막는 filter. 차후 백단 연결시 수정필요.
@@ -743,14 +754,13 @@
             onNicknameClick() {
                 MainRepository.router().goUserPage(this.user.memberNo);
             },
-            checkValid() {
-                // nickName없을때
-
-                // Id 인증 안했을때
-
-                // Payment
-            }
-
+            onValidClick() {
+                if (this.myInfo.nickName === "") {
+                    this.showNickNameModal = true;
+                } else {
+                    MainRepository.MyInfo.checkValidity(true);
+                }
+            },
         },
     }
 </script>

@@ -30,14 +30,28 @@ export default class RouterController {
         });
     }
 
+    goMyPage() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push('/myPage');
+        });
+    }
+
     goPostAd(isBlock) {
         let r = this.router;
         let url = isBlock ? '/blockAd' : '/generalAd';
         Vue.nextTick(function () {
             r.push(url);
         });
+
+        return;
+
+        if (!MainRepository.MyInfo.checkValidity(true)) {
+            return
+        }
+
         // 권한이 없을 경우 -> 서버에서 다시 한번 확인 -> Merchant
-     /*   if (!MainRepository.Merchant.getMyInfo().isVerified()) {
+        if (!MainRepository.Merchant.getMyInfo().isVerified()) {
             MainRepository.Merchant.loadMyMerchantInfo(() => {
                 if (!MainRepository.Merchant.getMyInfo().isVerified()) {
                     this.goMerchant();
@@ -51,7 +65,7 @@ export default class RouterController {
             Vue.nextTick(function () {
                 r.push(url);
             });
-        }*/
+        }
     }
 
     goTradeCenter() {

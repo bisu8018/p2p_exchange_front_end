@@ -801,10 +801,7 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
-                MainRepository.MyInfo.loadMyPaymentMethods({
-                    email : MainRepository.MyInfo.getUserInfo().email
-                },function (result) {
-                })
+                MainRepository.MyInfo.loadMyPaymentMethods(() => {});
             },
             onToggle: function (type) {
                 // 결제수단 별 토글버튼 on/off 로직

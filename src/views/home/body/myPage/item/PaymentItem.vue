@@ -53,8 +53,7 @@
                     }
                 },
                 set(value) {
-                    console.log(value);
-                    return value;
+
                 }
             }
         },
@@ -76,10 +75,8 @@
                 let _paymentMethods = new PaymentMethod(self.data);
 
                 if (_paymentMethods.activeYn === 'y') {
-                    this.activeYn = false;
                     _paymentMethods.activeYn = 'n';
                 } else {
-                    this.activeYn = true;
                     _paymentMethods.activeYn = 'y';
                 }
 
@@ -88,7 +85,6 @@
                 }
 
                 MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
-                    this.$eventBus.$emit('payment', item);
                 });
             },
             paymentType() {

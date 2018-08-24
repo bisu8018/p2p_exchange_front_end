@@ -47,6 +47,7 @@
 
             <nick-name-modal
                 :show="showNicknameModal"
+                @close="onCloseNicknameModal"
 
             />
         </div>
@@ -110,53 +111,10 @@
             },
         },
         created() {
-            let self = this;
-
-            // *********** NEW CREATED ************* //
-            // 로그인 확인 -> Login 으로
-            if (!MainRepository.MyInfo.isLogin()) {
-                MainRepository.router().goLogin();
-                return;
-            }
-
-            // GET My Info
-            self.myInfo = MainRepository.MyInfo.getUserInfo();
-
-            // GET My Order Stat
-            MainRepository.MyOrder.getMyOrderStat(self.myInfo.email, function(data) {
-                self.myOrderStat = data;
-            });
-
-            // GET User Verification Info
-            MainRepository.MyPage.getMemberVerification(function (email, phone) {
-                self.emailVerification = email;
-                self.phoneVerification = phone;
-            });
-
-            // GET User Id Verification
-            MainRepository.MyPage.getIdVerification(function (idVerification) {
-                console.log(idVerification);
-                self.idVerification = idVerification;
-            });
-
-            // 유저 결제수단 정보 GET
-            MainRepository.MyInfo.loadMyPaymentMethods();
-
-            // GET Block List
-            MainRepository.MyPage.getBlockList(function (blockList) {
-                self.blockList = blockList;
-            });
-
-            // GET Login History
-            MainRepository.MyPage.getLoginHistory(1, function (loginHistory) {
-                self.loginHistory = loginHistory;
-            });
-
-            // GET Security Settings
-            MainRepository.MyPage.getSecuritySettings(1, function (securitySettings) {
-                self.securitySettings = securitySettings;
-            });
-
+            this.init();
+            this.$eventBus.$on('refreshMypage', () => {
+                this.init();
+            })
         },
         mounted() {
             // 처음 가입하고, 닉네임이 없을 때: <닉네임 설정 modal>이 떠야 한다ㅇㅁㅇ
@@ -165,6 +123,53 @@
             }
         },
         methods: {
+            init() {
+                let self = this;
+
+                // *********** NEW CREATED ************* //
+                // 로그인 확인 -> Login 으로
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return;
+                }
+
+                // GET My Info
+                self.myInfo = MainRepository.MyInfo.getUserInfo();
+
+                // GET My Order Stat
+                MainRepository.MyOrder.getMyOrderStat(self.myInfo.email, function(data) {
+                    self.myOrderStat = data;
+                });
+
+                // GET User Verification Info
+                MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                    self.emailVerification = email;
+                    self.phoneVerification = phone;
+                });
+
+                // GET User Id Verification
+                MainRepository.MyPage.getIdVerification(function (idVerification) {
+                    self.idVerification = idVerification;
+                });
+
+                // 유저 결제수단 정보 GET
+                MainRepository.MyInfo.loadMyPaymentMethods(() => {});
+
+                // GET Block List
+                MainRepository.MyPage.getBlockList(function (blockList) {
+                    self.blockList = blockList;
+                });
+
+                // GET Login History
+                MainRepository.MyPage.getLoginHistory(1, function (loginHistory) {
+                    self.loginHistory = loginHistory;
+                });
+
+                // GET Security Settings
+                MainRepository.MyPage.getSecuritySettings(1, function (securitySettings) {
+                    self.securitySettings = securitySettings;
+                });
+            },
             onLoginPage(num) {
                 let self = this;
                 MainRepository.MyPage.getLoginHistory(num, function (loginHistory) {
@@ -176,7 +181,10 @@
                 MainRepository.MyPage.getSecuritySettings(num, function (securitySettings) {
                     self.securitySettings = securitySettings;
                 });
-            }
+            },
+            onCloseNicknameModal() {
+                this.showNickNameModal = false;
+            },
         }
     }
 </script>

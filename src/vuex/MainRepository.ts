@@ -120,13 +120,10 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.loadBalances(function () {});
-                self.Balance.setSecurityBalance(function () {});
-                // 객체형으로 관리하도록 변경 필요
-                self.MyInfo.loadMyPaymentMethods();
-
-                // 내 Merchant 정보
-                self.Merchant.loadMyMerchantInfo(function () {});
+                self.Balance.loadBalances(() => {});
+                self.Balance.setSecurityBalance(() => {});
+                self.MyInfo.loadMyPaymentMethods(() => {});
+                self.Merchant.loadMyMerchantInfo(() => {});
                 callback();
             },
             // 로그인 하지 않음
@@ -289,7 +286,6 @@ export default {
                         _idVerification = new IdVerification(idVerification_tmp);
                     }
                 }
-
                 callback(_idVerification);
             })
         },
@@ -300,11 +296,13 @@ export default {
         },
         setPaymentMethod: function (email: string, paymentType: any, callback: any){
             AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
+                instance.MyInfo.loadMyPaymentMethods(() => {})
                 callback(result);
             })
         },
         deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
             AccountService.Account.deletePaymentMethod(email, paymentMethods, function (result) {
+                instance.MyInfo.loadMyPaymentMethods(() => {})
                 callback(result);
             })
         },
@@ -354,13 +352,45 @@ export default {
         isLogin(): boolean {
             return accountController.getUserInfo().isLogin();
         },
-        checkLoginBySession(): boolean {
-            let isLogin = doesHttpOnlyCookieExist('SESSION'); //firefox 미동작 하므로 추가 코딩 필요
-            let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-            return isLogin || isFirefox
-        },
+        // 인증 여부 체크
+        checkValidity(needGo): boolean {
+            // NickName 설정 여부
+            if (this.getUserInfo().nickname === "") {
+                if (needGo) {
+                    routerController.goMyPage();
+                }
+                return false;
+            }
 
-        loadMyPaymentMethods: function () {
+            // Id 인증 여부
+            if (!this.controller().getUserInfo().isIdVerified) {
+                if (needGo) {
+                    routerController.goMyPage();
+                }
+                return false;
+            }
+
+            // Payment 등록 여부
+            if (!this.controller().checkPaymentMethods()) {
+                if (needGo) {
+                    routerController.goMyPage();
+                }
+                return false;
+            }
+            return true;
+        },
+        loadMyInfo(callback: any) {
+            AccountService.Account.checkLogin(
+                // 로그인 유저 -> 유저 정보 Set
+                function (data) {
+                    accountController.setUserInfo(new Account(data));
+                    callback();
+                },
+                // 로그인 하지 않음
+                function () {}
+            );
+        },
+        loadMyPaymentMethods: function (callback: any) {
             AccountService.PaymentMethod.setPaymentMethod({
                 email : this.getUserInfo().email
             },function (result) {
@@ -369,14 +399,9 @@ export default {
                     _payments.push(new PaymentMethod(result[i]));
                 }
                 accountController.setMyPaymentMethods(_payments);
+                callback();
             })
         },
-        updateMyPamentMethods: function () {
-            let self = this;
-            self.loadMyPaymentMethods();
-
-        },
-
         getMyPaymentMethods() {
             return accountController.getMyPaymentMethods();
         },
