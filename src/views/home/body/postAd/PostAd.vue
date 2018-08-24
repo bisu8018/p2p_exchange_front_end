@@ -626,8 +626,8 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            console.log(this.getAlipay);
             if(this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n'  && this.getBank.activeYn === 'n' ){
+                Vue.prototype.$eventBus.$emit('showAlert', 4004);
                 MainRepository.router().goMyPage();
             }
 

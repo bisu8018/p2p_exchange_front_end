@@ -2853,6 +2853,186 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['china', {
+        KOR: '중국',
+        ENG: 'China',
+        CN: '中国',
+        HK: ''
+    }],
+    ['singapore', {
+        KOR: '싱가포르',
+        ENG: 'singapore',
+        CN: '新加坡',
+        HK: ''
+    }],
+    ['india', {
+        KOR: '인도',
+        ENG: 'India',
+        CN: '印度',
+        HK: ''
+    }],
+    ['vietnam', {
+        KOR: '베트남',
+        ENG: 'Vietnam',
+        CN: '越南',
+        HK: ''
+    }],
+    ['canada', {
+        KOR: '캐나다',
+        ENG: 'Canada',
+        CN: '加拿大',
+        HK: ''
+    }],
+    ['australia', {
+        KOR: '호주',
+        ENG: 'Australia',
+        CN: '澳大利亚',
+        HK: ''
+    }],
+    ['korea', {
+        KOR: '대한민국',
+        ENG: 'Korea',
+        CN: '韩国',
+        HK: ''
+    }],
+    ['switzerland', {
+        KOR: '스위스',
+        ENG: 'Switzerland',
+        CN: '瑞士',
+        HK: ''
+    }],
+    ['netherlands', {
+        KOR: '네덜란드',
+        ENG: 'Netherlands',
+        CN: '荷兰',
+        HK: ''
+    }],
+    ['taiwan', {
+        KOR: '대만',
+        ENG: 'Taiwan',
+        CN: '台湾',
+        HK: ''
+    }],
+    ['russia', {
+        KOR: '러시아',
+        ENG: 'Russia',
+        CN: '俄国',
+        HK: ''
+    }],
+    ['uk', {
+        KOR: '영국',
+        ENG: 'United Kingdom',
+        CN: '联合王国',
+        HK: ''
+    }],
+    ['hongkong', {
+        KOR: '홍콩',
+        ENG: 'Hong Kong(china)',
+        CN: '香港',
+        HK: ''
+    }],
+    ['nigeria', {
+        KOR: '나이지리아',
+        ENG: 'Nigeria',
+        CN: '尼日利亚',
+        HK: ''
+    }],
+    ['indonesia', {
+        KOR: '인도네시아',
+        ENG: 'Indonesia',
+        CN: '印度尼西亚',
+        HK: ''
+    }],
+    ['philippines', {
+        KOR: '필리핀',
+        ENG: 'Philippines',
+        CN: '菲律宾',
+        HK: ''
+    }],
+    ['cambodia', {
+        KOR: '캄보디아',
+        ENG: 'Cambodia',
+        CN: '柬埔寨',
+        HK: ''
+    }],
+    ['allCountries', {
+        KOR: '모든 국가',
+        ENG: 'All countries',
+        CN: '所有国家',
+        HK: ''
+    }],
+    ['allPayment', {
+        KOR: '모든 결제수단',
+        ENG: 'All Payments',
+        CN: '',
+        HK: ''
+    }],
+    ['landingSubject_1', {
+        KOR: '안전, 신뢰',
+        ENG: 'Safe and Reliable',
+        CN: '安全与信赖',
+        HK: '安全與信賴'
+    }],
+    ['landingContents_1', {
+        KOR: '신뢰도 높은 본 플랫폼이 안전하게 디지털 자산을 위탁 및 전달합니다. 또한 모든 판매자들은 안전한 거래를 위한 보증금을 이미 지불하였습니다.',
+        ENG: 'Platform reliably escrow digital assets while transactions processing, merchants completely paid deposits for safer transactions.',
+        CN: '信赖度高的本平台托管数字资产，为实现更安全的交易环境，广告者已支付押金。',
+        HK: '信賴度高的本平台託管數字資產，為實現更安全的交易環境，廣告者已支付押金。'
+    }],
+    ['landingSubject_2', {
+        KOR: '수수료 제로',
+        ENG: 'Zero Transaction Fee',
+        CN: '0%手续费',
+        HK: '0%手續費'
+    }],
+    ['landingContents_2', {
+        KOR: '거래소, 대량 거래 어디서든 수수료가 없습니다.',
+        ENG: 'Free charge in any transactions, including trade center & block trade.',
+        CN: '用户可使用0%手续费的普通、大宗交易平台。',
+        HK: '用戶可使用0%手續費的普通、大宗交易平台。'
+    }],
+    ['landingSubject_3', {
+        KOR: '365일, 24시간 고객서비스 운영',
+        ENG: '24/7 Customer Support',
+        CN: '全年无休客服服务',
+        HK: '全年無休客服服務'
+    }],
+    ['landingContents_3', {
+        KOR: '365일, 24시간 연중무휴 전문 상담사와 고객서비스 상담을 할 수 있으며, 언제든지 문제 해결이 가능합니다.',
+        ENG: '24/7 customer service with professional staff, solving your trade problem in anytime.',
+        CN: '一年365天、24小时皆无休的专员客服服务，及时为您解决疑难杂症。',
+        HK: '一年365天、24小時皆無休息的專員客服服務，及時為您解決疑難雜症。'
+    }],
+    ['err_needPaymentMethod', {
+        KOR: '결제수단이 필요합니다.',
+        ENG: 'You need payment methods.',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
 
 
 ])

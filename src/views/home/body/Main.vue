@@ -83,19 +83,18 @@
         <v-layout wrap class="pageView">
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons md-36 color-blue">verified_user</i>
-                <h3>Safe and Reliable</h3>
-                <p>It's a digital assets trusteeship platform, merchants must pay security deposits in order to minimize
-                    transaction risks</p>
+                <h3>{{$str('landingSubject_1')}}</h3>
+                <p>{{$str('landingContents_1')}}</p>
             </v-flex>
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons md-36 color-blue">monetization_on</i>
-                <h3>Zero Transaction Fee</h3>
-                <p>Free charge for selling and buying</p>
+                <h3>{{$str('landingSubject_2')}}</h3>
+                <p>{{$str('landingContents_2')}}</p>
             </v-flex>
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons md-36 color-blue">live_help</i>
-                <h3>24-hours Customer Support</h3>
-                <p>7/24 professional customer service, solve your trading problem anytime</p>
+                <h3>{{$str('landingSubject_3')}}</h3>
+                <p>{{$str('landingContents_3')}}</p>
             </v-flex>
         </v-layout>
     </div>
