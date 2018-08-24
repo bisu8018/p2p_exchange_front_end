@@ -304,7 +304,7 @@
                     </li>
                     <li>
                         <div class="sprite-img ic-bank d-inline-block mr-2"></div>
-                        <span class="color-darkgray">{{ $str("bankAccountText") }} : </span> {{ getBank.bankName }}, {{ getBank.bankBranchInfo }} {{ getBank.bankAccount }}
+                        <span class="color-darkgray">{{ $str("bankAccountText") }} : </span> {{ getBank.bankName }} {{ getBank.bankBranchInfo }} {{ getBank.bankAccount }}
                     </li>
                 </ul>
             </div>
@@ -626,6 +626,10 @@
                 MainRepository.router().goLogin();
                 return;
             }
+            console.log(this.getAlipay);
+            if(this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n'  && this.getBank.activeYn === 'n' ){
+                MainRepository.router().goMyPage();
+            }
 
             //환율 및 유져 정보 get 필요
             let self = this;
@@ -790,8 +794,8 @@
                     autoReply: self.autoReply,
                     counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
-                    counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_third,
-                    counterpartyFilterDoNotOtherMerchantsYn: self.counterpartyCheckbox_second,
+                    counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_second,
+                    counterpartyFilterDoNotOtherMerchantsYn: self.counterpartyCheckbox_third,
                     cryptocurrency: self.cryptocurrency,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     fixedPrice: Number(self.fixedPrice),
