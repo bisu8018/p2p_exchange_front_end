@@ -1097,6 +1097,7 @@
 
     .payment-wrapper ul {
         margin-bottom: 12px;
+        text-align: left;
     }
 
     .payment-wrapper li {

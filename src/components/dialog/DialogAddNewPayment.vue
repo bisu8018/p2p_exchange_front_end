@@ -394,7 +394,7 @@
                 this.$emit('done', item);
             },
 
-            onDelete() {
+            onDelete(item) {
                 this.paymentMethods.type = this.type;
                 this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
