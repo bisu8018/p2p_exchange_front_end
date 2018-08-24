@@ -53,7 +53,8 @@
                     }
                 },
                 set(value) {
-
+                    console.log(value);
+                    return value;
                 }
             }
         },
@@ -75,13 +76,19 @@
                 let _paymentMethods = new PaymentMethod(self.data);
 
                 if (_paymentMethods.activeYn === 'y') {
+                    this.activeYn = false;
                     _paymentMethods.activeYn = 'n';
                 } else {
+                    this.activeYn = true;
                     _paymentMethods.activeYn = 'y';
                 }
 
+                if (_paymentMethods.type === 'bankaccount') {
+                    _paymentMethods.type = 'bank';
+                }
+
                 MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
-                    // 리프레시 이벤트버스 날리기~~'ㅅ'
+                    this.$eventBus.$emit('payment', item);
                 });
             },
             paymentType() {
@@ -93,7 +100,7 @@
                     this.paymentImg = 'ic-wechatpay';
                     this.paymentTxt = this.$str('wechatPayText');
                     this.id = this.data.wechatId;
-                } else if (this.data.type === 'bank') {
+                } else if (this.data.type === 'bankaccount') {
                     this.paymentImg = 'ic-bank';
                     this.paymentTxt = this.$str('bankAccountText');
                     this.id = this.data.bankAccount;

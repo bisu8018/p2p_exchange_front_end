@@ -160,15 +160,25 @@
                 />
             </li>
         </ul>
+
+        <!-- Phone Turn On Dialog -->
+       <dialog-turn-on-phone
+               :show-dialog="showPhoneTurnOn"
+               :phone-number="phone.phoneNumber"
+               @close="offDialog"
+       />
+
     </div>
 </template>
 
 <script>
     import BtnMypage from "../item/BtnMypage";
+    import DialogTurnOnPhone from "../../../../../components/dialog/DialogTurnOnPhone";
 
     export default {
         name: "my-account-security",
         components: {
+            DialogTurnOnPhone,
             BtnMypage
         },
         props: {
@@ -177,7 +187,9 @@
             myInfo: {},
         },
         data() {
-            return {}
+            return {
+                showPhoneTurnOn: false,
+            }
         },
         computed: {
             getSecurityLevel() {
@@ -208,10 +220,13 @@
                 alert('페이지 만들어야 함');
             },
             onTurnOn() {
-                alert('이건뭔가요?');
+                this.showPhoneTurnOn = true;
             },
             goReset() {
                 this.$router.push('/resetTradePassword');
+            },
+            offDialog() {
+                this.showPhoneTurnOn = false;
             },
         },
         created() {
