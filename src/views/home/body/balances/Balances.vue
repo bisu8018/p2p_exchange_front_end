@@ -94,13 +94,13 @@
         <div class="cardModal cardModalMobile"  v-if="isModal">
           <v-layout row wrap>
 
-            <v-flex class="text-xs-left text-black mb-2">{{$str("start")}} {{$str("date")}}</v-flex>
-            <v-flex class="mb-4">
+            <v-flex xs12 text-xs-left text-black mb-2>{{$str("start")}} {{$str("date")}}</v-flex>
+            <v-flex xs12 mb-4>
               <date-picker :classname = 'startdateclass' v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
             </v-flex>
             <!--end date-->
-            <v-flex class="text-xs-left text-black mb-2">{{$str("end")}} {{$str("date")}}</v-flex>
-            <v-flex >
+            <v-flex xs12 text-xs-left text-black mb-2>{{$str("end")}} {{$str("date")}}</v-flex>
+            <v-flex xs12>
               <date-picker :classname = "enddateclass" v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
             </v-flex>
 

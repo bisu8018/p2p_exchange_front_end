@@ -21,7 +21,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Amount</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.volumeAvailable}} {{adslist.currency}}</v-flex>
+                <v-flex xs9 text-xs-right>{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Limits</v-flex>
@@ -29,7 +29,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Price</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.fixedPrice}}</v-flex>
+                <v-flex xs9 text-xs-right>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Time</v-flex>
@@ -62,9 +62,9 @@
                 </v-flex>
                 <v-flex md2 text-md-left>
                     <span>{{adslist.cryptocurrency}}</span>
-                    <span class="ml-2">{{adslist.volumeAvailable}}</span>
+                    <span class="ml-2">{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</span>
                 </v-flex>
-                <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.cryptocurrency}}</v-flex>
+                <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>
                     <span class="ml-3">{{transTime(adslist.registerDatetime)}}</span>
