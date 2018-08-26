@@ -20,7 +20,7 @@
                     </h6>
                     <h6 class="statusChip" v-if="orderStatus != ''">
                         <v-layout align-center row fill-height>
-                            {{orderStatus}}
+                            {{$str(orderStatus)}}
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('orderStatus')">close</i>
                         </v-layout>
                     </h6>
@@ -38,13 +38,13 @@
                     </h6>
                     <h6 class="statusChip" v-if="orderType != ''">
                         <v-layout align-center row fill-height>
-                            {{orderType}}
+                            {{$str(orderType)}}
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('orderType')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="tradeType != ''">
                         <v-layout align-center row fill-height>
-                            {{tradeType}}
+                            {{$str(tradeType)}}
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('tradeType')">close</i>
                         </v-layout>
                     </h6>
