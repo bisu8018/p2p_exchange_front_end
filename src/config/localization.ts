@@ -1029,13 +1029,13 @@ const strings = new Map([
     ['buyingExplain2', {
         KOR: ' 에 대하여 ',
         ENG: ' after ',
-        CN: '对',
+        CN: '由',
         HK: '對'
     }],
     ['buyingExplain3', {
         KOR: '가 영수증 발급 확인한 뒤에 전달받게 될 것입니다.',
         ENG: 'confirm receipt and release, ',
-        CN: '发行收据后将收到',
+        CN: '放行的代币',
         HK: '發行收據後將收到'
     }],
     ['buyingExplain4', {
