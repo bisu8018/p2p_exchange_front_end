@@ -2916,7 +2916,7 @@ const strings = new Map([
     }],
     ['singapore', {
         KOR: '싱가포르',
-        ENG: 'singapore',
+        ENG: 'Singapore',
         CN: '新加坡',
         HK: ''
     }],
