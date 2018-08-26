@@ -25,7 +25,7 @@
                 </h6>
                 <h6 class="statusChip" v-if="tradeType != ''">
                     <v-layout align-center row fill-height>
-                        {{tradeType}}
+                        {{$str(tradeType)}}
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('tradeType')">close</i>
                     </v-layout>
                 </h6>
@@ -37,7 +37,7 @@
                 </h6>
                 <h6 class="statusChip" v-if="adsType != ''">
                     <v-layout align-center row fill-height>
-                        {{adsType}}
+                        {{$str(adsType)}}
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('adsType')">close</i>
                     </v-layout>
                 </h6>

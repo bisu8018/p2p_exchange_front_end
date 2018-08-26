@@ -119,24 +119,24 @@ export function doesHttpOnlyCookieExist(cookiename : string) {
 
 export function findCountryName(code: string) {
     switch (code) {
-        case 'ALL': return 'All countries';
-        case 'CN': return 'China';
-        case 'SG': return 'Singapore';
-        case 'IN': return 'India';
-        case 'VN': return 'Vietnam';
-        case 'CA': return 'Canada';
-        case 'AU': return 'Australia';
-        case 'KR': return 'Korea';
-        case 'CH': return 'Switzerland';
-        case 'NL': return 'Netherlands';
-        case 'TW': return 'Taiwan';
-        case 'RU': return 'Russia';
-        case 'UK': return 'United Kingdom';
-        case 'HK': return 'Hong Kong(china)';
-        case 'NG': return 'Nigeria';
-        case 'ID': return 'Indonesia';
-        case 'PH': return 'Philippines';
-        case 'KH': return 'Cambodia';
+        case 'ALL': return 'allCountries';
+        case 'CN': return 'china';
+        case 'SG': return 'singapore';
+        case 'IN': return 'india';
+        case 'VN': return 'vietnam';
+        case 'CA': return 'canada';
+        case 'AU': return 'australia';
+        case 'KR': return 'korea';
+        case 'CH': return 'switzerland';
+        case 'NL': return 'netherlands';
+        case 'TW': return 'taiwan';
+        case 'RU': return 'russia';
+        case 'UK': return 'uk';
+        case 'HK': return 'hongkong';
+        case 'NG': return 'nigeria';
+        case 'ID': return 'indonesia';
+        case 'PH': return 'philippines';
+        case 'KH': return 'cambodia';
     }
 }
 

@@ -80,6 +80,9 @@ export default class Order {
 
             case 'complete':
                 return 'ic-success-sm sprite-img ';
+
+            case 'expired':
+                return 'ic-cancel-sm sprite-img ';
         }
         return '';
 

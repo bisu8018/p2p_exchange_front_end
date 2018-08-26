@@ -73,7 +73,7 @@
           </div>
           <div class="statusChip" v-if="selectedType != ''">
             <v-layout align-center row fill-height>
-              {{selectedType}}
+              {{$str(selectedType)}}
               <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('type')">close</i>
             </v-layout>
           </div>
@@ -108,7 +108,7 @@
             <v-flex xs12 >
               <div class="p-relative">
                 <select v-model="modal_selectedType"  class="comp-selectbox">
-                  <option v-for="type in types" v-bind:value="type.name" >{{type.name}}</option>
+                  <option v-for="type in types" v-bind:value="type.name" >{{$str(type.name)}}</option>
                 </select>
                 <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
               </div>
@@ -226,8 +226,8 @@
             types : [
                 {name : 'Buy'},
                 {name : 'Sell'},
-                {name : 'Withdraw'},
                 {name : 'Deposit'},
+                {name : 'Withdraw'},
             ],
             tokens : [
                 {name : 'BTC', fullname: 'bitcoin'},

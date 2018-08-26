@@ -59,9 +59,9 @@
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
           <v-layout row class="statusBox" mt-4a pr-2>
-            <h6  class="statusChip" @click.stop="transisModal('open')">{{getCountryName(nationality)}}</h6>
+            <h6  class="statusChip" @click.stop="transisModal('open')">{{$str(getCountryName(nationality))}}</h6>
             <h6  class="statusChip" @click.stop="transisModal('open')">{{currency}}</h6>
-            <h6  class=" statusChip" @click.stop="transisModal('open')">{{getPaymentName(paymentMethod)}}</h6>
+            <h6  class=" statusChip" @click.stop="transisModal('open')">{{$str(getPaymentName(paymentMethod))}}</h6>
             <!--amount 는 입력시에만 뜸-->
             <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
               <v-layout align-center row fill-height>
@@ -184,9 +184,9 @@
         <!--right filter-->
         <v-flex md4 offset-md1 class="cardParent">
           <v-layout row class="statusBox" mt-4a>
-            <h6  class="statusChip" @click="transisModal('open')">{{ getCountryName(nationality) }}</h6>
+            <h6  class="statusChip" @click="transisModal('open')">{{$str(getCountryName(nationality))}}</h6>
             <h6  class="statusChip" @click="transisModal('open')">{{currency}}</h6>
-            <h6  class=" statusChip" @click="transisModal('open')">{{ getPaymentName(paymentMethod) }}</h6>
+            <h6  class=" statusChip" @click="transisModal('open')">{{$str(getPaymentName(paymentMethod))}}</h6>
             <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
               <v-layout align-center row fill-height>
                 {{amount}}

@@ -5,7 +5,7 @@
       <!--type-->
       <v-layout mb-2 mt-4>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Type")}} : </v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.depositType}}</v-flex>
+        <v-flex xs6 text-xs-right>{{$str(detailList.depositType)}}</v-flex>
       </v-layout>
       <!--coin-->
       <v-layout mb-2>
@@ -43,7 +43,7 @@
     <div v-else>
       <v-layout row wrap align-center fill-height class="webDetailWrapper">
         <v-flex md2 text-md-left>
-          {{detailList.depositType}}
+          {{$str(detailList.depositType)}}
         </v-flex>
         <v-flex md2 text-md-left>
           {{detailList.cryptocurrency}}
@@ -55,7 +55,7 @@
           {{ $fixed(detailList.amount, detailList.cryptocurrency) }} {{detailList.cryptocurrency}}
         </v-flex>
         <v-flex md2 text-md-right>
-          {{detailList.status}}
+          {{$str(detailList.status)}}
         </v-flex>
         <v-flex md2 text-md-right>
           <button v-if="detailList.status == 'Under examination'"

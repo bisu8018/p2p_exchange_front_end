@@ -212,7 +212,7 @@ const strings = new Map([
     ['resetPasswordExplain', {
         KOR: '비밀번호 재설정 후, 24시간 동안 출금을 할 수 없습니다.',
         ENG: 'The withdrawal will be disabled in 24 hours once password is reset.',
-        CN: '重设密码之后，将在24小时停用提款服务',
+        CN: '重设密码之后，将在24小时停用出款服务',
         HK: '重設密碼之後，將在24小時停用提款服務'
     }],
     ['submit', {
@@ -331,6 +331,18 @@ const strings = new Map([
         CN: '出售',
         HK: '出售'
     }],
+    ['Buy', {
+        KOR: '구매',
+        ENG: 'Buy',
+        CN: '购买',
+        HK: '購買'
+    }],
+    ['Sell', {
+        KOR: '판매',
+        ENG: 'Sell',
+        CN: '出售',
+        HK: '出售'
+    }],
     ['userMemo', {
         KOR: '판매자 메모',
         ENG: 'User Memo',
@@ -346,7 +358,7 @@ const strings = new Map([
     ['Please_enter_a_vaild_number', {
         KOR: '올바른 숫자를 입력하십시오.',
         ENG: 'Enter a vaild number',
-        CN: '请输入有效的号码',
+        CN: '请输入有效的数量',
         HK: '請輸入有效的好嗎'
     }],
     ['Before you start trading, you need to complete the necessary transaction information.', {
@@ -932,7 +944,7 @@ const strings = new Map([
     ['paymentExplain4', {
         KOR: '이내 지불하셔야 합니다. ',
         ENG: '. ',
-        CN: '分钟内将完成支付',
+        CN: '内完成。',
         HK: '分鐘內將完成支付'
     }],
     ['referenceText', {
@@ -944,7 +956,7 @@ const strings = new Map([
     ['paidText', {
         KOR: '지불완료',
         ENG: 'Payment Complete',
-        CN: '支付完成',
+        CN: '我已付款',
         HK: '支付完成'
     }],
     ['paymentText', {
@@ -1055,6 +1067,12 @@ const strings = new Map([
         ENG: 'Complete',
         CN: '交易成功',
         HK: '交易成功'
+    }],
+    ['expired', {
+        KOR: '만료됨',
+        ENG: 'Expired',
+        CN: '时限结束',
+        HK: '时限结束'
     }],
     ['completedPayment', {
         KOR: '거래가 완료되었습니다.',
@@ -1173,7 +1191,7 @@ const strings = new Map([
     ['confirmContents1', {
         KOR: '영수증을 확인하려면 은행 계좌 또는 기타 전자 지갑에 로그인했는지 확인하십시오.',
         ENG: 'Make sure that you have logged in your bank account or other e-wallet to check the receipt.',
-        CN: '为了确认收据，请确认有登入银行账户或其他电子钱包。',
+        CN: '放行前，请确认有登入银行账户或其他电子钱包。',
         HK: '爲了確認收據，請確認有登入銀行帳戶或其他電子錢包。'
     }],
     ['confirmCheckbox', {
@@ -1438,7 +1456,19 @@ const strings = new Map([
     ['withdraw', {
         KOR: '출금',
         ENG: 'Withdraw',
-        CN: '收回',
+        CN: '出款',
+        HK: '收回'
+    }],
+    ['Withdraw', {
+        KOR: '출금',
+        ENG: 'Withdraw',
+        CN: '出款',
+        HK: '收回'
+    }],
+    ['Withdrawal', {
+        KOR: '출금',
+        ENG: 'Withdrawal',
+        CN: '出款',
         HK: '收回'
     }],
     ['Address', {
@@ -1450,8 +1480,8 @@ const strings = new Map([
     ['fee', {
         KOR: '수수료',
         ENG: 'Fee',
-        CN: '费用',
-        HK: '費用'
+        CN: '手续费',
+        HK: '手續費'
     }],
     ['limit', {
         KOR: '제한',
@@ -1472,52 +1502,52 @@ const strings = new Map([
         HK: '範圍'
     }],
     ['Receive Amount', {
-        KOR: '수신 금액',
+        KOR: '수령액',
         ENG: 'Receive Amount',
-        CN: '收到金额',
-        HK: '收到金額'
+        CN: '领取额',
+        HK: '領取額'
     }],
     ['Minimum withdrawal amount', {
         KOR: '최소 인출 금액',
         ENG: '• Minimum withdrawal amount',
-        CN: '最低提款金额',
+        CN: '最低出款金额',
         HK: '最低提款金額'
     }],
     ['Withdraw to another wallet', {
         KOR: '다른 지갑으로 인출',
         ENG: 'Withdraw to another wallet',
-        CN: '撤回到另一个钱包',
-        HK: '撤回到另一個錢包'
+        CN: '出款到其他钱包',
+        HK: '出款到另一個錢包'
     }],
     ['withdrawtipsETH1', {
-        KOR: '• ICO에 참여하기 위해 ETH를 예치하고 ICO 토큰이 입금 주소로 배포되는 경우, ETH를 철회하지 않으면 ICO 토큰을받지 못할 것입니다.',
+        KOR: '• ICO에 참여하기 위해 ETH를 입금하고 이후 ICO 토큰이 입금 주소로 배포되는 경우, ETH를 출금하면 ICO 토큰을 받을 수 없습니다.',
         ENG: '• If you deposit ETH to participate ICO and ICO tokens will be distributed to your deposit address, ' +
         'Please don\'t withdraw ETH to it or you won\'t get your ICO tokens.',
-        CN: '•如果您存入ETH参加ICO，ICO代币将被分发到您的存款地址，请不要将ETH撤回，否则您将无法获得ICO令牌。',
+        CN: '•若您存款ETH参加ICO，ICO代币将被分发到您的存款地址，请不要出款ETH，否则您将无法获得ICO代币。',
         HK: '•如果您存入ETH參加ICO，ICO代幣將被分發到您的存款地址，請不要將ETH撤回，否則您將無法獲得ICO令牌。'
     }],
     ['withdrawtipsETH2', {
-        KOR: '• 스마트 계약 주소로 철회하면 전송이 실패 할 수 있습니다.',
+        KOR: '• 스마트 계약 주소로 출금하면 전송이 실패됩니다.',
         ENG: '• Withdrawal to smart contract address may cause the transfer to fail.',
-        CN: '•撤回智能合约地址可能导致转移失败。',
-        HK: '•撤回智能合約地址可能導致轉移失敗。•交易費用不固定，取決於完成交易所需的計算用量（燃氣）。'
+        CN: '• 由于智能合约地址出款将导致转账失败。',
+        HK: '• 撤回智能合約地址可能導致轉移失敗。•交易費用不固定，取決於完成交易所需的計算用量（燃氣）。'
     }],
     ['withdrawtipsETH3', {
         KOR: '• 거래를 완료하는 데 필요한 계산 용도 (가스)에 따라 거래 수수료가 고정되어 있지 않습니다.' +
-        '인출에 대한 ALLB의 가스 한도는 90000입니다.이 거래가 90000 개가 넘는 가스를 사용하면 거래가 실패합니다.' +
-        'ALLB는 자산을 ALLB 계정에 수동으로 환불합니다. 이해해 주셔서 감사합니다.',
+        '인출에 대한 저희 시스템의 가스 한도는 90000입니다. 한 거래에 90000 이상의 가스를 사용하면, 거래가 실패됩니다.' +
+        '이후 ALLB는 자산을 ALLB 계정에 수동으로 환불하는 절차를 진행하며, 소요 시간이 길어질 수 있습니다.',
         ENG: '• Transaction fee is not fixed which depends on the computational use (gas) required to complete the transaction. ' +
-        'Gas limit on ALLB for withdrawal is 90000. If the transaction uses more than 90000 gas, the transaction will be failed. ' +
-        'ALLB will refund your assets to your ALLB account manually. Thanks for your understanding.',
-        CN: '•交易费用不固定，取决于完成交易所需的计算用量（燃气）。 埃尔比提款的燃气限制为90000。若交易时使用超过90000然气，交易会失败，埃尔比手动将退款您的资产。',
-        HK: '•交易費用不固定，取決於完成交易所需的計算用量（燃氣）。' +
+        'Gas limit on our system for withdrawal is 90000. If the transaction uses more than 90000 gas, the transaction will be failed. ' +
+        'ALLB will refund your assets to your ALLB account manually.',
+        CN: '• 交易费用不固定，取决于完成交易所需的计算用量（燃气）。 对于出款本系统制定的燃气限制为90000。若交易时使用超过90000然气，交易会失败，本系统手动将退款您的资产。',
+        HK: '• 交易費用不固定，取決於完成交易所需的計算用量（燃氣）。' +
         'ALLB提取的天然氣限制為90000.如果交易使用超過90000天然氣，交易將失敗。ALLB將手動將您的資產退還給您的ALLB賬戶。 感謝你的理解。'
     }],
     ['withdrawTips1', {
-        KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 우리 직원으로부터 전화 나 이메일을 기다려주십시오.',
+        KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 직원의 전화 혹은 이메일을 기다려주십시오.',
         ENG: '• For security reasons, when you change security settings, change password and use new withdraw address, ' +
         'we will manually review your withdrawal. Please wait for phone calls or emails from our staff.',
-        CN: '出于安全原因，当您更改安全设置，更改密码并使用新的提款地址时，我们将手动审核您的提款。 请等待我们工作人员的电话或电子邮件。',
+        CN: '出于安全原因，当您更改安全设置，更改密码并使用新的出款地址时，我们将手动审核您的提款。 请稍等由客服电话或电子邮箱的回复。',
         HK: '出於安全原因，當您更改安全設置，更改密碼並使用新的提款地址時，我們將手動審核您的提款。 請等待我們工作人員的電話或電子郵件。'
     }],
     ['withdrawTips2', {
@@ -1554,14 +1584,14 @@ const strings = new Map([
     ['BalanceDepositExplain1-1', {
         KOR: '• 위 주소에 ',
         ENG: '• Please don\'t deposit any other digital assets except',
-        CN: '• 请不要存入任何数字资产',
-        HK: '• 請不要存入任何數字資產'
+        CN: '• 请不要存入',
+        HK: '• 請不要存入'
     }],
     ['BalanceDepositExplain1-2', {
         KOR: '를 제외한 다른 디지털 자산을 예치하지 마십시오.',
         ENG: 'to the above address.',
-        CN: '例外的资产。',
-        HK: '到上述地址'
+        CN: '例外的任何数字资产。',
+        HK: '例外的任何數字資產。'
     }],
     ['BalanceDepositExplain2', {
         KOR: '• 위 주소로 입금하려면 전체 네트워크를 확인해야합니다. ' +
@@ -1588,7 +1618,7 @@ const strings = new Map([
         '모든 변경사항을, 당신의 공지 또는 이메일로 알려드립니다.',
         ENG: '• Your deposit address won\'t be changed frequently.' +
         'Any changes, we will inform you by announcement or email.',
-        CN: '• 您的存款地址不会更改。如有任何更改，我们将通过公告或电子邮件通知您。',
+        CN: '• 您的存款地址不会更改。如有任何更改，我们将通过公告或电子邮箱通知您。',
         HK: '• 您的匯入地址不會更改。若有任何更改，我們將通過公告或Email通知您。'
     }],
     ['BalanceDepositExplain5', {
@@ -1865,13 +1895,13 @@ const strings = new Map([
     ['emailSecurityExplain', {
         KOR: '이메일은 본 계정을 관리하는 동안 인출, 암호 찾기, 보안 설정 변경 및 인증에 사용됩니다.',
         ENG: 'Your Email would be used to withdraw, retrieve password, change security settings and verify while managing your account.',
-        CN: '管理本账户时，您的邮箱将活用于提款、搜索密码、更改安全设定以及验证服务。',
+        CN: '管理本账户时，您的邮箱将活用于出款、搜索密码、更改安全设定以及验证服务。',
         HK: '管理本帳戶時，您的Email將活用於取款、搜索密碼、更改安全設定以及驗證服務。'
     }],
     ['phoneSecurityExplain', {
         KOR: '휴대폰은 본 계정을 관리하는 동안 인출, 암호 찾기, 보안 설정 변경 및 인증에 사용됩니다.',
         ENG: 'Your phone would be used to withdraw, retrieve password, change security settings and verify while managing your account.',
-        CN: '管理本账户时，您的手机将活用于提款、搜索密码、更改安全设定以及验证服务。',
+        CN: '管理本账户时，您的手机将活用于出款、搜索密码、更改安全设定以及验证服务。',
         HK: '管理本帳戶時，您的手機將活用於取款、搜索密碼、更改安全設定以及驗證服務。'
     }],
     ['phone', {
@@ -2177,7 +2207,7 @@ const strings = new Map([
     ['changePasswordExplain', {
         KOR: '비밀번호 변경 시, 24시간 동안 출금할 수 없습니다.',
         ENG: 'Once you change the password, withdrawal will be disabled within 24 hours.',
-        CN: '一旦更改您的密码，24小时内将不能取款款项。',
+        CN: '一旦更改您的密码，24小时内将不能出款款项。',
         HK: '一但更改您的密碼，24小時内將不能取款款項。'
     }],
     ['change', {
@@ -2229,9 +2259,9 @@ const strings = new Map([
         HK: '關閉Email驗證'
     }],
     ['emailTurnOffExplain', {
-        KOR: '이메일 인증이 비활성화 되면, 24시간 동안 입금하실 수 없습니다.',
+        KOR: '이메일 인증이 비활성화 되면, 24시간 동안 출금하실 수 없습니다.',
         ENG: 'The withdrawal will be disabled in next 24 hours once email authentication is turned off.',
-        CN: '一旦关闭邮箱验证后，24小时内不能存款。',
+        CN: '一旦关闭邮箱验证后，24小时内不能出款。',
         HK: '一但關掉Emali驗證後，24小時内不能匯入款項。'
     }],
     ['linkPhone', {
@@ -2614,9 +2644,9 @@ const strings = new Map([
         HK: '驗證'
     }],
     ['editPayment', {
-        KOR: '결제수단 수정하기',
+        KOR: '결제수단 수정',
         ENG: 'Edit a new payment method',
-        CN: '',
+        CN: '更改支付方式',
         HK: ''
     }],
     ['No Online advertisement', {
@@ -2626,16 +2656,16 @@ const strings = new Map([
         HK: '沒有在線廣告'
     }],
     ['Your certification order has been submitted.', {
-        KOR: '인증 주문이 제출되었습니다.',
-        ENG: 'Your certification order has been submitted.',
-        CN: '您的认证订单已提交。',
-        HK: '您的認證訂單已提交。'
+        KOR: '주문이 제출되었습니다.',
+        ENG: 'Your order has been submitted.',
+        CN: '您的验证订单已提交，请稍等。',
+        HK: '您的驗證訂單已提交，請稍等。'
     }],
     ['Please wait a minute.', {
-        KOR: '조금만 기다려주세요.',
-        ENG: 'Please wait a minute.',
-        CN: '请等一分钟。',
-        HK: '請等一分鐘。'
+        KOR: '잠시만 기다려주세요.',
+        ENG: 'Please wait a moment.',
+        CN: ' ',    //고의적으로 뺌.
+        HK: ' '
     }],
     ['No more history', {
         KOR: '기록 없음',
@@ -2716,21 +2746,21 @@ const strings = new Map([
         HK: ''
     }],
     ['add_video', {
-        KOR: '',
+        KOR: '영상 추가',
         ENG: 'Add Video',
-        CN: '',
+        CN: '添加视频',
         HK: ''
     }],
     ['update_passport', {
-        KOR: '',
+        KOR: '여권 사진 업로드',
         ENG: 'Update Passport',
-        CN: '',
+        CN: '添加护照图像',
         HK: ''
     }],
     ['update_video', {
-        KOR: '',
+        KOR: '영상 변경',
         ENG: 'Update Video',
-        CN: '',
+        CN: '更改视频',
         HK: ''
     }],
     ['Add Id verification', {
@@ -2747,8 +2777,8 @@ const strings = new Map([
     }],
     ['Update Id', {
         KOR: '아이디 업데이트',
-        ENG: 'Update Id',
-        CN: '',
+        ENG: 'Update ID',
+        CN: '更改ID',
         HK: ''
     }],
     ['Add phone', {
@@ -2781,39 +2811,28 @@ const strings = new Map([
         CN: '世界最佳法币交易平台',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Under examination', {
+        KOR: '심사중',
+        ENG: 'Under examination',
+        CN: '审核种',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Completed', {
+        KOR: '완료됨',
+        ENG: 'Completed',
+        CN: '处理完成',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Error', {
+        KOR: '처리오류',
+        ENG: 'Error',
+        CN: '处理错误',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Return to Balances', {
+        KOR: '밸런스로 돌아가기',
+        ENG: 'Return to Balances',
+        CN: '返回资产',
         HK: ''
     }],
     ['', {
@@ -2852,6 +2871,43 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['All Payments', {
+        KOR: '모든 결제수단',
+        ENG: 'All Payments',
+        CN: '所有支付方式',
+        HK: '所有支付方式'
+    }],
+    ['Alipay', {
+        KOR: '알리페이',
+        ENG: 'Alipay',
+        CN: '支付宝',
+        HK: '支付寶'
+    }],
+    ['Wechat', {
+        KOR: '위챗페이',
+        ENG: 'Wechat',
+        CN: '微信支付',
+        HK: '微信支付'
+    }],
+    ['Bank Account', {
+        KOR: '은행 계좌',
+        ENG: 'Bank account',
+        CN: '银行账户',
+        HK: '銀行帳戶'
+    }],
+
     ['china', {
         KOR: '중국',
         ENG: 'China',
@@ -2921,7 +2977,7 @@ const strings = new Map([
     ['uk', {
         KOR: '영국',
         ENG: 'United Kingdom',
-        CN: '联合王国',
+        CN: '英国',
         HK: ''
     }],
     ['hongkong', {
@@ -2963,8 +3019,8 @@ const strings = new Map([
     ['allPayment', {
         KOR: '모든 결제수단',
         ENG: 'All Payments',
-        CN: '',
-        HK: ''
+        CN: '所有支付方式',
+        HK: '所有支付方式'
     }],
     ['landingSubject_1', {
         KOR: '안전, 신뢰',

@@ -38,7 +38,7 @@
         <v-flex xs5 text-xs-right>
           <v-layout justify-end align-center>
             <div class="mr-2" :class="orderlist.statusImg"></div>
-            {{orderlist.status}}
+            {{$str(orderlist.status)}}
           </v-layout>
         </v-flex>
       </v-layout>
@@ -74,7 +74,7 @@
         <v-flex md2>
           <v-layout align-center>
             <div class=" mr-2" :class="orderlist.statusImg"></div>
-            <div>{{orderlist.status}}</div>
+            <div>{{$str(orderlist.status)}}</div>
             <v-spacer></v-spacer>
             <span class="color-blue c-pointer text-white-hover" @click="goUserPage()">
               {{orderlist.counterParty.nickname}}
@@ -152,6 +152,10 @@
 
                 case 'complete':
                     this.statusImg = 'ic-success-sm sprite-img ';
+                    break;
+
+                case 'expired':
+                    this.statusImg = 'ic-cancel-sm sprite-img ';
                     break;
             }
 

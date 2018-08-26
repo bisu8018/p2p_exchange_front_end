@@ -77,7 +77,7 @@
                             </div>
                             <div v-else>
                                 <button class="btn-rounded-blue medium" @click="changeDrawer">
-                                    <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
+                                    <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
                                 </button>
                             </div>
                         </li>
@@ -323,7 +323,7 @@
                         </div>
                         <div v-else>
                             <button class="btn-rounded-blue medium" @click="changeDrawer">
-                                <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
+                                <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
                             </button>
                         </div>
                     </v-layout>

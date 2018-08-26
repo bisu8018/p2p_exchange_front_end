@@ -48,7 +48,7 @@
         </v-layout>
         <v-divider></v-divider>
         <div class="history-btn-margin">
-          <button class="btn-blue btn-blue-hover btn-width" @click="goHistory">{{$str('history')}}
+          <button class="btn-blue btn-blue-hover btn-width" @click="goHistory">{{$str('Return to Balances')}}
           </button>
         </div>
       </div>
