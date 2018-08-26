@@ -33,25 +33,25 @@
 
         <v-flex xs3 offset-xs2 text-xs-left mt-4>
           <v-layout v-if="merchant.emailVerification" align-center>
-            <h6>Email</h6>
+            <h6>{{$str("email")}}</h6>
             <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
         <v-flex xs7 text-xs-right mt-4>
           <v-layout v-if="merchant.idVerification" justify-end align-center >
-            <h6>ID Verification</h6>
+            <h6>{{$str("ID_Verification")}}</h6>
             <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
         <v-flex xs3 offset-xs2 text-xs-left mt-3>
           <v-layout v-if="merchant.phoneVerification" align-center >
-            <h6>Phone</h6>
+            <h6>{{$str("phone")}}</h6>
             <h6 class="ic-success-sm sprite-img ml-1"></h6>
           </v-layout>
         </v-flex>
         <v-flex xs7 text-xs-right mt-3>
           <v-layout v-if="merchant.advancedVerification" justify-end align-center >
-            <h6>Advanced Verification</h6>
+            <h6>{{$str("advancedVerification")}}</h6>
             <h6 class="ic-success-sm sprite-img ml-1 "></h6>
           </v-layout>
         </v-flex>
@@ -61,7 +61,7 @@
         <!--SELL-->
         <div v-if="haveSellList ">
           <v-flex xs12 text-xs-left mt-5 mb-2>
-            <h3 class="bold">Online Sell</h3>
+            <h3 class="bold">{{$str("Online_Sell")}}</h3>
           </v-flex>
           <div  v-for="user in BuyLists" >
               <user-trade-item
@@ -73,7 +73,7 @@
         <!--Buy-->
         <div v-if="haveBuyList">
         <v-flex text-xs-left mt-5 mb-2>
-          <h3 class="bold">Online Buy</h3>
+          <h3 class="bold">{{$str("Online_Buy")}}</h3>
         </v-flex>
         <div  v-for="user in SellLists">
           <user-trade-item

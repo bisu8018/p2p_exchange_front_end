@@ -310,7 +310,7 @@ const strings = new Map([
     ['price', {
         KOR: '가격',
         ENG: 'Price',
-        CN: '价格',
+        CN: '单价',
         HK: '價格'
     }],
     ['control', {
@@ -887,15 +887,15 @@ const strings = new Map([
     }],
     ['atLeast', {
         KOR: '한도금액 이상으로 입력해 주십시오',
-        ENG: 'Enter greater than or equal to limit',
+        ENG: 'Please input more than limit',
         CN: '请输入限度以上的金额',
         HK: '請輸入限度以上的金額'
     }],
     ['atMost', {
         KOR: '최저 한도금액 이상으로 입력해 주십시오',
-        ENG: 'Enter greater than min limit',
-        CN:  '请输入限度以下的金额',
-        HK:  '請輸入限度一下的金額'
+        ENG: 'Please input more than minimum limit',
+        CN:  '请输入最小限度以上金额',
+        HK:  '請輸入最小限度以上金額'
     }],
     ['timeRange', {
         KOR: '범위 시간 내로 입력해 주십시오',
@@ -1760,7 +1760,7 @@ const strings = new Map([
     ['Online_Sell', {
         KOR: '온라인 판매',
         ENG: 'Online Sell',
-        CN: '在线销售',
+        CN: '在线出售',
         HK: '在綫出售'
     }],
     ['Online_Buy', {

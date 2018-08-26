@@ -45,7 +45,7 @@
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("counterparty")}}</v-flex>
         <v-flex xs5 text-xs-right color-blue c-pointer text-white-hover @click="goUserPage()">
-          {{orderlist.nickname}}
+          {{orderlist.counterParty.nickname}}
         </v-flex>
       </v-layout>
     </div>

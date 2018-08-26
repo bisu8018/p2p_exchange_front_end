@@ -24,19 +24,19 @@
         <!-- Volume -->
         <v-layout>
           <v-flex xs2></v-flex>
-          <v-flex xs4 text-xs-left color-darkgray>Volume :</v-flex>
+          <v-flex xs4 text-xs-left color-darkgray>{{ $str('Available') }} :</v-flex>
           <v-flex xs6 text-xs-right> {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
-          <v-flex xs4 text-xs-left color-darkgray>Limits :</v-flex>
+          <v-flex xs4 text-xs-left color-darkgray>{{ $str('limits') }} :</v-flex>
           <v-flex xs6 text-xs-right> {{user.minLimit}}-{{user.maxLimit}} {{currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
-          <v-flex xs4 text-xs-left color-darkgray>Price :</v-flex>
+          <v-flex xs4 text-xs-left color-darkgray>{{ $str('price') }} :</v-flex>
           <v-flex xs6 text-xs-right bold color-orange-price> {{user.fixedPrice}} {{currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
@@ -45,21 +45,21 @@
           <v-flex xs5 text-xs-left>
             <a class="tooltip" v-if="user.bank_account.length >0">
               <div class="mr-2 sprite-img ic-bank f-left"></div>
-              <span class="BankTooltip tooltip-content">Bank account</span>
+              <span class="BankTooltip tooltip-content">{{ $str('bankAccountText') }}</span>
             </a>
             <a class="tooltip" v-if="user.alipay_id.length >0">
               <div class="mr-2 sprite-img ic-alipay f-left"></div>
-              <span class="tooltip-content">Alipay</span>
+              <span class="tooltip-content">{{ $str('alipayText') }}</span>
             </a>
             <a class="tooltip" v-if="user.wechat_id.length >0">
               <div class="mr-2 sprite-img ic-wechatpay f-left"></div>
-              <span class="tooltip-content">Wechatpay</span>
+              <span class="tooltip-content">{{ $str('wechatPayText') }}</span>
             </a>
           </v-flex>
           <!--거래 버튼-->
           <v-flex xs5 text-xs-right>
             <button class="btn-rounded-blue medium" @click="changeDrawer">
-              {{user.tradeType}} {{user.cryptocurrency}}</button>
+              {{$str(user.tradeType)}} {{user.cryptocurrency}}</button>
           </v-flex>
         </v-layout>
       </div>
@@ -274,7 +274,7 @@
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
             <button class="btn-rounded-blue medium" @click="changeDrawer">
-              <h5>{{user.tradeType}} {{user.cryptocurrency}}</h5>
+              <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
             </button>
           </v-layout>
         </v-flex>
@@ -471,7 +471,7 @@
             user: {},
         },
         data: () => ({
-            pwPlaceholder: 'Trade Password',
+            pwPlaceholder: Vue.prototype.$str('tradePwText'),
             toValue : '',
             fromValue : '',
             tradePassword : '',

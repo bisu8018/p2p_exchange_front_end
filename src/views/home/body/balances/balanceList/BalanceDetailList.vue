@@ -25,7 +25,7 @@
       <!-- status -->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("status")}}:</v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.status}}</v-flex>
+        <v-flex xs6 text-xs-right>{{$str(detailList.status)}}</v-flex>
       </v-layout>
       <!-- action -->
       <v-layout mb-4>
