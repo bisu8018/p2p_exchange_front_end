@@ -79,6 +79,8 @@ export default (Vue: any) => {
     Vue.prototype.$fixed = function (value: number, currency: string) {
         let fixedDigits = 0;
 
+        if (String(value).indexOf(".")==-1) { return value }
+
         switch (currency) {
             case CurrencyType.CNY: fixedDigits = 0; break;
             case CurrencyType.KRW: fixedDigits = 0; break;
@@ -91,6 +93,8 @@ export default (Vue: any) => {
             case 'ETH' :
             case 'ethereum': fixedDigits = 6; break;
         }
-        return value.toFixed(fixedDigits);
+        let fixedValue = value.toFixed(fixedDigits);
+        fixedValue = fixedValue.replace(/(0+$)/, "");
+        return fixedValue;
     }
 }
