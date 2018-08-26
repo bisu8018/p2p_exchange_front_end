@@ -82,10 +82,6 @@
                     {{ $str("buyingExplain3") }}
                     </span>
 
-                    <!-- Paid 상태 -->
-                    <span v-if="currentOrder.status === 'paid'">
-                      {{ $str("buyingExplain4") }}
-                    </span>
                     <!-- complete / Cancel 상태 -->
                     <span v-else-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
                     {{ $str("cancel") }}
