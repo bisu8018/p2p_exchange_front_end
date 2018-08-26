@@ -14,7 +14,7 @@
             <div class="p-relative mb-4">
                 <select class="comp-selectbox h6" id="nationality" v-model="idVerification.nationality">
                     <option v-for="country in countries" :value="country.code">
-                        {{ country.country }}
+                        {{$str(country.country)}}
                     </option>
                 </select>
                 <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
@@ -77,23 +77,23 @@
                 verify_warning_IdNum : "",
 
                 countries: [
-                    {country: 'China', code: 'CN'},
-                    {country: 'Singapore', code: 'SG'},
-                    {country: 'India', code: 'IN'},
-                    {country: 'Vietnam', code: 'VN'},
-                    {country: 'Canada', code: 'CA'},
-                    {country: 'Australia', code: 'AU'},
-                    {country: 'Korea', code: 'KR'},
-                    {country: 'Switzerland', code: 'CH'},
-                    {country: 'Netherlands', code: 'NL'},
-                    {country: 'Taiwan', code: 'TW'},
-                    {country: 'Russia', code: 'RU'},
-                    {country: 'United Kingdom', code: 'UK'},
-                    {country: 'Hong Kong(china)', code: 'HK'},
-                    {country: 'Nigeria', code: 'NG'},
-                    {country: 'Indonesia', code: 'ID'},
-                    {country: 'Philippines', code: 'PH'},
-                    {country: 'Cambodia', code: 'KH'}
+                    {country: 'china', code: 'CN'},
+                    {country: 'singapore', code: 'SG'},
+                    {country: 'india', code: 'IN'},
+                    {country: 'vietnam', code: 'VN'},
+                    {country: 'canada', code: 'CA'},
+                    {country: 'australia', code: 'AU'},
+                    {country: 'korea', code: 'KR'},
+                    {country: 'switzerland', code: 'CH'},
+                    {country: 'netherlands', code: 'NL'},
+                    {country: 'taiwan', code: 'TW'},
+                    {country: 'russia', code: 'RU'},
+                    {country: 'uk', code: 'UK'},
+                    {country: 'hongkong', code: 'HK'},
+                    {country: 'nigeria', code: 'NG'},
+                    {country: 'indonesia', code: 'ID'},
+                    {country: 'philippines', code: 'PH'},
+                    {country: 'cambodia', code: 'KH'}
                 ],
             }
         },

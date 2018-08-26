@@ -67,7 +67,7 @@
               <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
             </div>
             <div v-if="isMobile" class="pl-1 pr-1"></div>
-            <div v-else class="color-darkgray pt-2 mb-4">Via</div>
+            <div v-else class="color-darkgray pt-2 mb-4">{{$str('Via')}}</div>
             <!-- paymentmethod -->
             <div class="p-relative userInput">
               <select-box :selectBoxType="'payment'"></select-box>
@@ -130,7 +130,7 @@
                 //     },
                 // ],
                 selectedCryptocurrency : 'BTC',
-                selectedTradeType : 'Buy',
+                selectedTradeType : Vue.prototype.$str('Buy'),
                 amount : '',
                 currentLang : abGetLang(),
             }

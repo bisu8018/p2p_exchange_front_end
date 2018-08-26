@@ -6,7 +6,7 @@
         </div>
         <div>
             <span class="label-mobile-history">{{ $str('Type') }}:</span>
-            {{ data.type }}
+            {{ $str(data.type) }}
         </div>
         <div>
             <span class="label-mobile-history">IP:</span>

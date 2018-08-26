@@ -10,7 +10,7 @@
       </v-flex>
       <v-flex xs8 text-xs-left ml-2>
         <h5 class="bold" v-bind:class= "{'error-font' : isError, 'warning-font' : isWarning, 'success-font' : isSuccess}"
-        >{{notification.title}}</h5>
+        >{{$str(notification.title)}}</h5>
       </v-flex>
       <v-flex xs2 text-xs-center>
         <button @click="triggerClose(notification)" aria-label="Close alert">

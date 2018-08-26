@@ -51,7 +51,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 400 : this.show(this.type.Error, "", ""); break;
                     case 401 : this.show(this.type.Error, "401 Error", abGetLang('401')); break;
                     case 412 : this.show(this.type.Error, "", 'invalid_request'); break;
-                    case 413 : this.show(this.type.Error, "", 'invalid_email_verification_code'); break;
+                    case 413 : this.show(this.type.Error, "", this.$str('invalid_email_verification_code')); break;
                     case 414 : this.show(this.type.Error, "", 'not_verified_email'); break;
                     case 415 : this.show(this.type.Error, "", 'id_verification_required'); break;
                     case 416 : this.show(this.type.Error, "", 'already_setted'); break;

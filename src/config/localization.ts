@@ -894,8 +894,8 @@ const strings = new Map([
     ['atMost', {
         KOR: '최저 한도금액 이상으로 입력해 주십시오',
         ENG: 'Enter greater than min limit',
-        CN:  '',//'请输入限度以下的金额',
-        HK: '' //'請輸入限度一下的金額'
+        CN:  '请输入限度以下的金额',
+        HK:  '請輸入限度一下的金額'
     }],
     ['timeRange', {
         KOR: '범위 시간 내로 입력해 주십시오',
@@ -1094,9 +1094,9 @@ const strings = new Map([
     }],
     ['cancelModalContent', {
         KOR: '이 거래를 취소하시겠습니까?',
-        ENG: 'Are you sure you want to cancel this applying?',
-        CN: '您确认取消此投诉吗？',
-        HK: '您確認取消此異議申請嗎？'
+        ENG: 'Are you sure you want to cancel this order?',
+        CN: '您确认取消此订单吗？',
+        HK: '您確認取消此訂單嗎？'
     }],
     ['cancelModalButton', {
         KOR: '이의제기 취소',
@@ -1547,15 +1547,15 @@ const strings = new Map([
         KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 직원의 전화 혹은 이메일을 기다려주십시오.',
         ENG: '• For security reasons, when you change security settings, change password and use new withdraw address, ' +
         'we will manually review your withdrawal. Please wait for phone calls or emails from our staff.',
-        CN: '出于安全原因，当您更改安全设置，更改密码并使用新的出款地址时，我们将手动审核您的提款。 请稍等由客服电话或电子邮箱的回复。',
-        HK: '出於安全原因，當您更改安全設置，更改密碼並使用新的提款地址時，我們將手動審核您的提款。 請等待我們工作人員的電話或電子郵件。'
+        CN: '• 出于安全原因，当您更改安全设置，更改密码并使用新的出款地址时，我们将手动审核您的提款。 请等待客服电话或电子邮箱的回复。',
+        HK: '• 出於安全原因，當您更改安全設置，更改密碼並使用新的提款地址時，我們將手動審核您的提款。 請等待工作人員的電話或電子郵件回復。'
     }],
     ['withdrawTips2', {
-        KOR: '컴퓨터와 브라우저가 안전하고 정보가 변조되거나 유출되지 않도록하십시오.',
+        KOR: '• 컴퓨터와 브라우저가 안전하고 정보가 변조되거나 유출되지 않도록하십시오.',
         ENG: '• Please make sure that your computer and browser are secure ' +
         'and your information is protected from being tampered or leaked.',
-        CN: '请确保您的电脑和浏览器安全，并保护您的信息不被篡改或泄露。',
-        HK: '請確保您的計算機和瀏覽器安全，並保護您的信息不被篡改或洩露。'
+        CN: '• 请确保您的电脑和浏览器安全，并保护您的信息不被篡改或泄露。',
+        HK: '• 請確保您的計算機和瀏覽器安全，並保護您的信息不被篡改或洩露。'
     }],
     ['All', {
         KOR: '전액',
@@ -2835,46 +2835,46 @@ const strings = new Map([
         CN: '返回资产',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['mobile', {
+        KOR: '모바일',
+        ENG: 'mobile',
+        CN: '手机',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['web', {
+        KOR: '웹',
+        ENG: 'web',
+        CN: '电脑',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Via', {
+        KOR: 'Via',
+        ENG: 'Via',
+        CN: '由',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Warning', {
+        KOR: '경고',
+        ENG: 'Warning',
+        CN: '警告',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Success', {
+        KOR: '요청성공',
+        ENG: 'Success',
+        CN: '邀请成功',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['Error', {
+        KOR: '오류',
+        ENG: 'Error',
+        CN: '错误',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['invalid_email_verification_code', {
+        KOR: '이메일 인증번호 오류',
+        ENG: 'Please input vaild Email verification.',
+        CN: '请输入正确的邮箱验证编码',
         HK: ''
     }],
     ['', {
@@ -3061,7 +3061,7 @@ const strings = new Map([
     ['err_needPaymentMethod', {
         KOR: '결제수단이 필요합니다.',
         ENG: 'You need payment methods.',
-        CN: '',
+        CN: '需要添加支付方式',
         HK: ''
     }],
     ['', {
