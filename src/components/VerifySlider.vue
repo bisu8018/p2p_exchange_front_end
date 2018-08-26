@@ -131,22 +131,13 @@
             this.init();
             this.$nextTick(() => {
                 window.addEventListener('resize', () => {
-                    var layout_width = document.getElementById('verify_wrapper').offsetWidth;
-                    this.slidebarWidth = layout_width;
-                    if(this.slidebarWidth == 0){
-                        //모달 길이 fix시 수정 필요
-                        this.slidebarWidth = 352;
-                    }
+                    this.slidebarWidth = document.getElementById('verify_wrapper').offsetWidth;
                 });
             })
         },
         methods: {
             init: function () {
                 this.slidebarWidth = document.getElementById('verify_wrapper').offsetWidth;
-                if(this.slidebarWidth == 0){
-                    //모달 길이 fix시 수정 필요
-                    this.slidebarWidth = 352;
-                }
             },
             dragStart: function (e) {
                 if (!this.isPassing) {

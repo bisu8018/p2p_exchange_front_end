@@ -20,7 +20,9 @@
                 <div class="modal-subject-2 color-black">
                     {{$str("slideVerifyText")}}
                 </div>
-                <verify-slider v-on:passcallback="putVerified"></verify-slider>
+                <div v-if="showSlider">
+                    <verify-slider v-on:passcallback="putVerified"></verify-slider>
+                </div>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{$str("verifySlider")}}</span>
                 </div>
@@ -49,7 +51,15 @@
         data() {
             return {
                 isVerified: false,
-                warning_verify_terms: false
+                warning_verify_terms: false,
+                showSlider: false,
+            }
+        },
+        watch: {
+            show() {
+                if (this.show) {
+                    this.showSlider = true;
+                }
             }
         },
         methods: {
