@@ -124,6 +124,7 @@ export default {
                 self.Balance.setSecurityBalance(() => {});
                 self.MyInfo.loadMyPaymentMethods(() => {});
                 self.Merchant.loadMyMerchantInfo(() => {});
+                self.MarketPrice.load(() => {});
                 callback();
             },
             // 로그인 하지 않음

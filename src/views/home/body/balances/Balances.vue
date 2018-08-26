@@ -12,8 +12,8 @@
             <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
               <!---->
-              <span>{{EstimatedCryptocurrencyValue}} BTC </span>
-              <span >≈ {{EstimatedCurrencyValue}}</span>
+              <span>{{ $fixed(EstimatedCryptocurrencyValue, 'bitcoin') }} BTC </span>
+              <span >≈ {{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</span>
               <span class="ml-4 p-relative color-blue">
                 <span>{{ selectedCurrency}}</span>
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
@@ -303,7 +303,14 @@
             loadTotalEstimatedValue() {
                 let totalValue = MainRepository.Balance.controller().getTotalEstimatedValue(this.selectedCurrencyData);
                 this.EstimatedCryptocurrencyValue = totalValue.btc;
-                this.EstimatedCurrencyValue = abUtils.toMoneyFormat(String(totalValue.currency));
+                if (totalValue.currency === 0) {
+                    this.EstimatedCurrencyValue = '';
+                } else {
+                    this.EstimatedCurrencyValue = totalValue.currency;
+                }
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(value));
             },
             onStartDate(value) {
                 this.modal_start_date = value;
