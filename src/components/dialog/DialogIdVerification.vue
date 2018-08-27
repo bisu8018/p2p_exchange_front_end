@@ -58,6 +58,7 @@
 <script>
     import MainRepository from "../../vuex/MainRepository";
     import IdVerificationId from "../../vuex/model/IdVerificationId";
+    import Vue from "vue";
 
     export default {
         name: "dialog-id-verification",
@@ -77,23 +78,23 @@
                 verify_warning_IdNum : "",
 
                 countries: [
-                    {country: 'china', code: 'CN'},
-                    {country: 'singapore', code: 'SG'},
-                    {country: 'india', code: 'IN'},
-                    {country: 'vietnam', code: 'VN'},
-                    {country: 'canada', code: 'CA'},
-                    {country: 'australia', code: 'AU'},
-                    {country: 'korea', code: 'KR'},
-                    {country: 'switzerland', code: 'CH'},
-                    {country: 'netherlands', code: 'NL'},
-                    {country: 'taiwan', code: 'TW'},
-                    {country: 'russia', code: 'RU'},
-                    {country: 'uk', code: 'UK'},
-                    {country: 'hongkong', code: 'HK'},
-                    {country: 'nigeria', code: 'NG'},
-                    {country: 'indonesia', code: 'ID'},
-                    {country: 'philippines', code: 'PH'},
-                    {country: 'cambodia', code: 'KH'}
+                    {country: this.$str('china'), code: 'CN'},
+                    {country: Vue.prototype.$str('singapore'), code: 'SG'},
+                    {country: Vue.prototype.$str('india'), code: 'IN'},
+                    {country: Vue.prototype.$str('vietnam'), code: 'VN'},
+                    {country: Vue.prototype.$str('canada'), code: 'CA'},
+                    {country: Vue.prototype.$str('australia'), code: 'AU'},
+                    {country: Vue.prototype.$str('korea'), code: 'KR'},
+                    {country: Vue.prototype.$str('switzerland'), code: 'CH'},
+                    {country: Vue.prototype.$str('netherlands'), code: 'NL'},
+                    {country: Vue.prototype.$str('taiwan'), code: 'TW'},
+                    {country: Vue.prototype.$str('russia'), code: 'RU'},
+                    {country: Vue.prototype.$str('uk'), code: 'UK'},
+                    {country: Vue.prototype.$str('hongkong'), code: 'HK'},
+                    {country: Vue.prototype.$str('nigeria'), code: 'NG'},
+                    {country: Vue.prototype.$str('indonesia'), code: 'ID'},
+                    {country: Vue.prototype.$str('philippines'), code: 'PH'},
+                    {country: Vue.prototype.$str('cambodia'), code: 'KH'}
                 ],
             }
         },

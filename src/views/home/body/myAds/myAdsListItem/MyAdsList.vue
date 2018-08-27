@@ -21,7 +21,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Amount</v-flex>
-                <v-flex xs9 text-xs-right>{{ getVolumeAvailable }}</v-flex>
+                <v-flex xs9 text-xs-right>{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Limits</v-flex>
@@ -62,7 +62,7 @@
                 </v-flex>
                 <v-flex md2 text-md-left>
                     <span>{{adslist.cryptocurrency}}</span>
-                    <span class="ml-2">{{ getVolumeAvailable }}</span>
+                    <span class="ml-2">{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</span>
                 </v-flex>
                 <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
@@ -150,14 +150,7 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-            getVolumeAvailable() {
-                let value =  Vue.prototype.$fixed(this.adslist.volumeAvailable, this.adslist.cryptocurrency);
-                if(value < 0){
-                    return 0
-                }else{
-                    return value;
-                }
-            }
+
 
         },
         methods: {
