@@ -32,7 +32,7 @@
         <v-flex xs4 text-xs-left h5 color-darkgray>{{$str("action")}}:</v-flex>
         <v-flex xs8 text-xs-right>
 
-          <button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button>
+          <!--button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button-->
           <button v-if="showDetailBtn" class="btn-rounded-blue btn-blue-hover "
                   @click="drawer">{{$str("details")}}
           </button>
@@ -58,9 +58,9 @@
           {{$str(detailList.status)}}
         </v-flex>
         <v-flex md2 text-md-right>
-          <button v-if="detailList.status == 'Under examination'"
+          <!--button v-if="detailList.status == 'Under examination'"
                   class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}
-          </button>
+          </button-->
           <button v-if="showDetailBtn" class="btn-rounded-blue btn-blue-hover "
                   @click="drawer">{{$str("details")}}
           </button>
