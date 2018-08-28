@@ -626,10 +626,6 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            if(this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n'  && this.getBank.activeYn === 'n' ){
-                Vue.prototype.$eventBus.$emit('showAlert', 4004);
-                MainRepository.router().goMyPage();
-            }
 
             //환율 및 유져 정보 get 필요
             let self = this;
@@ -640,6 +636,15 @@
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
+            },
+            initCompleted() {
+                if (MainRepository.State.isInitCompleted()) {
+                    if(this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n'  && this.getBank.activeYn === 'n' ){
+                        Vue.prototype.$eventBus.$emit('showAlert', 4004);
+                        MainRepository.router().goMyPage();
+                    }
+                }
+                return MainRepository.State.isInitCompleted();
             },
             getCurrency() {
                 return MainRepository.SelectBox.controller().getCurrency();
