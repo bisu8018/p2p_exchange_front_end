@@ -2406,13 +2406,13 @@ const strings = new Map([
     ['OTC Trading Terms and Conditions', {
         KOR: 'OTC 거래 조건',
         ENG: 'OTC Trading Terms and Conditions',
-        CN: '法币交易条款与条件',
+        CN: '法币交易规则',
         HK: 'OTC交易條款與條件'
     }],
     ['ApplyNow', {
         KOR: '지금 신청',
         ENG: 'Apply Now',
-        CN: '现在申请',
+        CN: '立刻申请',
         HK: '現在申請'
     }],
     ['First Name', {
