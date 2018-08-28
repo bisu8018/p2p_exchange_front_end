@@ -41,7 +41,7 @@
                     <!-- Limits -->
                     <ul>
                         <li>{{$str("limits")}} :</li>
-                        <li>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</li>
+                        <li>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</li>
                     </ul>
 
                     <!-- Price -->
@@ -171,7 +171,7 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <h5>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</h5>
+                            <h5>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</h5>
                         </v-flex>
                     </v-layout>
                     <!-- Price -->
@@ -295,7 +295,7 @@
                 <!--available-->
                 <v-flex md2 text-md-left>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</v-flex>
                 <!--limits-->
-                <v-flex md2 text-md-left>{{user.minLimit}}-{{user.maxLimit}} {{user.currency}}</v-flex>
+                <v-flex md2 text-md-left>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</v-flex>
                 <!--price-->
                 <v-flex md2 text-md-left color-orange-price bold>{{user.fixedPrice}} {{user.currency}}</v-flex>
                 <!-- payment method-->
@@ -401,7 +401,7 @@
                                 {{user.fixedPrice}} {{user.currency}}
                             </div>
                             <div class="medium">
-                                {{user.minLimit}}-{{user.maxLimit}} {{user.currency}}
+                                {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
                             </div>
                         </v-flex>
 
@@ -760,6 +760,9 @@
                 } else {
                     MainRepository.MyInfo.checkValidity(true);
                 }
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(value));
             },
         },
     }

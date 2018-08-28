@@ -12,7 +12,7 @@
             <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
               <!---->
-              <span>{{ $fixed(EstimatedCryptocurrencyValue, 'bitcoin') }} BTC </span>
+              <span>{{ toMoneyFormat($fixed(EstimatedCryptocurrencyValue, 'bitcoin')) }} BTC </span>
               <span >≈ {{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</span>
               <span class="ml-4 p-relative color-blue">
                 <span>{{ selectedCurrency}}</span>

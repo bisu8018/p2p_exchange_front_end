@@ -17,11 +17,11 @@
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{ $fixed(item.availableAmount, item.cryptoCurrency)}} {{getCryptoName(item.cryptoCurrency)  }}</span>
+              <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency)  }}</span>
             </v-layout>
             <v-layout justify-space-between mb-4>
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{ $fixed(item.frozenAmount, item.cryptoCurrency)}} {{getCryptoName(item.cryptoCurrency) }}</span>
+              <span>{{ toMoneyFormat($fixed(item.frozenAmount, item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency) }}</span>
             </v-layout>
           </div>
         </v-flex>
@@ -76,7 +76,7 @@
               {{$str("Copy")}}
             </h5>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 mt-3 mb-3>
             <img :src="qrCodeImgUrl"/>
           </v-flex>
           <v-flex xs12 mb-4 color-darkgray>
@@ -154,7 +154,7 @@
             <div class="p-relative">
               <input name="amount" v-model="amount" type="text" class="input"
                      autocomplete="off" >
-              <button class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</button>
+              <span class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</span>
             </div>
           </div>
           <!-- 3. Fee 창-->
@@ -170,7 +170,7 @@
             <div class="p-relative">
               <input name="fee" v-model="fee" type="text" class="input"
                      autocomplete="off" disabled>
-              <button class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</button>
+              <span class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</span>
             </div>
           </div>
           <div class="cs-flex">
@@ -181,7 +181,7 @@
             <div class="p-relative">
               <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
                      autocomplete="off" disabled>
-              <button class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</button>
+              <span class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</span>
             </div>
           </div>
           <div class="text-xs-right">
@@ -221,6 +221,7 @@
 <script>
     import MainRepository from '../../../../../vuex/MainRepository';
     import Balance from '../../../../../vuex/model/Balance'
+    import {abUtils} from "../../../../../common/utils";
 
     export default {
         name: "BalanceTokenList",
@@ -287,7 +288,8 @@
                     this.tokenImg = 'ic-allb-lg';
                     break;
             }
-            this.qrCodeImgUrl = "http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+this.item.walletAddress;
+            this.qrCodeImgUrl = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" +this.item.walletAddress;
+                //"http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+this.item.walletAddress;
         },
         methods: {
             getCryptoName(curerncy) {
@@ -316,6 +318,9 @@
                     receiveAmount : this.receiveAmount
                 })
                 this.$router.push("/smsVerification");
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(value));
             },
         }
     }
@@ -348,7 +353,6 @@
     position: absolute;
     right: 11px;
     top: 10px;
-    cursor: pointer;
   }
   .horizontalDivider{
     width: 352px;
