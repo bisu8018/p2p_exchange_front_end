@@ -283,6 +283,12 @@
             }
             MainRepository.Balance.initHistory();
 
+            // 최초 1회
+            MainRepository.MarketPrice.load(() => {
+                MainRepository.Balance.loadBalances(() => {});
+                MainRepository.Balance.loadHistory();       //History도 5초에 1번씩 불러오게 추가.
+            });
+
             this.balanceInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
                     MainRepository.Balance.loadBalances(() => {});
