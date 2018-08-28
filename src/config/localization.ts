@@ -1065,8 +1065,8 @@ const strings = new Map([
     ['complete', {
         KOR: '완료',
         ENG: 'Complete',
-        CN: '交易成功',
-        HK: '交易成功'
+        CN: '邀请成功',
+        HK: '邀请成功'
     }],
     ['expired', {
         KOR: '만료됨',
@@ -1394,7 +1394,7 @@ const strings = new Map([
     ['enable', {
         KOR: '허용',
         ENG: 'Enable',
-        CN: '许可',
+        CN: '上架',
         HK: '許可'
     }],
     ['delete', {
@@ -3206,6 +3206,6 @@ export function abString(key: string): string {
         return string.KOR;
     }
   } else {
-    return '.' + key
+    return '' + key
   }
 }
