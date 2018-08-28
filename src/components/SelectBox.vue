@@ -33,7 +33,7 @@
             selectedCountry_signup: 'CN',
             selectedCurrency: 'CNY',
             selectedPayment: 'ALL',
-            selectedPhone: '0086',
+            selectedPhone: '+86',
             signupCountries: [
                 {country: Vue.prototype.$str('china'), code: 'CN'},
                 {country: Vue.prototype.$str('singapore'), code: 'SG'},
@@ -107,11 +107,11 @@
                 // {code : '0082', nation : 'Korea'},
                 // {code : '0044', nation : 'United Kingdom'},
 
-                {code : '0086', nation : Vue.prototype.$str('china')},
-                {code : '00852', nation : Vue.prototype.$str('hongkong')},
-                {code : '00886', nation : Vue.prototype.$str('taiwan')},
+                {code : '+86', nation : Vue.prototype.$str('china')},
+                {code : '+852', nation : Vue.prototype.$str('hongkong')},
+                {code : '+886', nation : Vue.prototype.$str('taiwan')},
                 {code : '+82', nation : Vue.prototype.$str('korea')},
-                {code : '0044', nation : Vue.prototype.$str('uk')},
+                {code : '+44', nation : Vue.prototype.$str('uk')},
             ]
         }),
         methods: {

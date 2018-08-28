@@ -36,7 +36,6 @@ this.verify = true;
 
 <script>
     import Vue from 'vue';
-    import AccountService from '@/service/account/AccountService';
     import {abUtils} from "../common/utils";
     import MainRepository from "../vuex/MainRepository";
 
@@ -100,27 +99,33 @@ this.verify = true;
             sendVerificationCode() {
                 if(this.onCheckEmail() || this.onCheckPhone()){
                     let self = this;
-                    let email = self.email;
+                    let email = this.email;
 
-                    if (self.type === 'phone') {
+                    if (this.type === 'phone') {
                         email = MainRepository.MyInfo.getUserInfo().email;
                     }
-
-                    AccountService.Account.sendVerificationCode(self.type, {
+                    MainRepository.Service.Account().Account.sendVerificationCode(self.type, {
                         email: email,
                         phoneNumber: self.phone,
-                    }, function (result) {
-                        self.verifyStatus = 'verifying';
-                        self.getTimer();
+                    }, (result) => {
+                        this.verifyStatus = 'verifying';
+                        this.getTimer();
                     })
                 }
             },
             //인증코드 체크
             checkVerificationCode() {
                 let self = this;
+                let email = self.email;
+
                 this.tmpCode = this.verificationCode;
-                AccountService.Account.checkVerificationCode(self.type, {
-                    email: self.email,
+
+                if (self.type === 'phone') {
+                    email = MainRepository.MyInfo.getUserInfo().email;
+                }
+
+                MainRepository.Service.Account().Account.checkVerificationCode(self.type, {
+                    email: email,
                     code: self.verificationCode,
                     phoneNumber: self.phone,
                     status: 'requested'
