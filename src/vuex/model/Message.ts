@@ -1,6 +1,7 @@
 import {abUtils} from "@/common/utils";
 
 export default class Message {
+    messageNo: number;
     orderNo: number;
     message : string;
     attachedImgUrl : string;
@@ -9,6 +10,7 @@ export default class Message {
     mine : boolean;
 
     constructor (data: any) {
+        this.messageNo = Number(data.messageNo);
         if (data.orderNo === undefined) {
             this.orderNo = Number(data.orderNo);
         } else {

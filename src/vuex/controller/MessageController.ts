@@ -21,7 +21,16 @@ export default class MessageController {
     }
 
     addMsg(data: any) {
-        this.store.dispatch(VuexTypes.ADD_MSG, data);
+        let isOk = true;
+        for(let key in this.getMsgList()) {
+            let item = this.getMsgList()[key];
+            if (data.messageNo === item.messageNo) {
+                isOk = false;
+            }
+        }
+        if (isOk) {
+            this.store.dispatch(VuexTypes.ADD_MSG, data);
+        }
     }
 
     getLatestMsgTime(): number {
