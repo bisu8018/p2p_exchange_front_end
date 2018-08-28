@@ -110,6 +110,9 @@
         data: () => ({
             currentLang: 'EN',
         }),
+        created() {
+            this.currentLang = abGetLang();
+        },
         methods: {
             changeLang: function(userLang) {
                 abSetLang(userLang)
@@ -124,11 +127,11 @@
                     window.open(URL, "_blank");
                 }
                 else if(this.currentLang =='HK'){
-                    var URL = "https://www.allblab.com";
+                    var URL = "https://allbglobal.zendesk.com/hc/zh-cn";
                     window.open(URL, "_blank");
                 }
                 else{
-                    var URL = "https://www.allblab.com";
+                    var URL = "https://allbglobal.zendesk.com/hc/zh-cn";
                     window.open(URL, "_blank");
                 }
             },
@@ -259,9 +262,6 @@
                 }
             },
 
-        },
-        created() {
-            this.currentLang = abGetLang();
         },
 
     });

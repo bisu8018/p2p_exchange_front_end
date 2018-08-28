@@ -84,38 +84,24 @@
             </v-layout>
         </div>
 
-        <!--nickname 설정을 안했으면 띄우는 화면-->
-        <nick-name-modal
-                :show = showNickNameModal
-                v-on:close="closeNicknameModal"
-        ></nick-name-modal>
-
-
-        <!-- Dialog -->
-        <dialog-id-verification
-                :showDialog="showVeriModal"
-                @close="closeIdVerification"
-                @sucess="successIdVerification"
-        />
-
-
-        <!-- 정보 입력시 뜨는 공지창-->
-        <v-dialog v-model="showSuccessModal" persistent>
+        <v-dialog v-model="showUnverifiedModal">
             <v-layout row wrap>
                 <!--header-->
                 <v-flex xs12 text-xs-right>
-                    <button><i class="material-icons " @click="showSuccessModal = false">close</i></button>
+                    <button><i class="material-icons " @click="showUnverifiedModal = false">close</i></button>
                     <h3 class="sprite-img ic-watch horizontal-center"></h3>
                 </v-flex>
                 <v-flex xs12 text-xs-center mt-4 mb-4>
-                    <h3 class="bold">{{$str("Your application is under review")}}</h3>
+                    <h3 class="bold">{{$str("You have to verify your information")}}</h3>
                 </v-flex>
                 <v-flex xs12 text-xs-center mb-4 color-darkgray>
-                    {{$str("Authentication has been successfully submitted.")}}
-                    {{$str("We will complete the review within 2 working days")}}
+                    <div :class="nicknameVerifiedImg"></div>
+                    {{$str("NickName.")}}
+                    <div :class="IDVerifiedImg"></div>
+                    {{$str("ID_Verification")}}
                 </v-flex>
                 <v-flex xs12 text-xs-right>
-                    <button class="btn-rounded-blue btn-blue-hover" @click="showSuccessModal = false; alreadySuccess = true">
+                    <button class="btn-rounded-blue btn-blue-hover" @click="goMypage;">
                         <h6>{{$str("confirm")}}</h6>
                     </button>
                 </v-flex>
@@ -141,19 +127,20 @@
             NickNameModal},
         data: () => ({
             idVerification: new IdVerification(''),
-
             isAgree : false,        //term에 대해 check click 한 경우
             showVeriModal : false,  //apply now 클릭했을때
             showSuccessModal : false,   //form 입력 성공했을때 띄우는 dialog
             alreadySuccess : false,     //이미 제출해놨을때 대체하여 띄워지는 하단부를 보여줌
             showNickNameModal : false,      //nickname modal을 띄울려면 true로.
-            runValidChk: false,
+            showUnverifiedModal : false,
+            nicknameVerifiedImg : 'sprite-img ic-success-sm',
+            IDVerifiedImg : 'sprite-img ic-success-sm',
         }),
         computed: {
             myMerchantInfo() {
                 return MainRepository.Merchant.getMyInfo();
             },
-            setNickName(){
+            getNickName(){
                 //nickname이 없으면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             },
@@ -178,31 +165,19 @@
             checkValidity() {
                 if (this.isAgree){
                     if(this.myInfo.nickname === ""){
-                        this.runValidChk = true;
-                        this.showNickNameModal = true;
+                        this.showUnverifiedModal = true;
+                        this.nicknameVerifiedImg = 'sprite-img ic-cancel-sm'
                     }
                     else if(!this.myInfo.isIdVerified) {
-                        this.runValidChk = true;
-                        this.showVeriModal = true;
+                        this.showUnverifiedModal = true;
+                        this.nicknameVerifiedImg = 'sprite-img ic-cancel-sm'
                     } else {
-                        this.runValidChk = false;
-                        this.showSuccessModal = true;
+                        this.showUnverifiedModal = false;
                     }
                 }
             },
-            closeIdVerification() {
-                this.showVeriModal = false;
-            },
-            successIdVerification() {
-                this.showSuccessModal = true;
-            },
-            goDone(){
-                this.showVeriModal = false;
-                this.showSuccessModal = true;
-            },
-            closeNicknameModal(){
-                this.showNickNameModal = false;
-                this.showVeriModal = true;
+            goMypage(){
+                MainRepository.router().goMyPage();
             },
         },
 

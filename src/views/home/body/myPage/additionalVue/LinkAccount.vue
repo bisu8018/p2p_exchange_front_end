@@ -24,7 +24,7 @@
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("SMSverification")}}
                         </div>
-                        <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + phone_number" :type="'phone'"></verification-code>
+                        <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + getPhoneNumber" :type="'phone'"></verification-code>
                     </div>
                 </div>
 
@@ -62,17 +62,27 @@
     import {abUtils} from '@/common/utils';
     import SelectBox from "../../../../../components/SelectBox";
     import VerificationCode from '@/components/VerificationCode.vue';
-    import AccountService from '@/service/account/AccountService';
     import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: 'linkAccount',
         components: {SelectBox, VerificationCode},
+        computed : {
+            getPhoneNumber() {
+                let numLength = this.phone_number.length;
+                if(this.phone_number.substr(0,1) === 0){
+                    return this.phone_number.substr(1,numLength -1);
+                }else{
+                    return this.phone_number;
+                }
+
+            },
+        },
         data: function () {
             return {
                 type : '',
                 phone_number : '',
-                code_number : '0086',
+                code_number : '+86',
                 verify : false,
                 verificationCode : '',
 
@@ -80,36 +90,33 @@
         },
         created () {
             window.scrollTo(0,0);
-            var url = location.href;
-            var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+            let url = location.href;
+            let parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
             this.type = parameters[0];
         },
         methods: {
+
             goMyPage() {
-                this.$router.push("/myPage");
+                MainRepository.router().goMyPage();
             },
             onLink() {
                 let self = this;
-                AccountService.Account.checkVerificationCode('phone', {
+                MainRepository.Service.Account().Account.checkVerificationCode('phone', {
                     email: MainRepository.MyInfo.getUserInfo().email,
                     phoneNumber: self.code_number + self.phone_number,
                     code: self.verificationCode,
                     status: 'turn_on'
-                }, function (result) {
-                    console.log("code check success");
-                    self.verifyStatus = 'verified';
-
+                }, (result) => {
+                    this.verifyStatus = 'verified';
                     this.goMyPage();
                 });
             },
             //지역번호 select box 값 get
             setCode(value) {
-                //console.log(value);
                 this.code_number = value;
             },
             // 인증코드 체크
             onCheckVerificationCode(code) {
-                console.log(code)
                 this.verify = true;
                 this.verificationCode = code;
             },

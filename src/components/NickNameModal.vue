@@ -5,8 +5,6 @@
                 <div class="h3 text-xs-left color-black bold">
                     {{$str("nickNameTradePassword")}}
                 </div>
-                <v-spacer></v-spacer>
-                <i class="material-icons color-black c-pointer" @click="onClose" >close</i>
             </div>
             <span v-if="type === 'nickName'">
                 <div class="color-darkgray mb-4 text-xs-left">
