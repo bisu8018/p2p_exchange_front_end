@@ -47,7 +47,10 @@
         watch: {
             email() {
                 this.init();
-            }
+            },
+            member() {
+                this.init();
+            },
         },
         computed: {
             msgAvatar() {
