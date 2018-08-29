@@ -3064,11 +3064,11 @@ const strings = new Map([
         CN: '需要添加支付方式',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
+    ['BalanceDepositExplainTest', {
+        KOR: '• 현재 본 사이트는 테스트 중이므로, 테스트넷을 이용한 입금만 유효합니다.',
+        ENG: '• Our website is test version. Currently only avaliable to deposit from testnet.',
+        CN: '• 目前本网页在测试，通过测试网存款只有效。',
+        HK: '• 目前本网页在测试，通过测试网存款只有效。'
     }],
     ['', {
         KOR: '',
