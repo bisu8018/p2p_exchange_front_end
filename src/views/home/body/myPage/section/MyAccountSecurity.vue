@@ -58,21 +58,21 @@
                 <span v-if="!phone.isNull()">
 
                      <!-- 핸드폰 번호 바꾸기 버튼 -->
-                    <btn-mypage v-if="!phone.isNull()"
-                                :txt="$str('changePhone')"
-                                @click="goChangePhone"
-                    />
+                    <!--<btn-mypage v-if="!phone.isNull()"-->
+                                <!--:txt="$str('changePhone')"-->
+                                <!--@click="goChangePhone"-->
+                    <!--/>-->
 
                     <!-- 비활성화 버튼 -->
-                    <btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"
-                                :txt="$str('turnOff')"
-                    />
+                    <!--<btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"-->
+                                <!--:txt="$str('turnOff')"-->
+                    <!--/>-->
 
                     <!-- 활성화 버튼 -->
-                    <btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"
-                                :txt="$str('turnOn')"
-                                @click="onTurnOn"
-                    />
+                    <!--<btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"-->
+                                <!--:txt="$str('turnOn')"-->
+                                <!--@click="onTurnOn"-->
+                    <!--/>-->
                     <!--<h6 class="color-blue px-3">{{ $str('bound') }}</h6>-->
                 </span>
 
@@ -132,10 +132,10 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
-                <btn-mypage
-                        :txt="$str('modify')"
-                        @click="goChangePassword"
-                />
+                <!--<btn-mypage-->
+                        <!--:txt="$str('modify')"-->
+                        <!--@click="goChangePassword"-->
+                <!--/>-->
             </li>
         </ul>
 
@@ -154,10 +154,10 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
-                <btn-mypage
-                        :txt="$str('reset')"
-                        @click="goReset"
-                />
+                <!--<btn-mypage-->
+                        <!--:txt="$str('reset')"-->
+                        <!--@click="goReset"-->
+                <!--/>-->
             </li>
         </ul>
 
