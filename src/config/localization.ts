@@ -3140,8 +3140,8 @@ function checkLocale(): Lang {
       return Lang.ZH;
 
     default:
-      setCookie('language', 'ko', 30);
-      return Lang.KO;
+      setCookie('language', 'zh', 30);
+      return Lang.ZH;
   }
 }
 
