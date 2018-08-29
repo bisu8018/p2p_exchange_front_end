@@ -87,6 +87,7 @@
           <div class="mt-2 mb-4 text-xs-left color-darkgray">
             <div class="mb-3">
               <h6>
+                {{$str("BalanceDepositExplainTest")}}
                 {{$str("BalanceDepositExplain1-1")}}
                 {{getCryptoName(item.cryptoCurrency) }}
                 {{$str("BalanceDepositExplain1-2")}}
