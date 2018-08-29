@@ -21,6 +21,10 @@ export default class StateController {
         return this.store.state.state.initCompleted
     }
 
+    setInitCompleted(isCompleted: boolean) {
+        this.store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
+    }
+
     //OS 체크
     // setCheckOs(checkOs: number) {
     //     this.store.dispatch(VuexTypes.SET_CHECK_OS, checkOs)

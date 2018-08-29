@@ -98,7 +98,7 @@ export default {
 
         // 유져 정보 GET
         this.initData(function () {
-            instance.setInitCompleted(true);
+            instance.State.setInitCompleted(true);
         });
 
         this.initInterval();
@@ -122,10 +122,12 @@ export default {
 
                 self.Balance.loadBalances(() => {});
                 self.Balance.setSecurityBalance(() => {});
-                self.MyInfo.loadMyPaymentMethods(() => {});
                 self.Merchant.loadMyMerchantInfo(() => {});
                 self.MarketPrice.load(() => {});
-                callback();
+                self.MyInfo.loadMyPaymentMethods(() => {
+                    callback();
+                });
+
             },
             // 로그인 하지 않음
             function () {
@@ -142,9 +144,7 @@ export default {
         }, 10000)
     },
     //서버 데이터 초기화 완료 체크
-    setInitCompleted(isCompleted: boolean) {
-        store.dispatch(VuexTypes.INIT_COMPLETED, isCompleted)
-    },
+
     State: {
         controller(): StateController {
             return stateController
@@ -154,6 +154,9 @@ export default {
         },
         isInitCompleted(){
             return stateController.isInitCompleted();
+        },
+        setInitCompleted(isCompleted: boolean) {
+            stateController.setInitCompleted(isCompleted);
         },
     },
     Balance: {

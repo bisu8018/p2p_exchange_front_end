@@ -1,5 +1,5 @@
 <template>
-    <div class=" mt-5">
+    <div class=" mt-5" v-if="initCompleted">
         <v-flex xs12 class="text-xs-left h2 mb-4  bold">
             {{ message === 'general' ? $str("generalAdSubject") : $str("blockAdSubject") }}
             <v-divider class="mt-4"></v-divider>
