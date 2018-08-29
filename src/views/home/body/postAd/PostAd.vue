@@ -878,7 +878,7 @@
                     this.verify_warning_volume = Vue.prototype.$str("warningVolume");
                     return false;
                 }
-                if (volume > this.balance) {
+                if (volume > this.balance && this.tradeType === 'sell') {
                     this.warning_volume = true;
                     this.verify_warning_volume = Vue.prototype.$str("lowBalance");
                     return false;
