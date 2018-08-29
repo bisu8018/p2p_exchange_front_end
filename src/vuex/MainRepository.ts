@@ -344,7 +344,13 @@ export default {
                 let _securitySettings = new SecuritySettings(result);
                 callback(_securitySettings);
             })
-        }
+        },
+        changeTradePassword: function (data: string, callback: any) {
+            AccountService.Account.changeTradePassword(data
+            ,function (result) {
+                callback(result);
+            });
+        },
     },
     MyInfo: {
         controller(): AccountController {

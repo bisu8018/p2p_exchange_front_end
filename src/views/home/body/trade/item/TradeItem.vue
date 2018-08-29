@@ -22,7 +22,7 @@
             <!--MyOrder-->
             <div class="dropdown">
                 <div class="vertical-center text-xs-right text-md-left dropbtn">
-                    <img src="@/assets/img/qr_code.png" class="qr-code-img pointer mr-1">
+                    <div class="sprite-img ic-qr mr-1 pointer qr-code-img"></div>
                     <div class="d-inline-block color-black h6"> QR Code</div>
                 </div>
                 <!-- ongoing order 드롭다운 -->
@@ -151,8 +151,8 @@
         border-radius: 2px;
         font-weight: 400;
         background-color: white;
-        left: -200px;
-        top: 30px;
+        left: -110px;
+        top: 25px;
     }
 
     .dropdown-content a {

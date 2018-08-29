@@ -70,12 +70,11 @@
         computed : {
             getPhoneNumber() {
                 let numLength = this.phone_number.length;
-                if(this.phone_number.substr(0,1) === 0){
+                if(this.phone_number.substr(0,1) == 0){
                     return this.phone_number.substr(1,numLength -1);
                 }else{
                     return this.phone_number;
                 }
-
             },
         },
         data: function () {

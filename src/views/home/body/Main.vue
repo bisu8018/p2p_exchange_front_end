@@ -118,17 +118,6 @@
         },
         data() {
             return {
-                // items: [
-                //     {
-                //       src: "require('@/assets/img/landing_1.png')"
-                //     },
-                //     {
-                //         src: "require('@/assets/img/landing_2.png')"
-                //     },
-                //     {
-                //         src: "require('@/assets/img/landing_3.png')"
-                //     },
-                // ],
                 selectedCryptocurrency : 'BTC',
                 selectedTradeType : Vue.prototype.$str('Buy'),
                 amount : '',

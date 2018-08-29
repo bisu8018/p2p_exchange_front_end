@@ -30,23 +30,23 @@
                         <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
                     </div>
                 </div>
-                <div v-if="emailVerification.status === 'turn_on'">
+                <div >
                     <!--이메일인증-->
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("emailVerification")}}
                     </div>
-                    <verification-code v-on:verify="onCheckVerificationCode('email')" :email="email"
-                                       :type="'email'"></verification-code>
+                    <verification-code v-on:verify="onCheckVerificationCode" :email="getEmail"
+                                       :type="'changeTradePassword'"></verification-code>
                 </div>
-                <div v-if="phoneVerification.status === 'turn_on'">
-                    <!--문자인증-->
-                    <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("SMSverification")}}
-                    </div>
-                    <verification-code v-on:verify="onCheckVerificationCode('phone')" :phone="phone"
-                                       :type="'phone'"></verification-code>
+                <!--<div v-if="phoneVerification.status === 'turn_on'">-->
+                    <!--&lt;!&ndash;문자인증&ndash;&gt;-->
+                    <!--<div class=" color-black  mb-2 text-xs-left">-->
+                        <!--{{$str("SMSverification")}}-->
+                    <!--</div>-->
+                    <!--<verification-code v-on:verify="onCheckVerificationCode('phone')" :phone="getPhone"-->
+                                       <!--:type="'phone'"></verification-code>-->
 
-                </div>
+                <!--</div>-->
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
                     <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onCheck">{{$str('confirm')}}
@@ -86,6 +86,14 @@
                 phoneVerification: new PhoneVerification(''),
             }
         },
+        computed: {
+            getEmail() {
+                return  MainRepository.MyInfo.getUserInfo().email;
+            },
+            getPhone() {
+                return MainRepository.MyInfo.getUserInfo().phoneNumber;
+            }
+        },
         created() {
             window.scrollTo(0, 0);
             // 유저 인증 정보 GET
@@ -102,9 +110,12 @@
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
                 if (this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
-                    if ((this.emailVerification.status === 'turn_on' && this.phoneVerification.status != 'turn_on' && this.emailVerify === true) ||
-                        (this.phoneVerification.status === 'turn_on' && this.emailVerification.status != 'turn_on' && this.phoneVerify === true) ||
-                        (this.phoneVerification.status === 'turn_on' && this.emailVerification.status === 'turn_on' && this.phoneVerify === true && this.emailVerify === true)) {
+                    // if ((this.emailVerification.status === 'turn_on' && this.phoneVerification.status != 'turn_on' && this.emailVerify === true) ||
+                    //     (this.phoneVerification.status === 'turn_on' && this.emailVerification.status != 'turn_on' && this.phoneVerify === true) ||
+                    //     (this.phoneVerification.status === 'turn_on' && this.emailVerification.status === 'turn_on' && this.phoneVerify === true && this.emailVerify === true)) {
+                    //     this.onConfirm();
+                    // }
+                    if ((this.emailVerification.status === 'turn_on' &&this.emailVerify === true)) {
                         this.onConfirm();
                     }
                 }
@@ -112,13 +123,9 @@
             onConfirm() {
                 // AXIOS POST 성공 후
                 let self = this;
-                AccountService.Account.setNickName({
-                    email : MainRepository.MyInfo.getUserInfo().email,
-                    nickName : MainRepository.MyInfo.getUserInfo().nickName,
-                    tradePassword : self.new_password
-                },function (result) {
-                    goMyPage();
-                });
+                MainRepository.MyPage.changeTradePassword(self.new_password, (result) => {
+                    MainRepository.router().goMyPage();
+                })
             },
             onCheckPasswordConfirm() {
                 //confirm password null
@@ -145,12 +152,13 @@
                 return true;
             },
             // 인증코드 체크
-            onCheckVerificationCode(type) {
-                if (type === 'email') {
-                    this.emailVerify = true;
-                } else {
-                    this.phoneVerify = true;
-                }
+            onCheckVerificationCode(code) {
+                this.emailVerify = true;
+                // if (type === 'email') {
+                //     this.emailVerify = true;
+                // } else {
+                //     this.phoneVerify = true;
+                // }
 
             },
         }

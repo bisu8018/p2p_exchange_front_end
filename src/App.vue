@@ -974,7 +974,6 @@
 
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
     /*<a class="tooltips">*/
-    /*<img src="../../../../../assets/img/method_alipay.png">*/
     /*<span>Alipay</span>*/
     /*</a>*/
 

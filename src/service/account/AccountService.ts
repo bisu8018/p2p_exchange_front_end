@@ -32,6 +32,9 @@ export default {
             } else if (type === 'deposit') {     //출금시 이메일 인증코드
                 url = 'deposit/email';
                 _type = 'POST';
+            } else if( type ==='changeTradePassword'){
+                url = 'resetTradePassword';
+                _type = 'POST';
             }
             AxiosService._requestWithUrlPram(url, _type, data,
                 function (data: any) {
@@ -51,6 +54,8 @@ export default {
                 url = 'memberVerification/sms/status'
             } else if (type === 'deposit') {     //출금시 이메일 인증코드
                 url = 'deposit/email'
+            } else if( type ==='changeTradePassword'){
+                url = 'resetTradePasswordVerification';
             }
             AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {
@@ -164,6 +169,14 @@ export default {
                     "newPassword": newPw
             };
             AxiosService._requestWithBodyAndEmail('member/password', 'PUT', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
+        changeTradePassword: function (data: any, callback: any) {
+            AxiosService._requestWithPath('resetTradePasswordVerification', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },
