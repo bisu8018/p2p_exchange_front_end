@@ -71,7 +71,8 @@
                         <h5 class="d-inline-block mr-3 color-darkgray">{{$str("agreeTermsExplain")}}</h5>
                     </label>
                 </div>
-                <span class="color-blue mb-2 c-pointer">&lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
+                <span class="color-blue mb-2 c-pointer" @click="go_Terms_of_Service">
+                    &lt;{{$str("OTC Trading Terms and Conditions")}}&gt;</span>
             </v-layout>
             <v-layout>
                 <v-flex xs12 md12 class="mb-6">
@@ -89,20 +90,34 @@
                 <!--header-->
                 <v-flex xs12 text-xs-right>
                     <button><i class="material-icons " @click="showUnverifiedModal = false">close</i></button>
-                    <h3 class="sprite-img ic-watch horizontal-center"></h3>
+                    <h3 class="sprite-img2 ic-appeal-octa-lg horizontal-center"></h3>
                 </v-flex>
                 <v-flex xs12 text-xs-center mt-4 mb-4>
-                    <h3 class="bold">{{$str("You have to verify your information")}}</h3>
+                    <h3 class="bold">{{$str("To apply merchant, you should complete the verification.")}}</h3>
                 </v-flex>
-                <v-flex xs12 text-xs-center mb-4 color-darkgray>
-                    <div :class="nicknameVerifiedImg"></div>
-                    {{$str("NickName.")}}
-                    <div :class="IDVerifiedImg"></div>
-                    {{$str("ID_Verification")}}
+                <v-flex xs12 text-xs-center mb-4 mr-4a ml-4a>
+                    <h5 class="color-darkgray">{{$str("Please set nickname and verify ID to apply merchant.")}}</h5>
+                </v-flex>
+                <v-flex><v-divider></v-divider></v-flex>
+
+                <v-flex xs12 text-xs-right mt-4 mb-4>
+                    <v-layout justify-center>
+                        <div class="verify-item mr-4a">
+                            <div class = mr-2 :class="nicknameVerifiedImg"></div>
+                            {{$str("Nickname Setting")}}
+                        </div>
+                        <div class="verify-item">
+                            <div class = mr-2 :class="IDVerifiedImg"></div>
+                            {{$str("ID_Verification")}}
+                        </div>
+                    </v-layout>
                 </v-flex>
                 <v-flex xs12 text-xs-right>
-                    <button class="btn-rounded-blue btn-blue-hover" @click="goMypage;">
-                        <h6>{{$str("confirm")}}</h6>
+                    <button class="btn-rounded-white text-white-hover" @click="showUnverifiedModal = false">
+                        <h6>{{$str("cancel")}}</h6>
+                    </button>
+                    <button class="btn-rounded-blue btn-blue-hover" @click="goMypage">
+                        <h6>{{$str("verify")}}</h6>
                     </button>
                 </v-flex>
             </v-layout>
@@ -164,20 +179,38 @@
         methods :{
             checkValidity() {
                 if (this.isAgree){
-                    if(this.myInfo.nickname === ""){
+                    if(!this.myInfo.isIdVerified) {
                         this.showUnverifiedModal = true;
-                        this.nicknameVerifiedImg = 'sprite-img ic-cancel-sm'
+                        this.IDVerifiedImg = 'sprite-img2 ic-cancel-red-sm'
+                        if(this.myInfo.nickname === ""){
+                            this.nicknameVerifiedImg = 'sprite-img2 ic-cancel-red-sm'
+                        }
                     }
-                    else if(!this.myInfo.isIdVerified) {
-                        this.showUnverifiedModal = true;
-                        this.nicknameVerifiedImg = 'sprite-img ic-cancel-sm'
-                    } else {
-                        this.showUnverifiedModal = false;
+                    else {
+                        MainRepository.Merchant.postMerchant();
                     }
                 }
             },
             goMypage(){
                 MainRepository.router().goMyPage();
+            },
+            go_Terms_of_Service(){
+                if(this.currentLang =='EN'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='ZH'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else if(this.currentLang =='HK'){
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
+                else{
+                    var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
+                    window.open(URL, "_blank");
+                }
             },
         },
 
@@ -248,4 +281,9 @@
         color: #71aa3a;
     }
 
+    .verify-item{
+        display: flex;
+        align-items: center;
+
+    }
 </style>

@@ -3070,6 +3070,42 @@ const strings = new Map([
         CN: '• 目前本网页在测试，通过测试网存款只有效。',
         HK: '• 目前本网页在测试，通过测试网存款只有效。'
     }],
+    ['To apply merchant, you should complete the verification.', {
+        KOR: '판매자 신청을 위해서는 인증이 필요합니다.',
+        ENG: 'To apply merchant, you should complete the verification.',
+        CN: '为了申请商家，您需要完成验证。',
+        HK: '爲了申請商家，需要設定昵稱與驗證ID。'
+    }],
+    ['Please set nickname and verify ID to apply merchant.', {
+        KOR: '판매자 신청을 위해, 닉네임 설정과 ID 인증을 완료해주세요.',
+        ENG: 'Please set nickname and verify ID to apply merchant.',
+        CN: '为了进行商家申请，请设定昵称以及验证ID。',
+        HK: '爲了進行商家申請，請設定昵稱以及驗證ID。'
+    }],
+    ['Nickname Setting', {
+        KOR: '닉네임 설정',
+        ENG: 'Nickname Setting',
+        CN: '设定昵称',
+        HK: '設定昵稱'
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',

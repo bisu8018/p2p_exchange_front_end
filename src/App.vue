@@ -1381,7 +1381,7 @@
     .ic-success-sm {
         background: -16px -734px;
         width: 16px;
-        height: 16px;
+        height: 15px;
     }
 
     .ic-unpaid {
@@ -1431,9 +1431,19 @@
         height: 16px;
     }
     .ic-paid-sm {
-        background: -16px 0px;
+          background: -16px 0px;
+          width: 16px;
+          height: 16px;
+    }
+    .ic-cancel-red-sm {
+        background: -32px 0px;
         width: 16px;
         height: 16px;
+    }
+    .ic-appeal-octa-lg {
+        background: 0px -50px;
+        width: 34px;
+        height: 34px;
     }
 
 
