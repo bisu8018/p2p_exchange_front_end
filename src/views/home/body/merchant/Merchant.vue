@@ -175,7 +175,6 @@
             MainRepository.MyPage.getIdVerification(function (idVerification) {
                 self.idVerification = idVerification;
             });
-            console.log(this.myInfo.isIdVerified);
         },
         methods :{
             checkValidity() {
