@@ -51,7 +51,7 @@ export default class MyTradeController{
     setMyUnpaidOrderItems(orderItems : Order[]) {
         this.store.dispatch(VuexTypes.SET_MY_UNPAID_ORDER_LIST, orderItems);
     }
-    getMyUnpaidOrderItems(): Order[] {
+     getMyUnpaidOrderItems(): Order[] {
         return this.store.state.mytrade.myUnpaidOrderItems;
     }
     getUnreadMsgCount() {

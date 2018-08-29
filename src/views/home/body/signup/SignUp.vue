@@ -14,7 +14,7 @@
             <div class="text-xs-left mb-2 color-black mt-4">{{$str("email")}}</div>
             <div class="p-relative">
                 <input name="email" v-model="email" type="text" class="input mb-4"
-                       v-bind:class="{'warning-border' : warning_email}" @keyup="onCheckEmail">
+                       v-bind:class="{'warning-border' : warning_email}" @change="onCheckEmail">
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                 </div>
@@ -29,7 +29,7 @@
             <div class="p-relative">
                 <input v-bind:label="$str('password')" v-model="password" :type="'password'"
                        class="input mb-4" :placeholder="$str('passwordPlaceholder')"
-                       v-bind:class="{'warning-border' : warning_password}" @keyup="onCheckPassword">
+                       v-bind:class="{'warning-border' : warning_password}" @change="onCheckPassword">
                 <div class="warning-text-wrapper">
                     <span class="d-none"
                           v-bind:class="{'warning-text' : warning_password}">{{verify_warning_password}}</span>
@@ -41,7 +41,7 @@
             <div class="p-relative">
                 <input v-bind:label="$str('passwordConfirm')" v-model="passwordConfirm" :type="'password'"
                        class="input mb-4" :placeholder="$str('passwordPlaceholder')"
-                       v-bind:class="{'warning-border' : warning_password_confirm}" @keyup="onCheckPasswordConfirm">
+                       v-bind:class="{'warning-border' : warning_password_confirm}" @change="onCheckPasswordConfirm">
                 <div class="warning-text-wrapper">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_password_confirm}">{{verify_warning_password_confirm}}</span>
                 </div>

@@ -82,6 +82,13 @@ export default class RouterController {
         });
     }
 
+    goSignup() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push('/signup');
+        });
+    }
+
     goBuyOrSell(isBuy: boolean, orderNo: number) {
         let url = (isBuy ? '/buy?' : '/sell?') + orderNo;
         let r = this.router;
