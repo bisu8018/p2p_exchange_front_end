@@ -325,7 +325,7 @@
             },
             orderList() {
                 this.totalMsgCount = MainRepository.MyOrder.controller().getUnreadMsgCount();
-                return MainRepository.MyOrder.controller().getMyUnpaidOrderItems();
+                return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
             }
         },
         created() {
@@ -333,7 +333,7 @@
 
             if (MainRepository.MyInfo.isLogin()) {
                 // 시작하자마자 한번 실행
-                MainRepository.MyOrder.load(true);
+                MainRepository.MyOrder.loadAlarm();
             }
         },
         methods: {
@@ -398,7 +398,8 @@
                 this.$router.push("/login");
             },
             goMain() {
-                this.$router.push("/abMain");
+                location.href = "/abMain";
+                //this.$router.push("/abMain");
             },
             goTradeCenter() {
                 this.$router.push("/tradeCenter");
