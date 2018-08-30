@@ -1445,9 +1445,14 @@
         width: 34px;
         height: 34px;
     }
-    .ic-header-logo {
+    .ic-header-logo-mobile {
         background: 0px -234px;
         width: 125px;
+        height: 20px;
+    }
+    .ic-header-logo-web {
+        background: 0px -234px;
+        width: 70px;
         height: 20px;
     }
 
