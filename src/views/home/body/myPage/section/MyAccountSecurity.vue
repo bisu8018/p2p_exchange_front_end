@@ -32,7 +32,20 @@
             </li>
 
             <!-- 버튼, 토글 등 -->
-            <li class="btn-wrapper"></li>
+            <li class="btn-wrapper">
+
+                <!--비활성화 버튼-->
+                <btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"
+                            :txt="$str('turnOff')"
+                            @click="goTurnOff('email')"
+                />
+
+                <!--활성화 버튼-->
+                <btn-mypage v-if="!email.isNull() && email.status !== 'turn_on'"
+                            :txt="$str('turnOn')"
+                            @click="onTurnOn"
+                />
+            </li>
         </ul>
 
         <!-- 2. Phone -->
@@ -58,30 +71,30 @@
                 <span v-if="!phone.isNull()">
 
                      <!-- 핸드폰 번호 바꾸기 버튼 -->
-                    <!--<btn-mypage v-if="!phone.isNull()"-->
-                                <!--:txt="$str('changePhone')"-->
-                                <!--@click="goChangePhone"-->
-                    <!--/>-->
+                    <btn-mypage v-if="!phone.isNull()"
+                                :txt="$str('changePhone')"
+                                @click="goChangePhone"
+                    />
 
-                    <!-- 비활성화 버튼 -->
-                    <!--<btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"-->
-                                <!--:txt="$str('turnOff')"-->
-                    <!--/>-->
+                    <!--비활성화 버튼-->
+                    <btn-mypage v-if="email.status === 'turn_on' && phone.status === 'turn_on'"
+                                :txt="$str('turnOff')"
+                                @click="goTurnOff('phone')"
+                    />
 
-                    <!-- 활성화 버튼 -->
-                    <!--<btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"-->
-                                <!--:txt="$str('turnOn')"-->
-                                <!--@click="onTurnOn"-->
-                    <!--/>-->
-                    <!--<h6 class="color-blue px-3">{{ $str('bound') }}</h6>-->
+                    <!--활성화 버튼-->
+                    <btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"
+                                :txt="$str('turnOn')"
+                                @click="onTurnOn"
+                    />
                 </span>
 
                 <!-- 등록이 되어 있지 않을 때 -->
                 <span v-else>
                     <!-- 연동하기 버튼 -->
                     <btn-mypage v-if="phone.isNull()"
-                            :txt="$str('bind')"
-                            @click="goLink('phone')"
+                                :txt="$str('bind')"
+                                @click="goLink('phone')"
                     />
                 </span>
             </li>
@@ -92,7 +105,8 @@
 
             <!-- 아이콘, 서브타이틀 -->
             <li class="otherInfo-subtitle">
-                <div class="sprite-img ic-account"></div> <p>{{$str('account')}}</p>
+                <div class="sprite-img ic-account"></div>
+                <p>{{$str('account')}}</p>
             </li>
 
             <!-- 내용 -->
@@ -107,7 +121,8 @@
 
             <!-- 아이콘, 서브타이틀 -->
             <li class="otherInfo-subtitle">
-                <div class="sprite-img ic-uid"></div> <p>UID</p>
+                <div class="sprite-img ic-uid"></div>
+                <p>UID</p>
             </li>
 
             <!-- 내용 -->
@@ -122,7 +137,8 @@
 
             <!-- 아이콘, 서브타이틀 -->
             <li class="otherInfo-subtitle">
-                <div class="sprite-img ic-password"></div> <p>{{ $str('password') }}</p>
+                <div class="sprite-img ic-password"></div>
+                <p>{{ $str('password') }}</p>
             </li>
 
             <!-- 내용 -->
@@ -132,10 +148,10 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
-                <!--<btn-mypage-->
-                        <!--:txt="$str('modify')"-->
-                        <!--@click="goChangePassword"-->
-                <!--/>-->
+                <btn-mypage
+                        :txt="$str('modify')"
+                        @click="goChangePassword"
+                />
             </li>
         </ul>
 
@@ -144,7 +160,8 @@
 
             <!-- 아이콘, 서브타이틀 -->
             <li class="otherInfo-subtitle">
-                <div class="sprite-img ic-password"></div> <p>{{ $str('tradePwText') }}</p>
+                <div class="sprite-img ic-password"></div>
+                <p>{{ $str('tradePwText') }}</p>
             </li>
 
             <!-- 내용 -->
@@ -154,19 +171,19 @@
 
             <!-- 버튼, 토글 등 -->
             <li class="btn-wrapper">
-                <!--<btn-mypage-->
-                        <!--:txt="$str('reset')"-->
-                        <!--@click="goReset"-->
-                <!--/>-->
+                <btn-mypage
+                        :txt="$str('reset')"
+                        @click="goReset"
+                />
             </li>
         </ul>
 
         <!-- Phone Turn On Dialog -->
-       <dialog-turn-on-phone
-               :show-dialog="showPhoneTurnOn"
-               :phone-number="phone.phoneNumber"
-               @close="offDialog"
-       />
+        <dialog-turn-on-phone
+                :show-dialog="showPhoneTurnOn"
+                :phone-number="phone.phoneNumber"
+                @close="offDialog"
+        />
 
     </div>
 </template>
@@ -174,6 +191,7 @@
 <script>
     import BtnMypage from "../item/BtnMypage";
     import DialogTurnOnPhone from "../../../../../components/dialog/DialogTurnOnPhone";
+    import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: "my-account-security",
@@ -214,16 +232,19 @@
                 this.$router.push(url);
             },
             goChangePassword() {
-                this.$router.push("/changePassword");
+                MainRepository.router().goChangePassword();
             },
             goChangePhone() {
-                alert('페이지 만들어야 함');
+                alert('We are currently preparing this page. I\'m sorry for any trouble.');
+            },
+            goReset() {
+                MainRepository.router().goResetTradePassword();
+            },
+            goTurnOff(type) {
+                MainRepository.router().goTurnOff(type);
             },
             onTurnOn() {
                 this.showPhoneTurnOn = true;
-            },
-            goReset() {
-                this.$router.push('/resetTradePassword');
             },
             offDialog() {
                 this.showPhoneTurnOn = false;

@@ -1445,6 +1445,11 @@
         width: 34px;
         height: 34px;
     }
+    .ic-header-logo {
+        background: 0px -234px;
+        width: 125px;
+        height: 20px;
+    }
 
 
 
