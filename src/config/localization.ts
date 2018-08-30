@@ -3035,16 +3035,16 @@ const strings = new Map([
         HK: '信賴度高的本平台託管數字資產，為實現更安全的交易環境，廣告者已支付押金。'
     }],
     ['landingSubject_2', {
-        KOR: '수수료 제로',
-        ENG: 'Zero Transaction Fee',
-        CN: '0%手续费',
-        HK: '0%手續費'
+        KOR: '빠른 거래',
+        ENG: 'Rapid transaction',
+        CN: '迅速交易',
+        HK: '迅速交易'
     }],
     ['landingContents_2', {
-        KOR: '거래소, 대량 거래 어디서든 수수료가 없습니다.',
-        ENG: 'Free charge in any transactions, including trade center & block trade.',
-        CN: '用户可使用0%手续费的普通、大宗交易平台。',
-        HK: '用戶可使用0%手續費的普通、大宗交易平台。'
+        KOR: '빠른 속도, 다운타임 없는 시스템 안정성. ',
+        ENG: 'Fast speed, system stability without downtime.',
+        CN: '更快速度，没有系统瘫痪的稳定性。',
+        HK: '更快速度，没有系统瘫痪的稳定性。'
     }],
     ['landingSubject_3', {
         KOR: '365일, 24시간 고객서비스 운영',

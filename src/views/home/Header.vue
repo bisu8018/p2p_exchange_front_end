@@ -8,7 +8,7 @@
 
                     <!--logo-->
                     <button @click="goMain()" class="ml-3">
-                        <div class="sprite-img ic-logo"></div>
+                        <div class="sprite-img2 ic-header-logo-mobile "></div>
                     </button>
 
                     <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
@@ -131,7 +131,7 @@
 
                     <!-- logo버튼-->
                     <button @click="goMain()" class="ml-4">
-                        <div class="sprite-img ic-logo"></div>
+                        <div class="sprite-img2 ic-header-logo-web "></div>
                     </button>
 
                     <!-- TradeCenter버튼-->

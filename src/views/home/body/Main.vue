@@ -87,7 +87,7 @@
                 <p>{{$str('landingContents_1')}}</p>
             </v-flex>
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
-                <i class="material-icons md-36 color-blue">monetization_on</i>
+                <i class="material-icons arrows-style">compare_arrows</i>
                 <h3>{{$str('landingSubject_2')}}</h3>
                 <p>{{$str('landingContents_2')}}</p>
             </v-flex>
@@ -212,6 +212,13 @@
       .userInput {
         width: 100%;
       }
+    }
+
+    .arrows-style {
+        background: #214EA1;
+        border-radius: 6px;
+        color: white;
+        font-size: 32px;
     }
 
 </style>

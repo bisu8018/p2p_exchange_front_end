@@ -103,4 +103,25 @@ export default class RouterController {
             r.push("/userpage?" + memberNo);
         });
     }
+
+    goChangePassword() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/changePassword");
+        });
+    }
+
+    goResetTradePassword() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/resetTradePassword");
+        });
+    }
+
+    goTurnOff(type: string) {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/turnOff?" + type);
+        });
+    }
 }

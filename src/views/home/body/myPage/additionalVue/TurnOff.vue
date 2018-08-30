@@ -10,33 +10,38 @@
                 <div class="color-darkgray mb-4 text-xs-left">
                     {{$str("emailTurnOffExplain")}}
                 </div>
+                    <span v-if="type === 'email'">
 
-                    <!--전화 번호-->
-                    <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("phoneNumber")}}
-                    </div>
-                    <div class="input-disabled  vertical-center disabled mb-4">{{setPhoneNumber}}</div>
-
-                    <!--문자인증-->
-                    <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("SMSverification")}}
-                    </div>
-                    <verification-code v-on:verify="onCheckVerificationCode(code,'phone')" :phone="phone"
-                                       :type="'phone'" />
-
-                    <!--이메일 -->
-                    <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("email")}}
-                    </div>
-                    <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
+                        <!--이메일 -->
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("email")}}
+                        </div>
+                        <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
 
 
-                    <!--이메일인증-->
-                    <div class=" color-black  mb-2 text-xs-left">
-                        {{$str("emailVerification")}}
-                    </div>
-                    <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
-                                       :type="'email'" />
+                            <!--이메일인증-->
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("emailVerification")}}
+                        </div>
+                        <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
+                                           :type="'email'" />
+                    </span>
+
+                    <span v-if="type === 'phone'">
+
+                        <!--전화 번호-->
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("phoneNumber")}}
+                        </div>
+                        <div class="input-disabled  vertical-center disabled mb-4">{{setPhoneNumber}}</div>
+
+                        <!--문자인증-->
+                        <div class=" color-black  mb-2 text-xs-left">
+                            {{$str("SMSverification")}}
+                        </div>
+                        <verification-code v-on:verify="onCheckVerificationCode(code,'phone')" :phone="phone"
+                                           :type="'phone'" />
+                    </span>
 
 
                 <div class="text-xs-right">
@@ -73,18 +78,18 @@
         },
         created() {
             window.scrollTo(0, 0);
-            var url = location.href;
-            var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+            let url = location.href;
+            let parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
             this.type = parameters[0];
         },
         computed: {
             setPhoneNumber: function () {
-                var phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 5);
+                let phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 5);
                 return phoneNumber;
             },
             setEmail: function () {
-                var emailSplit = this.email.split('@');
-                var emailValue = emailSplit[0].substr(0, 2) + '****' + '@' + emailSplit[1];
+                let emailSplit = this.email.split('@');
+                let emailValue = emailSplit[0].substr(0, 2) + '****' + '@' + emailSplit[1];
                 return emailValue;
             }
         },
