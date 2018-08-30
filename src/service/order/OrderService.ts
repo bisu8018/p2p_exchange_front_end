@@ -21,6 +21,16 @@ export default {
 
             })
     },
+    getMyOrderAlarm: function (callback: any) {
+        AxiosService._requestWithUrlPram('order/my/alarm', 'GET',
+            {email : MainRepository.MyInfo.getUserInfo().email},
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
+
     getMyOrderStat:function (data: any, callback: any) {
         AxiosService._requestWithUrlPram('order/my/stats', 'GET', data ,
             function (data: any) {

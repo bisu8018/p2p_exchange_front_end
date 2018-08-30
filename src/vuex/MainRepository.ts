@@ -139,7 +139,7 @@ export default {
     initInterval() {
         setInterval(() => {
             if (this.MyInfo.isLogin()) {
-                this.MyOrder.load(true);
+                this.MyOrder.loadAlarm();
             }
         }, 10000)
     },
@@ -813,14 +813,26 @@ export default {
                 currency : '',
                 page : '1',
                 size : '10',})
-            this.load(false);
+            this.load();
         },
-        load(isSimpleItem){
+        loadAlarm(){
+            OrderService.getMyOrderAlarm(function(data){
+                let result = data
+                let myOrderList: Order[] = [];
+                for(let key in result){
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let itemList: Order = new Order(result[key])
+                    myOrderList.push(itemList);
+                }
+                myTradeController.setMyOrderAlarmItems(myOrderList);
+            })
+        },
+        load(){
             OrderService.getMyOrder({
                 email : instance.MyInfo.getUserInfo().email,
                 searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
                 searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
-                status : isSimpleItem ? 'unpaid' : myTradeController.getMyOrderFilter().status,
+                status : myTradeController.getMyOrderFilter().status,
                 orderNo : myTradeController.getMyOrderFilter().orderNo,
                 cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
                 orderType : myTradeController.getMyOrderFilter().orderType,
@@ -837,15 +849,9 @@ export default {
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
                 }
-                // 알람용
-                if (isSimpleItem) {
-                    myTradeController.setMyUnpaidOrderItems(myOrderList);
-                } else {
-                    let totalCount = data.totalCount;
-                    paginationController.setTotalCount(totalCount);
-
-                    myTradeController.setMyOrderItems(myOrderList);
-                }
+                let totalCount = data.totalCount;
+                paginationController.setTotalCount(totalCount);
+                myTradeController.setMyOrderItems(myOrderList);
             })
         },
         // //다른 유저 정보 GET
@@ -897,7 +903,7 @@ export default {
             myTradeController.updateMyOrderFilter(data);
 
 
-            this.load(false);
+            this.load();
         },
         getPage(){
             return myTradeController.getMyOrderItems();

@@ -29,7 +29,7 @@
         name: "myOrderSimpleMobile",
         computed: {
             orderList() {
-                return MainRepository.MyOrder.controller().getMyUnpaidOrderItems();
+                return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
             }
         },
         methods: {

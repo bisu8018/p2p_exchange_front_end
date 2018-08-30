@@ -47,7 +47,7 @@ export default class RouterController {
         return;
 
         if (!MainRepository.MyInfo.checkValidity(true)) {
-            return
+            return;
         }
 
         // 권한이 없을 경우 -> 서버에서 다시 한번 확인 -> Merchant
