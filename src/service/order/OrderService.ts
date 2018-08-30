@@ -1,6 +1,7 @@
 import AxiosService from "@/service/AxiosService";
 import MainRepository from "@/vuex/MainRepository";
 import qs from 'qs';
+import axios from "axios";
 
 // 페이지네이션, 트레이드센터 데이터 및 트레이드센터 필터 포함 공통
 export default {
@@ -46,6 +47,17 @@ export default {
             function (code) {
                 fail()
             })
+    },
+    getMyOrderDownload:function (data: any) {
+        data = data || {};
+        let prams = qs.stringify(data);
+        let URL = ''
+        if (window.location.hostname == 'localhost') {
+            URL += window.location.protocol + '//' + 'localhost' + ':' + '8080' //window.location.port
+        }
+        URL += '/api/order/download?'+prams;
+        window.open(URL);
+
     },
     onPaid : function (data : any, callback: any) {
         let url = 'order/' + data + '/paid';

@@ -872,6 +872,19 @@ export default {
                 callback(_orderStat);
             })
         },
+        getMyOrderDownload(){
+            OrderService.getMyOrderDownload({
+                email : instance.MyInfo.getUserInfo().email,
+                searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
+                searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
+                status : myTradeController.getMyOrderFilter().status,
+                orderNo : myTradeController.getMyOrderFilter().orderNo,
+                cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
+                orderType : myTradeController.getMyOrderFilter().orderType,
+                tradeType : myTradeController.getMyOrderFilter().tradeType,
+                currency : myTradeController.getMyOrderFilter().currency
+            })
+        },
         initData(){
             this.setFilter({
                 searchStartTime : '',
