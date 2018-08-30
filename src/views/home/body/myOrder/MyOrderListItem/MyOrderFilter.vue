@@ -146,10 +146,9 @@
         </v-flex>
 
 
-
         <!--데스크탑 환경에서만 표시 -->
         <v-flex md2 pl-4 pr-0 v-if="!isMobile">
-            <button class="btn-white ">{{$str("Export")}}</button>
+            <button class="btn-white" @click="myOrderDownload">{{$str("Export")}}</button>
         </v-flex>
 
 
@@ -330,6 +329,9 @@
                     tradeType : this.modal_tradeType,
                     currency : this.modal_currency,
                 });
+            },
+            myOrderDownload(){
+                MainRepository.MyOrder.getMyOrderDownload();
             }
         },
 

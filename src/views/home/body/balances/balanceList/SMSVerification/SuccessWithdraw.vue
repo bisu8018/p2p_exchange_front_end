@@ -112,8 +112,11 @@
   }
   .history-btn-margin{
     margin : 32px auto 32px auto;
+
   }
   .btn-width{
-    width: 96px;
+    width: auto;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 </style>
