@@ -1579,7 +1579,7 @@
 
     .myPage-box .otherInfo-body:last-child,
     .blocked-user-item:last-child {
-        border-bottom: none;
+        border-bottom: none ;
     }
 
     .otherInfo-body > li {
@@ -1685,6 +1685,5 @@
 
     .dialog--footer {
         text-align: right;
-        margin: 24px 0 0;
     }
 </style>

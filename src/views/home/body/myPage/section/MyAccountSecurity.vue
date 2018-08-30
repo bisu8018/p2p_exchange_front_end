@@ -43,7 +43,7 @@
                 <!--활성화 버튼-->
                 <btn-mypage v-if="!email.isNull() && email.status !== 'turn_on'"
                             :txt="$str('turnOn')"
-                            @click="onTurnOn"
+                            @click="onTurnOn('email')"
                 />
             </li>
         </ul>
@@ -85,7 +85,7 @@
                     <!--활성화 버튼-->
                     <btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"
                                 :txt="$str('turnOn')"
-                                @click="onTurnOn"
+                                @click="onTurnOn('phone')"
                     />
                 </span>
 
@@ -178,10 +178,13 @@
             </li>
         </ul>
 
-        <!-- Phone Turn On Dialog -->
-        <dialog-turn-on-phone
-                :show-dialog="showPhoneTurnOn"
+        <!-- Turn On Dialog -->
+        <dialog-turn-on
+                :show-dialog="showTurnOn"
                 :phone-number="phone.phoneNumber"
+                :email="email.email"
+                :modalType="modalType"
+                @done="done"
                 @close="offDialog"
         />
 
@@ -190,13 +193,13 @@
 
 <script>
     import BtnMypage from "../item/BtnMypage";
-    import DialogTurnOnPhone from "../../../../../components/dialog/DialogTurnOnPhone";
+    import DialogTurnOn from "../../../../../components/dialog/DialogTurnOn";
     import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: "my-account-security",
         components: {
-            DialogTurnOnPhone,
+            DialogTurnOn,
             BtnMypage
         },
         props: {
@@ -206,7 +209,8 @@
         },
         data() {
             return {
-                showPhoneTurnOn: false,
+                showTurnOn: false,
+                modalType : '',
             }
         },
         computed: {
@@ -243,14 +247,16 @@
             goTurnOff(type) {
                 MainRepository.router().goTurnOff(type);
             },
-            onTurnOn() {
-                this.showPhoneTurnOn = true;
+            onTurnOn(type) {
+                this.modalType = type;
+                this.showTurnOn = true;
             },
             offDialog() {
-                this.showPhoneTurnOn = false;
+                this.showTurnOn = false;
             },
-        },
-        created() {
+            done() {
+                this.email.status = 'turn_on'
+            }
 
         }
     }

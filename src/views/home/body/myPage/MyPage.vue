@@ -58,7 +58,6 @@
     import MainRepository from "../../../../vuex/MainRepository";
     import Pagination from '@/components/Pagination.vue';
     import Toggle from '@/components/Toggle.vue';
-    import MyPageModal from './item/MyPageModal.vue';
     import IdVerification from "../../../../vuex/model/IdVerification";
     import EmailVerification from "../../../../vuex/model/EmailVerification";
     import PhoneVerification from "../../../../vuex/model/PhoneVerification";
@@ -88,7 +87,7 @@
             BlockListItem,
             BtnMypage,
             PaymentItem,
-            Pagination, Toggle, MyPageModal,
+            Pagination, Toggle,
         },
         data: () => ({
             showModal: false,

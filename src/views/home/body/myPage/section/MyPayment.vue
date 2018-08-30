@@ -46,14 +46,11 @@
 <script>
     import PaymentItem from "../item/PaymentItem";
     import BtnMypage from "../item/BtnMypage";
-    import MyPageModal from "../item/MyPageModal";
-    import MainRepository from "../../../../../vuex/MainRepository";
     import DialogAddNewPayment from "../../../../../components/dialog/DialogAddNewPayment";
 
     export default {
         components: {
             DialogAddNewPayment,
-            MyPageModal,
             BtnMypage,
             PaymentItem
         },
@@ -87,31 +84,9 @@
                 this.isEdit = true;
                 this.paymentMethodItem = item;
             },
-            // onToggle(item) {
-            //     let self = this;
-            //     console.log(item);
-            //
-            //     item.activeYn = !item.activeYn;
-            //     MainRepository.MyPage.setPaymentMethod(self.MyInfo.email, item, function (data) {
-            //         // 리프레시 이벤트버스 날리기~~'ㅅ'
-            //     });
-            // },
 
 
-            // ****** 이 아래로는 무슨 Methods인지 모르겠음...ㅜㅜ
-            onTurnOn() {
-                // phone 인증 정보 AXIOS GET
-                this.showModal = false;
-            },
-            goTurnOff(type) {
-                let url = "/turnOff";
-                if (type === 'email') {
-                    url += '?email';
-                } else {
-                    url += '?phone';
-                }
-                this.$router.push(url);
-            },
+
             //결제수단 추가 모달 data get 및 결제수단 표시 설정
             getPaymentMethod(value) {
                 //하기 코드 미사용 가능성 존재

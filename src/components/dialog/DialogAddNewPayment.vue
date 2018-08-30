@@ -24,14 +24,14 @@
 
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("name") }}</h5>
-                <div class="p-relative mb-4"  >
+                <div class="p-relative mb-4">
 
                     <!-- Input -->
                     <input type="text" class="input"
                            :placeholder="$str('namePlaceholder')"
                            v-model="paymentMethods.ownerName"
                            :class="{'warning-border' : warning_name}"
-                           @keyup="onCheckName" />
+                           @keyup="onCheck('name')"/>
 
                     <!-- 유효성 경고 텍스트 -->
                     <div class="warning-text-wrapper">
@@ -41,7 +41,7 @@
 
                 <!-- PaymentMethod === alipay -->
                 <div v-if="type === 'alipay'">
-                    <h5 class="mb-2">{{ $str("alipayText") }}</h5>
+                    <h5 class="mb-2">{{ $str("alipayText") }} ID</h5>
                     <div class="p-relative mb-4">
 
                         <!-- Input -->
@@ -49,24 +49,27 @@
                                :placeholder="$str('alipayPlaceholder')"
                                v-model="paymentMethods.alipayId"
                                :class="{'warning-border' : warning_alipay}"
-                               @keyup="onCheckAlipay" />
+                               @keyup="onCheck('alipay')"/>
 
                         <!-- 유효성 경고 텍스트 -->
                         <div class="warning-text-wrapper">
-                            <span class="d-none" :class="{'warning-text' : warning_alipay}">{{ verify_warning_alipay }}</span>
+                            <span class="d-none"
+                                  :class="{'warning-text' : warning_alipay}">{{ verify_warning_alipay }}</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- PaymentMethod === wechat -->
                 <div v-else-if="type === 'wechat'">
-                    <h5 class="mb-2">{{ $str("wechatPayText") }}</h5>
+                    <h5 class="mb-2">{{ $str("wechatPayText") }} ID</h5>
                     <div class="p-relative mb-4">
                         <input type="text" class="input" :placeholder="$str('wechatPlaceholder')"
                                v-model="paymentMethods.wechatId"
-                               v-bind:class="{'warning-border' : warning_wechat}" @keyup="onCheckWechat">
+                               v-bind:class="{'warning-border' : warning_wechat}"
+                               @keyup="onCheck('wechat')">
                         <div class="warning-text-wrapper">
-                            <span class="d-none" :class="{'warning-text' : warning_wechat}">{{ verify_warning_wechat }}</span>
+                            <span class="d-none"
+                                  :class="{'warning-text' : warning_wechat}">{{ verify_warning_wechat }}</span>
                         </div>
                     </div>
                 </div>
@@ -84,11 +87,12 @@
                                    :placeholder="$str('bankNamePlaceholder')"
                                    v-model="paymentMethods.bankName"
                                    :class="{'warning-border' : warning_bank}"
-                                   @keyup="onCheckBank" />
+                                   @keyup="onCheck('bank')"/>
 
                             <!-- 유효성 경고 텍스트 -->
                             <div class="warning-text-wrapper">
-                                <span class="d-none" :class="{'warning-text' : warning_bank}">{{ verify_warning_bank }}</span>
+                                <span class="d-none"
+                                      :class="{'warning-text' : warning_bank}">{{ verify_warning_bank }}</span>
                             </div>
                         </div>
                     </div>
@@ -98,7 +102,7 @@
                         <h5 class="mb-2">{{ $str("branchInfo") }}</h5>
                         <input type="text" class="input"
                                :placeholder="$str('branchInfoPlaceholder')"
-                               v-model="paymentMethods.bankBranchInfo" />
+                               v-model="paymentMethods.bankBranchInfo"/>
                     </div>
 
                     <!--은행계좌-->
@@ -109,7 +113,7 @@
                                    :placeholder="$str('bankPlaceholder')"
                                    v-model="paymentMethods.bankAccount"
                                    :class="{'warning-border' : warning_bank_accout}"
-                                   @keyup="onCheckBankAccount">
+                                   @keyup="onCheck('bankAccount')">
                             <div class="warning-text-wrapper">
                                 <span class="d-none" :class="{'warning-text' : warning_bank_accout}">{{ verify_warning_bank_account }}</span>
                             </div>
@@ -126,8 +130,8 @@
                                  :class="{'warning-border' : warning_attachment_file}">
                                 <div v-if="image === ''" class="ma-4a">
                                     <input type="file" id="file" ref="file"
-                                           v-on:change="onCheckAttachmentFile()"
-                                           class="d-none" />
+                                           v-on:change="onCheck('attachmentFile')"
+                                           class="d-none"/>
                                     <div class="d-inline-block mt-2">
                                         <div class="sprite-img ic-upload"></div>
                                     </div>
@@ -161,7 +165,7 @@
                            :placeholder="$str('tradePwPlaceholder')"
                            v-model="password"
                            :class="{'warning-border' : warning_trade_password}"
-                           @keyup="onCheckTradePassword" />
+                           @keyup="onCheck('tradePassword')"/>
                     <div class="warning-text-wrapper">
                         <span class="d-none"
                               :class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
@@ -171,9 +175,11 @@
 
             <!-- footer, 버튼 영역 -->
             <div class="dialog--footer">
-                <button class="btn-rounded-white text-white-hover btn-delete" @click="onDelete" v-if="edit"><h6 class="color-red">{{ $str("delete") }}</h6></button>
-                <button class="btn-rounded-white text-white-hover" @click="onClose"><h6>{{ $str("cancel") }}</h6></button>
-                <button class="btn-rounded-blue btn-blue-hover" @click="onDone"><h6>{{ $str("Done") }}</h6></button>
+                <button class="btn-rounded-white text-white-hover btn-delete" @click="onDelete" v-if="edit"><h6
+                        class="color-red">{{ $str("delete") }}</h6></button>
+                <button class="btn-rounded-white text-white-hover" @click="onClose"><h6>{{ $str("cancel") }}</h6>
+                </button>
+                <button class="btn-rounded-blue btn-blue-hover" @click="wholeCheck"><h6>{{ $str("Done") }}</h6></button>
             </div>
         </div>
     </v-dialog>
@@ -183,6 +189,8 @@
     import MainRepository from "../../vuex/MainRepository";
     import CommonService from "../../service/common/CommonService";
     import PaymentMethod from "../../vuex/model/PaymentMethod";
+    import Vue from "vue";
+
     export default {
         name: "dialog-add-new-payment",
         props: {
@@ -201,7 +209,7 @@
             return {
                 // paymentMethods: '',
                 typeData: '',
-                selectedType : '',
+                selectedType: '',
 
                 warning_name: false,
                 warning_alipay: false,
@@ -210,13 +218,13 @@
                 warning_bank_accout: false,
                 warning_attachment_file: false,
                 warning_trade_password: false,
-                verify_warning_name: '',
-                verify_warning_alipay: '',
-                verify_warning_wechat: '',
-                verify_warning_bank: '',
+                verify_warning_name: Vue.prototype.$str('warning_name'),
+                verify_warning_alipay: Vue.prototype.$str('warning_alipay'),
+                verify_warning_wechat: Vue.prototype.$str('warning_wechat'),
+                verify_warning_bank: Vue.prototype.$str('warning_bank'),
+                verify_warning_bank_account: Vue.prototype.$str('warning_name'),
+                verify_warning_trade_password: Vue.prototype.$str('warning_trade_password'),
                 verify_warning_attachment_file: '',
-                verify_warning_trade_password: '',
-                verify_warning_bank_account: '',
                 file: '',
                 image: '',
                 password: '',
@@ -263,22 +271,119 @@
 
         },
         watch: {
-            typeData :  function (data) {
+            typeData: function (data) {
                 this.getImg();
             }
         },
         methods: {
-            onCheckName() {
 
+            //값 체크 로직
+            onCheck(type) {
+                switch (type) {
+
+                    // 성명 체크
+                    case 'name':
+                        if (this.paymentMethods.ownerName === '') {
+                            this.warning_name = true;
+                            return false;
+                        }
+                        this.warning_name = false;
+                        return true;
+
+                        break;
+
+
+                    // 알리페이 아이디 체크
+                    case 'alipay':
+                        if (this.paymentMethods.alipayId === '') {
+                            this.warning_alipay = true;
+                            return false;
+                        }
+                        this.warning_alipay = false;
+
+                        return true;
+
+                        break;
+
+
+                    //위챗페이 아이디 체크
+                    case 'wechat':
+                        if (this.paymentMethods.wechatId === '') {
+                            this.warning_wechat = true;
+                            return false;
+                        }
+                        this.warning_wechat = false;
+
+                        return true;
+
+                        break;
+
+
+                    //은행 이름 체크
+                    case 'bank':
+                        if (this.paymentMethods.bankName === '') {
+                            this.warning_bank = true;
+                            return false;
+                        }
+                        this.warning_bank = false;
+
+                        return true;
+
+                        break;
+
+
+                    //은행 계좌 체크
+                    case 'bankAccount':
+
+                        if (this.paymentMethods.bankAccount === '') {
+                            this.warning_bank_accout = true;
+                            return false;
+                        }
+                        this.warning_bank_accout = false;
+
+                        return true;
+
+                        break;
+
+
+                    //거래 비밀번호 체크
+                    case 'tradePassword':
+
+                        if (this.password === '') {
+                            this.warning_trade_password = true;
+                            return false;
+                        }
+                        this.warning_trade_password = false;
+                        return true;
+
+                        break;
+
+
+                    //첨부파일 체크
+                    case 'attachmentFile':
+
+                        let fileInfo = this.$refs.file.files[0];
+                        let fileSize = fileInfo.size;
+                        if (fileSize > 5e+6) {
+                            this.warning_attachment_file = true;
+                            this.verify_warning_attachment_file = this.$str('warningAttachmentFileSize');
+                            return false;
+                        }
+                        this.warning_attachment_file = false;
+                        this.handleFileUpload(fileInfo);
+
+                        break;
+                }
             },
-            onCheckAlipay() {
-
-            },
-            onCheckWechat() {
-
-            },
-            onCheckBank() {
-
+            wholeCheck() {
+                if ((this.typeData === 'alipay' && this.onCheck('alipay')) ||
+                    (this.typeData === 'wechat' && this.onCheck('wechat')) ||
+                    (this.typeData === 'bank' && this.onCheck('bank') && this.onCheck('bankAccount'))
+                ) {
+                    if (this.onCheck('name') && this.onCheck('tradePassword')) {
+                        this.onDone();
+                    }
+                }
             },
             onClearData() {
                 this.paymentMethods.activeYn = 'n';
@@ -299,32 +404,18 @@
                 this.typeData = '';
                 this.password = '';
             },
-            onCheckBankAccount() {
-
-            },
             getImg() {
                 let type = this.paymentMethods.type;
-                let alipay_img =  this.paymentMethods.alipayQrCodeImgUrl;
-                let wechat_img =  this.paymentMethods.wechatQrCodeImgUrl;
+                let alipay_img = this.paymentMethods.alipayQrCodeImgUrl;
+                let wechat_img = this.paymentMethods.wechatQrCodeImgUrl;
 
-                if(type === 'alipay' ){
+                if (type === 'alipay') {
                     this.image = alipay_img;
-                }else if(type === 'wechat'){
+                } else if (type === 'wechat') {
                     this.image = wechat_img;
-                }else{
+                } else {
                     this.image = '';
                 }
-            },
-            onCheckAttachmentFile() {        //첨부파일 타입, 확장자, 용량 체크
-                let fileInfo = this.$refs.file.files[0];
-                let fileSize = fileInfo.size;
-                if (fileSize > 5e+6) {
-                    this.warning_attachment_file = true;
-                    this.verify_warning_attachment_file = this.$str('warningAttachmentFileSize');
-                    return false;
-                }
-                this.warning_attachment_file = false;
-                this.handleFileUpload(fileInfo);
             },
             handleFileUpload(fileInfo) {         //첨부파일 사진 등록 및 출력
                 this.file = fileInfo;
@@ -344,42 +435,39 @@
                 this.file = '';
                 this.image = '';
             },
-            onCheckTradePassword() {
-
-            },
             onClose(item) {
                 this.onClearData();
                 this.$emit('close');
             },
-            onDone(item) {
+            onDone() {
                 this.paymentMethods.type = this.type;
                 this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
                 //파일첨부
-                if(this.file !== '' && this.type != 'bank'){
+                if (this.file !== '' && this.type != 'bank') {
                     let _purpose = '';
-                    if(this.paymentMethods.type === 'alipay'){
+                    if (this.paymentMethods.type === 'alipay') {
                         _purpose = 'alipay';
-                    }else if(this.type === 'wechat'){
+                    } else if (this.type === 'wechat') {
                         _purpose = 'wechatpay'
                     }
                     CommonService.fileUpload.fileUpload({
                         file: this.submitFile(),
                         purpose: _purpose
-                    },  (url) => {
+                    }, (url) => {
 
-                        if(this.type === 'alipay'){
+                        if (this.type === 'alipay') {
                             this.paymentMethods.alipayQrCodeImgUrl = url
-                        }else if(this.type === 'wechat'){
+                        } else if (this.type === 'wechat') {
                             this.paymentMethods.wechatQrCodeImgUrl = url
                         }
 
                         this.onPost();
                     });
-                }else{
-                   this.onPost();
+                } else {
+                    this.onPost();
                 }
 
             },

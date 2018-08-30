@@ -19,11 +19,11 @@
                         <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
 
 
-                            <!--이메일인증-->
+                        <!--이메일인증-->
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("emailVerification")}}
                         </div>
-                        <verification-code v-on:verify="onCheckVerificationCode(code,'email')" :email="email"
+                        <verification-code v-on:verify="onCheckVerificationCode" :email="email"
                                            :type="'email'" />
                     </span>
 
@@ -39,7 +39,7 @@
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("SMSverification")}}
                         </div>
-                        <verification-code v-on:verify="onCheckVerificationCode(code,'phone')" :phone="phone"
+                        <verification-code v-on:verify="onCheckVerificationCode" :phone="phone"
                                            :type="'phone'" />
                     </span>
 
@@ -95,7 +95,7 @@
         },
         methods: {
             goMyPage() {
-                this.$router.push("/myPage");
+                MainRepository.router().goMyPage();
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
@@ -105,18 +105,26 @@
             },
             onChange() {
                 let self = this;
+                let code;
+                if(this.type === 'email'){
+                    code = this.emailCode;
+                }else{
+                    code = this.phoneCode;
+                }
+
                 // type 별로 AXIOS post 작업 진행
-                AccountService.Account.checkVerificationCode('phone',{
+                MainRepository.Service.Account().Account.checkVerificationCode(this.type,{
                     email : self.email,
                     phoneNumber : self.phoneNumber,
-                    code : self.phoneCode
-                },function (result) {
+                    code : code,
+                    status : 'turn_off'
+                }, (result) => {
                     this.goMyPage();
                 });
             },
             // 인증코드 체크
-            onCheckVerificationCode(code,type) {
-                if (type === 'email') {
+            onCheckVerificationCode(code) {
+                if (this.type === 'email') {
                     this.emailVerify = true;
                     this.emailCode = code;
                 } else {
