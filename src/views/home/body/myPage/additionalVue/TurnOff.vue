@@ -84,7 +84,7 @@
         },
         computed: {
             setPhoneNumber: function () {
-                let phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 5);
+                let phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 6);
                 return phoneNumber;
             },
             setEmail: function () {
