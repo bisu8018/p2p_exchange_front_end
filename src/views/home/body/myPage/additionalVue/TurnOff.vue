@@ -72,8 +72,7 @@
                 phone: MainRepository.MyInfo.getUserInfo().phoneNumber,
                 emailVerify: false,
                 phoneVerify: false,
-                phoneCode: '',
-                emailCode : ''
+                verificationCode: '',
             }
         },
         created() {
@@ -105,18 +104,12 @@
             },
             onChange() {
                 let self = this;
-                let code;
-                if(this.type === 'email'){
-                    code = this.emailCode;
-                }else{
-                    code = this.phoneCode;
-                }
 
                 // type 별로 AXIOS post 작업 진행
                 MainRepository.Service.Account().Account.checkVerificationCode(this.type,{
                     email : self.email,
-                    phoneNumber : self.phoneNumber,
-                    code : code,
+                    phoneNumber : self.phone,
+                    code : self.verificationCode,
                     status : 'turn_off'
                 }, (result) => {
                     this.goMyPage();
@@ -126,10 +119,10 @@
             onCheckVerificationCode(code) {
                 if (this.type === 'email') {
                     this.emailVerify = true;
-                    this.emailCode = code;
+                    this.verificationCode = code;
                 } else {
                     this.phoneVerify = true;
-                    this.phoneCode = code;
+                    this.verificationCode = code;
                 }
 
             },
