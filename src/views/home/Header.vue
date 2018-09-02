@@ -392,20 +392,19 @@
                 })
             },
             goSignup() {
-                this.$router.push("/signup");
+                MainRepository.router().goSignup();
             },
             goLogin() {
-                this.$router.push("/login");
+                MainRepository.router().goLogin();
             },
             goMain() {
-                location.href = "/abMain";
-                //this.$router.push("/abMain");
+                location.href = "/";
             },
             goTradeCenter() {
-                this.$router.push("/tradeCenter");
+                MainRepository.router().goTradeCenter();
             },
             goBlockTrade() {
-                this.$router.push("/blockTrade");
+                MainRepository.router().goBlockTrade();
             },
             goPostAd(isBlock) {
                 // Merchant 확인 로직 포함됨
@@ -423,7 +422,7 @@
                 }
             },
             goMyPage() {
-                this.$router.push("/myPage");
+                MainRepository.router().goMyPage();
             },
             goMyOrder() {
                 if (this.isMobile) {

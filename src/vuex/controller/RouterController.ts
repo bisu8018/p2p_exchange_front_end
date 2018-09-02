@@ -19,7 +19,7 @@ export default class RouterController {
     goMain() {
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('/abMain');
+            r.push('/');
         });
     }
 
@@ -72,6 +72,13 @@ export default class RouterController {
         let r = this.router;
         Vue.nextTick(function () {
             r.push('tradeCenter');
+        });
+    }
+
+    goBlockTrade() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push('blockTrade');
         });
     }
 
