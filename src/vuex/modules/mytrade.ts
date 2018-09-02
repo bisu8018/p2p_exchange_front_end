@@ -36,6 +36,10 @@ const mutations = {
         state.myOrderAlarmItems = myOrderItems;
     },
 
+    [VuexTypes.SET_MY_ORDER_MODAL_FIXED] (state: any, myOrderModalFixed: boolean) {
+        state.myOrderModalFixed = myOrderModalFixed;
+    },
+
 };
 
 
@@ -69,6 +73,9 @@ const actions = {
     [VuexTypes.SET_MY_ORDER_AlARM_LIST] (context: any, myOrderItems: Order[]) {
         context.commit(VuexTypes.SET_MY_ORDER_AlARM_LIST, myOrderItems)
     },
+    [VuexTypes.SET_MY_ORDER_MODAL_FIXED] (context: any, myOrderModalFixed: boolean) {
+        context.commit(VuexTypes.SET_MY_ORDER_MODAL_FIXED, myOrderModalFixed)
+    },
 
 };
 
@@ -80,6 +87,7 @@ let myAdsFilter = new MyTradeFilter('');
 let myAdsItems : TradeItem[] = [];
 let myOrderItems : Order[] = [];
 let myOrderAlarmItems : Order[] = [];
+let myOrderModalFixed  = false;
 
 
 const state= {
@@ -88,6 +96,7 @@ const state= {
     myAdsItems: myAdsItems,
     myAdsFilter: myAdsFilter,
     myOrderAlarmItems: myOrderAlarmItems,
+    myOrderModalFixed: myOrderModalFixed,
 }
 
 export default {

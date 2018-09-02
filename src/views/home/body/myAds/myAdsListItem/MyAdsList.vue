@@ -5,7 +5,7 @@
             <!-- name-->
             <v-layout mt-4 mb-4>
                 <v-flex xs3 text-xs-left color-darkgray>{{$str('adsNo')}}</v-flex>
-                <v-flex xs9 text-xs-right color-blue>{{adslist.adNo}}</v-flex>
+                <v-flex xs9 text-xs-right>{{adslist.adNo}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('Type')}}</v-flex>
@@ -49,9 +49,9 @@
         <!-- Web 일때-->
         <div v-else>
             <v-layout pt-4 pb-4>
-                <v-flex md2  color-blue>
+                <v-flex md2 >
                     <v-layout justify-space-between>
-                        <span class="color-blue">{{adslist.adNo}}</span>
+                        <span>{{adslist.adNo}}</span>
                         <h5 class="color-green bold" v-if="adslist.tradeType === 'Buy'">
                             {{$str("sell")}}
                         </h5>

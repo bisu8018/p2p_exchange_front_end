@@ -1,13 +1,20 @@
 <template>
-  <v-app v-if="isInitCompleted">
-    <abHeader></abHeader>
-    <v-content class="bg-white mt-6">
-      <alert></alert>
-      <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
-        <router-view></router-view>
-      </div>
-    </v-content>
-    <abFooter></abFooter>
+  <v-app v-if="isInitCompleted" >
+    <v-layout>
+      <v-flex pr-0 pl-0>
+        <abHeader v-bind:class="{'cssheader' : isFixed}"></abHeader>
+        <v-content class="bg-white mt-6">
+          <alert></alert>
+          <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
+            <router-view></router-view>
+          </div>
+        </v-content>
+        <abFooter></abFooter>
+      </v-flex>
+      <v-flex class="right-box" pr-0 pl-0 v-if="!isMobile && isFixed">
+        <my-order-simple-mobile></my-order-simple-mobile>
+      </v-flex>
+    </v-layout>
   </v-app>
 </template>
 
@@ -17,6 +24,7 @@
     import AbHeader from "./Header.vue"
     import AbFooter from "./Footer.vue"
     import Alert from './../../components/Alerts.vue';
+    import MyOrderSimpleMobile from './../../views/home/body/myOrder/MyOrderSimpleMobile.vue';
 
 
     export default Vue.extend({
@@ -25,6 +33,7 @@
             AbHeader,
             AbFooter,
             Alert,
+            MyOrderSimpleMobile
         },
         data() {
             return {
@@ -33,6 +42,9 @@
         },
         computed: {
             isMobile() {
+                if(MainRepository.State.isMobile()){
+                    MainRepository.MyOrder.controller().setMyOrderModalFixed(false);
+                }
                 return MainRepository.State.isMobile();
             },
             isFullSize() {
@@ -44,6 +56,9 @@
             },
             isInitCompleted() {
               return MainRepository.State.isInitCompleted();
+            },
+            isFixed(){
+              return MainRepository.MyOrder.controller().getMyOrderModalFixed();
             },
         },
         beforeCreate: function() {
@@ -108,5 +123,12 @@
       padding: 0px;
       max-width: 100%;
     }
+  }
+  .right-box{
+    padding-top: 64px;
+    width: 300px
+  }
+  .cssheader{
+    position: relative !important;
   }
 </style>

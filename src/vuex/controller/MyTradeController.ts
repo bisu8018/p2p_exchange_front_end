@@ -71,6 +71,13 @@ export default class MyTradeController{
     getMyOrderItems() {
         return this.store.state.mytrade.myOrderItems;
     }
-    //drawer는 위의 메서드와 공유.
+
+    setMyOrderModalFixed(isFixed : boolean) {
+        this.store.dispatch(VuexTypes.SET_MY_ORDER_MODAL_FIXED, isFixed);
+    }
+
+    getMyOrderModalFixed() {
+        return this.store.state.mytrade.myOrderModalFixed;
+    }
 
 }
