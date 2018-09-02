@@ -198,7 +198,7 @@
                     role: 'ROLE_CUSTOMER',
                     termsAgreeYn: this.termsAgreeYn,
                 }, function (result) {
-                    location.href = "/abMain";
+                    location.href = "/";
                 })
             },
             // 모달 종료
@@ -207,7 +207,7 @@
             },
             // 로그인 페이지 이동
             goLogin() {
-                this.$router.push("/login");
+                MainRepository.router().goLogin()
             },
         }
     });

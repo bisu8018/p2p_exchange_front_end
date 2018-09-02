@@ -3,27 +3,33 @@
         <div class="dialog-unbind_wrapper">
 
             <!-- 헤더, 타이틀 -->
-            <h3>{{ $str('핸드폰 번호 Turn On') }}</h3>
-            <div class="dialog_btn-close">
-                <i class="material-icons " @click="onClose">close</i>
+            <div class="modal-subject-wrapper mb-3">
+                <h3 class=" text-xs-left color-black bold">
+                    {{ (modalType === 'phone' ? $str('Phone') : $str('email')) }} {{ $str('turnOn') }}
+                </h3>
+                <v-spacer></v-spacer>
+                <i class="material-icons color-black c-pointer" @click="onClose" >close</i>
             </div>
 
-           <!-- 핸드폰 번호 입력 -->
+           <!-- 핸드폰 번호 / 이메일 입력 -->
             <div class="mb-4">
                 <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("phoneNumber")}}
+                    {{ (modalType === 'phone' ? $str('phoneNumber') : $str('email')) }}
                 </div>
-                <div class="input-disabled  vertical-center disabled">{{ setPhoneNumber }}</div>
+                <div class="input-disabled  vertical-center disabled">
+                    {{ (modalType === 'phone' ? setPhoneNumber : setEmail) }}
+                </div>
             </div>
 
             <!-- 문자 인증 번호 입력 -->
-            <div class="mb-4">
+            <div>
                 <div class=" color-black  mb-2 text-xs-left">
-                    {{$str("SMSverification")}}
+                    {{ (modalType === 'phone' ? $str('SMSverification') : $str('emailVerification')) }}
                 </div>
                 <verification-code @verify="onCheckVerificationCode"
                                    :phone="phoneNumber"
-                                   :type="'phone'"
+                                   :email="email"
+                                   :type="modalType"
                 />
             </div>
 
@@ -46,7 +52,7 @@
     import AccountService from "../../service/account/AccountService";
 
     export default {
-        name: "dialog-turn-on-phone",
+        name: "dialog-turn-on",
         components: {
             VerificationCode
         },
@@ -56,12 +62,19 @@
                 default: () => false
             },
             phoneNumber: {},
+            email : {},
+            modalType : {},
         },
         computed: {
             setPhoneNumber: function () {
-                let phoneValue = this.phoneNumber.substr(0, 3) + '****' + this.phoneNumber.substr(7, 5);
+                let phoneValue = this.phoneNumber.substr(0, 5) + '****' + this.phoneNumber.substr(10, 4);
                 return phoneValue;
             },
+            setEmail: function () {
+                let emailSplited = this.email.split('@');
+                let emailValue = emailSplited[0].substr(0,3) + '****@' + emailSplited[1];
+                return emailValue
+            }
         },
         data() {
             return {
@@ -79,22 +92,20 @@
                 this.$emit('close', item);
             },
             onDone(item) {
-
                 //turn on 수행
                 let self = this;
 
-                AccountService.Account.checkVerificationCode(phone, {
+                MainRepository.Service.Account().Account.checkVerificationCode(self.modalType, {
                     email: MainRepository.MyInfo.getUserInfo().email,
                     phoneNumber: self.phoneNumber,
+                    email: self.email,
                     code: self.verificationCode,
                     status: 'turn_on'
                 }, function (result) {
                     self.verifyStatus = 'verified';
-                    self.$emit('turnon');
+                    self.$emit('done');
+                    self.onClose();
                 });
-
-                this.$emit('done', item);
-                this.onClose();
 
             }
         }
@@ -102,5 +113,7 @@
 </script>
 
 <style scoped>
-
+    .modal-subject-wrapper {
+        display: flex;
+    }
 </style>

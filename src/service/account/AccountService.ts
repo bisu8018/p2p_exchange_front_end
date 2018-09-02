@@ -43,7 +43,7 @@ export default {
                 function () {
                 })
         },
-        // 인증코드 검증
+        // 인증코드 검증 및 상태 업데이트
         checkVerificationCode: function (type: string, data: any, callback: any) {
             let url;
             if (type === 'signup') {          //회원가입
@@ -176,7 +176,7 @@ export default {
                 })
         },
         changeTradePassword: function (data: any, callback: any) {
-            AxiosService._requestWithPath('resetTradePasswordVerification', 'PUT', data,
+            AxiosService._requestWithPlainBody('member/tradePassword', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },

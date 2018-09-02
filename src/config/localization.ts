@@ -1739,12 +1739,6 @@ const strings = new Map([
         CN: '手机',
         HK: '手機'
     }],
-    ['Phone', {
-        KOR: '휴대폰',
-        ENG: 'Phone',
-        CN: '手机',
-        HK: '手機'
-    }],
     ['ID_Verification', {
         KOR: 'ID 인증',
         ENG: 'ID Verification',
@@ -1989,19 +1983,19 @@ const strings = new Map([
         HK: '安全設定'
     }],
     ['low', {
-        KOR: '저',
+        KOR: '낮음',
         ENG: 'Low',
         CN: '低',
         HK: '低'
     }],
     ['medium', {
-        KOR: '중',
+        KOR: '중간',
         ENG: 'Medium',
         CN: '中',
         HK: '中'
     }],
     ['high', {
-        KOR: '고',
+        KOR: '높음',
         ENG: 'High',
         CN: '高',
         HK: '高'
@@ -2091,15 +2085,15 @@ const strings = new Map([
         HK: '實名'
     }],
     ['alipayPlaceholder', {
-        KOR: '알리페이를 입력해 주십시오',
-        ENG: 'Input Alipay number',
-        CN: '请输入支付宝号码',
+        KOR: '알리페이 ID를 입력해 주십시오',
+        ENG: 'Input Alipay ID',
+        CN: '请输入支付宝ID',
         HK: '請輸入支付寶'
     }],
     ['wechatPlaceholder', {
-        KOR: '위챗페이를 입력해 주십시오',
-        ENG: 'Input Wechat number',
-        CN: '请输入微信支付号码',
+        KOR: '위챗페이 ID를 입력해 주십시오',
+        ENG: 'Input Wechat ID',
+        CN: '输入微信支付ID',
         HK: '請輸入微信支付'
     }],
     ['bankPlaceholder', {
