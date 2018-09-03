@@ -78,9 +78,9 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">{{ $str("priceType") }}</div>
                     <div class="p-relative mb-3">
-                        <select class="comp-selectbox h6" v-model="priceType">
+                        <select class="comp-selectbox h6" v-model="priceType" @change="onClear">
                             <option value="fixedprice">{{ $str("fixedPrice") }}</option>
-                            <!--<option value="floatprice">{{ $str("floatPrice") }}</option>-->
+                            <option value="floatprice">{{ $str("floatPrice") }}</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -95,19 +95,20 @@
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
-                         v-bind:class="{'warning-border' : warning_fixed_price}">
+                         v-bind:class="{'warning-border' : warning_fixed_price, 'warning-border' : warning_float_price}">
                         <input type="text" class="price-input" placeholder="0" v-model="fixedPrice"
-                               @keyup="onNumberCheck('price')"
+                               @keyup="onNumberCheck('fixedPrice')" v-if="priceType === 'fixedprice'"
+                        >
+                        <input type="text" class="price-input" placeholder="0" v-model="margin"
+                               @keyup="onNumberCheck('floatPrice')" v-else
                         >
                         <div class="border-indicator h6">
                             {{ priceType === 'fixedprice' ? getCurrency : '%' }}
                         </div>
-                        <!--<div class="currency-indicator h6"
-                             v-bind:class="{'warning-indicator' : warning_fixed_price}">
-                            {{ getCurrency }}
-                        </div>-->
                         <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_fixed_price}">{{ verify_warning_fixed_price }}</span>
+                            <span v-if="priceType === 'fixedPrice'" class="d-none"
+                                  v-bind:class="{'warning-text' : warning_fixed_price}">{{ verify_warning_fixed_price }}</span>
+                            <span v-else class="d-none" v-bind:class="{'warning-text' : warning_float_price}">{{ verify_warning_float_price }}</span>
                         </div>
                     </div>
                 </div>
@@ -119,7 +120,7 @@
                     <div class="text-xs-left h5 color-darkgray ">{{ $str("priceText") }}</div>
                     <div class="price-clac-wrapper text-xs-left">
                         <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{ priceType === 'fixedprice' ?
-                            toMoneyFormat || 0 : getMarketPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
+                            toMoneyFormat || 0 : getFloatPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
                         </div>
                     </div>
                 </div>
@@ -162,9 +163,6 @@
                         <div class="border-indicator h6">
                             {{ getCryptoCurrency }}
                         </div>
-                        <!--<div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_volume}">
-                            {{ getCryptoCurrency }}
-                        </div>-->
                         <div class="warning-text-wrapper">
                     <span class="d-none"
                           v-bind:class="{'warning-text' : warning_volume}">{{ verify_warning_volume }}</span>
@@ -188,9 +186,6 @@
                         <div class="border-indicator h6">
                             {{ getCurrency }}
                         </div>
-                        <!--    <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_min_limit}">
-                                {{ getCurrency }}
-                            </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_min_limit}">{{ verify_warning_min_limit }}</span>
                         </div>
@@ -214,9 +209,6 @@
                         <div class="border-indicator h6">
                             {{ getCurrency }}
                         </div>
-                        <!--  <div class="currency-indicator h6" v-bind:class="{'warning-indicator' : warning_max_limit}">
-                              {{ getCurrency }}
-                          </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_max_limit}">{{ verify_warning_max_limit }}</span>
                         </div>
@@ -240,10 +232,6 @@
                         <div class="border-indicator h6">
                             {{ $str("minuteText") }}
                         </div>
-                        <!--  <div class="currency-indicator h6"
-                               v-bind:class="{'warning-indicator' : warning_payment_window}">
-                              {{ $str("minuteText") }}
-                          </div>-->
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_payment_window}">{{ verify_warning_payment_window }}</span>
                         </div>
@@ -265,108 +253,70 @@
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('paymentMethod') }}
             </v-flex>
-
-            <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
-
-
-            <div class="payment-wrapper">
-
+            <div>
+                <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
                 <!--알리페이 결제-->
-                <ul v-if="getAlipay.activeYn === 'y'">
-                    <li>
-                         <span @click="onToggle('alipay')">
-                            <toggle :toggle="alipay_toggle_use" class="c-pointer"></toggle>
-                        </span>
-                    </li>
-                    <li>
-                        <div class="sprite-img ic-alipay d-inline-block mr-2"></div><span class="color-darkgray">{{ $str("alipayText") }} : </span>{{ getAlipay.alipayId }}
-                    </li>
-                </ul>
+                <v-flex xs12  text-xs-left mb-4 display-flex v-if="getAlipay.activeYn === 'y' ">
+                    <toggle :toggle="alipay_toggle_use" class="c-pointer mr-4" @click="onToggle('alipay')"></toggle>
+                    <v-layout wrap row>
+                        <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
+
+                            <div class="sprite-img ic-alipay d-inline-block"></div>
+                            <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("alipayText") }} : </span>
+                        </v-flex>
+                        <v-flex xs12 md8 pa-0>
+                            <div class="d-inline-block">{{ getAlipay.alipayId }}</div>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
 
                 <!--위챗페이 결제-->
-                <ul v-if="getWechat.activeYn === 'y'">
-                    <li>
-                        <span @click="onToggle('wechatPay')">
-                            <toggle :toggle="wechat_toggle_use" class="c-pointer"></toggle>
-                        </span>
-                    </li>
-                    <li>
-                        <div class="sprite-img ic-wechatpay d-inline-block mr-2"></div><span class="color-darkgray">{{ $str("wechatPayText") }} :</span> {{ getWechat.wechatId }}
-                    </li>
-                </ul>
+                <v-flex xs12  text-xs-left mb-4 display-flex v-if="getWechat.activeYn === 'y' ">
+                    <toggle :toggle="wechat_toggle_use" class="c-pointer mr-4" @click="onToggle('wechat')"></toggle>
+                    <v-layout wrap row>
+                        <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
+
+                            <div class="sprite-img ic-wechatpay d-inline-block"></div>
+                            <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("wechatPayText") }} : </span>
+                        </v-flex>
+                        <v-flex xs12 md8 pa-0>
+                            <div class="d-inline-block">{{ getWechat.wechatId }}</div>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
 
                 <!--은행 계좌 결제-->
-                <ul v-if="getBank.activeYn === 'y'">
-                    <li>
-                        <span @click="onToggle('bankAccount')">
-                            <toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>
-                        </span>
-                    </li>
-                    <li>
-                        <div class="sprite-img ic-bank d-inline-block mr-2"></div>
-                        <span class="color-darkgray">{{ $str("bankAccountText") }} : </span> {{ getBank.bankName }} {{ getBank.bankBranchInfo }} {{ getBank.bankAccount }}
-                    </li>
-                </ul>
-            </div>
+                <v-flex xs12  text-xs-left mb-4 display-flex v-if="getBank.activeYn === 'y' ">
+                    <toggle :toggle="bank_toggle_use" class="c-pointer mr-4" @click="onToggle('bankAccount')"></toggle>
+                    <v-layout wrap row>
+                        <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
 
+                            <div class="sprite-img ic-bank d-inline-block"></div>
+                            <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>
+                        </v-flex>
+                        <v-flex xs12 md8 pa-0>
+                            <div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}
+                                {{ getBank.bankAccount }}</div>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
 
-            <!--<v-flex xs12 md8 offset-md4>-->
-                <!--<div class="text-xs-left display-flex mb-4" >-->
-                    <!--<v-flex xs1 pl-0 pr-0>-->
-
-                    <!--</v-flex>-->
-                    <!--<v-flex xs11>-->
-                        <!--<v-flex xs5 pl-0 pr-0 class="vertical-center">-->
-                            <!--<div class="sprite-img ic-wechatpay d-inline-block"></div>-->
-                            <!--<span-->
-                                    <!--class="ml-2 mr-1 color-darkgray absolute"> </span>-->
-                        <!--</v-flex>-->
-                        <!--<v-flex xs6 pl-0 pr-0 class="vertical-center ">-->
-                            <!--<div class="d-inline-block"></div>-->
-                        <!--</v-flex>-->
-                    <!--</v-flex>-->
-
-                <!--</div>-->
-            <!--</v-flex>-->
-
-
-            <!--<v-flex xs12 md8 offset-md4>-->
-                <!--<div class="text-xs-left display-flex mb-4 " v-if=">-->
-                    <!--<v-flex xs1 pl-0 pr-0>-->
-                        <!--<span @click="onToggle('bankAccount')">-->
-                            <!--<toggle :toggle="bank_toggle_use" class="c-pointer"></toggle>-->
-                        <!--</span>-->
-                    <!--</v-flex>-->
-                    <!--<v-flex xs11>-->
-                        <!--<v-flex xs5 pl-0 pr-0 class="vertical-center">-->
-                            <!--<div class="sprite-img ic-bank d-inline-block"></div>-->
-                            <!--<span-->
-                                    <!--class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>-->
-                        <!--</v-flex>-->
-                        <!--<v-flex xs6 pl-0 pr-0 class="vertical-center ">-->
-                            <!--<div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}-->
-                                <!--{{ getBank.bankAccount }}-->
-                            <!--</div>-->
-                        <!--</v-flex>-->
-                    <!--</v-flex>-->
-                <!--</div>-->
-            <!--</v-flex>-->
-
-            <!--결제수단 새로고침-->
-            <v-flex xs12 md8 offset-md4 text-xs-left mb-4>
+                <!--결제수단 새로고침-->
+                <v-flex xs12 text-xs-left mb-4>
                 <span @click="onRefresh" class="p-relative refresh-btn btn-blue-hover h5 btn-rounded-blue c-pointer">
                     <i class="material-icons refresh-icon">sync</i>
                     <span class="refresh-btn-span">{{ $str('refreshBtnText') }}</span>
                 </span>
-            </v-flex>
+                </v-flex>
 
-
-            <v-flex xs12 md8 offset-md4>
-                <div class="payment-explain text-xs-left line-height-1a">
-                    <span class="color-darkgray ">{{ $str("paymentExplain") }}</span>
-                    <a class="text-white-hover color-blue" @click="goMyPage()">{{ $str("clickHereText") }}</a>
-                </div>
-            </v-flex>
+                <!--결제수단 설명-->
+                <v-flex xs12>
+                    <div class="payment-explain text-xs-left line-height-1a">
+                        <span class="color-darkgray ">{{ $str("paymentExplain") }}</span>
+                        <a class="text-white-hover color-blue" @click="goMyPage()">{{ $str("clickHereText") }}</a>
+                    </div>
+                </v-flex>
+            </div>
 
             <v-flex xs12>
                 <v-divider class="mt-4"></v-divider>
@@ -563,6 +513,7 @@
             cryptocurrency: "bitcoin",
             priceType: "fixedprice",
             fixedPrice: "",
+            margin: "",
             volume: "",
             minLimit: "",
             maxLimit: "",
@@ -578,10 +529,12 @@
             counterpartyCheckbox_third: false,
             tradePassword: "",
             agreeTerms: false,
+            tmpMarketPrice: "",
 
 
             isVerified: false,
             warning_fixed_price: false,
+            warning_float_price: false,
             warning_volume: false,
             warning_min_limit: false,
             warning_max_limit: false,
@@ -589,6 +542,7 @@
             warning_counterparty: false,
             warning_trade_password: false,
             verify_warning_fixed_price: "",
+            verify_warning_float_price: "",
             verify_warning_volume: "",
             verify_warning_min_limit: "",
             verify_warning_max_limit: "",
@@ -624,7 +578,7 @@
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
-                return;
+                return false;
             }
 
             //환율 및 유져 정보 get 필요
@@ -639,7 +593,7 @@
             },
             initCompleted() {
                 if (MainRepository.State.isInitCompleted()) {
-                    if(this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n'  && this.getBank.activeYn === 'n' ){
+                    if (this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n' && this.getBank.activeYn === 'n' && MainRepository.MyInfo.isLogin()) {
                         Vue.prototype.$eventBus.$emit('showAlert', 4004);
                         MainRepository.router().goMyPage();
                     }
@@ -651,11 +605,12 @@
             },
             getMarketPrice() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                for (var i = 0; i < Object.keys(this.marketPrice).length; i++) {
+                for (let i = 0; i < Object.keys(this.marketPrice).length; i++) {
                     if (this.marketPrice[i].cryptocurrency === this.cryptocurrency && this.marketPrice[i].currency === tmp_currency) {
                         //console.log(this.marketPrice[i]);
                         let tmp_price = this.marketPrice[i].price;
                         tmp_price = Math.floor(tmp_price * 100) / 100;
+                        this.tmpMarketPrice = tmp_price;
                         return abUtils.toMoneyFormat(String(tmp_price));
                         break;
                     }
@@ -663,7 +618,7 @@
             },
             getMinLimit() {
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                for (var i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
+                for (let i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
                     if (this.officialMinLimit[i].currency === tmp_currency) {
                         let tmp_minLimit = this.officialMinLimit[i].minLimit;
                         if (this.message != 'general') {
@@ -696,18 +651,23 @@
                 }
             },
             getBalance() {
-                if(Object.keys(MainRepository.Balance.getBalances()).length > 0){
-                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin' ) {
+                if (Object.keys(MainRepository.Balance.getBalances()).length > 0) {
+                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin') {
                         this.balance = MainRepository.Balance.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
                         return this.balance
                     } else {
                         this.balance = 0;
                         return 0;
                     }
-                }else {
+                } else {
                     this.balance = 0;
                     return 0;
                 }
+            },
+            getFloatPrice() {
+                let currency = MainRepository.SelectBox.controller().getCurrency();
+                let floatPrice = this.tmpMarketPrice + (this.tmpMarketPrice * this.margin / 100);
+                return Vue.prototype.$fixed(floatPrice, currency);
             }
         },
         methods: {
@@ -715,61 +675,95 @@
                 this.showModal = false;
             },
             onNumberCheck(type) {
-                if (type === 'price') {
-                    this.onCheckFixedPrice();
-                    let temp = this.fixedPrice;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
-                        return this.fixedPrice = "";
-                    }
-                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
-                        return this.fixedPrice = abUtils.toDeleteZero(temp);
-                    }
-                } else if (type === 'volume') {
-                    this.onCheckVolume();
-                    let temp = this.volume;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
-                        return this.volume = "";
-                    }
-                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
-                        return this.volume = abUtils.toDeleteZero(temp);
-                    }
-                } else if (type === "minLimit") {
-                    this.onCheckMinLimit();
-                    let temp = this.minLimit;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
-                        return this.minLimit = "";
-                    }
-                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
-                        return this.minLimit = abUtils.toDeleteZero(temp);
-                    }
-                } else if (type === "maxLimit") {
-                    this.onCheckMaxLimit();
-                    let temp = this.maxLimit;
-                    if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
-                        return this.maxLimit = "";
-                    }
-                    if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
-                        return this.maxLimit = abUtils.toDeleteZero(temp);
-                    }
-                } else if (type === "paymentWindow") {
-                    this.onCheckPaymentWindow();
-                    let temp = this.paymentWindow;
-                    if (!abUtils.isInteger(temp) || temp[0] === '-') {
-                        return this.paymentWindow = "";
-                    }
-                    return this.paymentWindow = abUtils.toDeleteZero(temp);
-                } else if (type === "counterParty") {
-                    this.onCheckCounterparty();
-                    let temp = this.counterpartyFilterTradeCount;
-                    if (!abUtils.isInteger(temp) || temp[0] === '-') {
-                        return this.counterpartyFilterTradeCount = "";
-                    }
-                    return this.counterpartyFilterTradeCount = abUtils.toDeleteZero(temp);
+                //값 숫자 형식 체크
+                let temp;
+                switch (type) {
+                    // 고정가격
+                    case 'fixedPrice' :
+                        temp = this.fixedPrice;
+                        this.onCheckFixedPrice();
+                        if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
+                            return this.fixedPrice = "";
+                        }
+                        if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                            return this.fixedPrice = abUtils.toDeleteZero(temp);
+                        }
+                        break;
+
+                    // 유동가격
+                    case 'floatPrice' :
+                        temp = this.margin;
+                        this.onCheckMargin();
+                        if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
+                            return this.margin = "";
+                        }
+                        if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                            return this.margin = abUtils.toDeleteZero(temp);
+                        }
+                        break;
+
+                    // 총 코인 수량
+                    case 'volume' :
+                        console.log(1)
+                        temp = this.volume;
+                        this.onCheckVolume();
+                        if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
+                            return this.volume = "";
+                        }
+                        if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                            return this.volume = abUtils.toDeleteZero(temp);
+                        }
+                        break;
+
+                    // 최소가격
+                    case 'minLimit' :
+                        temp = this.minLimit;
+                        this.onCheckMinLimit();
+                        if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
+                            return this.minLimit = "";
+                        }
+                        if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                            return this.minLimit = abUtils.toDeleteZero(temp);
+                        }
+                        break;
+
+                    // 최대갸격
+                    case 'maxLimit' :
+                        temp = this.maxLimit;
+                        this.onCheckMaxLimit();
+                        if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
+                            return this.maxLimit = "";
+                        }
+                        if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
+                            return this.maxLimit = abUtils.toDeleteZero(temp);
+                        }
+                        break;
+
+                    // 지불시간
+                    case 'paymentWindow' :
+                        temp = this.paymentWindow;
+                        this.onCheckPaymentWindow();
+                        if (!abUtils.isInteger(temp) || temp[0] === '-') {
+                            return this.paymentWindow = "";
+                        }
+                        return this.paymentWindow = abUtils.toDeleteZero(temp);
+                        break;
+
+                    // 거래상대 조건
+                    case 'counterParty"' :
+                        temp = this.counterParty;
+                        this.onCheckCounterparty();
+                        if (!abUtils.isInteger(temp) || temp[0] === '-') {
+                            return this.counterpartyFilterTradeCount = "";
+                        }
+                        return this.counterpartyFilterTradeCount = abUtils.toDeleteZero(temp);
+                        break;
                 }
             },
-            onCheck: function () {      //최종 체크
+            //최종 값 체크
+            onCheck: function () {
                 if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() &&
-                    this.onCheckFixedPrice() && this.onCheckCounterparty() && this.onCheckToggle() && this.onCheckSlideBar &&
+                    this.onCheckFixedPrice() && this.onCheckMargin() && this.onCheckCounterparty() && this.onCheckToggle() && this.onCheckSlideBar &&
                     this.onCheckTradePassword() && this.onCheckAgreeTerm()) {
 
                     this.onModal();
@@ -777,6 +771,14 @@
             },
             onModal: function () {
                 this.showModal = true;
+                s
+            },
+            //가격타입 변경 시, 값 초기화
+            onClear: function () {
+                this.fixedPrice = '';
+                this.margin = '';
+                this.warning_fixed_price = false;
+                this.warning_float_price = false;
             },
             onDetermine: function () {
                 this.showModal = false;
@@ -790,7 +792,7 @@
                 let bankToggle = this.bank_toggle_use ? 'bankaccount' : '';
                 let _adType = this.message === 'general' ? 'piece' : 'block';
 
-                var paymentMethodsArr = [
+                let paymentMethodsArr = [
                     alipayToggle,
                     wechatToggle,
                     bankToggle
@@ -804,6 +806,7 @@
                     cryptocurrency: self.cryptocurrency,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     fixedPrice: Number(self.fixedPrice),
+                    margin: Number(self.margin),
                     maxLimit: Number(self.maxLimit),
                     minLimit: Number(self.minLimit),
                     memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
@@ -831,7 +834,8 @@
             },
             onRefresh: function () {
                 //결제수단 새로고침 function
-                MainRepository.MyInfo.loadMyPaymentMethods((result) => {})
+                MainRepository.MyInfo.loadMyPaymentMethods((result) => {
+                })
             },
             onToggle: function (type) {
                 // 결제수단 별 토글버튼 on/off 로직
@@ -868,6 +872,17 @@
                     return false;
                 }
                 this.warning_fixed_price = false;
+                return true;
+            },
+            onCheckMargin() {
+                // 유동가격 체크
+                let margin = Number(this.margin);
+                if (margin === 0 || margin === undefined) {
+                    this.warning_float_price = true;
+                    this.verify_warning_float_price = Vue.prototype.$str("warningFloatPricePlaceholder");
+                    return false;
+                }
+                this.warning_float_price = false;
                 return true;
             },
             onCheckVolume() {
@@ -1011,10 +1026,6 @@
         resize: none;
     }
 
-    .flex-divide {
-        border-bottom: solid 1px #d1d1d1;
-    }
-
     .price-input-wrapper {
         border: solid 1px #8d8d8d;
         border-radius: 2px;
@@ -1035,16 +1046,6 @@
 
     .display-flex {
         display: flex;
-    }
-
-    .currency-indicator {
-        width: 60px;
-        height: 40px;
-        padding-top: 10px;
-        color: #ffffff;
-        background-color: #8d8d8d;
-        padding-left: 19px;
-        padding-right: 19px;
     }
 
     .border-indicator {
@@ -1075,14 +1076,6 @@
         max-width: 290px;
     }
 
-    /*warning indicator css */
-    .warning-indicator {
-        background: white;
-        color: black;
-        font-weight: bold;
-        border-left: 1px solid #e62a2b;
-    }
-
     /*textarea css*/
     textarea::-webkit-input-placeholder {
         color: #9294a6;
@@ -1099,20 +1092,5 @@
     textarea:-ms-input-placeholder {
         color: #9294a6;
     }
-
-    .payment-wrapper {
-        margin-bottom: 28px;
-    }
-
-    .payment-wrapper ul {
-        margin-bottom: 12px;
-        text-align: left;
-    }
-
-    .payment-wrapper li {
-        display: inline-block;
-        margin-right: 36px;
-    }
-
 </style>
 
