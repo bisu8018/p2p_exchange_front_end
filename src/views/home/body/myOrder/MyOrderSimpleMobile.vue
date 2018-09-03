@@ -1,9 +1,7 @@
 <template>
     <div class="MyOrderSimpleMobile_wrapper">
-        <div  v-bind:class="{'FixedBox' : isFixed}">
-            <h3 >{{$str("Ongoing order")}}</h3>
-            <i class="material-icons cancel-btn" v-if="isFixed" @click="onClose">close</i>
-        </div>
+
+        <h3 class="medium">{{$str("Ongoing order")}}</h3>
 
         <v-divider />
 
@@ -32,10 +30,7 @@
         computed: {
             orderList() {
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
-            },
-            isFixed(){
-                return MainRepository.MyOrder.controller().getMyOrderModalFixed();
-            },
+            }
         },
         methods: {
             goMyOrder() {
@@ -57,21 +52,5 @@
         line-height: 1.0;
         letter-spacing: 0;
         margin: 48px 0 32px;
-    }
-    .cancel-btn{
-        float: right;
-        margin-right: 20px;
-        color: white;
-    }
-    .FixedBox{
-        background-color: #002970;
-        height: 100%;
-        color: white;
-    }
-    .FixedBox h3{
-        margin: 0px;
-        font-size: 14px;
-        font-weight: 400;
-        padding: 22px 0px 22px 24px;
     }
 </style>

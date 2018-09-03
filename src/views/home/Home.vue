@@ -1,8 +1,8 @@
 <template>
   <v-app v-if="isInitCompleted" >
-    <v-layout>
-      <v-flex pr-0 pl-0>
-        <abHeader v-bind:class="{'cssheader' : isFixed}"></abHeader>
+    <div>
+      <div class="cssUnFixed" v-bind:class="{cssFixed : isFixed}">
+        <abHeader></abHeader>
         <v-content class="bg-white mt-6">
           <alert></alert>
           <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
@@ -10,11 +10,11 @@
           </div>
         </v-content>
         <abFooter></abFooter>
-      </v-flex>
-      <v-flex class="right-box" pr-0 pl-0 v-if="!isMobile && isFixed">
-        <my-order-simple-mobile></my-order-simple-mobile>
-      </v-flex>
-    </v-layout>
+      </div>
+      <div class="cs-flex right-box" v-if="!isMobile && isFixed">
+        <my-order-fixed></my-order-fixed>
+      </div>
+    </div>
   </v-app>
 </template>
 
@@ -24,7 +24,7 @@
     import AbHeader from "./Header.vue"
     import AbFooter from "./Footer.vue"
     import Alert from './../../components/Alerts.vue';
-    import MyOrderSimpleMobile from './../../views/home/body/myOrder/MyOrderSimpleMobile.vue';
+    import MyOrderFixed from './../../views/home/body/MyOrderFixed.vue';
 
 
     export default Vue.extend({
@@ -33,7 +33,7 @@
             AbHeader,
             AbFooter,
             Alert,
-            MyOrderSimpleMobile
+            MyOrderFixed
         },
         data() {
             return {
@@ -125,10 +125,24 @@
     }
   }
   .right-box{
-    padding-top: 64px;
-    width: 300px
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+
   }
-  .cssheader{
-    position: relative !important;
+  .cs-flex{
+    display: flex;
+  }
+  .cssFixed {
+    width: calc(100% - 300px);
+  }
+
+  cssUnFixed{
+    -webkit-box-flex: 1;
+    display: flex;
+    max-width: 100%;
+
   }
 </style>

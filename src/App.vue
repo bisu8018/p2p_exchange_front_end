@@ -397,6 +397,7 @@
 
     .application .nav {
         z-index: 112 !important;
+        width: 100%;
     }
 
     /*폰트 색깔*/

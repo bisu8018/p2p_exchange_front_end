@@ -125,7 +125,7 @@
 
     <!-- 웹일때 -->
     <div class="nav-web" v-else>
-        <v-layout align-center row class="nav">
+        <v-layout align-center row class="nav" v-bind:class="{cssFixed : isFixed}">
 
             <!-- logo버튼-->
             <button @click="goMain()" class="ml-4">
@@ -167,14 +167,13 @@
                 </button>
 
                 <!-- ongoing order 드롭다운 -->
-                <div class="dropdown-content myorder-dropdown">
+                <div v-if="!isFixed" class="dropdown-content myorder-dropdown">
                     <div class="scroll-space">
                         <v-layout pa-3 align-center>
                             <h3 class="medium">{{$str("Ongoing order")}}</h3>
                             <v-spacer></v-spacer>
                             <v-layout justify-end c-pointer @click="fixModal()">
-                                <div class="color-blue mr-2" v-if="getModalFixed" >{{$str("Unfixed")}}</div>
-                                <div class="color-blue mr-2" v-else >{{$str("Fixed")}}</div>
+                                <div class="color-blue mr-2">{{$str("Fixed")}}</div>
                                 <div class="sprite-img ic-fix color-blue"></div>
                             </v-layout>
                         </v-layout>
@@ -326,9 +325,9 @@
                 this.totalMsgCount = MainRepository.MyOrder.controller().getUnreadMsgCount();
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
             },
-            getModalFixed(){
-                return MainRepository.MyOrder.controller().getMyOrderModalFixed()
-            }
+            isFixed(){
+                return MainRepository.MyOrder.controller().getMyOrderModalFixed();
+            },
         },
         created() {
             this.currentLang = abGetLang();
@@ -572,7 +571,7 @@
         border-bottom: 4px solid  #ffffff;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
-        border-color: transparent transparent  #ffffff transparent ;
+        border-color: transparent transparent  #ffffff transparent;
     }
 
     .scroll-space {
@@ -596,36 +595,9 @@
         top: 1px;
         left: -8px;
     }
-
-    /* .dropDownBtn:hover .dropDown-content, dropDownBtn:focus {
-        display: block;
-      }
-
-      .dropDown-content {
-        display: none;
-        position: absolute;
-        background-color: #ffffff;
-        padding-top: 64px;
-        z-index: 0;
-        box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.23);
-        border-radius: 2px;
-        font-weight: 400;
-
-      }
-
-      .dropDown-content div {
-        color: black;
-        text-decoration: none;
-        display: block;
-      }
-
-
-      .dropDown-Lang {
-        min-width: 104px;
-      }
-
-      .dropDown-MyPage {
-        min-width: 104px;
-        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.34);
-      } */
+    .cssFixed{
+        width: auto !important;
+        right: 300px;
+        left: 0px;
+    }
 </style>
