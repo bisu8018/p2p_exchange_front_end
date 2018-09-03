@@ -615,6 +615,12 @@ const strings = new Map([
         CN: '请输入适合数量',
         HK: '請輸入適合數量'
     }],
+    ['warningFloatPricePlaceholder', {
+        KOR: '올바른 수를 입력해 주십시오',
+        ENG: 'Enter a vaild number',
+        CN: '请输入适合数量',
+        HK: '請輸入適合數量'
+    }],
     ['warningVolume', {
         KOR: '거래 수량을 입력해 주십시오',
         ENG: 'Please Enter Trade volume',

@@ -108,7 +108,12 @@
         methods: {
             // 이름 유효성 체크
             onCheckName(){
-
+                if (this.realName === '') {
+                    this.warning_name = true;
+                    return false;
+                }
+                this.warning_name = false;
+                return true;
             },
 
             // ID 유효성 체크

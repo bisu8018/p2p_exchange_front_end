@@ -218,7 +218,8 @@
         background: #214EA1;
         border-radius: 6px;
         color: white;
-        font-size: 32px;
+        font-size: 28px;
+        margin-bottom: 14px;
     }
 
 </style>
