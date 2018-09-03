@@ -178,12 +178,21 @@
                             </v-layout>
                         </v-layout>
                         <v-divider></v-divider>
-
-                        <!-- ongoing items -->
-                        <div v-for="item in orderList">
-                            <my-order-simple-item
-                                    :data="item"
-                            />
+                        <div v-if="haveItem">
+                            <!-- ongoing items -->
+                            <div v-for="item in orderList">
+                                <my-order-simple-item
+                                        :data="item"
+                                />
+                                <v-divider />
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="sprite-img ic-no-ad-lg no-more-ads">
+                            </div>
+                            <div class="color-gray no-more-ads-text">
+                                {{$str("No more orders")}}
+                            </div>
                             <v-divider />
                         </div>
                     </div>
@@ -312,7 +321,7 @@
                 },
             ],
             currentLang: 'KO',
-            totalMsgCount: 5,
+            //totalMsgCount: 0,
         }),
         computed: {
             isMobile() {
@@ -321,13 +330,18 @@
             isLogin() {
                 return MainRepository.MyInfo.isLogin();
             },
+            totalMsgCount(){
+                return MainRepository.MyOrder.controller().getUnreadMsgCount();
+            },
             orderList() {
-                this.totalMsgCount = MainRepository.MyOrder.controller().getUnreadMsgCount();
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
             },
             isFixed(){
                 return MainRepository.MyOrder.controller().getMyOrderModalFixed();
             },
+            haveItem(){
+                return MainRepository.MyOrder.controller().getMyOrderAlarmItems().length !== 0;
+            }
         },
         created() {
             this.currentLang = abGetLang();
@@ -596,5 +610,13 @@
         width: auto !important;
         right: 300px;
         left: 0px;
+    }
+
+    .no-more-ads{
+        margin: 50px auto 0px auto;
+    }
+    .no-more-ads-text{
+        margin-bottom: 50px;
+        text-align: center;
     }
 </style>
