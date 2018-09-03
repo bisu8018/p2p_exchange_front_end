@@ -212,7 +212,7 @@
                         </avatar>
                         <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
                     </div>
-                    <div class="dropdown-content avatar-dropdown">
+                    <div class="dropdown-content ">
                         <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
                             {{$str("MyPage")}}
                         </div>
@@ -548,9 +548,6 @@
         display: block;
     }
 
-    .avatar-dropdown {
-        right: 135px;
-    }
     .myorder-dropdown{
         min-width: 306px;
         z-index: 2;
