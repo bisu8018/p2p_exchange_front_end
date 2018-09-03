@@ -512,7 +512,7 @@
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
 
-        <div v-if="myPaments || myInfo"></div>
+        <div v-if="myPaments || myInfo "></div>
     </div>
 </template>
 
@@ -577,7 +577,13 @@
                     this.isValid = true;
                 }
                 return MainRepository.MyInfo.getMyPaymentMethods();
-            }
+            },
+            getBalance(){
+                 let MyBalance = MainRepository.Balance.controller().findByCrptoCurrency(
+                    MainRepository.TradeView.getSelectFilter().cryptocurrency
+                );
+                return MyBalance.availableAmount
+            },
         },
         created() {
             //  trade를 막는 filter. 차후 백단 연결시 수정필요.
@@ -620,6 +626,11 @@
                     let tempTovalue = this.fromValue * this.user.fixedPrice;
                     if (tempTovalue > this.user.maxLimit) {
                         this.verify_warning_fromValue = Vue.prototype.$str("Enter less than maximum limit");
+                        this.warning_fromValue = true;
+                        return false;
+                    }
+                    if (this.fromValue > this.getBalance) {
+                        this.verify_warning_toValue = Vue.prototype.$str("Enter less than available");
                         this.warning_fromValue = true;
                         return false;
                     }
@@ -666,12 +677,18 @@
             fillAll() {
                 this.clickToAll = false;
                 this.clickFromAll = false;
-                //차후 내 잔고 불러와 마진고려해 수정해야함
-                if (this.user.volumeAvailable * this.user.fixedPrice > this.user.maxLimit) {
-                    this.toValue = this.user.maxLimit
-                }
-                else {
+                //차후 마진고려해 수정해야함
+                this.toValue = this.user.maxLimit
+                if (this.user.volumeAvailable * this.user.fixedPrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.fixedPrice;
+                }
+                if(this.toValue > this.user.fixedPrice * this.getBalance){
+                    this.toValue = this.user.fixedPrice * this.getBalance;
+                }
+                if(this.toValue < this.user.minLimit){
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    return false;
                 }
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
@@ -725,6 +742,11 @@
                     return false;
                 }
                 if (this.fromValue > this.user.volumeAvailable) {
+                    this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
+                    this.warning_fromValue = true;
+                    return false;
+                }
+                if (this.fromValue > this.getBalance) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
                     return false;
