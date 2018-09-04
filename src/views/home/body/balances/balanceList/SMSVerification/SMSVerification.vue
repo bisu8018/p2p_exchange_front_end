@@ -2,44 +2,40 @@
   <v-layout pt-5 pb-5>
     <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
       <div>
-        <div class="mb-3 login-title align-center">
+        <div class="mb-4 login-title align-center">
           <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
           <div class="h2 bold"> {{$str("Verification")}}</div>
         </div>
-        <div class="color-darkgray mb-4 text-xs-left">
-          {{$str("emailTurnOffExplain")}}
+        <div v-if="verifyWithPhone">
+          <!--전화 번호-->
+          <div class=" color-black  mb-2 text-xs-left">
+            {{$str("phoneNumber")}}
+          </div>
+          <div class="input-disabled  vertical-center disabled mb-4">{{setPhoneNumber}}</div>
+          <!--문자인증-->
+          <div class=" color-black  mb-2 text-xs-left">
+            {{$str("SMSverification")}}
+          </div>
+          <verification-code v-on:verify="onCheckVerificationCode('depositSMS')" :phone="phone"
+                             :type="'depositSMS'"></verification-code>
         </div>
-
-        <!--전화 번호-->
-        <div class=" color-black  mb-2 text-xs-left">
-          {{$str("phoneNumber")}}
+        <div v-else>
+          <!--이메일 -->
+          <div class=" color-black  mb-2 text-xs-left">
+            {{$str("email")}}
+          </div>
+          <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
+          <!--이메일인증-->
+          <div class=" color-black  mb-2 text-xs-left">
+            {{$str("emailVerification")}}
+          </div>
+          <verification-code v-on:verify="onCheckVerificationCode('depositEmail')" :email="email"
+                               :type="'depositEmail'"></verification-code>
         </div>
-        <div class="input-disabled  vertical-center disabled mb-4">{{setPhoneNumber}}</div>
-
-        <!--문자인증-->
-        <div class=" color-black  mb-2 text-xs-left">
-          {{$str("SMSverification")}}
-        </div>
-        <verification-code v-on:verify="onCheckVerificationCode('phone')" :phone="phone"
-                           :type="'phone'"></verification-code>
-
-        <!--이메일 -->
-        <div class=" color-black  mb-2 text-xs-left">
-          {{$str("email")}}
-        </div>
-        <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
-
-
-        <!--이메일인증-->
-        <div class=" color-black  mb-2 text-xs-left">
-          {{$str("emailVerification")}}
-        </div>
-        <verification-code v-on:verify="onCheckVerificationCode('deposit')" :email="email"
-                             :type="'deposit'"></verification-code>
         <div class="text-xs-right">
           <button class="btn-white  button-style" @click="goBalances">{{$str('cancel')}}</button>
           <button class="button-style ml-4a"
-                  :class="{'btn-blue btn-blue-hover ': verifiedAll, 'inactive' : !verifiedAll}"
+                  :class="{'btn-blue btn-blue-hover ': verified, 'inactive' : !verified}"
                   @click="onChange">{{$str('confirm')}}
           </button>
         </div>
@@ -61,25 +57,35 @@
           data: function () {
               return {
                   type: '',
-                  email: MainRepository.MyInfo.getUserInfo().email,
-                  phone: MainRepository.MyInfo.getUserInfo().phoneNumber,
+                  email: '',
+                  phone: '',
                   emailVerify: false,
-                  phoneVerify: true,      //차후 phone 가능시 false로 수정.
-
+                  phoneVerify: false,      //차후 phone 가능시 false로 수정.
+                  verifyWithPhone: false,
               }
           },
           created() {
+              let self = this;
               // 로그인 확인 -> Login 으로
               if (!MainRepository.MyInfo.isLogin()) {
                   MainRepository.router().goLogin();
                   return;
               }
 
+              MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                  self.email = email.email;
+                  self.phone = phone.phoneNumber;
+                  //핸드폰등록이 되어있는경우 핸드폰 인증으로 진행
+                  if(self.phone !==''){
+                      self.verifyWithPhone = true;
+                  }
+              });
+
               window.scrollTo(0, 0);
           },
           computed: {
               setPhoneNumber: function () {
-                  var phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 5);
+                  var phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 6);
                   return phoneNumber;
               },
               setEmail: function () {
@@ -87,8 +93,8 @@
                   var emailValue = emailSplit[0].substr(0, 2) + '****' + '@' + emailSplit[1];
                   return emailValue;
               },
-              verifiedAll(){
-                  return (this.emailVerify && this.phoneVerify)
+              verified(){
+                  return this.emailVerify || this.phoneVerify;
               }
           },
           methods: {
@@ -96,24 +102,27 @@
                   this.$router.push("/balances");
               },
               onCheck() {
-                  //일단은 email만 되도록해놓음.
-                  // if ( this.emailVerify === true && this.phoneVerify === true) {
-                  if ( this.emailVerify === true) {
-                      this.onChange();
+                  if (this.verifyWithPhone) {
+                      if ( this.phoneVerify === true) {
+                          this.onChange();
+                      }
+                  }
+                  else{
+                      if( this.emailVerify === true) {
+                        this.onChange();
+                      }
                   }
               },
               onChange() {
                   let self = this;
-                  if(this.verifiedAll == true){
-                      MainRepository.Balance.postWithdraw(function (data){
-                          MainRepository.Balance.controller().processingTime = data.result.txTime;
-                          self.$router.push("/successWithdraw");
-                      });
-                  }
+                  MainRepository.Balance.postWithdraw(this.verifyWithPhone, function (data){
+                      MainRepository.Balance.controller().processingTime = data.result.txTime;
+                      self.$router.push("/successWithdraw");
+                  });
               },
               // 인증코드 체크
               onCheckVerificationCode(type) {
-                  if (type === 'deposit') {
+                  if (type === 'depositEmail') {
                       this.emailVerify = true;
                   } else {
                       this.phoneVerify = true;

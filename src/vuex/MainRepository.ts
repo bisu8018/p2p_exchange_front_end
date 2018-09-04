@@ -191,9 +191,10 @@ export default {
         getWithdraw: function (){
             return balanceController.getWithdraw();
         },
-        postWithdraw: function (callback: any) {
-            BalanceService.postWithdraw({
-                addressTo : balanceController.getWithdraw().addressTo,
+        postWithdraw: function (data: boolean, callback: any) {
+            BalanceService.postWithdraw(
+                {verificationMethod : data?  'sms' : 'email'},
+                {addressTo : balanceController.getWithdraw().addressTo,
                 amount : balanceController.getWithdraw().amount,
                 cryptoCurrency : balanceController.getWithdraw().cryptoCurrency,
                 fee : balanceController.getWithdraw().fee,

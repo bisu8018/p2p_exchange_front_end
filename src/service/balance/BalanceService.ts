@@ -17,8 +17,8 @@ export default {
             function () {
             })
     },
-    postWithdraw: function (data: any, callback: any) {
-        AxiosService._requestWithBodyAndEmail('deposit/withdraw', 'POST', data ,
+    postWithdraw: function (method: any, data: any, callback: any) {
+        AxiosService._requestWithPramAndBodyAndEmail('deposit/withdraw', 'POST', method, data ,
             function (data: any) {
                 callback(data)
             },
