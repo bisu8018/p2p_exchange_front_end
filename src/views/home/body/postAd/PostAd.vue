@@ -18,7 +18,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select-box :selectBoxType="'signupCountry'"></select-box>
+                        <select-box :selectBoxType="'signupCountry'" :country="myAdList.nationality" :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -28,7 +28,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select-box :selectBoxType="'currency'"></select-box>
+                        <select-box :selectBoxType="'currency'" :currency="myAdList.currency" :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -38,7 +38,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("tradeType") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select class="comp-selectbox h6" v-model="tradeType">
+                        <select class="comp-selectbox h6" v-model="tradeType" :class="{'input-disabled2' : edit}">
                             <option value="buy">{{ $str("buyText") }}</option>
                             <option value="sell">{{ $str("sellText") }}</option>
                         </select>
@@ -52,7 +52,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency">
+                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency" :class="{'input-disabled2' : edit}">
                             <option value="bitcoin">BTC</option>
                             <option value="ethereum">ETH</option>
                             <option value="allb">ALLB</option>
@@ -120,7 +120,7 @@
                     <div class="text-xs-left h5 color-darkgray ">{{ $str("priceText") }}</div>
                     <div class="price-clac-wrapper text-xs-left">
                         <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{ priceType === 'fixedprice' ?
-                            toMoneyFormat || 0 : getFloatPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
+                            toMoneyFormat || 0 : (tradeType === 'sell' ? getFloatPriceSell : getFloatPriceBuy) || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     <div class="price-calculate color-darkgray">{{ $str("marektPrice") }} :
                         {{ getMarketPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
                     </div>
-                    <div class="price-explain color-darkgray">{{ $str("priceExplain") }}</div>
+                    <div class="price-explain color-darkgray">{{ priceType === 'fixedprice' ? $str("fixedPriceExplain") : $str("floatPriceExplain") }}</div>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -481,7 +481,7 @@
                 </div>
                 <div>
                     <button @click='onCheck' class="color-blue btn-blue btn-blue-hover">
-                        {{ $str("postAdBtn") }}
+                        {{ edit === true ? $str("modify") : $str("postAdBtn") }}
                     </button>
                 </div>
             </v-flex>
@@ -507,6 +507,7 @@
             SelectBox, VerifySlider, Toggle, PostAdModal
         },
         data: () => ({
+            adNo : 0,
             balace: '',
             showModal: false,
             tradeType: "buy",
@@ -550,6 +551,15 @@
             verify_warning_payment_window: "",
             verify_warning_trade_password: "",
 
+            //코인별 시세
+            marketPrice: '',
+
+            //edit 시, 광고 정보
+            myAdList: '',
+
+            //edit 상태값
+            edit : false,
+
             // 후오비 정책
             officialMinLimit: [
                 {currency: 'CNY', minLimit: 100},
@@ -572,13 +582,53 @@
                 {currency: 'KHR', minLimit: 60000},
             ],
 
-            marketPrice: '',
         }),
         created() {
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
                 return false;
+            }
+
+            //my ads (edit) 접근 체크
+            let currentURL = window.location.href;
+            let params = currentURL.split('?');
+
+            if (params[1]) {
+                let no = params[1].split('=')[1];
+                MainRepository.AD.checkMine(no, (result)=> {
+                    this.myAdList = result;
+
+                    this.edit = true;
+                    this.adNo = result.adNo;
+                    this.tradeType = result.tradeType;
+                    this.cryptocurrency = result.cryptocurrency;
+                    this.priceType = result.priceType;
+                    this.fixedPrice = String(result.fixedPrice);
+                    this.margin = result.margin;
+                    this.volume = result.volume;
+                    this.maxLimit = result.maxLimit;
+                    this.minLimit = result.minLimit;
+                    this.paymentWindow = result.paymentWindow;
+                    this.autoReply = result.autoReply;
+                    this.termsOfTransaction = result.termsOfTransaction;
+                    this.counterpartyFilterTradeCount = result.counterpartyFilterTradeCount;
+                    this.counterpartyCheckbox_first = result.counterpartyCheckbox_first;
+                    this.counterpartyCheckbox_second = result.counterpartyCheckbox_second;
+                    this.counterpartyCheckbox_third = result.counterpartyCheckbox_third;
+
+                   //결제수단 토글버튼
+                    let paymentMethods = result.paymentMethods.split(',');
+                    for(let key in paymentMethods){
+                        if(paymentMethods[key] === 'alipay'){
+                            this.alipay_toggle_use = true;
+                        }else if(paymentMethods[key] ==='wechat'){
+                            this.wechat_toggle_use = true;
+                        }else{
+                            this.bank_toggle_use = true;
+                        }
+                    }
+                })
             }
 
             //환율 및 유져 정보 get 필요
@@ -664,9 +714,21 @@
                     return 0;
                 }
             },
-            getFloatPrice() {
+            getFloatPriceSell() {
                 let currency = MainRepository.SelectBox.controller().getCurrency();
                 let floatPrice = this.tmpMarketPrice + (this.tmpMarketPrice * this.margin / 100);
+                return Vue.prototype.$fixed(floatPrice, currency);
+            },
+            getFloatPriceBuy() {
+                console.log(this.tmpMarketPrice - (this.tmpMarketPrice * this.margin / 100))
+                console.log(Vue.prototype.$fixed(this.tmpMarketPrice - (this.tmpMarketPrice * this.margin / 100)))
+                let currency = MainRepository.SelectBox.controller().getCurrency();
+                let floatPrice = (this.tmpMarketPrice * this.margin / 100);
+                floatPrice = this.tmpMarketPrice - floatPrice;
+                if(floatPrice < 0){
+                    floatPrice = 0;
+                }
+
                 return Vue.prototype.$fixed(floatPrice, currency);
             }
         },
@@ -771,7 +833,7 @@
             },
             onModal: function () {
                 this.showModal = true;
-                s
+
             },
             //가격타입 변경 시, 값 초기화
             onClear: function () {
@@ -797,7 +859,12 @@
                     wechatToggle,
                     bankToggle
                 ];
-                MainRepository.AD.postAD({
+
+                let nationality = MainRepository.SelectBox.controller().getCountry()
+                nationality = nationality === 'ALL' ? 'CN' : nationality;
+
+                let data = {
+                    adNo : self.adNo,
                     autoReply: self.autoReply,
                     counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
@@ -810,7 +877,7 @@
                     maxLimit: Number(self.maxLimit),
                     minLimit: Number(self.minLimit),
                     memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
-                    nationality: MainRepository.SelectBox.controller().getCountry(),
+                    nationality: nationality,
                     paymentWindow: Number(self.paymentWindow),
                     paymentMethods: String(paymentMethodsArr),
                     priceType: self.priceType,
@@ -822,11 +889,21 @@
                     volume: Number(self.volume),
                     status: 'enable',
                     volumeAvailable: Number(self.volume),
-                }, function (result) {
-                    MainRepository.Balance.loadBalances(function () {
-                        MainRepository.router().goTradeCenter();
-                    });
-                })
+                };
+
+                if(this.edit){
+                    MainRepository.AD.editAD(data, function (result) {
+                        MainRepository.Balance.loadBalances(function () {
+                            MainRepository.router().goMyAd();
+                        });
+                    })
+                }else{
+                    MainRepository.AD.postAD(data, function (result) {
+                        MainRepository.Balance.loadBalances(function () {
+                            MainRepository.router().goTradeCenter();
+                        });
+                    })
+                }
             },
             putVerified: function () {
                 //슬라이드 바 return function
@@ -845,7 +922,7 @@
                     } else {
                         this.alipay_toggle_use = false;
                     }
-                } else if (type === 'wechatPay') {
+                } else if (type === 'wechat') {
                     if (this.wechat_toggle_use === false) {
                         this.wechat_toggle_use = true;
                     } else {
@@ -865,6 +942,9 @@
             },
             onCheckFixedPrice() {
                 // 고정가격 체크
+                if(this.priceType === 'floatprice'){
+                    return true
+                }
                 let fixedPrice = Number(this.fixedPrice);
                 if (fixedPrice === 0 || fixedPrice === undefined) {
                     this.warning_fixed_price = true;
@@ -876,6 +956,9 @@
             },
             onCheckMargin() {
                 // 유동가격 체크
+                if(this.priceType === 'fixedprice'){
+                    return true
+                }
                 let margin = Number(this.margin);
                 if (margin === 0 || margin === undefined) {
                     this.warning_float_price = true;

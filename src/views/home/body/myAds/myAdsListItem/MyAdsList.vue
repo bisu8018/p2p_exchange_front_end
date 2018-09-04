@@ -38,7 +38,7 @@
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Control</v-flex>
                 <v-flex xs9 text-xs-right color-blue>
-                    <span class="text-white-hover c-pointer ">{{$str('edit')}}</span>
+                    <span class="text-white-hover c-pointer " @click="onEdit">{{$str('edit')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showEnableDialog = true">{{$str('enable')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showDeleteDialog = true">{{$str('delete')}}</span>
                     <!--<span class="mr-3 text-white-hover c-pointer">{{$str('share')}}</span>-->
@@ -70,7 +70,7 @@
                     <span class="ml-3">{{transTime(adslist.registerDatetime)}}</span>
                 </v-flex>
                 <v-flex md2 text-md-right color-blue>
-                    <span class="text-white-hover c-pointer ">{{$str('edit')}}</span>
+                    <span class="text-white-hover c-pointer " @click="onEdit">{{$str('edit')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showEnableDialog = true">{{$str('enable')}}</span>
                     <span class="ml-3 text-white-hover c-pointer" @click="showDeleteDialog = true">{{$str('delete')}}</span>
                     <!--<button>Share</button>-->
@@ -157,6 +157,11 @@
             transTime(time){
                 return abUtils.toTimeFormat(time);
             },
+            //AD Edit 시, 해당 post AD 페이지 이동
+            onEdit() {
+                let type = this.adslist.type === 'piece' ? false : true;
+                MainRepository.router().editPostAd(type, this.adslist.adNo);
+            }
         },
 
     }

@@ -48,6 +48,7 @@ import OrderStat from "@/vuex/model/OrderStat";
 import Withdraw from "@/vuex/model/Withdraw";
 import BalanceHistory from "@/vuex/model/BalanceHistory";
 import IdVerificationId from "@/vuex/model/IdVerificationId";
+import MyAd from "@/vuex/model/MyAd";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -926,6 +927,18 @@ export default {
         postAD: function (data : any, callback: any) {
             AdService.postAD(data, function (result) {
                 callback(result);
+            })
+        },
+        editAD: function (data : any, callback: any) {
+            AdService.editAD(data, function (result) {
+                callback(result);
+            })
+        },
+        checkMine: function (data : string, callback: any) {
+            AdService.getAd(data
+            , (result) => {
+                let data = new MyAd(result);
+                callback(data);
             })
         }
     },

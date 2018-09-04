@@ -793,6 +793,20 @@
         outline: none;
     }
 
+    .input-disabled2 {
+        background: #f8f8fa !important;
+        color: #9294a6;
+        cursor: no-drop;
+        pointer-events: none;
+    }
+
+    .input-disabled2 > div > select:first-child {
+        background: #f8f8fa !important;
+        color: #9294a6;
+        cursor: no-drop;
+        pointer-events: none;
+    }
+
 
     /*인증코드 전달 버튼*/
     /*
@@ -1687,4 +1701,5 @@
     .dialog--footer {
         text-align: right;
     }
+
 </style>

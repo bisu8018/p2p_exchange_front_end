@@ -68,6 +68,14 @@ export default class RouterController {
         }
     }
 
+    editPostAd(isBlock, number) {
+        let r = this.router;
+        let url = isBlock ? '/blockAd' : '/generalAd';
+        Vue.nextTick(function () {
+            r.push({ path : url, query: {no: number}});
+        });
+    }
+
     goTradeCenter() {
         let r = this.router;
         Vue.nextTick(function () {
@@ -129,6 +137,13 @@ export default class RouterController {
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/turnOff?" + type);
+        });
+    }
+
+    goMyAd(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/dmyAs");
         });
     }
 }

@@ -663,11 +663,17 @@ const strings = new Map([
         CN: '市场价格',
         HK: '市場價格'
     }],
-    ['priceExplain', {
+    ['fixedPriceExplain', {
         KOR: '고정가격은 시장에 따라 변동되지 않습니다.',
         ENG: 'Fixed prices do not fluctuate with the market.',
         CN: '固定价格不会随市场波动。',
         HK: '固定價格不會隨市場波動。'
+    }],
+    ['floatPriceExplain', {
+        KOR: '유동가격 마진을 설정하십시오. 시장가에서 원하는 프리미엄 또는 할인에 적용됩니다.',
+        ENG: 'Please set the float price margin. It will apply on the market price\\\'s desired premium or discount.',
+        CN: '请设定市场价格以适用于升水或折扣的波动价利润。',
+        HK: '請設定市場價格以適用於升水或折扣的波動價利潤。'
     }],
     ['volumeText', {
         KOR: '거래 수량',
