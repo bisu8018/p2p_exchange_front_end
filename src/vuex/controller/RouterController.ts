@@ -143,7 +143,7 @@ export default class RouterController {
     goMyAd(){
         let r = this.router;
         Vue.nextTick(function () {
-            r.push("/dmyAs");
+            r.push("/myAds");
         });
     }
 }

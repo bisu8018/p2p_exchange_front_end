@@ -1028,6 +1028,12 @@ export default {
             }, function () {
                 callback();
             });
+        },
+
+        postImg(data: any, callback: any) {
+            MessageService.message.postImg(data, function () {
+                callback();
+            })
         }
     },
     MarketPrice: {

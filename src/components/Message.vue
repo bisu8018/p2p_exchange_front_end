@@ -4,6 +4,7 @@
 
 <template>
     <div :class="[isMobile() ? 'chat-wrapper-xs' : 'chat-wrapper-md']">
+        <!--상대방 정보-->
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
                 <avatar v-if="counterPartyEmail != '' "
@@ -14,9 +15,11 @@
             </div>
             <div class="text-xs-left pt-twenty">
                 <span class="h5 bold color-black">{{ counterPartyNickname }}</span><br>
+                <!--30일간 거래 횟수-->
                 <span class="h6 color-darkgray">{{ $str('Trades_in_30_days') }} : {{ transactionNum }}</span>
             </div>
             <v-spacer></v-spacer>
+            <!--휴대폰 문자 전송-->
             <div class="pt-4a pr-3 pl-3">
                 <i class="material-icons color-darkgray c-pointer">stay_current_portrait</i>
             </div>
@@ -36,8 +39,11 @@
                             {{ getTime(data.registerDatetime) }}
                             <!--<span>{{ getDateTime('date') }}</span>-->
                         </div>
-                        <div class="chat-content-wrapper text-xs-left color-black h6">
+                        <div class="chat-content-wrapper text-xs-left color-black h6"  v-if="data.attachedImgUrl === ''">
                             {{ data.message }}
+                        </div>
+                        <div class="chat-content-wrapper" v-else>
+                            <img :src="data.attachedImgUrl" class="w-full">
                         </div>
                     </div>
                 </div>
@@ -50,8 +56,11 @@
                             {{ getTime(data.registerDatetime) }}
                             <!--<span>{{ getDateTime('date') }}</span>-->
                         </div>
-                        <div class="chat-content-wrapper text-xs-left color-black h6">
+                        <div class="chat-content-wrapper text-xs-left color-black h6" v-if="data.attachedImgUrl === ''">
                             {{ data.message }}
+                        </div>
+                        <div class="chat-content-wrapper" v-else>
+                            <img :src="data.attachedImgUrl" class="w-full">
                         </div>
                     </div>
                     <div>
@@ -70,8 +79,11 @@
                         <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
                             {{ $str('sending') }}
                         </div>
-                        <div class="chat-content-wrapper text-xs-left color-black h6">
+                        <div class="chat-content-wrapper text-xs-left color-black h6" v-if="localMsg.type === 'msg'">
                             {{ localMsg.message }}
+                        </div>
+                        <div class="chat-content-wrapper" v-else>
+                            <img :src="localMsg.message" class="attachment-img-style">
                         </div>
                     </div>
                     <div>
@@ -119,6 +131,7 @@
             //파일 첨부
             file: '',
             image: '',
+
             showLocalMsg: false,
             localMsgList: [],
             isMsgInitCompleted: false,
@@ -201,7 +214,7 @@
                     document.getElementById("file").value = "";
                     return false;
                 }
-                //this.handleFileUpload();
+                this.handleFileUpload();
             },
             handleFileUpload() {
                 //첨부파일 사진 등록 및 출력
@@ -214,6 +227,11 @@
                     vm.image = e.target.result;
                 };
                 reader.readAsDataURL(this.file);
+            },
+            submitFile() {      // 첨부파일 서버 전송
+                let formData = new FormData();
+                formData.append('file', this.file);
+                return formData;
             },
             getTime(date) {
                 let _date = new Date(date).toTimeString().substr(0, 8);
@@ -228,14 +246,14 @@
             },
             onPost() {
                 let tmpValue = this.inputValue.trim();
-                if (tmpValue !== '') {
+                if (tmpValue !== '' ) {
                     //도배 및 중복 값 입력 방지
                     if (Date.now() - this.latestPostTime < 500) {
                         return false;
                     } else {
                         this.latestPostTime = Date.now();
                         MainRepository.Message.postMsg(this.inputValue, () => { });
-                        this.createLocalMsg(this.inputValue);
+                        this.createLocalMsg(this.inputValue,'mas');
                         this.inputValue = '';
                     }
                 }
@@ -243,9 +261,23 @@
                     this.scrollBottom();
                 });
             },
-            createLocalMsg(msg) {
+            onPostImg() {
+                MainRepository.message().postImg({
+                    file: this.submitFile(),
+                    orderNo: this.order.orderNo
+                }, (url) => {
+                    this.createLocalMsg(url,'img');
+                    this.file = '';
+                    this.image = '';
+                });
+                this.$nextTick(() => {
+                    this.scrollBottom();
+                });
+            },
+            createLocalMsg(msg,type) {
                 this.showLocalMsg = true;
                 this.localMsgList.push({
+                    type : type,
                     message : msg,
                     registerDatetime : new Date().getTime()
                 })
