@@ -71,14 +71,17 @@
                             </a>
                         </li>
                         <li>
-                            <div v-if="can_not_trade">
-                                <h6 class="color-darkgray"> Need to</h6>
-                                <h6 class="color-blue">{{do_not_trade_message}}</h6>
-                            </div>
-                            <div v-else>
+                            <div v-if="can_not_trade ===''">
                                 <button class="btn-rounded-blue medium" @click="changeDrawer">
                                     <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
                                 </button>
+                            </div>
+                            <div v-else-if="can_not_trade ==='MyPage'">
+                                <h6 class="color-darkgray">{{$str("Need to")}}</h6>
+                                <h6 class="color-blue text-white-hover c-pointer" @click="goMyPage">{{do_not_trade_message}}</h6>
+                            </div>
+                            <div v-else-if="can_not_trade ==='noMyPage'">
+                                <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
                             </div>
                         </li>
                     </ul>
@@ -86,7 +89,7 @@
             </div>
 
             <!-- Nicname 설정을 안했을경우 띄움-->
-            <v-flex v-if="drawer&& !setNickName">
+            <v-flex v-if="drawer&& !isValid">
                 <div class="mobileModal">
                     <v-layout>
                         <v-flex xs2 pl-2>
@@ -115,7 +118,7 @@
                             <span class="color-darkgray">
                               {{$str("You need to complete the necessary transaction information.")}}
                             </span>
-                            <span class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+                            <span class="color-blue c-pointer text-white-hover" @click="onValidClick">{{$str("Set up now.")}}</span>
                         </v-flex>
                     </v-layout>
                     <v-layout mt-4a>
@@ -317,19 +320,22 @@
                         <!--img와 button을 양쪽에 정렬시키기 위함.-->
                         <v-spacer></v-spacer>
                         <!-- buy 혹은 sell button -->
-                        <div v-if="can_not_trade">
-                            <h6 class="color-darkgray"> Need to</h6>
-                            <h6 class="color-blue">{{do_not_trade_message}}</h6>
-                        </div>
-                        <div v-else>
+                        <div v-if="can_not_trade ===''">
                             <button class="btn-rounded-blue medium" @click="changeDrawer">
                                 <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
                             </button>
                         </div>
+                        <div v-else-if="can_not_trade ==='MyPage'">
+                            <h6 class="color-darkgray">{{$str("Need to")}}</h6>
+                            <h6 class="color-blue text-white-hover c-pointer" @click="goMyPage">{{do_not_trade_message}}</h6>
+                        </div>
+                        <div v-else-if="can_not_trade ==='noMyPage'">
+                            <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
+                        </div>
                     </v-layout>
                 </v-flex>
             </v-layout>
-            <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
+            <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, getNickName이 false일때-->
             <v-flex v-if="drawer && !isValid">
                 <div class="tradeWebModal">
                     <v-layout row wrap>
@@ -369,7 +375,7 @@
                     </v-layout>
                 </div>
             </v-flex>
-            <!--trade가 가능한 modal click은 했고, setNickName이 true 일때-->
+            <!--trade가 가능한 modal click은 했고, getNickName이 true 일때-->
             <v-flex v-else-if="drawer">
                 <div class="tradeWebModal">
                     <v-layout row wrap>
@@ -536,7 +542,7 @@
             verify_warning_fromValue: "",
             verify_warning_tradePassword: "",
             do_not_trade_message: "",         // trade 충족이 안돼면 어떤 이유인지 알려주는 string.
-            can_not_trade: false,            //merchant가 올린 요건이 충족 안될경우 true로 trade버튼을 가려줌.
+            can_not_trade: '',            //merchant가 올린 요건이 충족 안될경우 true로 trade버튼을 가려줌.
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
@@ -562,7 +568,7 @@
             drawer() {
                 return (MainRepository.TradeView.getDrawer() == this.user.adNo);
             },
-            setNickName() {
+            getNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             },
@@ -586,16 +592,20 @@
             },
         },
         created() {
-            //  trade를 막는 filter. 차후 백단 연결시 수정필요.
-            this.do_not_trade_message = MainRepository.TradeView.setCannotTrade(
-                this.user.counterpartyFilterTradeCount,
-                this.user.counterpartyFilterAdvancedVerificationYn,
-                this.user.counterpartyFilterMobileVerificationYn,
-                this.user.counterpartyFilterDoNotOtherMerchantsYn,
-            );
-            if(this.do_not_trade_message !== ''){
-                this.can_not_trade = true
+
+            //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            if (MainRepository.MyInfo.isLogin()) {
+                let _obj = MainRepository.TradeView.controller().setCannotTrade(
+                    this.myInfo,
+                    this.user.counterpartyFilterTradeCount,
+                    this.user.counterpartyFilterAdvancedVerificationYn,
+                    this.user.counterpartyFilterMobileVerificationYn,
+                    this.user.counterpartyFilterDoNotOtherMerchantsYn,
+                );
+                this.do_not_trade_message = _obj.do_not_trade_message;
+                this.can_not_trade = _obj.can_not_trade;
             }
+
             //환율 및 유져 정보 get 필요
             let self = this;
             Common.info.getMarketPrice(function (data) {
@@ -786,6 +796,9 @@
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
             },
+            goMyPage(){
+                MainRepository.router().goMyPage();
+            }
         },
     }
 </script>

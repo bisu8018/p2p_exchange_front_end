@@ -56,9 +56,9 @@ export default class TradeItem {
         this.paymentMethods = data.paymentMethods || '';
         this.termsOfTransaction = data.termsOfTransaction || '';
         this.counterpartyFilterTradeCount = Number(data.counterpartyFilterTradeCount) || -1;
-        this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || true;
-        this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || true;
-        this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || true;
+        this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || false;
+        this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || false;
+        this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || false;
         this.registerDatetime = data.registerDatetime || '';
 
 

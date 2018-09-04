@@ -627,24 +627,7 @@ export default {
                 callback(result);
             })
         },
-        setCannotTrade(tradeCount: number, advanced: boolean, mobile: boolean, doNotMerchant){
-            let do_not_trade_message = '';
-            //차후 작업...
-            //현재거래중일때
-            // if(instance.MyInfo.getUserInfo().processingOrderCount === 0){
-            //     //  mobile 인증 안했을때
-            //     if(this.mobile && instance.MyInfo.getUserInfo().phoneNumber == ''){
-            //         do_not_trade_message += 'verify phone'
-            //     }
-            //     // advanced 인증 안했을때.
-            //     if(this.advanced && instance.MyInfo.getUserInfo().idVerifiedCount === 0){
-            //         do_not_trade_message += 'adv. verification'
-            //     }
-            // }else{
-            //     do_not_trade_message += 'transaction success'
-            // }
-            return do_not_trade_message;
-        },
+
 
 
     },
