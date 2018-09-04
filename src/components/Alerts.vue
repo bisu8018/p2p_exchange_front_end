@@ -79,10 +79,11 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
 
                     //클라이언트 단 에러코드
-                    case 4001 : this.show(this.type.Warning, "", this.$str('err_paymentMethodCheck')); break;
-                    case 4002 : this.show(this.type.Warning, "", this.$str('err_agreeTermCheck')); break;
-                    case 4003 : this.show(this.type.Warning, "", this.$str('verifySlider')); break;
-                    case 4004 : this.show(this.type.Warning, "", this.$str('err_needPaymentMethod')); break;
+                    case 4001 : this.show(this.type.Warning, "", this.$str('err_paymentMethodCheck')); break;   // 결제수단 체크 필요
+                    case 4002 : this.show(this.type.Warning, "", this.$str('err_agreeTermCheck')); break;       // 이용약관 체크 필요
+                    case 4003 : this.show(this.type.Warning, "", this.$str('verifySlider')); break;             // 인증 슬라이더 필요
+                    case 4004 : this.show(this.type.Warning, "", this.$str('err_needPaymentMethod')); break;    // 결제수단 필요
+                    case 4005 : this.show(this.type.Warning, "", this.$str('err_wrongApproach')); break;    // 잘못된 접근
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;
                     default : break;
                 }

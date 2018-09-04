@@ -461,7 +461,7 @@ const strings = new Map([
         HK: '從'
     }],
     ['from', {
-        KOR: '에게',
+        KOR: 'from',
         ENG: 'from',
         CN: '向',
         HK: '從'
@@ -604,10 +604,10 @@ const strings = new Map([
         HK: '固定價格'
     }],
     ['margin', {
-        KOR: '마진',
+        KOR: '차익',
         ENG: 'Margin',
-        CN: '浮动价格',
-        HK: '浮動價格'
+        CN: '利润',
+        HK: '利潤'
     }],
     ['warningFixedPricePlaceholder', {
         KOR: '올바른 수를 입력해 주십시오',
@@ -615,11 +615,17 @@ const strings = new Map([
         CN: '请输入适合数量',
         HK: '請輸入適合數量'
     }],
-    ['warningFloatPricePlaceholder', {
-        KOR: '올바른 수를 입력해 주십시오',
-        ENG: 'Enter a vaild number',
-        CN: '请输入适合数量',
-        HK: '請輸入適合數量'
+    ['warningFloatPriceLimit', {
+        KOR: '-100부터 100 사이 숫자를 입력하세요',
+        ENG: 'Input number between -100 to 100',
+        CN: '请输入介于 -100 到 100之间的数字',
+        HK: '請輸入介於 -100 到 100之間的數字'
+    }],
+    ['explainMargin', {
+        KOR: '판매 시 차익은 거래 가격과 비례하는 반면, 구매 시 차익은 거래 가격과 반비례합니다.',
+        ENG: 'When you sell tokens, margin is directly proportional to the transaction price. But when you purchase tokens, margin is reversely proportional to the transaction price.',
+        CN: '购买代币时利润与交易价格成正比，但出售时利润与交易价格成反比。',
+        HK: '購買代幣時利潤與交易價格成正比，但出售時利潤與交易價格成反比。'
     }],
     ['warningVolume', {
         KOR: '거래 수량을 입력해 주십시오',
@@ -833,7 +839,7 @@ const strings = new Map([
     }],
     ['counterpartyCheckbox2', {
         KOR: '상대방이 휴대전화 번호를 계정과 연동해야 합니다',
-        ENG: 'Counterparty should bind between mobile number and its account.',
+        ENG: 'Counterparty should bind between mobile number and its account',
         CN: '对方需要绑定手机号码和账户',
         HK: '對方需要綁定手機號碼和賬戶'
     }],
@@ -1045,7 +1051,7 @@ const strings = new Map([
         HK: '對'
     }],
     ['buyingExplain3', {
-        KOR: '가 영수증 발급 확인한 뒤에 전달받게 될 것입니다.',
+        KOR: '이(가) 영수증 발급을 확인한 뒤에 전달받게 될 것입니다.',
         ENG: 'confirm receipt and release, ',
         CN: '放行的代币',
         HK: '發行的代幣'
@@ -2687,13 +2693,13 @@ const strings = new Map([
     }],
     ['appealReason1', {
         KOR: '상대방이 지불하지 않음',
-        ENG: 'The counterparty doesn’t pay',
+        ENG: 'The counterparty doesn\'t pay',
         CN: '对方无支付',
         HK: '對方無支付'
     }],
     ['appealReason2', {
         KOR: '상대방이 보내주지 않음',
-        ENG: 'The counterparty doesn’t release',
+        ENG: 'The counterparty doesn\'t release',
         CN: '对方无传送',
         HK: '對方無傳送'
     }],
@@ -3069,6 +3075,12 @@ const strings = new Map([
         ENG: 'You need payment methods.',
         CN: '需要添加支付方式',
         HK: '需要添加支付方式'
+    }],
+    ['err_wrongApproach', {
+        KOR: '잘못된 접근 방식입니다.',
+        ENG: 'Wrong approach.',
+        CN: '访问错误',
+        HK: '訪問錯誤'
     }],
     ['BalanceDepositExplainTest', {
         KOR: '• 현재 본 사이트는 테스트 중이므로, 테스트넷을 이용한 입금만 유효합니다. 실제 암호화폐를 넣지 마십시오!',

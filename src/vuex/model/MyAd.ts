@@ -1,6 +1,7 @@
 export default class MyAd {
     adNo: number;
     autoReply: string;
+    termsOfTransaction : string;
     counterpartyFilterAdvancedVerificationYn : boolean;
     counterpartyFilterDoNotOtherMerchantsYn : boolean;
     counterpartyFilterMobileVerificationYn : boolean;
@@ -19,10 +20,12 @@ export default class MyAd {
     type: string;
     volume: number;
     volumeAvailable: number;
+    registerMemberNo: number;
 
     constructor(data: any) {
         this.adNo = Number(data.adNo) ;
         this.autoReply = data.autoReply ;
+        this.termsOfTransaction = data.termsOfTransaction ;
         this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || false;
         this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || false;
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || false ;
@@ -30,7 +33,7 @@ export default class MyAd {
         this.cryptocurrency = data.cryptocurrency ;
         this.currency = data.currency ;
         this.fixedPrice = Number(data.fixedPrice) || 0;
-        this.margin = Number(data.registerDatetime) || 0;
+        this.margin = Number(data.margin) || 0;
         this.maxLimit = Number(data.maxLimit);
         this.minLimit = Number(data.minLimit);
         this.nationality = data.nationality ;
@@ -41,6 +44,7 @@ export default class MyAd {
         this.type = data.type ;
         this.volume = Number(data.volume) ;
         this.volumeAvailable = Number(data.volumeAvailable);
+        this.registerMemberNo = Number(data.registerMemberNo);
     }
 
     isNull(): boolean {

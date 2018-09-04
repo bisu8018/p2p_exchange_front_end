@@ -17,7 +17,7 @@ export default class Message {
             this.orderNo = -1
         }
         this.message = data.message;
-        this.attachedImgUrl = data.attachedImgUrl;
+        this.attachedImgUrl = data.attachedImgUrl || "";
         if (data.registerMemberNo === undefined) {
             this.registerMemberNo = Number(data.registerMemberNo);
         } else {

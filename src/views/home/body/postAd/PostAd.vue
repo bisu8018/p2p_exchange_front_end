@@ -90,9 +90,10 @@
             <!--거래가격-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2 button- color-black ">
+                    <div class="text-xs-left mb-2  color-black ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
+
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price, 'warning-border' : warning_float_price}">
@@ -100,7 +101,7 @@
                                @keyup="onNumberCheck('fixedPrice')" v-if="priceType === 'fixedprice'"
                         >
                         <input type="text" class="price-input" placeholder="0" v-model="margin"
-                               @keyup="onNumberCheck('floatPrice')" v-else
+                               @keyup="onNumberCheck('floatPrice')" v-else maxlength="4"
                         >
                         <div class="border-indicator h6">
                             {{ priceType === 'fixedprice' ? getCurrency : '%' }}
@@ -145,7 +146,7 @@
         <!--***************       섹션        *********-->
 
         <v-layout wrap row mb-4>
-            <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4>
+            <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('limits') }}
             </v-flex>
 
@@ -253,6 +254,7 @@
             <v-flex xs12 md4 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('paymentMethod') }}
             </v-flex>
+            <v-flex xs12 md8 pl-0 pr-0>
             <div>
                 <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
                 <!--알리페이 결제-->
@@ -317,7 +319,7 @@
                     </div>
                 </v-flex>
             </div>
-
+            </v-flex>
             <v-flex xs12>
                 <v-divider class="mt-4"></v-divider>
             </v-flex>
@@ -583,12 +585,13 @@
             ],
 
         }),
-        created() {
+        beforeCreate() {
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
                 MainRepository.router().goLogin();
                 return false;
             }
+
 
             //my ads (edit) 접근 체크
             let currentURL = window.location.href;
@@ -597,9 +600,14 @@
             if (params[1]) {
                 let no = params[1].split('=')[1];
                 MainRepository.AD.checkMine(no, (result)=> {
+                    let memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
+                    if(result.registerMemberNo !== memberNo){
+                        Vue.prototype.$eventBus.$emit('showAlert', 4005);
+                        MainRepository.router().goTradeCenter();
+                    }
                     this.myAdList = result;
-
                     this.edit = true;
+
                     this.adNo = result.adNo;
                     this.tradeType = result.tradeType;
                     this.cryptocurrency = result.cryptocurrency;
@@ -613,11 +621,11 @@
                     this.autoReply = result.autoReply;
                     this.termsOfTransaction = result.termsOfTransaction;
                     this.counterpartyFilterTradeCount = result.counterpartyFilterTradeCount;
-                    this.counterpartyCheckbox_first = result.counterpartyCheckbox_first;
-                    this.counterpartyCheckbox_second = result.counterpartyCheckbox_second;
-                    this.counterpartyCheckbox_third = result.counterpartyCheckbox_third;
+                    this.counterpartyCheckbox_first = result.counterpartyFilterAdvancedVerificationYn;
+                    this.counterpartyCheckbox_second = result.counterpartyFilterDoNotOtherMerchantsYn;
+                    this.counterpartyCheckbox_third = result.counterpartyFilterMobileVerificationYn;
 
-                   //결제수단 토글버튼
+                    //결제수단 토글버튼
                     let paymentMethods = result.paymentMethods.split(',');
                     for(let key in paymentMethods){
                         if(paymentMethods[key] === 'alipay'){
@@ -717,11 +725,9 @@
             getFloatPriceSell() {
                 let currency = MainRepository.SelectBox.controller().getCurrency();
                 let floatPrice = this.tmpMarketPrice + (this.tmpMarketPrice * this.margin / 100);
-                return Vue.prototype.$fixed(floatPrice, currency);
+                return abUtils.toMoneyFormat(Vue.prototype.$fixed(floatPrice, currency));
             },
             getFloatPriceBuy() {
-                console.log(this.tmpMarketPrice - (this.tmpMarketPrice * this.margin / 100))
-                console.log(Vue.prototype.$fixed(this.tmpMarketPrice - (this.tmpMarketPrice * this.margin / 100)))
                 let currency = MainRepository.SelectBox.controller().getCurrency();
                 let floatPrice = (this.tmpMarketPrice * this.margin / 100);
                 floatPrice = this.tmpMarketPrice - floatPrice;
@@ -729,7 +735,7 @@
                     floatPrice = 0;
                 }
 
-                return Vue.prototype.$fixed(floatPrice, currency);
+                return abUtils.toMoneyFormat(Vue.prototype.$fixed(floatPrice, currency));
             }
         },
         methods: {
@@ -756,7 +762,7 @@
                     case 'floatPrice' :
                         temp = this.margin;
                         this.onCheckMargin();
-                        if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
+                        if (!abUtils.isDouble(temp) || temp[0] === '.' ) {
                             return this.margin = "";
                         }
                         if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -766,7 +772,6 @@
 
                     // 총 코인 수량
                     case 'volume' :
-                        console.log(1)
                         temp = this.volume;
                         this.onCheckVolume();
                         if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
@@ -812,8 +817,8 @@
                         break;
 
                     // 거래상대 조건
-                    case 'counterParty"' :
-                        temp = this.counterParty;
+                    case 'counterParty' :
+                        temp = this.counterpartyFilterTradeCount;
                         this.onCheckCounterparty();
                         if (!abUtils.isInteger(temp) || temp[0] === '-') {
                             return this.counterpartyFilterTradeCount = "";
@@ -873,7 +878,7 @@
                     cryptocurrency: self.cryptocurrency,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     fixedPrice: Number(self.fixedPrice),
-                    margin: Number(self.margin),
+                    margin: self.margin,
                     maxLimit: Number(self.maxLimit),
                     minLimit: Number(self.minLimit),
                     memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
@@ -960,9 +965,14 @@
                     return true
                 }
                 let margin = Number(this.margin);
-                if (margin === 0 || margin === undefined) {
+                if (!margin) {
                     this.warning_float_price = true;
                     this.verify_warning_float_price = Vue.prototype.$str("warningFloatPricePlaceholder");
+                    return false;
+                }
+                if (margin >100 || margin < -100) {
+                    this.warning_float_price = true;
+                    this.verify_warning_float_price = Vue.prototype.$str("warningFloatPriceLimit");
                     return false;
                 }
                 this.warning_float_price = false;

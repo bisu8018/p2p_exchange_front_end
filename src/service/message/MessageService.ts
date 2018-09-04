@@ -22,6 +22,16 @@ export default {
                 function () {
                 })
         },
+        postImg: function (data: any, callback: any) {
+            let url = 'message_with_file?orderNo=' + data.orderNo;
+            AxiosService._requestWithOnlyBody(url,'POST',data.file,
+                function (data) {
+                    callback(data);
+                    return;
+                },
+                function () {
+                })
+        }
     }
 }
 
