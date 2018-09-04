@@ -93,7 +93,7 @@ export default (Vue: any) => {
             case 'ETH' :
             case 'ethereum': fixedDigits = 6; break;
         }
-        let fixedValue = value.toFixed(fixedDigits);
+        let fixedValue = String(Math.floor(value*Math.pow(10, fixedDigits))/Math.pow(10, fixedDigits));
         fixedValue = fixedValue.replace(/(0+$)/, "");
         return fixedValue;
     }

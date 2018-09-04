@@ -32,6 +32,8 @@ export default class TradeItem {
     // volume: number; // 이건 위의 volume이랑 다른 것임. 차후 재설정 필요.
     ownerMember : MemberInfo;
     paymentWindow :number;
+    marginPrice : number;
+    tradePrice : number;
 
 
 
@@ -70,6 +72,8 @@ export default class TradeItem {
         this.ownerMember = data.ownerMember;
         this.paymentWindow = data.paymentWindow || 10;
 
+        this.marginPrice = data.marginPrice || -1;
+        this.tradePrice = this.selectPrice(data.priceType, data.fixedPrice, data.marginPrice)
     }
 
     //paymentmethods 재가공
@@ -106,6 +110,15 @@ export default class TradeItem {
 
             case 'ethereum':
                 return 'ETH'
+        }
+    }
+    //marginPrice와 fixedPrice중 선택
+    selectPrice(priceType, fixedPrice, marginPrice){
+        if(priceType ==='fixedprice'){
+            return fixedPrice
+        }
+        else{
+            return marginPrice
         }
     }
 
