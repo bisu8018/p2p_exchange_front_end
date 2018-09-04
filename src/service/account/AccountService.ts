@@ -29,7 +29,10 @@ export default {
             } else if (type === 'phone') {     //휴대전화 인증코드
                 url = 'memberVerification/sms';
                 _type = 'PUT';
-            } else if (type === 'deposit') {     //출금시 이메일 인증코드
+            } else if (type === 'depositSMS') {     //출금시 SMS 인증코드
+                url = 'deposit/sms';
+                _type = 'POST';
+            } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email';
                 _type = 'POST';
             } else if( type ==='changeTradePassword'){
@@ -52,7 +55,9 @@ export default {
                 url = 'memberVerification/email/status'
             } else if (type === 'phone') {     //휴대전화 인증코드
                 url = 'memberVerification/sms/status'
-            } else if (type === 'deposit') {     //출금시 이메일 인증코드
+            } else if (type === 'depositSMS') {     //출금시 sms 인증코드
+                url = 'deposit/sms'
+            } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email'
             } else if( type ==='changeTradePassword'){
                 url = 'resetTradePasswordVerification';

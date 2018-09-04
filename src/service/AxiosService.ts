@@ -157,7 +157,20 @@ export default {
             failure
         )
     },
-
+    _requestWithPramAndBodyAndEmail: function (url: string, type: string, pram:any, data: any, success: any, failure: any) {
+        data = data || {};
+        let path =  {email : MainRepository.MyInfo.getUserInfo().email};
+        let param1 = qs.stringify(path);
+        let param2 = qs.stringify(pram);
+        let _url = url + '?' + param1 + '&' + param2;
+        this._request(
+            _url,
+            type,
+            JSON.stringify(data),
+            success,
+            failure
+        )
+    },
     showErrorPopup: function (code) {
         Vue.prototype.$eventBus.$emit('showAlert', code);
     },
