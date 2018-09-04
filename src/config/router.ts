@@ -97,7 +97,7 @@ export default new Router({
             component: MyOrderSimpleMobile,
         },
         {
-            path: '/dmyAs',
+            path: '/myAds',
             name: 'myAds',
             component: MyAds,
         },
