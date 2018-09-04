@@ -8,12 +8,22 @@
 
     <v-divider />
   <div class="scroll-space">
+    <div v-if="haveItem">
       <div v-for="item in orderList">
         <my-order-simple-item
                 :data="item"
         />
         <v-divider />
       </div>
+    </div>
+    <div v-else>
+      <div class="sprite-img ic-no-ad-lg no-more-ads">
+      </div>
+      <div class="color-gray no-more-ads-text">
+        {{$str("No more orders")}}
+      </div>
+
+    </div>
   </div>
     <div @click="goMyOrder()" class="css-view-all text-white-hover py-3 ">
       {{$str("View All")}}
@@ -36,6 +46,9 @@
             isFixed(){
                 return MainRepository.MyOrder.controller().getMyOrderModalFixed();
             },
+            haveItem(){
+                return MainRepository.MyOrder.controller().getMyOrderAlarmItems().length !== 0;
+            }
         },
         methods: {
             goMyOrder() {
@@ -88,5 +101,12 @@
     bottom: 0px;
     width: 100%;
     border-top: solid 1px #d1d1d1;
+  }
+  .no-more-ads{
+    margin: 120px auto 16px auto;
+  }
+  .no-more-ads-text{
+    margin-bottom: 56px;
+    text-align: center;
   }
 </style>

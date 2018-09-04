@@ -500,7 +500,13 @@
             setNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
-            }
+            },
+            getBalance(){
+                let MyBalance = MainRepository.Balance.controller().findByCrptoCurrency(
+                    MainRepository.TradeView.getSelectFilter().cryptocurrency
+                );
+                return MyBalance.availableAmount
+            },
         },
         methods : {
             onNumberCheck(type){
@@ -529,6 +535,11 @@
                         this.warning_fromValue = true;
                         return false;
                     }
+                    if (this.fromValue > this.getBalance) {
+                        this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
+                        this.warning_fromValue = true;
+                        return false;
+                    }
                     let temp = this.fromValue;
                     if (!abUtils.isDouble(temp) || temp[0] === '.') {
                         return this.fromValue = "";
@@ -550,12 +561,18 @@
             fillAll(){
                 this.clickToAll = false;
                 this.clickFromAll = false;
-                //차후 내 잔고 불러와 마진고려해 수정해야함
-                if (this.user.volumeAvailable * this.user.fixedPrice > this.user.maxLimit) {
-                    this.toValue = this.user.maxLimit
-                }
-                else {
+                //차후 마진고려해 수정해야함
+                this.toValue = this.user.maxLimit
+                if (this.user.volumeAvailable * this.user.fixedPrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.fixedPrice;
+                }
+                if(this.toValue > this.user.fixedPrice * this.getBalance){
+                    this.toValue = this.user.fixedPrice * this.getBalance;
+                }
+                if(this.toValue < this.user.minLimit){
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
+                    return false;
                 }
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
@@ -605,6 +622,11 @@
                     return false;
                 }
                 if (this.fromValue > this.user.volumeAvailable) {
+                    this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
+                    this.warning_fromValue = true;
+                    return false;
+                }
+                if (this.fromValue > this.getBalance) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
                     return false;

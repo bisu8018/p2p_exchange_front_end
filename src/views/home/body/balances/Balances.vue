@@ -242,11 +242,6 @@
                 {name : 'CAD'},
                 {name : 'KRW'},
             ],
-            tokenLists: [
-                new Balance(''),
-                new Balance(''),
-                new Balance('')
-            ],
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
             balanceInterval: {},

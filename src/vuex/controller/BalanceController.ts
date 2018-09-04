@@ -28,7 +28,6 @@ export default class BalanceController {
 
     findByCrptoCurrency(crpto: string) {
         let result = new Balance('');
-
         for(let i = 0; i < this.getBalances().length; i++) {
             let _item = this.getBalances()[i];
             if (_item.cryptoCurrency === crpto) {
