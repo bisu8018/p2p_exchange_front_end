@@ -1905,7 +1905,7 @@ const strings = new Map([
         HK: '安全等級'
     }],
     ['securityExplain', {
-        KOR: '이중 인증 연동을 강력히 추천합니다.',
+        KOR: '다중 인증을 필히 권유드립니다.',
         ENG: 'Using two-factor authentication is highly recommended.',
         CN: '我们强烈建议您完成双重验证。',
         HK: '我們强烈建議您完成雙重驗證。'
@@ -2210,6 +2210,12 @@ const strings = new Map([
         CN: '更改密码',
         HK: '更改密碼'
     }],
+    ['changePhoneNumber', {
+        KOR: '전화번호 변경',
+        ENG: 'Change phone number',
+        CN: '',
+        HK: ''
+    }],
     ['oldPassword', {
         KOR: '현재 비밀번호',
         ENG: 'Current password',
@@ -2255,6 +2261,12 @@ const strings = new Map([
     ['phoneNumber', {
         KOR: '전화번호',
         ENG: 'Phone Number',
+        CN: '电话号码',
+        HK: '電話號碼'
+    }],
+    ['newPhoneNumber', {
+        KOR: '새로운 전화번호',
+        ENG: 'New Phone Number',
         CN: '电话号码',
         HK: '電話號碼'
     }],
@@ -2820,44 +2832,44 @@ const strings = new Map([
     ['systemMsgRegistered', {
         KOR: '주문 등록 완료',
         ENG: 'ORDER REGISTERED',
-        CN: '',
-        HK: ''
+        CN: '订单注册成功',
+        HK: '訂單注冊成功'
     }],
     ['systemMsgPaid', {
         KOR: '금액 지불 완료',
         ENG: 'PAID COMPLETE',
-        CN: '',
-        HK: ''
+        CN: '支付成功',
+        HK: '支付成功'
     }],
     ['systemMsgPaidCanceledAppeal', {
         KOR: '이의제기 취소',
         ENG: 'APPEAL CANCELED',
-        CN: '',
-        HK: ''
+        CN: '投诉已取消',
+        HK: '投訴已取消'
     }],
     ['systemMsgComplete', {
         KOR: '거래 완료',
         ENG: 'TRADE COMPLETE',
-        CN: '',
-        HK: ''
+        CN: '交易成功',
+        HK: '交易成功'
     }],
     ['systemMsgCanceled', {
         KOR: '거래 취소',
         ENG: 'ORDER CANCELED',
-        CN: '',
-        HK: ''
+        CN: '交易已取消',
+        HK: '交易已取消'
     }],
     ['systemMsgAppealed', {
-        KOR: '이의제기 등록',
+        KOR: '이의제기 등록 완료',
         ENG: 'APPEAL REGISTERED',
-        CN: '',
-        HK: ''
+        CN: '申请投诉成功',
+        HK: '申請投訴成功'
     }],
     ['systemMsgExpired', {
-        KOR: '주문 기간 만료',
+        KOR: '주문 시한 만료',
         ENG: 'ORDER EXPIRED',
-        CN: '',
-        HK: ''
+        CN: '交易时限已结束',
+        HK: '交易時限已結束'
     }],
     ['ALLB OTC', {
         KOR: 'ALLB OTC',

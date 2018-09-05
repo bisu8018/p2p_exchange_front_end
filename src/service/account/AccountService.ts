@@ -35,7 +35,7 @@ export default {
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email';
                 _type = 'POST';
-            } else if( type ==='changeTradePassword'){
+            } else if (type === 'changeTradePassword') {
                 url = 'resetTradePassword';
                 _type = 'POST';
             }
@@ -59,7 +59,7 @@ export default {
                 url = 'deposit/sms'
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email'
-            } else if( type ==='changeTradePassword'){
+            } else if (type === 'changeTradePassword') {
                 url = 'resetTradePasswordVerification';
             }
             AxiosService._requestWithUrlPram(url, 'PUT', data,
@@ -83,6 +83,8 @@ export default {
                 .then((response) => {
                     if (response.data.code === 0) {
                         success(response.data.result);
+                    }else{
+                        failure();
                     }
                 })
                 .catch((error) => {
@@ -169,9 +171,9 @@ export default {
         },
         //패스워드 변경
         changePassword: function (currentPw: string, newPw: string, callback: any) {
-            let data ={
-                    "currentPassword": currentPw,
-                    "newPassword": newPw
+            let data = {
+                "currentPassword": currentPw,
+                "newPassword": newPw
             };
             AxiosService._requestWithBodyAndEmail('member/password', 'PUT', data,
                 function (data: any) {
@@ -244,7 +246,7 @@ export default {
                 function () {
                 })
         },
-        setPaymentMethod: function (data : any, callback: any) {
+        setPaymentMethod: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('payment', 'GET', data,
                 function (data) {
                     callback(data);
@@ -299,7 +301,8 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () { })
+                function () {
+                })
         }
     }
 }

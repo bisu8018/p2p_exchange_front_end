@@ -239,7 +239,7 @@
                 MainRepository.router().goChangePassword();
             },
             goChangePhone() {
-                alert('We are currently preparing this page. We\'re sorry for any trouble.');
+                MainRepository.router().goChangePhone()
             },
             goReset() {
                 MainRepository.router().goResetTradePassword();

@@ -22,6 +22,7 @@ import MyPage from '../views/home/body/myPage/MyPage.vue'
 import Merchant from '../views/home/body/merchant/Merchant.vue'
 import UserPage from '../views/home/body/tradeCenter/userPage/UserPage.vue'
 import ChangePassword from '../views/home/body/myPage/additionalVue/ChangePassword.vue'
+import ChangePhone from '../views/home/body/myPage/additionalVue/ChangePhone.vue'
 import TurnOff from '../views/home/body/myPage/additionalVue/TurnOff.vue'
 import LinkAccount from '../views/home/body/myPage/additionalVue/LinkAccount.vue'
 import RestTradePassword from '../views/home/body/myPage/additionalVue/ResetTradePassword.vue'
@@ -125,6 +126,11 @@ export default new Router({
             path: '/changePassword',
             name: 'changePassword',
             component: ChangePassword,
+        },
+        {
+            path: '/changePhone',
+            name: 'changePhone',
+            component: ChangePhone,
         },
         {
             path: '/turnOff',
