@@ -125,6 +125,8 @@
                 let self = this;
                 MainRepository.MyPage.changeTradePassword(self.new_password, (result) => {
                     MainRepository.router().goMyPage();
+                }, () => {
+                    return false;
                 })
             },
             onCheckPasswordConfirm() {

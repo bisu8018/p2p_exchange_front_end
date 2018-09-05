@@ -8,12 +8,13 @@ import IdVerificationId from "@/vuex/model/IdVerificationId";
 
 export default {
     Account: {
-        signup: function (data: any, callback: any) {
+        signup: function (data: any, callback: any, failure: any) {
             AxiosService._requestWithBody('member', 'POST', data,
                 function (data: any) {
-                    callback(data)
+                    callback(data);
                 },
                 function () {
+                failure();
                 })
         },
         // 인증코드 전송
@@ -35,7 +36,7 @@ export default {
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email';
                 _type = 'POST';
-            } else if (type === 'changeTradePassword') {
+            } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePassword';
                 _type = 'POST';
             }
@@ -47,7 +48,7 @@ export default {
                 })
         },
         // 인증코드 검증 및 상태 업데이트
-        checkVerificationCode: function (type: string, data: any, callback: any) {
+        checkVerificationCode: function (type: string, data: any, callback: any, failure: any) {
             let url;
             if (type === 'signup') {          //회원가입
                 url = 'signUpVerification';
@@ -59,14 +60,15 @@ export default {
                 url = 'deposit/sms'
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email'
-            } else if (type === 'changeTradePassword') {
+            } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePasswordVerification';
             }
             AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {
-                    callback(data)
+                    callback(data);
                 },
                 function () {
+                failure();
                 })
         },
         // 로그인 체크
@@ -88,7 +90,7 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    failure()
+                    failure();
                 }).then(() => {
             })
         },
@@ -170,7 +172,7 @@ export default {
                 })
         },
         //패스워드 변경
-        changePassword: function (currentPw: string, newPw: string, callback: any) {
+        changePassword: function (currentPw: string, newPw: string, callback: any, failure: any) {
             let data = {
                 "currentPassword": currentPw,
                 "newPassword": newPw
@@ -180,14 +182,16 @@ export default {
                     callback(data);
                 },
                 function () {
+                    failure();
                 })
         },
-        changeTradePassword: function (data: any, callback: any) {
+        changeTradePassword: function (data: any, callback: any, failure: any) {
             AxiosService._requestWithPlainBody('member/tradePassword', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },
                 function () {
+                    failure();
                 })
         },
         isDuplicated: function (email: string, callback: any) {

@@ -59,49 +59,54 @@ export default {
         window.open(URL);
 
     },
-    onPaid : function (data : any, callback: any) {
+    onPaid : function (data : any, callback: any, failure: any) {
         let url = 'order/' + data + '/paid';
         AxiosService._requestWithBodyAndEmail(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },
             function () {
+                failure();
             })
     },
-    onCancel : function (data : any, callback: any) {
+    onCancel : function (data : any, callback: any, failure: any) {
         let url = 'order/' + data.orderNo + '/cancel';
         AxiosService._requestWithBodyAndEmail(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },
             function () {
+                failure();
             })
     },
-    onAppeal : function (data : any, callback: any) {
+    onAppeal : function (data : any, callback: any, failure: any) {
         let url = 'order/' + data.orderNo + '/appeal';
         AxiosService._requestWithBodyAndEmail(url, 'PUT', data ,
             function (data: any) {
                 callback(data)
             },
             function () {
+                failure();
             })
     },
-    onConfirm : function (data : any, callback: any) {
+    onConfirm : function (data : any, callback: any, failure: any) {
         let url = 'order/' + data.orderNo + '/confirmAndRelease';
         AxiosService._requestWithPlainBody(url, 'PUT', data.tradePassword,
             function (data: any) {
                 callback(data)
             },
             function () {
+                failure();
             })
     },
-    onAppealCancel : function (data : any, callback: any) {
+    onAppealCancel : function (data : any, callback: any, failure: any) {
         let url = 'order/' + data.orderNo + '/appeal/' + data.appealNo + '/cancel';
         AxiosService._requestWithBodyAndEmail(url, 'PUT', data.tradePassword,
             function (data: any) {
                 callback(data)
             },
             function () {
+                failure();
             })
     },
     getOrderStatus: function (data : any, callback: any) {

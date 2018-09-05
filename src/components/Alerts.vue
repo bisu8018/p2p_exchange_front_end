@@ -108,6 +108,10 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 2155 : this.show(this.type.Success, "", this.$str('comp_order_expire')); break;    // 거래 만료
 
 
+                    //마이페이지 메세지 2250~
+                    case 2251 : this.show(this.type.Success, "", this.$str('comp_linked_phone_change')); break;    // 연동 전화번호 수정 완료
+
+
                     //클라이언트 단 에러코드 4000 ~
                     case 4001 : this.show(this.type.Warning, "", this.$str('')); break;
                     case 4002 : this.show(this.type.Warning, "", this.$str('err_agreeTermCheck')); break;       // 이용약관 체크 필요

@@ -51,7 +51,7 @@ import IdVerificationId from "@/vuex/model/IdVerificationId";
 import MyAd from "@/vuex/model/MyAd";
 import Vue from "vue";
 
-let myTradeController : MyTradeController;
+let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
 let tradelistController: TradeListController;
 let stateController: StateController;
@@ -122,10 +122,14 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.loadBalances(() => {});
-                self.Balance.setSecurityBalance(() => {});
-                self.Merchant.loadMyMerchantInfo(() => {});
-                self.MarketPrice.load(() => {});
+                self.Balance.loadBalances(() => {
+                });
+                self.Balance.setSecurityBalance(() => {
+                });
+                self.Merchant.loadMyMerchantInfo(() => {
+                });
+                self.MarketPrice.load(() => {
+                });
                 self.MyInfo.loadMyPaymentMethods(() => {
                     callback();
                 });
@@ -154,7 +158,7 @@ export default {
         isMobile(): boolean {
             return stateController.isMoblie();
         },
-        isInitCompleted(){
+        isInitCompleted() {
             return stateController.isInitCompleted();
         },
         setInitCompleted(isCompleted: boolean) {
@@ -168,7 +172,7 @@ export default {
         loadBalances: function (callback: any) {
             BalanceService.getBalances({
                 email: instance.MyInfo.getUserInfo().email
-            }, function (result) {
+            }, (result) => {
                 balanceController.setBalance(result);
                 callback();
             })
@@ -176,80 +180,81 @@ export default {
         getBalances: function () {
             return balanceController.getBalances();
         },
-        setSecurityBalance: function(callback:any){
+        setSecurityBalance: function (callback: any) {
             BalanceService.getMySecurityBalance({
                 email: instance.MyInfo.getUserInfo().email
-            }, function(result){
-            //securityDeposit 해야함.
+            }, (result) => {
+                //securityDeposit 해야함.
 
             })
         },
-        setWithdraw: function (data : any) {
+        setWithdraw: function (data: any) {
             balanceController.setWithdraw(
                 new Withdraw(data)
             )
         },
-        getWithdraw: function (){
+        getWithdraw: function () {
             return balanceController.getWithdraw();
         },
         postWithdraw: function (data: boolean, callback: any) {
             BalanceService.postWithdraw(
-                {verificationMethod : data?  'sms' : 'email'},
-                {addressTo : balanceController.getWithdraw().addressTo,
-                amount : balanceController.getWithdraw().amount,
-                cryptoCurrency : balanceController.getWithdraw().cryptoCurrency,
-                fee : balanceController.getWithdraw().fee,
-                ownerMemberNo : balanceController.getWithdraw().ownerMemberNo,
-                receiveAmount : balanceController.getWithdraw().receiveAmount
-            }, function (result) {
-                callback(result);
-            })
+                {verificationMethod: data ? 'sms' : 'email'},
+                {
+                    addressTo: balanceController.getWithdraw().addressTo,
+                    amount: balanceController.getWithdraw().amount,
+                    cryptoCurrency: balanceController.getWithdraw().cryptoCurrency,
+                    fee: balanceController.getWithdraw().fee,
+                    ownerMemberNo: balanceController.getWithdraw().ownerMemberNo,
+                    receiveAmount: balanceController.getWithdraw().receiveAmount
+                }, (result) => {
+                    callback(result);
+                })
         },
         //Balance history
-        initHistoryData(){
+        initHistoryData() {
             this.setHIstoryFilter('')
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        initHistory(){
+        initHistory() {
             this.setHIstoryFilter({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : '',
-                searchEndTime : '',
-                type : '',
-                cryptocurrency : '',
-                page : '1',
-                size : '8'
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: '',
+                searchEndTime: '',
+                type: '',
+                cryptocurrency: '',
+                page: '1',
+                size: '8'
             })
             this.loadHistory();
         },
-        setHIstoryFilter(data){
+        setHIstoryFilter(data) {
             balanceController.setHIstoryFilter(
                 new MyTradeFilter(data)
             )
         },
-        updateHistoryPage(data){
-            if(data.page === undefined){
-                balanceController.updateHistoryFilter({page : 1});
+        updateHistoryPage(data) {
+            if (data.page === undefined) {
+                balanceController.updateHistoryFilter({page: 1});
                 instance.Pagination.setPage(1,);
             }
             balanceController.updateHistoryFilter(data);
             this.loadHistory();
         },
-        loadHistory(){
+        loadHistory() {
             BalanceService.getBalanceHistory({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : balanceController.getHistoryFilter().searchStartTime,
-                searchEndTime : balanceController.getHistoryFilter().searchEndTime,
-                type :  balanceController.getHistoryFilter().type,
-                cryptocurrency : balanceController.getHistoryFilter().cryptocurrency,
-                page : balanceController.getHistoryFilter().page,
-                size : '8'
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: balanceController.getHistoryFilter().searchStartTime,
+                searchEndTime: balanceController.getHistoryFilter().searchEndTime,
+                type: balanceController.getHistoryFilter().type,
+                cryptocurrency: balanceController.getHistoryFilter().cryptocurrency,
+                page: balanceController.getHistoryFilter().page,
+                size: '8'
             }, function (data) {
                 //전체 item list model화 시켜 주기
                 let result = data.balanceHistoryList
                 let balanceHistoryList: BalanceHistory[] = [];
-                for(let key in result){
+                for (let key in result) {
                     let item: BalanceHistory = new BalanceHistory(result[key])
                     balanceHistoryList.push(item);
                 }
@@ -257,7 +262,7 @@ export default {
                 balanceController.setBalanceHistoryLIst(balanceHistoryList);
             })
         },
-        getBalanceHistories(){
+        getBalanceHistories() {
             return balanceController.getBalanceHistoryList();
         }
 
@@ -266,7 +271,7 @@ export default {
         getMemberVerification: function (callback: any) {
             AccountService.Verification.memberVerification({
                 email: instance.MyInfo.getUserInfo().email
-            }, function (result) {
+            }, (result) => {
                 let email = new EmailVerification('');
                 let phone = new PhoneVerification('');
 
@@ -284,7 +289,7 @@ export default {
         getIdVerification: function (callback: any) {
             AccountService.Verification.idVerification({
                 email: instance.MyInfo.getUserInfo().email
-            }, function (result) {
+            }, (result) => {
                 let _idVerification = new IdVerification('');
 
                 for (let i = 0; i < result.length; i++) {
@@ -297,26 +302,28 @@ export default {
             })
         },
         postIdVerification: function (email: string, idVerificationId: IdVerificationId, callback: any) {
-            AccountService.Verification.postIdVerification(email, idVerificationId, function(result) {
+            AccountService.Verification.postIdVerification(email, idVerificationId, (result) => {
                 callback(result);
             })
         },
-        setPaymentMethod: function (email: string, paymentType: any, callback: any){
-            AccountService.Account.addPaymentMethod(email, paymentType, function (result) {
-                instance.MyInfo.loadMyPaymentMethods(() => {})
+        setPaymentMethod: function (email: string, paymentType: any, callback: any) {
+            AccountService.Account.addPaymentMethod(email, paymentType, (result) => {
+                instance.MyInfo.loadMyPaymentMethods(() => {
+                })
                 callback(result);
             })
         },
         deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
-            AccountService.Account.deletePaymentMethod(email, paymentMethods, function (result) {
-                instance.MyInfo.loadMyPaymentMethods(() => {})
+            AccountService.Account.deletePaymentMethod(email, paymentMethods, (result) => {
+                instance.MyInfo.loadMyPaymentMethods(() => {
+                })
                 callback(result);
             })
         },
         getBlockList: function (callback: any) {
             AccountService.BlockList.getBlockList({
                 email: instance.MyInfo.getUserInfo().email
-            }, function (result) {
+            }, (result) => {
                 let blockList = new Block('');
                 const blockList_arr = new Array();
 
@@ -333,7 +340,7 @@ export default {
                 email: instance.MyInfo.getUserInfo().email,
                 page: page,
                 size: 10
-            }, function (result) {
+            }, (result) => {
                 let _loginHistory = new LoginHistory(result);
                 callback(_loginHistory);
             })
@@ -343,16 +350,18 @@ export default {
                 email: instance.MyInfo.getUserInfo().email,
                 page: page,
                 size: 10
-            }, function (result) {
+            }, (result) => {
                 let _securitySettings = new SecuritySettings(result);
                 callback(_securitySettings);
             })
         },
-        changeTradePassword: function (data: string, callback: any) {
+        changeTradePassword: function (data: string, callback: any, failure: any) {
             AccountService.Account.changeTradePassword(data
-            ,function (result) {
-                callback(result);
-            });
+                , (result) => {
+                    callback(result);
+                }, (code) => {
+                    failure();
+                });
         },
     },
     MyInfo: {
@@ -404,13 +413,14 @@ export default {
                     callback();
                 },
                 // 로그인 하지 않음
-                function () {}
+                function () {
+                }
             );
         },
         loadMyPaymentMethods: function (callback: any) {
             AccountService.PaymentMethod.setPaymentMethod({
-                email : this.getUserInfo().email
-            },function (result) {
+                email: this.getUserInfo().email
+            }, (result) => {
                 let _payments: PaymentMethod[] = [];
                 for (let i = 0; i < result.length; i++) {
                     _payments.push(new PaymentMethod(result[i]));
@@ -425,47 +435,47 @@ export default {
     },
     Users: {
         //다른 유저 정보 GET
-        getOtherUsers(email : string, callback: any) {
+        getOtherUsers(email: string, callback: any) {
             AccountService.Account.getOtherUsersInfo({
                 email: email
-            }, function (result) {
+            }, (result) => {
                 let otherUserInfo = new OtherUsers(result);
                 callback(otherUserInfo);
 
             })
         },
-        getOtherUsersbyMemberNo(memberNo : string, callback: any) {
+        getOtherUsersbyMemberNo(memberNo: string, callback: any) {
             AccountService.Account.getOtherUsersInfobyMemberNo({
                 memberNo: memberNo
-            }, function (result) {
+            }, (result) => {
                 let otherUserInfo = new OtherUsers(result);
                 callback(otherUserInfo);
             })
         },
-        isUserActive(data : any, callback: any){
-            AccountService.Account.isUserActive(data, function (result) {
+        isUserActive(data: any, callback: any) {
+            AccountService.Account.isUserActive(data, (result) => {
                 callback(result);
             })
         },
         ///UserPage에서 user의 과거 이력data GET
-        getUserPageHistoryInfo(data : number, callback: any){
-            AdService.getUserPageHistoryInfo(data, function (result) {
+        getUserPageHistoryInfo(data: number, callback: any) {
+            AdService.getUserPageHistoryInfo(data, (result) => {
                 callback(result);
             })
         },
-        getUserPageAdsList(data : number, callback: any){
-            AdService.getUserPageAdsList(data, function (result) {
+        getUserPageAdsList(data: number, callback: any) {
+            AdService.getUserPageAdsList(data, (result) => {
 
                 let BuyLists: TradeItem[] = [];
                 let SellLists: TradeItem[] = [];
                 let tempLists = {};
-                for(let key in result){
+                for (let key in result) {
 
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
-                    if(itemList.tradeType ==='buy'){
+                    if (itemList.tradeType === 'buy') {
                         BuyLists.push(itemList);
-                    }else if(itemList.tradeType ==='sell'){
+                    } else if (itemList.tradeType === 'sell') {
                         SellLists.push(itemList);
                     }
                 }
@@ -473,22 +483,22 @@ export default {
                 callback(tempLists);
             })
         },
-        postBlockThisUser(data: any, callback: any){
-            AccountService.BlockList.postBlockUser(data, function (result) {
+        postBlockThisUser(data: any, callback: any) {
+            AccountService.BlockList.postBlockUser(data, (result) => {
                 callback(result);
             })
         },
-        deleteBlockThisUser(data: any, callback: any){
-            AccountService.BlockList.deleteBlockUser(data, function (result) {
+        deleteBlockThisUser(data: any, callback: any) {
+            AccountService.BlockList.deleteBlockUser(data, (result) => {
                 callback(result);
             })
         },
-        isDuplicated(email: string, callback: any){
+        isDuplicated(email: string, callback: any) {
             AccountService.Account.isDuplicated(email, (result) => {
                 callback(result);
             })
         },
-        resetPassword(data: any, callback: any){
+        resetPassword(data: any, callback: any) {
             AccountService.Account.resetPassword(data, (result) => {
                 callback(result);
             })
@@ -512,16 +522,16 @@ export default {
         initData() {
             //filter 초기화
             tradelistController.updateTradeFilter({
-                type : 'piece',
-                cryptocurrency : 'bitcoin',
-                tradeType : 'Buy',
-                nationality : 'ALL',
-                currency :  'CNY',
-                amount :  -1,
-                paymentMethods :  '',
-                page :  1,
-                size : 10,
-                })
+                type: 'piece',
+                cryptocurrency: 'bitcoin',
+                tradeType: 'Buy',
+                nationality: 'ALL',
+                currency: 'CNY',
+                amount: -1,
+                paymentMethods: '',
+                page: 1,
+                size: 10,
+            })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
@@ -532,15 +542,15 @@ export default {
         },
         initPage(isBlock: boolean) {
             this.setTradeFilter({
-                type : isBlock ? 'block' : 'piece',
-                cryptocurrency : 'bitcoin',
-                tradeType : 'sell',
-                nationality : 'ALL',
-                currency :  'CNY',
-                amount :  -1,
-                paymentMethods :  '',
-                page :  1,
-                size : 10,
+                type: isBlock ? 'block' : 'piece',
+                cryptocurrency: 'bitcoin',
+                tradeType: 'sell',
+                nationality: 'ALL',
+                currency: 'CNY',
+                amount: -1,
+                paymentMethods: '',
+                page: 1,
+                size: 10,
             })
         },
         setTradeFilter(data) {
@@ -557,22 +567,23 @@ export default {
         updateSelectPage(data) {
             //바뀐 data로 filter update해주기.
             tradelistController.updateTradeFilter(data);
-            this.load(function () {});
+            this.load(function () {
+            });
         },
 
         load(callback: any) {
             // 변환 로직
 
             TradeService.tradeView.tradePage({
-                type : tradelistController.getTradeFilter().type,
-                cryptocurrency : tradelistController.getTradeFilter().cryptocurrency,
-                tradeType :   tradelistController.getTradeFilter().tradeType,
-                nationality : tradelistController.getTradeFilter().nationality,
-                currency :  tradelistController.getTradeFilter().currency,
-                amount :  tradelistController.getTradeFilter().amount,
-                paymentMethods :  tradelistController.getTradeFilter().paymentMethods,
-                page :   tradelistController.getTradeFilter().page,
-                size : tradelistController.getTradeFilter().size,
+                type: tradelistController.getTradeFilter().type,
+                cryptocurrency: tradelistController.getTradeFilter().cryptocurrency,
+                tradeType: tradelistController.getTradeFilter().tradeType,
+                nationality: tradelistController.getTradeFilter().nationality,
+                currency: tradelistController.getTradeFilter().currency,
+                amount: tradelistController.getTradeFilter().amount,
+                paymentMethods: tradelistController.getTradeFilter().paymentMethods,
+                page: tradelistController.getTradeFilter().page,
+                size: tradelistController.getTradeFilter().size,
             }, function (data) {
                 //전체 item 갯수 pagination에 넣어주기.
                 let totalCount = data.totalCount;
@@ -581,7 +592,7 @@ export default {
                 //전체 item list model화 시켜 주기
                 let result = data.adList
                 let tradeList: TradeItem[] = [];
-                for(let key in result){
+                for (let key in result) {
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
                     tradeList.push(itemList);
@@ -601,48 +612,47 @@ export default {
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
             var LeftFilterArr = {
-                cryptocurrency : cryptocurrency,
-                tradeType :   tradeType,
-                page : 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
+                cryptocurrency: cryptocurrency,
+                tradeType: tradeType,
+                page: 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.
             };
             //page는 1로 초기화
             instance.Pagination.setPage(1,);
             instance.TradeView.updateSelectPage(LeftFilterArr);      //필터에 맞게 화면 재구성
         },
-        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string){
+        setTradeRightFilter(nationality: string, paymentMethod: string, currency: string, amount: string) {
             //amount 에 들어간 값이 없을때
-            if(amount ==''){
+            if (amount == '') {
                 amount = '0'
             }
             var RightFilterArr = {
-                nationality : instance.SelectBox.controller().getCountry(),
-                paymentMethods : instance.SelectBox.controller().getPayment(),
-                currency : instance.SelectBox.controller().getCurrency(),
-                amount :  Number(amount),
+                nationality: instance.SelectBox.controller().getCountry(),
+                paymentMethods: instance.SelectBox.controller().getPayment(),
+                currency: instance.SelectBox.controller().getCurrency(),
+                amount: Number(amount),
                 page: 1,
             };
             instance.Pagination.setPage(1,);//page는 1로 초기화
             instance.TradeView.updateSelectPage(RightFilterArr);     //필터에 맞게 화면 재구성
         },
 
-        setchangeDrawer(adNo: number){
+        setchangeDrawer(adNo: number) {
             let tempNo = tradelistController.getDrawerID();
-            if(tempNo === adNo){
+            if (tempNo === adNo) {
                 tradelistController.setDrawerID(0)
             }
-            else{
+            else {
                 tradelistController.setDrawerID(adNo)
             }
         },
-        getDrawer(){
+        getDrawer() {
             return tradelistController.getDrawerID();
         },
-        createOrder: function (data : any, callback: any) {
-            OrderService.addOrder(data, function (result) {
+        createOrder: function (data: any, callback: any) {
+            OrderService.addOrder(data, (result) => {
                 callback(result);
             })
         },
-
 
 
     },
@@ -665,26 +675,26 @@ export default {
         getTotalCount() {
             return paginationController.getTotalCount();
         },
-        setPage(page: number, size : number, type : string) {
+        setPage(page: number, size: number, type: string) {
             //현재 page set
             paginationController.setPage(page);
             //pagination에서 직접버튼을 눌렀을때만 아래의 case 따라 page update 시켜줌.
-            if(type !==''){
+            if (type !== '') {
                 switch (type) {
                     case 'tradecenter':     //tradecenter page 일때.
-                        instance.TradeView.updateSelectPage({page : page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
+                        instance.TradeView.updateSelectPage({page: page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
                         break;
 
                     case 'MyOrder':
-                        instance.MyOrder.updatePage({page : page});
+                        instance.MyOrder.updatePage({page: page});
                         break;
 
                     case 'myAds':
-                        instance.MyAds.updatePage(  {page : page});
+                        instance.MyAds.updatePage({page: page});
                         break;
 
                     case 'balance':
-                        instance.Balance.updateHistoryPage(  {page : page});
+                        instance.Balance.updateHistoryPage({page: page});
                         break;
 
                     default :
@@ -715,63 +725,63 @@ export default {
             })
         }
     },
-    MyAds:{
+    MyAds: {
         controller(): MyTradeController {
             return myTradeController;
         },
-        initPage(){
+        initPage() {
             this.setFilter({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : '',
-                searchEndTime : '',
-                status : '',
-                orderNo : '',
-                cryptocurrency : '',
-                orderType : '',
-                tradeType : '',
-                currency : '',
-                page : '1',
-                size : '10'
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: '',
+                searchEndTime: '',
+                status: '',
+                orderNo: '',
+                cryptocurrency: '',
+                orderType: '',
+                tradeType: '',
+                currency: '',
+                page: '1',
+                size: '10'
             })
             this.load();
         },
-        initData(){
+        initData() {
             myTradeController.setMyAdsFilter({
-                searchStartTime : '',
-                searchEndTime : '',
-                status : '',
-                orderNo : '',
-                cryptocurrency : '',
-                orderType : '',
-                tradeType : '',
-                currency : '',
-                page : '1',
-                size : '10',
+                searchStartTime: '',
+                searchEndTime: '',
+                status: '',
+                orderNo: '',
+                cryptocurrency: '',
+                orderType: '',
+                tradeType: '',
+                currency: '',
+                page: '1',
+                size: '10',
             })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        load(){
+        load() {
             AdService.getMyAds({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : myTradeController.getMyAdsFilter().searchStartTime,
-                searchEndTime : myTradeController.getMyAdsFilter().searchEndTime,
-                status : myTradeController.getMyAdsFilter().status,
-                adNo : myTradeController.getMyAdsFilter().adNo,
-                cryptocurrency : myTradeController.getMyAdsFilter().cryptocurrency,
-                orderType : myTradeController.getMyAdsFilter().orderType,
-                tradeType : myTradeController.getMyAdsFilter().tradeType,
-                currency : myTradeController.getMyAdsFilter().currency,
-                page : myTradeController.getMyAdsFilter().page,
-                size : '10',
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: myTradeController.getMyAdsFilter().searchStartTime,
+                searchEndTime: myTradeController.getMyAdsFilter().searchEndTime,
+                status: myTradeController.getMyAdsFilter().status,
+                adNo: myTradeController.getMyAdsFilter().adNo,
+                cryptocurrency: myTradeController.getMyAdsFilter().cryptocurrency,
+                orderType: myTradeController.getMyAdsFilter().orderType,
+                tradeType: myTradeController.getMyAdsFilter().tradeType,
+                currency: myTradeController.getMyAdsFilter().currency,
+                page: myTradeController.getMyAdsFilter().page,
+                size: '10',
             }, function (data) {
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
                 //전체 item list model화 시켜 주기
                 let result = data.myAdsList
                 let myAdsList: TradeItem[] = [];
-                for(let key in result){
+                for (let key in result) {
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
                     myAdsList.push(itemList);
@@ -779,20 +789,20 @@ export default {
                 myTradeController.setMyAdsItems(myAdsList);
             })
         },
-        setFilter( data){
+        setFilter(data) {
             myTradeController.setMyAdsFilter(
                 new MyTradeFilter(data)
             );
         },
-        updatePage(data){
-            if(data.page === undefined){
-                myTradeController.updateMyAdsFilter({page : 1});
+        updatePage(data) {
+            if (data.page === undefined) {
+                myTradeController.updateMyAdsFilter({page: 1});
                 instance.Pagination.setPage(1,);
             }
             myTradeController.updateMyAdsFilter(data);
             this.load();
         },
-        getPage(){
+        getPage() {
             return myTradeController.getMyAdsItems();
         },
     },
@@ -800,26 +810,27 @@ export default {
         controller(): MyTradeController {
             return myTradeController;
         },
-        initPage(){
+        initPage() {
             this.setFilter({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : '',
-                searchEndTime : '',
-                status : '',
-                orderNo : '',
-                cryptocurrency : '',
-                orderType : '',
-                tradeType : '',
-                currency : '',
-                page : '1',
-                size : '10',})
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: '',
+                searchEndTime: '',
+                status: '',
+                orderNo: '',
+                cryptocurrency: '',
+                orderType: '',
+                tradeType: '',
+                currency: '',
+                page: '1',
+                size: '10',
+            })
             this.load();
         },
-        loadAlarm(){
-            OrderService.getMyOrderAlarm(function(data){
+        loadAlarm() {
+            OrderService.getMyOrderAlarm(function (data) {
                 let result = data
                 let myOrderList: Order[] = [];
-                for(let key in result){
+                for (let key in result) {
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
@@ -827,24 +838,24 @@ export default {
                 myTradeController.setMyOrderAlarmItems(myOrderList);
             })
         },
-        load(){
+        load() {
             OrderService.getMyOrder({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
-                searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
-                status : myTradeController.getMyOrderFilter().status,
-                orderNo : myTradeController.getMyOrderFilter().orderNo,
-                cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
-                orderType : myTradeController.getMyOrderFilter().orderType,
-                tradeType : myTradeController.getMyOrderFilter().tradeType,
-                currency : myTradeController.getMyOrderFilter().currency,
-                page : myTradeController.getMyOrderFilter().page,
-                size : '10',
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: myTradeController.getMyOrderFilter().searchStartTime,
+                searchEndTime: myTradeController.getMyOrderFilter().searchEndTime,
+                status: myTradeController.getMyOrderFilter().status,
+                orderNo: myTradeController.getMyOrderFilter().orderNo,
+                cryptocurrency: myTradeController.getMyOrderFilter().cryptocurrency,
+                orderType: myTradeController.getMyOrderFilter().orderType,
+                tradeType: myTradeController.getMyOrderFilter().tradeType,
+                currency: myTradeController.getMyOrderFilter().currency,
+                page: myTradeController.getMyOrderFilter().page,
+                size: '10',
             }, function (data) {
                 //전체 item list model화 시켜 주기
                 let result = data.ordersList
                 let myOrderList: Order[] = [];
-                for(let key in result){
+                for (let key in result) {
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: Order = new Order(result[key])
                     myOrderList.push(itemList);
@@ -858,7 +869,7 @@ export default {
         // getOtherUsers(email : string, callback: any) {
         //     AccountService.Account.getOtherUsersInfo({
         //         email: email
-        //     }, function (result) {
+        //     }, (result) => {
         //         let otherUserInfo = new OtherUsers(result);
         //         callback(otherUserInfo);
         //
@@ -867,50 +878,50 @@ export default {
         getMyOrderStat(email: string, callback: any) {
             OrderService.getMyOrderStat({
                 email: email
-            }, function(data) {
+            }, function (data) {
                 let _orderStat = new OrderStat(data);
                 callback(_orderStat);
             })
         },
-        getMyOrderDownload(){
+        getMyOrderDownload() {
             OrderService.getMyOrderDownload({
-                email : instance.MyInfo.getUserInfo().email,
-                searchStartTime : myTradeController.getMyOrderFilter().searchStartTime,
-                searchEndTime : myTradeController.getMyOrderFilter().searchEndTime,
-                status : myTradeController.getMyOrderFilter().status,
-                orderNo : myTradeController.getMyOrderFilter().orderNo,
-                cryptocurrency : myTradeController.getMyOrderFilter().cryptocurrency,
-                orderType : myTradeController.getMyOrderFilter().orderType,
-                tradeType : myTradeController.getMyOrderFilter().tradeType,
-                currency : myTradeController.getMyOrderFilter().currency
+                email: instance.MyInfo.getUserInfo().email,
+                searchStartTime: myTradeController.getMyOrderFilter().searchStartTime,
+                searchEndTime: myTradeController.getMyOrderFilter().searchEndTime,
+                status: myTradeController.getMyOrderFilter().status,
+                orderNo: myTradeController.getMyOrderFilter().orderNo,
+                cryptocurrency: myTradeController.getMyOrderFilter().cryptocurrency,
+                orderType: myTradeController.getMyOrderFilter().orderType,
+                tradeType: myTradeController.getMyOrderFilter().tradeType,
+                currency: myTradeController.getMyOrderFilter().currency
             })
         },
-        initData(){
+        initData() {
             this.setFilter({
-                searchStartTime : '',
-                searchEndTime : '',
-                status : '',
-                orderNo : '',
-                cryptocurrency : '',
-                orderType : '',
-                tradeType : '',
-                currency : '',
-                page : '1',
-                size : '10',
+                searchStartTime: '',
+                searchEndTime: '',
+                status: '',
+                orderNo: '',
+                cryptocurrency: '',
+                orderType: '',
+                tradeType: '',
+                currency: '',
+                page: '1',
+                size: '10',
             })
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        setFilter(data){
+        setFilter(data) {
             myTradeController.setMyOrderFilter(
                 new MyTradeFilter(data)
             )
         },
-        updatePage(data){
+        updatePage(data) {
             //pagination이 아닌 filter의 값 변경시
-            if(data.page === undefined){
-                myTradeController.updateMyOrderFilter({page : 1});
+            if (data.page === undefined) {
+                myTradeController.updateMyOrderFilter({page: 1});
                 instance.Pagination.setPage(1,);
             }
             myTradeController.updateMyOrderFilter(data);
@@ -918,27 +929,33 @@ export default {
 
             this.load();
         },
-        getPage(){
+        getPage() {
             return myTradeController.getMyOrderItems();
         },
     },
-    AD : {
-        postAD: function (data : any, callback: any) {
-            AdService.postAD(data, function (result) {
-                callback(result);
-            })
+    AD: {
+        postAD: function (data: any, callback: any, failure: any) {
+            AdService.postAD(data, (result) => {
+                    callback(result);
+                },
+                function (code: any) {
+                    failure(code)
+                })
         },
-        editAD: function (data : any, callback: any) {
-            AdService.editAD(data, function (result) {
-                callback(result);
-            })
+        editAD: function (data: any, callback: any, failure: any) {
+            AdService.editAD(data, (result) => {
+                    callback(result);
+                },
+                function (code: any) {
+                    failure(code)
+                })
         },
-        checkMine: function (data : string, callback: any) {
+        checkMine: function (data: string, callback: any) {
             AdService.getAd(data
-            , (result) => {
-                let data = new MyAd(result);
-                callback(data);
-            })
+                , (result) => {
+                    let data = new MyAd(result);
+                    callback(data);
+                })
         }
     },
     TradeProcess: {
@@ -946,7 +963,7 @@ export default {
             return tradeController;
         },
 
-        createOrder: function (data : any, callback: any) {
+        createOrder: function (data: any, callback: any) {
             OrderService.addOrder(data, (orderNo) => {
                 callback(orderNo);
             })
@@ -957,41 +974,51 @@ export default {
 
 
         setCurrentOrder: function (data: any, success: any, fail: any) {
-            OrderService.getOrder(data, function (result) {
+            OrderService.getOrder(data, (result) => {
                 let tradeProcess = new Order(result);
                 tradeController.setCurrentOrder(tradeProcess);
                 success();
-            }, function() {
+            }, function () {
                 fail();
             })
         },
-        onPaid: function (data: any, callback: any) {
-            OrderService.onPaid(data, function (result) {
+        onPaid: function (data: any, callback: any, failure: any) {
+            OrderService.onPaid(data, (result) => {
                 callback(result);
+            }, () =>{
+                failure();
             })
         },
-        onCancel: function (data: any, callback: any) {
-            OrderService.onCancel(data, function (result) {
+        onCancel: function (data: any, callback: any, failure: any) {
+            OrderService.onCancel(data, (result) => {
                 callback(result);
+            }, () =>{
+                failure();
             })
         },
-        onAppeal: function (data: any, callback: any) {
-            OrderService.onAppeal(data, function (result) {
+        onAppeal: function (data: any, callback: any, failure: any) {
+            OrderService.onAppeal(data, (result) => {
                 callback(result);
+            }, () =>{
+                failure();
             })
         },
-        onAppealCancel: function (data: any, callback: any) {
-            OrderService.onAppealCancel(data, function (result) {
+        onAppealCancel: function (data: any, callback: any, failure : any) {
+            OrderService.onAppealCancel(data, (result) => {
                 callback(result);
+            }, () => {
+                failure();
             })
         },
-        onConfirm: function (data: any, callback: any) {
-            OrderService.onConfirm(data, function (result) {
+        onConfirm: function (data: any, callback: any, failure : any) {
+            OrderService.onConfirm(data, (result) => {
                 callback(result);
+            }, () =>{
+                failure();
             })
         },
         getOrderStatus: function (data: any, callback: any) {
-            OrderService.getOrderStatus(data, function (result) {
+            OrderService.getOrderStatus(data, (result) => {
                 tradeController.updateOrderStatus(result);
                 callback(result);
             })
@@ -1002,16 +1029,16 @@ export default {
         controller(): MessageController {
             return messageController;
         },
-        msgAvatar() : MsgAvatarController {
+        msgAvatar(): MsgAvatarController {
             return msgAvatarController;
         },
 
         createRoom(callback: any) {
-            let _dateTime =instance.TradeProcess.getCurrentOrder().registerDatetime-3000;
+            let _dateTime = instance.TradeProcess.getCurrentOrder().registerDatetime - 3000;
             MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,
-                    dateTime:  _dateTime,
-                    orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
+                    dateTime: _dateTime,
+                    orderNo: instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
                     this.controller().setMsgList(data);
                     callback();
@@ -1023,9 +1050,9 @@ export default {
             MessageService.message.getMessage({
                     email: instance.MyInfo.getUserInfo().email,  //VUEX userInfo.nickName
                     dateTime: this.controller().getLatestMsgTime(),
-                    orderNo : instance.TradeProcess.getCurrentOrder().orderNo,
+                    orderNo: instance.TradeProcess.getCurrentOrder().orderNo,
                 }, (data) => {
-                    for(let key in data) {
+                    for (let key in data) {
                         this.controller().addMsg(data[key]);
                     }
                     callback();

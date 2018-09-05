@@ -215,6 +215,12 @@ const strings = new Map([
         CN: '重设密码后，24小时内禁止提币',
         HK: '重設密碼後，24小時内禁止提幣'
     }],
+    ['changeLinkedPhoneExplain', {
+        KOR: '연동된 전화번호 변경 후, 24시간 동안 출금을 할 수 없습니다.',
+        ENG: 'After changing linked phone, your are not allowed to withdraw in the next 24 hours.',
+        CN: '重设密码后，24小时内禁止提币',
+        HK: '重設密碼後，24小時内禁止提幣'
+    }],
     ['submit', {
         KOR: '전송',
         ENG: 'Submit',
@@ -2216,9 +2222,9 @@ const strings = new Map([
         CN: '更改密码',
         HK: '更改密碼'
     }],
-    ['changePhoneNumber', {
-        KOR: '전화번호 변경',
-        ENG: 'Change phone number',
+    ['changeLinkedPhone', {
+        KOR: '연동된 전화번호 변경',
+        ENG: 'Change Linked Phone',
         CN: '',
         HK: ''
     }],
@@ -3280,6 +3286,18 @@ const strings = new Map([
         CN: '设定昵称',
         HK: '設定昵稱'
     }],
+    ['securityAuthentication', {
+        KOR: '보안 인증',
+        ENG: 'Security Authentication',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_linked_phone_change', {
+        KOR: '연동된 전화번호를 수정하였습니다.',
+        ENG: 'Linked phone number has been changed',
+        CN: '',
+        HK: ''
+    }],
     ['warn_completeProcessingOrder', {
         KOR: '진행중인 주문을 마친뒤 상태변경 해주세요',
         ENG: 'Please finish your order in progress.',
@@ -3301,12 +3319,6 @@ const strings = new Map([
     ['warn_needSetIDVerification', {
         KOR: 'ID 인증이 필요합니다.',
         ENG: 'ID verification is required.',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
         CN: '',
         HK: ''
     }],

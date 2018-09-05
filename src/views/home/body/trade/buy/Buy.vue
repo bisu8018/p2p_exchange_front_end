@@ -440,9 +440,11 @@
                     MainRepository.TradeProcess.onAppealCancel({
                         orderNo: self.orderNo,
                         appealNo: appealList.appealNo
-                    }, function () {
+                    }, () => {
                         self.getOrderStatus();
                         Vue.prototype.$eventBus.$emit('showAlert', 2154);
+                    }, () => {
+                        return false;
                     })
                 }
 
@@ -452,10 +454,12 @@
                 let self = this;
                 MainRepository.TradeProcess.onPaid(
                     Number(self.orderNo)
-                    , function (result) {
+                    , (result) => {
                         Vue.prototype.$eventBus.$emit('showAlert', 2151);
                         self.getOrderStatus();
                         self.onClose();
+                    }, () => {
+                        return false;
                     });
             },
             //cancel 버튼 클릭 후
@@ -464,10 +468,12 @@
                 MainRepository.TradeProcess.onCancel({
                     orderNo: Number(self.orderNo),
                     email: MainRepository.MyInfo.getUserInfo().email
-                }, function (result) {
+                }, (result) => {
                     Vue.prototype.$eventBus.$emit('showAlert', 2102);
                     self.getOrderStatus();
                     self.onClose();
+                }, () => {
+                    return false;
                 });
             },
             //appeal 한 후
@@ -476,10 +482,12 @@
                 data['orderNo'] = Number(self.orderNo);
                 MainRepository.TradeProcess.onAppeal(
                     data
-                    , function (result) {
+                    , (result) => {
                         Vue.prototype.$eventBus.$emit('showAlert', 2153);
                         self.getOrderStatus();
                         self.onClose();
+                    }, () => {
+                        return false;
                     });
             },
             checkAppealBtn() {

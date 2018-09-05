@@ -1,5 +1,5 @@
 <template>
-    <div class="mypage-wrapper">
+    <div class="mypage-wrapper" :class="[!isMobile() ? 'mr-3 ml-3' : '']">
 
         <!-- 좌측 내 정보 -->
         <div class="myInfo-wrapper">
@@ -125,6 +125,9 @@
             }
         },
         methods: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
             init() {
                 let self = this;
 
@@ -185,7 +188,6 @@
             },
             onCloseNicknameModal() {
                 this.showNicknameModal = false;
-                console.log('')
             },
         }
     }
