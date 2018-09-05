@@ -50,6 +50,7 @@ this.verify = true;
                 type: String,
                 default: ''
             },
+            // signup, email, phone, depositSMS, depositEmail, chageTradePassword
             type: {
                 type: String,
                 default: 'signup'
@@ -108,6 +109,7 @@ this.verify = true;
                         email: email,
                         phoneNumber: self.phone,
                     }, (result) => {
+                        Vue.prototype.$eventBus.$emit('showAlert', 2002);
                         this.verifyStatus = 'verifying';
                         this.getTimer();
                     })
@@ -130,6 +132,7 @@ this.verify = true;
                     phoneNumber: self.phone,
                     status: 'requested'
                 }, function (result) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 2003);
                     self.verifyStatus = 'verified';
                     self.$emit('verify', self.verificationCode);
                 })

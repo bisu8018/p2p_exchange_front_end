@@ -187,6 +187,22 @@ export default {
                 },
                 function () {
                 })
+        },
+        isDuplicated: function (email: string, callback: any) {
+            AxiosService._requestWithUrlPram('email/isDuplicated', 'GET', email,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
+        resetPassword: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('resetPassword', 'PUT', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
         }
     },
     Verification: {

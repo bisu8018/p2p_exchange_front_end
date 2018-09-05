@@ -3196,6 +3196,30 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['comp_email_duplicate', {
+        KOR: '계정을 확인 하였습니다.',
+        ENG: 'Email account has been confirmed.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_verification_code_send', {
+        KOR: '인증코드가 전송되었습니다.',
+        ENG: 'Verification code has been sent.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_code_verified', {
+        KOR: '코드가 인증 되었습니다.',
+        ENG: 'Code has been verified.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_password_reset', {
+        KOR: '비밀번호가 초기화 되었습니다.',
+        ENG: 'Password has been reset.',
+        CN: '',
+        HK: ''
+    }],
     ['BalanceDepositExplainTest', {
         KOR: '• 현재 본 사이트는 테스트 중이므로, 테스트넷을 이용한 입금만 유효합니다. 실제 암호화폐를 넣지 마십시오!',
         ENG: '• Our website is test version. Currently only available to deposit from test-net. Don\'t deposit any actual cryptocurrency!',
