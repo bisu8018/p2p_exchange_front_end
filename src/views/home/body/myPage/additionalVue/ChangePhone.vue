@@ -8,29 +8,40 @@
                     <div class="h2 bold">{{$str("changePhoneNumber")}}</div>
                 </div>
 
+                <div class="color-darkgray mb-4 text-xs-left">
+                    {{$str("changeLinkedPhoneExplain")}}
+                </div>
+
                 <!--새로운 전화번호 입력-->
-                <div v-if="status === 'phone'" class="mb-4">
+                <div class="mb-4">
                     <div class="text-xs-left mb-2 color-black">{{$str("newPhoneNumber")}}</div>
                     <div class="p-relative phone-wrapper">
-                        <select-box :selectBoxType ="'phone'" v-on:number="setCode" class="selectbox-width"></select-box>
+                        <select-box :selectBoxType ="'phone'" v-on:number="setCode" class="selectbox-width selectbox-locale-number"></select-box>
                         <input type="tel" class="input input-phone" v-model="newPhoneNumber" maxlength="18">
                     </div>
                 </div>
 
-                <!--인증 슬라이더-->
-                <!--<div class="mb-4 " v-if="email.length>0 && status === 'email'">-->
-                    <!--&lt;!&ndash;<v-flex class="verifySlider" mb-4>&ndash;&gt;-->
-                    <!--<div class="text-xs-left mb-2 h6 color-black">{{$str("verify")}}</div>-->
-                    <!--<verify-slider v-on:passcallback="putVerified"></verify-slider>-->
-                <!--</div>-->
+                <!--문자인증-->
+                <div class="mb-4">
+                    <div class=" color-black  mb-2 text-xs-left">
+                        {{$str("SMSverification")}}
+                    </div>
+                    <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + getPhoneNumber"
+                                       :type="'phone'"></verification-code>
+                </div>
 
 
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
-                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onCheck">{{$str('change')}}</button>
+                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onCheck">{{$str('link')}}</button>
                 </div>
             </div>
         </v-flex>
+        <change-phone-modal
+                :show="showModal"
+                @close="onCloseModal()"
+                @confirm="onConfirm()"
+        />
     </v-layout>
 </template>
 
@@ -39,15 +50,31 @@
     import AccountService from "../../../../../service/account/AccountService";
     import SelectBox from "../../../../../components/SelectBox";
     import VerificationCode from '@/components/VerificationCode.vue';
+    import ChangePhoneModal from '../item/ChangePhoneModal.vue';
+    import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: 'changePhone',
-        components: {SelectBox, VerificationCode},
+        components: {SelectBox, VerificationCode, ChangePhoneModal},
         data: function () {
             return {
-                status: 'phone',             //phone -> verification
                 newPhoneNumber: '',
+                code_number: '+86',
+                phoneVerify: false,
+                emailVerify: false,
+                verificationCode: '',
+                showModal: false,
             }
+        },
+        computed: {
+            getPhoneNumber() {
+                let numLength = this.newPhoneNumber.length;
+                if (this.newPhoneNumber.substr(0, 1) == 0) {
+                    return this.newPhoneNumber.substr(1, numLength - 1);
+                } else {
+                    return this.newPhoneNumber;
+                }
+            },
         },
         created () {
             window.scrollTo(0,0);
@@ -65,10 +92,40 @@
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
-                if (this.onCheckOldPassword() && this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
-                    this.onChange();
+                if (this.phoneVerify) {
+                    this.onModal();
                 }
             },
+            //지역번호 select box 값 get
+            setCode(value) {
+                this.code_number = value;
+            },
+            // 인증코드 체크
+            onCheckVerificationCode(code) {
+                this.phoneVerify = true;
+                this.verificationCode = code;
+            },
+            onCloseModal() {
+                this.showModal = false;
+            },
+            onModal() {
+                this.showModal = true;
+            },
+            onConfirm() {
+                this.emailVerify = true;
+
+                //전화번호 변경 AXIOS
+                MainRepository.Service.Account().Account.checkVerificationCode('phone', {
+                    email: email,
+                    code: self.verificationCode,
+                    phoneNumber: self.newPhoneNumber,
+                    status: 'turn_on'
+                }, function (result) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 2251);
+                    MainRepository.router().goMyPage();
+                })
+
+            }
         }
     }
 </script>
@@ -93,6 +150,10 @@
         left: 0;
         bottom: 0;
     }
+    .selectbox-locale-number :first-child :first-child{
+        border: none !important;
+        border-right: solid 1px #8d8d8d !important;
+    }
     .input-phone {
         border: none;
         font-size: 12px;
@@ -102,4 +163,5 @@
         display: flex;
         border: solid 1px #8d8d8d;
     }
+
 </style>

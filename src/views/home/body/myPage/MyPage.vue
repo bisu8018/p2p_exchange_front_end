@@ -185,7 +185,6 @@
             },
             onCloseNicknameModal() {
                 this.showNicknameModal = false;
-                console.log('')
             },
         }
     }

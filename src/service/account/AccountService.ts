@@ -35,7 +35,7 @@ export default {
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email';
                 _type = 'POST';
-            } else if (type === 'changeTradePassword') {
+            } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePassword';
                 _type = 'POST';
             }
@@ -59,7 +59,7 @@ export default {
                 url = 'deposit/sms'
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email'
-            } else if (type === 'changeTradePassword') {
+            } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePasswordVerification';
             }
             AxiosService._requestWithUrlPram(url, 'PUT', data,
@@ -88,7 +88,7 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    failure()
+                    failure();
                 }).then(() => {
             })
         },

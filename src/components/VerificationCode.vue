@@ -64,7 +64,24 @@ this.verify = true;
             warning_verification_code: false,
             tmpCode : 0,
         }),
+        created () {
+            //데이터 초기화
+            this.$eventBus.$on('refreshVerificationCode', () => {
+                this.init();
+            });
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('refreshVerificationCode');
+        },
         methods: {
+            init() {
+                this.setTime = 60;
+                this.verifyStatus = 'unverified';
+                this.verify_warning_verification_code = '';
+                this.verificationCode = '';
+                this.warning_verification_code = false;
+                this.tmpCode = 0;
+            },
             // 시간 타이머 설정
             getTimer() {
                 var start = setInterval(() => {
