@@ -458,9 +458,9 @@ export default {
 
                     //한 itemlist를 model화 시켜 다시 list에 넣어줌
                     let itemList: TradeItem = new TradeItem(result[key])
-                    if(itemList.tradeType ==='Buy'){
+                    if(itemList.tradeType ==='buy'){
                         BuyLists.push(itemList);
-                    }else if(itemList.tradeType ==='Sell'){
+                    }else if(itemList.tradeType ==='sell'){
                         SellLists.push(itemList);
                     }
                 }

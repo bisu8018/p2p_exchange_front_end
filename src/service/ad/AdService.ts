@@ -29,6 +29,30 @@ export default {
                 function () {
                 })
         },
+        deleteAD:function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('ad/delete', 'PUT', data ,
+                function (data: any) {
+                    callback(data)
+                },
+                function () {
+                })
+        },
+        disableAD:function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('ad/disable', 'PUT', data ,
+                function (data: any) {
+                    callback(data)
+                },
+                function () {
+                })
+        },
+        enableAD:function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('ad/enable', 'PUT', data ,
+                function (data: any) {
+                    callback(data)
+                },
+                function () {
+                })
+        },
         getMyAds:function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('ad/my', 'GET', data ,
                 function (data: any) {

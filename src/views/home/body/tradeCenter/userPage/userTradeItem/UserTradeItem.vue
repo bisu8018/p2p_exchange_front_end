@@ -43,15 +43,15 @@
         <v-layout align-center justify-space-between row fill-height mb-4>
           <v-flex xs2></v-flex>
           <v-flex xs5 text-xs-left>
-            <a class="tooltip" v-if="user.bank_account.length >0">
+            <a class="tooltip" v-if="user.bank_account">
               <div class="mr-2 sprite-img ic-bank f-left"></div>
               <span class="BankTooltip tooltip-content">{{ $str('bankAccountText') }}</span>
             </a>
-            <a class="tooltip" v-if="user.alipay_id.length >0">
+            <a class="tooltip" v-if="user.alipay_id">
               <div class="mr-2 sprite-img ic-alipay f-left"></div>
               <span class="tooltip-content">{{ $str('alipayText') }}</span>
             </a>
-            <a class="tooltip" v-if="user.wechat_id.length >0">
+            <a class="tooltip" v-if="user.wechat_id">
               <div class="mr-2 sprite-img ic-wechatpay f-left"></div>
               <span class="tooltip-content">{{ $str('wechatPayText') }}</span>
             </a>
@@ -162,11 +162,11 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <div v-if="user.bank_account.length >0"
+            <div v-if="user.bank_account"
                  class="ml-2 sprite-img ic-bank f-right"></div>
-            <div v-if="user.alipay_id.length >0"
+            <div v-if="user.alipay_id"
                  class="ml-2 sprite-img ic-alipay f-right"></div>
-            <div v-if="user.wechat_id.length >0"
+            <div v-if="user.wechat_id"
                  class="ml-2 sprite-img ic-wechatpay f-right"></div>
           </v-flex>
         </v-layout>
@@ -202,7 +202,7 @@
               </div>
             </div>
             <!--trade PW. sell 일때만 활성화-->
-            <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
+            <div class="mt-3 p-relative" v-if="user.tradeType =='sell'">
               <input type="text" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                      :placeholder="$str('tradePwText')" @blur="onChecktradePassword" @keyup="onNumberCheck('tradePW')"
                      v-bind:class="{'warning-border' : warning_tradePassword}">
@@ -258,15 +258,15 @@
         <v-flex md3 text-md-right>
           <v-layout align-center >
             <!--payment method-->
-            <a class="tooltip" v-if="user.bank_account.length >0">
+            <a class="tooltip" v-if="user.bank_account">
               <div class="sprite-img ic-bank mr-2"></div>
               <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
             </a>
-            <a class="tooltip" v-if="user.alipay_id.length >0">
+            <a class="tooltip" v-if="user.alipay_id">
               <div class="sprite-img ic-alipay mr-2"></div>
               <span class="tooltip-content">{{$str("alipayText")}}</span>
             </a>
-            <a class="tooltip" v-if="user.wechat_id.length >0">
+            <a class="tooltip" v-if="user.wechat_id">
               <div class="sprite-img ic-wechatpay mr-2"></div>
               <span class="tooltip-content">{{$str("wechatPayText")}}</span>
             </a>
@@ -327,10 +327,7 @@
         <v-layout row wrap>
           <v-flex md3 text-md-left >
             <v-layout pl-4 >
-              <span v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </span>
-              <span v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </span>
-              <span v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </span>
-              <span v-else class="sprite-img ic-allb-lg"> </span>
+              <span :class="tokenImg" > </span>
               <span>
                 <span class="ml-3 bold">{{user.cryptocurrency}}</span>
                 <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
@@ -400,24 +397,24 @@
           <v-flex md6 text-md-left>
             <div class="margin-left-74">
               <!--Bank account-->
-              <div v-if="user.bank_account.length >0">
+              <div v-if="user.bank_account">
                 <div class="sprite-img ic-bank mr-2 f-left"></div>
                 <span class="mr-3 f-left">{{$str("bankAccountText")}}</span>
               </div>
               <!--Alipay-->
-              <div v-if="user.alipay_id.length >0">
+              <div v-if="user.alipay_id">
                 <div class="sprite-img ic-alipay mr-2 f-left"></div>
                 <span class="mr-3 f-left">{{$str("alipayText")}}</span>
               </div>
               <!--WechatPay-->
-              <div v-if="user.wechat_id.length >0">
+              <div v-if="user.wechat_id">
                 <div class="sprite-img ic-wechatpay mr-2 f-left"></div>
                 <span class="mr-3 f-left">{{$str("wechatPayText")}}</span>
               </div>
             </div>
           </v-flex>
           <v-flex md3 text-md-right>
-            <div v-if="user.tradeType =='Sell'">
+            <div v-if="user.tradeType =='sell'">
               <div class="p-relative">
                 <input type="password" class="input userInput textLeftPlaceholder"
                        name="tradePW" v-model="tradePW" :placeholder="pwPlaceholder"
@@ -471,6 +468,7 @@
             user: {},
         },
         data: () => ({
+            tokenImg : '',
             pwPlaceholder: Vue.prototype.$str('tradePwText'),
             toValue : '',
             fromValue : '',
@@ -506,6 +504,22 @@
                 );
                 return MyBalance.availableAmount
             },
+        },
+        mounted(){
+            switch (this.user.cryptoCurrency) {
+                case 'bitcoin':
+                case 'BTC':
+                    this.tokenImg = 'sprite-img ic-btc-lg';
+                    break;
+                case 'ethereum':
+                case 'ETH':
+                    this.tokenImg = 'sprite-img ic-eth-lg';
+                    break;
+                case 'allb':
+                case 'ALLB':
+                    this.tokenImg = 'sprite-img ic-allb-lg';
+                    break;
+            }
         },
         methods : {
             onNumberCheck(type){
@@ -658,12 +672,12 @@
                     }, function (orderNo) {
                         let tradePage;
                         switch (instance.user.tradeType) {
-                            case 'Buy':
+                            case 'buy':
                                 tradePage = "/buy?"+orderNo
                                 instance.$router.push(tradePage);
                                 break;
 
-                            case 'Sell':
+                            case 'sell':
                                 tradePage = "/sell?"+orderNo
                                 instance.$router.push(tradePage);
                                 break;

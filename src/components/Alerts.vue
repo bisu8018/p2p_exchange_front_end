@@ -90,6 +90,9 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 2101 : this.show(this.type.Success, "", this.$str('comp_ad_post')); break;    // 광고 등록 완료
                     case 2102 : this.show(this.type.Success, "", this.$str('comp_ad_cancel')); break;    // 광고 취소
                     case 2103 : this.show(this.type.Success, "", this.$str('comp_ad_edit')); break;    // 광고 수정 완료
+                    case 2104 : this.show(this.type.Success, "", this.$str('comp_ad_disable')); break;    // 광고 비활성 완료
+                    case 2105 : this.show(this.type.Success, "", this.$str('comp_ad_enable')); break;    // 광고 활성 완료
+                    case 2106 : this.show(this.type.Success, "", this.$str('comp_ad_delete')); break;    // 광고 삭제 완료
 
                     //주문 메세지 2150~
                     case 2150 : this.show(this.type.Success, "", this.$str('comp_order')); break;    // 거래 완료
@@ -106,6 +109,9 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4004 : this.show(this.type.Warning, "", this.$str('err_needPaymentMethod')); break;    // 결제수단 필요
                     case 4005 : this.show(this.type.Warning, "", this.$str('err_wrongApproach')); break;    // 잘못된 접근
 
+                    //광고 에러코드 4100 ~
+                    case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재
+                    case 4102 : this.show(this.type.Warning, "", this.$str('warn_changeStatusDisable')); break;       // disable 상태 변경 필요
 
 
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;
