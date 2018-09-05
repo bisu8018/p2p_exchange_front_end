@@ -253,7 +253,7 @@
         <!--limits-->
         <v-flex md2 text-md-left >{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat(user.tradePrice)}} {{user.cryptocurrency}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat(user.tradePrice)}} {{user.currency}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -538,7 +538,6 @@
                     }
                     this.warning_toValue = false;
                     //fromvalue 계산해줌
-                    this.toValue = this.$fixed(this.toValue, this.user.currency)
                     this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);         //소수점 6번째자리까지
 
                 }else if(type ==='fromValue'){
@@ -698,7 +697,7 @@
                 this.showNickNameModal = false;
             },
             toMoneyFormat(value) {
-                return abUtils.toMoneyFormat(String(value));
+                return abUtils.toMoneyFormat(String(this.$fixed(value, this.user.currency)));
             },
             goMyPage(){
                 MainRepository.router().goMyPage();

@@ -3300,7 +3300,7 @@ const strings = new Map([
     }],
     ['warn_needSetIDVerification', {
         KOR: 'ID 인증이 필요합니다.',
-        ENG: 'ID authentication is required.',
+        ENG: 'ID verification is required.',
         CN: '',
         HK: ''
     }],

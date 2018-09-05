@@ -37,12 +37,16 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Control</v-flex>
-                <v-flex xs9 text-xs-right color-blue>
-                    <span class="text-white-hover c-pointer " @click="onEdit">{{$str('edit')}}</span>
-                    <span v-if="adslist.status === 'enable'" class="ml-3 text-white-hover c-pointer" @click="showDisable">{{$str('disable')}}</span>
-                    <span v-else class="ml-3 text-white-hover c-pointer" @click="showEnable">{{$str('enable')}}</span>
-                    <span class="ml-3 text-white-hover c-pointer" @click="showDelete">{{$str('delete')}}</span>
-                    <!--<span class="mr-3 text-white-hover c-pointer">{{$str('share')}}</span>-->
+                <v-flex xs9 text-xs-right c-pointer color-darkgray>
+                    <span :class="{ 'color-blue text-white-hover ' : canModify }"
+                          @click="onEdit">{{$str('edit')}}</span>
+                    <span v-if="adslist.status === 'enable'"
+                          :class="{ 'color-blue text-white-hover ' : !canModify }"
+                          class="ml-3" @click="showDisable">{{$str('disable')}}</span>
+                    <span v-else :class="{ 'color-blue text-white-hover ': canModify }"
+                          class="ml-3" @click="showEnable">{{$str('enable')}}</span>
+                    <span :class="{ 'color-blue text-white-hover ': canModify }"
+                          class="ml-3" @click="showDelete">{{$str('delete')}}</span>
                 </v-flex>
             </v-layout>
         </div>
@@ -70,11 +74,16 @@
                 <v-flex md2 text-md-left>
                     <span class="ml-3">{{transTime(adslist.registerDatetime)}}</span>
                 </v-flex>
-                <v-flex md2 text-md-right color-blue>
-                    <span class="text-white-hover c-pointer " @click="onEdit">{{$str('edit')}}</span>
-                    <span v-if="adslist.status === 'enable'" class="ml-3 text-white-hover c-pointer" @click="showDisable">{{$str('disable')}}</span>
-                    <span v-else class="ml-3 text-white-hover c-pointer" @click="showEnable">{{$str('enable')}}</span>
-                    <span class="ml-3 text-white-hover c-pointer" @click="showDelete">{{$str('delete')}}</span>
+                <v-flex md2 text-md-right c-pointer color-darkgray>
+                    <span :class="{ 'color-blue text-white-hover ' : canModify }"
+                          @click="onEdit">{{$str('edit')}}</span>
+                    <span v-if="adslist.status === 'enable'"
+                          :class="{ 'color-blue text-white-hover ' : !canModify }"
+                          class="ml-3" @click="showDisable">{{$str('disable')}}</span>
+                    <span v-else :class="{ 'color-blue text-white-hover ': canModify }"
+                          class="ml-3" @click="showEnable">{{$str('enable')}}</span>
+                    <span :class="{ 'color-blue text-white-hover ': canModify }"
+                          class="ml-3" @click="showDelete">{{$str('delete')}}</span>
                     <!--<button>Share</button>-->
                 </v-flex>
             </v-layout>

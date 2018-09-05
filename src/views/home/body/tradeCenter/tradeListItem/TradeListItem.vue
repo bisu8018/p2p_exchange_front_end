@@ -589,6 +589,7 @@
             Common.info.getMarketPrice(function (data) {
                 self.marketPrice = data;
             });
+
         },
         updated(){
             //trade를 막기 위해 button대신 띄워주는 filter값 처리
@@ -622,8 +623,6 @@
                     }
                     this.warning_toValue = false;
                     //fromvalue 계산해줌
-
-                    this.toValue = this.$fixed(this.toValue, this.user.currency)
                     this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);         //소수점 6번째자리까지
 
                 } else if (type === 'fromValue') {
