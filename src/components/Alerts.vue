@@ -114,6 +114,8 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4003 : this.show(this.type.Warning, "", this.$str('verifySlider')); break;             // 인증 슬라이더 필요
                     case 4004 : this.show(this.type.Warning, "", this.$str('err_needPaymentMethod')); break;    // 결제수단 필요
                     case 4005 : this.show(this.type.Warning, "", this.$str('err_wrongApproach')); break;    // 잘못된 접근
+                    case 4006 : this.show(this.type.Warning, "", this.$str('warn_needSetNickname')); break;    // 닉네임 등록 필요
+                    case 4007 : this.show(this.type.Warning, "", this.$str('warn_needSetIDVerification')); break;    // ID인증 필요
 
                     //광고 에러코드 4100 ~
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재

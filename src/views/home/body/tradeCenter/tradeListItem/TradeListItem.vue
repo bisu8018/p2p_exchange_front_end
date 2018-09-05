@@ -601,7 +601,6 @@
                     this.user.counterpartyFilterMobileVerificationYn,
                     this.user.counterpartyFilterDoNotOtherMerchantsYn,
                 );
-                console.log(_obj)
                 this.do_not_trade_message = _obj.do_not_trade_message;
                 this.can_not_trade = _obj.can_not_trade;
             }

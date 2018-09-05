@@ -3282,7 +3282,7 @@ const strings = new Map([
     }],
     ['warn_completeProcessingOrder', {
         KOR: '진행중인 주문을 마친뒤 상태변경 해주세요',
-        ENG: 'Please change the status after finishing your order in progress.',
+        ENG: 'Please finish your order in progress.',
         CN: '',
         HK: ''
     }],
@@ -3292,15 +3292,15 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_needSetNickname', {
+        KOR: '닉네임 설정이 필요합니다.',
+        ENG: 'Nickname settings are required.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_needSetIDVerification', {
+        KOR: 'ID 인증이 필요합니다.',
+        ENG: 'ID authentication is required.',
         CN: '',
         HK: ''
     }],

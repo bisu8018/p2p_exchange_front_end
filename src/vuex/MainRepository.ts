@@ -49,6 +49,7 @@ import Withdraw from "@/vuex/model/Withdraw";
 import BalanceHistory from "@/vuex/model/BalanceHistory";
 import IdVerificationId from "@/vuex/model/IdVerificationId";
 import MyAd from "@/vuex/model/MyAd";
+import Vue from "vue";
 
 let myTradeController : MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -369,14 +370,7 @@ export default {
             // NickName 설정 여부
             if (this.getUserInfo().nickname === "") {
                 if (needGo) {
-                    routerController.goMyPage();
-                }
-                return false;
-            }
-
-            // Id 인증 여부
-            if (!this.controller().getUserInfo().isIdVerified) {
-                if (needGo) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4006);
                     routerController.goMyPage();
                 }
                 return false;
@@ -385,10 +379,21 @@ export default {
             // Payment 등록 여부
             if (!this.controller().checkPaymentMethods()) {
                 if (needGo) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4004);
                     routerController.goMyPage();
                 }
                 return false;
             }
+
+            // Id 인증 여부
+            if (!this.controller().getUserInfo().isIdVerified) {
+                if (needGo) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4007);
+                    routerController.goMyPage();
+                }
+                return false;
+            }
+
             return true;
         },
         loadMyInfo(callback: any) {
