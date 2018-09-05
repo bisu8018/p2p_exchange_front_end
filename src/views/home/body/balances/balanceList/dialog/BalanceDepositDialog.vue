@@ -69,10 +69,6 @@
     export default {
         name: "BalanceDepositDialog",
         props :{
-            show : {
-                type: Boolean,
-                default : false
-            },
             cryptoCurrency : {
                 type: String,
                 default : ''
@@ -85,7 +81,15 @@
         data: () => ({
             confirm : false,
             qrCodeImgUrl: '',
+            show: false,
         }),
+        created(){
+            this.$eventBus.$on('showDepositDialog', (cryptoCurrency) => {
+                if(this.cryptoCurrency === cryptoCurrency){
+                  this.show = true;
+                }
+            });
+        },
         beforeMount(){
             this.qrCodeImgUrl = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" +this.walletAddress;
             //"http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+this.item.walletAddress;

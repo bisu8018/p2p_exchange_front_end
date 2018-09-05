@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" persistent>
+  <v-dialog v-model="show">
     <div>
       <div class="cs-flex mb-3">
         <!--header-->
@@ -101,22 +101,20 @@
     export default {
         name: "BalanceWithdrawalDialog",
         props :{
-            show : {
-                type: Boolean,
-                default : false
-            },
             cryptoCurrency : {
                 type: String,
                 default : ''
             },
         },
         data: () => ({
+            show : false,
             confirm : false,
             qrCodeImgUrl: '',
             minAmount : '',
             amount : '',
             fee : 0,
             address : '',
+
         }),
         computed:{
             receiveAmount(){
@@ -127,6 +125,13 @@
             },
         },
         created(){
+            this.$eventBus.$on('showWithdrawDialog', (cryptoCurrency) => {
+                if(this.cryptoCurrency === cryptoCurrency){
+                    this.show = true;
+                }
+            });
+        },
+        mounted(){
             switch (this.cryptoCurrency) {
                 case 'bitcoin':
                 case 'BTC':
