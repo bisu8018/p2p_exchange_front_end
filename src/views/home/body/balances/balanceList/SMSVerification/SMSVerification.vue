@@ -64,25 +64,6 @@
                   verifyWithPhone: false,
               }
           },
-          created() {
-              let self = this;
-              // 로그인 확인 -> Login 으로
-              if (!MainRepository.MyInfo.isLogin()) {
-                  MainRepository.router().goLogin();
-                  return;
-              }
-
-              MainRepository.MyPage.getMemberVerification(function (email, phone) {
-                  self.email = email.email;
-                  self.phone = phone.phoneNumber;
-                  //핸드폰등록이 되어있는경우 핸드폰 인증으로 진행
-                  if(self.phone !==''){
-                      self.verifyWithPhone = true;
-                  }
-              });
-
-              window.scrollTo(0, 0);
-          },
           computed: {
               setPhoneNumber: function () {
                   var phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 6);
@@ -96,6 +77,25 @@
               verified(){
                   return this.emailVerify || this.phoneVerify;
               }
+          },
+          created() {
+              let self = this;
+              // 로그인 확인 -> Login 으로
+              if (!MainRepository.MyInfo.isLogin()) {
+                  MainRepository.router().goLogin();
+                  return;
+              }
+
+              MainRepository.MyPage.getMemberVerification(function (email, phone) {
+                  self.email = email.email;
+                  self.phone = phone.phoneNumber;
+                  //핸드폰등록이 되어있는경우 핸드폰 인증으로 진행
+                  if(phone.status === 'turn_on'){
+                      self.verifyWithPhone = true;
+                  }
+              });
+
+              window.scrollTo(0, 0);
           },
           methods: {
               goBalances() {

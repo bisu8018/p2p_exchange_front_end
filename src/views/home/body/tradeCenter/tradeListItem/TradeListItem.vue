@@ -47,38 +47,33 @@
                     <!-- Price -->
                     <ul>
                         <li>{{$str("price")}} :</li>
-                        <li class="bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</li>
+                        <li class="bold color-orange-price">{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</li>
                     </ul>
 
                     <!-- Payment Methods -->
                     <ul class="pt-3">
                         <!-- 아이콘 v-if="user.bank_account== 'y'"  v-if="user.alipay_id== 'y'" v-if="user.wechat_id== 'y'"-->
                         <li>
-                            <a class="tooltip">
-                                <div class="sprite-img ic-bank ic_payment"></div>
-                                <!--tooltip-->
-                                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
-                            </a>
-                            <a class="tooltip">
-                                <div class="sprite-img ic-alipay ic_payment"></div>
-                                <!--tooltip-->
-                                <span class="tooltip-content">{{$str("alipayText")}}</span>
-                            </a>
-                            <a class="tooltip" >
-                                <div class="sprite-img ic-wechatpay ic_payment"></div>
-                                <!--tooltip-->
-                                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
-                            </a>
+                            <!--payment method-->
+                            <div v-if="user.bank_account== 'y'"
+                                 class="mr-2 sprite-img ic-bank f-left"></div>
+                            <div v-if="user.alipay_id== 'y'"
+                                 class="mr-2 sprite-img ic-alipay f-left"></div>
+                            <div v-if="user.wechat_id== 'y'"
+                                 class="sprite-img ic-wechatpay f-left"></div>
                         </li>
                         <li>
-                            <div v-if="can_not_trade">
-                                <h6 class="color-darkgray"> Need to</h6>
-                                <h6 class="color-blue">{{do_not_trade_message}}</h6>
-                            </div>
-                            <div v-else>
+                            <div v-if="can_not_trade ===''">
                                 <button class="btn-rounded-blue medium" @click="changeDrawer">
                                     <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
                                 </button>
+                            </div>
+                            <div v-else-if="can_not_trade ==='MyPage'">
+                                <h6 class="color-darkgray">{{$str("Need to")}}</h6>
+                                <h6 class="color-blue text-white-hover c-pointer" @click="goMyPage">{{do_not_trade_message}}</h6>
+                            </div>
+                            <div v-else-if="can_not_trade ==='noMyPage'">
+                                <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
                             </div>
                         </li>
                     </ul>
@@ -86,7 +81,7 @@
             </div>
 
             <!-- Nicname 설정을 안했을경우 띄움-->
-            <v-flex v-if="drawer&& !setNickName">
+            <v-flex v-if="drawer&& !isValid">
                 <div class="mobileModal">
                     <v-layout>
                         <v-flex xs2 pl-2>
@@ -115,7 +110,7 @@
                             <span class="color-darkgray">
                               {{$str("You need to complete the necessary transaction information.")}}
                             </span>
-                            <span class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+                            <span class="color-blue c-pointer text-white-hover" @click="onValidClick">{{$str("Set up now.")}}</span>
                         </v-flex>
                     </v-layout>
                     <v-layout mt-4a>
@@ -154,12 +149,12 @@
                     </v-layout>
                     <!-- Volume -->
                     <v-layout medium>
-                        <v-flex xs4 offset-xs2 text-xs-left>
+                        <v-flex xs3 offset-xs2 text-xs-left>
                             <h5 class="color-darkgray">
                                 {{$str("Available")}} :
                             </h5>
                         </v-flex>
-                        <v-flex xs4 offset-xs1 text-xs-right>
+                        <v-flex xs5 offset-xs1 text-xs-right>
                             <h5>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</h5>
                         </v-flex>
                     </v-layout>
@@ -182,7 +177,7 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</h5>
+                            <h5 class=" bold color-orange-price">{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</h5>
                         </v-flex>
                     </v-layout>
                     <!-- payment methods -->
@@ -293,11 +288,11 @@
                     </v-layout>
                 </v-flex>
                 <!--available-->
-                <v-flex md2 text-md-left>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</v-flex>
+                <v-flex md2 text-md-left>{{ $fixed(user.volumeAvailable, user.cryptocurrency)}} {{user.cryptocurrency}}</v-flex>
                 <!--limits-->
                 <v-flex md2 text-md-left>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</v-flex>
                 <!--price-->
-                <v-flex md2 text-md-left color-orange-price bold>{{user.fixedPrice}} {{user.currency}}</v-flex>
+                <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</v-flex>
                 <!-- payment method-->
                 <v-flex md3 text-md-right>
                     <v-layout align-center>
@@ -317,19 +312,22 @@
                         <!--img와 button을 양쪽에 정렬시키기 위함.-->
                         <v-spacer></v-spacer>
                         <!-- buy 혹은 sell button -->
-                        <div v-if="can_not_trade">
-                            <h6 class="color-darkgray"> Need to</h6>
-                            <h6 class="color-blue">{{do_not_trade_message}}</h6>
-                        </div>
-                        <div v-else>
+                        <div v-if="can_not_trade ===''">
                             <button class="btn-rounded-blue medium" @click="changeDrawer">
                                 <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
                             </button>
                         </div>
+                        <div v-else-if="can_not_trade ==='MyPage'">
+                            <h6 class="color-darkgray">{{$str("Need to")}}</h6>
+                            <h6 class="color-blue text-white-hover c-pointer" @click="goMyPage">{{do_not_trade_message}}</h6>
+                        </div>
+                        <div v-else-if="can_not_trade ==='noMyPage'">
+                            <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
+                        </div>
                     </v-layout>
                 </v-flex>
             </v-layout>
-            <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
+            <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, getNickName이 false일때-->
             <v-flex v-if="drawer && !isValid">
                 <div class="tradeWebModal">
                     <v-layout row wrap>
@@ -369,7 +367,7 @@
                     </v-layout>
                 </div>
             </v-flex>
-            <!--trade가 가능한 modal click은 했고, setNickName이 true 일때-->
+            <!--trade가 가능한 modal click은 했고, getNickName이 true 일때-->
             <v-flex v-else-if="drawer">
                 <div class="tradeWebModal">
                     <v-layout row wrap>
@@ -398,7 +396,7 @@
                         <!--두번째열-->
                         <v-flex md2 text-md-left>
                             <div class="bold color-orange-price">
-                                {{user.fixedPrice}} {{user.currency}}
+                                {{toMoneyFormat(user.tradePrice)}} {{user.currency}}
                             </div>
                             <div class="medium">
                                 {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
@@ -536,7 +534,7 @@
             verify_warning_fromValue: "",
             verify_warning_tradePassword: "",
             do_not_trade_message: "",         // trade 충족이 안돼면 어떤 이유인지 알려주는 string.
-            can_not_trade: false,            //merchant가 올린 요건이 충족 안될경우 true로 trade버튼을 가려줌.
+            can_not_trade: '',            //merchant가 올린 요건이 충족 안될경우 true로 trade버튼을 가려줌.
             warning_toValue: false,
             warning_fromValue: false,
             warning_tradePassword: false,
@@ -562,7 +560,7 @@
             drawer() {
                 return (MainRepository.TradeView.getDrawer() == this.user.adNo);
             },
-            setNickName() {
+            getNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             },
@@ -586,16 +584,20 @@
             },
         },
         created() {
-            //  trade를 막는 filter. 차후 백단 연결시 수정필요.
-            this.do_not_trade_message = MainRepository.TradeView.setCannotTrade(
-                this.user.counterpartyFilterTradeCount,
-                this.user.counterpartyFilterAdvancedVerificationYn,
-                this.user.counterpartyFilterMobileVerificationYn,
-                this.user.counterpartyFilterDoNotOtherMerchantsYn,
-            );
-            if(this.do_not_trade_message !== ''){
-                this.can_not_trade = true
+
+            //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            if (MainRepository.MyInfo.isLogin()) {
+                let _obj = MainRepository.TradeView.controller().setCannotTrade(
+                    this.myInfo,
+                    this.user.counterpartyFilterTradeCount,
+                    this.user.counterpartyFilterAdvancedVerificationYn,
+                    this.user.counterpartyFilterMobileVerificationYn,
+                    this.user.counterpartyFilterDoNotOtherMerchantsYn,
+                );
+                this.do_not_trade_message = _obj.do_not_trade_message;
+                this.can_not_trade = _obj.can_not_trade;
             }
+
             //환율 및 유져 정보 get 필요
             let self = this;
             Common.info.getMarketPrice(function (data) {
@@ -619,11 +621,12 @@
                     }
                     this.warning_toValue = false;
                     //fromvalue 계산해줌
-                    this.fromValue = this.toValue / this.user.fixedPrice;
-                    this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+
+                    this.toValue = this.$fixed(this.toValue, this.user.currency)
+                    this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);         //소수점 6번째자리까지
 
                 } else if (type === 'fromValue') {
-                    let tempTovalue = this.fromValue * this.user.fixedPrice;
+                    let tempTovalue = this.fromValue * this.user.tradePrice;
                     if (tempTovalue > this.user.maxLimit) {
                         this.verify_warning_fromValue = Vue.prototype.$str("Enter less than maximum limit");
                         this.warning_fromValue = true;
@@ -643,9 +646,7 @@
                     }
                     this.warning_fromValue = false;
                     //toValue 계산해줌
-                    this.toValue = this.fromValue * this.user.fixedPrice;
-                    this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
-
+                    this.toValue =this.$fixed(this.fromValue * this.user.tradePrice, this.user.currency)
                 } else if (type === 'tradePW') {
                     this.onChecktradePassword();
 
@@ -660,10 +661,10 @@
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
                             amount : this.toValue,
-                            coinCount : this.toValue/this.user.fixedPrice,
+                            coinCount : this.toValue/this.user.tradePrice,
                             customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
                             merchantMemberNo :  this.user.memberNo,
-                            price : this.user.fixedPrice,
+                            price : this.user.tradePrice,
                             status : "unpaid",
                             tradePassword : this.tradePW,
                     }, function (orderNo) {
@@ -679,11 +680,11 @@
                 this.clickFromAll = false;
                 //차후 마진고려해 수정해야함
                 this.toValue = this.user.maxLimit
-                if (this.user.volumeAvailable * this.user.fixedPrice < this.user.maxLimit) {
-                    this.toValue = this.user.volumeAvailable * this.user.fixedPrice;
+                if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
+                    this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-                if(this.toValue > this.user.fixedPrice * this.getBalance){
-                    this.toValue = this.user.fixedPrice * this.getBalance;
+                if(this.toValue > this.user.tradePrice * this.getBalance){
+                    this.toValue = this.user.tradePrice * this.getBalance;
                 }
                 if(this.toValue < this.user.minLimit){
                     this.warning_toValue = true;
@@ -693,8 +694,8 @@
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
 
-                ////소수점 6번째자리까지 fromvalue 계산해줌
-                this.fromValue = Math.floor(this.toValue *1000000/ this.user.fixedPrice) / 1000000;
+                this.toValue = this.$fixed(this.toValue, this.user.currency)
+                this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);
 
             },
             inputFocus(type) {
@@ -706,9 +707,6 @@
                 else {
                     this.clickFromAll = true;
                 }
-            },
-            closeNicknameModal() {
-                this.showNickNameModal = false;
             },
             onChecktoValue() {
                 //All 버튼 없애기.
@@ -734,8 +732,8 @@
             onCheckfromValue() {
                 //All 버튼 없애기.
                 this.clickFromAll = false;
-
-                let tempTovalue = (this.fromValue * this.user.fixedPrice).toFixed(0);
+                this.fromValue = this.$fixed(this.fromValue, this.user.cryptocurrency)
+                let tempTovalue = this.toValue
                 if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_fromValue = true;
@@ -776,6 +774,9 @@
             onNicknameClick() {
                 MainRepository.router().goUserPage(this.user.memberNo);
             },
+            closeNicknameModal() {
+                this.showNickNameModal = false;
+            },
             onValidClick() {
                 if (this.myInfo.nickName === "") {
                     this.showNickNameModal = true;
@@ -784,8 +785,11 @@
                 }
             },
             toMoneyFormat(value) {
-                return abUtils.toMoneyFormat(String(value));
+                return abUtils.toMoneyFormat(String(this.$fixed(value, this.user.currency)));
             },
+            goMyPage(){
+                MainRepository.router().goMyPage();
+            }
         },
     }
 </script>
