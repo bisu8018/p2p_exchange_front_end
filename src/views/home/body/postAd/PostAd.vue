@@ -18,7 +18,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select-box :selectBoxType="'signupCountry'" :country="myAdList.nationality" :class="{'input-disabled2' : edit}"></select-box>
+                        <select-box :selectBoxType="'signupCountry'" :country="myAdList.nationality"
+                                    :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -28,7 +29,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select-box :selectBoxType="'currency'" :currency="myAdList.currency" :class="{'input-disabled2' : edit}"></select-box>
+                        <select-box :selectBoxType="'currency'" :currency="myAdList.currency"
+                                    :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -52,7 +54,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency" :class="{'input-disabled2' : edit}">
+                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency"
+                                :class="{'input-disabled2' : edit}">
                             <option value="bitcoin">BTC</option>
                             <option value="ethereum">ETH</option>
                             <option value="allb">ALLB</option>
@@ -93,9 +96,10 @@
                     <div class="text-xs-left mb-2  color-black display-flex ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
-                        <div  v-if="priceType === 'floatprice'" class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                        <div v-if="priceType === 'floatprice'"
+                             class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
                             <div class="tooltip">
-                            <span class="tooltip-content">{{ $str("explainMargin") }}</span>
+                                <span class="tooltip-content">{{ $str("explainMargin") }}</span>
                             </div>
                         </div>
                     </div>
@@ -125,7 +129,8 @@
                     <div class="text-xs-left h5 color-darkgray ">{{ $str("priceText") }}</div>
                     <div class="price-clac-wrapper text-xs-left">
                         <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{ priceType === 'fixedprice' ?
-                            toMoneyFormat || 0 : (tradeType === 'sell' ? getFloatPriceSell : getFloatPriceBuy) || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
+                            toMoneyFormat || 0 : (tradeType === 'sell' ? getFloatPriceSell : getFloatPriceBuy) || 0 }}
+                            {{ getCurrency }}/{{ getCryptoCurrency }}
                         </div>
                     </div>
                 </div>
@@ -138,7 +143,9 @@
                     <div class="price-calculate color-darkgray">{{ $str("marektPrice") }} :
                         {{ getMarketPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
                     </div>
-                    <div class="price-explain color-darkgray">{{ priceType === 'fixedprice' ? $str("fixedPriceExplain") : $str("floatPriceExplain") }}</div>
+                    <div class="price-explain color-darkgray">{{ priceType === 'fixedprice' ? $str("fixedPriceExplain")
+                        : $str("floatPriceExplain") }}
+                    </div>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -259,70 +266,72 @@
                 {{ $str('paymentMethod') }}
             </v-flex>
             <v-flex xs12 md8 pl-0 pr-0>
-            <div>
-                <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
-                <!--알리페이 결제-->
-                <v-flex xs12  text-xs-left mb-4 display-flex v-if="getAlipay.activeYn === 'y' ">
-                    <toggle :toggle="alipay_toggle_use" class="c-pointer mr-4" @click="onToggle('alipay')"></toggle>
-                    <v-layout wrap row>
-                        <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
+                <div>
+                    <!--유져 data, DB SELECT 하여 결제수단 data get한 후 v-if문 분기 처리-->
+                    <!--알리페이 결제-->
+                    <v-flex xs12 text-xs-left mb-4 display-flex v-if="getAlipay.activeYn === 'y' ">
+                        <toggle :toggle="alipay_toggle_use" class="c-pointer mr-4" @click="onToggle('alipay')"></toggle>
+                        <v-layout wrap row>
+                            <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
 
-                            <div class="sprite-img ic-alipay d-inline-block"></div>
-                            <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("alipayText") }} : </span>
-                        </v-flex>
-                        <v-flex xs12 md8 pa-0>
-                            <div class="d-inline-block">{{ getAlipay.alipayId }}</div>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
+                                <div class="sprite-img ic-alipay d-inline-block"></div>
+                                <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("alipayText") }} : </span>
+                            </v-flex>
+                            <v-flex xs12 md8 pa-0>
+                                <div class="d-inline-block">{{ getAlipay.alipayId }}</div>
+                            </v-flex>
+                        </v-layout>
+                    </v-flex>
 
-                <!--위챗페이 결제-->
-                <v-flex xs12  text-xs-left mb-4 display-flex v-if="getWechat.activeYn === 'y' ">
-                    <toggle :toggle="wechat_toggle_use" class="c-pointer mr-4" @click="onToggle('wechat')"></toggle>
-                    <v-layout wrap row>
-                        <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
+                    <!--위챗페이 결제-->
+                    <v-flex xs12 text-xs-left mb-4 display-flex v-if="getWechat.activeYn === 'y' ">
+                        <toggle :toggle="wechat_toggle_use" class="c-pointer mr-4" @click="onToggle('wechat')"></toggle>
+                        <v-layout wrap row>
+                            <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
 
-                            <div class="sprite-img ic-wechatpay d-inline-block"></div>
-                            <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("wechatPayText") }} : </span>
-                        </v-flex>
-                        <v-flex xs12 md8 pa-0>
-                            <div class="d-inline-block">{{ getWechat.wechatId }}</div>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
+                                <div class="sprite-img ic-wechatpay d-inline-block"></div>
+                                <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("wechatPayText") }} : </span>
+                            </v-flex>
+                            <v-flex xs12 md8 pa-0>
+                                <div class="d-inline-block">{{ getWechat.wechatId }}</div>
+                            </v-flex>
+                        </v-layout>
+                    </v-flex>
 
-                <!--은행 계좌 결제-->
-                <v-flex xs12  text-xs-left mb-4 display-flex v-if="getBank.activeYn === 'y' ">
-                    <toggle :toggle="bank_toggle_use" class="c-pointer mr-4" @click="onToggle('bankAccount')"></toggle>
-                    <v-layout wrap row>
-                        <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
+                    <!--은행 계좌 결제-->
+                    <v-flex xs12 text-xs-left mb-4 display-flex v-if="getBank.activeYn === 'y' ">
+                        <toggle :toggle="bank_toggle_use" class="c-pointer mr-4"
+                                @click="onToggle('bankAccount')"></toggle>
+                        <v-layout wrap row>
+                            <v-flex xs12 md4 pl-0 pr-0 class="vertical-center ">
 
-                            <div class="sprite-img ic-bank d-inline-block"></div>
-                            <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>
-                        </v-flex>
-                        <v-flex xs12 md8 pa-0>
-                            <div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}
-                                {{ getBank.bankAccount }}</div>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
+                                <div class="sprite-img ic-bank d-inline-block"></div>
+                                <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>
+                            </v-flex>
+                            <v-flex xs12 md8 pa-0>
+                                <div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}
+                                    {{ getBank.bankAccount }}
+                                </div>
+                            </v-flex>
+                        </v-layout>
+                    </v-flex>
 
-                <!--결제수단 새로고침-->
-                <v-flex xs12 text-xs-left mb-4>
+                    <!--결제수단 새로고침-->
+                    <v-flex xs12 text-xs-left mb-4>
                 <span @click="onRefresh" class="p-relative refresh-btn btn-blue-hover h5 btn-rounded-blue c-pointer">
                     <i class="material-icons refresh-icon">sync</i>
                     <span class="refresh-btn-span">{{ $str('refreshBtnText') }}</span>
                 </span>
-                </v-flex>
+                    </v-flex>
 
-                <!--결제수단 설명-->
-                <v-flex xs12>
-                    <div class="payment-explain text-xs-left line-height-1a">
-                        <span class="color-darkgray ">{{ $str("paymentExplain") }}</span>
-                        <a class="text-white-hover color-blue" @click="goMyPage()">{{ $str("clickHereText") }}</a>
-                    </div>
-                </v-flex>
-            </div>
+                    <!--결제수단 설명-->
+                    <v-flex xs12>
+                        <div class="payment-explain text-xs-left line-height-1a">
+                            <span class="color-darkgray ">{{ $str("paymentExplain") }}</span>
+                            <a class="text-white-hover color-blue" @click="goMyPage()">{{ $str("clickHereText") }}</a>
+                        </div>
+                    </v-flex>
+                </div>
             </v-flex>
             <v-flex xs12>
                 <v-divider class="mt-4"></v-divider>
@@ -513,7 +522,7 @@
             SelectBox, VerifySlider, Toggle, PostAdModal
         },
         data: () => ({
-            adNo : 0,
+            adNo: 0,
             balace: '',
             showModal: false,
             tradeType: "buy",
@@ -564,7 +573,7 @@
             myAdList: '',
 
             //edit 상태값
-            edit : false,
+            edit: false,
 
             // 후오비 정책
             officialMinLimit: [
@@ -603,9 +612,9 @@
 
             if (params[1]) {
                 let no = params[1].split('=')[1];
-                MainRepository.AD.checkMine(no, (result)=> {
+                MainRepository.AD.checkMine(no, (result) => {
                     let memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
-                    if(result.registerMemberNo !== memberNo){
+                    if (result.registerMemberNo !== memberNo) {
                         Vue.prototype.$eventBus.$emit('showAlert', 4005);
                         MainRepository.router().goTradeCenter();
                     }
@@ -631,12 +640,12 @@
 
                     //결제수단 토글버튼
                     let paymentMethods = result.paymentMethods.split(',');
-                    for(let key in paymentMethods){
-                        if(paymentMethods[key] === 'alipay'){
+                    for (let key in paymentMethods) {
+                        if (paymentMethods[key] === 'alipay') {
                             this.alipay_toggle_use = true;
-                        }else if(paymentMethods[key] ==='wechat'){
+                        } else if (paymentMethods[key] === 'wechat') {
                             this.wechat_toggle_use = true;
-                        }else{
+                        } else {
                             this.bank_toggle_use = true;
                         }
                     }
@@ -735,7 +744,7 @@
                 let currency = MainRepository.SelectBox.controller().getCurrency();
                 let floatPrice = (this.tmpMarketPrice * this.margin / 100);
                 floatPrice = this.tmpMarketPrice - floatPrice;
-                if(floatPrice < 0){
+                if (floatPrice < 0) {
                     floatPrice = 0;
                 }
 
@@ -766,7 +775,7 @@
                     case 'floatPrice' :
                         temp = this.margin;
                         this.onCheckMargin();
-                        if (!abUtils.isDouble(temp) || temp[0] === '.' ) {
+                        if (!abUtils.isDouble(temp) || temp[0] === '.') {
                             return this.margin = "";
                         }
                         if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
@@ -873,7 +882,7 @@
                 nationality = nationality === 'ALL' ? 'CN' : nationality;
 
                 let data = {
-                    adNo : self.adNo,
+                    adNo: self.adNo,
                     autoReply: self.autoReply,
                     counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
                     counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
@@ -900,19 +909,24 @@
                     volumeAvailable: Number(self.volume),
                 };
 
-                if(this.edit){
-                    MainRepository.AD.editAD(data, function (result) {
+                if (this.edit) {
+                    MainRepository.AD.editAD(data, (result) => {
                         MainRepository.Balance.loadBalances(function () {
-                            Vue.prototype.$eventBus.$emit('showAlert', 2103);
-                            MainRepository.router().goMyAd();
-                        });
+                                Vue.prototype.$eventBus.$emit('showAlert', 2103);
+                                MainRepository.router().goMyAd();
+                            },
+                        );
+                    }, (code) => {
+
                     })
-                }else{
+                } else {
                     MainRepository.AD.postAD(data, function (result) {
                         MainRepository.Balance.loadBalances(function () {
                             Vue.prototype.$eventBus.$emit('showAlert', 2101);
                             MainRepository.router().goTradeCenter();
                         });
+                    }, (code) => {
+                        MainRepository.router().goMyAd();
                     })
                 }
             },
@@ -953,7 +967,7 @@
             },
             onCheckFixedPrice() {
                 // 고정가격 체크
-                if(this.priceType === 'floatprice'){
+                if (this.priceType === 'floatprice') {
                     return true
                 }
                 let fixedPrice = Number(this.fixedPrice);
@@ -967,7 +981,7 @@
             },
             onCheckMargin() {
                 // 유동가격 체크
-                if(this.priceType === 'fixedprice'){
+                if (this.priceType === 'fixedprice') {
                     return true
                 }
                 let margin = Number(this.margin);
@@ -976,7 +990,7 @@
                     this.verify_warning_float_price = Vue.prototype.$str("warningFloatPricePlaceholder");
                     return false;
                 }
-                if (margin >100 || margin < -100) {
+                if (margin > 100 || margin < -100) {
                     this.warning_float_price = true;
                     this.verify_warning_float_price = Vue.prototype.$str("warningFloatPriceLimit");
                     return false;

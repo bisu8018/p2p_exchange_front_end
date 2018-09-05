@@ -88,6 +88,8 @@
                 // AXIOS post 작업 진행
                 AccountService.Account.changePassword(this.old_password, this.new_password, () => {
                     this.goMyPage();
+                }, () => {
+                    return false;
                 });
             },
             onCheck() {

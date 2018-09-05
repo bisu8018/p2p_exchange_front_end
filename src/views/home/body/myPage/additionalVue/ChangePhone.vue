@@ -5,7 +5,7 @@
             <div>
                 <div class="mb-3 login-title align-center">
                     <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                    <div class="h2 bold">{{$str("changePhoneNumber")}}</div>
+                    <div class="h2 bold">{{$str("changeLinkedPhone")}}</div>
                 </div>
 
                 <div class="color-darkgray mb-4 text-xs-left">
@@ -120,9 +120,11 @@
                     code: self.verificationCode,
                     phoneNumber: self.newPhoneNumber,
                     status: 'turn_on'
-                }, function (result) {
+                }, (result) => {
                     Vue.prototype.$eventBus.$emit('showAlert', 2251);
                     MainRepository.router().goMyPage();
+                }, () => {
+                    return false;
                 })
 
             }

@@ -110,6 +110,8 @@
                 }, (result) => {
                     this.verifyStatus = 'verified';
                     this.goMyPage();
+                }, () => {
+                    return false;
                 });
             },
             //지역번호 select box 값 get
