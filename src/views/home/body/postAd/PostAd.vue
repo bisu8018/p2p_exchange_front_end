@@ -94,7 +94,9 @@
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
                         <div  v-if="priceType === 'floatprice'" class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                            <div class="tooltip">
                             <span class="tooltip-content">{{ $str("explainMargin") }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
@@ -1192,8 +1194,9 @@
 
     /*tooltip 수정*/
     :hover.tooltip .tooltip-content {
-        bottom: -760% !important;
         width: 200px !important;
+        top: 25px;
+        height: fit-content;
         text-align: left;
         line-height: 1.4;
         left: 77px;
@@ -1202,9 +1205,9 @@
     .tooltip .tooltip-content:after {
         left: 16% !important;
         bottom: 100% !important;
-        top: -5% !important;
+        top: -9% !important;
         border-top: 0px !important;
-        border-bottom: 6px solid #545c6a !important;
+        border-bottom: 10px solid #545c6a !important;
     }
 </style>
 

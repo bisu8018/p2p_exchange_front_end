@@ -31,22 +31,10 @@
                 <div v-if="status === 'verification'">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("account")}}</div>
                     <div class="p-relative mb-4">
-                        <input type="password" class="input verification-account color-darkgray" v-model="email" disabled>
+                        <input type="text" class="input verification-account color-darkgray" v-model="email" disabled>
                     </div>
                     <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCode")}}</div>
-                    <div class="p-relative">
-                        <input name="verificationCode" v-model="verificationCode" type="text" class="input mb-4"
-                               maxlength="7"
-                               autocomplete="off" v-bind:class="{'warning-border' : warning_verification_code}">
-                        <span class="cs-click-send text-white-hover" @click="sendVerificationCode"
-                              v-if="verifyStatus === 'unverified'">{{$str("clickToSend")}}</span>
-                        <span class="cs-timer" @click="sendVerificationCode"
-                              v-else-if="verifyStatus === 'verifying'">{{$str('timerExplain1')}}  {{tmpTime}}  {{$str('timerExplain2')}}</span>
-                        <span class="cs-code-verified" @click="sendVerificationCode" v-else>{{$str("verifySliderSuccess")}}</span>
-                        <div class="warning-text-wrapper">
-                            <span class="d-none" v-bind:class="{'warning-text' : warning_verification_code}">{{verify_warning_verification_code}}</span>
-                        </div>
-                    </div>
+                    <verification-code v-on:verify="onCheckVerificationCode()" :email="email" :type="'email'"></verification-code>
                 </div>
 
                 <!--비밀번호 입력-->
@@ -54,7 +42,7 @@
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("newPassword")}}</div>
                     <div class="p-relative mb-4">
                         <input v-model="new_password" type="password" class="input"
-                               @keyup="onCheckNewPassword"
+                               @keyup="onCheckNewPassword" maxlength="20"
                                v-bind:class="{'warning-border' : warning_new_password_border}">
                         <div class="warning-text-wrapper">
                            <span class="d-none"
@@ -69,7 +57,7 @@
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("passwordConfirm")}}</div>
                     <div class="p-relative mb-4">
                         <input v-model="confirm_password" type="password" class="input"
-                               @keyup="onCheckPasswordConfirm"
+                               @keyup="onCheckPasswordConfirm" maxlength="20"
                                v-bind:class="{'warning-border' : warning_confirm_password}">
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
@@ -91,21 +79,20 @@
 <script>
     import {abUtils} from '@/common/utils';
     import VerifySlider from "@/components/VerifySlider";
-    import AccountService from '@/service/account/AccountService';
+    import VerificationCode from '@/components/VerificationCode.vue';
+    import MainRepository from "../../../../../vuex/MainRepository";
+    import Vue from "vue";
 
     export default {
         name: 'findPassword',
         data: function () {
             return {
-                tmpTime: 60,
-                status: 'email',             //email -> verification -> password
+                status: 'password',             //email -> verification -> password
                 email: '',
                 new_password: '',
                 confirm_password: '',
                 verify_warning_new_password: "",
-                verificationCode: '',
-                verify_warning_verification_code: '',
-                verifyStatus: 'unverified',        //unverified -> verifying -> verified
+                verify: false,
                 isVerified: false,
                 warning_email: false,
                 warning_new_password: false,
@@ -119,49 +106,37 @@
             }
         },
         components: {
-            VerifySlider,
+            VerifySlider,VerificationCode
         },
         created() {
             window.scrollTo(0, 0);
         },
         methods: {
-            // 시간 타이머 설정
-            getTimer() {
-                window.setInterval(() => {
-                    if (this.tmpTime > 0) {
-                        this.tmpTime--
-                    } else {
-                        clearInterval(this.tmpTime);
-                        this.verifyStatus = 'unverified';
-                        this.tmpTime = 60;
-                    }
-                }, 1000)
-            },
             putVerified: function () {
                 this.isVerified = true;
             },
-            goMyPage() {
-                this.$router.push("/myPage");
-            },
-            onChange() {
-                // AXIOS post 작업 진행
-
-                // 성공후 push
-                goMyPage();
+            goMyPage : function () {
+              MainRepository.router().goMyPage();
             },
             onCheck() {
-                if (this.verifyStatus === 'email') {
-                    if (this.isVerified === true) {
-                        this.sendVerificationCode();
-                    }
-                } else if (this.verifyStatus === 'verification') {
-                    this.checkVerificationCode();
-                } else {
-                    if (this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
-                        this.onChange();
-                    }
+                if(this.status === 'email' && this.isVerified){     //해당 이메일 계정 존재 체크 (1단계)
+                    MainRepository.Users.isDuplicated({
+                        email : this.email
+                    }, (result) => {
+                        if(result){
+                            this.status = 'verification';
+                            Vue.prototype.$eventBus.$emit('showAlert', 2051);
+                        }
+                    });
+                }else if(this.status === 'verification' && this.verify){            //인증코드 체크 (2단계)
+                    this.status = 'password';
+                }else if(this.status === 'password' && this.onCheckNewPassword() && this.onCheckPasswordConfirm()){
+                    this.onChange();
                 }
-
+            },
+            // 인증코드 체크
+            onCheckVerificationCode() {
+                this.verify = true;
             },
             onCheckNewPassword() {
                 //new password null
@@ -174,6 +149,7 @@
                     this.warning_new_password_border = true;
                     return false;
                 }
+
                 if (this.new_password.length < 8 || this.new_password.length > 20 || !abUtils.isPasswd(this.new_password)) {
 
                     this.warning_new_password_border = true;
@@ -214,45 +190,17 @@
                 this.warning_confirm_password = false;
                 return true;
             },
-            // 인증코드 체크
-            onCheckVerificationCode() {
-                if (this.verificationCode === "") {
-                    this.verify_warning_verification_code = Vue.prototype.$str("verificationCode");
-                    this.warning_verification_code = true;
-                    return false;
-                } else if (this.verificationCode.length >= 6) {
-                    this.checkVerificationCode();
-                }
-                this.warning_verification_code = false;
-                return true;
-            },
-            // 인증 코드 이메일 전송
-            sendVerificationCode() {
-                AccountService.Account.sendVerificationCode({
-                    email: this.email
-                }, function (error) {
-                    if (!error) {
-                        console.log("code send success");
-                        this.verifyStatus = 'verification';
-                    } else {
-                        console.log("ERROR ::::::: " + error);
-                    }
+            onChange() {
+                // AXIOS post 작업 진행
+                MainRepository.Users.resetPassword({
+                    email : this.email,
+                    password: this.new_password,
+                    verificationMethod : 'email'
+                }, (result) => {
+                    Vue.prototype.$eventBus.$emit('showAlert', 2052);
+                    MainRepository.router().goLogin();
                 })
             },
-            //인증코드 체크
-            checkVerificationCode() {
-                AccountService.Account.checkVerificationCode({
-                    email: this.email,
-                    code: this.verificationCode
-                }, function (error) {
-                    if (!error) {
-                        console.log("code check success");
-                        this.verifyStatus = 'password';
-                    } else {
-                        console.log("ERROR ::::::: " + error);
-                    }
-                })
-            }
         }
     }
 </script>

@@ -478,6 +478,16 @@ export default {
                 callback(result);
             })
         },
+        isDuplicated(email: string, callback: any){
+            AccountService.Account.isDuplicated(email, (result) => {
+                callback(result);
+            })
+        },
+        resetPassword(data: any, callback: any){
+            AccountService.Account.resetPassword(data, (result) => {
+                callback(result);
+            })
+        }
 
     },
     // SignUp: {},

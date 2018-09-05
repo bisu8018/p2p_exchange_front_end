@@ -71,27 +71,27 @@
         </ul>
 
         <!-- 2. Advanced Verification -->
-        <!--<ul class="otherInfo-body">-->
+        <ul class="otherInfo-body">
 
-            <!--&lt;!&ndash; 아이콘, 서브타이틀 &ndash;&gt;-->
-            <!--<li class="otherInfo-subtitle">-->
-                <!--<div class="sprite-img ic-advanced"></div> <p>{{ $str('advancedVerification') }}</p>-->
-            <!--</li>-->
+            <!-- 아이콘, 서브타이틀 -->
+            <li class="otherInfo-subtitle">
+                <div class="sprite-img ic-advanced"></div> <p>{{ $str('advancedVerification') }}</p>
+            </li>
 
-            <!--&lt;!&ndash; 내용 &ndash;&gt;-->
-            <!--<li class="caption-wrapper">-->
-                <!--&lt;!&ndash; Advanced Verification 되었을 때 &ndash;&gt;-->
-                <!--<span class="color-darkgray"> {{ $str('unverified') }} </span>-->
-            <!--</li>-->
+            <!-- 내용 -->
+            <li class="caption-wrapper">
+                <!-- Advanced Verification 되었을 때 -->
+                <span class="color-darkgray"> {{ $str('unverified') }} </span>
+            </li>
 
-            <!--&lt;!&ndash; 버튼, 토글 등 &ndash;&gt;-->
-            <!--<li class="btn-wrapper">-->
-                <!--<btn-mypage-->
-                    <!--:txt="$str('verify')"-->
-                    <!--@click="onAdvancedVerification"-->
-                <!--/>-->
-            <!--</li>-->
-        <!--</ul>-->
+            <!-- 버튼, 토글 등 -->
+            <li class="btn-wrapper">
+                <btn-mypage
+                    :txt="$str('verify')"
+                    @click="onAdvancedVerification"
+                />
+            </li>
+        </ul>
     </div>
 </template>
 

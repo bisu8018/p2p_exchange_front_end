@@ -135,6 +135,13 @@ export default class RouterController {
         });
     }
 
+    goChangePhone() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/changePhone");
+        });
+    }
+
     goResetTradePassword() {
         let r = this.router;
         Vue.nextTick(function () {
