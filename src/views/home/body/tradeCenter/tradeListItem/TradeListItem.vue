@@ -55,11 +55,11 @@
                         <!-- 아이콘 v-if="user.bank_account== 'y'"  v-if="user.alipay_id== 'y'" v-if="user.wechat_id== 'y'"-->
                         <li>
                             <!--payment method-->
-                            <div v-if="user.bank_account== 'y'"
+                            <div v-if="user.bank_account"
                                  class="mr-2 sprite-img ic-bank f-left"></div>
-                            <div v-if="user.alipay_id== 'y'"
+                            <div v-if="user.alipay_id"
                                  class="mr-2 sprite-img ic-alipay f-left"></div>
-                            <div v-if="user.wechat_id== 'y'"
+                            <div v-if="user.wechat_id"
                                  class="sprite-img ic-wechatpay f-left"></div>
                         </li>
                         <li>
@@ -188,11 +188,11 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <div v-if="user.bank_account.length >0"
+                            <div v-if="user.bank_account"
                                  class="ml-2 sprite-img ic-bank f-right"></div>
-                            <div v-if="user.alipay_id.length >0"
+                            <div v-if="user.alipay_id"
                                  class="ml-2 sprite-img ic-alipay f-right"></div>
-                            <div v-if="user.wechat_id.length >0"
+                            <div v-if="user.wechat_id"
                                  class="ml-2 sprite-img ic-wechatpay f-right"></div>
                         </v-flex>
                     </v-layout>
@@ -232,7 +232,7 @@
                                 </div>
                             </div>
                             <!--trade PW. sell 일때만 활성화-->
-                            <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
+                            <div class="mt-3 p-relative" v-if="user.tradeType =='sell'">
                                 <input type="password" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                                        :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
                                        @keyup="onNumberCheck('tradePW')"
@@ -297,15 +297,15 @@
                 <v-flex md3 text-md-right>
                     <v-layout align-center>
                         <!--payment method-->
-                        <a class="tooltip" v-if="user.bank_account== 'y'">
+                        <a class="tooltip" v-if="user.bank_account">
                             <div class="sprite-img ic-bank mr-2"></div>
                             <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
                         </a>
-                        <a class="tooltip" v-if="user.alipay_id== 'y'">
+                        <a class="tooltip" v-if="user.alipay_id">
                             <div class="sprite-img ic-alipay mr-2"></div>
                             <span class="tooltip-content">{{$str("alipayText")}}</span>
                         </a>
-                        <a class="tooltip" v-if="user.wechat_id== 'y'">
+                        <a class="tooltip" v-if="user.wechat_id">
                             <div class="sprite-img ic-wechatpay mr-2"></div>
                             <span class="tooltip-content">{{$str("wechatPayText")}}</span>
                         </a>
@@ -457,24 +457,24 @@
                         <v-flex md6 text-md-left>
                             <div class="margin-left-74">
                                 <!--Bank account-->
-                                <div v-if="user.bank_account.length >0">
+                                <div v-if="user.bank_account">
                                     <div class="sprite-img ic-bank mr-2 f-left"></div>
                                     <span class="mr-3 f-left">{{$str("bankAccountText")}}</span>
                                 </div>
                                 <!--Alipay-->
-                                <div v-if="user.alipay_id.length >0">
+                                <div v-if="user.alipay_id">
                                     <div class="sprite-img ic-alipay mr-2 f-left"></div>
                                     <span class="mr-3 f-left">{{$str("alipayText")}}</span>
                                 </div>
                                 <!--WechatPay-->
-                                <div v-if="user.wechat_id.length >0">
+                                <div v-if="user.wechat_id">
                                     <div class="sprite-img ic-wechatpay mr-2 f-left"></div>
                                     <span class="mr-3 f-left">{{$str("wechatPayText")}}</span>
                                 </div>
                             </div>
                         </v-flex>
                         <v-flex md3 text-md-right>
-                            <div v-if="user.tradeType =='Sell'">
+                            <div v-if="user.tradeType =='sell'">
                                 <div class="p-relative">
                                     <input type="password" class="input userInput textLeftPlaceholder"
                                            name="tradePW" v-model="tradePW" :placeholder="$str('tradePwText')"
@@ -584,10 +584,17 @@
             },
         },
         created() {
-
+            //환율 및 유져 정보 get 필요
+            let self = this;
+            Common.info.getMarketPrice(function (data) {
+                self.marketPrice = data;
+            });
+        },
+        updated(){
             //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            let _obj;
             if (MainRepository.MyInfo.isLogin()) {
-                let _obj = MainRepository.TradeView.controller().setCannotTrade(
+                _obj = MainRepository.TradeView.controller().setCannotTrade(
                     this.myInfo,
                     this.user.counterpartyFilterTradeCount,
                     this.user.counterpartyFilterAdvancedVerificationYn,
@@ -597,12 +604,6 @@
                 this.do_not_trade_message = _obj.do_not_trade_message;
                 this.can_not_trade = _obj.can_not_trade;
             }
-
-            //환율 및 유져 정보 get 필요
-            let self = this;
-            Common.info.getMarketPrice(function (data) {
-                self.marketPrice = data;
-            });
         },
         methods: {
             onNumberCheck(type) {
@@ -656,7 +657,7 @@
             goTrade() {
                 let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()
-                &&(this.user.tradeType === 'Buy'|| this.onChecktradePassword()) ) {
+                &&(this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
                     MainRepository.TradeProcess.createOrder({
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
@@ -668,7 +669,7 @@
                             status : "unpaid",
                             tradePassword : this.tradePW,
                     }, function (orderNo) {
-                        let isBuy = instance.user.tradeType === 'Buy';
+                        let isBuy = instance.user.tradeType === 'buy';
                         MainRepository.router().goBuyOrSell(isBuy, orderNo);
                     });
 

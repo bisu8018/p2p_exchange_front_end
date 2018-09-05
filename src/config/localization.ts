@@ -1427,6 +1427,12 @@ const strings = new Map([
         CN: '上架',
         HK: '上架'
     }],
+    ['disable', {
+        KOR: '내리기',
+        ENG: 'Disable',
+        CN: '下架',
+        HK: '下架'
+    }],
     ['delete', {
         KOR: '삭제',
         ENG: 'Delete',
@@ -3184,6 +3190,24 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['comp_ad_disable', {
+        KOR: '광고 비활성이 완료되었습니다.',
+        ENG: 'AD has been disabled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_enable', {
+        KOR: '광고 활성이 완료되었습니다.',
+        ENG: 'AD has been enabled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_delete', {
+        KOR: '광고 삭제가 완료되었습니다.',
+        ENG: 'AD has been deleted.',
+        CN: '',
+        HK: ''
+    }],
     ['comp_order_appeal', {
         KOR: '이의제기가 등록되었습니다.',
         ENG: 'Appeal has been registered.',
@@ -3271,6 +3295,30 @@ const strings = new Map([
     ['comp_linked_phone_change', {
         KOR: '연동된 전화번호를 수정하였습니다.',
         ENG: 'Linked phone number has been changed',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_completeProcessingOrder', {
+        KOR: '진행중인 주문을 마친뒤 상태변경 해주세요',
+        ENG: 'Please finish your order in progress.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_changeStatusDisable', {
+        KOR: '광고 상태를 비활성 해주세요',
+        ENG: 'Please disable the Ad status',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_needSetNickname', {
+        KOR: '닉네임 설정이 필요합니다.',
+        ENG: 'Nickname settings are required.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_needSetIDVerification', {
+        KOR: 'ID 인증이 필요합니다.',
+        ENG: 'ID authentication is required.',
         CN: '',
         HK: ''
     }],
