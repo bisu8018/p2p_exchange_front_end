@@ -2007,19 +2007,19 @@ const strings = new Map([
         HK: '安全設定'
     }],
     ['low', {
-        KOR: '저',
+        KOR: '낮음',
         ENG: 'Low',
         CN: '低',
         HK: '低'
     }],
     ['medium', {
-        KOR: '중',
+        KOR: '중간',
         ENG: 'Medium',
         CN: '中',
         HK: '中'
     }],
     ['high', {
-        KOR: '고',
+        KOR: '높음',
         ENG: 'High',
         CN: '高',
         HK: '高'
