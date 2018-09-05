@@ -4,73 +4,100 @@
 
 <template>
     <div :class="[isMobile() ? 'chat-wrapper-xs' : 'chat-wrapper-md']">
+
+
         <!--상대방 정보-->
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
             <div class="pl-3 pr-3 pt-4 pb-4">
-                <avatar v-if="counterPartyEmail != '' "
-                        :email=counterPartyEmail
-                        :chat="'main'"
-                >
-                </avatar>
+                <avatar v-if="counterPartyEmail != ''"  :email=counterPartyEmail  :chat="'main'"/>
             </div>
+
             <div class="text-xs-left pt-twenty">
                 <span class="h5 bold color-black">{{ counterPartyNickname }}</span><br>
                 <!--30일간 거래 횟수-->
                 <span class="h6 color-darkgray">{{ $str('Trades_in_30_days') }} : {{ transactionNum }}</span>
             </div>
+
             <v-spacer></v-spacer>
-            <!--휴대폰 문자 전송-->
-            <div class="pt-4a pr-3 pl-3">
-                <i class="material-icons color-darkgray c-pointer">stay_current_portrait</i>
-            </div>
+
+            <!--휴대폰 번호 공유-->
+            <!--정확한 용도 및 필요성 부재-->
+
+            <!--<div class="pt-4a pr-3 pl-3">-->
+                <!--<i class="material-icons color-darkgray c-pointer">stay_current_portrait</i>-->
+            <!--</div>-->
         </div>
-        <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper"  v-on:scroll.passive="scrollEvent">
+
+
+
+        <!--채팅 내용-->
+        <div class="contents-wrapper pr-3 pl-3 pt-4 pb-4" id="contentsWrapper" v-on:scroll.passive="scrollEvent">
             <div v-for="data in messageList">
-                <!--상대방-->
-                <div class="mb-3 display-flex" v-if="data.mine === false">
-                    <div>
-                        <avatar v-if="counterPartyEmail !== ''"
-                                :email=counterPartyEmail
-                                :chat="'sub'">
-                        </avatar>
+
+                <!--시스템 메세지-->
+                <div v-if="data.registerMemberNo === 0" class="mb-3">
+                    <div class="h6 color-darkgray pb-2 line-height-full">
+                        {{ getTime(data.registerDatetime) }}
+                        <!--<span>{{ getDateTime('date') }}</span>-->
                     </div>
-                    <div class="pl-2">
-                        <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
-                            {{ getTime(data.registerDatetime) }}
-                            <!--<span>{{ getDateTime('date') }}</span>-->
-                        </div>
-                        <div class="chat-content-wrapper text-xs-left color-black h6"  v-if="data.attachedImgUrl === ''">
-                            {{ data.message }}
-                        </div>
-                        <div class="chat-content-wrapper" v-else>
-                            <img :src="data.attachedImgUrl" class="w-full">
-                        </div>
+                    <div class="system-content-wrapper color-black h6"
+                         v-if="data.attachedImgUrl === '' && data.registerMemberNo === 0">
+                        {{ getSystemMsg(data.message) }}
                     </div>
                 </div>
 
-                <!--자신-->
-                <div class="mb-3 display-flex " v-else>
-                    <v-spacer></v-spacer>
-                    <div class="pr-2">
-                        <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                            {{ getTime(data.registerDatetime) }}
-                            <!--<span>{{ getDateTime('date') }}</span>-->
+
+                <!--일반 메세지-->
+                <div v-else>
+
+                    <!--상대방-->
+                    <div class="mb-3 display-flex" v-if="data.mine === false ">
+                        <div v-if="data.registerMemberNo !== 0">
+                            <avatar v-if="counterPartyEmail !== ''"  :email=counterPartyEmail  :chat="'sub'"/>
                         </div>
-                        <div class="chat-content-wrapper text-xs-left color-black h6" v-if="data.attachedImgUrl === ''">
-                            {{ data.message }}
-                        </div>
-                        <div class="chat-content-wrapper" v-else>
-                            <img :src="data.attachedImgUrl" class="w-full">
+                        <div v-else class="none-avatar"></div>
+                        <div class="pl-2">
+                            <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
+                                {{ getTime(data.registerDatetime) }}
+                                <!--<span>{{ getDateTime('date') }}</span>-->
+                            </div>
+                            <div class="chat-content-wrapper text-xs-left color-black h6"
+                                 v-if="data.attachedImgUrl === '' && data.registerMemberNo !== 0">
+                                {{ data.message }}
+                            </div>
+                            <div class="chat-content-wrapper" v-else-if="data.attachedImgUrl !== ''">
+                                <img :src="data.attachedImgUrl" class="w-full">
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <avatar
-                                :me=true>
-                        </avatar>
+
+                    <!--자신-->
+                    <div class="mb-3 display-flex " v-else>
+                        <v-spacer></v-spacer>
+                        <div class="pr-2">
+                            <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
+                                {{ getTime(data.registerDatetime) }}
+                                <!--<span>{{ getDateTime('date') }}</span>-->
+                            </div>
+                            <div class="chat-content-wrapper text-xs-left color-black h6"
+                                 v-if="data.attachedImgUrl === ''">
+                                {{ data.message }}
+                            </div>
+                            <div class="chat-content-wrapper" v-else>
+                                <img :src="data.attachedImgUrl" class="w-full">
+                            </div>
+                        </div>
+                        <div>
+                            <avatar
+                                    :me=true>
+                            </avatar>
+                        </div>
                     </div>
                 </div>
             </div>
 
+
+            <!--미통신 로컬 메세지-->
             <div v-for="localMsg in localMsgList">
                 <!--자신-->
                 <div class="mb-3 display-flex " v-if="showLocalMsg">
@@ -94,11 +121,16 @@
                 </div>
             </div>
         </div>
+
+
+        <!--채팅 입력-->
         <div class="pl-3 input-wrapper">
             <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
                    @keypress.enter="onPost()"/>
             <div class="pr-3"><label><i
                     class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
+
+                <!--파일첨부-->
                 <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
                        class="d-none" accept="image/*"/></label>
             </div>
@@ -195,13 +227,20 @@
                     }, 1000);
                 });
             });
+
+            MainRepository.Users.getUserPageHistoryInfo({
+                memberNo: this.counterPartyMemberNo
+            }, (result) => {
+                this.transactionNum = result.tradeMonthTimes;
+            })
         },
         beforeDestroy() {
             clearInterval(this.msgInterval);
         },
         methods: {
             updateMsg() {
-                MainRepository.Message.updateMsg(() => {});
+                MainRepository.Message.updateMsg(() => {
+                });
             },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
@@ -227,6 +266,7 @@
                     vm.image = e.target.result;
                 };
                 reader.readAsDataURL(this.file);
+                this.onPostImg();
             },
             submitFile() {      // 첨부파일 서버 전송
                 let formData = new FormData();
@@ -241,19 +281,44 @@
                 let dateTime = String(date).split(' ');
                 return dateTime[1];
             },
+            getSystemMsg(msg) {
+                switch (msg) {
+                    case 'REGISTERED' :
+                        return Vue.prototype.$str('systemMsgRegistered');
+
+                    case 'PAID' :
+                        return Vue.prototype.$str('systemMsgPaid');
+
+                    case 'PAID_CANCELED_APPEAL' :
+                        return Vue.prototype.$str('systemMsgPaidCanceledAppeal');
+
+                    case 'COMPLETE' :
+                        return Vue.prototype.$str('systemMsgComplete');
+
+                    case 'CANCELED' :
+                        return Vue.prototype.$str('systemMsgCanceled');
+
+                    case 'APPEALED' :
+                        return Vue.prototype.$str('systemMsgAppealed');
+
+                    case 'EXPIRED' :
+                        return Vue.prototype.$str('systemMsgExpired');
+                }
+            },
             isMobile() {
                 return MainRepository.State.isMobile();
             },
             onPost() {
                 let tmpValue = this.inputValue.trim();
-                if (tmpValue !== '' ) {
+                if (tmpValue !== '') {
                     //도배 및 중복 값 입력 방지
                     if (Date.now() - this.latestPostTime < 500) {
                         return false;
                     } else {
                         this.latestPostTime = Date.now();
-                        MainRepository.Message.postMsg(this.inputValue, () => { });
-                        this.createLocalMsg(this.inputValue,'mas');
+                        MainRepository.Message.postMsg(this.inputValue, () => {
+                        });
+                        this.createLocalMsg(this.inputValue, 'msg');
                         this.inputValue = '';
                     }
                 }
@@ -262,11 +327,11 @@
                 });
             },
             onPostImg() {
-                MainRepository.message().postImg({
+                MainRepository.Message.postImg({
                     file: this.submitFile(),
                     orderNo: this.order.orderNo
                 }, (url) => {
-                    this.createLocalMsg(url,'img');
+                    this.createLocalMsg(url, 'img');
                     this.file = '';
                     this.image = '';
                 });
@@ -274,12 +339,12 @@
                     this.scrollBottom();
                 });
             },
-            createLocalMsg(msg,type) {
+            createLocalMsg(msg, type) {
                 this.showLocalMsg = true;
                 this.localMsgList.push({
-                    type : type,
-                    message : msg,
-                    registerDatetime : new Date().getTime()
+                    type: type,
+                    message: msg,
+                    registerDatetime: new Date().getTime()
                 })
             },
             scrollBottom() {
@@ -337,6 +402,11 @@
         border-radius: 2px;
     }
 
+    .system-content-wrapper {
+        border-radius: 2px;
+        font-weight: bold;
+    }
+
     .input-wrapper {
         height: 62px;
         display: flex;
@@ -354,5 +424,9 @@
 
     .line-height-date {
         line-height: 0.6;
+    }
+
+    .none-avatar {
+        width: 34px;
     }
 </style>

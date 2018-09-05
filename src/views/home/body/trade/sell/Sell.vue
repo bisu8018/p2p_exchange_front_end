@@ -2,37 +2,65 @@
     <div class="mt-5 mb-5 mr-3 ml-3 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
+
                 <!--{{ order_number }} 주문번호-->
                 {{ $str('order') }} : #{{ getOrderNumber }}
+
             </div>
+
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
+
                 <!--buy/sell -->
                 {{ $str('sell') }}
+
                 <!--토큰량 -->
                 {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
+
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
+
                 <!-- 닉네임-->
                 <div class="d-inline-block">  {{ $str('from') }} {{ counterPartyNickname }}</div>
+
             </div>
+
+
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
+
                     {{ $str('price') }} :
+
                     <!-- 가격 -->
-                    <span class="ml-3 h3">{{ currentOrder.price }}
+                    <span class="ml-3 h3">{{ toMoneyFormat(currentOrder.price) }}
+
                         <!-- 화폐단위-->  <!-- 토큰종류 -->
-                        {{ currentOrder.currency }} / {{ currentOrder.cryptocurrency }}</span>
+                        {{ currentOrder.currency }} / {{ currentOrder.cryptocurrency }}
+
+                    </span>
                 </div>
+
                 <div class="color-black">
+
                     {{ $str('amount') }} :
+
                     <!--{{ currentOrder.price }} 가격 -->
+
                     <div class="c-pointer tooltip d-inline-block">
-                 <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">{{ currentOrder.amount }}
-                     <!--{{ currentOrder.currency }} 화폐단위-->
-                        {{ currentOrder.currency }}</span>
+
+                        <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">
+
+                          {{ toMoneyFormat(currentOrder.amount) }}
+
+                            <!--{{ currentOrder.currency }} 화폐단위-->
+                            {{ currentOrder.currency }}
+
+                        </span>
+
                         <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
+
                         <span class="tooltip-content">{{ $str("Copy") }}</span>
+
                     </div>
                 </div>
             </div>
@@ -44,59 +72,75 @@
         </div>
         <div class="h4 bold color-black text-xs-left mb-4">
             <v-flex xs12 md4>
+
                 <!--status cancel 일 시 설명 문구-->
                 <div class="cancel-explain mb-4 "
                      v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
                     {{ $str("cancelExplain") }}
                 </div>
             </v-flex>
+
             <!--unpaid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
+
                 {{ $str("payingExplain1") }}
                 {{ counterPartyNickname }}
                 {{ $str("payingExplain2") }}
+
                 <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
+
                 {{ $str("payingExplain3") }}
+
                 <!--타이머 스크립트 작성 필요-->
                 <span class="color-green">{{  limitTime  }}</span>
+
                 {{ $str("payingExplain4") }}
             </div>
 
+
             <!--paid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'paid'">
+
                 {{ $str("confirmgExplain1") }}
                 {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
-                <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
 
+                <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
             </div>
+
 
             <div>
                 <!-- complete / Cancel 상태 -->
                 <span v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
                     {{ $str("cancel") }}
-                    </span>
+                </span>
+
                 <!-- complete / Cancel 상태 -->
                 <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
                     {{ $str("complete") }},
-                    </span>
+                </span>
 
                 <!-- Complaining 일 때 -->
                 <span v-if="currentOrder.status === 'complaining'">
-                        {{ $str("appealCodeExplain") }}
-                        {{ getAppeal.appealNo }} ,
-                    </span>
-                    {{ $str("referenceText") }} :
+                    {{ $str("appealCodeExplain") }}
+                    {{ getAppeal.appealNo }} ,
+                </span>
+
+                {{ $str("referenceText") }} :
+
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
-                    <!--{{ 거래번호 }}-->
-                    {{ currentOrder.referenceNo }}
+
+                        <!--{{ 거래번호 }}-->
+                        {{ currentOrder.referenceNo }}
+
                     </span>
                     <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
                     <span class="tooltip-content">{{ $str("Copy") }}</span>
                 </div>
             </div>
         </div>
+
 
         <!--unpaid process indicator (unpaid 상태 일때) -->
         <v-flex xs12 mb-4 v-if="currentOrder.status != 'complete'">
@@ -110,8 +154,10 @@
             </span>
             </v-flex>
         </v-flex>
+
+
+        <!--거래 성사 버튼 (confirm 상태 일때) -->
         <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="currentOrder.status === 'paid'">
-            <!--거래 성사 버튼 (confirm 상태 일때) -->
             <input type="button" class="btn-blue btn-blue-hover mb-4"
                    :value="$str('confirmRelease')" @click="onModal('confirm')">
         </v-flex>
@@ -156,12 +202,13 @@
         </v-flex>
 
 
+        <!--채팅창-->
         <div>
             <div v-if="isInitCompleted">
-                <!--채팅창-->
                 <message :order="currentOrder"></message>
             </div>
         </div>
+
 
         <!--모바일 환경에서 설명-->
         <div class="h6 text-xs-left color-darkgray  mt-4a" v-if="isMobile()">
@@ -176,12 +223,14 @@
             </p>
         </div>
 
+
+        <!--거래 성사 버튼 (confirm 상태 일때) -->
         <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="currentOrder.status === 'paid'">
-            <!--거래 성사 버튼 (confirm 상태 일때) -->
             <input class="text-white-hover btn-rounded-white h5" type="button"
                    :value="$str('appeal')" @click="onModal('appeal')" v-on:appeal="onAppeal"
                    v-on:cancelAppeal="onCancelAppeal">
         </v-flex>
+
 
         <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"
                     v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></sell-modal>
@@ -195,6 +244,7 @@
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
     import {getLimitTime} from "../../../../../common/common";
+    import {abUtils} from "../../../../../common/utils";
 
     export default Vue.extend({
         name: 'sell',
@@ -210,11 +260,9 @@
             limitTime: '',
             timerInterval: {},
             checkStatus: {},
+            currentOrder: '',
         }),
         computed: {
-            currentOrder() {
-                return MainRepository.TradeProcess.getCurrentOrder();
-            },
             counterPartyNickname() {    //상대방 닉네임 GET
                 let merchantNickname = this.currentOrder.merchantNickname;
                 let customerNickname = this.currentOrder.customerNickname;
@@ -243,21 +291,23 @@
             },
         },
         created() {
-            this.init();
-        },
-        updated() {
-            // 현재 view가 떠있는 상태에서 다른 order 요청시
-            if (this.orderNo !== this.getUrlParam()) {
+            this.$eventBus.$on('refreshSell', () => {
                 this.init();
-            }
+            });
+
+            this.$eventBus.$emit('refreshSell');
         },
         beforeDestroy() {
             clearInterval(this.timerInterval);
             clearInterval(this.checkStatus);
+
+            this.$eventBus.$off('refreshSell');
         },
         methods: {
             //초기화 작업
             init() {
+                this.isInitCompleted = false;
+
                 // 로그인 확인 -> Login 으로
                 if (!MainRepository.MyInfo.isLogin()) {
                     MainRepository.router().goLogin();
@@ -273,6 +323,8 @@
                 }
 
                 MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
+                    this.currentOrder =  MainRepository.TradeProcess.getCurrentOrder();
+
                     // 부적합한 유저 접근시 거래소 강제 이동
                     let myInfo = MainRepository.MyInfo.getUserInfo();
                     let tradeType = this.currentOrder.tradeType;
@@ -312,6 +364,7 @@
                         if (this.limitTime === '0 Min 0 Sec') {
                             this.getOrderStatus();
                             clearInterval(this.timerInterval);
+                            Vue.prototype.$eventBus.$emit('showAlert', 2155);
                         }
                     }, 1000)
                 }
@@ -352,16 +405,6 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
-            onConfirm(pw) {
-                MainRepository.TradeProcess.onConfirm({
-                    orderNo: this.orderNo,
-                    tradePassword: pw
-                }, (result) => {
-                    this.onClose();
-                    this.currentOrder();
-                });
-
-            },
             onClose() {
                 this.showModal = false;
             },
@@ -380,10 +423,34 @@
                     copyTemp.select();
                 }
                 document.execCommand('copy');
+
             },
             onModal(type) {
                 this.showModal = true;
                 this.modalType = type;
+            },
+            // 거래완료
+            onConfirm(pw) {
+                MainRepository.TradeProcess.onConfirm({
+                    orderNo: this.orderNo,
+                    tradePassword: pw
+                }, (result) => {
+                    this.onClose();
+                    this.currentOrder();
+                    Vue.prototype.$eventBus.$emit('showAlert', 2150);
+                });
+            },
+            //appeal 한 후
+            onAppeal(data) {
+                let self = this;
+                data['orderNo'] = Number(self.orderNo);
+                MainRepository.TradeProcess.onAppeal(
+                    data
+                    , function (result) {
+                        self.getOrderStatus();
+                        self.onClose();
+                        Vue.prototype.$eventBus.$emit('showAlert', 2153);
+                    });
             },
             //이의 제기 취소
             onCancelAppeal() {
@@ -397,27 +464,9 @@
                         appealNo: appealList.appealNo
                     }, function () {
                         self.getOrderStatus();
+                        Vue.prototype.$eventBus.$emit('showAlert', 2154);
                     })
                 }
-
-            },
-            onQRcode(type) {
-                if (type === "alipay") {
-                    console.log("alipay qr code");
-                } else {
-                    console.log("wechat qr code");
-                }
-            },
-            //appeal 한 후
-            onAppeal(data) {
-                let self = this;
-                data['orderNo'] = Number(self.orderNo);
-                MainRepository.TradeProcess.onAppeal(
-                    data
-                    , function (result) {
-                        self.getOrderStatus();
-                        self.onClose();
-                    });
             },
             checkAppealBtn() {
                 if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo) {
@@ -425,7 +474,10 @@
                 } else {
                     return false;
                 }
-            }
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(value));
+            },
         },
 
     });

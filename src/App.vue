@@ -1455,6 +1455,11 @@
         width: 16px;
         height: 16px;
     }
+    .ic_postad_help {
+        background: -48px 0px;
+        width: 16px;
+        height: 16px;
+    }
     .ic-appeal-octa-lg {
         background: 0px -50px;
         width: 34px;

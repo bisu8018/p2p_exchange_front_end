@@ -615,6 +615,12 @@ const strings = new Map([
         CN: '请输入适合数量',
         HK: '請輸入適合數量'
     }],
+    ['warningFloatPricePlaceholder', {
+        KOR: '올바른 수를 입력해 주십시오',
+        ENG: 'Enter a vaild number',
+        CN: '请输入适合数量',
+        HK: '請輸入適合數量'
+    }],
     ['warningFloatPriceLimit', {
         KOR: '-100부터 100 사이 숫자를 입력하세요',
         ENG: 'Input number between -100 to 100',
@@ -647,7 +653,7 @@ const strings = new Map([
     }],
     ['warningPaymentWindow', {
         KOR: '지불 기간을 입력해 주십시오',
-        ENG: 'Please Enter the payment window',
+        ENG: 'Enter the payment window',
         CN: '请输入支付期间',
         HK: '請輸入支付期間'
     }],
@@ -677,7 +683,7 @@ const strings = new Map([
     }],
     ['floatPriceExplain', {
         KOR: '유동가격 마진을 설정하십시오. 시장가에서 원하는 프리미엄 또는 할인에 적용됩니다.',
-        ENG: 'Please set the float price margin. It will apply on the market price\\\'s desired premium or discount.',
+        ENG: 'Please set the float price margin. It will apply on the market price\'s desired premium or discount.',
         CN: '请设定市场价格以适用于升水或折扣的波动价利润。',
         HK: '請設定市場價格以適用於升水或折扣的波動價利潤。'
     }],
@@ -911,7 +917,7 @@ const strings = new Map([
     }],
     ['atMost', {
         KOR: '최저 한도금액 이상으로 입력해 주십시오',
-        ENG: 'Please input more than minimum limit',
+        ENG: 'Input more than minimum limit',
         CN:  '请输入最小限度以上金额',
         HK:  '請輸入最小限度以上金額'
     }],
@@ -1106,7 +1112,7 @@ const strings = new Map([
     }],
     ['cancelExplain', {
         KOR: '주문이 취소되었으며 결제 정보를 볼 수 없습니다.',
-        ENG: 'Order cancelled, unable to view payment information.',
+        ENG: 'Order canceled, unable to view payment information.',
         CN: '订单已取消，无法查看支付信息.',
         HK: '訂單已取消，無法查看支付信息.'
     }],
@@ -2811,6 +2817,48 @@ const strings = new Map([
         CN: '传送中...',
         HK: '傳送中...'
     }],
+    ['systemMsgRegistered', {
+        KOR: '주문 등록 완료',
+        ENG: 'ORDER REGISTERED',
+        CN: '',
+        HK: ''
+    }],
+    ['systemMsgPaid', {
+        KOR: '금액 지불 완료',
+        ENG: 'PAID COMPLETE',
+        CN: '',
+        HK: ''
+    }],
+    ['systemMsgPaidCanceledAppeal', {
+        KOR: '이의제기 취소',
+        ENG: 'APPEAL CANCELED',
+        CN: '',
+        HK: ''
+    }],
+    ['systemMsgComplete', {
+        KOR: '거래 완료',
+        ENG: 'TRADE COMPLETE',
+        CN: '',
+        HK: ''
+    }],
+    ['systemMsgCanceled', {
+        KOR: '거래 취소',
+        ENG: 'ORDER CANCELED',
+        CN: '',
+        HK: ''
+    }],
+    ['systemMsgAppealed', {
+        KOR: '이의제기 등록',
+        ENG: 'APPEAL REGISTERED',
+        CN: '',
+        HK: ''
+    }],
+    ['systemMsgExpired', {
+        KOR: '주문 기간 만료',
+        ENG: 'ORDER EXPIRED',
+        CN: '',
+        HK: ''
+    }],
     ['ALLB OTC', {
         KOR: 'ALLB OTC',
         ENG: 'ALLB OTC',
@@ -3081,6 +3129,72 @@ const strings = new Map([
         ENG: 'Wrong approach.',
         CN: '访问错误',
         HK: '訪問錯誤'
+    }],
+    ['comp_adEdit', {
+        KOR: '광고가 수정되었습니다.',
+        ENG: 'AD has been edited.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp', {
+        KOR: '성공적으로 완료하였습니다.',
+        ENG: 'Completed successfully.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_post', {
+        KOR: '광고가 등록되었습니다.',
+        ENG: 'AD has been posted.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_cancel', {
+        KOR: '광고가 취소되었습니다.',
+        ENG: 'AD has been canceled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_paid', {
+        KOR: '결제가 완료되었습니다.',
+        ENG: 'AD has been paid.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_edit', {
+        KOR: '광고 수정이 완료되었습니다.',
+        ENG: 'AD has been edited.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_appeal', {
+        KOR: '이의제기가 등록되었습니다.',
+        ENG: 'Appeal has been registered.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_appeal_cancel', {
+        KOR: '이의제기가 취소되었습니다.',
+        ENG: 'Appeal has been canceled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_copy', {
+        KOR: '복사 되었습니다.',
+        ENG: 'Copy successfully.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order', {
+        KOR: '거래가 완료 되었습니다.',
+        ENG: '.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_expire', {
+        KOR: '거래가 만료 되었습니다.',
+        ENG: 'Order has been expired.',
+        CN: '',
+        HK: ''
     }],
     ['BalanceDepositExplainTest', {
         KOR: '• 현재 본 사이트는 테스트 중이므로, 테스트넷을 이용한 입금만 유효합니다. 실제 암호화폐를 넣지 마십시오!',

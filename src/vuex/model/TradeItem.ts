@@ -48,14 +48,14 @@ export default class TradeItem {
         this.tradeType = this.transBuySell(data.tradeType) || '';
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency) || '';
         this.priceType = data.priceType || '';
-        this.fixedPrice = Number(data.fixedPrice) || -1;
+        this.fixedPrice = Number(data.fixedPrice) || 0;
         this.volume = Number(data.volume) || -1;
         this.volumeAvailable = Number(data.volumeAvailable) || 0;
         this.minLimit = Number(data.minLimit) || -1;
         this.maxLimit = Number(data.maxLimit) || -1;
         this.paymentMethods = data.paymentMethods || '';
         this.termsOfTransaction = data.termsOfTransaction || '';
-        this.counterpartyFilterTradeCount = Number(data.counterpartyFilterTradeCount) || -1;
+        this.counterpartyFilterTradeCount = Number(data.counterpartyFilterTradeCount) || 0;
         this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || true;
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || true;
         this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || true;

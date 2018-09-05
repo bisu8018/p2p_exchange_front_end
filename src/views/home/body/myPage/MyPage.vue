@@ -115,6 +115,9 @@
                 this.init();
             })
         },
+        beforeDestroy() {
+            this.$eventBus.$off('refreshMypage');
+        },
         mounted() {
             // 처음 가입하고, 닉네임이 없을 때: <닉네임 설정 modal>이 떠야 한다ㅇㅁㅇ
             if (this.myInfo.nickname === '' || this.myInfo.nickname === null) {

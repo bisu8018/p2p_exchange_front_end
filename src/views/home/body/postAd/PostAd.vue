@@ -90,10 +90,12 @@
             <!--거래가격-->
             <v-flex xs12 md2>
                 <div>
-                    <div class="text-xs-left mb-2  color-black ">
+                    <div class="text-xs-left mb-2  color-black display-flex ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
-
+                        <div  v-if="priceType === 'floatprice'" class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                            <span class="tooltip-content">{{ $str("explainMargin") }}</span>
+                        </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price, 'warning-border' : warning_float_price}">
@@ -107,7 +109,7 @@
                             {{ priceType === 'fixedprice' ? getCurrency : '%' }}
                         </div>
                         <div class="warning-text-wrapper">
-                            <span v-if="priceType === 'fixedPrice'" class="d-none"
+                            <span v-if="priceType === 'fixedprice'" class="d-none"
                                   v-bind:class="{'warning-text' : warning_fixed_price}">{{ verify_warning_fixed_price }}</span>
                             <span v-else class="d-none" v-bind:class="{'warning-text' : warning_float_price}">{{ verify_warning_float_price }}</span>
                         </div>
@@ -899,12 +901,14 @@
                 if(this.edit){
                     MainRepository.AD.editAD(data, function (result) {
                         MainRepository.Balance.loadBalances(function () {
+                            Vue.prototype.$eventBus.$emit('showAlert', 2103);
                             MainRepository.router().goMyAd();
                         });
                     })
                 }else{
                     MainRepository.AD.postAD(data, function (result) {
                         MainRepository.Balance.loadBalances(function () {
+                            Vue.prototype.$eventBus.$emit('showAlert', 2101);
                             MainRepository.router().goTradeCenter();
                         });
                     })
@@ -1086,7 +1090,7 @@
             },
             onCheckToggle: function () {
                 if (!this.alipay_toggle_use && !this.wechat_toggle_use && !this.bank_toggle_use) {
-                    Vue.prototype.$eventBus.$emit('showAlert', 4001);
+                    Vue.prototype.$eventBus.$emit('showAlert', 4004);
                     return false;
                 } else {
                     return true
@@ -1184,6 +1188,23 @@
 
     textarea:-ms-input-placeholder {
         color: #9294a6;
+    }
+
+    /*tooltip 수정*/
+    :hover.tooltip .tooltip-content {
+        bottom: -760% !important;
+        width: 200px !important;
+        text-align: left;
+        line-height: 1.4;
+        left: 77px;
+    }
+
+    .tooltip .tooltip-content:after {
+        left: 16% !important;
+        bottom: 100% !important;
+        top: -5% !important;
+        border-top: 0px !important;
+        border-bottom: 6px solid #545c6a !important;
     }
 </style>
 
