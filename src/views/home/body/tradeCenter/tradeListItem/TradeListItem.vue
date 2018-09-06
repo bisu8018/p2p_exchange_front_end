@@ -806,7 +806,6 @@
     }
 
     .userInput {
-        border: solid 1px #b2b2b2;
         max-width: 153px;
     }
 
