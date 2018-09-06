@@ -10,9 +10,9 @@
                 <form action="/login" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>
                     <div class="p-relative mb-4"><input type="text" class="input" name="username" v-model="email"
-                                                           @change="onCheckEmail"
-                                                           :placeholder="loginEmailPlaceholder"
-                                                           v-bind:class="{'warning-border' : warning_email}">
+                                                        @change="onCheckEmail"
+                                                        :placeholder="loginEmailPlaceholder"
+                                                        v-bind:class="{'warning-border' : warning_email}">
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_email}">{{verify_warning_email}}</span>
                         </div>
@@ -39,7 +39,7 @@
                 <div class="goForgetPwdWrapper text-xs-left h6 ">
                     <span @click="goFindPassword" class="color-blue goForgetPwd h5">{{$str("forgetPassword")}}</span>
                 </div>
-                <button  class="btn-blue-hover btn-blue" @click='onCheck'>
+                <button class="btn-blue-hover btn-blue" @click='onCheck'>
                     {{$str("loginText")}}
                 </button>
                 <div class="mt-4a mb-4a orWrapper">
@@ -91,7 +91,7 @@
             }
         },
         methods: {
-            serializeserialize (form) {
+            serializeserialize(form) {
                 var field,
                     l,
                     s = [];
@@ -126,31 +126,21 @@
                 this.$router.push("/findPassword");
             },
             onLogin() {
-               // document.getElementById("loginForm").submit();
+                // document.getElementById("loginForm").submit();
                 let self = this;
+                axios({
+                    method: 'POST',
+                    url: '/login',
+                    data: self.serializeserialize(document.getElementById("loginForm")),
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                }).then((response) => {
+                    //console.log(response);
+                    window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
+                })
 
-                   axios({
-                       method: 'POST',
-                       url: '/login',
-                       data: self.serializeserialize(document.getElementById("loginForm")),
-                       withCredentials: true,
-                       headers: {
-                           'Content-Type': 'application/x-www-form-urlencoded',
-                       }
-                   }).then((response) => {
-                       //console.log(response);
-                       window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
-                   })
-
-           /*     LoginService.User.login({
-                    username : 'bisu8018@naver.com',
-                    password : 'test1234!'
-                },function (result) {
-
-                })*/
-
-                // 로그인 에러시
-                //this.showWarning;
             },
             putVerified: function () {
                 this.isVerified = true;

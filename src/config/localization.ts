@@ -111,12 +111,6 @@ const strings = new Map([
         CN: '已阅读并同意遵守本',
         HK: '已閲讀並同意遵守本'
     }],
-    ['termsLabel2', {
-        KOR: '이용약관',
-        ENG: 'Terms of Service.',
-        CN: '使用条款',
-        HK: '使用條款'
-    }],
     ['termsBtn', {
         KOR: '이용약관',
         ENG: 'Terms of Service',
@@ -217,9 +211,9 @@ const strings = new Map([
     }],
     ['changeLinkedPhoneExplain', {
         KOR: '연동된 전화번호 변경 후, 24시간 동안 출금을 할 수 없습니다.',
-        ENG: 'After changing linked phone, your are not allowed to withdraw in the next 24 hours.',
-        CN: '重设密码后，24小时内禁止提币',
-        HK: '重設密碼後，24小時内禁止提幣'
+        ENG: 'After changing linked phone, you are not allowed to withdraw in next 24 hours.',
+        CN: '变更手机号码后，24小时内禁止提币',
+        HK: '變更手機號碼後，24小時内禁止提幣'
     }],
     ['submit', {
         KOR: '전송',
@@ -885,11 +879,17 @@ const strings = new Map([
         CN: '交易规则',
         HK: '交易規則'
     }],
-    ['postAdBtn', {
-        KOR: '일반 AD 등록',
+    ['generalPostAdBtn', {
+        KOR: '일반 공고 등록',
         ENG: 'Post General AD',
         CN: '发布普通广告',
         HK: '發布普通廣告'
+    }],
+    ['blockPostAdBtn', {
+        KOR: '대량 공고 등록',
+        ENG: 'Post Block AD',
+        CN: '发布大宗广告',
+        HK: '發佈大宗廣告'
     }],
     ['postAdIn', {
         KOR: '광고 등록 정보',
@@ -2224,9 +2224,9 @@ const strings = new Map([
     }],
     ['changeLinkedPhone', {
         KOR: '연동된 전화번호 변경',
-        ENG: 'Change Linked Phone',
-        CN: '',
-        HK: ''
+        ENG: 'Change linked phone number',
+        CN: '变更绑定的手机号码',
+        HK: '變更綁定的手機號碼'
     }],
     ['oldPassword', {
         KOR: '현재 비밀번호',
@@ -2278,9 +2278,9 @@ const strings = new Map([
     }],
     ['newPhoneNumber', {
         KOR: '새로운 전화번호',
-        ENG: 'New Phone Number',
-        CN: '电话号码',
-        HK: '電話號碼'
+        ENG: 'New phone number',
+        CN: '新电话号码',
+        HK: '新電話號碼'
     }],
     ['SMSverification', {
         KOR: 'SMS 인증코드',
@@ -3148,111 +3148,93 @@ const strings = new Map([
     }],
     ['comp_adEdit', {
         KOR: '광고가 수정되었습니다.',
-        ENG: 'AD has been edited.',
-        CN: '',
-        HK: ''
+        ENG: 'AD successfully edited.',
+        CN: '广告已修改',
+        HK: '廣告已修改'
     }],
     ['comp', {
         KOR: '성공적으로 완료하였습니다.',
         ENG: 'Completed successfully.',
-        CN: '',
-        HK: ''
+        CN: '修改成功',
+        HK: '修改成功'
     }],
     ['comp_ad_post', {
         KOR: '광고가 등록되었습니다.',
-        ENG: 'AD has been posted.',
-        CN: '',
-        HK: ''
+        ENG: 'AD successfully posted.',
+        CN: '广告已发布',
+        HK: '廣告已發布'
     }],
     ['comp_ad_cancel', {
         KOR: '광고가 취소되었습니다.',
-        ENG: 'AD has been canceled.',
-        CN: '',
-        HK: ''
+        ENG: 'AD successfully canceled.',
+        CN: '广告已取消',
+        HK: '廣告已取消'
     }],
     ['comp_order_paid', {
         KOR: '결제가 완료되었습니다.',
-        ENG: 'AD has been paid.',
-        CN: '',
-        HK: ''
+        ENG: 'AD paid successfully.',
+        CN: '已完成支付',
+        HK: '已完成支付'
     }],
     ['comp_ad_edit', {
         KOR: '광고 수정이 완료되었습니다.',
         ENG: 'AD has been edited.',
-        CN: '',
-        HK: ''
-    }],
-    ['comp_ad_disable', {
-        KOR: '광고 비활성이 완료되었습니다.',
-        ENG: 'AD has been disabled.',
-        CN: '',
-        HK: ''
-    }],
-    ['comp_ad_enable', {
-        KOR: '광고 활성이 완료되었습니다.',
-        ENG: 'AD has been enabled.',
-        CN: '',
-        HK: ''
-    }],
-    ['comp_ad_delete', {
-        KOR: '광고 삭제가 완료되었습니다.',
-        ENG: 'AD has been deleted.',
-        CN: '',
-        HK: ''
+        CN: '广告已完成修改',
+        HK: '廣告已完成修改'
     }],
     ['comp_order_appeal', {
         KOR: '이의제기가 등록되었습니다.',
-        ENG: 'Appeal has been registered.',
-        CN: '',
-        HK: ''
+        ENG: 'Appeal registered successfully.',
+        CN: '已提交投诉',
+        HK: '已提交投訴'
     }],
     ['comp_order_appeal_cancel', {
         KOR: '이의제기가 취소되었습니다.',
-        ENG: 'Appeal has been canceled.',
-        CN: '',
-        HK: ''
+        ENG: 'Appeal canceled successfully.',
+        CN: '已取消投诉',
+        HK: '已取消投訴'
     }],
     ['comp_copy', {
-        KOR: '복사 되었습니다.',
-        ENG: 'Copy successfully.',
-        CN: '',
-        HK: ''
+        KOR: '복사되었습니다.',
+        ENG: 'Copied',
+        CN: '已复制',
+        HK: '已復制'
     }],
     ['comp_order', {
         KOR: '거래가 완료 되었습니다.',
-        ENG: '.',
-        CN: '',
-        HK: ''
+        ENG: 'Order successfully completed.',
+        CN: '交易完成',
+        HK: '交易完成'
     }],
     ['comp_order_expire', {
         KOR: '거래가 만료 되었습니다.',
-        ENG: 'Order has been expired.',
-        CN: '',
-        HK: ''
+        ENG: 'Order already expired.',
+        CN: '订单已过期',
+        HK: '订单已過期'
     }],
     ['comp_email_duplicate', {
         KOR: '계정을 확인 하였습니다.',
-        ENG: 'Email account has been confirmed.',
-        CN: '',
-        HK: ''
+        ENG: 'Email account confirmed.',
+        CN: '已确认电子邮箱',
+        HK: '已確認電子郵箱'
     }],
     ['comp_verification_code_send', {
         KOR: '인증코드가 전송되었습니다.',
-        ENG: 'Verification code has been sent.',
-        CN: '',
-        HK: ''
+        ENG: 'Verification code sent successfully.',
+        CN: '已发送验证码',
+        HK: '已發送驗證碼'
     }],
     ['comp_code_verified', {
         KOR: '코드가 인증 되었습니다.',
-        ENG: 'Code has been verified.',
-        CN: '',
-        HK: ''
+        ENG: 'Code successfully verified.',
+        CN: '验证完成',
+        HK: '驗證完成'
     }],
     ['comp_password_reset', {
-        KOR: '비밀번호가 초기화 되었습니다.',
-        ENG: 'Password has been reset.',
-        CN: '',
-        HK: ''
+        KOR: '비밀번호가 초기화되었습니다.',
+        ENG: 'Password successfully initialized.',
+        CN: '密码已完成初始化',
+        HK: '密碼已完成初始化'
     }],
     ['BalanceDepositExplainTest', {
         KOR: '• 현재 본 사이트는 테스트 중이므로, 테스트넷을 이용한 입금만 유효합니다. 실제 암호화폐를 넣지 마십시오!',
@@ -3281,14 +3263,14 @@ const strings = new Map([
     ['securityAuthentication', {
         KOR: '보안 인증',
         ENG: 'Security Authentication',
-        CN: '',
-        HK: ''
+        CN: '安全认证',
+        HK: '安全認證'
     }],
     ['comp_linked_phone_change', {
         KOR: '연동된 전화번호를 수정하였습니다.',
-        ENG: 'Linked phone number has been changed',
-        CN: '',
-        HK: ''
+        ENG: 'Linked phone number changed successfully',
+        CN: '修改绑定的手机号码',
+        HK: '修改綁定的手機號碼'
     }],
     ['warn_completeProcessingOrder', {
         KOR: '진행중인 주문을 마친뒤 상태변경 해주세요',
@@ -3334,33 +3316,33 @@ const strings = new Map([
     }],
     ['verify_warning_realName', {
         KOR: '실명을 입력해 주십시오.',
-        ENG: 'Please enter your real name.',
-        CN: '',
-        HK: ''
+        ENG: 'Please input your real name.',
+        CN: '请输入您的真实姓名',
+        HK: '請輸入您的真實姓名'
     }],
     ['verify_warning_IdNum', {
         KOR: '식별 번호를 입력해 주십시오.',
-        ENG: 'Please enter your ID Number.',
-        CN: '',
-        HK: ''
+        ENG: 'Please input your ID Number.',
+        CN: '请输入识别码',
+        HK: '請輸入識別碼'
     }],
     ['verify_warning_firstName', {
         KOR: '이름을 입력해 주십시오.',
-        ENG: 'Please enter your first name.',
-        CN: '',
-        HK: ''
+        ENG: 'Please input your first name.',
+        CN: '请输入名字',
+        HK: '請輸入名字'
     }],
     ['verify_warning_lastName', {
         KOR: '성을 입력해 주십시오.',
-        ENG: 'Please enter your last name.',
-        CN: '',
-        HK: ''
+        ENG: 'Please input your last name.',
+        CN: '请输入姓氏',
+        HK: '請輸入姓氏'
     }],
     ['verify_warning_file', {
         KOR: '이미지를 업로드해 주십시오.',
         ENG: 'Please upload your ID Photo.',
-        CN: '',
-        HK: ''
+        CN: '请上传图片',
+        HK: '請上傳圖片'
     }],
     ['warn_need_Merchant_verification', {
         KOR: '판매자 인증이 필요합니다.',

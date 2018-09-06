@@ -173,4 +173,11 @@
         border: solid 1px #8d8d8d;
     }
 
+    .phone-wrapper:hover{
+        border: solid 1px #316ee4;
+    }
+
+    .phone-wrapper:hover :first-child :first-child :first-child  {
+        border-right: solid 1px #316ee4 !important;
+    }
 </style>

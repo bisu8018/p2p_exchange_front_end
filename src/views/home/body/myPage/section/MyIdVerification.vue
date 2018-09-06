@@ -45,7 +45,7 @@
             </li>
 
             <!-- 버튼, 토글 등 -->
-            <li class="btn-wrapper" @click="onIdVerification">
+            <li class="btn-wrapper">
 
                 <!-- 인증이 진행 중일 때 -->
                 <span v-if="idVerification.status === 'registered'">

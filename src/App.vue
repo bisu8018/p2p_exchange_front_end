@@ -34,21 +34,21 @@
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 400;
-        src: url(assets/font/notosans/NotoSansSC-Regular.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Regular.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Regular.otf) format('opentype');
+        src:  url(assets/font/notosans/NotoSansSC-Regular.woff) format('woff');
     }
 
     @font-face {
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 500;
-        src: url(assets/font/notosans/NotoSansSC-Medium.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Medium.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Medium.otf) format('opentype');
+        src:  url(assets/font/notosans/NotoSansSC-Medium.woff) format('woff')
     }
 
     @font-face {
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 700;
-        src: url(assets/font/notosans/NotoSansSC-Bold.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Bold.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Bold.otf) format('opentype');
+        src: url(assets/font/notosans/NotoSansSC-Bold.woff) format('woff');
     }
 
     /*material font*/
@@ -57,9 +57,8 @@
         font-family: 'Material Icons';
         font-style: normal;
         font-weight: 400;
-        src: url(assets/font/material/MaterialIcons-Regular.eot);
         /* For IE6-8 */
-        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material/MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
+        src: local('Material Icons'), local('MaterialIcons-Regular'),   url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
 
