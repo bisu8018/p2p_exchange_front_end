@@ -523,6 +523,7 @@ export default {
             //filter 초기화
             tradelistController.updateTradeFilter({
                 type: 'piece',
+                status: 'enable',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'Buy',
                 nationality: 'ALL',
@@ -543,6 +544,7 @@ export default {
         initPage(isBlock: boolean) {
             this.setTradeFilter({
                 type: isBlock ? 'block' : 'piece',
+                status: 'enable',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'sell',
                 nationality: 'ALL',
@@ -576,6 +578,7 @@ export default {
 
             TradeService.tradeView.tradePage({
                 type: tradelistController.getTradeFilter().type,
+                status: 'enable',
                 cryptocurrency: tradelistController.getTradeFilter().cryptocurrency,
                 tradeType: tradelistController.getTradeFilter().tradeType,
                 nationality: tradelistController.getTradeFilter().nationality,
@@ -737,7 +740,7 @@ export default {
                 status: '',
                 orderNo: '',
                 cryptocurrency: '',
-                orderType: '',
+                adsType: '',
                 tradeType: '',
                 currency: '',
                 page: '1',
@@ -752,7 +755,7 @@ export default {
                 status: '',
                 orderNo: '',
                 cryptocurrency: '',
-                orderType: '',
+                adsType: '',
                 tradeType: '',
                 currency: '',
                 page: '1',
@@ -770,7 +773,7 @@ export default {
                 status: myTradeController.getMyAdsFilter().status,
                 adNo: myTradeController.getMyAdsFilter().adNo,
                 cryptocurrency: myTradeController.getMyAdsFilter().cryptocurrency,
-                orderType: myTradeController.getMyAdsFilter().orderType,
+                type: myTradeController.getMyAdsFilter().adsType,
                 tradeType: myTradeController.getMyAdsFilter().tradeType,
                 currency: myTradeController.getMyAdsFilter().currency,
                 page: myTradeController.getMyAdsFilter().page,

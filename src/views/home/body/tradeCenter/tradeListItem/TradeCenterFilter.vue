@@ -65,7 +65,7 @@
             <!--amount 는 입력시에만 뜸-->
             <h6  class="statusChip " v-if="amount!=0" v-model="isAmout">
               <v-layout align-center row fill-height>
-                {{amount}}
+                {{toMoneyFormat(amount)}}
                 <i class="h5 material-icons " @click="removeAmount">close</i>
               </v-layout>
             </h6>
@@ -189,7 +189,7 @@
             <h6  class=" statusChip" @click="transisModal('open')">{{$str(getPaymentName(paymentMethod))}}</h6>
             <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
               <v-layout align-center row fill-height>
-                {{amount}}
+                {{toMoneyFormat(amount)}}
                 <i class="h5 material-icons " @click="removeAmount">close</i>
               </v-layout>
             </h6>
@@ -414,7 +414,10 @@
                 if (Number(temp[0]) === 0 && temp[1] != '.' && temp.length > 1) {
                     return this.amount = abUtils.toDeleteZero(temp);
                 }
-            }
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(value));
+            },
         },
     });
 </script>

@@ -31,7 +31,6 @@
                     <h4 class="text-md-center text-xs-center mr-5 ml-5 color-darkgray">{{$str("Merchants will enjoy our one-to-one exclusive service.")}}</h4>
                 </div>
             </v-flex>
-
         </v-layout>
 
         <!-- Registerd : 신청 대기 중 -->
@@ -187,7 +186,12 @@
                         }
                     }
                     else {
-                        MainRepository.Merchant.postMerchant();
+                        MainRepository.Merchant.postMerchant(() => {
+                            MainRepository.Merchant.loadMyMerchantInfo(() =>{
+                                Vue.prototype.$eventBus.$emit('showAlert', 2350);
+                            });
+
+                        });
                     }
                 }
             },

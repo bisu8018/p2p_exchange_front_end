@@ -111,6 +111,10 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     //마이페이지 메세지 2250~
                     case 2251 : this.show(this.type.Success, "", this.$str('comp_linked_phone_change')); break;    // 연동 전화번호 수정 완료
 
+                    //Merchant 메세지 2350~
+                    case 2350 : this.show(this.type.Success, "", this.$str('comp_apply_merchant')); break;    // 연동 전화번호 수정 완료
+
+
 
                     //클라이언트 단 에러코드 4000 ~
                     case 4001 : this.show(this.type.Warning, "", this.$str('')); break;

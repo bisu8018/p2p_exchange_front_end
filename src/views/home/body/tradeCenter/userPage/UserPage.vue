@@ -61,9 +61,9 @@
         <!--SELL-->
         <div v-if="haveSellList ">
           <v-flex xs12 text-xs-left mt-5 mb-2>
-            <h3 class="bold">{{$str("Online_Sell")}}</h3>
+            <h3 class="bold">{{$str("Online_Buy")}}</h3>
           </v-flex>
-          <div  v-for="user in BuyLists" >
+          <div  v-for="user in SellLists" >
               <user-trade-item
                       :user="user"
               ></user-trade-item>
@@ -73,9 +73,9 @@
         <!--Buy-->
         <div v-if="haveBuyList">
         <v-flex text-xs-left mt-5 mb-2>
-          <h3 class="bold">{{$str("Online_Buy")}}</h3>
+          <h3 class="bold">{{$str("Online_Sell")}}</h3>
         </v-flex>
-        <div  v-for="user in SellLists">
+        <div  v-for="user in BuyLists">
           <user-trade-item
                   :user="user"
           ></user-trade-item>
@@ -113,7 +113,7 @@
                       class="f-left mr-3">
               </avatar>
             </div>
-            <span class="ml-3 color-blue">
+            <span class="ml-3 ">
             {{merchant.nickName}}
             </span>
             <!--판매자 rank-->
