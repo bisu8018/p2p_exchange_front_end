@@ -8,6 +8,7 @@ export default class Message {
     registerMemberNo : number;
     registerDatetime: number;
     mine : boolean;
+    systemMessage : boolean;
 
     constructor (data: any) {
         this.messageNo = Number(data.messageNo);
@@ -23,7 +24,8 @@ export default class Message {
         } else {
             this.registerMemberNo = -1;
         }
-        this.mine = data.mine;
+        this.mine = data.mine || false;
+        this.systemMessage = data.systemMessage || false;
         this.registerDatetime = data.registerDatetime;
     }
 

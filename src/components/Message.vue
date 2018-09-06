@@ -35,13 +35,13 @@
             <div v-for="data in messageList">
 
                 <!--시스템 메세지-->
-                <div v-if="data.registerMemberNo === 0" class="mb-3">
+                <div v-if="data.systemMessage" class="mb-3">
                     <div class="h6 color-darkgray pb-2 line-height-full">
                         {{ getTime(data.registerDatetime) }}
                         <!--<span>{{ getDateTime('date') }}</span>-->
                     </div>
                     <div class="system-content-wrapper color-black h6"
-                         v-if="data.attachedImgUrl === '' && data.registerMemberNo === 0">
+                         v-if="data.attachedImgUrl === '' && data.systemMessage">
                         {{ getSystemMsg(data.message) }}
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 
                     <!--상대방-->
                     <div class="mb-3 display-flex" v-if="data.mine === false ">
-                        <div v-if="data.registerMemberNo !== 0">
+                        <div v-if="!data.systemMessage">
                             <avatar v-if="counterPartyEmail !== ''"  :email=counterPartyEmail  :chat="'sub'"/>
                         </div>
                         <div v-else class="none-avatar"></div>
@@ -62,7 +62,7 @@
                                 <!--<span>{{ getDateTime('date') }}</span>-->
                             </div>
                             <div class="chat-content-wrapper text-xs-left color-black h6"
-                                 v-if="data.attachedImgUrl === '' && data.registerMemberNo !== 0">
+                                 v-if="data.attachedImgUrl === '' && !data.systemMessage">
                                 {{ data.message }}
                             </div>
                             <div class="chat-content-wrapper" v-else-if="data.attachedImgUrl !== ''">

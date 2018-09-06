@@ -137,10 +137,10 @@
                         'Content-Type': 'application/x-www-form-urlencoded',
                     }
                 }).then((response) => {
-                    //console.log(response);
                     window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
-                })
-
+                }).catch(error => {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4011);
+                });
             },
             putVerified: function () {
                 this.isVerified = true;

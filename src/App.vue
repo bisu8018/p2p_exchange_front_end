@@ -341,19 +341,19 @@
 
     /* Track */
     ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px #9294A6;
+        box-shadow: inset 0 0 5px #e0e0e0;
         border-radius: 10px;
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #535353;
+        background: #a0a0a0;
         border-radius: 10px;
     }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #535353;
+        background: #a0a0a0;
     }
 
 

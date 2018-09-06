@@ -3356,9 +3356,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['err_login', {
+        KOR: '로그인에 실패하였습니다.',
+        ENG: 'Login failed.',
         CN: '',
         HK: ''
     }],

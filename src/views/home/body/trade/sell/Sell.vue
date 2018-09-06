@@ -87,7 +87,7 @@
                 {{ counterPartyNickname }}
                 {{ $str("payingExplain2") }}
 
-                <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
+                <span class="color-orange-price">{{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>
 
                 {{ $str("payingExplain3") }}
 
@@ -105,7 +105,7 @@
                 {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
 
-                <span class="color-orange-price">{{ currentOrder.amount }} {{ currentOrder.currency }}</span>
+                <span class="color-orange-price">{{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>
             </div>
 
 
