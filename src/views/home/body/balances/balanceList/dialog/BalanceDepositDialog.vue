@@ -16,7 +16,7 @@
         <input type="text" id="copy-code" :value="walletAddress" class="wallet-address h6" disabled  >
       </v-flex>
       <v-flex xs12 mt-3>
-        <h5 class="color-blue c-pointer text-white-hover" @click="onCopy()">
+        <h5 class="color-blue-active" @click="onCopy()">
           {{$str("Copy")}}
         </h5>
       </v-flex>

@@ -328,7 +328,7 @@
                     <v-flex xs12>
                         <div class="payment-explain text-xs-left line-height-1a">
                             <span class="color-darkgray ">{{ $str("paymentExplain") }}</span>
-                            <a class="text-white-hover color-blue" @click="goMyPage()">{{ $str("clickHereText") }}</a>
+                            <a class="color-blue-active" @click="goMyPage()">{{ $str("clickHereText") }}</a>
                         </div>
                     </v-flex>
                 </div>
@@ -484,7 +484,7 @@
                             </span>
                     <h5 class="d-inline-block">{{ $str("agreeTermsExplain") }}</h5>
                 </label>
-                <a class=" color-blue text-white-hover" v-if="!isMobile">《{{ $str("termsTrading") }}》</a>
+                <a class="color-blue-active" v-if="!isMobile">《{{ $str("termsTrading") }}》</a>
             </v-flex>
             <a class=" color-blue text-white-hover ml-4 mt-1" v-if="isMobile">《{{ $str("termsTrading") }}》</a>
             <v-flex xs12 md3 offset-md4 mt-4>

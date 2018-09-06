@@ -69,7 +69,7 @@
               </avatar>
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
-              <h5 class="medium color-blue c-pointer text-white-hover">
+              <h5 class="medium color-blue-active">
                 {{user.nickname}} ( {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} | {{user.tradeRate}}%)
               </h5>
               <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -91,7 +91,7 @@
                 <span class="color-darkgray">
                   {{$str("You need to complete the necessary transaction information.")}}
                 </span>
-              <span class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
+              <span class="color-blue-active" @click="showNickNameModal = true">{{$str("Set up now.")}}</span>
             </v-flex>
           </v-layout>
           <v-layout mt-4a>
@@ -281,7 +281,7 @@
                 </avatar>
                 <!-- merchant 정보-->
                 <span>
-                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover">
+                  <span class="mr-2 ml-3 medium color-blue-active">
                     {{user.nickname}} ( {{user.volumeAvailable}} | {{user.tradeRate}}%)
                   </span>
                   <!--판매자 rank-->
@@ -301,7 +301,7 @@
               <!--수직, 수평가운데 정렬.-->
               <v-layout row align-center fill-height justify-end pr-4>
                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
-                <h5 class="color-blue c-pointer text-white-hover" @click="showNickNameModal = true">
+                <h5 class="color-blue-active" @click="showNickNameModal = true">
                   {{$str("Set up now.")}}</h5>
                 <v-divider class="mx-3" inset vertical></v-divider>
                 <button class="btn-rounded-white text-white-hover"

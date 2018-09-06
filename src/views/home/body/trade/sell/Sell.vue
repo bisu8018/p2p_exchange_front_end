@@ -197,7 +197,7 @@
         <v-flex xs6 md12 mb-4a text-md-left text-xs-right
                 v-if="currentOrder.status === 'complaining' && checkAppealBtn() === true "
                 :class="{'pt-4' : isMobile()}">
-            <a class="color-blue text-white-hover"
+            <a class="color-blue-active"
                @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
         </v-flex>
 

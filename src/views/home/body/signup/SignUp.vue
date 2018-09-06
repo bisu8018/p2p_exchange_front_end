@@ -65,7 +65,7 @@
                 </v-flex>
                 <v-flex text-xs-left xs6 h6 padding-none>
                     <div class="color-black">{{$str("haveAccount")}}</div>
-                    <div><a @click='goLogin' class="h6 color-blue text-white-hover">{{$str("loginText")}}</a></div>
+                    <div><a @click='goLogin' class="h6 color-blue-active">{{$str("loginText")}}</a></div>
                 </v-flex>
             </div>
         </v-flex>

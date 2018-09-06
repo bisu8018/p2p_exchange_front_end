@@ -94,11 +94,11 @@
       <v-flex text-xs-right color-darkgray mt-3 mb-5>
         <div v-if="!showBlockView">
           {{$str("Do_not_want_to_trade_with_this_user?")}}
-          <span class="color-blue c-pointer" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
+          <span class="color-blue-active" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
         </div>
         <div v-else>
           {{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}
-          <span class="color-blue c-pointer" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
+          <span class="color-blue-active" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
         </div>
       </v-flex>
     </div>
@@ -255,11 +255,11 @@
       <v-flex text-md-right mt-3 mb-6>
         <div v-if="!showBlockView">
           {{$str("Do_not_want_to_trade_with_this_user?")}}
-          <span class="color-blue c-pointer" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
+          <span class="color-blue-active" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
         </div>
         <div v-else>
           {{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}
-          <span class="color-blue c-pointer" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
+          <span class="color-blue-active" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
         </div>
       </v-flex>
     </div>
