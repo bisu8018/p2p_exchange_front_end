@@ -68,7 +68,7 @@
     .noBtnCss {
         color: #9294a6 !important;
         background-color: transparent !important;
-        cursor: default;
+        cursor: default !important;
     }
 
     .noBtnCss:hover {

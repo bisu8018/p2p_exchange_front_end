@@ -48,11 +48,15 @@
             </div>
 
             <!--이용약관 체크박스-->
-            <div class="mb-4 text-xs-left">
+            <div class="mb-4 text-xs-left ">
                 <input id="termsCheckbox" type="checkbox" v-model="termsAgreeYn"
                        @click="onCheckTerms()"
                        class="mr-2">
-                <label for="termsCheckbox"><span><i class="material-icons">done</i></span>{{$str('termsLabel1')}}</label>
+                <label for="termsCheckbox" class="d-inline-block">
+                    <span><i class="material-icons">done</i></span>
+                    {{$str('termsLabel1')}}
+                </label>
+                <a class=" color-blue text-white-hover ml-1 h6">《{{ $str("termsBtn") }}》</a>
                 <div class="p-absolute">
                     <span class="d-none" v-bind:class="{'warning-text' : warning_verify_terms}">{{verify_terms}}</span>
                 </div>

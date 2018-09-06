@@ -1,7 +1,7 @@
 <template>
     <v-layout wrap row mb-5 mt-5>
         <v-flex xs12 md6 offset-md3 mb-3 class="">
-            <div class="sprite-img ic-404 d-inline-block"></div>
+            <img src="../../../assets/img/page_not_found.png" class="w-full"/>
         </v-flex>
         <v-flex xs12 mb-3>{{$str('pageNotFound')}}</v-flex>
         <v-flex xs12>

@@ -34,21 +34,21 @@
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 400;
-        src: url(assets/font/notosans/NotoSansSC-Regular.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Regular.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Regular.otf) format('opentype');
+        src:  url(assets/font/notosans/NotoSansSC-Regular.woff) format('woff');
     }
 
     @font-face {
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 500;
-        src: url(assets/font/notosans/NotoSansSC-Medium.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Medium.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Medium.otf) format('opentype');
+        src:  url(assets/font/notosans/NotoSansSC-Medium.woff) format('woff')
     }
 
     @font-face {
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 700;
-        src: url(assets/font/notosans/NotoSansSC-Bold.woff2) format('woff2'), url(assets/font/notosans/NotoSansSC-Bold.woff) format('woff'), url(assets/font/notosans/NotoSansSC-Bold.otf) format('opentype');
+        src: url(assets/font/notosans/NotoSansSC-Bold.woff) format('woff');
     }
 
     /*material font*/
@@ -57,9 +57,8 @@
         font-family: 'Material Icons';
         font-style: normal;
         font-weight: 400;
-        src: url(assets/font/material/MaterialIcons-Regular.eot);
         /* For IE6-8 */
-        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.woff2) format('woff2'), url(assets/font/material/MaterialIcons-Regular.woff) format('woff'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
+        src: local('Material Icons'), local('MaterialIcons-Regular'),   url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
 
@@ -332,6 +331,31 @@
         letter-spacing: normal;
         color: #9294a6;
     }
+
+
+    /*스크롤바 스타일 설정*/
+    /* width */
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #9294A6;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #535353;
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #535353;
+    }
+
 
 
     /*체크박스 CSS

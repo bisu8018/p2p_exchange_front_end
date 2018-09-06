@@ -459,7 +459,7 @@
                     <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("tradePwText") }}</div>
                     <div class="p-relative">
                         <input type="password" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
-                               :placeholder="$str('tradePwText')" v-model="tradePassword" @blur="onCheckTradePassword"/>
+                               :placeholder="$str('tradePwText')" v-model="tradePassword" @keyup="onCheckTradePassword"/>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
                         </div>
@@ -496,7 +496,7 @@
                 </div>
                 <div>
                     <button @click='onCheck' class="color-blue btn-blue btn-blue-hover">
-                        {{ edit === true ? $str("modify") : $str("postAdBtn") }}
+                        {{ edit === true ? $str("modify") : (message === 'general' ? $str("generalPostAdBtn") : $str("blockPostAdBtn")) }}
                     </button>
                 </div>
             </v-flex>

@@ -15,7 +15,7 @@
                         </div>
                         <div class="p-relative phone-wrapper">
                             <select-box :selectBoxType="'phone'" v-on:number="setCode"
-                                        class="selectbox-width"></select-box>
+                                        class="selectbox-width selectbox-locale-number"></select-box>
                             <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
                         </div>
                     </div>
@@ -151,11 +151,6 @@
         font-size: 12px;
     }
 
-    .warning-characters {
-        color: #71aa3a !important;
-        font-size: 10px;
-        display: block !important;
-    }
 
     .selectbox-width {
         width: 80px;
@@ -163,22 +158,22 @@
         bottom: 0;
     }
 
-    .comp-selectbox {
-        padding-left: 8px;
-        border: none;
-        border-right: solid 1px #8d8d8d;
-        border-radius: 0;
-    }
-
-    .comp-selectbox-icon {
-        right: 3px;
-        top: 11px;
-        font-size: 20px;
-
-    }
 
     .phone-wrapper {
         display: flex;
         border: solid 1px #8d8d8d;
+    }
+    .phone-wrapper:hover {
+        border: solid 1px #316ee4;
+    }
+
+
+    .selectbox-locale-number :first-child :first-child{
+        border: none !important;
+        border-right: solid 1px #8d8d8d !important;
+    }
+
+    .phone-wrapper:hover :first-child :first-child :first-child  {
+        border-right: solid 1px #316ee4 !important;
     }
 </style>
