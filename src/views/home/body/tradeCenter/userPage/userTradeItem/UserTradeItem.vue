@@ -34,7 +34,7 @@
         <v-layout mb-3>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>{{ $str('price') }} :</v-flex>
-          <v-flex xs6 text-xs-right bold color-orange-price> {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}} </v-flex>
+          <v-flex xs6 text-xs-right bold color-orange-price> {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -145,7 +145,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</h5>
+            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- payment methods -->
@@ -244,7 +244,7 @@
         <!--limits-->
         <v-flex md2 text-md-left >{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -328,7 +328,7 @@
           <!--둘째줄-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
-              {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}
+              {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}
             </div>
             <div class="medium">
               {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
@@ -529,7 +529,9 @@
                     }
                     this.warning_toValue = false;
                     //fromvalue 계산해줌
-                    this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);         //소수점 6번째자리까지
+                    temp = this.toValue/ this.user.tradePrice   //coinCount
+                    temp -= temp*this.user.fee;             //coinWithoutFee
+                    this.fromValue =this.$fixed(temp, this.user.cryptocurrency);           //소수점 6번째자리까지
 
                 }else if(type ==='fromValue'){
                     let tempTovalue = this.fromValue * this.user.tradePrice;
@@ -552,7 +554,9 @@
                     }
                     this.warning_fromValue = false;
                     //toValue 계산해줌
-                    this.toValue =this.$fixed(this.fromValue * this.user.tradePrice, this.user.currency)
+                    temp = this.user.tradePrice * this.fromValue
+                    temp += temp * this.user.fee
+                    this.toValue =this.$fixed(temp, this.user.currency)
 
                 }else if(type ==='tradePW'){
                     this.onChecktradePassword();
@@ -580,7 +584,9 @@
                 this.warning_fromValue = false;
 
                 this.toValue = this.$fixed(this.toValue, this.user.currency)
-                this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);
+                let temp = this.toValue/ this.user.tradePrice   //coinCount
+                temp -= temp*this.user.fee;             //coinWithoutFee
+                this.fromValue =this.$fixed(temp, this.user.cryptocurrency);
 
             },
             inputFocus(type){
@@ -653,25 +659,17 @@
                         email : MainRepository.MyInfo.getUserInfo().email,
                         adNo : this.user.adNo,
                         amount :   this.toValue,
-                        coinCount : this.fromValue,
+                        coinCount : this.toValue/this.user.tradePrice,
+                        coinFeeCount : (this.toValue/this.user.tradePrice) * this.user.fee,
+                        coinWithoutFeeCount : this.fromValue,
                         customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
                         merchantMemberNo :  this.user.memberNo,
                         price : this.user.tradePrice,
                         status : "unpaid",
                         tradePassword : this.tradePW,
                     }, function (orderNo) {
-                        let tradePage;
-                        switch (instance.user.tradeType) {
-                            case 'buy':
-                                tradePage = "/buy?"+orderNo
-                                instance.$router.push(tradePage);
-                                break;
-
-                            case 'sell':
-                                tradePage = "/sell?"+orderNo
-                                instance.$router.push(tradePage);
-                                break;
-                        }
+                        let isBuy = instance.user.tradeType === 'buy';
+                        MainRepository.router().goBuyOrSell(isBuy, orderNo);
                     });
                 }
             },

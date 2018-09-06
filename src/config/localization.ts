@@ -285,7 +285,7 @@ const strings = new Map([
     }],
     ['Merchant(Volume | Trade rate)', {
         KOR: '판매자(30일 거래량 | 거래율)',
-        ENG: 'Merchant(30 Days Volume | Trade rate)',
+        ENG: 'Merchant(30 Days Vol. | Trade rate)',
         CN: '商家（30天成单 | 完成率）',
         HK: '商家（30天成單 | 完成率）'
     }],

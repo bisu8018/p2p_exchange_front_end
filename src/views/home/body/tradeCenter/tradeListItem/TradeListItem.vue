@@ -47,7 +47,7 @@
                     <!-- Price -->
                     <ul>
                         <li>{{$str("price")}} :</li>
-                        <li class="bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</li>
+                        <li class="bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}</li>
                     </ul>
 
                     <!-- Payment Methods -->
@@ -177,7 +177,7 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</h5>
+                            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}</h5>
                         </v-flex>
                     </v-layout>
                     <!-- payment methods -->
@@ -292,7 +292,7 @@
                 <!--limits-->
                 <v-flex md2 text-md-left>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</v-flex>
                 <!--price-->
-                <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</v-flex>
+                <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}</v-flex>
                 <!-- payment method-->
                 <v-flex md3 text-md-right>
                     <v-layout align-center>
@@ -396,7 +396,7 @@
                         <!--두번째열-->
                         <v-flex md2 text-md-left>
                             <div class="bold color-orange-price">
-                                {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}
+                                {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}
                             </div>
                             <div class="medium">
                                 {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
@@ -627,7 +627,9 @@
                     }
                     this.warning_toValue = false;
                     //fromvalue 계산해줌
-                    this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);         //소수점 6번째자리까지
+                    temp = this.toValue/ this.user.tradePrice   //coinCount
+                    temp -= temp*this.user.fee;             //coinWithoutFee
+                    this.fromValue =this.$fixed(temp, this.user.cryptocurrency);         //소수점 6번째자리까지
 
                 } else if (type === 'fromValue') {
                     let tempTovalue = this.fromValue * this.user.tradePrice;
@@ -650,7 +652,9 @@
                     }
                     this.warning_fromValue = false;
                     //toValue 계산해줌
-                    this.toValue =this.$fixed(this.fromValue * this.user.tradePrice, this.user.currency)
+                    temp = this.user.tradePrice * this.fromValue
+                    temp += temp * this.user.fee
+                    this.toValue =this.$fixed(temp, this.user.currency)
                 } else if (type === 'tradePW') {
                     this.onChecktradePassword();
 
@@ -662,15 +666,17 @@
                 if (this.onChecktoValue() && this.onCheckfromValue()
                 &&(this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
                     MainRepository.TradeProcess.createOrder({
-                            email : MainRepository.MyInfo.getUserInfo().email,
-                            adNo : this.user.adNo,
-                            amount : this.toValue,
-                            coinCount : this.toValue/this.user.tradePrice,
-                            customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
-                            merchantMemberNo :  this.user.memberNo,
-                            price : this.user.tradePrice,
-                            status : "unpaid",
-                            tradePassword : this.tradePW,
+                        email : MainRepository.MyInfo.getUserInfo().email,
+                        adNo : this.user.adNo,
+                        amount : this.toValue,
+                        coinCount : this.toValue/this.user.tradePrice,
+                        coinFeeCount : (this.toValue/this.user.tradePrice) * this.user.fee,
+                        coinWithoutFeeCount : this.fromValue,
+                        customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
+                        merchantMemberNo :  this.user.memberNo,
+                        price : this.user.tradePrice,
+                        status : "unpaid",
+                        tradePassword : this.tradePW,
                     }, function (orderNo) {
                         let isBuy = instance.user.tradeType === 'buy';
                         MainRepository.router().goBuyOrSell(isBuy, orderNo);
@@ -699,7 +705,9 @@
                 this.warning_fromValue = false;
 
                 this.toValue = this.$fixed(this.toValue, this.user.currency)
-                this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);
+                let temp = this.toValue/ this.user.tradePrice   //coinCount
+                temp -= temp*this.user.fee;             //coinWithoutFee
+                this.fromValue =this.$fixed(temp, this.user.cryptocurrency);
 
             },
             inputFocus(type) {
