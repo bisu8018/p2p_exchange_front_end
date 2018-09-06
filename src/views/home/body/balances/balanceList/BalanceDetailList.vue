@@ -67,15 +67,15 @@
         </v-flex>
       </v-layout>
     </div>
-    <v-flex v-if="isdrawer">
+    <v-flex v-if="isdrawer" xs12 >
       <div class="detail-list-modal">
         <v-layout text-xs-left mb-2 >
           <v-flex md2 xs6 pl-4 >{{$str("Address")}}:</v-flex>
-          <v-flex md10 xs6>{{detailList.addressTo}}</v-flex>
+          <v-flex md10 xs6 word-break>{{detailList.addressTo}}</v-flex>
         </v-layout>
         <v-layout text-xs-left mb-2>
           <v-flex md2 xs6 pl-4>{{$str("TxID")}}:</v-flex>
-          <v-flex md10 xs6> {{detailList.txHash}}</v-flex>
+          <v-flex md10 xs6 word-break> {{detailList.txHash}}</v-flex>
         </v-layout>
         <v-layout text-xs-left mb-2>
           <v-flex md2 xs6 pl-4>{{$str("fee")}}:</v-flex>
@@ -136,5 +136,8 @@
   }
   .cs-flex{
     display: flex;
+  }
+  .word-break{
+    word-break: break-all;
   }
 </style>

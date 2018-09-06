@@ -10,10 +10,7 @@
         <!--userPage 일때-->
         <v-layout  mt-4 align-center fill-height>
           <v-flex xs2>
-            <h5 v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </h5>
-            <h5 v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </h5>
-            <h5 v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
-            <h5 v-else class="sprite-img ic-allb-lg"> </h5>
+            <h5 :class="tokenImg"></h5>
           </v-flex>
           <v-flex xs10 text-xs-left>
             <span class="bold">{{user.cryptocurrency}}</span>
@@ -109,10 +106,7 @@
         <!-- name-->
         <v-layout mt-4 align-center fill-height>
           <v-flex xs2 pl-2 >
-            <h5 v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </h5>
-            <h5 v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </h5>
-            <h5 v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </h5>
-            <h5 v-else class="sprite-img ic-allb-lg"> </h5>
+            <h5 :class="tokenImg"></h5>
           </v-flex>
           <v-flex xs8 text-xs-left>
             <span class="bold">{{user.cryptocurrency}}</span>
@@ -241,10 +235,7 @@
         <v-flex  md3 text-md-left>
           <v-layout justify-start align-center>
             <!--coin 종류에 따라 하나만 이미지 보여줌-->
-            <span v-if="user.cryptocurrency=='BTC'"class="sprite-img ic-btc-lg"> </span>
-            <span v-else-if="user.cryptocurrency=='ETH'"class="sprite-img ic-eth-lg"> </span>
-            <span v-else-if="user.cryptocurrency=='USDT'"class="sprite-img ic-usdt-lg"> </span>
-            <span v-else class="sprite-img ic-allb-lg"> </span>
+            <span :class="tokenImg" > </span>
             <span class="ml-3 bold">{{user.cryptocurrency}}</span>
           </v-layout>
         </v-flex>
@@ -506,7 +497,7 @@
             },
         },
         mounted(){
-            switch (this.user.cryptoCurrency) {
+            switch (this.user.cryptocurrency) {
                 case 'bitcoin':
                 case 'BTC':
                     this.tokenImg = 'sprite-img ic-btc-lg';

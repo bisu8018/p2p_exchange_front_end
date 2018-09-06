@@ -1421,7 +1421,7 @@
     .ic-success-sm {
         background: -16px -734px;
         width: 16px;
-        height: 15px;
+        height: 16px;
     }
 
     .ic-unpaid {

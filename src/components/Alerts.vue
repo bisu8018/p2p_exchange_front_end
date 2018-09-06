@@ -122,6 +122,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4007 : this.show(this.type.Warning, "", this.$str('warn_needSetIDVerification')); break;    // ID인증 필요
                     case 4008 : this.show(this.type.Warning, "", this.$str('warn_verification_no_phone_data')); break;    // 인증 코드 실패, 번호 없음
                     case 4009 : this.show(this.type.Warning, "", this.$str('warn_verification_code_no_email_data')); break;    // 인증 코드 실패, 번호 없음
+                    case 4010 : this.show(this.type.Warning, "", this.$str('warn_need_Merchant_verification')); break;    // 인증 코드 실패, 번호 없음
 
                     //광고 에러코드 4100 ~
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재

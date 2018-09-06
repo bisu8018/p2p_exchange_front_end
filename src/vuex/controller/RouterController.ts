@@ -50,7 +50,7 @@ export default class RouterController {
         if (!MainRepository.Merchant.getMyInfo().isVerified()) {
             MainRepository.Merchant.loadMyMerchantInfo(() => {
                 if (!MainRepository.Merchant.getMyInfo().isVerified()) {
-                    Vue.prototype.$eventBus.$emit('showAlert', 4005);
+                    Vue.prototype.$eventBus.$emit('showAlert', 4010);
                     this.goMerchant();
                 } else {
                     Vue.nextTick(function () {
