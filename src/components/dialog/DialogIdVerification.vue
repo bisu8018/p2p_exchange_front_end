@@ -28,7 +28,7 @@
                            autocomplete="off">
                     <div class="warning-text-wrapper">
                         <span class="d-none"
-                              :class="{'warning-text' : warning_realName}">{{ verify_warning_realName }}</span>
+                              :class="{'warning-text' : warning_realName}">{{ $str('verify_warning_realName') }}</span>
                     </div>
                 </div>
             </div>
@@ -40,24 +40,24 @@
                 <!-- 이름 -->
                 <h5 class="mb-2">{{ $str("firstName") }}</h5>
                 <div class="p-relative mb-4">
-                    <input name="Last" v-model="firstName" type="text" class="input"
+                    <input name="Last" v-model="idVerification.firstName" type="text" class="input"
                            @keyup="onCheck('first')" :class="{'warning-border' : warning_firstName}"
                            autocomplete="off">
                     <div class="warning-text-wrapper">
                         <span class="d-none"
-                              :class="{'warning-text' : warning_firstName}">{{ verify_warning_firstName }}</span>
+                              :class="{'warning-text' : warning_firstName}">{{ $str('verify_warning_firstName') }}</span>
                     </div>
                 </div>
 
                 <!-- 성 -->
                 <h5 class="mb-2">{{ $str("lastName") }}</h5>
                 <div class="p-relative mb-4">
-                    <input name="Identification" v-model="lastName" type="text" class="input"
+                    <input name="Identification" v-model="idVerification.lastName" type="text" class="input"
                            @keyup="onCheck('last')" :class="{'warning-border' : warning_lastName}"
                            autocomplete="off">
                     <div class="warning-text-wrapper">
                         <span class="d-none"
-                              :class="{'warning-text' : warning_lastName}">{{ verify_warning_lastName }}</span>
+                              :class="{'warning-text' : warning_lastName}">{{ $str('verify_warning_lastName') }}</span>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,8 @@
                        @keyup="onCheck('idNum')" :class="{'warning-border' : warning_IdNum}"
                        autocomplete="off">
                 <div class="warning-text-wrapper">
-                    <span class="d-none" :class="{'warning-text' : warning_IdNum}">{{ verify_warning_IdNum }}</span>
+                    <span class="d-none"
+                          :class="{'warning-text' : warning_IdNum}">{{ $str('verify_warning_IdNum') }}</span>
                 </div>
             </div>
 
@@ -95,7 +96,7 @@
                             <!--사진 없을 경우-->
                             <div v-if="image === ''" class="ma-4a c-pointer">
                                 <input type="file" id="file" ref="file"
-                                       v-on:change="onCheck('file')"
+                                       v-on:change="onCheck('attachmentFile')"
                                        class="d-none"/>
                                 <div class="d-inline-block mt-3 mb-1">
                                     <div class="sprite-img ic-upload"></div>
@@ -145,6 +146,7 @@
     import IdVerificationId from "../../vuex/model/IdVerificationId";
     import Vue from "vue";
     import {findCountryName} from "@/common/common";
+    import CommonService from "../../service/common/CommonService";
 
     export default {
         name: "dialog-id-verification",
@@ -160,8 +162,6 @@
 
                 warning_realName: false,
                 warning_IdNum: false,
-                verify_warning_realName: "",
-                verify_warning_IdNum: "",
 
                 warning_firstName: false,
                 warning_lastName: false,
@@ -169,15 +169,15 @@
                 verify_warning_firstName: "",
                 verify_warning_lastName: "",
                 verify_warning_attachment_file: "",
-                firstName: '',
-                lastName: '',
                 file: '',
                 image: '',
             }
         },
         computed: {
             getNation() {
-                return findCountryName(MainRepository.MyInfo.getUserInfo().nationality);
+                let nation = MainRepository.MyInfo.getUserInfo().nationality
+                this.idVerification.nationality = nation;
+                return findCountryName(nation);
             },
             getNationCode() {
                 return MainRepository.MyInfo.getUserInfo().nationality;
@@ -187,15 +187,15 @@
             onCheck(type) {
                 switch (type) {
                     case 'real' :
-                        if (!this.idVerification.realName) {
-                            this.warning_name = true;
+                        if (!this.idVerification.realName || this.idVerification.realName === '') {
+                            this.warning_realName = true;
                             return false;
                         }
-                        this.warning_name = false;
+                        this.warning_realName = false;
                         return true;
 
                     case 'first' :
-                        if (this.firstName === '') {
+                        if (!this.idVerification.firstName || this.idVerification.firstName === '') {
                             this.warning_firstName = true;
                             return false;
                         }
@@ -203,7 +203,7 @@
                         return true;
 
                     case 'last' :
-                        if (this.lastName === '') {
+                        if (!this.idVerification.lastName || this.idVerification.lastName === '') {
                             this.warning_lastName = true;
                             return false;
                         }
@@ -213,12 +213,21 @@
                     case 'idNum' :
                         if (!this.idVerification.idNumber) {
                             this.warning_IdNum = true;
+                            console.log(3)
                             return false;
                         }
                         this.warning_IdNum = false;
                         return true;
 
                     case 'file' :
+                        if (this.file === '') {
+                            this.warning_attachment_file = true;
+                            this.verify_warning_attachment_file = this.$str('verify_warning_file');
+                            return false;
+                        }
+                        return true;
+
+                    case 'attachmentFile' :
                         let fileInfo = this.$refs.file.files[0];
                         let fileSize = fileInfo.size;
                         if (fileSize > 5e+6) {
@@ -229,7 +238,7 @@
                         this.warning_attachment_file = false;
                         this.handleFileUpload(fileInfo);
 
-                        break;
+                        return true;
                 }
             },
 
@@ -239,41 +248,47 @@
             },
             onDone() {
                 let self = this;
-
                 // 중국 국적일때
-                if(this.getNationCode === 'CN'){
-                    if(this.onCheck('real') && this.onCheck('idNum')){
-                        MainRepository.MyPage.postIdVerification(
-                            MainRepository.MyInfo.getUserInfo().email,
-                            self.idVerification
-                            , (data) => {
-                            });
+                if (this.getNationCode === 'CN') {
+                    if (this.onCheck('real') && this.onCheck('idNum')) {
+                        this.onPost();
+                    } else {
+                        return false;
                     }
                 }
                 // 중국 외 국적 일때
-                else{
-
+                else {
+                    if (this.onCheck('first') && this.onCheck('last') && this.onCheck('idNum') && this.onCheck('file')) {
+                        CommonService.fileUpload.fileUpload({
+                            file: this.submitFile(),
+                            purpose: 'passport'
+                        }, (url) => {
+                            this.idVerification.documentImgUrl = url;
+                            this.onPost();
+                        });
+                    } else {
+                        return false;
+                    }
                 }
-
-
-                this.$emit('done');
-                this.onClose();
-                this.onClear();
+            },
+            onPost() {
+                console.log(this.idVerification)
+                MainRepository.MyPage.postIdVerification(
+                    MainRepository.MyInfo.getUserInfo().email,
+                    this.idVerification , (data) => {
+                        this.$emit('done');
+                        this.onClose();
+                        this.onClear();
+                    });
             },
             onClear() {
                 this.idVerification = new IdVerificationId('');
-                this.verify_warning_realName = "";
-                this.verify_warning_IdNum = "";
-                this.verify_warning_firstName = "";
-                this.verify_warning_lastName = "";
                 this.verify_warning_attachment_file = "";
                 this.warning_realName = false;
                 this.warning_IdNum = false;
                 this.warning_firstName = false;
                 this.warning_lastName = false;
                 this.warning_attachment_file = false;
-                this.firstName = '';
-                this.lastName = '';
                 this.file = '';
                 this.image = '';
             },

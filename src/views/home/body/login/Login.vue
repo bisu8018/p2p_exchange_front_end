@@ -138,6 +138,7 @@
                            'Content-Type': 'application/x-www-form-urlencoded',
                        }
                    }).then((response) => {
+                       //console.log(response);
                        window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
                    })
 
