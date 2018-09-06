@@ -247,9 +247,10 @@
                 let fileInfo = this.$refs.file.files[0];
                 let fileSize = fileInfo.size;
                 console.log(fileInfo);
-                if (fileSize > 500000) {
+                if (fileSize > 2000000) {
                     // 용량 alert
-                    this.$eventBus.$emit('showAlert', 'chat_size');
+
+                    this.$eventBus.$emit('showAlert', 4102);
                     document.getElementById("file").value = "";
                     return false;
                 }
