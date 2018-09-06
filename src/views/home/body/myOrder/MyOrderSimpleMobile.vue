@@ -2,16 +2,23 @@
     <div class="MyOrderSimpleMobile_wrapper">
 
         <h3 class="medium">{{$str("Ongoing order")}}</h3>
-
         <v-divider />
-
-        <div v-for="item in orderList">
-            <my-order-simple-item
-                    :data="item"
-            />
+        <div v-if="haveItems">
+            <div v-for="item in orderList">
+                <my-order-simple-item
+                        :data="item"
+                />
+                <v-divider />
+            </div>
+        </div>
+        <div v-else>
+            <div class="sprite-img ic-no-ad-lg no-more-ads">
+            </div>
+            <div class="color-gray no-more-ads-text">
+                {{$str("No more orders")}}
+            </div>
             <v-divider />
         </div>
-
         <div @click="goMyOrder()" class="ta-right color-blue text-white-hover my-3 c-pointer">
             {{$str("View All")}}
         </div>
@@ -30,6 +37,9 @@
         computed: {
             orderList() {
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
+            },
+            haveItems(){
+                return this.orderList.length >0;
             }
         },
         methods: {
@@ -52,5 +62,12 @@
         line-height: 1.0;
         letter-spacing: 0;
         margin: 48px 0 32px;
+    }
+    .no-more-ads{
+        margin: 48px auto 16px auto;
+    }
+    .no-more-ads-text{
+        text-align: center;
+        margin-bottom: 56px;
     }
 </style>

@@ -232,7 +232,7 @@
             tokens : [
                 {name : 'BTC', fullname: 'bitcoin'},
                 {name : 'ETH', fullname: 'ethereum'},
-                {name : 'ALLB', fullname: 'allb'},
+                {name : 'AllB', fullname: 'allb'},
             ],
             currencyLists : [
                 {name : 'CNY'},
