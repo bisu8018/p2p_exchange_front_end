@@ -19,7 +19,12 @@
       <div class="mt-2 mb-4">
         <div class="p-relative">
           <input name="address" v-model="address" type="text" class="input"
-                 autocomplete="off" >
+                 v-bind:class="{'warning-border' : warning_address}"
+                 @blur="onCheckAddress" autocomplete="off" >
+          <div class="warning-text-wrapper">
+            <p class="d-none" v-bind:class="{'warning-text' : warning_address}">
+              {{text_warning_address}}</p>
+          </div>
         </div>
       </div>
       <!-- 2. Amount select 창-->
@@ -33,8 +38,13 @@
       <div class="mt-2 mb-4">
         <div class="p-relative">
           <input name="amount" v-model="amount" type="text" class="input"
-                 autocomplete="off" >
+                 v-bind:class="{'warning-border' : warning_amount}"
+                 @blur="onCheckAmount" autocomplete="off" >
           <span class="crypto-text">{{getCryptoName(cryptoCurrency) }}</span>
+          <div class="warning-text-wrapper">
+            <p class="d-none" v-bind:class="{'warning-text' : warning_amount}">
+              {{text_warning_amount}}</p>
+          </div>
         </div>
       </div>
       <!-- 3. Fee 창-->
@@ -115,6 +125,11 @@
             fee : 0,
             address : '',
 
+            text_warning_address: "",
+            text_warning_amount: "",
+            warning_address: false,
+            warning_amount: false,
+
         }),
         computed:{
             receiveAmount(){
@@ -154,18 +169,43 @@
         },
         methods: {
             onClose: function () {
-                this.$emit('close');
+                this.show = false;
+            },
+            onCheckAddress(){
+                if (this.address === "") {
+                    this.warning_address = true;
+                    this.text_warning_address = this.$str("Please_enter_a_vaild_number");
+                    return false;
+                }
+                this.warning_address = false;
+                return true;
+            },
+            onCheckAmount(){
+                if (this.amount === "") {
+                    this.warning_amount = true;
+                    this.text_warning_amount = this.$str("Please_enter_a_vaild_number");
+                    return false;
+                }
+                if (this.amount <= 0) {
+                    this.warning_amount = true;
+                    this.text_warning_amount = this.$str("Please enter more than 0");
+                    return false;
+                }
+                this.warning_amount = false;
+                return true;
             },
             goSMSVerification(){
-                MainRepository.Balance.setWithdraw({
-                    addressTo : this.address,
-                    amount : this.amount,
-                    cryptoCurrency : this.cryptoCurrency,
-                    fee : this.fee,
-                    ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
-                    receiveAmount : this.receiveAmount
-                })
-                this.$router.push("/smsVerification");
+                if(this.onCheckAddress() && this.onCheckAmount()){
+                  MainRepository.Balance.setWithdraw({
+                      addressTo : this.address,
+                      amount : this.amount,
+                      cryptoCurrency : this.cryptoCurrency,
+                      fee : this.fee,
+                      ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
+                      receiveAmount : this.receiveAmount
+                  })
+                  this.$router.push("/smsVerification");
+                }
             },
             getCryptoName(cryptoCurrency) {
                 switch (cryptoCurrency) {

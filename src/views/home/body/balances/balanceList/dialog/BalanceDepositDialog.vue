@@ -96,7 +96,7 @@
         },
         methods: {
             onClose: function () {
-                this.$emit('close');
+                this.show = false;
             },
             getCryptoName(cryptoCurrency) {
                 switch (cryptoCurrency) {
@@ -113,6 +113,7 @@
             },
             onCopy() {
                 this.$clipboard(this.walletAddress)
+                this.$eventBus.$emit('showAlert', 2001);
             },
         },
     }

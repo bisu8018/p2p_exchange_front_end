@@ -589,24 +589,28 @@
             Common.info.getMarketPrice(function (data) {
                 self.marketPrice = data;
             });
-
+            if (MainRepository.MyInfo.isLogin()) {
+                this.checkSelectBtn()
+            }
         },
         updated(){
-            //trade를 막기 위해 button대신 띄워주는 filter값 처리
-            let _obj;
             if (MainRepository.MyInfo.isLogin()) {
+                this.checkSelectBtn()
+            }
+        },
+        methods: {
+            //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            checkSelectBtn(){
+                let _obj;
                 _obj = MainRepository.TradeView.controller().setCannotTrade(
                     this.myInfo,
                     this.user.counterpartyFilterTradeCount,
                     this.user.counterpartyFilterAdvancedVerificationYn,
                     this.user.counterpartyFilterMobileVerificationYn,
-                    this.user.counterpartyFilterDoNotOtherMerchantsYn,
-                );
+                    this.user.counterpartyFilterDoNotOtherMerchantsYn);
                 this.do_not_trade_message = _obj.do_not_trade_message;
                 this.can_not_trade = _obj.can_not_trade;
-            }
-        },
-        methods: {
+            },
             onNumberCheck(type) {
                 if (type === 'toValue') {
                     if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.

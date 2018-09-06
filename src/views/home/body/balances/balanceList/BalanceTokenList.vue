@@ -44,30 +44,24 @@
           <v-layout row wrap justify-space-between>
             <!--Transfer 버튼-->
             <div class="right-button">
-              <button class="btn-blue btn-blue-hover bold c-pointer" @click="showDepositDialog = true">{{$str("Deposit")}}</button>
+              <button class="btn-blue btn-blue-hover bold c-pointer" @click="showDeposit">{{$str("Deposit")}}</button>
             </div>
             <!--mobile에서 버튼사이 공간을 주기위한 spacer-->
             <!-- Deposit 버튼-->
             <div class="right-button">
-              <button class="btn-white  bold c-pointer" @click="showWithdrawDialog = true">{{$str("withdraw")}}</button>
+              <button class="btn-white  bold c-pointer" @click="showWithdrawal">{{$str("withdraw")}}</button>
             </div>
           </v-layout>
         </v-flex>
       </v-layout>
       <!--Deposit modal-->
       <balance-deposit-dialog
-              v-if="showDepositDialog"
-              :show = showDepositDialog
               :cryptoCurrency = item.cryptoCurrency
               :walletAddress = item.walletAddress
-              v-on:close="closeDeposit"
       />
       <!--withdraw modal-->
       <balance-withdrawal-dialog
-              v-if="showWithdrawDialog"
-              :show = showWithdrawDialog
               :cryptoCurrency = item.cryptoCurrency
-              v-on:close="closeWithdrawal"
       />
 
     </div>
@@ -94,8 +88,6 @@
                 {isETH : false},
                 {isALLB : false},
             ],
-            showWithdrawDialog : false,
-            showDepositDialog : false,
             tokenImg : '',
         }),
 
@@ -135,12 +127,13 @@
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
             },
-            closeDeposit(){
-                this.showDepositDialog = false
+            showDeposit(){
+                this.$eventBus.$emit('showDepositDialog', this.item.cryptoCurrency);
             },
-            closeWithdrawal(){
-                this.showWithdrawDialog = false
+            showWithdrawal(){
+                this.$eventBus.$emit('showWithdrawDialog', this.item.cryptoCurrency);
             },
+
         }
     }
 </script>

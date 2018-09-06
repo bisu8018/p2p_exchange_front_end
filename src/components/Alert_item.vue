@@ -1,4 +1,5 @@
 <template>
+  <transition name="alertItem">
   <div class="notification callout animated" v-if="isClosed"
        :class= "{'warning-bor' : isWarning, 'error-bor' : isError, 'success-bor' : isSuccess}">
        <!--:class="notification.type ? notification.type : 'secondary'" transition="fade"-->
@@ -25,6 +26,7 @@
       </v-flex>
     </v-layout>
   </div>
+  </transition>
 </template>
 <script>
     import Vue from 'vue';
@@ -78,6 +80,14 @@
 </script>
 <style scoped>
 
+
+  .alertItem-enter-active, .alertItem-leave-active {
+    transition: all .3s ease;
+  }
+  .alertItem-enter, .alertItem-leave-to  {
+    transform: translateX(100px);
+    opacity: 0;
+  }
   .notification {
     height: 72px;
     margin-right: 20px;

@@ -3326,6 +3326,12 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['Please enter more than 0', {
+        KOR: '0 보다 큰 값을 입력해 주세요',
+        ENG: 'Please enter more than 0',
+        CN: '',
+        HK: ''
+    }],
 
 
 ])
