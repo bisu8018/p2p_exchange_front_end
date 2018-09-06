@@ -333,6 +333,30 @@
     }
 
 
+    /* width */
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #9294A6;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #535353;
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #002970;
+    }
+
+
+
     /*체크박스 CSS
     이용법 :
     <input type="checkbox" v-model="checkbox" id="termsCheckbox"> //실제 체크박스
