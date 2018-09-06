@@ -333,6 +333,7 @@
     }
 
 
+    /*스크롤바 스타일 설정*/
     /* width */
     ::-webkit-scrollbar {
         width: 3px;
@@ -352,7 +353,7 @@
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #002970;
+        background: #535353;
     }
 
 
