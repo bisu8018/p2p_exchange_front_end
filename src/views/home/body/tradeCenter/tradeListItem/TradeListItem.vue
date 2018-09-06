@@ -47,7 +47,7 @@
                     <!-- Price -->
                     <ul>
                         <li>{{$str("price")}} :</li>
-                        <li class="bold color-orange-price">{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</li>
+                        <li class="bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</li>
                     </ul>
 
                     <!-- Payment Methods -->
@@ -177,7 +177,7 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <h5 class=" bold color-orange-price">{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</h5>
+                            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</h5>
                         </v-flex>
                     </v-layout>
                     <!-- payment methods -->
@@ -292,7 +292,7 @@
                 <!--limits-->
                 <v-flex md2 text-md-left>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</v-flex>
                 <!--price-->
-                <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</v-flex>
+                <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</v-flex>
                 <!-- payment method-->
                 <v-flex md3 text-md-right>
                     <v-layout align-center>
@@ -396,7 +396,7 @@
                         <!--두번째열-->
                         <v-flex md2 text-md-left>
                             <div class="bold color-orange-price">
-                                {{toMoneyFormat(user.tradePrice)}} {{user.currency}}
+                                {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}
                             </div>
                             <div class="medium">
                                 {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
@@ -589,24 +589,28 @@
             Common.info.getMarketPrice(function (data) {
                 self.marketPrice = data;
             });
-
+            if (MainRepository.MyInfo.isLogin()) {
+                this.checkSelectBtn()
+            }
         },
         updated(){
-            //trade를 막기 위해 button대신 띄워주는 filter값 처리
-            let _obj;
             if (MainRepository.MyInfo.isLogin()) {
+                this.checkSelectBtn()
+            }
+        },
+        methods: {
+            //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            checkSelectBtn(){
+                let _obj;
                 _obj = MainRepository.TradeView.controller().setCannotTrade(
                     this.myInfo,
                     this.user.counterpartyFilterTradeCount,
                     this.user.counterpartyFilterAdvancedVerificationYn,
                     this.user.counterpartyFilterMobileVerificationYn,
-                    this.user.counterpartyFilterDoNotOtherMerchantsYn,
-                );
+                    this.user.counterpartyFilterDoNotOtherMerchantsYn);
                 this.do_not_trade_message = _obj.do_not_trade_message;
                 this.can_not_trade = _obj.can_not_trade;
-            }
-        },
-        methods: {
+            },
             onNumberCheck(type) {
                 if (type === 'toValue') {
                     if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
@@ -785,7 +789,7 @@
                 }
             },
             toMoneyFormat(value) {
-                return abUtils.toMoneyFormat(String(this.$fixed(value, this.user.currency)));
+                return abUtils.toMoneyFormat(String(value));
             },
             goMyPage(){
                 MainRepository.router().goMyPage();

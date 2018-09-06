@@ -16,7 +16,7 @@
         <input type="text" id="copy-code" :value="walletAddress" class="wallet-address h6" disabled  >
       </v-flex>
       <v-flex xs12 mt-3>
-        <h5 class="color-blue c-pointer" @click="onCopy()">
+        <h5 class="color-blue c-pointer text-white-hover" @click="onCopy()">
           {{$str("Copy")}}
         </h5>
       </v-flex>
@@ -96,7 +96,7 @@
         },
         methods: {
             onClose: function () {
-                this.$emit('close');
+                this.show = false;
             },
             getCryptoName(cryptoCurrency) {
                 switch (cryptoCurrency) {
@@ -113,6 +113,7 @@
             },
             onCopy() {
                 this.$clipboard(this.walletAddress)
+                this.$eventBus.$emit('showAlert', 2001);
             },
         },
     }

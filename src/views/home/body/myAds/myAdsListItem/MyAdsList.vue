@@ -29,7 +29,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Price</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
+                <v-flex xs9 text-xs-right>{{toMoneyFormat(adslist.tradePrice)}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Time</v-flex>
@@ -70,7 +70,7 @@
                     <span class="ml-2">{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</span>
                 </v-flex>
                 <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.currency}}</v-flex>
-                <v-flex md2 text-md-left>{{adslist.fixedPrice}} {{adslist.currency}}</v-flex>
+                <v-flex md2 text-md-left>{{toMoneyFormat(adslist.tradePrice)}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>
                     <span class="ml-3">{{transTime(adslist.registerDatetime)}}</span>
                 </v-flex>
@@ -136,6 +136,9 @@
         methods: {
             transTime(time){
                 return abUtils.toTimeFormat(time);
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(this.$fixed(value, this.adslist.currency)));
             },
             //AD Edit 시, 해당 post AD 페이지 이동
             onEdit() {
