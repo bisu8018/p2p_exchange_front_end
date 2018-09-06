@@ -52,9 +52,9 @@ export default class TradeListController {
             _obj.can_not_trade = 'MyPage'
         }
         // advanced 인증 안했을때. 백단 연결시 수정 필요
-        // if(advanced && MyInfo){
-        //     do_not_trade_message += 'adv. verification'
-        // }
+        //if(advanced ){
+        //    _obj.do_not_trade_message += 'adv. verification'
+        //}
         else{
             //거래횟수가 부족할때
             if(MyInfo.tradeTimes < tradeCount){

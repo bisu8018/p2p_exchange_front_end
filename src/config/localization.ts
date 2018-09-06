@@ -215,6 +215,12 @@ const strings = new Map([
         CN: '重设密码后，24小时内禁止提币',
         HK: '重設密碼後，24小時内禁止提幣'
     }],
+    ['changeLinkedPhoneExplain', {
+        KOR: '연동된 전화번호 변경 후, 24시간 동안 출금을 할 수 없습니다.',
+        ENG: 'After changing linked phone, your are not allowed to withdraw in the next 24 hours.',
+        CN: '重设密码后，24小时内禁止提币',
+        HK: '重設密碼後，24小時内禁止提幣'
+    }],
     ['submit', {
         KOR: '전송',
         ENG: 'Submit',
@@ -615,6 +621,12 @@ const strings = new Map([
         CN: '请输入适合数量',
         HK: '請輸入適合數量'
     }],
+    ['warningFloatPricePlaceholder', {
+        KOR: '올바른 수를 입력해 주십시오',
+        ENG: 'Enter a vaild number',
+        CN: '请输入适合数量',
+        HK: '請輸入適合數量'
+    }],
     ['warningFloatPriceLimit', {
         KOR: '-100부터 100 사이 숫자를 입력하세요',
         ENG: 'Input number between -100 to 100',
@@ -647,7 +659,7 @@ const strings = new Map([
     }],
     ['warningPaymentWindow', {
         KOR: '지불 기간을 입력해 주십시오',
-        ENG: 'Please Enter the payment window',
+        ENG: 'Enter the payment window',
         CN: '请输入支付期间',
         HK: '請輸入支付期間'
     }],
@@ -677,7 +689,7 @@ const strings = new Map([
     }],
     ['floatPriceExplain', {
         KOR: '유동가격 마진을 설정하십시오. 시장가에서 원하는 프리미엄 또는 할인에 적용됩니다.',
-        ENG: 'Please set the float price margin. It will apply on the market price\\\'s desired premium or discount.',
+        ENG: 'Please set the float price margin. It will apply on the market price\'s desired premium or discount.',
         CN: '请设定市场价格以适用于升水或折扣的波动价利润。',
         HK: '請設定市場價格以適用於升水或折扣的波動價利潤。'
     }],
@@ -911,7 +923,7 @@ const strings = new Map([
     }],
     ['atMost', {
         KOR: '최저 한도금액 이상으로 입력해 주십시오',
-        ENG: 'Please input more than minimum limit',
+        ENG: 'Input more than minimum limit',
         CN:  '请输入最小限度以上金额',
         HK:  '請輸入最小限度以上金額'
     }],
@@ -1106,7 +1118,7 @@ const strings = new Map([
     }],
     ['cancelExplain', {
         KOR: '주문이 취소되었으며 결제 정보를 볼 수 없습니다.',
-        ENG: 'Order cancelled, unable to view payment information.',
+        ENG: 'Order canceled, unable to view payment information.',
         CN: '订单已取消，无法查看支付信息.',
         HK: '訂單已取消，無法查看支付信息.'
     }],
@@ -1414,6 +1426,12 @@ const strings = new Map([
         ENG: 'Enable',
         CN: '上架',
         HK: '上架'
+    }],
+    ['disable', {
+        KOR: '내리기',
+        ENG: 'Disable',
+        CN: '下架',
+        HK: '下架'
     }],
     ['delete', {
         KOR: '삭제',
@@ -1899,7 +1917,7 @@ const strings = new Map([
         HK: '安全等級'
     }],
     ['securityExplain', {
-        KOR: '이중 인증 연동을 강력히 추천합니다.',
+        KOR: '다중 인증을 필히 권유드립니다.',
         ENG: 'Using two-factor authentication is highly recommended.',
         CN: '我们强烈建议您完成双重验证。',
         HK: '我們强烈建議您完成雙重驗證。'
@@ -2001,19 +2019,19 @@ const strings = new Map([
         HK: '安全設定'
     }],
     ['low', {
-        KOR: '저',
+        KOR: '낮음',
         ENG: 'Low',
         CN: '低',
         HK: '低'
     }],
     ['medium', {
-        KOR: '중',
+        KOR: '중간',
         ENG: 'Medium',
         CN: '中',
         HK: '中'
     }],
     ['high', {
-        KOR: '고',
+        KOR: '높음',
         ENG: 'High',
         CN: '高',
         HK: '高'
@@ -2204,6 +2222,12 @@ const strings = new Map([
         CN: '更改密码',
         HK: '更改密碼'
     }],
+    ['changeLinkedPhone', {
+        KOR: '연동된 전화번호 변경',
+        ENG: 'Change Linked Phone',
+        CN: '',
+        HK: ''
+    }],
     ['oldPassword', {
         KOR: '현재 비밀번호',
         ENG: 'Current password',
@@ -2249,6 +2273,12 @@ const strings = new Map([
     ['phoneNumber', {
         KOR: '전화번호',
         ENG: 'Phone Number',
+        CN: '电话号码',
+        HK: '電話號碼'
+    }],
+    ['newPhoneNumber', {
+        KOR: '새로운 전화번호',
+        ENG: 'New Phone Number',
         CN: '电话号码',
         HK: '電話號碼'
     }],
@@ -2427,35 +2457,41 @@ const strings = new Map([
         CN: '立刻申请',
         HK: '立刻申請'
     }],
-    ['First Name', {
+    ['firstName', {
         KOR: '이름',
         ENG: 'First Name',
         CN: '名字',
         HK: '名字'
     }],
-    ['Last Name', {
+    ['lastName', {
         KOR: '성',
         ENG: 'Last Name',
         CN: '姓',
         HK: '姓'
     }],
-    ['Identification Number', {
+    ['identificationNumber', {
         KOR: '식별 번호',
         ENG: 'Identification Number',
         CN: '身份证号码',
         HK: '身份證號碼'
     }],
-    ['e.g. Passport, ID or Driver\'s License', {
+    ['identificationNumberExplain', {
         KOR: '예 : 여권, 신분증 또는 운전 면허증',
         ENG: 'e.g. Passport, ID or Driver\'s License',
         CN: '例如：护照、身份证或驾驶执照',
         HK: '例如：護照、身份證或駕駛執照 '
     }],
-    ['Upload photo of identification', {
+    ['identificationUpload', {
         KOR: '신분증 사진 업로드',
         ENG: 'Upload photo of identification',
         CN: '上传身份证照片',
         HK: '上傳身份證照片'
+    }],
+    ['photoIdentification', {
+        KOR: '신분증 사진',
+        ENG: 'Photo of Identification',
+        CN: '身份证照片',
+        HK: '身份證照片'
     }],
     ['Your application is under review', {
         KOR: '신청서를 검토 중입니다.',
@@ -2524,20 +2560,6 @@ const strings = new Map([
         CN: '您的商家申请成功了。您可以在埃尔比场外交易所发广告！',
         HK: '您的商家申請成功了。您可以在埃爾比場外交易所發廣告！'
     }],
-
-    ['Photo of Identification', {
-        KOR: '신분증 사진',
-        ENG: 'Photo of Identification',
-        CN: '身份证照片',
-        HK: '身份證照片'
-    }],
-    ['Upload photo of identification', {
-        KOR: '신분증 사진 업로드',
-        ENG: 'Upload photo of identification',
-        CN: '上传身份证照片',
-        HK: '上傳身份證照片'
-    }],
-
     //404 페이지
     ['pageNotFound', {
         KOR: '요청하신 페이지를 찾을 수 없습니다. 나중에 다시 시도해 주십시오.',
@@ -2811,6 +2833,48 @@ const strings = new Map([
         CN: '传送中...',
         HK: '傳送中...'
     }],
+    ['systemMsgRegistered', {
+        KOR: '주문 등록 완료',
+        ENG: 'ORDER REGISTERED',
+        CN: '订单注册成功',
+        HK: '訂單注冊成功'
+    }],
+    ['systemMsgPaid', {
+        KOR: '금액 지불 완료',
+        ENG: 'PAID COMPLETE',
+        CN: '支付成功',
+        HK: '支付成功'
+    }],
+    ['systemMsgPaidCanceledAppeal', {
+        KOR: '이의제기 취소',
+        ENG: 'APPEAL CANCELED',
+        CN: '投诉已取消',
+        HK: '投訴已取消'
+    }],
+    ['systemMsgComplete', {
+        KOR: '거래 완료',
+        ENG: 'TRADE COMPLETE',
+        CN: '交易成功',
+        HK: '交易成功'
+    }],
+    ['systemMsgCanceled', {
+        KOR: '거래 취소',
+        ENG: 'ORDER CANCELED',
+        CN: '交易已取消',
+        HK: '交易已取消'
+    }],
+    ['systemMsgAppealed', {
+        KOR: '이의제기 등록 완료',
+        ENG: 'APPEAL REGISTERED',
+        CN: '申请投诉成功',
+        HK: '申請投訴成功'
+    }],
+    ['systemMsgExpired', {
+        KOR: '주문 시한 만료',
+        ENG: 'ORDER EXPIRED',
+        CN: '交易时限已结束',
+        HK: '交易時限已結束'
+    }],
     ['ALLB OTC', {
         KOR: 'ALLB OTC',
         ENG: 'ALLB OTC',
@@ -3082,6 +3146,114 @@ const strings = new Map([
         CN: '访问错误',
         HK: '訪問錯誤'
     }],
+    ['comp_adEdit', {
+        KOR: '광고가 수정되었습니다.',
+        ENG: 'AD has been edited.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp', {
+        KOR: '성공적으로 완료하였습니다.',
+        ENG: 'Completed successfully.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_post', {
+        KOR: '광고가 등록되었습니다.',
+        ENG: 'AD has been posted.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_cancel', {
+        KOR: '광고가 취소되었습니다.',
+        ENG: 'AD has been canceled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_paid', {
+        KOR: '결제가 완료되었습니다.',
+        ENG: 'AD has been paid.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_edit', {
+        KOR: '광고 수정이 완료되었습니다.',
+        ENG: 'AD has been edited.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_disable', {
+        KOR: '광고 비활성이 완료되었습니다.',
+        ENG: 'AD has been disabled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_enable', {
+        KOR: '광고 활성이 완료되었습니다.',
+        ENG: 'AD has been enabled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_delete', {
+        KOR: '광고 삭제가 완료되었습니다.',
+        ENG: 'AD has been deleted.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_appeal', {
+        KOR: '이의제기가 등록되었습니다.',
+        ENG: 'Appeal has been registered.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_appeal_cancel', {
+        KOR: '이의제기가 취소되었습니다.',
+        ENG: 'Appeal has been canceled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_copy', {
+        KOR: '복사 되었습니다.',
+        ENG: 'Copy successfully.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order', {
+        KOR: '거래가 완료 되었습니다.',
+        ENG: '.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_order_expire', {
+        KOR: '거래가 만료 되었습니다.',
+        ENG: 'Order has been expired.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_email_duplicate', {
+        KOR: '계정을 확인 하였습니다.',
+        ENG: 'Email account has been confirmed.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_verification_code_send', {
+        KOR: '인증코드가 전송되었습니다.',
+        ENG: 'Verification code has been sent.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_code_verified', {
+        KOR: '코드가 인증 되었습니다.',
+        ENG: 'Code has been verified.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_password_reset', {
+        KOR: '비밀번호가 초기화 되었습니다.',
+        ENG: 'Password has been reset.',
+        CN: '',
+        HK: ''
+    }],
     ['BalanceDepositExplainTest', {
         KOR: '• 현재 본 사이트는 테스트 중이므로, 테스트넷을 이용한 입금만 유효합니다. 실제 암호화폐를 넣지 마십시오!',
         ENG: '• Our website is test version. Currently only available to deposit from test-net. Don\'t deposit any actual cryptocurrency!',
@@ -3106,21 +3278,57 @@ const strings = new Map([
         CN: '设定昵称',
         HK: '設定昵稱'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['securityAuthentication', {
+        KOR: '보안 인증',
+        ENG: 'Security Authentication',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['comp_linked_phone_change', {
+        KOR: '연동된 전화번호를 수정하였습니다.',
+        ENG: 'Linked phone number has been changed',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_completeProcessingOrder', {
+        KOR: '진행중인 주문을 마친뒤 상태변경 해주세요',
+        ENG: 'Please finish your order in progress.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_changeStatusDisable', {
+        KOR: '광고 상태를 비활성 해주세요',
+        ENG: 'Please disable the Ad status',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_needSetNickname', {
+        KOR: '닉네임 설정이 필요합니다.',
+        ENG: 'Nickname settings are required.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_needSetIDVerification', {
+        KOR: 'ID 인증이 필요합니다.',
+        ENG: 'ID verification is required.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_verification_no_phone_data', {
+        KOR: '전화번호를 입력해 주십시오.',
+        ENG: 'Enter your phone number.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_verification_code_no_email_data', {
+        KOR: '이메일을 입력해 주십시오.',
+        ENG: 'Enter your email.',
+        CN: '',
+        HK: ''
+    }],
+    ['Please enter more than 0', {
+        KOR: '0 보다 큰 값을 입력해 주세요',
+        ENG: 'Please enter more than 0',
         CN: '',
         HK: ''
     }],

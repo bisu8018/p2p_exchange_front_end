@@ -14,8 +14,9 @@
                             {{$str("phoneNumber")}}
                         </div>
                         <div class="p-relative phone-wrapper">
-                        <select-box :selectBoxType ="'phone'" v-on:number="setCode" class="selectbox-width"></select-box>
-                        <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
+                            <select-box :selectBoxType="'phone'" v-on:number="setCode"
+                                        class="selectbox-width"></select-box>
+                            <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
                         </div>
                     </div>
 
@@ -24,30 +25,31 @@
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("SMSverification")}}
                         </div>
-                        <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + getPhoneNumber" :type="'phone'"></verification-code>
+                        <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + getPhoneNumber"
+                                           :type="'phone'"></verification-code>
                     </div>
                 </div>
 
                 <!--이메일 연동은 회원가입 시 이뤄지기에 현재 미사용-->
                 <!--<div v-else>-->
-                    <!--&lt;!&ndash;이메일 입력&ndash;&gt;-->
-                    <!--<div class="mb-4">-->
-                        <!--<div class=" color-black  mb-2 text-xs-left">-->
-                            <!--{{$str("email")}}-->
-                        <!--</div>-->
-                        <!--<div class="input-disabled  vertical-center disabled">{{setEmail}}</div>-->
-                    <!--</div>-->
+                <!--&lt;!&ndash;이메일 입력&ndash;&gt;-->
+                <!--<div class="mb-4">-->
+                <!--<div class=" color-black  mb-2 text-xs-left">-->
+                <!--{{$str("email")}}-->
+                <!--</div>-->
+                <!--<div class="input-disabled  vertical-center disabled">{{setEmail}}</div>-->
+                <!--</div>-->
 
-                    <!--&lt;!&ndash;이메일인증&ndash;&gt;-->
-                    <!--<div class="mb-4">-->
-                        <!--<div class=" color-black  mb-2 text-xs-left">-->
-                            <!--{{$str("emailVerification")}}-->
-                        <!--</div>-->
-                        <!--<div class="p-relative">-->
-                            <!--<input type="text" class="input" v-model="emailVerificationCode" maxlength="12">-->
-                            <!--<span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--&lt;!&ndash;이메일인증&ndash;&gt;-->
+                <!--<div class="mb-4">-->
+                <!--<div class=" color-black  mb-2 text-xs-left">-->
+                <!--{{$str("emailVerification")}}-->
+                <!--</div>-->
+                <!--<div class="p-relative">-->
+                <!--<input type="text" class="input" v-model="emailVerificationCode" maxlength="12">-->
+                <!--<span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
@@ -67,28 +69,28 @@
     export default {
         name: 'linkAccount',
         components: {SelectBox, VerificationCode},
-        computed : {
+        computed: {
             getPhoneNumber() {
                 let numLength = this.phone_number.length;
-                if(this.phone_number.substr(0,1) == 0){
-                    return this.phone_number.substr(1,numLength -1);
-                }else{
+                if (this.phone_number.substr(0, 1) == 0) {
+                    return this.phone_number.substr(1, numLength - 1);
+                } else {
                     return this.phone_number;
                 }
             },
         },
         data: function () {
             return {
-                type : '',
-                phone_number : '',
-                code_number : '+86',
-                verify : false,
-                verificationCode : '',
+                type: '',
+                phone_number: '',
+                code_number: '+86',
+                verify: false,
+                verificationCode: '',
 
             }
         },
-        created () {
-            window.scrollTo(0,0);
+        created() {
+            window.scrollTo(0, 0);
             let url = location.href;
             let parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
             this.type = parameters[0];
@@ -104,10 +106,12 @@
                     email: MainRepository.MyInfo.getUserInfo().email,
                     phoneNumber: self.code_number + self.phone_number,
                     code: self.verificationCode,
-                    status: 'turn_on'
+                    status: 'turn_on',
                 }, (result) => {
                     this.verifyStatus = 'verified';
                     this.goMyPage();
+                }, () => {
+                    return false;
                 });
             },
             //지역번호 select box 값 get
@@ -159,7 +163,7 @@
         bottom: 0;
     }
 
-    .comp-selectbox{
+    .comp-selectbox {
         padding-left: 8px;
         border: none;
         border-right: solid 1px #8d8d8d;

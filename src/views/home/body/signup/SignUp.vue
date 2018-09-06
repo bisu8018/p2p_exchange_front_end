@@ -197,8 +197,10 @@
                     nationality: MainRepository.SelectBox.controller().getCountry(),
                     role: 'ROLE_CUSTOMER',
                     termsAgreeYn: this.termsAgreeYn,
-                }, function (result) {
+                }, (result) => {
                     location.href = "/";
+                }, () => {
+                    return false;
                 })
             },
             // 모달 종료

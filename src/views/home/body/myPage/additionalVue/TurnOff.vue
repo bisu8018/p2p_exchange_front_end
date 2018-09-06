@@ -113,6 +113,8 @@
                     status : 'turn_off'
                 }, (result) => {
                     this.goMyPage();
+                }, () => {
+                    return false;
                 });
             },
             // 인증코드 체크

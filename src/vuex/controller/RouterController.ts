@@ -38,14 +38,10 @@ export default class RouterController {
     }
 
     goPostAd(isBlock) {
+        let currentURL = window.location.href;
+        let params = currentURL.split('?');
         let r = this.router;
         let url = isBlock ? '/blockAd' : '/generalAd';
-        Vue.nextTick(function () {
-            r.push(url);
-        });
-
-        return;
-
         if (!MainRepository.MyInfo.checkValidity(true)) {
             return;
         }
@@ -54,16 +50,27 @@ export default class RouterController {
         if (!MainRepository.Merchant.getMyInfo().isVerified()) {
             MainRepository.Merchant.loadMyMerchantInfo(() => {
                 if (!MainRepository.Merchant.getMyInfo().isVerified()) {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4005);
                     this.goMerchant();
                 } else {
                     Vue.nextTick(function () {
-                        r.push(url);
+                        // edit에서 post ad 이동 시 뷰 새로고침
+                        if(params.length >1){
+                            location.href = url;
+                        }else{
+                            r.push(url);
+                        }
                     });
                 }
             });
         } else {
             Vue.nextTick(function () {
-                r.push(url);
+                // edit에서 post ad 이동 시 뷰 새로고침
+                if(params.length >1){
+                    location.href = url;
+                }else{
+                    r.push(url);
+                }
             });
         }
     }
@@ -107,8 +114,10 @@ export default class RouterController {
     goBuyOrSell(isBuy: boolean, orderNo: number) {
         let url = (isBuy ? '/buy?' : '/sell?') + orderNo;
         let r = this.router;
+
         Vue.nextTick(function () {
             r.push(url);
+            isBuy ? Vue.prototype.$eventBus.$emit('refreshBuy') : Vue.prototype.$eventBus.$emit('refreshSell');
         });
     }
 
@@ -123,6 +132,13 @@ export default class RouterController {
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/changePassword");
+        });
+    }
+
+    goChangePhone() {
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/changePhone");
         });
     }
 
@@ -144,6 +160,13 @@ export default class RouterController {
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/myAds");
+        });
+    }
+
+    goBalance(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/balances");
         });
     }
 }

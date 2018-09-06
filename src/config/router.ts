@@ -22,9 +22,11 @@ import MyPage from '../views/home/body/myPage/MyPage.vue'
 import Merchant from '../views/home/body/merchant/Merchant.vue'
 import UserPage from '../views/home/body/tradeCenter/userPage/UserPage.vue'
 import ChangePassword from '../views/home/body/myPage/additionalVue/ChangePassword.vue'
+import ChangePhone from '../views/home/body/myPage/additionalVue/ChangePhone.vue'
 import TurnOff from '../views/home/body/myPage/additionalVue/TurnOff.vue'
 import LinkAccount from '../views/home/body/myPage/additionalVue/LinkAccount.vue'
 import RestTradePassword from '../views/home/body/myPage/additionalVue/ResetTradePassword.vue'
+import Message from '../components/Message.vue'
 
 
 Vue.use(Router);
@@ -127,6 +129,11 @@ export default new Router({
             component: ChangePassword,
         },
         {
+            path: '/changePhone',
+            name: 'changePhone',
+            component: ChangePhone,
+        },
+        {
             path: '/turnOff',
             name: 'turnOff',
             component: TurnOff,
@@ -150,6 +157,11 @@ export default new Router({
             path: '/successWithdraw',
             name: 'successWithdraw',
             component: SuccessWithdraw,
+        },
+        {
+            path: '/message',
+            name: 'message',
+            component: Message,
         },
         {
             path: '*',

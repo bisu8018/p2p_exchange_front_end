@@ -13,6 +13,7 @@
     } from "./common/common";
 
     import Home from './views/home/Home.vue'
+    import MainRepository from './vuex/MainRepository.ts'
 
     export default Vue.extend({
         name: "app",
@@ -23,6 +24,28 @@
             setEventBus(this.$eventBus);
             setRouter(this.$router);
         },
+        mounted() {
+            this.$nextTick(function() {
+                window.addEventListener('resize', this.getWindowWidth);
+                this.getWindowWidth()
+            })
+        },
+        methods: {
+            getWindowWidth() {
+                // 모바일 버전으로 전환됨
+                if (document.documentElement.clientWidth < 977) {
+                    if (!this.isMobileMode) {
+                        this.isMobileMode = true;
+                        MainRepository.State.controller().setMobile(true);
+                    }
+                } else { // PC 버전으로 전환됨
+                    if (this.isMobileMode) {
+                        this.isMobileMode = false;
+                        MainRepository.State.controller().setMobile(false);
+                    }
+                }
+            },
+        }
     });
 </script>
 
@@ -751,6 +774,11 @@
         border: solid 1px #8d8d8d;
         padding-left: 12px;
         cursor: pointer;
+        outline: none;
+    }
+
+    .comp-selectbox:hover,  .comp-selectbox:focus {
+        border: solid 1px #316ee4;
     }
 
     .comp-selectbox-icon {
@@ -781,6 +809,10 @@
         outline: none;
     }
 
+    .input:hover, .input:focus {
+        border: solid 1px #316ee4;
+    }
+
     .input-disabled {
         height: 40px;
         border-radius: 2px;
@@ -792,6 +824,7 @@
         font-size: 12px;
         color: #8d8d8d;
         outline: none;
+        pointer-events: none;
     }
 
     .input-disabled2 {
@@ -808,6 +841,17 @@
         pointer-events: none;
     }
 
+    .common-textarea {
+        height: 90px;
+        width: 100%;
+        padding: 8px;
+        resize: none;
+        outline: none;
+    }
+
+    .common-textarea:hover, .common-textarea:focus {
+        border: #316ee4;
+    }
 
     /*인증코드 전달 버튼*/
     /*
@@ -1453,6 +1497,11 @@
     }
     .ic-cancel-red-sm {
         background: -32px 0px;
+        width: 16px;
+        height: 16px;
+    }
+    .ic_postad_help {
+        background: -48px 0px;
         width: 16px;
         height: 16px;
     }

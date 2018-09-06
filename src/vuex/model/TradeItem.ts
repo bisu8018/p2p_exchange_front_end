@@ -26,12 +26,17 @@ export default class TradeItem {
     counterpartyFilterDoNotOtherMerchantsYn : boolean;
     registerDatetime : string;
     rank : number;
-    bank_account: string;
-    wechat_id: string;
-    alipay_id: string;
+    bank_account: boolean;
+    wechat_id: boolean;
+    alipay_id: boolean;
     // volume: number; // 이건 위의 volume이랑 다른 것임. 차후 재설정 필요.
     ownerMember : MemberInfo;
     paymentWindow :number;
+
+    marginPrice : number;
+    tradePrice : number;
+    status : string;
+    processingOrderCount : number;
 
 
 
@@ -48,53 +53,57 @@ export default class TradeItem {
         this.tradeType = this.transBuySell(data.tradeType) || '';
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency) || '';
         this.priceType = data.priceType || '';
-        this.fixedPrice = Number(data.fixedPrice) || -1;
+        this.fixedPrice = Number(data.fixedPrice) || 0;
         this.volume = Number(data.volume) || -1;
         this.volumeAvailable = Number(data.volumeAvailable) || 0;
         this.minLimit = Number(data.minLimit) || -1;
         this.maxLimit = Number(data.maxLimit) || -1;
         this.paymentMethods = data.paymentMethods || '';
         this.termsOfTransaction = data.termsOfTransaction || '';
-        this.counterpartyFilterTradeCount = Number(data.counterpartyFilterTradeCount) || -1;
-        this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn || false;
-        this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || false;
-        this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn || false;
+        this.counterpartyFilterTradeCount = Number(data.counterpartyFilterTradeCount) || 0;
+        this.counterpartyFilterAdvancedVerificationYn = data.counterpartyFilterAdvancedVerificationYn
+        this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn
+        this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn
         this.registerDatetime = data.registerDatetime || '';
 
-
         this.rank = Number(data.rank) || 1;
-        this.bank_account = this.splitPayment('bank_account') || '';
-        this.wechat_id = this.splitPayment('wechat_id') || '';
-        this.alipay_id = this.splitPayment('alipay_id') || '';
+        this.bank_account = this.splitPayment('bank_account') ;
+        this.wechat_id = this.splitPayment('wechat_id') ;
+        this.alipay_id = this.splitPayment('alipay_id') ;
 
         this.ownerMember = data.ownerMember;
         this.paymentWindow = data.paymentWindow || 10;
 
+        this.marginPrice = data.marginPrice || -1;
+        this.tradePrice = this.selectPrice(data.priceType, data.fixedPrice, data.marginPrice);
+        this.status = data.status;
+        this.processingOrderCount = data.processingOrderCount;
     }
 
     //paymentmethods 재가공
     splitPayment(type){
         if(type === 'bank_account' && this.paymentMethods.indexOf("bankaccount") > -1 ){
-           return 'y'
+           return true
         }
 
         if(type === 'alipay_id' && this.paymentMethods.indexOf("alipay") > -1){
-            return 'y'
+            return true
         }
 
         if(type === 'wechat_id' && this.paymentMethods.indexOf("wechat") > -1){
-            return 'y'
+            return true
         }
+        return false
 
     }
     //tradeType 재가공
     transBuySell(tradeType){
         switch (tradeType) {
             case 'buy':
-                return 'Sell'
+                return 'sell'
 
             case 'sell':
-                return 'Buy'
+                return 'buy'
         }
 
     }
@@ -106,6 +115,15 @@ export default class TradeItem {
 
             case 'ethereum':
                 return 'ETH'
+        }
+    }
+    //marginPrice와 fixedPrice중 선택
+    selectPrice(priceType, fixedPrice, marginPrice){
+        if(priceType ==='fixedprice'){
+            return fixedPrice
+        }
+        else{
+            return marginPrice
         }
     }
 

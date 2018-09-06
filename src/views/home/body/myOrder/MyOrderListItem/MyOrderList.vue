@@ -23,11 +23,11 @@
       </v-layout>
       <v-layout>
         <v-flex xs7 text-xs-left color-darkgray>{{$str("amount")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
+        <v-flex xs5 text-xs-right>{{toMoneyFormat(orderlist.amount)}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("price")}}</v-flex>
-        <v-flex xs5 text-xs-right>{{orderlist.price}} {{orderlist.currency}}</v-flex>
+        <v-flex xs5 text-xs-right>{{toMoneyFormat($fixed(orderlist.price,orderlist.currency))}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
         <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}}</v-flex>
@@ -66,8 +66,8 @@
           <span class="mr-2">{{ $fixed(orderlist.coinCount, orderlist.cryptocurrency)}}</span>
           <span>{{orderlist.cryptocurrency}}</span>
         </v-flex>
-        <v-flex  md2 text-md-left>{{orderlist.amount}} {{orderlist.currency}}</v-flex>
-        <v-flex  md2 text-md-left>{{orderlist.price}} {{orderlist.currency}}</v-flex>
+        <v-flex  md2 text-md-left>{{toMoneyFormat(orderlist.amount)}} {{orderlist.currency}}</v-flex>
+        <v-flex  md2 text-md-left>{{toMoneyFormat($fixed(orderlist.price,orderlist.currency))}} {{orderlist.currency}}</v-flex>
         <v-flex  md2 text-md-left>
           <span class="ml-3">{{transTime(orderlist.registerDatetime)}}</span>
         </v-flex>
@@ -106,32 +106,6 @@
             },
 
         },
-        methods : {
-            transTime(time){
-                return abUtils.toTimeFormat(time);
-            },
-            goUserPage(){
-                let userMember = '';
-                if(MainRepository.MyInfo.getUserInfo().memberNo === this.orderlist.merchantMemberNo){
-                    userMember = this.orderlist.customerMemberNo;
-                }
-                else{
-                    userMember = this.orderlist.merchantMemberNo;
-                }
-                MainRepository.router().goUserPage(userMember);
-            },
-            goTrade(){
-                switch (this.orderlist.orderTradeType) {
-                    case 'buy':
-                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
-                        break;
-
-                    case 'sell':
-                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
-                        break;
-                }
-            }
-        },
         mounted(){
             switch (this.orderlist.status) {
                 case 'unpaid':
@@ -158,8 +132,37 @@
                     this.statusImg = 'ic-cancel-sm sprite-img ';
                     break;
             }
-
         },
+        methods : {
+            transTime(time){
+                return abUtils.toTimeFormat(time);
+            },
+            goUserPage(){
+                let userMember = '';
+                if(MainRepository.MyInfo.getUserInfo().memberNo === this.orderlist.merchantMemberNo){
+                    userMember = this.orderlist.customerMemberNo;
+                }
+                else{
+                    userMember = this.orderlist.merchantMemberNo;
+                }
+                MainRepository.router().goUserPage(userMember);
+            },
+            goTrade(){
+                switch (this.orderlist.orderTradeType) {
+                    case 'buy':
+                        MainRepository.router().goBuyOrSell(true, this.orderlist.orderNo);
+                        break;
+
+                    case 'sell':
+                        MainRepository.router().goBuyOrSell(false, this.orderlist.orderNo);
+                        break;
+                }
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(value));
+            },
+        },
+
     })
 </script>
 

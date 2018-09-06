@@ -78,12 +78,56 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
 
-                    //클라이언트 단 에러코드
-                    case 4001 : this.show(this.type.Warning, "", this.$str('err_paymentMethodCheck')); break;   // 결제수단 체크 필요
+
+
+                    //클라이언트 단 상태코드
+
+                    // 시스템 메세지 2000~
+                    case 2000 : this.show(this.type.Success, "", this.$str('comp')); break;    // 성공
+                    case 2001 : this.show(this.type.Success, "", this.$str('comp_copy')); break;    // 카피 완료
+                    case 2002 : this.show(this.type.Success, "", this.$str('comp_verification_code_send')); break;    // 인증 코드 전송
+                    case 2003 : this.show(this.type.Success, "", this.$str('comp_code_verified')); break;    // 코드 인증 성공
+
+                    //로그인 및 회원가입 메세지 2050~
+                    case 2051 : this.show(this.type.Success, "", this.$str('comp_copy')); break;    // 계정 존재 확인
+                    case 2052 : this.show(this.type.Success, "", this.$str('comp_password_reset')); break;    // 비밀번호 초기화 성공
+
+                    //광고 메세지 2100~
+                    case 2101 : this.show(this.type.Success, "", this.$str('comp_ad_post')); break;    // 광고 등록 완료
+                    case 2102 : this.show(this.type.Success, "", this.$str('comp_ad_cancel')); break;    // 광고 취소
+                    case 2103 : this.show(this.type.Success, "", this.$str('comp_ad_edit')); break;    // 광고 수정 완료
+                    case 2104 : this.show(this.type.Success, "", this.$str('comp_ad_disable')); break;    // 광고 비활성 완료
+                    case 2105 : this.show(this.type.Success, "", this.$str('comp_ad_enable')); break;    // 광고 활성 완료
+                    case 2106 : this.show(this.type.Success, "", this.$str('comp_ad_delete')); break;    // 광고 삭제 완료
+
+                    //주문 메세지 2150~
+                    case 2150 : this.show(this.type.Success, "", this.$str('comp_order')); break;    // 거래 완료
+                    case 2151 : this.show(this.type.Success, "", this.$str('comp_order_paid')); break;    // 결제 완료
+                    case 2153 : this.show(this.type.Success, "", this.$str('comp_order_appeal')); break;    // 이의제기 등록 완료
+                    case 2154 : this.show(this.type.Success, "", this.$str('comp_order_appeal_cancel')); break;    // 이의제기 취소
+                    case 2155 : this.show(this.type.Success, "", this.$str('comp_order_expire')); break;    // 거래 만료
+
+
+                    //마이페이지 메세지 2250~
+                    case 2251 : this.show(this.type.Success, "", this.$str('comp_linked_phone_change')); break;    // 연동 전화번호 수정 완료
+
+
+                    //클라이언트 단 에러코드 4000 ~
+                    case 4001 : this.show(this.type.Warning, "", this.$str('')); break;
                     case 4002 : this.show(this.type.Warning, "", this.$str('err_agreeTermCheck')); break;       // 이용약관 체크 필요
                     case 4003 : this.show(this.type.Warning, "", this.$str('verifySlider')); break;             // 인증 슬라이더 필요
                     case 4004 : this.show(this.type.Warning, "", this.$str('err_needPaymentMethod')); break;    // 결제수단 필요
                     case 4005 : this.show(this.type.Warning, "", this.$str('err_wrongApproach')); break;    // 잘못된 접근
+                    case 4006 : this.show(this.type.Warning, "", this.$str('warn_needSetNickname')); break;    // 닉네임 등록 필요
+                    case 4007 : this.show(this.type.Warning, "", this.$str('warn_needSetIDVerification')); break;    // ID인증 필요
+                    case 4008 : this.show(this.type.Warning, "", this.$str('warn_verification_no_phone_data')); break;    // 인증 코드 실패, 번호 없음
+                    case 4009 : this.show(this.type.Warning, "", this.$str('warn_verification_code_no_email_data')); break;    // 인증 코드 실패, 번호 없음
+
+                    //광고 에러코드 4100 ~
+                    case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재
+                    case 4102 : this.show(this.type.Warning, "", this.$str('warn_changeStatusDisable')); break;       // disable 상태 변경 필요
+
+
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;
                     default : break;
                 }

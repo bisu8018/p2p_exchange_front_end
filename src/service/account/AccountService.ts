@@ -8,12 +8,13 @@ import IdVerificationId from "@/vuex/model/IdVerificationId";
 
 export default {
     Account: {
-        signup: function (data: any, callback: any) {
+        signup: function (data: any, callback: any, failure: any) {
             AxiosService._requestWithBody('member', 'POST', data,
                 function (data: any) {
-                    callback(data)
+                    callback(data);
                 },
                 function () {
+                failure();
                 })
         },
         // 인증코드 전송
@@ -26,7 +27,7 @@ export default {
             } else if (type === 'email') {     //이메일 인증코드
                 url = 'memberVerification/email';
                 _type = 'PUT';
-            } else if (type === 'phone') {     //휴대전화 인증코드
+            } else if (type === 'phone' || type === 'phoneChange') {     //휴대전화 인증코드
                 url = 'memberVerification/sms';
                 _type = 'PUT';
             } else if (type === 'depositSMS') {     //출금시 SMS 인증코드
@@ -35,8 +36,11 @@ export default {
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email';
                 _type = 'POST';
-            } else if( type ==='changeTradePassword'){
+            } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePassword';
+                _type = 'POST';
+            } else if (type === 'emailPhoneChange') {    //거래 비밀번호 인증코드
+                url = 'changePhoneNumber/email';
                 _type = 'POST';
             }
             AxiosService._requestWithUrlPram(url, _type, data,
@@ -47,7 +51,7 @@ export default {
                 })
         },
         // 인증코드 검증 및 상태 업데이트
-        checkVerificationCode: function (type: string, data: any, callback: any) {
+        checkVerificationCode: function (type: string, data: any, callback: any, failure: any) {
             let url;
             if (type === 'signup') {          //회원가입
                 url = 'signUpVerification';
@@ -59,14 +63,20 @@ export default {
                 url = 'deposit/sms'
             } else if (type === 'depositEmail') {     //출금시 이메일 인증코드
                 url = 'deposit/email'
-            } else if( type ==='changeTradePassword'){
+            } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePasswordVerification';
+            } else if (type === 'phoneChange') {     //휴대전화 인증코드
+                url = 'memberVerification/sms/status'
+            } else if (type === 'emailPhoneChange') {    //거래 비밀번호 인증코드
+                url = 'changePhoneNumberVerification/email';
             }
+
             AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {
-                    callback(data)
+                    callback(data);
                 },
                 function () {
+                failure();
                 })
         },
         // 로그인 체크
@@ -83,10 +93,12 @@ export default {
                 .then((response) => {
                     if (response.data.code === 0) {
                         success(response.data.result);
+                    }else{
+                        failure();
                     }
                 })
                 .catch((error) => {
-                    failure()
+                    failure();
                 }).then(() => {
             })
         },
@@ -168,20 +180,38 @@ export default {
                 })
         },
         //패스워드 변경
-        changePassword: function (currentPw: string, newPw: string, callback: any) {
-            let data ={
-                    "currentPassword": currentPw,
-                    "newPassword": newPw
+        changePassword: function (currentPw: string, newPw: string, callback: any, failure: any) {
+            let data = {
+                "currentPassword": currentPw,
+                "newPassword": newPw
             };
             AxiosService._requestWithBodyAndEmail('member/password', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },
                 function () {
+                    failure();
                 })
         },
-        changeTradePassword: function (data: any, callback: any) {
+        changeTradePassword: function (data: any, callback: any, failure: any) {
             AxiosService._requestWithPlainBody('member/tradePassword', 'PUT', data,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                    failure();
+                })
+        },
+        isDuplicated: function (email: string, callback: any) {
+            AxiosService._requestWithUrlPram('email/isDuplicated', 'GET', email,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
+        resetPassword: function (data: any, callback: any) {
+            AxiosService._requestWithUrlPram('resetPassword', 'PUT', data,
                 function (data: any) {
                     callback(data);
                 },
@@ -228,7 +258,7 @@ export default {
                 function () {
                 })
         },
-        setPaymentMethod: function (data : any, callback: any) {
+        setPaymentMethod: function (data: any, callback: any) {
             AxiosService._requestWithUrlPram('payment', 'GET', data,
                 function (data) {
                     callback(data);
@@ -283,7 +313,8 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () { })
+                function () {
+                })
         }
     }
 }

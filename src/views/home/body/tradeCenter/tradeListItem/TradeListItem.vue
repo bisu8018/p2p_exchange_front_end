@@ -47,28 +47,20 @@
                     <!-- Price -->
                     <ul>
                         <li>{{$str("price")}} :</li>
-                        <li class="bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</li>
+                        <li class="bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</li>
                     </ul>
 
                     <!-- Payment Methods -->
                     <ul class="pt-3">
                         <!-- 아이콘 v-if="user.bank_account== 'y'"  v-if="user.alipay_id== 'y'" v-if="user.wechat_id== 'y'"-->
                         <li>
-                            <a class="tooltip">
-                                <div class="sprite-img ic-bank ic_payment"></div>
-                                <!--tooltip-->
-                                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
-                            </a>
-                            <a class="tooltip">
-                                <div class="sprite-img ic-alipay ic_payment"></div>
-                                <!--tooltip-->
-                                <span class="tooltip-content">{{$str("alipayText")}}</span>
-                            </a>
-                            <a class="tooltip" >
-                                <div class="sprite-img ic-wechatpay ic_payment"></div>
-                                <!--tooltip-->
-                                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
-                            </a>
+                            <!--payment method-->
+                            <div v-if="user.bank_account"
+                                 class="mr-2 sprite-img ic-bank f-left"></div>
+                            <div v-if="user.alipay_id"
+                                 class="mr-2 sprite-img ic-alipay f-left"></div>
+                            <div v-if="user.wechat_id"
+                                 class="sprite-img ic-wechatpay f-left"></div>
                         </li>
                         <li>
                             <div v-if="can_not_trade ===''">
@@ -157,12 +149,12 @@
                     </v-layout>
                     <!-- Volume -->
                     <v-layout medium>
-                        <v-flex xs4 offset-xs2 text-xs-left>
+                        <v-flex xs3 offset-xs2 text-xs-left>
                             <h5 class="color-darkgray">
                                 {{$str("Available")}} :
                             </h5>
                         </v-flex>
-                        <v-flex xs4 offset-xs1 text-xs-right>
+                        <v-flex xs5 offset-xs1 text-xs-right>
                             <h5>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</h5>
                         </v-flex>
                     </v-layout>
@@ -185,7 +177,7 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <h5 class=" bold color-orange-price">{{user.fixedPrice}} {{user.currency}}</h5>
+                            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</h5>
                         </v-flex>
                     </v-layout>
                     <!-- payment methods -->
@@ -196,11 +188,11 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <div v-if="user.bank_account.length >0"
+                            <div v-if="user.bank_account"
                                  class="ml-2 sprite-img ic-bank f-right"></div>
-                            <div v-if="user.alipay_id.length >0"
+                            <div v-if="user.alipay_id"
                                  class="ml-2 sprite-img ic-alipay f-right"></div>
-                            <div v-if="user.wechat_id.length >0"
+                            <div v-if="user.wechat_id"
                                  class="ml-2 sprite-img ic-wechatpay f-right"></div>
                         </v-flex>
                     </v-layout>
@@ -240,7 +232,7 @@
                                 </div>
                             </div>
                             <!--trade PW. sell 일때만 활성화-->
-                            <div class="mt-3 p-relative" v-if="user.tradeType =='Sell'">
+                            <div class="mt-3 p-relative" v-if="user.tradeType =='sell'">
                                 <input type="password" class="input textRightPlaceholder" name="tradePW" v-model="tradePW"
                                        :placeholder="$str('tradePwText')" @blur="onChecktradePassword"
                                        @keyup="onNumberCheck('tradePW')"
@@ -296,24 +288,24 @@
                     </v-layout>
                 </v-flex>
                 <!--available-->
-                <v-flex md2 text-md-left>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</v-flex>
+                <v-flex md2 text-md-left>{{ $fixed(user.volumeAvailable, user.cryptocurrency)}} {{user.cryptocurrency}}</v-flex>
                 <!--limits-->
                 <v-flex md2 text-md-left>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</v-flex>
                 <!--price-->
-                <v-flex md2 text-md-left color-orange-price bold>{{user.fixedPrice}} {{user.currency}}</v-flex>
+                <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</v-flex>
                 <!-- payment method-->
                 <v-flex md3 text-md-right>
                     <v-layout align-center>
                         <!--payment method-->
-                        <a class="tooltip" v-if="user.bank_account== 'y'">
+                        <a class="tooltip" v-if="user.bank_account">
                             <div class="sprite-img ic-bank mr-2"></div>
                             <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
                         </a>
-                        <a class="tooltip" v-if="user.alipay_id== 'y'">
+                        <a class="tooltip" v-if="user.alipay_id">
                             <div class="sprite-img ic-alipay mr-2"></div>
                             <span class="tooltip-content">{{$str("alipayText")}}</span>
                         </a>
-                        <a class="tooltip" v-if="user.wechat_id== 'y'">
+                        <a class="tooltip" v-if="user.wechat_id">
                             <div class="sprite-img ic-wechatpay mr-2"></div>
                             <span class="tooltip-content">{{$str("wechatPayText")}}</span>
                         </a>
@@ -404,7 +396,7 @@
                         <!--두번째열-->
                         <v-flex md2 text-md-left>
                             <div class="bold color-orange-price">
-                                {{user.fixedPrice}} {{user.currency}}
+                                {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}
                             </div>
                             <div class="medium">
                                 {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
@@ -465,24 +457,24 @@
                         <v-flex md6 text-md-left>
                             <div class="margin-left-74">
                                 <!--Bank account-->
-                                <div v-if="user.bank_account.length >0">
+                                <div v-if="user.bank_account">
                                     <div class="sprite-img ic-bank mr-2 f-left"></div>
                                     <span class="mr-3 f-left">{{$str("bankAccountText")}}</span>
                                 </div>
                                 <!--Alipay-->
-                                <div v-if="user.alipay_id.length >0">
+                                <div v-if="user.alipay_id">
                                     <div class="sprite-img ic-alipay mr-2 f-left"></div>
                                     <span class="mr-3 f-left">{{$str("alipayText")}}</span>
                                 </div>
                                 <!--WechatPay-->
-                                <div v-if="user.wechat_id.length >0">
+                                <div v-if="user.wechat_id">
                                     <div class="sprite-img ic-wechatpay mr-2 f-left"></div>
                                     <span class="mr-3 f-left">{{$str("wechatPayText")}}</span>
                                 </div>
                             </div>
                         </v-flex>
                         <v-flex md3 text-md-right>
-                            <div v-if="user.tradeType =='Sell'">
+                            <div v-if="user.tradeType =='sell'">
                                 <div class="p-relative">
                                     <input type="password" class="input userInput textLeftPlaceholder"
                                            name="tradePW" v-model="tradePW" :placeholder="$str('tradePwText')"
@@ -592,27 +584,33 @@
             },
         },
         created() {
-
-            //trade를 막기 위해 button대신 띄워주는 filter값 처리
-            if (MainRepository.MyInfo.isLogin()) {
-                let _obj = MainRepository.TradeView.controller().setCannotTrade(
-                    this.myInfo,
-                    this.user.counterpartyFilterTradeCount,
-                    this.user.counterpartyFilterAdvancedVerificationYn,
-                    this.user.counterpartyFilterMobileVerificationYn,
-                    this.user.counterpartyFilterDoNotOtherMerchantsYn,
-                );
-                this.do_not_trade_message = _obj.do_not_trade_message;
-                this.can_not_trade = _obj.can_not_trade;
-            }
-
             //환율 및 유져 정보 get 필요
             let self = this;
             Common.info.getMarketPrice(function (data) {
                 self.marketPrice = data;
             });
+            if (MainRepository.MyInfo.isLogin()) {
+                this.checkSelectBtn()
+            }
+        },
+        updated(){
+            if (MainRepository.MyInfo.isLogin()) {
+                this.checkSelectBtn()
+            }
         },
         methods: {
+            //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            checkSelectBtn(){
+                let _obj;
+                _obj = MainRepository.TradeView.controller().setCannotTrade(
+                    this.myInfo,
+                    this.user.counterpartyFilterTradeCount,
+                    this.user.counterpartyFilterAdvancedVerificationYn,
+                    this.user.counterpartyFilterMobileVerificationYn,
+                    this.user.counterpartyFilterDoNotOtherMerchantsYn);
+                this.do_not_trade_message = _obj.do_not_trade_message;
+                this.can_not_trade = _obj.can_not_trade;
+            },
             onNumberCheck(type) {
                 if (type === 'toValue') {
                     if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
@@ -629,11 +627,10 @@
                     }
                     this.warning_toValue = false;
                     //fromvalue 계산해줌
-                    this.fromValue = this.toValue / this.user.fixedPrice;
-                    this.fromValue = this.fromValue.toFixed(6);         //소수점 6번째자리까지
+                    this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);         //소수점 6번째자리까지
 
                 } else if (type === 'fromValue') {
-                    let tempTovalue = this.fromValue * this.user.fixedPrice;
+                    let tempTovalue = this.fromValue * this.user.tradePrice;
                     if (tempTovalue > this.user.maxLimit) {
                         this.verify_warning_fromValue = Vue.prototype.$str("Enter less than maximum limit");
                         this.warning_fromValue = true;
@@ -653,9 +650,7 @@
                     }
                     this.warning_fromValue = false;
                     //toValue 계산해줌
-                    this.toValue = this.fromValue * this.user.fixedPrice;
-                    this.toValue = this.toValue.toFixed(2);         //소수점 2번째자리까지
-
+                    this.toValue =this.$fixed(this.fromValue * this.user.tradePrice, this.user.currency)
                 } else if (type === 'tradePW') {
                     this.onChecktradePassword();
 
@@ -665,19 +660,19 @@
             goTrade() {
                 let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()
-                &&(this.user.tradeType === 'Buy'|| this.onChecktradePassword()) ) {
+                &&(this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
                     MainRepository.TradeProcess.createOrder({
                             email : MainRepository.MyInfo.getUserInfo().email,
                             adNo : this.user.adNo,
                             amount : this.toValue,
-                            coinCount : this.toValue/this.user.fixedPrice,
+                            coinCount : this.toValue/this.user.tradePrice,
                             customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
                             merchantMemberNo :  this.user.memberNo,
-                            price : this.user.fixedPrice,
+                            price : this.user.tradePrice,
                             status : "unpaid",
                             tradePassword : this.tradePW,
                     }, function (orderNo) {
-                        let isBuy = instance.user.tradeType === 'Buy';
+                        let isBuy = instance.user.tradeType === 'buy';
                         MainRepository.router().goBuyOrSell(isBuy, orderNo);
                     });
 
@@ -689,11 +684,11 @@
                 this.clickFromAll = false;
                 //차후 마진고려해 수정해야함
                 this.toValue = this.user.maxLimit
-                if (this.user.volumeAvailable * this.user.fixedPrice < this.user.maxLimit) {
-                    this.toValue = this.user.volumeAvailable * this.user.fixedPrice;
+                if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
+                    this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-                if(this.toValue > this.user.fixedPrice * this.getBalance){
-                    this.toValue = this.user.fixedPrice * this.getBalance;
+                if(this.toValue > this.user.tradePrice * this.getBalance){
+                    this.toValue = this.user.tradePrice * this.getBalance;
                 }
                 if(this.toValue < this.user.minLimit){
                     this.warning_toValue = true;
@@ -703,8 +698,8 @@
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
 
-                ////소수점 6번째자리까지 fromvalue 계산해줌
-                this.fromValue = Math.floor(this.toValue *1000000/ this.user.fixedPrice) / 1000000;
+                this.toValue = this.$fixed(this.toValue, this.user.currency)
+                this.fromValue =this.$fixed(this.toValue/ this.user.tradePrice, this.user.cryptocurrency);
 
             },
             inputFocus(type) {
@@ -716,9 +711,6 @@
                 else {
                     this.clickFromAll = true;
                 }
-            },
-            closeNicknameModal() {
-                this.showNickNameModal = false;
             },
             onChecktoValue() {
                 //All 버튼 없애기.
@@ -744,8 +736,8 @@
             onCheckfromValue() {
                 //All 버튼 없애기.
                 this.clickFromAll = false;
-
-                let tempTovalue = (this.fromValue * this.user.fixedPrice).toFixed(0);
+                this.fromValue = this.$fixed(this.fromValue, this.user.cryptocurrency)
+                let tempTovalue = this.toValue
                 if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_fromValue = true;
@@ -785,6 +777,9 @@
             },
             onNicknameClick() {
                 MainRepository.router().goUserPage(this.user.memberNo);
+            },
+            closeNicknameModal() {
+                this.showNickNameModal = false;
             },
             onValidClick() {
                 if (this.myInfo.nickName === "") {

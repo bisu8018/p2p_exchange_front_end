@@ -1,5 +1,5 @@
 <template>
-    <div class="mypage-wrapper">
+    <div class="mypage-wrapper" :class="[!isMobile() ? 'mr-3 ml-3' : '']">
 
         <!-- 좌측 내 정보 -->
         <div class="myInfo-wrapper">
@@ -115,6 +115,9 @@
                 this.init();
             })
         },
+        beforeDestroy() {
+            this.$eventBus.$off('refreshMypage');
+        },
         mounted() {
             // 처음 가입하고, 닉네임이 없을 때: <닉네임 설정 modal>이 떠야 한다ㅇㅁㅇ
             if (this.myInfo.nickname === '' || this.myInfo.nickname === null) {
@@ -122,6 +125,9 @@
             }
         },
         methods: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
             init() {
                 let self = this;
 
@@ -182,7 +188,6 @@
             },
             onCloseNicknameModal() {
                 this.showNicknameModal = false;
-                console.log('')
             },
         }
     }

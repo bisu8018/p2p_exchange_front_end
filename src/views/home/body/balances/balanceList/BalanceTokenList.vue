@@ -5,7 +5,7 @@
         <v-flex md1 xs11 text-xs-left text-md-center >
           <!--logo img-->
           <div class="pb-2 d-inline-block">
-            <div class=" sprite-img " :class="tokenImg"></div>
+            <div :class="tokenImg"></div>
           </div>
           <div class=" mb-4">
             <h4 class="bold">{{ getCryptoName(item.cryptoCurrency) }}</h4>
@@ -44,177 +44,25 @@
           <v-layout row wrap justify-space-between>
             <!--Transfer 버튼-->
             <div class="right-button">
-              <button class="btn-blue btn-blue-hover bold c-pointer" @click="showDepositModal = true">{{$str("Deposit")}}</button>
+              <button class="btn-blue btn-blue-hover bold c-pointer" @click="showDeposit">{{$str("Deposit")}}</button>
             </div>
             <!--mobile에서 버튼사이 공간을 주기위한 spacer-->
             <!-- Deposit 버튼-->
             <div class="right-button">
-              <button class="btn-white  bold c-pointer" @click="showWithdrawModal = true">{{$str("withdraw")}}</button>
+              <button class="btn-white  bold c-pointer" @click="showWithdrawal">{{$str("withdraw")}}</button>
             </div>
           </v-layout>
         </v-flex>
       </v-layout>
       <!--Deposit modal-->
-      <v-dialog v-model="showDepositModal">
-        <v-layout row wrap>
-          <!--header-->
-          <div class-="text-xs-left">
-            <h3 class="bold">{{$str("Deposit")}} {{getCryptoName(item.cryptoCurrency) }}</h3>
-          </div>
-          <v-spacer></v-spacer>
-          <div class="text-xs-right">
-            <i class="material-icons color-black c-pointer" @click="showDepositModal = false">close</i>
-          </div>
-          <v-flex xs12 color-darkgray text-xs-center mt-3 mb-4>
-            {{getCryptoName(item.cryptoCurrency) }} {{$str("Deposit_Address")}}
-          </v-flex>
-          <v-flex xs12>
-            <input type="text" id="copy-code" :value="item.walletAddress" class="wallet-address h6" disabled  >
-          </v-flex>
-          <v-flex xs12 mt-3>
-            <h5 class="color-blue c-pointer" @click="onCopy()">
-              {{$str("Copy")}}
-            </h5>
-          </v-flex>
-          <v-flex xs12 mt-3 mb-3>
-            <img :src="qrCodeImgUrl"/>
-          </v-flex>
-          <v-flex xs12 mb-4 color-darkgray>
-            {{$str("Or_scan_this_QR_code")}}
-          </v-flex>
-          <div class="horizontalDivider">
-          </div>
-          <div class="mt-2 mb-4 text-xs-left color-darkgray">
-            <div class="mb-3">
-              <h6>
-                {{$str("BalanceDepositExplainTest")}}
-                {{$str("BalanceDepositExplain1-1")}}
-                {{getCryptoName(item.cryptoCurrency) }}
-                {{$str("BalanceDepositExplain1-2")}}
-              </h6>
-            </div>
-            <div class="mb-3">
-              <h6>
-                {{$str("BalanceDepositExplain2")}}
-              </h6>
-            </div>
-            <div class="mb-3">
-              <h6>
-                {{$str("BalanceDepositExplain3-1")}}
-                0.001 {{getCryptoName(item.cryptoCurrency) }}.
-                {{$str("BalanceDepositExplain3-2")}}
-                0.001 {{getCryptoName(item.cryptoCurrency) }}.
-              </h6>
-            </div>
-            <div class="mb-3">
-              <h6>
-                {{$str("BalanceDepositExplain4")}}
-              </h6>
-            </div>
-            <div>
-              <h6>
-                {{$str("BalanceDepositExplain5")}}
-              </h6>
-            </div>
-          </div>
-        </v-layout>
-      </v-dialog>
+      <balance-deposit-dialog
+              :cryptoCurrency = item.cryptoCurrency
+              :walletAddress = item.walletAddress
+      />
       <!--withdraw modal-->
-      <v-dialog v-model="showWithdrawModal">
-        <div>
-          <div class="cs-flex mb-3">
-            <!--header-->
-            <div class=" h4 bold text-xs-left">
-              {{getCryptoName(item.cryptoCurrency) }} {{$str("withdraw")}}
-            </div>
-            <v-spacer></v-spacer>
-            <i class="material-icons color-black c-pointer" @click="showWithdrawModal = false">close</i>
-          </div>
-          <div class="color-darkgray text-xs-left mt-3 mb-4">
-            {{$str("Withdraw to another wallet")}}
-          </div>
-          <!-- 1. Address select 창-->
-          <div class="text-xs-left">
-            {{$str("Address")}}
-          </div>
-          <div class="mt-2 mb-4">
-            <div class="p-relative">
-              <input name="address" v-model="address" type="text" class="input"
-                     autocomplete="off" >
-            </div>
-          </div>
-          <!-- 2. Amount select 창-->
-          <div class="cs-flex">
-            <div class="text-xs-left">{{$str("amount")}}</div>
-            <v-spacer></v-spacer>
-            <div class="text-xs-right color-darkgray">
-              <h6>({{$str("Available")}}: 0.0000 {{$str("limit")}} : 0.100000</h6>
-            </div>
-          </div>
-          <div class="mt-2 mb-4">
-            <div class="p-relative">
-              <input name="amount" v-model="amount" type="text" class="input"
-                     autocomplete="off" >
-              <span class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</span>
-            </div>
-          </div>
-          <!-- 3. Fee 창-->
-          <div class="cs-flex">
-            <div class="text-xs-left">{{$str("fee")}}</div>
-            <v-spacer></v-spacer>
-            <div class="text-xs-right color-darkgray" >
-              <h6>({{$str("Range")}}: 0.0000 - 0.001000)</h6>
-            </div>
-          </div>
-
-          <div class="mt-2 mb-4">
-            <div class="p-relative">
-              <input name="fee" v-model="fee" type="text" class="input"
-                     autocomplete="off" disabled>
-              <span class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</span>
-            </div>
-          </div>
-          <div class="cs-flex">
-            <div class="text-xs-left">{{$str("Receive Amount")}}</div>
-          </div>
-          <!-- 4. Receive Amount창-->
-          <div class="mt-2 mb-4">
-            <div class="p-relative">
-              <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
-                     autocomplete="off" disabled>
-              <span class="crypto-text">{{getCryptoName(item.cryptoCurrency) }}</span>
-            </div>
-          </div>
-          <div class="text-xs-right">
-            <button class="btn-rounded-white text-white-hover" @click="showWithdrawModal = false" >
-              <h6>{{$str("cancel")}}</h6>
-            </button>
-            <button class="btn-rounded-blue btn-blue-hover" @click="goSMSVerification">
-              <h6>{{$str("withdraw")}}</h6>
-            </button>
-          </div>
-          <div class="mt-4 mb-4">
-            <v-divider></v-divider>
-          </div>
-          <h6 class="color-darkgray text-xs-left mb-3">
-            {{$str("tips")}}
-          </h6>
-          <h6 class="color-darkgray text-xs-left mb-3">
-            {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{getCryptoName(item.cryptoCurrency) }}
-          </h6>
-          <h6 v-if="getCryptoName(item.cryptoCurrency)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
-            {{$str("withdrawtipsETH1")}}<br>
-            {{$str("withdrawtipsETH2")}}<br>
-            {{$str("withdrawtipsETH3")}}
-          </h6>
-          <h6 class="color-darkgray text-xs-left mb-3">
-            {{$str("withdrawTips1")}}
-          </h6>
-          <h6 class="color-darkgray text-xs-left mb-3">
-            {{$str("withdrawTips2")}}
-          </h6>
-        </div>
-      </v-dialog>
+      <balance-withdrawal-dialog
+              :cryptoCurrency = item.cryptoCurrency
+      />
 
     </div>
 </template>
@@ -223,11 +71,16 @@
     import MainRepository from '../../../../../vuex/MainRepository';
     import Balance from '../../../../../vuex/model/Balance'
     import {abUtils} from "../../../../../common/utils";
+    import BalanceDepositDialog from './dialog/BalanceDepositDialog'
+    import BalanceWithdrawalDialog from './dialog/BalanceWithdrawalDialog'
 
     export default {
         name: "BalanceTokenList",
         props : {
             item : { type: Balance },
+        },
+        components:{
+            BalanceDepositDialog, BalanceWithdrawalDialog
         },
         data: () => ({
             istoken :[
@@ -235,62 +88,24 @@
                 {isETH : false},
                 {isALLB : false},
             ],
-            showWithdrawModal : false,
-            showDepositModal : false,
             tokenImg : '',
-            fee : 0,
-            address : '',
-            amount : '',
-            minAmount : '',
-            qrCodeImgUrl: '',
         }),
-        computed:{
-            receiveAmount(){
-                if(this.amount < this.fee){
-                    return 0;
-                }
-                return (this.amount - this.fee);
-            },
-        },
 
-        created(){
-            switch (this.item.cryptoCurrency) {
-                case 'bitcoin':
-                case 'BTC':
-                    this.fee = 0.001
-                    this.minAmount = 0.01
-                    break;
-
-                case 'ethereum':
-                case 'ETH':
-                    this.fee = 0.05
-                    this.minAmount = 0.05
-                    break;
-
-                case 'allb':
-                case 'ALLB':
-                    this.fee = 0
-                    this.minAmount = 0
-                    break;
-            }
-        },
         mounted(){
             switch (this.item.cryptoCurrency) {
                 case 'bitcoin':
                 case 'BTC':
-                    this.tokenImg = 'ic-btc-lg';
+                    this.tokenImg = 'sprite-img ic-btc-lg';
                     break;
                 case 'ethereum':
                 case 'ETH':
-                    this.tokenImg = 'ic-eth-lg';
+                    this.tokenImg = 'sprite-img ic-eth-lg';
                     break;
                 case 'allb':
                 case 'ALLB':
-                    this.tokenImg = 'ic-allb-lg';
+                    this.tokenImg = 'sprite-img ic-allb-lg';
                     break;
             }
-            this.qrCodeImgUrl = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" +this.item.walletAddress;
-                //"http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+this.item.walletAddress;
         },
         methods: {
             getCryptoName(curerncy) {
@@ -309,20 +124,16 @@
             onCopy() {
                 this.$clipboard(this.item.walletAddress)
             },
-            goSMSVerification(){
-                MainRepository.Balance.setWithdraw({
-                    addressTo : this.address,
-                    amount : this.amount,
-                    cryptoCurrency : this.item.cryptoCurrency,
-                    fee : this.fee,
-                    ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
-                    receiveAmount : this.receiveAmount
-                })
-                this.$router.push("/smsVerification");
-            },
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
             },
+            showDeposit(){
+                this.$eventBus.$emit('showDepositDialog', this.item.cryptoCurrency);
+            },
+            showWithdrawal(){
+                this.$eventBus.$emit('showWithdrawDialog', this.item.cryptoCurrency);
+            },
+
         }
     }
 </script>
@@ -348,26 +159,7 @@
       width: 75%;
     }
   }
-  /* signUp의 click-send-text와 동일*/
-  .crypto-text {
-    font-size: 12px;
-    position: absolute;
-    right: 11px;
-    top: 10px;
-  }
-  .horizontalDivider{
-    width: 352px;
-    height: 1px;
-    background-color: #d1d1d1;
-    margin-bottom: 24px;
-  }
-  .getOut {
-    position: absolute;
-    left: -1000px;
-  }
-  .cs-flex{
-    display: flex;
-  }
+
   .right-button{
     width: 45%;
     margin-bottom: 16px;
@@ -376,9 +168,5 @@
     .right-button {
       margin-top : 30px;
     }
-  }
-  .wallet-address{
-    width: 100%;
-    text-align: center;
   }
 </style>
