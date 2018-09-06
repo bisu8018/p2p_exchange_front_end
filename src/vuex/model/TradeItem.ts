@@ -37,7 +37,7 @@ export default class TradeItem {
     tradePrice : number;
     status : string;
     processingOrderCount : number;
-
+    fee : number;
 
 
     constructor (data: any) {
@@ -65,12 +65,10 @@ export default class TradeItem {
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn
         this.counterpartyFilterDoNotOtherMerchantsYn = data.counterpartyFilterDoNotOtherMerchantsYn
         this.registerDatetime = data.registerDatetime || '';
-
         this.rank = Number(data.rank) || 1;
         this.bank_account = this.splitPayment('bank_account') ;
         this.wechat_id = this.splitPayment('wechat_id') ;
         this.alipay_id = this.splitPayment('alipay_id') ;
-
         this.ownerMember = data.ownerMember;
         this.paymentWindow = data.paymentWindow || 10;
 
@@ -78,6 +76,8 @@ export default class TradeItem {
         this.tradePrice = this.selectPrice(data.priceType, data.fixedPrice, data.marginPrice);
         this.status = data.status;
         this.processingOrderCount = data.processingOrderCount;
+        this.fee = this.transFee(data.fee);
+
     }
 
     //paymentmethods 재가공
@@ -125,6 +125,10 @@ export default class TradeItem {
         else{
             return marginPrice
         }
+    }
+
+    transFee(fee){
+        return fee/100;
     }
 
 

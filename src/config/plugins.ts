@@ -81,7 +81,7 @@ export default (Vue: any) => {
         //if (String(value).indexOf(".")==-1) { return value }
 
         switch (currency) {
-            case CurrencyType.CNY: fixedDigits = 2; break;
+            case CurrencyType.CNY: fixedDigits = 0; break;
             case CurrencyType.KRW: fixedDigits = 0; break;
             case CurrencyType.USD: fixedDigits = 2; break;
             case CurrencyType.CAD: fixedDigits = 3; break;
