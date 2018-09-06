@@ -14,7 +14,7 @@
 
                     <!-- 닉네임 -->
                     <div class="d-flex">
-                        <h5 class="color-blue text-white-hover c-pointer" @click="onNicknameClick">
+                        <h5 class="color-blue-active" @click="onNicknameClick">
                             {{user.nickname}} ( {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} | {{user.completionRate}}%)
                         </h5>
                         <!-- user의 rank 이미지-->
@@ -70,7 +70,7 @@
                             </div>
                             <div v-else-if="can_not_trade ==='MyPage'">
                                 <h6 class="color-darkgray">{{$str("Need to")}}</h6>
-                                <h6 class="color-blue text-white-hover c-pointer" @click="goMyPage">{{do_not_trade_message}}</h6>
+                                <h6 class="color-blue-active" @click="goMyPage">{{do_not_trade_message}}</h6>
                             </div>
                             <div v-else-if="can_not_trade ==='noMyPage'">
                                 <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
@@ -88,7 +88,7 @@
                             <avatar useMemberInfo :member="user.ownerMember"/>
                         </v-flex>
                         <v-flex xs10 text-xs-left mb-4>
-                            <h5 class="medium color-blue c-pointer text-white-hover" @click="onNicknameClick">
+                            <h5 class="medium color-blue-active" @click="onNicknameClick">
                                 {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                             </h5>
                             <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -110,7 +110,7 @@
                             <span class="color-darkgray">
                               {{$str("You need to complete the necessary transaction information.")}}
                             </span>
-                            <span class="color-blue c-pointer text-white-hover" @click="onValidClick">{{$str("Set up now.")}}</span>
+                            <span class="color-blue-active" @click="onValidClick">{{$str("Set up now.")}}</span>
                         </v-flex>
                     </v-layout>
                     <v-layout mt-4a>
@@ -130,7 +130,7 @@
                         </v-flex>
                         <v-flex xs8 text-xs-left>
                             <v-layout>
-                                <h5 class="medium color-blue text-white-hover c-pointer" @click="onNicknameClick">
+                                <h5 class="medium color-blue-active" @click="onNicknameClick">
                                     {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                                 </h5>
                                 <a class="tooltip d-inline-block" v-if="user.rank==1">
@@ -273,7 +273,7 @@
                 <v-flex md3 text-md-left>
                     <v-layout align-center>
                         <avatar useMemberInfo :member="user.ownerMember"/>
-                        <span class="ml-3 color-blue text-white-hover ">
+                        <span class="ml-3 color-blue-active">
                           <button @click="onNicknameClick">{{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)</button>
                         </span>
                         <!--판매자 rank-->
@@ -319,7 +319,7 @@
                         </div>
                         <div v-else-if="can_not_trade ==='MyPage'">
                             <h6 class="color-darkgray">{{$str("Need to")}}</h6>
-                            <h6 class="color-blue text-white-hover c-pointer" @click="goMyPage">{{do_not_trade_message}}</h6>
+                            <h6 class="color-blue-active" @click="goMyPage">{{do_not_trade_message}}</h6>
                         </div>
                         <div v-else-if="can_not_trade ==='noMyPage'">
                             <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
@@ -336,7 +336,7 @@
                                 <avatar useMemberInfo :member="user.ownerMember"/>
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 color-blue medium c-pointer text-white-hover" @click="onNicknameClick">
+                  <span class="mr-2 ml-3 medium color-blue-active" @click="onNicknameClick">
                     {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                   </span>
                                     <!--판매자 rank-->
@@ -356,7 +356,7 @@
                             <!--수직, 수평가운데 정렬.-->
                             <v-layout row align-center fill-height justify-end pr-4>
                                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
-                                <h5 class="color-blue c-pointer text-white-hover" @click="onValidClick">
+                                <h5 class="color-blue-active" @click="onValidClick">
                                     {{$str("Set up now.")}}</h5>
                                 <v-divider class="mx-3" inset vertical></v-divider>
                                 <button class="btn-rounded-white text-white-hover"
@@ -377,7 +377,7 @@
 
                             <!-- merchant 정보-->
                             <span>
-                              <span class="mr-2 ml-3 color-blue medium text-white-hover c-pointer" @click="onNicknameClick">
+                              <span class="mr-2 ml-3 medium color-blue-active" @click="onNicknameClick">
                                 {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                               </span>
                                                 <!--판매자 rank-->
@@ -806,9 +806,9 @@
     }
 
     .userInput {
-        border: solid 1px #b2b2b2;
         max-width: 153px;
     }
+
 
     .mobileInput {
         height: 36px;

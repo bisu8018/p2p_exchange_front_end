@@ -12,7 +12,7 @@
         <div class="block-list-item_wrapper">
             <div>
                 <avatar :email="data.email" />
-                <p class="color-blue text-white-hover c-pointer">{{ data.nickName }}</p>
+                <p class="color-blue-active">{{ data.nickName }}</p>
             </div>
             <div>
                 <btn-mypage

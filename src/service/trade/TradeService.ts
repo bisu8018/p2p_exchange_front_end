@@ -4,7 +4,7 @@ import AxiosService from "@/service/AxiosService";
 export default {
     tradeView: {
         tradePage: function (data: any, callback: any) {
-            AxiosService._requestWithUrlPram('ad', 'GET', data ,
+            AxiosService._requestWithUrlPram('trade', 'GET', data ,
                 function (data: any) {
                     callback(data)
                 },

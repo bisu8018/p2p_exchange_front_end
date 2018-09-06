@@ -187,6 +187,7 @@
                     }
                     else {
                         MainRepository.Merchant.postMerchant(() => {
+                            //post 완료되면 바로 화면 update 됨.
                             MainRepository.Merchant.loadMyMerchantInfo(() =>{
                                 Vue.prototype.$eventBus.$emit('showAlert', 2350);
                             });

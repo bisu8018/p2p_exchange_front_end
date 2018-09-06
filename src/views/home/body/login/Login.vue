@@ -37,7 +37,7 @@
                 </form>
                 <!--go to the page 'find password' -->
                 <div class="goForgetPwdWrapper text-xs-left h6 ">
-                    <span @click="goFindPassword" class="color-blue goForgetPwd h5">{{$str("forgetPassword")}}</span>
+                    <span @click="goFindPassword" class="color-blue-active goForgetPwd h5">{{$str("forgetPassword")}}</span>
                 </div>
                 <button class="btn-blue-hover btn-blue" @click='onCheck'>
                     {{$str("loginText")}}

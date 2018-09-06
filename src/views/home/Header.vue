@@ -173,8 +173,8 @@
                             <h3 class="medium">{{$str("Ongoing order")}}</h3>
                             <v-spacer></v-spacer>
                             <v-layout justify-end c-pointer @click="fixModal()">
-                                <div class="color-blue mr-2">{{$str("Fixed")}}</div>
-                                <div class="sprite-img ic-fix color-blue"></div>
+                                <div class="color-blue-active mr-2">{{$str("Fixed")}}</div>
+                                <div class="sprite-img ic-fix color-blue-active"></div>
                             </v-layout>
                         </v-layout>
                         <v-divider></v-divider>
@@ -188,7 +188,7 @@
                             </div>
                         </div>
                         <div v-else>
-                            <div class="sprite-img ic-no-ad-lg no-more-ads">
+                            <div class="sprite-img ic-no-ad-sm no-more-ads">
                             </div>
                             <div class="color-gray no-more-ads-text">
                                 {{$str("No more orders")}}
@@ -196,7 +196,7 @@
                             <v-divider />
                         </div>
                     </div>
-                    <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue text-white-hover my-3 mr-3 c-pointer">
+                    <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue-active my-3 mr-3">
                         {{$str("View All")}}
                     </div>
                 </div>
@@ -567,7 +567,7 @@
         z-index: 2;
         top: 56px;
         right: 18px;
-        max-height: 384px;
+        max-height: 461px;
         overflow: visible;
         position: absolute;
     }

@@ -17,7 +17,7 @@
       </div>
     </div>
     <div v-else>
-      <div class="sprite-img ic-no-ad-lg no-more-ads">
+      <div class="sprite-img ic-no-ad-sm no-more-ads">
       </div>
       <div class="color-gray no-more-ads-text">
         {{$str("No more orders")}}
@@ -25,7 +25,7 @@
 
     </div>
   </div>
-    <div @click="goMyOrder()" class="css-view-all text-white-hover py-3 ">
+    <div @click="goMyOrder()" class="css-view-all text-white-hover py-3 pr-3">
       {{$str("View All")}}
     </div>
   </div>

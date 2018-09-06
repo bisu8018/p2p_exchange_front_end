@@ -32,7 +32,7 @@
           <!-- < 화살표-->
           <i class="material-icons md-24 c-pointer"
              @click="onTokenClicked('left')"
-             v-bind:class="{'color-blue' : isRightClicked}"
+             v-bind:class="{'color-blue-active' : isRightClicked}"
           >keyboard_arrow_left</i>
           <!--token[0] 버튼-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"-->
@@ -42,7 +42,7 @@
           <!-- token[1] 버튼. 활성화된 버튼 -->
           <!--v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"-->
           <button
-                 class="color-blue bold underline"
+                 class="color-blue-active bold underline"
                  @click="onTokenClicked(1,'current')"><h4>{{tokens.center}}</h4>
           </button>
           <!--token[2]-->
@@ -53,7 +53,7 @@
           <!-- > 화살표 -->
           <i class="material-icons md-24 c-pointer"
              @click="onTokenClicked('right')"
-             v-bind:class="{'color-blue' : !isRightClicked}"
+             v-bind:class="{'color-blue-active' : !isRightClicked}"
           >keyboard_arrow_right</i>
         </v-layout>
         <!--필터링된 사항들-->
@@ -125,12 +125,12 @@
                   <!-- < 화살표-->
                   <i class="material-icons md-24 c-pointer"
                      @click="onTokenClicked('left', 'Buy')"
-                     v-bind:class="{'color-blue' : isRightClicked}"
+                     v-bind:class="{'color-blue-active' : isRightClicked}"
                   >keyboard_arrow_left</i>
                   <!--left 버튼-->
                   <button @click="onTokenClicked(0, 'Buy')"><h4>{{tokens.left}}</h4></button>
                   <!-- center 버튼-->
-                  <button v-bind:class="{'color-blue underline bold' : tradeType==='Buy'}"
+                  <button v-bind:class="{'color-blue-active underline bold' : tradeType==='Buy'}"
                           @click="onTokenClicked(1, 'Buy')"><h4>{{tokens.center}}</h4>
                   </button>
                   <!-- right 버튼-->
@@ -138,7 +138,7 @@
                   <!-- > 화살표-->
                   <i class="material-icons md-24 c-pointer"
                      @click="onTokenClicked('right', 'Buy')"
-                     v-bind:class="{'color-blue' : !isRightClicked}"
+                     v-bind:class="{'color-blue-active' : !isRightClicked}"
                   >keyboard_arrow_right</i>
               </v-layout>
           </v-layout>
@@ -161,12 +161,12 @@
               <!-- < 화살표-->
               <i class="material-icons md-24 c-pointer"
                  @click="onTokenClicked('left', 'Sell')"
-                 v-bind:class="{'color-blue' : isRightClicked}"
+                 v-bind:class="{'color-blue-active' : isRightClicked}"
               >keyboard_arrow_left</i>
               <!--left 버튼-->
               <button @click="onTokenClicked(0, 'Sell')"><h4>{{tokens.left}}</h4></button>
               <!-- center 버튼-->
-              <button v-bind:class="{'color-blue underline bold' :  tradeType==='Sell'}"
+              <button v-bind:class="{'color-blue-active underline bold' :  tradeType==='Sell'}"
                       @click="onTokenClicked(1, 'Sell')"><h4>{{tokens.center}}</h4>
               </button>
               <!-- right 버튼-->
@@ -174,7 +174,7 @@
               <!-- > 화살표-->
               <i class="material-icons md-24 c-pointer"
                  @click="onTokenClicked('right', 'Sell')"
-                 v-bind:class="{'color-blue' : !isRightClicked}"
+                 v-bind:class="{'color-blue-active' : !isRightClicked}"
               >keyboard_arrow_right</i>
             </v-layout>
           </v-layout>

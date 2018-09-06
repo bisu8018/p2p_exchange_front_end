@@ -446,6 +446,15 @@
         color: #214EA1;
     }
 
+    .color-blue-active {
+        color: #214EA1;
+        cursor: pointer;
+    }
+    .color-blue-active:hover {
+        color: #316ee4 !important;
+
+    }
+
     .color-pointblue {
         color: #316EE4;
     }
@@ -753,6 +762,10 @@
     }
 
     /*버튼 호버 CSS 설정*/
+    .btn-rounded-blue:hover {
+        background-color: #316ee4 !important;
+        color: white !important;
+    }
 
     .btn-blue-hover:hover {
         background-color: #316ee4 !important;

@@ -14,7 +14,7 @@ export default {
             })
     },
     postAD: function (data: any, callback: any, failure: any) {
-        AxiosService._requestWithBodyAndEmail('ad', 'POST', data,
+        AxiosService._requestWithBodyAndEmail('trade', 'POST', data,
             function (data: any) {
                 callback(data)
             },
@@ -23,7 +23,7 @@ export default {
             })
     },
     editAD: function (data: any, callback: any, failure: any) {
-        AxiosService._requestWithBodyAndEmail('ad', 'PUT', data,
+        AxiosService._requestWithBodyAndEmail('trade', 'PUT', data,
             function (data: any) {
                 callback(data)
             },
@@ -32,7 +32,7 @@ export default {
             })
     },
     deleteAD: function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('ad/delete', 'PUT', data,
+        AxiosService._requestWithUrlPram('trade/delete', 'PUT', data,
             function (data: any) {
                 callback(data)
             },
@@ -40,7 +40,7 @@ export default {
             })
     },
     disableAD: function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('ad/disable', 'PUT', data,
+        AxiosService._requestWithUrlPram('trade/disable', 'PUT', data,
             function (data: any) {
                 callback(data)
             },
@@ -48,7 +48,7 @@ export default {
             })
     },
     enableAD: function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('ad/enable', 'PUT', data,
+        AxiosService._requestWithUrlPram('trade/enable', 'PUT', data,
             function (data: any) {
                 callback(data)
             },
@@ -56,7 +56,7 @@ export default {
             })
     },
     getMyAds: function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('ad/my', 'GET', data,
+        AxiosService._requestWithUrlPram('trade/my', 'GET', data,
             function (data: any) {
                 callback(data)
             },
@@ -64,7 +64,7 @@ export default {
             })
     },
     getAd: function (data: any, callback: any) {
-        let url = 'ad/' + data;
+        let url = 'trade/' + data;
         AxiosService._requestWithBodyAndEmail(url, 'GET', '',
             function (data: any) {
                 callback(data)
@@ -83,7 +83,7 @@ export default {
     },
     // 다른 유저가 올린 AdsList get
     getUserPageAdsList: function (data: any, callback: any) {
-        AxiosService._requestWithUrlPram('ad/member', 'GET', data,
+        AxiosService._requestWithUrlPram('trade/member', 'GET', data,
             function (data: any) {
                 callback(data);
             },

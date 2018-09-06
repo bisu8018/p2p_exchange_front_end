@@ -1,6 +1,8 @@
 <template>
     <div>
-        <v-pagination v-model="currentPage" :length="pages" :total-visible="6"
+        <v-pagination v-model="currentPage"
+                      :color="'TextBlue'"
+                      :length="pages" :total-visible="6"
                       v-on:input="onChanged"></v-pagination>
     </div>
 </template>

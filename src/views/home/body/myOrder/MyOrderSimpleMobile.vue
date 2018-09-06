@@ -19,7 +19,7 @@
             </div>
             <v-divider />
         </div>
-        <div @click="goMyOrder()" class="ta-right color-blue text-white-hover my-3 c-pointer">
+        <div @click="goMyOrder()" class="ta-right color-blue-active my-3 c-pointer">
             {{$str("View All")}}
         </div>
     </div>
