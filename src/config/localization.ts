@@ -3332,6 +3332,36 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['verify_warning_realName', {
+        KOR: '실명을 입력해 주십시오.',
+        ENG: 'Please enter your real name.',
+        CN: '',
+        HK: ''
+    }],
+    ['verify_warning_IdNum', {
+        KOR: '식별 번호를 입력해 주십시오.',
+        ENG: 'Please enter your ID Number.',
+        CN: '',
+        HK: ''
+    }],
+    ['verify_warning_firstName', {
+        KOR: '이름을 입력해 주십시오.',
+        ENG: 'Please enter your first name.',
+        CN: '',
+        HK: ''
+    }],
+    ['verify_warning_lastName', {
+        KOR: '성을 입력해 주십시오.',
+        ENG: 'Please enter your last name.',
+        CN: '',
+        HK: ''
+    }],
+    ['verify_warning_file', {
+        KOR: '이미지를 업로드해 주십시오.',
+        ENG: 'Please upload your ID Photo.',
+        CN: '',
+        HK: ''
+    }],
     ['warn_need_Merchant_verification', {
         KOR: '판매자 인증이 필요합니다.',
         ENG: 'Merchant verification is required.',
