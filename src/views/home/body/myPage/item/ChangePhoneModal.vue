@@ -24,7 +24,7 @@
                     {{$str("emailVerification")}}
                 </div>
                 <verification-code v-on:verify="onCheckVerificationCode" :email="getEmail"
-                                   :type="'email'"></verification-code>
+                                   :type="'emailPhoneChange'"></verification-code>
             </div>
 
 

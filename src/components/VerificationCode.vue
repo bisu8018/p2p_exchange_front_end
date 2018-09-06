@@ -84,7 +84,7 @@ this.verify = true;
             },
             // 시간 타이머 설정
             getTimer() {
-                var start = setInterval(() => {
+                let start = setInterval(() => {
                     if (this.setTime > 0) {
                         this.setTime--;
                         if(this.verifyStatus === 'verified'){
@@ -115,11 +115,11 @@ this.verify = true;
             },
             // 인증 코드 전송
             sendVerificationCode() {
-                if(this.onCheckEmail() || this.onCheckPhone()){
+                if(this.onCheckValue()){
                     let self = this;
                     let email = this.email;
 
-                    if (this.type === 'phone') {
+                    if (this.type === 'phone' || this.type === 'phoneChange' ) {
                         email = MainRepository.MyInfo.getUserInfo().email;
                     }
                     MainRepository.Service.Account().Account.sendVerificationCode(self.type, {
@@ -136,40 +136,43 @@ this.verify = true;
             checkVerificationCode() {
                 let self = this;
                 let email = self.email;
+                let isForValidation = false;
+                let isForUpdate = false;
 
                 this.tmpCode = this.verificationCode;
 
-                if (self.type === 'phone') {
+                if (self.type === 'phone' || self.type === 'phoneChange') {
                     email = MainRepository.MyInfo.getUserInfo().email;
+                }
+
+                if (self.type === 'phoneChange') {
+                    isForValidation = true;
+                    isForUpdate = false;
                 }
 
                 MainRepository.Service.Account().Account.checkVerificationCode(self.type, {
                     email: email,
                     code: self.verificationCode,
                     phoneNumber: self.phone,
-                    status: 'requested'
+                    status: 'requested',
+                    isForValidation: isForValidation,
+                    isForUpdate: isForUpdate,
                 }, function (result) {
                     Vue.prototype.$eventBus.$emit('showAlert', 2003);
                     self.verifyStatus = 'verified';
                     self.$emit('verify', self.verificationCode);
                 })
             },
-            // 이메일 체크
-            onCheckEmail() {
-                //email null
-                if (this.email === "" || !abUtils.isEmail(this.email)) {
+            onCheckValue() {
+                if ((this.email === "" || !abUtils.isEmail(this.email)) && this.type === 'email') {
+                    Vue.prototype.$eventBus.$emit('showAlert', 4009);
+                    return false;
+                }else if(this.phone === '' && this.type === 'phone'){
+                    Vue.prototype.$eventBus.$emit('showAlert', 4008);
                     return false;
                 }
                 return true;
             },
-            //전화 번호 체크
-            // 문자전송은 유로이므로, 미리 체크 할 수 있도록 추가 필요
-            onCheckPhone() {
-                // if(!abUtils.isPhone(this.phone)){
-                //     return false;
-                // }
-                return true;
-            }
         }
     });
 </script>

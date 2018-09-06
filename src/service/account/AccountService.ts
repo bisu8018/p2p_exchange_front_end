@@ -27,7 +27,7 @@ export default {
             } else if (type === 'email') {     //이메일 인증코드
                 url = 'memberVerification/email';
                 _type = 'PUT';
-            } else if (type === 'phone') {     //휴대전화 인증코드
+            } else if (type === 'phone' || type === 'phoneChange') {     //휴대전화 인증코드
                 url = 'memberVerification/sms';
                 _type = 'PUT';
             } else if (type === 'depositSMS') {     //출금시 SMS 인증코드
@@ -38,6 +38,9 @@ export default {
                 _type = 'POST';
             } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePassword';
+                _type = 'POST';
+            } else if (type === 'emailPhoneChange') {    //거래 비밀번호 인증코드
+                url = 'changePhoneNumber/email';
                 _type = 'POST';
             }
             AxiosService._requestWithUrlPram(url, _type, data,
@@ -62,7 +65,12 @@ export default {
                 url = 'deposit/email'
             } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePasswordVerification';
+            } else if (type === 'phoneChange') {     //휴대전화 인증코드
+                url = 'memberVerification/sms/status'
+            } else if (type === 'emailPhoneChange') {    //거래 비밀번호 인증코드
+                url = 'changePhoneNumberVerification/email';
             }
+
             AxiosService._requestWithUrlPram(url, 'PUT', data,
                 function (data: any) {
                     callback(data);

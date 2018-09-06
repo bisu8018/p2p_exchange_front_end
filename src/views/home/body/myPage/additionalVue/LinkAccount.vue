@@ -106,7 +106,7 @@
                     email: MainRepository.MyInfo.getUserInfo().email,
                     phoneNumber: self.code_number + self.phone_number,
                     code: self.verificationCode,
-                    status: 'turn_on'
+                    status: 'turn_on',
                 }, (result) => {
                     this.verifyStatus = 'verified';
                     this.goMyPage();

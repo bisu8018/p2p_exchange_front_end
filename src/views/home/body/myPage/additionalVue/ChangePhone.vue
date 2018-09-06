@@ -26,8 +26,8 @@
                     <div class=" color-black  mb-2 text-xs-left">
                         {{$str("SMSverification")}}
                     </div>
-                    <verification-code v-on:verify="onCheckVerificationCode" :phone="code_number + getPhoneNumber"
-                                       :type="'phone'"></verification-code>
+                    <verification-code v-on:verify="onCheckVerificationCode" :phone="getPhoneNumber ? code_number + getPhoneNumber : ''"
+                                       :type="'phoneChange'"></verification-code>
                 </div>
 
 
@@ -52,6 +52,7 @@
     import VerificationCode from '@/components/VerificationCode.vue';
     import ChangePhoneModal from '../item/ChangePhoneModal.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
+    import Vue from 'vue';
 
     export default {
         name: 'changePhone',
@@ -69,10 +70,14 @@
         computed: {
             getPhoneNumber() {
                 let numLength = this.newPhoneNumber.length;
-                if (this.newPhoneNumber.substr(0, 1) == 0) {
-                    return this.newPhoneNumber.substr(1, numLength - 1);
-                } else {
-                    return this.newPhoneNumber;
+                if(this.newPhoneNumber === ''){
+                    return false;
+                }else{
+                    if (this.newPhoneNumber.substr(0, 1) == 0) {
+                        return this.newPhoneNumber.substr(1, numLength - 1);
+                    } else {
+                        return this.newPhoneNumber;
+                    }
                 }
             },
         },
@@ -113,20 +118,22 @@
             },
             onConfirm() {
                 this.emailVerify = true;
+                let self = this;
 
                 //전화번호 변경 AXIOS
                 MainRepository.Service.Account().Account.checkVerificationCode('phone', {
-                    email: email,
+                    email: MainRepository.MyInfo.getUserInfo().email,
                     code: self.verificationCode,
                     phoneNumber: self.newPhoneNumber,
-                    status: 'turn_on'
+                    status: 'turn_on',
+                    isForValidation: false,
+                    isForUpdate: true,
                 }, (result) => {
                     Vue.prototype.$eventBus.$emit('showAlert', 2251);
                     MainRepository.router().goMyPage();
                 }, () => {
                     return false;
                 })
-
             }
         }
     }

@@ -45,7 +45,7 @@
             </li>
 
             <!-- 버튼, 토글 등 -->
-            <li class="btn-wrapper">
+            <li class="btn-wrapper" @click="onIdVerification">
 
                 <!-- 인증이 진행 중일 때 -->
                 <span v-if="idVerification.status === 'registered'">
@@ -71,27 +71,27 @@
         </ul>
 
         <!-- 2. Advanced Verification -->
-        <ul class="otherInfo-body">
+      <!--  <ul class="otherInfo-body">
 
-            <!-- 아이콘, 서브타이틀 -->
+            &lt;!&ndash; 아이콘, 서브타이틀 &ndash;&gt;
             <li class="otherInfo-subtitle">
                 <div class="sprite-img ic-advanced"></div> <p>{{ $str('advancedVerification') }}</p>
             </li>
 
-            <!-- 내용 -->
+            &lt;!&ndash; 내용 &ndash;&gt;
             <li class="caption-wrapper">
-                <!-- Advanced Verification 되었을 때 -->
+                &lt;!&ndash; Advanced Verification 되었을 때 &ndash;&gt;
                 <span class="color-darkgray"> {{ $str('unverified') }} </span>
             </li>
 
-            <!-- 버튼, 토글 등 -->
+            &lt;!&ndash; 버튼, 토글 등 &ndash;&gt;
             <li class="btn-wrapper">
                 <btn-mypage
                     :txt="$str('verify')"
                     @click="onAdvancedVerification"
                 />
             </li>
-        </ul>
+        </ul>-->
     </div>
 </template>
 

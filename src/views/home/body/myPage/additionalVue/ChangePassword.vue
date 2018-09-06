@@ -14,9 +14,9 @@
                 <div class="p-relative mb-4">
                     <input type="password" class="input" v-model="old_password"
                            @keyup="onCheckOldPassword"
-                           v-bind:class="{'warning-border' : warning_old_password}">
+                           :class="{'warning-border' : warning_old_password}">
                     <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_old_password}">{{$str('passwordValue')}}</span>
+                        <span class="d-none" :class="{'warning-text' : warning_old_password}">{{$str('passwordValue')}}</span>
                     </div>
                 </div>
 
@@ -24,14 +24,14 @@
                 <div class="p-relative mb-4">
                     <input v-model="new_password" type="password" class="input"
                            @keyup="onCheckNewPassword"
-                           v-bind:class="{'warning-border' : warning_new_password_border}">
+                           :class="{'warning-border' : warning_new_password_border}">
                     <div class="warning-text-wrapper">
                            <span class="d-none"
-                                 v-bind:class="{'warning-text' : warning_new_password}">{{$str('passwordValue')}}</span>
+                                 :class="{'warning-text' : warning_new_password}">{{$str('passwordValue')}}</span>
                         <span class="d-none"
-                              v-bind:class="{'warning-text' : warning_new_password_char_first,'warning-characters' : warning_new_password_char_second}">{{$str('warningPasswordCharacters')}}</span>
+                              :class="{'warning-text' : warning_new_password_char_first,'warning-characters' : warning_new_password_char_second}">{{$str('warningPasswordCharacters')}}</span>
                         <span class="d-none"
-                              v-bind:class="{'warning-text' : warning_new_password_num_first,'warning-characters' : warning_new_password_num_second}">/ {{$str('passwordForm')}}</span>
+                              :class="{'warning-text' : warning_new_password_num_first,'warning-characters' : warning_new_password_num_second}">/ {{$str('passwordForm')}}</span>
                     </div>
                 </div>
 
@@ -39,9 +39,9 @@
                 <div class="p-relative mb-4">
                     <input v-model="confirm_password" type="password" class="input"
                            @keyup="onCheckPasswordConfirm"
-                           v-bind:class="{'warning-border' : warning_confirm_password}">
+                           :class="{'warning-border' : warning_confirm_password}">
                     <div class="warning-text-wrapper">
-                        <span class="d-none" v-bind:class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
+                        <span class="d-none" :class="{'warning-text' : warning_confirm_password}">{{$str('passwordMatch')}}</span>
                     </div>
                 </div>
                 <div class="text-xs-right">

@@ -2457,35 +2457,41 @@ const strings = new Map([
         CN: '立刻申请',
         HK: '立刻申請'
     }],
-    ['First Name', {
+    ['firstName', {
         KOR: '이름',
         ENG: 'First Name',
         CN: '名字',
         HK: '名字'
     }],
-    ['Last Name', {
+    ['lastName', {
         KOR: '성',
         ENG: 'Last Name',
         CN: '姓',
         HK: '姓'
     }],
-    ['Identification Number', {
+    ['identificationNumber', {
         KOR: '식별 번호',
         ENG: 'Identification Number',
         CN: '身份证号码',
         HK: '身份證號碼'
     }],
-    ['e.g. Passport, ID or Driver\'s License', {
+    ['identificationNumberExplain', {
         KOR: '예 : 여권, 신분증 또는 운전 면허증',
         ENG: 'e.g. Passport, ID or Driver\'s License',
         CN: '例如：护照、身份证或驾驶执照',
         HK: '例如：護照、身份證或駕駛執照 '
     }],
-    ['Upload photo of identification', {
+    ['identificationUpload', {
         KOR: '신분증 사진 업로드',
         ENG: 'Upload photo of identification',
         CN: '上传身份证照片',
         HK: '上傳身份證照片'
+    }],
+    ['photoIdentification', {
+        KOR: '신분증 사진',
+        ENG: 'Photo of Identification',
+        CN: '身份证照片',
+        HK: '身份證照片'
     }],
     ['Your application is under review', {
         KOR: '신청서를 검토 중입니다.',
@@ -2554,20 +2560,6 @@ const strings = new Map([
         CN: '您的商家申请成功了。您可以在埃尔比场外交易所发广告！',
         HK: '您的商家申請成功了。您可以在埃爾比場外交易所發廣告！'
     }],
-
-    ['Photo of Identification', {
-        KOR: '신분증 사진',
-        ENG: 'Photo of Identification',
-        CN: '身份证照片',
-        HK: '身份證照片'
-    }],
-    ['Upload photo of identification', {
-        KOR: '신분증 사진 업로드',
-        ENG: 'Upload photo of identification',
-        CN: '上传身份证照片',
-        HK: '上傳身份證照片'
-    }],
-
     //404 페이지
     ['pageNotFound', {
         KOR: '요청하신 페이지를 찾을 수 없습니다. 나중에 다시 시도해 주십시오.',
@@ -3322,9 +3314,15 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_verification_no_phone_data', {
+        KOR: '전화번호를 입력해 주십시오.',
+        ENG: 'Enter your phone number.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_verification_code_no_email_data', {
+        KOR: '이메일을 입력해 주십시오.',
+        ENG: 'Enter your email.',
         CN: '',
         HK: ''
     }],
