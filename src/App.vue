@@ -13,7 +13,6 @@
     } from "./common/common";
 
     import Home from './views/home/Home.vue'
-    import MainRepository from './vuex/MainRepository.ts'
 
     export default Vue.extend({
         name: "app",
@@ -24,28 +23,6 @@
             setEventBus(this.$eventBus);
             setRouter(this.$router);
         },
-        mounted() {
-            this.$nextTick(function() {
-                window.addEventListener('resize', this.getWindowWidth);
-                this.getWindowWidth()
-            })
-        },
-        methods: {
-            getWindowWidth() {
-                // 모바일 버전으로 전환됨
-                if (document.documentElement.clientWidth < 960) {
-                    if (!this.isMobileMode) {
-                        this.isMobileMode = true;
-                        MainRepository.State.controller().setMobile(true);
-                    }
-                } else { // PC 버전으로 전환됨
-                    if (this.isMobileMode) {
-                        this.isMobileMode = false;
-                        MainRepository.State.controller().setMobile(false);
-                    }
-                }
-            },
-        }
     });
 </script>
 
