@@ -14,7 +14,7 @@
               <!---->
               <span>{{ toMoneyFormat($fixed(EstimatedCryptocurrencyValue, 'bitcoin')) }} BTC </span>
               <span >≈ {{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</span>
-              <span class="ml-4 p-relative color-blue">
+              <span class="ml-4 p-relative color-blue-active">
                 <span>{{ selectedCurrency}}</span>
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
                 <div class="dropdown-content" v-if="isdropdown">
