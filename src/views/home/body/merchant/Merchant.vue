@@ -187,8 +187,10 @@
                     }
                     else {
                         MainRepository.Merchant.postMerchant(() => {
-                            MainRepository.Merchant.loadMyMerchantInfo();
-                            Vue.prototype.$eventBus.$emit('showAlert', 2101);
+                            MainRepository.Merchant.loadMyMerchantInfo(() =>{
+                                Vue.prototype.$eventBus.$emit('showAlert', 2350);
+                            });
+
                         });
                     }
                 }

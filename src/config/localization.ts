@@ -3368,9 +3368,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['comp_apply_merchant', {
+        KOR: '판매자 신청이 완료되었습니다.',
+        ENG: 'Merchant application',
         CN: '',
         HK: ''
     }],
