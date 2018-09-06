@@ -1132,18 +1132,17 @@
         line-height: 1.2;
     }
 
-    .common-textarea {
-        height: 90px;
-        width: 100%;
-        padding: 8px;
-        resize: none;
-    }
+
 
     .price-input-wrapper {
         border: solid 1px #8d8d8d;
         border-radius: 2px;
         display: flex;
         position: relative;
+    }
+
+    .price-input-wrapper:hover, .price-input-wrapper:focus {
+        border: solid 1px #316ee4;
     }
 
     .price-input {

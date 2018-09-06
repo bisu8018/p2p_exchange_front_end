@@ -124,10 +124,12 @@
                 <!-- QR Code -->
                 <div v-if="type !== 'bank' && type !== 'bankaccount'">
                     <h5 class="mb-2">{{ $str("qrCode") }}</h5>
+
                     <div class="mb-4">
                         <label class="">
-                            <div class="textarea-style p-relative"
-                                 :class="{'warning-border' : warning_attachment_file}">
+                            <div class="textarea-style p-relative" :class="{'warning-border' : warning_attachment_file}">
+
+                                <!--사진 없을 경우-->
                                 <div v-if="image === ''" class="ma-4a">
                                     <input type="file" id="file" ref="file"
                                            v-on:change="onCheck('attachmentFile')"
@@ -140,6 +142,8 @@
                                         $str('alipayQrCodeExplain') }} (*.jpg / *.png / *.jpeg)
                                     </div>
                                 </div>
+
+                                <!--사진 있을 경우-->
                                 <div v-else class="text-xs-center p-relative">
                                     <img :src="image" class="attachment-img-style">
                                     <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
@@ -148,6 +152,8 @@
                                     <i class="material-icons">close</i>
                                 </span>
                                 </div>
+
+                                <!--용량 초과 경고 문구-->
                                 <div class="warning-text-wrapper warning-textArea-wrapper">
                                 <span class="d-none"
                                       :class="{'warning-text' : warning_attachment_file}">{{ verify_warning_attachment_file }}</span>

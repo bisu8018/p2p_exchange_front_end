@@ -10,15 +10,15 @@
             <h5 class="color-darkgray mt-3 mb-4">{{ $str('nickNameExplain') }}</h5>
 
 
-            <!---------------------- 국가 선택 Select ---------------------->
+            <!---------------------- 국가 ---------------------->
             <h5 class="mb-2">{{ $str("nationality") }}</h5>
             <div class="p-relative mb-4">
-                <input name="Last" :value="$str(getNation)" type="text" class="input-disabled">
+                <input name="Last" :value="$str(getNation)" type="text" class="input-disabled" disabled>
             </div>
 
 
             <!----------------------중국 국적일 경우--------------------->
-            <div v-if="getNation === 'CN'">
+            <div v-if="getNationCode === 'CN'">
 
                 <!-- 실명 -->
                 <h5 class="mb-2">{{ $str("realName") }}</h5>
@@ -32,6 +32,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!----------------------중국 외 국적일 경우---------------------->
             <div v-else>
@@ -68,7 +69,7 @@
 
 
                 <!--중국 국적 아닐 경우 설명 추가-->
-                <span class="h6" v-if="getNation !== 'CN'">
+                <span class="h6" v-if="getNationCode !== 'CN'">
                     ({{ $str("identificationNumberExplain")}})
                 </span>
             </h5>
@@ -82,26 +83,29 @@
             </div>
 
 
-
             <!---------------------- 여권, ID 사진 업로드 ---------------------->
             <!---------------------- (중국 외 국적일 경우) ---------------------->
-            <div  v-if="getNation !== 'CN'">
+            <div v-if="getNationCode !== 'CN'">
                 <h5 class="mb-2">{{ $str("photoIdentification") }}</h5>
+
                 <div class="mb-4">
                     <label class="">
-                        <div class="textarea-style p-relative"
-                             :class="{'warning-border' : warning_attachment_file}">
+                        <div class="textarea-style p-relative" :class="{'warning-border' : warning_attachment_file}">
+
+                            <!--사진 없을 경우-->
                             <div v-if="image === ''" class="ma-4a c-pointer">
                                 <input type="file" id="file" ref="file"
                                        v-on:change="onCheck('file')"
                                        class="d-none"/>
-                                <div class="d-inline-block mt-2 mb-1">
+                                <div class="d-inline-block mt-3 mb-1">
                                     <div class="sprite-img ic-upload"></div>
                                 </div>
                                 <div class="color-darkgray h6">
                                     {{ $str('identificationUpload') }}
                                 </div>
                             </div>
+
+                            <!--사진 있을 경우-->
                             <div v-else class="text-xs-center p-relative">
                                 <img :src="image" class="attachment-img-style">
                                 <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
@@ -110,6 +114,8 @@
                                     <i class="material-icons">close</i>
                                 </span>
                             </div>
+
+                            <!--용량 초과 경고 문구-->
                             <div class="warning-text-wrapper warning-textArea-wrapper">
                                 <span class="d-none"
                                       :class="{'warning-text' : warning_attachment_file}">{{ verify_warning_attachment_file }}</span>
@@ -118,7 +124,6 @@
                     </label>
                 </div>
             </div>
-
 
 
             <!---------------------- footer, 버튼 영역 ---------------------->
@@ -173,56 +178,59 @@
         computed: {
             getNation() {
                 return findCountryName(MainRepository.MyInfo.getUserInfo().nationality);
+            },
+            getNationCode() {
+                return MainRepository.MyInfo.getUserInfo().nationality;
             }
         },
         methods: {
             onCheck(type) {
-              switch (type) {
-                  case 'real' :
-                      if (!this.idVerification.realName) {
-                          this.warning_name = true;
-                          return false;
-                      }
-                      this.warning_name = false;
-                      return true;
+                switch (type) {
+                    case 'real' :
+                        if (!this.idVerification.realName) {
+                            this.warning_name = true;
+                            return false;
+                        }
+                        this.warning_name = false;
+                        return true;
 
-                  case 'firse' :
-                      if (this.firstName === '') {
-                          this.warning_firstName = true;
-                          return false;
-                      }
-                      this.warning_firstName = false;
-                      return true;
+                    case 'first' :
+                        if (this.firstName === '') {
+                            this.warning_firstName = true;
+                            return false;
+                        }
+                        this.warning_firstName = false;
+                        return true;
 
-                  case 'last' :
-                      if (this.lastName === '') {
-                          this.warning_lastName = true;
-                          return false;
-                      }
-                      this.warning_lastName = false;
-                      return true;
+                    case 'last' :
+                        if (this.lastName === '') {
+                            this.warning_lastName = true;
+                            return false;
+                        }
+                        this.warning_lastName = false;
+                        return true;
 
-                  case 'idNum' :
-                      if (!this.idVerification.idNumber) {
-                          this.warning_IdNum = true;
-                          return false;
-                      }
-                      this.warning_IdNum = false;
-                      return true;
+                    case 'idNum' :
+                        if (!this.idVerification.idNumber) {
+                            this.warning_IdNum = true;
+                            return false;
+                        }
+                        this.warning_IdNum = false;
+                        return true;
 
-                  case 'file' :
-                      let fileInfo = this.$refs.file.files[0];
-                      let fileSize = fileInfo.size;
-                      if (fileSize > 5e+6) {
-                          this.warning_attachment_file = true;
-                          this.verify_warning_attachment_file = this.$str('warningAttachmentFileSize');
-                          return false;
-                      }
-                      this.warning_attachment_file = false;
-                      this.handleFileUpload(fileInfo);
+                    case 'file' :
+                        let fileInfo = this.$refs.file.files[0];
+                        let fileSize = fileInfo.size;
+                        if (fileSize > 5e+6) {
+                            this.warning_attachment_file = true;
+                            this.verify_warning_attachment_file = this.$str('warningAttachmentFileSize');
+                            return false;
+                        }
+                        this.warning_attachment_file = false;
+                        this.handleFileUpload(fileInfo);
 
-                      break;
-              }
+                        break;
+                }
             },
 
             onClose(item) {
@@ -231,8 +239,23 @@
             },
             onDone() {
                 let self = this;
-                MainRepository.MyPage.postIdVerification(MainRepository.MyInfo.getUserInfo().email, self.idVerification, function (data) {
-                });
+
+                // 중국 국적일때
+                if(this.getNationCode === 'CN'){
+                    if(this.onCheck('real') && this.onCheck('idNum')){
+                        MainRepository.MyPage.postIdVerification(
+                            MainRepository.MyInfo.getUserInfo().email,
+                            self.idVerification
+                            , (data) => {
+                            });
+                    }
+                }
+                // 중국 외 국적 일때
+                else{
+
+                }
+
+
                 this.$emit('done');
                 this.onClose();
                 this.onClear();
@@ -243,7 +266,7 @@
                 this.verify_warning_IdNum = "";
                 this.verify_warning_firstName = "";
                 this.verify_warning_lastName = "";
-                this. verify_warning_attachment_file = "";
+                this.verify_warning_attachment_file = "";
                 this.warning_realName = false;
                 this.warning_IdNum = false;
                 this.warning_firstName = false;

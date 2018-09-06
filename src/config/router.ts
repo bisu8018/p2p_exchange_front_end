@@ -26,6 +26,7 @@ import ChangePhone from '../views/home/body/myPage/additionalVue/ChangePhone.vue
 import TurnOff from '../views/home/body/myPage/additionalVue/TurnOff.vue'
 import LinkAccount from '../views/home/body/myPage/additionalVue/LinkAccount.vue'
 import RestTradePassword from '../views/home/body/myPage/additionalVue/ResetTradePassword.vue'
+import Message from '../components/Message.vue'
 
 
 Vue.use(Router);
@@ -156,6 +157,11 @@ export default new Router({
             path: '/successWithdraw',
             name: 'successWithdraw',
             component: SuccessWithdraw,
+        },
+        {
+            path: '/message',
+            name: 'message',
+            component: Message,
         },
         {
             path: '*',

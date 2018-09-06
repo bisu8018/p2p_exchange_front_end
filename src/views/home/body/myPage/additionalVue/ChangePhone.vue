@@ -123,7 +123,7 @@
                 //전화번호 변경 AXIOS
                 MainRepository.Service.Account().Account.checkVerificationCode('phone', {
                     email: MainRepository.MyInfo.getUserInfo().email,
-                    code: self.verificationCode,
+                    code: self.code_number + self.verificationCode,
                     phoneNumber: self.newPhoneNumber,
                     status: 'turn_on',
                     isForValidation: false,

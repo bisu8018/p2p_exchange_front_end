@@ -774,6 +774,11 @@
         border: solid 1px #8d8d8d;
         padding-left: 12px;
         cursor: pointer;
+        outline: none;
+    }
+
+    .comp-selectbox:hover,  .comp-selectbox:focus {
+        border: solid 1px #316ee4;
     }
 
     .comp-selectbox-icon {
@@ -804,6 +809,10 @@
         outline: none;
     }
 
+    .input:hover, .input:focus {
+        border: solid 1px #316ee4;
+    }
+
     .input-disabled {
         height: 40px;
         border-radius: 2px;
@@ -815,6 +824,7 @@
         font-size: 12px;
         color: #8d8d8d;
         outline: none;
+        pointer-events: none;
     }
 
     .input-disabled2 {
@@ -831,6 +841,17 @@
         pointer-events: none;
     }
 
+    .common-textarea {
+        height: 90px;
+        width: 100%;
+        padding: 8px;
+        resize: none;
+        outline: none;
+    }
+
+    .common-textarea:hover, .common-textarea:focus {
+        border: #316ee4;
+    }
 
     /*인증코드 전달 버튼*/
     /*

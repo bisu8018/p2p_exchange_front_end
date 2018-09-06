@@ -162,4 +162,11 @@ export default class RouterController {
             r.push("/myAds");
         });
     }
+
+    goBalance(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/balances");
+        });
+    }
 }

@@ -3,7 +3,7 @@
 <!--span은 toggle 내 click 이벤트 미동작으로 이용-->
 
 <template>
-  <div class="toggle-wrapper" v-bind:class="{'toggle-turn-on' : toggle}" @click="onToggle">
+  <div class="toggle-wrapper" v-bind:class="{'toggle-turn-on' : toggle, 'toggle-turn-off' : !toggle}" @click="onToggle">
       <div class="circle-button"></div>
   </div>
 </template>
@@ -41,9 +41,25 @@
     }
 
     .toggle-turn-on {
+        animation: turn-on  0.1s ease-out;
         background: #316ee4;
         padding-left: 25px;
     }
+    @keyframes turn-on {
+        0% {background: #c8c8c8; padding-left: 3px;}
+        100% {background: #316ee4; padding-left: 25px;}
+    }
+    .toggle-turn-off {
+        animation: turn-off  0.1s ease-in;
+        background: #c8c8c8;
+        padding-left: 3px;
+    }
+    @keyframes turn-off {
+        0% {background: #316ee4; padding-left: 25px;}
+        100% {background: #c8c8c8; padding-left: 3px;}
+    }
+
+
 
 
 
