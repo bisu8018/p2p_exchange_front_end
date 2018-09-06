@@ -37,7 +37,7 @@
         <v-layout mb-3>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>{{ $str('price') }} :</v-flex>
-          <v-flex xs6 text-xs-right bold color-orange-price> {{toMoneyFormat(user.tradePrice)}} {{user.currency}} </v-flex>
+          <v-flex xs6 text-xs-right bold color-orange-price> {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -151,7 +151,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5 class=" bold color-orange-price">{{toMoneyFormat(user.tradePrice)}} {{user.currency}}</h5>
+            <h5 class=" bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- payment methods -->
@@ -253,7 +253,7 @@
         <!--limits-->
         <v-flex md2 text-md-left >{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
         <!--price-->
-        <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat(user.tradePrice)}} {{user.currency}} </v-flex>
+        <v-flex md2 text-md-left color-orange-price bold>{{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}} </v-flex>
         <!-- payment method-->
         <v-flex md3 text-md-right>
           <v-layout align-center >
@@ -337,7 +337,7 @@
           <!--둘째줄-->
           <v-flex md2 text-md-left>
             <div class="bold color-orange-price">
-              {{toMoneyFormat(user.tradePrice)}} {{user.currency}}
+              {{toMoneyFormat($fixed(user.tradePrice,user.currency))}} {{user.currency}}
             </div>
             <div class="medium">
               {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}
@@ -697,7 +697,7 @@
                 this.showNickNameModal = false;
             },
             toMoneyFormat(value) {
-                return abUtils.toMoneyFormat(String(this.$fixed(value, this.user.currency)));
+                return abUtils.toMoneyFormat(String(value));
             },
             goMyPage(){
                 MainRepository.router().goMyPage();
