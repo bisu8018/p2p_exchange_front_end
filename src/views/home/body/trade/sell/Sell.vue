@@ -438,6 +438,8 @@
                     this.onClose();
                     this.currentOrder();
                     Vue.prototype.$eventBus.$emit('showAlert', 2150);
+                }, () => {
+                    return false;
                 });
             },
             //appeal 한 후
@@ -450,6 +452,8 @@
                         self.getOrderStatus();
                         self.onClose();
                         Vue.prototype.$eventBus.$emit('showAlert', 2153);
+                    }, () => {
+                        return false;
                     });
             },
             //이의 제기 취소
@@ -465,6 +469,8 @@
                     }, function () {
                         self.getOrderStatus();
                         Vue.prototype.$eventBus.$emit('showAlert', 2154);
+                    }, () => {
+                        return false;
                     })
                 }
             },

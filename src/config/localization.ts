@@ -3362,8 +3362,8 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
+    ['warn_file_size', {
+        KOR: '이미지 크기 초과하였습니다.',
         ENG: '',
         CN: '',
         HK: ''

@@ -132,7 +132,7 @@
 
                 <!--파일첨부-->
                 <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
-                       class="d-none" accept="image/*"/></label>
+                       class="d-none" accept="image/*" capture="camera"/></label>
             </div>
         </div>
     </div>
@@ -250,7 +250,7 @@
                 if (fileSize > 2000000) {
                     // 용량 alert
 
-                    this.$eventBus.$emit('showAlert', 4102);
+                    this.$eventBus.$emit('showAlert', 4012);
                     document.getElementById("file").value = "";
                     return false;
                 }
