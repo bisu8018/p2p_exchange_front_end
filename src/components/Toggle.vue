@@ -13,7 +13,7 @@
         name: "toggle",
         props :['toggle'],
         created () {
-          console.log(this.toggle);
+            //console.log(this.toggle);
         },
         methods: {
             onToggle(item) {

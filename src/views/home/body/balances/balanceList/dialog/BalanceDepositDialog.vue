@@ -79,7 +79,6 @@
             },
         },
         data: () => ({
-            confirm : false,
             qrCodeImgUrl: '',
             show: false,
         }),

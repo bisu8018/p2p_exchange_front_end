@@ -14,7 +14,7 @@
                 {{ $str('sell') }}
 
                 <!--토큰량 -->
-                {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
+                {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
 
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
@@ -57,7 +57,7 @@
 
                         </span>
 
-                        <input type="text" :value="currentOrder.price" id="amountValue" class="referenceNum">
+                        <input type="text" :value="currentOrder.amount" id="amountValue" class="referenceNum">
 
                         <span class="tooltip-content">{{ $str("Copy") }}</span>
 
@@ -411,18 +411,23 @@
             onCopy(type) {
                 let copyTemp;
                 if (type == 'reference') {
-                    copyTemp = document.querySelector('#referenceNum');
+                    this.$clipboard(this.currentOrder.referenceNo)
+                    //copyTemp = document.querySelector('#referenceNum');
                 } else {
-                    copyTemp = document.querySelector('#amountValue');
+                    this.$clipboard(this.currentOrder.amount)
+                    //copyTemp = document.querySelector('#amountValue');
                 }
-
+                /*
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
 
                 if (!isiOSDevice) {
                     copyTemp.setAttribute('type', 'text');
                     copyTemp.select();
+                    Vue.prototype.$eventBus.$emit('showAlert', 2001);
                 }
                 document.execCommand('copy');
+                */
+                Vue.prototype.$eventBus.$emit('showAlert', 2001);
 
             },
             onModal(type) {
@@ -564,6 +569,7 @@
     .referenceNum {
         position: absolute !important;
         left: -1000px;
+        visibility: hidden;
     }
 
     .flex {

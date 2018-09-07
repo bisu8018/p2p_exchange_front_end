@@ -6,6 +6,7 @@ export default class Order {
     unreadMessageCount : number;
     amount : number;
     coinCount : number;
+    coinWithoutFeeCount : number;
     cryptocurrency: string;
     currency : string;
     customerMemberNo : number;
@@ -43,6 +44,7 @@ export default class Order {
         this.status = data.status || '';
         this.price = Number(data.price) || 0;
         this.coinCount = Number(data.coinCount) || 0;
+        this.coinWithoutFeeCount = Number(data.coinWithoutFeeCount) || 0;
         this.amount = Number(data.amount) || 0;
         this.memberNo = data.memberNo;
         this.paymentMethods = data.paymentMethods || '';

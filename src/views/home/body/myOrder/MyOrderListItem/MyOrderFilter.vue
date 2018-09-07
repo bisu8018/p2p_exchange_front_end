@@ -148,10 +148,10 @@
 
         <!--데스크탑 환경에서만 표시 -->
         <v-flex md2 pl-4 pr-0 v-if="!isMobile">
-            <button class="btn-white" @click="myOrderDownload">{{$str("Export")}}</button>
+            <button class="btn-white" @click="showDownloadDialog">{{$str("Export")}}</button>
         </v-flex>
 
-
+        <my-order-download-dialog></my-order-download-dialog>
     </v-layout>
 </template>
 
@@ -160,11 +160,13 @@
     import MainRepository from '../../../../../vuex/MainRepository';
     import DatePicker from '@/components/DatePicker.vue';
     import {abUtils} from "@/common/utils";
+    import MyOrderDownloadDialog from './dialog/MyOrderDownloadDialog'
+
 
     export default Vue.extend({
         name: "myOrder-filter",
         components: {
-            DatePicker
+            DatePicker, MyOrderDownloadDialog
         },
         data: () => ({
             startdateclass : 'startdateclass',
@@ -329,6 +331,9 @@
                     tradeType : this.modal_tradeType,
                     currency : this.modal_currency,
                 });
+            },
+            showDownloadDialog(){
+                this.$eventBus.$emit('showMyOrderDownloadDialog');
             },
             myOrderDownload(){
                 MainRepository.MyOrder.getMyOrderDownload();

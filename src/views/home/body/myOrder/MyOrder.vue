@@ -26,8 +26,9 @@
             </v-layout>
             <v-flex><v-divider></v-divider></v-flex>
         </div>
+        <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
         <!--main list view-->
-        <div v-if="haveItems">
+        <div v-if="haveItems&& !showProgress">
             <!-- user item list들 10개씩 출력-->
             <div v-for="orderlist in OrderLists" >
                 <my-order-list
@@ -42,13 +43,14 @@
             ></Pagination>
         </div>
         <!-- 해당되는 item이 1개도 없을때-->
-        <div v-else>
+        <div v-else-if="!showProgress">
             <div class="sprite-img ic-no-ad-lg no-more-ads">
             </div>
             <div class="color-gray no-more-ads-text">
                 {{$str("No more orders")}}
             </div>
         </div>
+
     </div>
 </template>
 
@@ -63,6 +65,11 @@
     export default {
         name: "MyOrder",
         components: {ListFilter, Pagination, MyOrderList, MyOrderFilter},
+        data: () => ({
+            pageSize : 10,
+            pageType : 'MyOrder',
+            showProgress : false,
+        }),
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -74,10 +81,6 @@
                 return MainRepository.MyOrder.getPage();
             }
         },
-        data: () => ({
-            pageSize : 10,
-            pageType : 'MyOrder',
-        }),
         created() {
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
@@ -86,12 +89,16 @@
             }
             MainRepository.MyOrder.initPage();
 
+            this.showProgress = true
+            MainRepository.MyOrder.load(() => {
+                this.showProgress = false;
+            })
         },
         mounted() {
 
         },
         beforeDestroy(){
-            MainRepository.MyAds.initData()
+            MainRepository.MyOrder.initData()
         },
 
         methods:{
@@ -123,5 +130,9 @@
         .pagination-top-margin{
             margin-top : 32px;
         }
+    }
+
+    .list_progress {
+        margin-top: 80px;
     }
 </style>

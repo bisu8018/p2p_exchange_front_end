@@ -10,7 +10,7 @@
                 {{ $str('buy') }}
 
                 <!-- 토큰량 -->
-                {{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }}
+                {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
 
                 <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
@@ -94,8 +94,8 @@
                     <span v-if="currentOrder.status === 'paid'" class="mb-2">
                     {{ $str("buyingExplain1") }}
 
-                    <!--{{ currentOrder.coinCount }} 가격 , {{ currentOrder.cryptocurrency }} 단위-->
-                    <span class="color-orange-price">{{ this.$fixed(currentOrder.coinCount, currentOrder.cryptocurrency) }} {{ currentOrder.cryptocurrency }}</span>
+                    <!--{{ currentOrder.coinWithoutFeeCount }} 가격 , {{ currentOrder.cryptocurrency }} 단위-->
+                    <span class="color-orange-price">{{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ currentOrder.cryptocurrency }}</span>
                     {{ $str("buyingExplain2") }}
 
                     <!--{{ counterPartyNickname }} 닉네임-->
@@ -410,20 +410,23 @@
             onCopy(type) {
                 let copyTemp;
                 if (type === 'reference') {
-                    copyTemp = document.querySelector('#referenceNum');
+                    this.$clipboard(this.currentOrder.referenceNo)
+                    //copyTemp = document.querySelector('#referenceNum');
                 } else {
-                    copyTemp = document.querySelector('#amountValue');
+                    this.$clipboard(this.currentOrder.amount)
+                    //copyTemp = document.querySelector('#amountValue');
                 }
-
+                /*
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
 
                 if (!isiOSDevice) {
                     copyTemp.setAttribute('type', 'text');
                     copyTemp.select();
-                    Vue.prototype.$eventBus.$emit('showAlert', 2001);
                 }
 
                 document.execCommand('copy');
+                */
+                Vue.prototype.$eventBus.$emit('showAlert', 2001);
 
             },
             onModal(type) {
@@ -583,6 +586,7 @@
     .referenceNum {
         position: absolute !important;
         left: -1000px;
+        display: none;
     }
 
     .flex {

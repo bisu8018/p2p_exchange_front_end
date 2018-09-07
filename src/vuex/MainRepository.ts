@@ -226,7 +226,6 @@ export default {
                 page: '1',
                 size: '8'
             })
-            this.loadHistory();
         },
         setHIstoryFilter(data) {
             balanceController.setHIstoryFilter(
@@ -239,9 +238,9 @@ export default {
                 instance.Pagination.setPage(1,);
             }
             balanceController.updateHistoryFilter(data);
-            this.loadHistory();
+            this.loadHistory(() => {});
         },
-        loadHistory() {
+        loadHistory(callback : any) {
             BalanceService.getBalanceHistory({
                 email: instance.MyInfo.getUserInfo().email,
                 searchStartTime: balanceController.getHistoryFilter().searchStartTime,
@@ -260,6 +259,7 @@ export default {
                 }
                 paginationController.setTotalCount(data.totalCount);
                 balanceController.setBalanceHistoryLIst(balanceHistoryList);
+                callback();
             })
         },
         getBalanceHistories() {
@@ -746,7 +746,6 @@ export default {
                 page: '1',
                 size: '10'
             })
-            this.load();
         },
         initData() {
             myTradeController.setMyAdsFilter({
@@ -765,7 +764,7 @@ export default {
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
         },
-        load() {
+        load(callback: any) {
             AdService.getMyAds({
                 email: instance.MyInfo.getUserInfo().email,
                 searchStartTime: myTradeController.getMyAdsFilter().searchStartTime,
@@ -790,6 +789,7 @@ export default {
                     myAdsList.push(itemList);
                 }
                 myTradeController.setMyAdsItems(myAdsList);
+                callback();
             })
         },
         setFilter(data) {
@@ -803,7 +803,7 @@ export default {
                 instance.Pagination.setPage(1,);
             }
             myTradeController.updateMyAdsFilter(data);
-            this.load();
+            this.load(()=>{});
         },
         getPage() {
             return myTradeController.getMyAdsItems();
@@ -827,7 +827,6 @@ export default {
                 page: '1',
                 size: '10',
             })
-            this.load();
         },
         loadAlarm() {
             OrderService.getMyOrderAlarm(function (data) {
@@ -841,7 +840,7 @@ export default {
                 myTradeController.setMyOrderAlarmItems(myOrderList);
             })
         },
-        load() {
+        load(callback: any) {
             OrderService.getMyOrder({
                 email: instance.MyInfo.getUserInfo().email,
                 searchStartTime: myTradeController.getMyOrderFilter().searchStartTime,
@@ -866,6 +865,7 @@ export default {
                 let totalCount = data.totalCount;
                 paginationController.setTotalCount(totalCount);
                 myTradeController.setMyOrderItems(myOrderList);
+                callback();
             })
         },
         // //다른 유저 정보 GET
@@ -930,7 +930,7 @@ export default {
             myTradeController.updateMyOrderFilter(data);
 
 
-            this.load();
+            this.load(()=>{});
         },
         getPage() {
             return myTradeController.getMyOrderItems();

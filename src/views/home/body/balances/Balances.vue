@@ -158,8 +158,9 @@
       </v-layout>
       <v-flex><v-divider></v-divider></v-flex>
     </div>
+    <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
     <!--BalanceList-->
-    <div v-if="haveItems">
+    <div v-if="haveItems&& !showProgress">
       <div  v-for="detailList in detailLists" >
         <balance-detail-list
                 :detailList="detailList"
@@ -174,7 +175,7 @@
       </div>
     </div>
     <!-- 해당되는 item이 1개도 없을때-->
-    <div v-else>
+    <div v-else-if="!showProgress">
       <div class="sprite-img ic-no-ad-lg no-more-ads">
       </div>
       <div class="color-gray no-more-ads-text">
@@ -245,6 +246,7 @@
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
             balanceInterval: {},
+            showProgress : false,
         }),
         computed: {
             isMobile() {
@@ -278,16 +280,19 @@
             }
             MainRepository.Balance.initHistory();
 
+            this.showProgress = true,
             // 최초 1회
             MainRepository.MarketPrice.load(() => {
                 MainRepository.Balance.loadBalances(() => {});
-                MainRepository.Balance.loadHistory();       //History도 5초에 1번씩 불러오게 추가.
+                MainRepository.Balance.loadHistory(() => {
+                    this.showProgress = false;
+                });
             });
 
             this.balanceInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
                     MainRepository.Balance.loadBalances(() => {});
-                    MainRepository.Balance.loadHistory();       //History도 5초에 1번씩 불러오게 추가.
+                    MainRepository.Balance.loadHistory(() => {});       //History도 5초에 1번씩 불러오게 추가.
                 });
             }, 5000);
 
@@ -528,5 +533,8 @@
     .no-more-ads{
       margin: 48px auto 16px auto;
     }
+  }
+  .list_progress {
+    margin-top: 80px;
   }
 </style>

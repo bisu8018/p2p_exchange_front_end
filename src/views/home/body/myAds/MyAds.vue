@@ -27,31 +27,34 @@
         </v-layout>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
-        <!--main list view-->
-        <div v-if="haveItems">
-            <div>
-                <!-- user ad list들 10개씩 출력-->
-                <div v-for="adslist in AdsLists" >
-                  <my-ads-list
-                          :adslist="adslist"
-                  ></my-ads-list>
-                  <v-flex><v-divider></v-divider></v-flex>
-                </div>
-                <!-- pagination -->
-              <Pagination class="pagination-top-margin"
-                      :size="pageSize"
-                      :type="pageType"
-              ></Pagination>
-             </div>
+      <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
+
+      <!--main list view-->
+      <div v-if="haveItems&&!showProgress">
+          <div>
+              <!-- user ad list들 10개씩 출력-->
+              <div v-for="adslist in AdsLists" >
+                <my-ads-list
+                        :adslist="adslist"
+                ></my-ads-list>
+                <v-flex><v-divider></v-divider></v-flex>
+              </div>
+              <!-- pagination -->
+            <Pagination class="pagination-top-margin"
+                    :size="pageSize"
+                    :type="pageType"
+            ></Pagination>
+           </div>
+      </div>
+
+      <!-- 해당되는 item이 1개도 없을때-->
+      <div v-else-if="!showProgress">
+        <div class="sprite-img ic-no-ad-lg no-more-ads">
         </div>
-        <!-- 해당되는 item이 1개도 없을때-->
-        <div v-else>
-          <div class="sprite-img ic-no-ad-lg no-more-ads">
-          </div>
-          <div class="color-gray no-more-ads-text">
-            {{$str("No more ads")}}
-          </div>
+        <div class="color-gray no-more-ads-text">
+          {{$str("No more ads")}}
         </div>
+      </div>
     </div>
 </template>
 
@@ -67,6 +70,7 @@
         data: () => ({
             pageSize : 10,
             pageType : "myAds",
+            showProgress : false,
         }),
         computed: {
             isMobile() {
@@ -80,7 +84,6 @@
             }
 
         },
-        methods: {},
         created() {
             // 로그인 확인 -> Login 으로
             if (!MainRepository.MyInfo.isLogin()) {
@@ -89,11 +92,15 @@
             }
             MainRepository.MyAds.initPage();
 
-
+            this.showProgress = true
+            MainRepository.MyAds.load(() => {
+                this.showProgress = false;
+            })
         },
         beforeDestroy(){
             MainRepository.MyAds.initData()
-        }
+        },
+        methods: {},
 
 
 
@@ -121,5 +128,8 @@
     .pagination-top-margin{
       margin-top : 32px;
     }
+  }
+  .list_progress {
+    margin-top: 80px;
   }
 </style>

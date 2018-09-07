@@ -3368,9 +3368,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['ExportDataExplain', {
+        KOR: '시스템은 결과를 .xlsx 파일로 내보내고 한 번에 최대 1000 개의 주문을 다운 받을 수 있습니다.',
+        ENG: 'System will export the results to .xlsx file, and you can run up to 1000 orders at one time.',
         CN: '',
         HK: ''
     }],

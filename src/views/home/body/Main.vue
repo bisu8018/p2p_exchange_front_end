@@ -21,7 +21,7 @@
             </v-carousel>
         </v-parallax>
       <div v-if="isMobile" class="pageView mt-5">
-        <h2 class="bold">{{ $str('ALLB OTC') }}</h2>
+        <h2 class="bold sizeUp">{{ $str('ALLB OTC') }}</h2>
         <h5 class="medium mt-3">{{ $str('The world\'s leading P2P trading platform')}}</h5>
       </div>
       <v-layout row wrap pageView mt-6>
@@ -174,7 +174,7 @@
     }
 
     h2 {
-        font-size: 26px;
+        font-size: 32px;
     }
 
     h3 {

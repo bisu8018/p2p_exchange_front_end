@@ -39,7 +39,7 @@
             <v-flex><v-divider></v-divider></v-flex>
         </div>
 
-        <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
+        <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
 
         <!--본 list들-->
         <div v-if="haveItems && !showProgress">

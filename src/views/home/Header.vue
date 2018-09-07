@@ -111,7 +111,7 @@
                     </button>
                 </v-flex>
                 <form action="/logout" method="post" ref="logout" @click="onLogout" id="logoutFormMobile">
-                    <v-flex xs12 class="verticalcentertext">
+                    <v-flex xs12 class="verticalcentertext logout-hover">
                         <button class="text-xs-left ml-3">
                             <div>{{$str("LogOut")}}</div>
                         </button>
@@ -504,6 +504,11 @@
 
     .dropDownMenu > .submenu:hover {
         background-color: #21407e;
+    }
+
+    .logout-hover:hover{
+        cursor : pointer;
+        background-color: #316ee4
     }
 
     .submenu {

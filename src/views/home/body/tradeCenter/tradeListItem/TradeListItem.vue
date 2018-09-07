@@ -708,7 +708,6 @@
                 let temp = this.toValue/ this.user.tradePrice   //coinCount
                 temp -= temp*this.user.fee;             //coinWithoutFee
                 this.fromValue =this.$fixed(temp, this.user.cryptocurrency);
-
             },
             inputFocus(type) {
                 if (type == 'toValue') {
