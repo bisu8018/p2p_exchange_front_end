@@ -1,5 +1,5 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
-import Balance from '../model/Balance'
+import Wallet from '../model/Wallet'
 import Message from "@/vuex/model/Message";
 
 

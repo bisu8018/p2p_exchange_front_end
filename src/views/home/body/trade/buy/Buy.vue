@@ -165,7 +165,7 @@
                     v-else-if="currentOrder.status === 'complete'">
                 <div><i class="material-icons check-icon">check_circle</i></div>
                 <div class="text-xs-left ml-3 ">{{ $str('completedPayment') }}
-                    <a class="color-blue text-white-hover" @click="goBalance()">{{ $str('tranferNow') }}</a>
+                    <a class="color-blue text-white-hover" @click="goWallet()">{{ $str('tranferNow') }}</a>
                 </div>
             </v-flex>
 
@@ -503,8 +503,8 @@
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
             },
-            goBalance() {
-                MainRepository.router().goBalance();
+            goWallet() {
+                MainRepository.router().goWallet();
             }
         },
 

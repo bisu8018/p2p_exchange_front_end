@@ -163,10 +163,11 @@ export default class RouterController {
         });
     }
 
-    goBalance(){
+
+    goWallet(){
         let r = this.router;
         Vue.nextTick(function () {
-            r.push("/balances");
+            r.push("/wallet");
         });
     }
 }

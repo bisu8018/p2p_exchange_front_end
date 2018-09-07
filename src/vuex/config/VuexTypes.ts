@@ -69,14 +69,14 @@ export enum VuexTypes {
     SET_MARKET_PRICE = 'market/SET_MARKET_PRICE',
 
     //======================================
-    //              Balance
+    //               Wallet 구 Balance
     // =====================================
-    SET_BALANCE_DATA = 'balance/SET_BALANCE_DATA',
-    SET_WITHDRAW_DATA = 'balance/SET_WITHDRAW_DATA',
-    //BalanceHistory
-    SET_BALANCEHISTORYFILTER_DATA = 'balance/SET_BALANCEHISTORYFILTER_DATA',
-    UPDATE_BALANCEHISTORYFILTER_DATA = 'balance/UPDATE_BALANCEHISTORYFILTER_DATA',
-    SET_BALANCEHISTORYLIST_DATA = 'balance/SET_BALANCEHISTORYLIST_DATA',
+    SET_WALLET_DATA = 'wallet/SET_WALLET_DATA',
+    SET_WITHDRAW_DATA = 'wallet/SET_WITHDRAW_DATA',
+    //WalletHistory
+    SET_WALLETHISTORYFILTER_DATA = 'wallet/SET_WALLETHISTORYFILTER_DATA',
+    UPDATE_WALLETHISTORYFILTER_DATA = 'wallet/UPDATE_WALLETHISTORYFILTER_DATA',
+    SET_WALLETHISTORYLIST_DATA = 'wallet/SET_WALLETHISTORYLIST_DATA',
 
     //======================================
     //              Trade Process

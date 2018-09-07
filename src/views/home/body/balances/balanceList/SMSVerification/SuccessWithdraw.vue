@@ -96,7 +96,7 @@
                 return abUtils.toTimeFormat(time);
             },
             goHistory(){
-                this.$router.push("/balances");
+                this.$router.push("/wallet");
             }
         }
     }

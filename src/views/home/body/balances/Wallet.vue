@@ -3,7 +3,7 @@
     <v-layout row wrap mt-5>
       <!--header-->
       <v-flex md6 xs12 mb-4a text-xs-left>
-        <h2 class="bold">{{$str("Balances")}}</h2>
+        <h2 class="bold">{{$str("Wallet")}}</h2>
       </v-flex>
       <!--toolBox들.-->
       <v-flex md6 xs12 text-xs-left text-md-right >
@@ -36,16 +36,16 @@
     </v-layout>
 
 
-    <!--BalanceList-->
+    <!--wallets-->
     <!--좌우 padding 맞추기용.-->
     <v-flex>
       <div class="cs-roundborder">
-        <div  v-for="item in balances" >
+        <div  v-for="item in wallets" >
           <!--좌우 padding 맞춰주기 위해 사용.-->
           <v-flex>
-            <balance-token-list
+            <wallet-token-list
                   :item = "item"
-            ></balance-token-list>
+            ></wallet-token-list>
           </v-flex>
           <v-divider></v-divider>
         </div>
@@ -64,7 +64,7 @@
           <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
                 && selectedType === '' && coin === ''">
-            {{$str("balanceDetailsFilterPlaceholder")}}</div>
+            {{$str("walletDetailsFilterPlaceholder")}}</div>
           <div class="statusChip" v-if="start_date != ''">
             <v-layout align-center row fill-height>
               {{start_date}} - {{end_date}}
@@ -159,12 +159,12 @@
       <v-flex><v-divider></v-divider></v-flex>
     </div>
     <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
-    <!--BalanceList-->
+    <!--detailList-->
     <div v-if="haveItems&& !showProgress">
       <div  v-for="detailList in detailLists" >
-        <balance-detail-list
+        <wallet-detail-list
                 :detailList="detailList"
-        ></balance-detail-list>
+        ></wallet-detail-list>
         <v-flex><v-divider></v-divider></v-flex>
       </div>
       <div class="mt-4">
@@ -189,25 +189,24 @@
     import Pagination from '@/components/Pagination.vue';
     import ListFilter from '@/components/ListFilter.vue';
     import MainRepository from "../../../../vuex/MainRepository";
-    import BalanceTokenList from "./balanceList/BalanceTokenList"
-    import BalanceDetailList from "./balanceList/BalanceDetailList"
+    import WalletTokenList from "./balanceList/WalletTokenList"
+    import WalletDetailList from "./balanceList/WalletDetailList"
     import DatePicker from '@/components/DatePicker.vue';
-    import Balance from "../../../../vuex/model/Balance";
     import {abUtils} from "../../../../common/utils";
     import Common from "../../../../service/common/CommonService";
 
     export default {
-        name: "Balances",
+        name: "Wallet",
         components: {
             Pagination,
             ListFilter,
-            BalanceTokenList,
-            BalanceDetailList,
+            WalletTokenList,
+            WalletDetailList,
             DatePicker,
         },
         data: () => ({
             pageSize: 8,
-            pageType: 'balance',
+            pageType: 'wallet',
             isdropdown : false,
             isAmout : true,
             isModal: false,
@@ -245,7 +244,7 @@
             ],
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
-            balanceInterval: {},
+            walletInterval: {},
             showProgress : false,
         }),
         computed: {
@@ -261,12 +260,12 @@
                     this.loadTotalEstimatedValue();
                 }
             },
-            balances() {
+            wallets() {
                 this.loadTotalEstimatedValue();
-                return MainRepository.Balance.getBalances();
+                return MainRepository.Wallet.getWallets();
             },
             detailLists(){
-                return MainRepository.Balance.getBalanceHistories();
+                return MainRepository.Wallet.getWalletHistories();
             },
             haveItems(){
                 return (MainRepository.Pagination.getTotalCount() >0)
@@ -278,21 +277,21 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            MainRepository.Balance.initHistory();
+            MainRepository.Wallet.initHistory();
 
             this.showProgress = true,
             // 최초 1회
             MainRepository.MarketPrice.load(() => {
-                MainRepository.Balance.loadBalances(() => {});
-                MainRepository.Balance.loadHistory(() => {
+                MainRepository.Wallet.loadWallets(() => {});
+                MainRepository.Wallet.loadHistory(() => {
                     this.showProgress = false;
                 });
             });
 
-            this.balanceInterval = setInterval(() => {
+            this.walletInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
-                    MainRepository.Balance.loadBalances(() => {});
-                    MainRepository.Balance.loadHistory(() => {});       //History도 5초에 1번씩 불러오게 추가.
+                    MainRepository.Wallet.loadWallets(() => {});
+                    MainRepository.Wallet.loadHistory(() => {});       //History도 5초에 1번씩 불러오게 추가.
                 });
             }, 5000);
 
@@ -302,12 +301,12 @@
 
         },
         beforeDestroy(){
-          MainRepository.Balance.initHistoryData();
-          clearInterval(this.balanceInterval);
+          MainRepository.Wallet.initHistoryData();
+          clearInterval(this.walletInterval);
         },
         methods: {
             loadTotalEstimatedValue() {
-                let totalValue = MainRepository.Balance.controller().getTotalEstimatedValue(this.selectedCurrencyData);
+                let totalValue = MainRepository.Wallet.controller().getTotalEstimatedValue(this.selectedCurrencyData);
                 this.EstimatedCryptocurrencyValue = totalValue.btc;
                 if (totalValue.currency === 0) {
                     this.EstimatedCurrencyValue = '';
@@ -332,7 +331,7 @@
             },
             onSearch(){
                 //Axios 태우기
-                MainRepository.Balance.updateHistoryPage({
+                MainRepository.Wallet.updateHistoryPage({
                     searchStartTime : this.modal_start_date,
                     searchEndTime : this.modal_end_date,
                     type : this.modal_selectedType,
@@ -361,7 +360,7 @@
                         this.modal_coin = '';
                         break;
                 }
-                MainRepository.Balance.updateHistoryPage({
+                MainRepository.Wallet.updateHistoryPage({
                     searchStartTime : this.modal_start_date,
                     searchEndTime : this.modal_end_date,
                     type : this.modal_selectedType,

@@ -1,4 +1,4 @@
-export default class BalanceHistory {
+export default class WalletHistory {
     cryptocurrency : string;
     registerDatetime : number;
     amount : number;

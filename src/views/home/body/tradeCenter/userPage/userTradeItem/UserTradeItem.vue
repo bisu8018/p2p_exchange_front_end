@@ -490,7 +490,7 @@
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
             },
             getBalance(){
-                let MyBalance = MainRepository.Balance.controller().findByCrptoCurrency(
+                let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(
                     MainRepository.TradeView.getSelectFilter().cryptocurrency
                 );
                 return MyBalance.availableAmount

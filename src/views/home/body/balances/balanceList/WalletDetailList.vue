@@ -96,7 +96,7 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import {abUtils} from '@/common/utils';
     export default {
-        name: "BalanceDetailList",
+        name: "WalletDetailList",
         props : {
             detailList : {},
         },

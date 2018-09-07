@@ -1537,6 +1537,56 @@
         width: 70px;
         height: 20px;
     }
+    .ic-tab-chat-gray {
+        background: 0px -105px;
+        width: 24px;
+        height: 18px;
+    }
+    .ic-tab-chat-blue {
+        background: -24px -105px;
+        width: 24px;
+        height: 18px;
+    }
+    .ic-tab-exchange-gray {
+        background: -48px -105px;
+        width: 20px;
+        height: 18px;
+    }
+    .ic-tab-exchange-blue {
+        background: -68px -105px;
+        width: 20px;
+        height: 18px;
+    }
+    .ic-tab-wallet-gray {
+        background: -88px -105px;
+        width: 18px;
+        height: 18px;
+    }
+    .ic-tab-wallet-blue {
+        background: -106px -105px;
+        width: 18px;
+        height: 18px;
+    }
+    .ic-tab-otc-gray {
+        background: -124px -105px;
+        width: 28px;
+        height: 18px;
+     }
+    .ic-tab-otc-blue {
+        background: -152px -105px;
+        width: 28px;
+        height: 18px;
+    }
+    .ic-tab-service-gray {
+        background: 0px -123px;
+        width: 23px;
+        height: 20px;
+    }
+    .ic-tab-service-blue {
+        background: -23px -123px;
+        width: 23px;
+        height: 20px;
+    }
 
 
 
@@ -1546,7 +1596,7 @@
         background-image: url(./assets/img/sprite_x2.png);
     }
     .sprite-img2 {
-        background-size: 150px 150px;
+        background-size: 200px 150px;
         background-image: url(./assets/img/sprite_image-2.png);
     }
 

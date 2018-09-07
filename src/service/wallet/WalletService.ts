@@ -9,7 +9,7 @@ export default {
             function () {
             })
     },
-    getBalances : function (data: any, callback: any) {
+    getWallets : function (data: any, callback: any) {
         AxiosService._requestWithUrlPram('balance', 'GET', data ,
             function (data: any) {
                 callback(data)
@@ -25,7 +25,7 @@ export default {
             function () {
             })
     },
-    getBalanceHistory: function (data: any, callback: any) {
+    getWalletHistory: function (data: any, callback: any) {
         AxiosService._requestWithUrlPram('balance/history', 'GET', data ,
             function (data: any) {
                 callback(data)

@@ -388,12 +388,11 @@ const strings = new Map([
         HK: '幣幣交易'
     }],
     ['TradeCenter', {
-        KOR: '일반 거래',
-        ENG: 'Common Trade',
+        KOR: '거래소',
+        ENG: 'Trade Center',
         CN: '普通交易',
         HK: '普通交易'
     }],
-
     ['BlockTrade', {
         KOR: '대량 거래',
         ENG: 'Block Trade',
@@ -1664,7 +1663,7 @@ const strings = new Map([
         CN: '• 请确保您的电脑与浏览器安全，并保护您的信息不被篡改或泄露。',
         HK: '• 請確保您的電腦與瀏覽器安全，並保護您的信息不被篡改或泄露。'
     }],
-    ['balanceDetailsFilterPlaceholder', {
+    ['walletDetailsFilterPlaceholder', {
         KOR: '날짜 / 타입 / 코인',
         ENG: 'Time/Type/Coin',
         CN: '订单日期/状态/编号/币种',
@@ -3374,9 +3373,16 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+// Meny 새로 추가되는 항목 18/09/07
+    ['GeneralTrade', {
+        KOR: '일반 거래',
+        ENG: 'General Trade',
+        CN: '',
+        HK: ''
+    }],
+    ['CustomTokenTrade', {
+        KOR: 'Custom Token 거래',
+        ENG: 'Custom Token Trade',
         CN: '',
         HK: ''
     }],

@@ -55,12 +55,12 @@
         </v-flex>
       </v-layout>
       <!--Deposit modal-->
-      <balance-deposit-dialog
+      <wallet-deposit-dialog
               :cryptoCurrency = item.cryptoCurrency
               :walletAddress = item.walletAddress
       />
       <!--withdraw modal-->
-      <balance-withdrawal-dialog
+      <wallet-withdrawal-dialog
               :cryptoCurrency = item.cryptoCurrency
       />
 
@@ -69,18 +69,18 @@
 
 <script>
     import MainRepository from '../../../../../vuex/MainRepository';
-    import Balance from '../../../../../vuex/model/Balance'
+    import Wallet from '../../../../../vuex/model/Wallet'
     import {abUtils} from "../../../../../common/utils";
-    import BalanceDepositDialog from './dialog/BalanceDepositDialog'
-    import BalanceWithdrawalDialog from './dialog/BalanceWithdrawalDialog'
+    import WalletDepositDialog from './dialog/WalletDepositDialog'
+    import WalletWithdrawalDialog from './dialog/WalletWithdrawalDialog'
 
     export default {
-        name: "BalanceTokenList",
+        name: "WalletTokenList",
         props : {
-            item : { type: Balance },
+            item : { type: Wallet },
         },
         components:{
-            BalanceDepositDialog, BalanceWithdrawalDialog
+            WalletDepositDialog, WalletWithdrawalDialog
         },
         data: () => ({
             istoken :[

@@ -171,7 +171,7 @@
                     <div class="price-input-wrapper mb-3 p-relative" v-bind:class="{'warning-border' : warning_volume}">
                         <input type="text" class="price-input" v-model="volume"
                                @keyup="onNumberCheck('volume')" ref="volume"
-                               :placeholder="$str('volumePlaceholderMobile') + getBalance">
+                               :placeholder="$str('volumePlaceholderMobile') + getWallet">
                         <div class="border-indicator h6">
                             {{ getCryptoCurrency }}
                         </div>
@@ -721,10 +721,10 @@
                     return 'ALLB'
                 }
             },
-            getBalance() {
-                if (Object.keys(MainRepository.Balance.getBalances()).length > 0) {
+            getWallet() {
+                if (Object.keys(MainRepository.Wallet.getWallets()).length > 0) {
                     if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin') {
-                        this.balance = MainRepository.Balance.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
+                        this.balance = MainRepository.Wallet.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
                         return this.balance
                     } else {
                         this.balance = 0;
@@ -911,7 +911,7 @@
 
                 if (this.edit) {
                     MainRepository.AD.editAD(data, (result) => {
-                        MainRepository.Balance.loadBalances(function () {
+                        MainRepository.Wallet.loadWallets(function () {
                                 Vue.prototype.$eventBus.$emit('showAlert', 2103);
                                 MainRepository.router().goMyAd();
                             },
@@ -921,7 +921,7 @@
                     })
                 } else {
                     MainRepository.AD.postAD(data, function (result) {
-                        MainRepository.Balance.loadBalances(function () {
+                        MainRepository.Wallet.loadWallets(function () {
                             Vue.prototype.$eventBus.$emit('showAlert', 2101);
                             MainRepository.router().goTradeCenter();
                         });

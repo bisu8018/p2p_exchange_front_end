@@ -10,6 +10,7 @@
           </div>
         </v-content>
         <abFooter></abFooter>
+        <AbTab></AbTab>
       </div>
       <div class="cs-flex right-box" v-if="!isMobile && isFixed">
         <my-order-fixed></my-order-fixed>
@@ -23,6 +24,7 @@
     import MainRepository from "../../vuex/MainRepository";
     import AbHeader from "./Header.vue"
     import AbFooter from "./Footer.vue"
+    import AbTab from "./Tab.vue"
     import Alert from './../../components/Alerts.vue';
     import MyOrderFixed from './../../views/home/body/MyOrderFixed.vue';
 
@@ -32,6 +34,7 @@
         components: {
             AbHeader,
             AbFooter,
+            AbTab,
             Alert,
             MyOrderFixed
         },

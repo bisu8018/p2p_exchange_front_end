@@ -67,7 +67,7 @@
 
 <script>
     export default {
-        name: "BalanceDepositDialog",
+        name: "WalletDepositDialog",
         props :{
             cryptoCurrency : {
                 type: String,

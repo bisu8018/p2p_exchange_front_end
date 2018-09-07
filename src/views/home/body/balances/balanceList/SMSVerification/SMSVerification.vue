@@ -33,7 +33,7 @@
                                :type="'depositEmail'"></verification-code>
         </div>
         <div class="text-xs-right">
-          <button class="btn-white  button-style" @click="goBalances">{{$str('cancel')}}</button>
+          <button class="btn-white  button-style" @click="goWallet">{{$str('cancel')}}</button>
           <button class="button-style ml-4a"
                   :class="{'btn-blue btn-blue-hover ': verified, 'inactive' : !verified}"
                   @click="onChange">{{$str('confirm')}}
@@ -98,8 +98,8 @@
               window.scrollTo(0, 0);
           },
           methods: {
-              goBalances() {
-                  this.$router.push("/balances");
+              goWallet() {
+                  this.$router.push("/wallet");
               },
               onCheck() {
                   if (this.verifyWithPhone) {

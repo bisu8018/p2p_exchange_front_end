@@ -6,7 +6,7 @@
 
             <!--logo-->
             <button @click="goMain()" class="ml-3">
-                <div class="sprite-img2 ic-header-logo-mobile "></div>
+                <div class="sprite-img2 ic-header-logo-web "></div>
             </button>
 
             <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
@@ -23,25 +23,39 @@
         <!-- navigation drawer 열렸을 시 나오는 menu bar-->
         <v-layout row wrap v-if="drawer" @click.stop="drawer = !drawer" class="dropDownMenu">
             <!-- TradeCenter버튼-->
-            <v-flex xs12 class="verticalcentertext" @click="goTradeCenter()">
+            <v-flex xs12 class="verticalcentertext" @click.stop="onTradeCenter" >
                 <button class="text-xs-left ml-3">
-                    <div right flat>{{$str("TradeCenter")}}</div>
+                    {{$str("TradeCenter")}}
                 </button>
             </v-flex>
-            <!-- BlockTrade 버튼-->
-            <v-flex xs12 class="verticalcentertext" @click="goBlockTrade()">
-
-                <button class="text-xs-left ml-3">
-                    <div flat>{{$str("BlockTrade")}}</div>
+          <!--post AD 눌렀을때 나오는 세부항목-->
+          <div class="submenu">
+            <div v-if="tradeCenterDrawer">
+              <!--General TradeCenter-->
+              <v-flex xs12 class="verticalcentertext menu-hover"@click="goTradeCenter()">
+                <button class="text-xs-left ml-5">
+                    {{$str("GeneralTrade")}}
                 </button>
-            </v-flex>
+              </v-flex>
+              <!--Block TradeCenter-->
+              <v-flex xs12 class="verticalcentertext menu-hover" @click="goBlockTrade()">
+                <button class="text-xs-left ml-5">
+                    {{$str("BlockTrade")}}
+                </button>
+              </v-flex>
+              <!--Block TradeCenter-->
+              <v-flex xs12 class="verticalcentertext menu-hover" @click="goBlockTrade()">
+                <button class="text-xs-left ml-5">
+                    {{$str("CustomTokenTrade")}}
+                </button>
+              </v-flex>
+            </div>
+          </div>
             <!-- post AD 버튼 -->
-            <v-flex xs12 class="verticalcentertext" @click.stop="postadDrawer = !postadDrawer">
+            <v-flex xs12 class="verticalcentertext" @click.stop="onPostAD">
 
                 <button class="text-xs-left ml-3">
-                    <div>
-                        <div>{{$str("postAd")}}</div>
-                    </div>
+                    {{$str("postAd")}}
                 </button>
             </v-flex>
 
@@ -49,19 +63,15 @@
             <div class="submenu">
                 <div v-if="postadDrawer">
                     <!--post general AD-->
-                    <v-flex xs12 class="verticalcentertext" @click="goPostAd(false)">
+                    <v-flex xs12 class="verticalcentertext menu-hover" @click="goPostAd(false)">
                         <button class="text-xs-left ml-5">
-                            <div flat>
-                                {{$str("Post_General_AD")}}
-                            </div>
+                            {{$str("Post_General_AD")}}
                         </button>
                     </v-flex>
                     <!--post block AD-->
-                    <v-flex xs12 class="verticalcentertext" @click="goPostAd(true)">
+                    <v-flex xs12 class="verticalcentertext menu-hover" @click="goPostAd(true)">
                         <button class="text-xs-left ml-5">
-                            <div>
-                                {{$str("Post_Block_AD")}}
-                            </div>
+                            {{$str("Post_Block_AD")}}
                         </button>
                     </v-flex>
                 </div>
@@ -71,13 +81,13 @@
                 <!-- login 버튼-->
                 <v-flex xs12 class="verticalcentertext" @click="goLogin()">
                     <button class="text-xs-left ml-3">
-                        <div>{{$str("loginText")}}</div>
+                        {{$str("loginText")}}
                     </button>
                 </v-flex>
                 <!-- signup 버튼-->
                 <v-flex xs12 class="verticalcentertext" @click="goSignup()">
                     <button class="text-xs-left ml-3">
-                        <div>{{$str("signupText")}}</div>
+                        {{$str("signupText")}}
                     </button>
                 </v-flex>
             </span>
@@ -86,34 +96,29 @@
                 <!-- 로그인시 추가되는 화면들-->
                 <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
                     <button class="text-xs-left ml-3">
-                        <div>{{$str("order")}}</div>
+                        {{$str("order")}}
                     </button>
                     <span v-if="isLogin && totalMsgCount > 0" class="badge ml-2">{{ totalMsgCount }}</span>
                 </v-flex>
-                <v-flex xs12 class="verticalcentertext" @click="goBalances()">
-                    <button class="text-xs-left ml-3">
-                        <div>{{$str("Balances")}}</div>
-                    </button>
-                </v-flex>
                 <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
                     <button class="text-xs-left ml-3">
-                        <div>{{$str("MyAds")}}</div>
+                        {{$str("MyAds")}}
                     </button>
                 </v-flex>
                 <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
                     <button class="text-xs-left ml-3">
-                        <div>{{$str("Merchant")}}</div>
+                        {{$str("Merchant")}}
                     </button>
                 </v-flex>
                 <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
                     <button class="text-xs-left ml-3">
-                        <div>{{$str("MyPage")}}</div>
+                        {{$str("MyPage")}}
                     </button>
                 </v-flex>
                 <form action="/logout" method="post" ref="logout" @click="onLogout" id="logoutFormMobile">
-                    <v-flex xs12 class="verticalcentertext logout-hover">
+                    <v-flex xs12 class="verticalcentertext menu-hover">
                         <button class="text-xs-left ml-3">
-                            <div>{{$str("LogOut")}}</div>
+                            {{$str("LogOut")}}
                         </button>
                     </v-flex>
                 </form>
@@ -132,11 +137,20 @@
                 <div class="sprite-img2 ic-header-logo-web "></div>
             </button>
 
-            <!-- TradeCenter버튼-->
-            <button @click="goTradeCenter()" class="ml-4a">{{$str("TradeCenter")}}</button>
-
-            <!-- BlockTrade 버튼-->
-            <button @click="goBlockTrade()" class="ml-4a">{{$str("BlockTrade")}}</button>
+            <div class="dropdown">
+                <button @click="goTradeCenter()" class="ml-4a dropbtn">{{$str("TradeCenter")}}</button>
+                <div class="dropdown-content" style="min-width: 140px;">
+                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goTradeCenter()">
+                        {{$str("GeneralTrade")}}
+                    </div>
+                    <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goBlockTrade()">
+                        {{$str("BlockTrade")}}
+                    </div>
+                    <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goBlockTrade()">
+                        {{$str("CustomTokenTrade")}}
+                    </div>
+                </div>
+            </div>
 
             <!-- post AD 버튼 -->
             <!-- default post AD 버튼-->
@@ -151,7 +165,8 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Wallet -->
+            <button class="button-2 ml-4a" @click="goWallet()" v-if="isLogin">{{$str("Wallet")}}</button>
             <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
             <v-spacer></v-spacer>
 
@@ -201,8 +216,6 @@
                     </div>
                 </div>
             </div>
-            <!--Balances -->
-            <button class="button-2 mr-4a" @click="goBalances()" v-if="isLogin">{{$str("Balances")}}</button>
             <!--내 정보 끝-->
 
 
@@ -302,6 +315,7 @@
         data: () => ({
             title: 'header',
             drawer: false,
+            tradeCenterDrawer : false,
             postadDrawer: false,
             languages: [{
                 title: '한국어',
@@ -321,7 +335,6 @@
                 },
             ],
             currentLang: 'KO',
-            //totalMsgCount: 0,
         }),
         computed: {
             isMobile() {
@@ -352,6 +365,14 @@
             }
         },
         methods: {
+            onTradeCenter(){
+                this.postadDrawer = false;
+                this.tradeCenterDrawer = !this.tradeCenterDrawer
+            },
+            onPostAD(){
+                this.tradeCenterDrawer = false;
+                this.postadDrawer = !this.postadDrawer
+            },
             serializeserialize (form) { console.log(form);
                 var field,
                     l,
@@ -446,8 +467,8 @@
             goMyAds() {
                 this.$router.push("/myAds");
             },
-            goBalances() {
-                this.$router.push("/balances");
+            goWallet() {
+                this.$router.push("/wallet");
             },
             goMerchant() {
                 MainRepository.router().goMerchant();
@@ -506,7 +527,7 @@
         background-color: #21407e;
     }
 
-    .logout-hover:hover{
+    .menu-hover:hover{
         cursor : pointer;
         background-color: #316ee4
     }

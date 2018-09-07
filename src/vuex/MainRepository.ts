@@ -7,7 +7,7 @@ import TradeListController from "@/vuex/controller/TradeListController";
 import MyTradeController from "@/vuex/controller/MyTradeController";
 import MerchantController from "@/vuex/controller/MerchantController";
 import PaginationController from "@/vuex/controller/PaginationController";
-import BalanceController from "@/vuex/controller/BalanceController";
+import WalletController from "@/vuex/controller/WalletController";
 import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import AccountController from "@/vuex/controller/AccountController";
 import MsgAvatarController from "@/vuex/controller/MsgAvatarController";
@@ -18,7 +18,7 @@ import AdService from "@/service/ad/AdService";
 import CommonService from "@/service/common/CommonService";
 import AxiosService from "@/service/AxiosService";
 import OrderService from "@/service/order/OrderService";
-import BalanceService from "@/service/balance/BalanceService";
+import WalletService from "@/service/wallet/WalletService";
 
 import Account from "@/vuex/model/Account";
 import EmailVerification from "@/vuex/model/EmailVerification";
@@ -27,7 +27,7 @@ import IdVerification from "@/vuex/model/IdVerification";
 import PaymentMethod from "@/vuex/model/PaymentMethod";
 import OtherUsers from "@/vuex/model/OtherUsers";
 import Block from "@/vuex/model/Block";
-import Balance from "@/vuex/model/Balance";
+import Wallet from "@/vuex/model/Wallet";
 import LoginHistory from "@/vuex/model/LoginHistory";
 import SecuritySettings from "@/vuex/model/SecuritySettings";
 import MarketPrice from "@/vuex/model/MarketPrice";
@@ -46,7 +46,7 @@ import MessageController from "@/vuex/controller/MessageController";
 import message from "@/vuex/modules/message";
 import OrderStat from "@/vuex/model/OrderStat";
 import Withdraw from "@/vuex/model/Withdraw";
-import BalanceHistory from "@/vuex/model/BalanceHistory";
+import WalletHistory from "@/vuex/model/WalletHistory";
 import IdVerificationId from "@/vuex/model/IdVerificationId";
 import MyAd from "@/vuex/model/MyAd";
 import Vue from "vue";
@@ -59,7 +59,7 @@ let merchantController: MerchantController;
 let paginationController: PaginationController;
 let accountController: AccountController;
 let marketPriceController: MarketPriceController;
-let balanceController: BalanceController;
+let walletController: WalletController;
 let routerController: RouterController;
 let tradeController: TradeController;
 let msgAvatarController: MsgAvatarController;
@@ -79,7 +79,7 @@ export default {
         merchantController = new MerchantController(store);
         accountController = new AccountController(store);
         myTradeController = new MyTradeController(store);
-        balanceController = new BalanceController(store);
+        walletController = new WalletController(store);
         tradeController = new TradeController(store);
         msgAvatarController = new MsgAvatarController(store);
         messageController = new MessageController(store);
@@ -122,9 +122,9 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Balance.loadBalances(() => {
+                self.Wallet.loadWallets(() => {
                 });
-                self.Balance.setSecurityBalance(() => {
+                self.Wallet.setSecurityWallets(() => {
                 });
                 self.Merchant.loadMyMerchantInfo(() => {
                 });
@@ -165,23 +165,23 @@ export default {
             stateController.setInitCompleted(isCompleted);
         },
     },
-    Balance: {
-        controller(): BalanceController {
-            return balanceController;
+    Wallet: {
+        controller(): WalletController {
+            return walletController;
         },
-        loadBalances: function (callback: any) {
-            BalanceService.getBalances({
+        loadWallets: function (callback: any) {
+            WalletService.getWallets({
                 email: instance.MyInfo.getUserInfo().email
             }, (result) => {
-                balanceController.setBalance(result);
+                walletController.setWallet(result);
                 callback();
             })
         },
-        getBalances: function () {
-            return balanceController.getBalances();
+        getWallets: function () {
+            return walletController.getWallets();
         },
-        setSecurityBalance: function (callback: any) {
-            BalanceService.getMySecurityBalance({
+        setSecurityWallets: function (callback: any) {
+            WalletService.getMySecurityBalance({
                 email: instance.MyInfo.getUserInfo().email
             }, (result) => {
                 //securityDeposit 해야함.
@@ -189,28 +189,28 @@ export default {
             })
         },
         setWithdraw: function (data: any) {
-            balanceController.setWithdraw(
+            walletController.setWithdraw(
                 new Withdraw(data)
             )
         },
         getWithdraw: function () {
-            return balanceController.getWithdraw();
+            return walletController.getWithdraw();
         },
         postWithdraw: function (data: boolean, callback: any) {
-            BalanceService.postWithdraw(
+            WalletService.postWithdraw(
                 {verificationMethod: data ? 'sms' : 'email'},
                 {
-                    addressTo: balanceController.getWithdraw().addressTo,
-                    amount: balanceController.getWithdraw().amount,
-                    cryptoCurrency: balanceController.getWithdraw().cryptoCurrency,
-                    fee: balanceController.getWithdraw().fee,
-                    ownerMemberNo: balanceController.getWithdraw().ownerMemberNo,
-                    receiveAmount: balanceController.getWithdraw().receiveAmount
+                    addressTo: walletController.getWithdraw().addressTo,
+                    amount: walletController.getWithdraw().amount,
+                    cryptoCurrency: walletController.getWithdraw().cryptoCurrency,
+                    fee: walletController.getWithdraw().fee,
+                    ownerMemberNo: walletController.getWithdraw().ownerMemberNo,
+                    receiveAmount: walletController.getWithdraw().receiveAmount
                 }, (result) => {
                     callback(result);
                 })
         },
-        //Balance history
+        //Wallet history
         initHistoryData() {
             this.setHIstoryFilter('')
             paginationController.setPage(1);
@@ -228,42 +228,42 @@ export default {
             })
         },
         setHIstoryFilter(data) {
-            balanceController.setHIstoryFilter(
+            walletController.setHistoryFilter(
                 new MyTradeFilter(data)
             )
         },
         updateHistoryPage(data) {
             if (data.page === undefined) {
-                balanceController.updateHistoryFilter({page: 1});
+                walletController.updateHistoryFilter({page: 1});
                 instance.Pagination.setPage(1,);
             }
-            balanceController.updateHistoryFilter(data);
+            walletController.updateHistoryFilter(data);
             this.loadHistory(() => {});
         },
         loadHistory(callback : any) {
-            BalanceService.getBalanceHistory({
+            WalletService.getWalletHistory({
                 email: instance.MyInfo.getUserInfo().email,
-                searchStartTime: balanceController.getHistoryFilter().searchStartTime,
-                searchEndTime: balanceController.getHistoryFilter().searchEndTime,
-                type: balanceController.getHistoryFilter().type,
-                cryptocurrency: balanceController.getHistoryFilter().cryptocurrency,
-                page: balanceController.getHistoryFilter().page,
+                searchStartTime: walletController.getHistoryFilter().searchStartTime,
+                searchEndTime: walletController.getHistoryFilter().searchEndTime,
+                type: walletController.getHistoryFilter().type,
+                cryptocurrency: walletController.getHistoryFilter().cryptocurrency,
+                page: walletController.getHistoryFilter().page,
                 size: '8'
             }, function (data) {
                 //전체 item list model화 시켜 주기
                 let result = data.balanceHistoryList
-                let balanceHistoryList: BalanceHistory[] = [];
+                let walletHistoryList: WalletHistory[] = [];
                 for (let key in result) {
-                    let item: BalanceHistory = new BalanceHistory(result[key])
-                    balanceHistoryList.push(item);
+                    let item: WalletHistory = new WalletHistory(result[key])
+                    walletHistoryList.push(item);
                 }
                 paginationController.setTotalCount(data.totalCount);
-                balanceController.setBalanceHistoryLIst(balanceHistoryList);
+                walletController.setWalletHistoryList(walletHistoryList);
                 callback();
             })
         },
-        getBalanceHistories() {
-            return balanceController.getBalanceHistoryList();
+        getWalletHistories() {
+            return walletController.getWalletHistoryList();
         }
 
     },
@@ -685,7 +685,7 @@ export default {
             if (type !== '') {
                 switch (type) {
                     case 'tradecenter':     //tradecenter page 일때.
-                        instance.TradeView.updateSelectPage({page: page});  //이거 살리면 오히려 위에 update랑 충돌나서 안됌
+                        instance.TradeView.updateSelectPage({page: page});
                         break;
 
                     case 'MyOrder':
@@ -696,8 +696,8 @@ export default {
                         instance.MyAds.updatePage({page: page});
                         break;
 
-                    case 'balance':
-                        instance.Balance.updateHistoryPage({page: page});
+                    case 'wallet':
+                        instance.Wallet.updateHistoryPage({page: page});
                         break;
 
                     default :

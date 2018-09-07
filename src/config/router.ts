@@ -15,7 +15,7 @@ import Sell from '../views/home/body/trade/sell/Sell.vue'
 import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
 import MyOrderSimpleMobile from '../views/home/body/myOrder/MyOrderSimpleMobile.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
-import Balances from '../views/home/body/balances/Balances.vue'
+import Wallet from '../views/home/body/balances/Wallet.vue'
 import SMSVerification from '../views/home/body/balances/balanceList/SMSVerification/SMSVerification.vue'
 import SuccessWithdraw from '../views/home/body/balances/balanceList/SMSVerification/SuccessWithdraw.vue'
 import MyPage from '../views/home/body/myPage/MyPage.vue'
@@ -104,9 +104,9 @@ export default new Router({
             component: MyAds,
         },
         {
-            path: '/balances',
-            name: 'balances',
-            component: Balances,
+            path: '/wallet',
+            name: 'wallet',
+            component: Wallet,
         },
         {
             path: '/myPage',

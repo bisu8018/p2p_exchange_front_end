@@ -1,6 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import MarketPrice from "@/vuex/model/MarketPrice";
-import Balance from "@/vuex/model/Balance";
+import Balance from "@/vuex/model/Wallet";
 
 
 const mutations = {

@@ -3,7 +3,7 @@
     <!--margin-top 64px를 주기위한 빈 div-->
     <div style="padding-top: 64px; background-color: #ffffff"></div>
     <!--footer시작-->
-    <div class="footer">
+    <div class="footer footer-mobile">
       <v-layout wrap row pt-4 mb-4 class="footerContainer">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 mt-4 class="footer-top">
@@ -51,7 +51,7 @@
       </v-layout>
     <v-divider></v-divider>
     <!-- 언어설정버튼 -->
-      <v-layout mt-4a mb-4a row wrap class="footerContainer">
+      <v-layout mt-4a mb-4a row wrap class="footerContainer ">
         <v-flex md6 xs12 mb-1 text-md-left>
           <div class="dropup">
             <!-- 중국어간체일때 -->
@@ -268,6 +268,11 @@
 </script>
 
 <style scoped>
+  @media only screen and (max-width: 959px) {
+    .footer-mobile {
+      margin-bottom: 68px;
+    }
+  }
   .footerContainer {
     max-width: 1224px;
     margin-left: auto;

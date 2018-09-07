@@ -109,7 +109,7 @@
 <script>
     import MainRepository from '../../../../../../vuex/MainRepository';
     export default {
-        name: "BalanceWithdrawalDialog",
+        name: "WalletWithdrawalDialog",
         props :{
             cryptoCurrency : {
                 type: String,
@@ -196,7 +196,7 @@
             },
             goSMSVerification(){
                 if(this.onCheckAddress() && this.onCheckAmount()){
-                  MainRepository.Balance.setWithdraw({
+                  MainRepository.Wallet.setWithdraw({
                       addressTo : this.address,
                       amount : this.amount,
                       cryptoCurrency : this.cryptoCurrency,
