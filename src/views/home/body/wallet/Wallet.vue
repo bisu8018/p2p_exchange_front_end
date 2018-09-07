@@ -189,8 +189,8 @@
     import Pagination from '@/components/Pagination.vue';
     import ListFilter from '@/components/ListFilter.vue';
     import MainRepository from "../../../../vuex/MainRepository";
-    import WalletTokenList from "./balanceList/WalletTokenList"
-    import WalletDetailList from "./balanceList/WalletDetailList"
+    import WalletTokenList from "./walletList/WalletTokenList"
+    import WalletDetailList from "./walletList/WalletDetailList"
     import DatePicker from '@/components/DatePicker.vue';
     import {abUtils} from "../../../../common/utils";
     import Common from "../../../../service/common/CommonService";

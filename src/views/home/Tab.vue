@@ -30,7 +30,7 @@
       </v-layout>
     </div>
     <div v-else>
-      456
+
     </div>
   </div>
 </template>
