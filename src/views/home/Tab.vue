@@ -2,30 +2,40 @@
   <div >
     <div v-if="isMobile" class="tap">
       <v-layout>
+          <!--Wallet-->
         <div class="tap-button" @click="goWallet">
           <div class="sprite-img2 ic-tab-wallet-gray"
                v-bind:class="{ 'ic-tab-wallet-blue': (getDomain === 'Wallet') }"></div>
-            {{$str("Wallet")}}
+            <h6 v-bind:class="{ 'color-blue': (getDomain === 'Wallet') }">
+            {{$str("Wallet")}}</h6>
         </div>
+          <!--OTC-->
         <div class="tap-button" @click="goOTC">
           <div class="sprite-img2 ic-tab-otc-gray"
                v-bind:class="{ 'ic-tab-otc-blue': (getDomain === 'OTC') }"></div>
-            {{$str("OTC")}}
+            <h6 v-bind:class="{ 'color-blue': (getDomain === 'OTC') }"
+            >{{$str("OTC")}}</h6>
         </div>
+          <!--Exchange-->
         <div class="tap-button" @click="goExchange">
           <div class="sprite-img2 ic-tab-exchange-gray"
                v-bind:class="{ 'ic-tab-exchange-blue': (getDomain === 'Exchange') }"></div>
-            {{$str("Exchange")}}
+            <h6 v-bind:class="{ 'color-blue': (getDomain === 'Exchange') }"
+            >{{$str("Exchange")}}</h6>
         </div>
+          <!--Service-->
         <div class="tap-button" @click="goService">
           <div class="sprite-img2 ic-tab-service-gray"
                v-bind:class="{ 'ic-tab-service-blue': (getDomain === 'Service') }"></div>
-          {{$str("Service")}}
+            <h6 v-bind:class="{ 'color-blue': (getDomain === 'Service') }"
+            >{{$str("Service")}}</h6>
         </div>
+          <!--Chat-->
         <div class="tap-button" @click="goChat">
           <div class="sprite-img2 ic-tab-chat-gray"
-               v-bind:class="{ 'ic-tab-chat-blue': (chatActive === 'Chat') }"></div>
-            {{$str("Chat")}}
+               v-bind:class="{ 'ic-tab-chat-blue': (chatActive === true) }"></div>
+            <h6 v-bind:class="{ 'color-blue': (chatActive === true) }"
+            >{{$str("Chat")}}</h6>
         </div>
       </v-layout>
     </div>
@@ -72,7 +82,7 @@
                 //MainRepository.router().goWallet();
             },
             goChat(){
-                this.chatActive = true;
+                this.chatActive = !this.chatActive;
                 //MainRepository.router().goWallet();
             },
         },

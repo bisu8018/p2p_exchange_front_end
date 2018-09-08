@@ -3386,45 +3386,45 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['My Token', {
+        KOR: '내 토큰',
+        ENG: 'My Token',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Wallet', {
+        KOR: '지갑',
+        ENG: 'Wallet',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['OTC', {
+        KOR: 'OTC',
+        ENG: 'OTC',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Exchange', {
+        KOR: '중앙거래소',
+        ENG: 'Exchange',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Service', {
+        KOR: '서비스',
+        ENG: 'Service',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Chat', {
+        KOR: '채팅',
+        ENG: 'Chat',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Fixed', {
+        KOR: 'Fixed',
+        ENG: 'Fixed',
         CN: '',
         HK: ''
     }],
@@ -3558,6 +3558,6 @@ export function abString(key: string): string {
         return string.KOR;
     }
   } else {
-    return '' + key
+    return '.' + key
   }
 }

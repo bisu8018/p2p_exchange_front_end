@@ -46,18 +46,27 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
                 <div v-if="!isMobile" class="d-contents">
-                    <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
                     <!-- Divider -->
                     <div v-if="getDomain !== 'Wallet'" class="vertical-divider"></div>
                     <!--Domain들-->
-                    <button class="menu-button"  @click="goWallet()">{{$str("Wallet")}}</button>
-
-                    <button v-if="getDomain !=='OTC'"class="menu-button" @click="goOTC()">{{$str("OTC")}}</button>
-
-                    <button v-if="getDomain !=='Exchange'" class="menu-button" @click="goExchange()">{{$str("Exchange")}}</button>
-
-                    <button v-if="getDomain !=='Service'" class="menu-button" @click="goService()">{{$str("Service")}}</button>
+                    <!--Wallet-->
+                    <button class="menu-button"  @click="goWallet()">
+                        {{$str("Wallet")}}
+                    </button>
+                    <!--OTC-->
+                    <button v-if="getDomain !=='OTC'" class="menu-button" @click="goOTC()">
+                        {{$str("OTC")}}
+                    </button>
+                    <!--Exchange-->
+                    <button v-if="getDomain !=='Exchange'" class="menu-button" @click="goExchange()">
+                        {{$str("Exchange")}}
+                    </button>
+                    <!--Service-->
+                    <button v-if="getDomain !=='Service'" class="menu-button" @click="goService()">
+                        {{$str("Service")}}
+                    </button>
                 </div>
                 <v-spacer></v-spacer>
                 <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
@@ -299,7 +308,7 @@
                 //MainRepository.router().goWallet();
             },
             goChat(){
-                this.isActive = 'Chat'
+                //chat창을 여는 로직 추가
                 //MainRepository.router().goWallet();
             },
             serializeserialize (form) { console.log(form);

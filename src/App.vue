@@ -1533,7 +1533,7 @@
         height: 20px;
     }
     .ic-header-logo-web {
-        background: 0px -234px;
+        background: 0px -84px;
         width: 70px;
         height: 20px;
     }
@@ -1596,7 +1596,7 @@
         background-image: url(./assets/img/sprite_x2.png);
     }
     .sprite-img2 {
-        background-size: 200px 150px;
+        background-size: 200px 300px;
         background-image: url(./assets/img/sprite_image-2.png);
     }
 
