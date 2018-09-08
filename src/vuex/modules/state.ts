@@ -15,6 +15,10 @@ const mutations = {
     [VuexTypes.SET_CHECK_OS] (state: any, checkOs: number) {
         state.checkOs = checkOs;
     },
+    // 도메인 체크
+    [VuexTypes.SET_DOMAIN] (state: any, domain: string) {
+        state.domain = domain;
+    },
 };
 
 
@@ -32,22 +36,27 @@ const actions = {
     [VuexTypes.SET_CHECK_OS] (context: any, checkOs: number) {
         context.commit(VuexTypes.SET_CHECK_OS, checkOs)
     },
+    // 도메인 체크
+    [VuexTypes.SET_DOMAIN] (context: any, domain: string) {
+        context.commit(VuexTypes.SET_DOMAIN, domain)
+    },
 };
 
 const getters = {
 };
 
-
+let domain: string = 'OTC';
 let initCompleted: boolean = false;
 let isMobile: boolean = false;
 // OS Check
 //let checkOs: number = 1;
 
 const state = {
-  initCompleted: initCompleted,
-  isMobile: isMobile,
-  //OS Check
-  //checkOs: checkOs,
+    domain : domain ,
+    initCompleted: initCompleted,
+    isMobile: isMobile,
+    //OS Check
+    //checkOs: checkOs,
 };
 
 export default {

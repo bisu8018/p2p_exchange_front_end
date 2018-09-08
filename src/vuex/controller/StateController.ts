@@ -12,6 +12,14 @@ export default class StateController {
     setMobile(isMobile: boolean) {
         this.store.dispatch(VuexTypes.SET_IS_MOBILE, isMobile)
     }
+    // 도메인 설정
+    setDomain(domain: string) {
+        this.store.dispatch(VuexTypes.SET_DOMAIN, domain)
+    }
+
+    getDomain() {
+        return this.store.state.state.domain
+    }
 
     isMoblie() {
         return this.store.state.state.isMobile

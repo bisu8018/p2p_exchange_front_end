@@ -164,6 +164,13 @@ export default {
         setInitCompleted(isCompleted: boolean) {
             stateController.setInitCompleted(isCompleted);
         },
+        setDomain(domain : string){
+            stateController.setDomain(domain)
+        },
+        getDomain(){
+          return stateController.getDomain();
+        }
+
     },
     Wallet: {
         controller(): WalletController {

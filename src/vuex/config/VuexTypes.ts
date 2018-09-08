@@ -13,6 +13,7 @@ export enum VuexTypes {
     INIT_COMPLETED = 'state/INIT_COMPLETED',    // 초기화 완료 체크
     SET_CHECK_OS = 'state/SET_CHECK_OS',        // OS 체크
     SET_IS_MOBILE = 'state/SET_IS_MOBILE',      // 모바일 인지 체크
+    SET_DOMAIN = 'state/SET_DOMAIN',      // 현재 도메인 체크
 
 
     //======================================

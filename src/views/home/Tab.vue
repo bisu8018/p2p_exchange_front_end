@@ -4,27 +4,27 @@
       <v-layout>
         <div class="tap-button" @click="goWallet">
           <div class="sprite-img2 ic-tab-wallet-gray"
-               v-bind:class="{ 'ic-tab-wallet-blue': (isActive === 'Wallet') }"></div>
+               v-bind:class="{ 'ic-tab-wallet-blue': (getDomain === 'Wallet') }"></div>
             {{$str("Wallet")}}
         </div>
         <div class="tap-button" @click="goOTC">
           <div class="sprite-img2 ic-tab-otc-gray"
-               v-bind:class="{ 'ic-tab-otc-blue': (isActive === 'OTC') }"></div>
+               v-bind:class="{ 'ic-tab-otc-blue': (getDomain === 'OTC') }"></div>
             {{$str("OTC")}}
         </div>
         <div class="tap-button" @click="goExchange">
           <div class="sprite-img2 ic-tab-exchange-gray"
-               v-bind:class="{ 'ic-tab-exchange-blue': (isActive === 'Exchange') }"></div>
+               v-bind:class="{ 'ic-tab-exchange-blue': (getDomain === 'Exchange') }"></div>
             {{$str("Exchange")}}
         </div>
         <div class="tap-button" @click="goService">
           <div class="sprite-img2 ic-tab-service-gray"
-               v-bind:class="{ 'ic-tab-service-blue': (isActive === 'Service') }"></div>
+               v-bind:class="{ 'ic-tab-service-blue': (getDomain === 'Service') }"></div>
           {{$str("Service")}}
         </div>
         <div class="tap-button" @click="goChat">
           <div class="sprite-img2 ic-tab-chat-gray"
-               v-bind:class="{ 'ic-tab-chat-blue': (isActive === 'Chat') }"></div>
+               v-bind:class="{ 'ic-tab-chat-blue': (chatActive === 'Chat') }"></div>
             {{$str("Chat")}}
         </div>
       </v-layout>
@@ -41,7 +41,7 @@
         name: "Tab",
         data: () => ({
             show : false,
-            isActive : 'OTC',
+            chatActive : false,
         }),
         computed: {
             isMobile() {
@@ -50,26 +50,29 @@
             isLogin() {
                 return MainRepository.MyInfo.isLogin();
             },
+            getDomain(){
+                return MainRepository.State.getDomain();
+            }
         },
         methods: {
             goWallet(){
-                this.isActive = 'Wallet'
+                MainRepository.State.setDomain('Wallet')
                 MainRepository.router().goWallet();
             },
             goOTC() {
-                this.isActive = 'OTC'
+                MainRepository.State.setDomain('OTC')
                 MainRepository.router().goMain();
             },
             goExchange(){
-                this.isActive = 'Exchange'
+                MainRepository.State.setDomain('Exchange')
                 //MainRepository.router().goWallet();
             },
             goService(){
-                this.isActive = 'Service'
+                MainRepository.State.setDomain('Service')
                 //MainRepository.router().goWallet();
             },
             goChat(){
-                this.isActive = 'Chat'
+                this.chatActive = true;
                 //MainRepository.router().goWallet();
             },
         },

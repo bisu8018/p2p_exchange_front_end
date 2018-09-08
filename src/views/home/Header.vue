@@ -1,298 +1,192 @@
+<!--project의 규모가 커지며 유지보수의 간편화를 위해 Header를 한통으로 옮김-->
+<!-- CSS가 두벌이므로 참고할것-->
 <template>
     <div>
-    <!-- 모바일 일때-->
-    <div v-if="isMobile">
-        <v-layout class="nav align-center">
-
-            <!--logo-->
-            <button @click="goMain()" class="ml-3">
-                <div class="sprite-img2 ic-header-logo-web "></div>
-            </button>
-
-            <!--아래의 이 spacer는 가운데 빈 여백을 알아서 할당해 주는 코드임-->
-            <v-spacer></v-spacer>
-
-            <!--햄버거 bar-->
-            <div class="p-relative mr-3">
-                <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
-                <div v-if="isLogin && totalMsgCount > 0 && orderList.length > 0" class="new-msg-dot"></div>
-            </div>
-
-        </v-layout>
-
-        <!-- navigation drawer 열렸을 시 나오는 menu bar-->
-        <v-layout row wrap v-if="drawer" @click.stop="drawer = !drawer" class="dropDownMenu">
-            <!-- TradeCenter버튼-->
-            <v-flex xs12 class="verticalcentertext" @click.stop="onTradeCenter" >
-                <button class="text-xs-left ml-3">
-                    {{$str("TradeCenter")}}
+        <div class="nav" v-bind:class="{cssFixed : isFixed}">
+            <div class="mobile-header">
+                <!--logo-->
+                <button @click="goMain()" class="logo ">
+                    <div class="sprite-img2 ic-header-logo-web "></div>
                 </button>
-            </v-flex>
-          <!--post AD 눌렀을때 나오는 세부항목-->
-          <div class="submenu">
-            <div v-if="tradeCenterDrawer">
-              <!--General TradeCenter-->
-              <v-flex xs12 class="verticalcentertext menu-hover"@click="goTradeCenter()">
-                <button class="text-xs-left ml-5">
-                    {{$str("GeneralTrade")}}
-                </button>
-              </v-flex>
-              <!--Block TradeCenter-->
-              <v-flex xs12 class="verticalcentertext menu-hover" @click="goBlockTrade()">
-                <button class="text-xs-left ml-5">
-                    {{$str("BlockTrade")}}
-                </button>
-              </v-flex>
-              <!--Block TradeCenter-->
-              <v-flex xs12 class="verticalcentertext menu-hover" @click="goBlockTrade()">
-                <button class="text-xs-left ml-5">
-                    {{$str("CustomTokenTrade")}}
-                </button>
-              </v-flex>
-            </div>
-          </div>
-            <!-- post AD 버튼 -->
-            <v-flex xs12 class="verticalcentertext" @click.stop="onPostAD">
-
-                <button class="text-xs-left ml-3">
-                    {{$str("postAd")}}
-                </button>
-            </v-flex>
-
-            <!--post AD 눌렀을때 나오는 세부항목-->
-            <div class="submenu">
-                <div v-if="postadDrawer">
-                    <!--post general AD-->
-                    <v-flex xs12 class="verticalcentertext menu-hover" @click="goPostAd(false)">
-                        <button class="text-xs-left ml-5">
-                            {{$str("Post_General_AD")}}
-                        </button>
-                    </v-flex>
-                    <!--post block AD-->
-                    <v-flex xs12 class="verticalcentertext menu-hover" @click="goPostAd(true)">
-                        <button class="text-xs-left ml-5">
-                            {{$str("Post_Block_AD")}}
-                        </button>
-                    </v-flex>
+                <div v-if="isMobile" class="full-width">
+                    <v-spacer></v-spacer>
+                    <!--햄버거 bar-->
+                    <div class="p-relative menu-margin">
+                        <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
+                        <div v-if="isLogin && totalMsgCount > 0 && orderList.length > 0" class="new-msg-dot"></div>
+                    </div>
                 </div>
             </div>
+            <div v-if="drawer || !isMobile" class="dropdown-wrapper dropDownMenu" @click.stop="drawer = !drawer">
+                <!-- TradeCenter-->
+                <div v-if="getDomain === 'OTC'" class="dropdown ">
+                    <div @click.stop="onTradeCenter" class="menu-button dropbtn">{{$str("TradeCenter")}}</div>
+                    <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
+                        <div class="submenu" @click="goTradeCenter()">
+                            {{$str("GeneralTrade")}}
+                        </div>
+                        <div class="submenu" @click="goBlockTrade()">
+                            {{$str("BlockTrade")}}
+                        </div>
+                        <div class="submenu" @click="goBlockTrade()">
+                            {{$str("CustomTokenTrade")}}
+                        </div>
+                    </div>
+                </div>
 
-            <span v-if="!isLogin" class="mobile-span">
-                <!-- login 버튼-->
-                <v-flex xs12 class="verticalcentertext" @click="goLogin()">
-                    <button class="text-xs-left ml-3">
-                        {{$str("loginText")}}
-                    </button>
-                </v-flex>
-                <!-- signup 버튼-->
-                <v-flex xs12 class="verticalcentertext" @click="goSignup()">
-                    <button class="text-xs-left ml-3">
-                        {{$str("signupText")}}
-                    </button>
-                </v-flex>
-            </span>
+                <!--Post Ad-->
+                <div v-if="getDomain === 'OTC'" class="dropdown">
+                    <button class="menu-button dropbtn" @click.stop="onPostAD">{{$str("postAd")}}</button>
+                    <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
+                        <div class="submenu" @click="goPostAd(false)">
+                            {{$str("Post_General_AD")}}
+                        </div>
+                        <div class="submenu" @click="goPostAd(true)">
+                            {{$str("Post_Block_AD")}}
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!isMobile" class="d-contents">
+                    <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
+                    <!-- Divider -->
+                    <div v-if="getDomain !== 'Wallet'" class="vertical-divider"></div>
+                    <!--Domain들-->
+                    <button class="menu-button"  @click="goWallet()">{{$str("Wallet")}}</button>
 
-            <span v-if="isLogin" class="mobile-span">
-                <!-- 로그인시 추가되는 화면들-->
-                <v-flex xs12 class="verticalcentertext" @click="goMyOrder()">
-                    <button class="text-xs-left ml-3">
+                    <button v-if="getDomain !=='OTC'"class="menu-button" @click="goOTC()">{{$str("OTC")}}</button>
+
+                    <button v-if="getDomain !=='Exchange'" class="menu-button" @click="goExchange()">{{$str("Exchange")}}</button>
+
+                    <button v-if="getDomain !=='Service'" class="menu-button" @click="goService()">{{$str("Service")}}</button>
+                </div>
+                <v-spacer></v-spacer>
+                <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
+
+                <!--MyOrder-->
+                <div class="dropdown" v-if="getDomain ==='OTC'">
+                    <button class="menu-button dropbtn" @click="goMyOrder()" v-if="isLogin">
                         {{$str("order")}}
                     </button>
-                    <span v-if="isLogin && totalMsgCount > 0" class="badge ml-2">{{ totalMsgCount }}</span>
-                </v-flex>
-                <v-flex xs12 class="verticalcentertext" @click="goMyAds()">
-                    <button class="text-xs-left ml-3">
-                        {{$str("MyAds")}}
-                    </button>
-                </v-flex>
-                <v-flex xs12 class="verticalcentertext" @click="goMerchant()">
-                    <button class="text-xs-left ml-3">
-                        {{$str("Merchant")}}
-                    </button>
-                </v-flex>
-                <v-flex xs12 class="verticalcentertext" @click="goMyPage()">
-                    <button class="text-xs-left ml-3">
-                        {{$str("MyPage")}}
-                    </button>
-                </v-flex>
-                <form action="/logout" method="post" ref="logout" @click="onLogout" id="logoutFormMobile">
-                    <v-flex xs12 class="verticalcentertext menu-hover">
-                        <button class="text-xs-left ml-3">
-                            {{$str("LogOut")}}
-                        </button>
-                    </v-flex>
-                </form>
-            </span>
-        </v-layout>
-    </div>
 
-
-
-    <!-- 웹일때 -->
-    <div class="nav-web" v-else>
-        <v-layout align-center row class="nav" v-bind:class="{cssFixed : isFixed}">
-
-            <!-- logo버튼-->
-            <button @click="goMain()" class="ml-4">
-                <div class="sprite-img2 ic-header-logo-web "></div>
-            </button>
-
-            <div class="dropdown">
-                <button @click="goTradeCenter()" class="ml-4a dropbtn">{{$str("TradeCenter")}}</button>
-                <div class="dropdown-content" style="min-width: 140px;">
-                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goTradeCenter()">
-                        {{$str("GeneralTrade")}}
-                    </div>
-                    <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goBlockTrade()">
-                        {{$str("BlockTrade")}}
-                    </div>
-                    <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goBlockTrade()">
-                        {{$str("CustomTokenTrade")}}
-                    </div>
-                </div>
-            </div>
-
-            <!-- post AD 버튼 -->
-            <!-- default post AD 버튼-->
-            <div class="dropdown">
-                <button class="ml-4a dropbtn" @click="goPostAd(false)">{{$str("postAd")}}</button>
-                <div class="dropdown-content" style="min-width: 140px;">
-                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostAd(false)">
-                        {{$str("Post_General_AD")}}
-                    </div>
-                    <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goPostAd(true)">
-                        {{$str("Post_Block_AD")}}
-                    </div>
-                </div>
-            </div>
-            <!-- Wallet -->
-            <button class="button-2 ml-4a" @click="goWallet()" v-if="isLogin">{{$str("Wallet")}}</button>
-            <!--아래의 v-spacer는 중간여백을 주기 위함으로 삭제해도 무관-->
-            <v-spacer></v-spacer>
-
-            <!-- 로그인시 내정보 버튼 -->
-            <!--기능 구현을 위해 만들어 놓음. 로그인 시 생겨야 하는 버튼들-->
-
-            <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
-
-            <!--MyOrder-->
-            <div class="dropdown">
-                <button class="button-2 mr-4a dropbtn" @click="goMyOrder()" v-if="isLogin">
-                    {{$str("order")}}
-                </button>
-
-                <!-- ongoing order 드롭다운 -->
-                <div v-if="!isFixed" class="dropdown-content myorder-dropdown">
-                    <div class="scroll-space">
-                        <v-layout pa-3 align-center>
-                            <h3 class="medium">{{$str("Ongoing order")}}</h3>
-                            <v-spacer></v-spacer>
-                            <v-layout justify-end c-pointer @click="fixModal()">
-                                <div class="color-blue-active mr-2">{{$str("Fixed")}}</div>
-                                <div class="sprite-img ic-fix color-blue-active"></div>
+                    <!-- ongoing order 드롭다운 -->
+                    <div v-if="!isFixed &&!isMobile" class="dropdown-content myorder-dropdown">
+                        <div class="scroll-space">
+                            <v-layout pa-3 align-center>
+                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
+                                <v-spacer></v-spacer>
+                                <v-layout justify-end c-pointer @click="fixModal()">
+                                    <div class="color-blue-active mr-2">{{$str("Fixed")}}</div>
+                                    <div class="sprite-img ic-fix color-blue-active"></div>
+                                </v-layout>
                             </v-layout>
-                        </v-layout>
-                        <v-divider></v-divider>
-                        <div v-if="haveItem">
-                            <!-- ongoing items -->
-                            <div v-for="item in orderList">
-                                <my-order-simple-item
-                                        :data="item"
-                                />
+                            <v-divider></v-divider>
+                            <div v-if="haveItem">
+                                <!-- ongoing items -->
+                                <div v-for="item in orderList">
+                                    <my-order-simple-item
+                                            :data="item"
+                                    />
+                                    <v-divider />
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="sprite-img ic-no-ad-sm no-more-ads">
+                                </div>
+                                <div class="color-gray no-more-ads-text">
+                                    {{$str("No more orders")}}
+                                </div>
                                 <v-divider />
                             </div>
                         </div>
-                        <div v-else>
-                            <div class="sprite-img ic-no-ad-sm no-more-ads">
-                            </div>
-                            <div class="color-gray no-more-ads-text">
-                                {{$str("No more orders")}}
-                            </div>
-                            <v-divider />
+                        <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue-active my-3 mr-3">
+                            {{$str("View All")}}
                         </div>
                     </div>
-                    <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue-active my-3 mr-3">
-                        {{$str("View All")}}
+                </div>
+
+                <!--Chat-->
+                <button v-if="!isMobile" class="menu-button" @click="goChat()">{{$str("Chat")}}</button>
+
+                <!-- login 버튼 -->
+                <button class="menu-button" @click="goLogin()" v-if="!isLogin">{{$str("loginText")}}</button>
+                <!-- signup 버튼-->
+                <button class="menu-button" @click="goSignup()" v-if="!isLogin">{{$str("signupText")}}</button>
+
+                <span v-if="isLogin">
+                    <!--아바타 (로그인 시 출력)-->
+                    <div class="my-menu-button dropdown ">
+                        <div v-if="!isMobile" class="verticalcentertext dropbtn padding-top-16" @click="goMyPage">
+                            <avatar
+                                    :me= true
+                                    class=" mr-1 ">
+                            </avatar>
+                            <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+                        </div>
+                        <div class="dropdown-content ">
+                            <div class="my-menu" @click="goMyPage">
+                                {{$str("MyPage")}}
+                            </div>
+                            <div v-if="getDomain ==='OTC'" class="my-menu" @click="goMyAds">
+                                {{$str("MyAds")}}
+                            </div>
+                            <div v-if="getDomain ==='OTC'" class="my-menu" @click="goMerchant">
+                                {{$str("Merchant")}}
+                            </div>
+                            <form v-if="isMobile" action="/logout" method="post" ref="logout" id="logoutFormMobile"
+                                  @click="onLogout">
+                                <div class="my-menu">
+                                    {{$str("LogOut")}}
+                                </div>
+                            </form>
+                            <form v-else action="/logout" method="post" ref="logout" id="logoutFormDesktop"
+                                  @click="onLogout">
+                                <div class="my-menu">
+                                    {{$str("LogOut")}}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </span>
+
+                <!-- 언어설정버튼 -->
+                <div v-if="!isMobile" class="dropdown mr-4 ml-3">
+                    <!-- 중문간체 -->
+                    <button v-if="currentLang=='ZH'" class="dropbtn  vertical-center">
+                        <div class="sprite-img ic-chinese f-left"></div>
+                        <span class="ml-2">简体中文<i
+                                class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                    </button>
+                    <!-- 중문번체 -->
+                    <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
+                        <div class="sprite-img ic-chinese f-left"></div>
+                        <span class=" ml-2">繁體中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                    </button>
+                    <!-- 영어 -->
+                    <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
+                        <div class="sprite-img ic-english f-left"></div>
+                        <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                    </button>
+                    <!-- 한국어-->
+                    <button v-else class="dropbtn vertical-center">
+                        <div class="sprite-img ic-korean f-left"></div>
+                        <span class=" ml-2">한국어<i
+                                class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                    </button>
+                    <!--언어 설정시 dropdown box-->
+                    <div class="dropdown-content">
+                        <!-- 언어 list 버튼-->
+                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
+                        </div>
+                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">繁體中文
+                        </div>
+                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
+                        </div>
+                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--내 정보 끝-->
-
-
-            <!-- login 버튼 -->
-            <button class="button-2 mr-4a" @click="goLogin()" v-if="!isLogin">{{$str("loginText")}}</button>
-            <!-- signup 버튼-->
-            <button class="button-2 mr-4a" @click="goSignup()" v-if="!isLogin">{{$str("signupText")}}</button>
-
-            <span v-if="isLogin">
-                <!--아바타 (로그인 시 출력)-->
-                <div class="mr-4a mt-1 dropdown c-pointer d-block">
-                    <div class="verticalcentertext dropbtn" @click="goMyPage">
-                        <avatar
-                                :me= true
-                                class=" mr-1 ">
-                        </avatar>
-                        <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
-                    </div>
-                    <div class="dropdown-content ">
-                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyPage">
-                            {{$str("MyPage")}}
-                        </div>
-                        <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMyAds">
-                            {{$str("MyAds")}}
-                        </div>
-                        <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer" @click="goMerchant">
-                            {{$str("Merchant")}}
-                        </div>
-                        <form action="/logout" method="post" ref="logout" id="logoutFormDesktop"
-                              @click="onLogout">
-                            <div class=" btn-blue-hover  pr-3 pl-3 pt-2 pb-2 c-pointer">
-                                {{$str("LogOut")}}
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </span>
-
-            <!-- 언어설정버튼 -->
-            <div class="dropdown mr-4a d-block">
-                <!-- 중문간체 -->
-                <button v-if="currentLang=='ZH'" class="dropbtn  vertical-center">
-                    <div class="sprite-img ic-chinese f-left"></div>
-                    <span class="ml-2">简体中文<i
-                            class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                </button>
-                <!-- 중문번체 -->
-                <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
-                    <div class="sprite-img ic-chinese f-left"></div>
-                    <span class=" ml-2">繁體中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                </button>
-                <!-- 영어 -->
-                <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
-                    <div class="sprite-img ic-english f-left"></div>
-                    <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                </button>
-                <!-- 한국어-->
-                <button v-else class="dropbtn vertical-center">
-                    <div class="sprite-img ic-korean f-left"></div>
-                    <span class=" ml-2">한국어<i
-                            class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                </button>
-                <!--언어 설정시 dropdown box-->
-                <div class="dropdown-content">
-                    <!-- 언어 list 버튼-->
-                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
-                    </div>
-                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">繁體中文
-                    </div>
-                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
-                    </div>
-                    <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
-                    </div>
-                </div>
-            </div>
-        </v-layout>
-    </div>
+        </div>
     </div>
 </template>
 
@@ -354,6 +248,9 @@
             },
             haveItem(){
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems().length !== 0;
+            },
+            getDomain(){
+                return MainRepository.State.getDomain();
             }
         },
         created() {
@@ -366,12 +263,44 @@
         },
         methods: {
             onTradeCenter(){
-                this.postadDrawer = false;
-                this.tradeCenterDrawer = !this.tradeCenterDrawer
+                //mobile에서
+                if(this.isMobile){
+                    this.postadDrawer = false;
+                    this.tradeCenterDrawer = !this.tradeCenterDrawer
+                }
+                //web에서
+                else{
+                    this.goTradeCenter();
+                }
             },
             onPostAD(){
-                this.tradeCenterDrawer = false;
-                this.postadDrawer = !this.postadDrawer
+                if(this.isMobile){
+                    this.tradeCenterDrawer = false;
+                    this.postadDrawer = !this.postadDrawer
+                }
+                else{
+                    this.goPostAd(false)
+                }
+            },
+            goWallet(){
+                MainRepository.State.setDomain('Wallet')
+                MainRepository.router().goWallet();
+            },
+            goOTC() {
+                MainRepository.State.setDomain('OTC')
+                MainRepository.router().goMain();
+            },
+            goExchange(){
+                MainRepository.State.setDomain('Exchange')
+                //MainRepository.router().goWallet();
+            },
+            goService(){
+                MainRepository.State.setDomain('Service')
+                //MainRepository.router().goWallet();
+            },
+            goChat(){
+                this.isActive = 'Chat'
+                //MainRepository.router().goWallet();
             },
             serializeserialize (form) { console.log(form);
                 var field,
@@ -467,9 +396,6 @@
             goMyAds() {
                 this.$router.push("/myAds");
             },
-            goWallet() {
-                this.$router.push("/wallet");
-            },
             goMerchant() {
                 MainRepository.router().goMerchant();
             },
@@ -490,6 +416,196 @@
 </script>
 
 <style scoped>
+    /*web 일때*/
+    @media only screen and (min-width: 960px) {
+        .nav{
+            display: flex;
+        }
+        .dropdown-wrapper{
+            display: contents;
+        }
+        .logo{
+            margin: 22px 16px 22px 24px;
+        }
+        .menu-button{
+            margin: auto 16px;
+            cursor: pointer;
+        }
+        .my-menu-button{
+            margin: auto 16px;
+            cursor: pointer;
+        }
+        .d-contents{
+            display: contents;
+        }
+        .dropbtn {
+            padding-top: 22px;
+            padding-bottom: 21px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            color: black;
+            min-width: 104px;
+            box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+            z-index: 1;
+            border-radius: 2px;
+            font-weight: 400;
+            background-color: white;
+            top: 64px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown-content button {
+            display: block;
+        }
+
+        .submenu{
+            padding: 8px 16px 8px 16px;
+            cursor: pointer;
+        }
+        .submenu:hover{
+            background-color: #316ee4;
+            color: white
+        }
+        .my-menu{
+            padding: 8px 16px 8px 16px;
+            cursor: pointer;
+        }
+        .my-menu:hover{
+            background-color: #316ee4;
+            color: white
+        }
+        .myorder-dropdown{
+            min-width: 306px;
+            z-index: 2;
+            top: 56px;
+            right: 18px;
+            max-height: 461px;
+            overflow: visible;
+            position: absolute;
+        }
+
+        .myorder-dropdown:after{
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            right: 24px;
+            width: 0; height: 0;
+            border-style: solid;
+            border-bottom: 4px solid  #ffffff;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+            border-color: transparent transparent  #ffffff transparent;
+        }
+
+        .scroll-space {
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            max-height: 336px;
+        }
+        .padding-top-16{
+            padding-top: 16px;
+        }
+
+        .no-more-ads{
+            margin: 50px auto 0px auto;
+        }
+        .no-more-ads-text{
+            margin-bottom: 50px;
+            text-align: center;
+        }
+    }
+    /*mobile 일때*/
+    @media only screen and (max-width: 959px) {
+        .dropdown-wrapper{
+            background-color: #002970;
+        }
+        .logo{
+            margin-left: 24px;
+        }
+        .mobile-header{
+            display: flex;
+            height: 64px;
+        }
+        .full-width{
+            display : flex;
+            width: 100%;
+        }
+        .menu-margin{
+            margin: auto 24px auto auto;
+        }
+        .menu-button{
+            height: 52px;
+            padding: 16px 24px 16px 24px;
+            text-align: left;
+            cursor: pointer;
+            width: 100%;
+        }
+        .menu-button:hover{
+            background-color: #316ee4;
+        }
+        .my-menu{
+            background-color: #002970;
+            height: 52px;
+            padding: 16px 24px 16px 24px;
+            text-align: left;
+            cursor: pointer;
+            width: 100%;
+        }
+        .my-menu:hover{
+            background-color: #316ee4;
+        }
+        .dropDownMenu {
+            z-index: 100;
+            width: 100%;
+            color: white;
+            background-color: #002970;
+            position: fixed;
+        }
+
+        .dropDownMenu .flex {
+            padding-left: 0;
+            padding-right: 0;
+            height: 52px;
+        }
+
+
+
+        .submenu {
+            width: 100%;
+            background-color: #21407e;
+            text-align: left;
+            padding: 16px 48px;
+            cursor : pointer;
+        }
+        .submenu:hover{
+            background-color: #316ee4
+        }
+        .submenu.flex {
+            height: 52px;
+        }
+
+
+    }
+
     .nav {
         height: 64px;
         background-color: #002970;
@@ -499,129 +615,19 @@
         width: 100%;
     }
 
-    .dropDownMenu {
-        z-index: 100;
-        width: 100%;
-        color: white;
-        background-color: #002970;
-        position: fixed;
-    }
-
-    .dropDownMenu .flex {
-        padding-left: 0;
-        padding-right: 0;
-        height: 52px;
-    }
-
-    .dropDownMenu > div,
-    .mobile-span > div {
-        cursor: pointer;
-    }
-
-    .dropDownMenu > div:hover,
-    .mobile-span > div:hover {
-        background-color: #316ee4
-    }
-
-    .dropDownMenu > .submenu:hover {
-        background-color: #21407e;
-    }
-
-    .menu-hover:hover{
-        cursor : pointer;
-        background-color: #316ee4
-    }
-
-    .submenu {
-        width: 100%;
-        background-color: #21407e;
-    }
-
-    .submenu.flex {
-        height: 52px;
-    }
-
     .verticalcentertext {
         align-items: center;
         display: flex;
     }
 
-    .mobile-span {
-        width: 100%;
+    .vertical-divider{
+        width: 1px;
+        height: 20px;
+        margin: 22px 16px 22px 16px;
+        background-color: #9294a6;
     }
 
-    .dropbtn {
-        padding-top: 22px;
-        padding-bottom: 21px;
-        border: none;
-    }
 
-    .dropdown {
-        position: relative;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: fixed;
-        color: black;
-        min-width: 104px;
-        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-        z-index: 1;
-        border-radius: 2px;
-        font-weight: 400;
-        background-color: white;
-        top: 64px;
-    }
-
-    .dropdown-content a {
-        color: black;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content a:hover {
-        background-color: #ddd;
-    }
-
-    .dropdown:hover .dropdown-content,
-    .dropdown-content button {
-        display: block;
-    }
-
-    .myorder-dropdown{
-        min-width: 306px;
-        z-index: 2;
-        top: 56px;
-        right: 18px;
-        max-height: 461px;
-        overflow: visible;
-        position: absolute;
-    }
-
-    .myorder-dropdown:after{
-        content: '';
-        position: absolute;
-        bottom: 100%;
-        right: 24px;
-        width: 0; height: 0;
-        border-style: solid;
-        border-bottom: 4px solid  #ffffff;
-        border-right: 4px solid transparent;
-        border-left: 4px solid transparent;
-        border-color: transparent transparent  #ffffff transparent;
-    }
-
-    .scroll-space {
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-        position: relative;
-        max-height: 336px;
-    }
-
-    /*.myorder-footer {*/
-        /*position: absolute;*/
-        /*z-index: 2;*/
-    /*}*/
 
     .new-msg-dot {
         width: 7px;
@@ -638,11 +644,5 @@
         left: 0px;
     }
 
-    .no-more-ads{
-        margin: 50px auto 0px auto;
-    }
-    .no-more-ads-text{
-        margin-bottom: 50px;
-        text-align: center;
-    }
+
 </style>
