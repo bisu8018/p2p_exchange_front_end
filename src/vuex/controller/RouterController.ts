@@ -83,10 +83,10 @@ export default class RouterController {
         });
     }
 
-    goTradeCenter() {
+    goGeneralTrade() {
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('tradeCenter');
+            r.push('generalTrade');
         });
     }
 

@@ -22,13 +22,13 @@
                 <div v-if="getDomain === 'OTC'" class="dropdown ">
                     <div @click.stop="onTradeCenter" class="menu-button dropbtn">{{$str("TradeCenter")}}</div>
                     <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
-                        <div class="submenu" @click="goTradeCenter()">
+                        <div class="submenu" @click="goGeneralTrade()">
                             {{$str("GeneralTrade")}}
                         </div>
                         <div class="submenu" @click="goBlockTrade()">
                             {{$str("BlockTrade")}}
                         </div>
-                        <div class="submenu" @click="goBlockTrade()">
+                        <div class="submenu" @click="goCustomTokenTrade()">
                             {{$str("CustomTokenTrade")}}
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                 }
                 //web에서
                 else{
-                    this.goTradeCenter();
+                    this.goGeneralTrade();
                 }
             },
             onPostAD(){
@@ -359,7 +359,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded',
                     }
                 }).then((response) => {
-                    window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
+                    window.location.replace(AxiosService.getRootUrl() + '/generalTrade')
                 })
             },
             goSignup() {
@@ -371,10 +371,13 @@
             goMain() {
                 location.href = "/";
             },
-            goTradeCenter() {
-                MainRepository.router().goTradeCenter();
+            goGeneralTrade() {
+                MainRepository.router().goGeneralTrade();
             },
             goBlockTrade() {
+                MainRepository.router().goBlockTrade();
+            },
+            goCustomTokenTrade(){
                 MainRepository.router().goBlockTrade();
             },
             goPostAd(isBlock) {

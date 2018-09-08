@@ -318,7 +318,7 @@
                 // URL param 검사
                 let urlParam = this.getUrlParam();
                 if (urlParam === '') {
-                    MainRepository.router().goTradeCenter();
+                    MainRepository.router().goGeneralTrade();
                 } else {
                     this.orderNo = urlParam;
                 }
@@ -333,22 +333,22 @@
 
                     // 판매자 or 고객이 아닌 경우
                     if (myInfo.memberNo !== customerMemberNo && myInfo.memberNo !== merchantMemberNo) {
-                        MainRepository.router().goTradeCenter();
+                        MainRepository.router().goGeneralTrade();
                     }
                     // 판매자인 경우 Buy -> Sell 일 경우
                     else if (myInfo.memberNo === merchantMemberNo && tradeType === 'sell') {
-                        MainRepository.router().goTradeCenter();
+                        MainRepository.router().goGeneralTrade();
                     }
                     // 고객인 경우 Buy -> Buy 일 경우
                     else if (myInfo.memberNo === customerMemberNo && tradeType === 'buy') {
-                        MainRepository.router().goTradeCenter();
+                        MainRepository.router().goGeneralTrade();
                     }
 
                     this.isInitCompleted = true;
                     this.initInterval();
                 }, () => {
                     // 없는 orderNo일 경우
-                    MainRepository.router().goTradeCenter();
+                    MainRepository.router().goGeneralTrade();
                 });
             },
             initInterval() {

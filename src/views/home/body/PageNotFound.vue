@@ -17,7 +17,7 @@
         name: 'pageNotFound',
         methods: {
             goTradeCenter() {
-                this.$router.push("/tradeCenter");
+                this.$router.push("/generalTrade");
             },
         }
     })

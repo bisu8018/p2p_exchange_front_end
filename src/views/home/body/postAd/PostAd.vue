@@ -616,7 +616,7 @@
                     let memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                     if (result.registerMemberNo !== memberNo) {
                         Vue.prototype.$eventBus.$emit('showAlert', 4005);
-                        MainRepository.router().goTradeCenter();
+                        MainRepository.router().goGeneralTrade();
                     }
                     this.myAdList = result;
                     this.edit = true;
@@ -923,7 +923,7 @@
                     MainRepository.AD.postAD(data, function (result) {
                         MainRepository.Wallet.loadWallets(function () {
                             Vue.prototype.$eventBus.$emit('showAlert', 2101);
-                            MainRepository.router().goTradeCenter();
+                            MainRepository.router().goGeneralTrade();
                         });
                     }, (code) => {
                         MainRepository.router().goMyAd();

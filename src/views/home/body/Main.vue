@@ -137,7 +137,7 @@
             goSearchedTradeCenter(){
                 MainRepository.TradeView.setTradeLeftFilter(this.selectedCryptocurrency, this.selectedTradeType);
                 MainRepository.TradeView.setTradeRightFilter('', '', '', this.amount);
-                this.$router.push("/tradecenter?main");
+                this.$router.push("/generalTrade?main");
             }
 
         },

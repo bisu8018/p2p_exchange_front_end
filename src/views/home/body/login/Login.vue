@@ -137,7 +137,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded',
                     }
                 }).then((response) => {
-                    window.location.replace(AxiosService.getRootUrl() + '/tradeCenter')
+                    window.location.replace(AxiosService.getRootUrl() + '/generalTrade')
                 }).catch(error => {
                     Vue.prototype.$eventBus.$emit('showAlert', 4011);
                 });

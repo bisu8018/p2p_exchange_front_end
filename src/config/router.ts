@@ -6,7 +6,7 @@ import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'
 import Signup from '../views/home/body/signup/SignUp.vue'
 import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
-import TradeCenter from '../views/home/body/tradeCenter/general/General.vue'
+import GeneralTrade from '../views/home/body/tradeCenter/general/General.vue'
 import BlockTrade from '../views/home/body/tradeCenter/block/Block.vue'
 import GeneralAd from '../views/home/body/postAd/general/General.vue'
 import BlockAd from '../views/home/body/postAd/block/Block.vue'
@@ -59,9 +59,9 @@ export default new Router({
             component: FindPassword
         },
         {
-            path: '/tradeCenter',
-            name: 'tradeCenter',
-            component: TradeCenter
+            path: '/generalTrade',
+            name: 'generalTrade',
+            component: GeneralTrade
         },
         {
             path: '/blockTrade',
