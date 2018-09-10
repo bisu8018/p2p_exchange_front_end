@@ -112,7 +112,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 2251 : this.show(this.type.Success, "", this.$str('comp_linked_phone_change')); break;    // 연동 전화번호 수정 완료
 
                     //Merchant 메세지 2350~
-                    case 2350 : this.show(this.type.Success, "", this.$str('comp_apply_merchant')); break;    // 연동 전화번호 수정 완료
+                    case 2350 : this.show(this.type.Success, "", this.$str('comp_apply_merchant')); break;    // merchant 등록 완료
 
 
 
@@ -133,6 +133,10 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     //광고 에러코드 4100 ~
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재
                     case 4102 : this.show(this.type.Warning, "", this.$str('warn_changeStatusDisable')); break;       // disable 상태 변경 필요
+
+                    // 준비중
+                    case 9000 : this.show(this.type.Warning, "", this.$str('It\'s under development now.')); break;       // 진행중인 거래 존재
+
 
 
                     case 'chat_size' : this.show(this.type.Error, "Error", abGetLang('warningAttachmentFileSize')); break;

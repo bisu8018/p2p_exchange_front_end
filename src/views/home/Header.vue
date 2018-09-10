@@ -17,111 +17,119 @@
                     </div>
                 </div>
             </div>
+
             <div v-if="drawer || !isMobile" class="dropdown-wrapper dropDownMenu" @click.stop="drawer = !drawer">
-                <!-- TradeCenter-->
-                <div v-if="getDomain === 'OTC'" class="dropdown ">
-                    <div @click.stop="onTradeCenter" class="menu-button dropbtn">{{$str("TradeCenter")}}</div>
-                    <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
-                        <div class="submenu" @click="goGeneralTrade()">
-                            {{$str("GeneralTrade")}}
+
+                <!-- 좌측 -->
+                <div>
+                    <!-- TradeCenter-->
+                    <div v-if="getDomain === 'OTC'" class="dropdown ">
+                        <div @click.stop="onTradeCenter" class="menu-button dropbtn">{{$str("TradeCenter")}}</div>
+                        <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
+                            <div class="submenu" @click="goGeneralTrade()">
+                                {{$str("GeneralTrade")}}
+                            </div>
+                            <div class="submenu" @click="goBlockTrade()">
+                                {{$str("BlockTrade")}}
+                            </div>
+                            <div class="submenu" @click="goCustomTokenTrade()">
+                                {{$str("CustomTokenTrade")}}
+                            </div>
                         </div>
-                        <div class="submenu" @click="goBlockTrade()">
-                            {{$str("BlockTrade")}}
+                    </div>
+
+                    <!--Post Ad-->
+                    <div v-if="getDomain === 'OTC'" class="dropdown">
+                        <button class="menu-button dropbtn" @click.stop="onPostAD">{{$str("postAd")}}</button>
+                        <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
+                            <div class="submenu" @click="goPostAd(false)">
+                                {{$str("Post_General_AD")}}
+                            </div>
+                            <div class="submenu" @click="goPostAd(true)">
+                                {{$str("Post_Block_AD")}}
+                            </div>
                         </div>
-                        <div class="submenu" @click="goCustomTokenTrade()">
-                            {{$str("CustomTokenTrade")}}
-                        </div>
+                    </div>
+                    <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
+                    <div v-if="!isMobile" class="d-contents">
+                        <!-- Divider -->
+                        <div v-if="getDomain !== 'Wallet'" class="vertical-divider"></div>
+                        <!--Domain들-->
+                        <!--Wallet-->
+                        <button class="menu-button"  @click="goWallet()">
+                            {{$str("Wallet")}}
+                        </button>
+                        <!--OTC-->
+                        <button v-if="getDomain !=='OTC'" class="menu-button" @click="goOTC()">
+                            {{$str("OTC")}}
+                        </button>
+                        <!--Exchange-->
+                        <button v-if="getDomain !=='Exchange'" class="menu-button" @click="goExchange()">
+                            {{$str("Exchange")}}
+                        </button>
+                        <!--Service-->
+                        <button v-if="getDomain !=='Service'" class="menu-button" @click="goService()">
+                            {{$str("Service")}}
+                        </button>
                     </div>
                 </div>
 
-                <!--Post Ad-->
-                <div v-if="getDomain === 'OTC'" class="dropdown">
-                    <button class="menu-button dropbtn" @click.stop="onPostAD">{{$str("postAd")}}</button>
-                    <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
-                        <div class="submenu" @click="goPostAd(false)">
-                            {{$str("Post_General_AD")}}
-                        </div>
-                        <div class="submenu" @click="goPostAd(true)">
-                            {{$str("Post_Block_AD")}}
-                        </div>
-                    </div>
-                </div>
-                <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
-                <div v-if="!isMobile" class="d-contents">
-                    <!-- Divider -->
-                    <div v-if="getDomain !== 'Wallet'" class="vertical-divider"></div>
-                    <!--Domain들-->
-                    <!--Wallet-->
-                    <button class="menu-button"  @click="goWallet()">
-                        {{$str("Wallet")}}
-                    </button>
-                    <!--OTC-->
-                    <button v-if="getDomain !=='OTC'" class="menu-button" @click="goOTC()">
-                        {{$str("OTC")}}
-                    </button>
-                    <!--Exchange-->
-                    <button v-if="getDomain !=='Exchange'" class="menu-button" @click="goExchange()">
-                        {{$str("Exchange")}}
-                    </button>
-                    <!--Service-->
-                    <button v-if="getDomain !=='Service'" class="menu-button" @click="goService()">
-                        {{$str("Service")}}
-                    </button>
-                </div>
-                <v-spacer></v-spacer>
-                <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
 
-                <!--MyOrder-->
-                <div class="dropdown" v-if="getDomain ==='OTC'">
-                    <button class="menu-button dropbtn" @click="goMyOrder()" v-if="isLogin">
-                        {{$str("order")}}
-                    </button>
+                <!-- 우측 -->
+                <div>
+                    <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
 
-                    <!-- ongoing order 드롭다운 -->
-                    <div v-if="!isFixed &&!isMobile" class="dropdown-content myorder-dropdown">
-                        <div class="scroll-space">
-                            <v-layout pa-3 align-center>
-                                <h3 class="medium">{{$str("Ongoing order")}}</h3>
-                                <v-spacer></v-spacer>
-                                <v-layout justify-end c-pointer @click="fixModal()">
-                                    <div class="color-blue-active mr-2">{{$str("Fixed")}}</div>
-                                    <div class="sprite-img ic-fix color-blue-active"></div>
+                    <!--MyOrder-->
+                    <div class="dropdown" v-if="getDomain ==='OTC'">
+                        <button class="menu-button dropbtn" @click="goMyOrder()" v-if="isLogin">
+                            {{$str("order")}}
+                        </button>
+
+                        <!-- ongoing order 드롭다운 -->
+                        <div v-if="!isFixed &&!isMobile" class="dropdown-content myorder-dropdown">
+                            <div class="scroll-space">
+                                <v-layout pa-3 align-center>
+                                    <h3 class="medium">{{$str("Ongoing order")}}</h3>
+                                    <v-spacer></v-spacer>
+                                    <v-layout justify-end c-pointer @click="fixModal()">
+                                        <div class="color-blue-active mr-2">{{$str("Fixed")}}</div>
+                                        <div class="sprite-img ic-fix color-blue-active"></div>
+                                    </v-layout>
                                 </v-layout>
-                            </v-layout>
-                            <v-divider></v-divider>
-                            <div v-if="haveItem">
-                                <!-- ongoing items -->
-                                <div v-for="item in orderList">
-                                    <my-order-simple-item
-                                            :data="item"
-                                    />
+                                <v-divider></v-divider>
+                                <div v-if="haveItem">
+                                    <!-- ongoing items -->
+                                    <div v-for="item in orderList">
+                                        <my-order-simple-item
+                                                :data="item"
+                                        />
+                                        <v-divider />
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <div class="sprite-img ic-no-ad-sm no-more-ads">
+                                    </div>
+                                    <div class="color-gray no-more-ads-text">
+                                        {{$str("No more orders")}}
+                                    </div>
                                     <v-divider />
                                 </div>
                             </div>
-                            <div v-else>
-                                <div class="sprite-img ic-no-ad-sm no-more-ads">
-                                </div>
-                                <div class="color-gray no-more-ads-text">
-                                    {{$str("No more orders")}}
-                                </div>
-                                <v-divider />
+                            <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue-active my-3 mr-3">
+                                {{$str("View All")}}
                             </div>
                         </div>
-                        <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue-active my-3 mr-3">
-                            {{$str("View All")}}
-                        </div>
                     </div>
-                </div>
 
-                <!--Chat-->
-                <button v-if="!isMobile" class="menu-button" @click="goChat()">{{$str("Chat")}}</button>
+                    <!--Chat-->
+                    <button v-if="!isMobile" class="menu-button" @click="goChat()">{{$str("Chat")}}</button>
 
-                <!-- login 버튼 -->
-                <button class="menu-button" @click="goLogin()" v-if="!isLogin">{{$str("loginText")}}</button>
-                <!-- signup 버튼-->
-                <button class="menu-button" @click="goSignup()" v-if="!isLogin">{{$str("signupText")}}</button>
+                    <!-- login 버튼 -->
+                    <button class="menu-button" @click="goLogin()" v-if="!isLogin">{{$str("loginText")}}</button>
+                    <!-- signup 버튼-->
+                    <button class="menu-button" @click="goSignup()" v-if="!isLogin">{{$str("signupText")}}</button>
 
-                <span v-if="isLogin">
+                    <span v-if="isLogin">
                     <!--아바타 (로그인 시 출력)-->
                     <div class="my-menu-button dropdown ">
                         <div v-if="!isMobile" class="verticalcentertext dropbtn padding-top-16" @click="goMyPage">
@@ -157,43 +165,45 @@
                     </div>
                 </span>
 
-                <!-- 언어설정버튼 -->
-                <div v-if="!isMobile" class="dropdown mr-4 ml-3">
-                    <!-- 중문간체 -->
-                    <button v-if="currentLang=='ZH'" class="dropbtn  vertical-center">
-                        <div class="sprite-img ic-chinese f-left"></div>
-                        <span class="ml-2">简体中文<i
-                                class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                    </button>
-                    <!-- 중문번체 -->
-                    <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
-                        <div class="sprite-img ic-chinese f-left"></div>
-                        <span class=" ml-2">繁體中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                    </button>
-                    <!-- 영어 -->
-                    <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
-                        <div class="sprite-img ic-english f-left"></div>
-                        <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                    </button>
-                    <!-- 한국어-->
-                    <button v-else class="dropbtn vertical-center">
-                        <div class="sprite-img ic-korean f-left"></div>
-                        <span class=" ml-2">한국어<i
-                                class="material-icons md-light md-12">keyboard_arrow_down</i></span>
-                    </button>
-                    <!--언어 설정시 dropdown box-->
-                    <div class="dropdown-content">
-                        <!-- 언어 list 버튼-->
-                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
-                        </div>
-                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">繁體中文
-                        </div>
-                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
-                        </div>
-                        <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+                    <!-- 언어설정버튼 -->
+                    <div v-if="!isMobile" class="dropdown mr-4 ml-3">
+                        <!-- 중문간체 -->
+                        <button v-if="currentLang=='ZH'" class="dropbtn  vertical-center">
+                            <div class="sprite-img ic-chinese f-left"></div>
+                            <span class="ml-2">简体中文<i
+                                    class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                        </button>
+                        <!-- 중문번체 -->
+                        <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
+                            <div class="sprite-img ic-chinese f-left"></div>
+                            <span class=" ml-2">繁體中文<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                        </button>
+                        <!-- 영어 -->
+                        <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
+                            <div class="sprite-img ic-english f-left"></div>
+                            <span class=" ml-2">English<i class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                        </button>
+                        <!-- 한국어-->
+                        <button v-else class="dropbtn vertical-center">
+                            <div class="sprite-img ic-korean f-left"></div>
+                            <span class=" ml-2">한국어<i
+                                    class="material-icons md-light md-12">keyboard_arrow_down</i></span>
+                        </button>
+                        <!--언어 설정시 dropdown box-->
+                        <div class="dropdown-content">
+                            <!-- 언어 list 버튼-->
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
+                            </div>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">繁體中文
+                            </div>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
+                            </div>
+                            <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -434,8 +444,15 @@
             display: flex;
         }
         .dropdown-wrapper{
-            display: contents;
+            display: inline-flex;
+            justify-content: space-between;
+            width: 100%;
         }
+
+        .dropdown-wrapper > div {
+            display: flex;
+        }
+
         .logo{
             margin: 22px 16px 22px 24px;
         }
@@ -448,7 +465,7 @@
             cursor: pointer;
         }
         .d-contents{
-            display: contents;
+            display: flex;
         }
         .dropbtn {
             padding-top: 22px;

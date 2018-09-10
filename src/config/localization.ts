@@ -3428,12 +3428,43 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['It\'s under development now.', {
+        KOR: '준비중 입니다.',
+        ENG: 'It\'s under development now.',
+        CN: '',
+        HK: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',
         CN: '',
         HK: ''
     }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+
+
 
 
 ])

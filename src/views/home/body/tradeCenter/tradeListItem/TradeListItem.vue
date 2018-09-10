@@ -577,7 +577,7 @@
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
             getBalance(){
-                 let MyBalance = MainRepository.Balance.controller().findByCrptoCurrency(
+                 let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(
                     MainRepository.TradeView.getSelectFilter().cryptocurrency
                 );
                 return MyBalance.availableAmount
@@ -592,6 +592,7 @@
             if (MainRepository.MyInfo.isLogin()) {
                 this.checkSelectBtn()
             }
+
         },
         updated(){
             if (MainRepository.MyInfo.isLogin()) {
@@ -611,7 +612,9 @@
                 this.do_not_trade_message = _obj.do_not_trade_message;
                 this.can_not_trade = _obj.can_not_trade;
             },
+
             onNumberCheck(type) {
+                console.log(type);
                 if (type === 'toValue') {
                     if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
                         this.verify_warning_toValue = Vue.prototype.$str("Enter less than maximum limit");
@@ -693,17 +696,19 @@
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
+                /*
                 if(this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;
                 }
+                */
                 if(this.toValue < this.user.minLimit){
                     this.warning_toValue = true;
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     return false;
                 }
+
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
-
                 this.toValue = this.$fixed(this.toValue, this.user.currency)
                 let temp = this.toValue/ this.user.tradePrice   //coinCount
                 temp -= temp*this.user.fee;             //coinWithoutFee

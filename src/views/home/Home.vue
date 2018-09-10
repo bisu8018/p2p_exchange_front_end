@@ -51,7 +51,7 @@
                 return MainRepository.State.isMobile();
             },
             isFullSize() {
-                if (this.$route.name === 'abMain') {
+                if (this.$route.name === 'abMain' || this.$route.name === 'wallet') {
                     return true;
                 } else {
                     return false;
