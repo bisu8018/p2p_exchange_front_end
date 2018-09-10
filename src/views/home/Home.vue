@@ -1,7 +1,7 @@
 <template>
   <v-app v-if="isInitCompleted" >
     <div>
-      <div class="cssUnFixed" v-bind:class="{cssFixed : isFixed}">
+      <div class="cssUnFixed" v-bind:class="{cssFixed : isFixed || isChatOpened}">
         <abHeader></abHeader>
         <v-content class="bg-white mt-6">
           <alert></alert>
@@ -15,6 +15,9 @@
       <div class="cs-flex right-box" v-if="!isMobile && isFixed">
         <my-order-fixed></my-order-fixed>
       </div>
+      <div class="cs-flex right-box" v-if="!isMobile && isChatOpened">
+       <chat></chat>
+      </div>
     </div>
   </v-app>
 </template>
@@ -27,6 +30,7 @@
     import AbTab from "./Tab.vue"
     import Alert from './../../components/Alerts.vue';
     import MyOrderFixed from './../../views/home/body/MyOrderFixed.vue';
+    import Chat from './../../views/home/body/Chat.vue';
 
 
     export default Vue.extend({
@@ -36,7 +40,8 @@
             AbFooter,
             AbTab,
             Alert,
-            MyOrderFixed
+            MyOrderFixed,
+            Chat
         },
         data() {
             return {
@@ -63,6 +68,9 @@
             isFixed(){
               return MainRepository.MyOrder.controller().getMyOrderModalFixed();
             },
+            isChatOpened() {
+                return MainRepository.Chat.controller().getChatStatus();
+            }
         },
         beforeCreate: function() {
             // vuex store를 넘겨준다.

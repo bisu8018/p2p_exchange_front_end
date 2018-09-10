@@ -206,7 +206,7 @@
 
             <!--이의제기 취소 버튼 (appeal 상태일때)-->
             <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                    v-if="currentOrder.status === 'complaining' && checkAppealBtn() === true "
+                    v-if="currentOrder.status === 'complaining' && checkAppealBtn "
                     :class="{'pt-4' : isMobile()}">
                 <a class="color-blue text-white-hover"
                    @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
@@ -289,6 +289,13 @@
             },
             getAppeal() {
                 return this.currentOrder.appealList[this.currentOrder.appealList.length - 1];
+            },
+            checkAppealBtn() {
+                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo && this.getAppeal.status === 'registered' ) {
+                    return true
+                } else {
+                    return false
+                }
             },
         },
         created() {
@@ -373,6 +380,9 @@
                         if (this.currentOrder.status === 'complete') {
                             clearInterval(this.checkStatus);
                         }
+                        if (this.currentOrder.status === 'complaining') {
+                            this.getAppealData();
+                        }
                     }, 3000)
                 }
             },
@@ -398,8 +408,16 @@
                 let self = this;
                 MainRepository.TradeProcess.getOrderStatus(self.orderNo
                     , (result) => {
-
                     })
+            },
+            getAppealData() {
+                let self = this;
+               MainRepository.TradeProcess.getAppeal({
+                   email : MainRepository.MyInfo.getUserInfo().email,
+                   orderNo : self.orderNo
+               }, (result)=> {
+
+               })
             },
             isMobile() {
                 return MainRepository.State.isMobile();
@@ -445,6 +463,7 @@
                         appealNo: appealList.appealNo
                     }, () => {
                         self.getOrderStatus();
+                        this.getAppealData();
                         Vue.prototype.$eventBus.$emit('showAlert', 2154);
                     }, () => {
                         return false;
@@ -487,18 +506,12 @@
                     data
                     , (result) => {
                         Vue.prototype.$eventBus.$emit('showAlert', 2153);
-                        self.getOrderStatus();
-                        self.onClose();
+                        this.getOrderStatus();
+                        this.getAppealData();
+                        this.onClose();
                     }, () => {
                         return false;
                     });
-            },
-            checkAppealBtn() {
-                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo) {
-                    return true
-                } else {
-                    return false
-                }
             },
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));

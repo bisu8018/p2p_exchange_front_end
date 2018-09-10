@@ -5,7 +5,7 @@
                 <div class="h3 text-xs-left color-black bold">
                     <!--type에 따른 제목 변경-->
                     {{type === 'confirm' ? $str("confirmRelease") : (type === 'appeal' ? $str("appeal") :
-                    $str("cancelAppeal"))}}
+                    $str("confirm"))}}
                 </div>
                 <v-spacer></v-spacer>
                 <i class="material-icons color-black c-pointer" @click="onClose">close</i>
@@ -23,6 +23,13 @@
                    <input type="password" class="input mb-4" :placeholder="$str('tradePwText')"
                           v-model="tradePassword"/>
                     <label class="color-black "><input type="checkbox" v-model="confirmCheckbox"/>  {{$str("confirmCheckbox")}}</label>
+                </span>
+
+                <!--type이  cancelAppeal 상태 일 경우 내용-->
+                <span v-else-if="type === 'cancelAppeal'">
+                    <div class=" color-darkgray mb-4">
+                        {{$str("cancelModalContent")}}
+                    </div>
                 </span>
             </div>
 

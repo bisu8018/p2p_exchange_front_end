@@ -16,5 +16,13 @@ export default {
             },
             function () {
             })
-    }
+    },
+    getAppeal : function (data: any, callback: any) {
+        AxiosService._requestWithUrlPram('appeal', 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
 }

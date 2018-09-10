@@ -99,5 +99,10 @@ export enum VuexTypes {
     ADD_MSG = 'message/ADD_MSG',
 
 
+    //======================================
+    //              Chat
+    // =====================================
+    SET_CHAT_OPEN = 'chat/SET_CHAT_OPEN',
+
 
 }

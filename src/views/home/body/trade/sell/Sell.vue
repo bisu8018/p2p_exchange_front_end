@@ -195,7 +195,7 @@
 
         <!--이의제기 취소 버튼 (appeal 상태일때)-->
         <v-flex xs6 md12 mb-4a text-md-left text-xs-right
-                v-if="currentOrder.status === 'complaining' && checkAppealBtn() === true "
+                v-if="currentOrder.status === 'complaining' && checkAppealBtn === true "
                 :class="{'pt-4' : isMobile()}">
             <a class="color-blue-active"
                @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
@@ -289,6 +289,13 @@
             getAppeal() {
                 return this.currentOrder.appealList[this.currentOrder.appealList.length - 1];
             },
+            checkAppealBtn() {
+                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo && this.getAppeal.status === 'registered' ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
         },
         created() {
             this.$eventBus.$on('refreshSell', () => {
@@ -374,6 +381,9 @@
                         if (this.currentOrder.status === 'complete') {
                             clearInterval(this.checkStatus);
                         }
+                        if (this.currentOrder.status === 'complaining') {
+                            this.getAppealData();
+                        }
                     }, 3000)
                 }
             },
@@ -453,13 +463,24 @@
                 data['orderNo'] = Number(self.orderNo);
                 MainRepository.TradeProcess.onAppeal(
                     data
-                    , function (result) {
-                        self.getOrderStatus();
-                        self.onClose();
+                    , (result)=> {
                         Vue.prototype.$eventBus.$emit('showAlert', 2153);
+                        this.getOrderStatus();
+                        this.getAppealData();
+                        this.getAppeal;
+                        this.onClose();
                     }, () => {
                         return false;
                     });
+            },
+            getAppealData() {
+                let self = this;
+                MainRepository.TradeProcess.getAppeal({
+                    email : MainRepository.MyInfo.getUserInfo().email,
+                    orderNo : self.orderNo
+                }, (result)=> {
+
+                })
             },
             //이의 제기 취소
             onCancelAppeal() {
@@ -471,19 +492,13 @@
                     MainRepository.TradeProcess.onAppealCancel({
                         orderNo: self.orderNo,
                         appealNo: appealList.appealNo
-                    }, function () {
-                        self.getOrderStatus();
+                    }, ()=> {
+                        this.getOrderStatus();
+                        this.getAppealData();
                         Vue.prototype.$eventBus.$emit('showAlert', 2154);
                     }, () => {
                         return false;
                     })
-                }
-            },
-            checkAppealBtn() {
-                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo) {
-                    return true;
-                } else {
-                    return false;
                 }
             },
             toMoneyFormat(value) {

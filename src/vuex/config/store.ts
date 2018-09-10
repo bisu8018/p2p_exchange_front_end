@@ -10,6 +10,7 @@ import wallet from "@/vuex/modules/wallet";
 import tradeProcess from "@/vuex/modules/tradeProcess";
 import msgAvatar from "@/vuex/modules/msgAvatar";
 import message from "@/vuex/modules/message";
+import chat from "@/vuex/modules/chat";
 
 
 
@@ -26,7 +27,8 @@ export default {
         wallet,
         tradeProcess,
         msgAvatar,
-        message
+        message,
+        chat
     },
     strict: true
 }

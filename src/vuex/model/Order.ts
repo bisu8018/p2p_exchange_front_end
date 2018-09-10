@@ -90,7 +90,8 @@ export default class Order {
 
     }
     update (data: any){
-        if(data !== undefined && data !== null) this.status = data;
+        if(data.status !== undefined && data.status !== null) this.status = data.status;
+        if(data.appealList !== undefined && data.appealList !== null) this.appealList = data.appealList;
     }
 
     transCryptocurrency(cryptocurrency){

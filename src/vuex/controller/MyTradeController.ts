@@ -80,4 +80,7 @@ export default class MyTradeController{
         return this.store.state.mytrade.myOrderModalFixed;
     }
 
+
+
+
 }
