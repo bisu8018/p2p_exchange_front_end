@@ -2,7 +2,7 @@
 <!-- CSS가 두벌이므로 참고할것-->
 <template>
     <div>
-        <div class="nav" v-bind:class="{cssFixed : isFixed}">
+        <div class="nav" v-bind:class="{cssFixed : isFixed || isChatOpened}">
             <div class="mobile-header">
                 <!--logo-->
                 <button @click="goMain()" class="logo ">
@@ -134,7 +134,7 @@
                     <div class="my-menu-button dropdown ">
                         <div v-if="!isMobile" class="verticalcentertext dropbtn padding-top-16" @click="goMyPage">
                             <avatar
-                                    :me= true
+                                    :me=true
                                     class=" mr-1 ">
                             </avatar>
                             <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
@@ -203,7 +203,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -228,7 +227,7 @@
         data: () => ({
             title: 'header',
             drawer: false,
-            tradeCenterDrawer : false,
+            tradeCenterDrawer: false,
             postadDrawer: false,
             languages: [{
                 title: '한국어',
@@ -256,20 +255,23 @@
             isLogin() {
                 return MainRepository.MyInfo.isLogin();
             },
-            totalMsgCount(){
+            totalMsgCount() {
                 return MainRepository.MyOrder.controller().getUnreadMsgCount();
             },
             orderList() {
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems();
             },
-            isFixed(){
+            isFixed() {
                 return MainRepository.MyOrder.controller().getMyOrderModalFixed();
             },
-            haveItem(){
+            haveItem() {
                 return MainRepository.MyOrder.controller().getMyOrderAlarmItems().length !== 0;
             },
-            getDomain(){
+            getDomain() {
                 return MainRepository.State.getDomain();
+            },
+            isChatOpened() {
+                return MainRepository.Chat.controller().getChatStatus();
             }
         },
         created() {
@@ -281,27 +283,27 @@
             }
         },
         methods: {
-            onTradeCenter(){
+            onTradeCenter() {
                 //mobile에서
-                if(this.isMobile){
+                if (this.isMobile) {
                     this.postadDrawer = false;
                     this.tradeCenterDrawer = !this.tradeCenterDrawer
                 }
                 //web에서
-                else{
+                else {
                     this.goGeneralTrade();
                 }
             },
-            onPostAD(){
-                if(this.isMobile){
+            onPostAD() {
+                if (this.isMobile) {
                     this.tradeCenterDrawer = false;
                     this.postadDrawer = !this.postadDrawer
                 }
-                else{
+                else {
                     this.goPostAd(false)
                 }
             },
-            goWallet(){
+            goWallet() {
                 MainRepository.State.setDomain('Wallet')
                 MainRepository.router().goWallet();
             },
@@ -309,19 +311,16 @@
                 MainRepository.State.setDomain('OTC')
                 MainRepository.router().goMain();
             },
-            goExchange(){
+            goExchange() {
                 MainRepository.State.setDomain('Exchange')
                 //MainRepository.router().goWallet();
             },
-            goService(){
+            goService() {
                 MainRepository.State.setDomain('Service')
                 //MainRepository.router().goWallet();
             },
-            goChat(){
-                //chat창을 여는 로직 추가
-                //MainRepository.router().goWallet();
-            },
-            serializeserialize (form) { console.log(form);
+            serializeserialize(form) {
+                console.log(form);
                 var field,
                     l,
                     s = [];
@@ -353,9 +352,9 @@
                 //this.$refs.logout.submit();
                 let self = this;
                 let data;
-                if(MainRepository.State.isMobile()){
+                if (MainRepository.State.isMobile()) {
                     data = "logoutFormMobile"
-                }else{
+                } else {
                     data = "logoutFormDesktop"
                 }
 
@@ -387,7 +386,7 @@
             goBlockTrade() {
                 MainRepository.router().goBlockTrade();
             },
-            goCustomTokenTrade(){
+            goCustomTokenTrade() {
                 MainRepository.router().goBlockTrade();
             },
             goPostAd(isBlock) {
@@ -426,11 +425,21 @@
                 abSetLang(userLang);
                 this.currentLang = userLang;
             },
-            fixModal(){
+            fixModal() {
                 MainRepository.MyOrder.controller().setMyOrderModalFixed(
                     !MainRepository.MyOrder.controller().getMyOrderModalFixed()
                 );
-            }
+                MainRepository.Chat.isClosed();     //채팅 종료 후 my order modal fix
+            },
+            goChat() {
+                if (MainRepository.Chat.controller().getChatStatus()) {
+                    MainRepository.Chat.isClosed();
+                } else {
+                    MainRepository.Chat.isOpened();
+                    MainRepository.MyOrder.controller().setMyOrderModalFixed(false);        //my order modal fix 종료 후 채팅 open
+                }
+
+            },
         },
 
 
@@ -440,7 +449,7 @@
 <style scoped>
     /*web 일때*/
     @media only screen and (min-width: 960px) {
-        .nav{
+        .nav {
             display: flex;
         }
         .dropdown-wrapper{
@@ -449,6 +458,7 @@
             width: 100%;
         }
 
+
         .dropdown-wrapper > div {
             display: flex;
         }
@@ -456,17 +466,20 @@
         .logo{
             margin: 22px 16px 22px 24px;
         }
-        .menu-button{
+
+        .menu-button {
             margin: auto 16px;
             cursor: pointer;
         }
-        .my-menu-button{
+
+        .my-menu-button {
             margin: auto 16px;
             cursor: pointer;
         }
         .d-contents{
             display: flex;
         }
+
         .dropbtn {
             padding-top: 22px;
             padding-bottom: 21px;
@@ -505,23 +518,27 @@
             display: block;
         }
 
-        .submenu{
+        .submenu {
             padding: 8px 16px 8px 16px;
             cursor: pointer;
         }
-        .submenu:hover{
+
+        .submenu:hover {
             background-color: #316ee4;
             color: white
         }
-        .my-menu{
+
+        .my-menu {
             padding: 8px 16px 8px 16px;
             cursor: pointer;
         }
-        .my-menu:hover{
+
+        .my-menu:hover {
             background-color: #316ee4;
             color: white
         }
-        .myorder-dropdown{
+
+        .myorder-dropdown {
             min-width: 306px;
             z-index: 2;
             top: 56px;
@@ -531,17 +548,18 @@
             position: absolute;
         }
 
-        .myorder-dropdown:after{
+        .myorder-dropdown:after {
             content: '';
             position: absolute;
             bottom: 100%;
             right: 24px;
-            width: 0; height: 0;
+            width: 0;
+            height: 0;
             border-style: solid;
-            border-bottom: 4px solid  #ffffff;
+            border-bottom: 4px solid #ffffff;
             border-right: 4px solid transparent;
             border-left: 4px solid transparent;
-            border-color: transparent transparent  #ffffff transparent;
+            border-color: transparent transparent #ffffff transparent;
         }
 
         .scroll-space {
@@ -550,48 +568,58 @@
             position: relative;
             max-height: 336px;
         }
-        .padding-top-16{
+
+        .padding-top-16 {
             padding-top: 16px;
         }
 
-        .no-more-ads{
+        .no-more-ads {
             margin: 50px auto 0px auto;
         }
-        .no-more-ads-text{
+
+        .no-more-ads-text {
             margin-bottom: 50px;
             text-align: center;
         }
     }
+
     /*mobile 일때*/
     @media only screen and (max-width: 959px) {
-        .dropdown-wrapper{
+        .dropdown-wrapper {
             background-color: #002970;
         }
-        .logo{
+
+        .logo {
             margin-left: 24px;
         }
-        .mobile-header{
+
+        .mobile-header {
             display: flex;
             height: 64px;
         }
-        .full-width{
-            display : flex;
+
+        .full-width {
+            display: flex;
             width: 100%;
         }
-        .menu-margin{
+
+        .menu-margin {
             margin: auto 24px auto auto;
         }
-        .menu-button{
+
+        .menu-button {
             height: 52px;
             padding: 16px 24px 16px 24px;
             text-align: left;
             cursor: pointer;
             width: 100%;
         }
-        .menu-button:hover{
+
+        .menu-button:hover {
             background-color: #316ee4;
         }
-        .my-menu{
+
+        .my-menu {
             background-color: #002970;
             height: 52px;
             padding: 16px 24px 16px 24px;
@@ -599,9 +627,11 @@
             cursor: pointer;
             width: 100%;
         }
-        .my-menu:hover{
+
+        .my-menu:hover {
             background-color: #316ee4;
         }
+
         .dropDownMenu {
             z-index: 100;
             width: 100%;
@@ -623,15 +653,16 @@
             background-color: #21407e;
             text-align: left;
             padding: 16px 48px;
-            cursor : pointer;
+            cursor: pointer;
         }
-        .submenu:hover{
+
+        .submenu:hover {
             background-color: #316ee4
         }
+
         .submenu.flex {
             height: 52px;
         }
-
 
     }
 
@@ -649,14 +680,12 @@
         display: flex;
     }
 
-    .vertical-divider{
+    .vertical-divider {
         width: 1px;
         height: 20px;
         margin: 22px 16px 22px 16px;
         background-color: #9294a6;
     }
-
-
 
     .new-msg-dot {
         width: 7px;
@@ -667,7 +696,8 @@
         top: 1px;
         left: -8px;
     }
-    .cssFixed{
+
+    .cssFixed {
         width: auto !important;
         right: 300px;
         left: 0px;

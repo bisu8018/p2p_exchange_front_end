@@ -50,6 +50,8 @@ import WalletHistory from "@/vuex/model/WalletHistory";
 import IdVerificationId from "@/vuex/model/IdVerificationId";
 import MyAd from "@/vuex/model/MyAd";
 import Vue from "vue";
+import ChatController from "@/vuex/controller/ChatController";
+import AppealService from "@/service/order/AppealService";
 
 let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -64,6 +66,7 @@ let routerController: RouterController;
 let tradeController: TradeController;
 let msgAvatarController: MsgAvatarController;
 let messageController: MessageController;
+let chatController: ChatController;
 
 let store: Store<any>;
 let instance: any;
@@ -83,6 +86,7 @@ export default {
         tradeController = new TradeController(store);
         msgAvatarController = new MsgAvatarController(store);
         messageController = new MessageController(store);
+        chatController = new ChatController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -164,13 +168,12 @@ export default {
         setInitCompleted(isCompleted: boolean) {
             stateController.setInitCompleted(isCompleted);
         },
-        setDomain(domain : string){
+        setDomain(domain: string) {
             stateController.setDomain(domain)
         },
-        getDomain(){
-          return stateController.getDomain();
+        getDomain() {
+            return stateController.getDomain();
         }
-
     },
     Wallet: {
         controller(): WalletController {
@@ -245,9 +248,10 @@ export default {
                 instance.Pagination.setPage(1,);
             }
             walletController.updateHistoryFilter(data);
-            this.loadHistory(() => {});
+            this.loadHistory(() => {
+            });
         },
-        loadHistory(callback : any) {
+        loadHistory(callback: any) {
             WalletService.getWalletHistory({
                 email: instance.MyInfo.getUserInfo().email,
                 searchStartTime: walletController.getHistoryFilter().searchStartTime,
@@ -810,7 +814,8 @@ export default {
                 instance.Pagination.setPage(1,);
             }
             myTradeController.updateMyAdsFilter(data);
-            this.load(()=>{});
+            this.load(() => {
+            });
         },
         getPage() {
             return myTradeController.getMyAdsItems();
@@ -937,7 +942,8 @@ export default {
             myTradeController.updateMyOrderFilter(data);
 
 
-            this.load(()=>{});
+            this.load(() => {
+            });
         },
         getPage() {
             return myTradeController.getMyOrderItems();
@@ -995,44 +1001,54 @@ export default {
         onPaid: function (data: any, callback: any, failure: any) {
             OrderService.onPaid(data, (result) => {
                 callback(result);
-            }, () =>{
+            }, () => {
                 failure();
             })
         },
         onCancel: function (data: any, callback: any, failure: any) {
             OrderService.onCancel(data, (result) => {
                 callback(result);
-            }, () =>{
+            }, () => {
                 failure();
             })
         },
         onAppeal: function (data: any, callback: any, failure: any) {
             OrderService.onAppeal(data, (result) => {
                 callback(result);
-            }, () =>{
+            }, () => {
                 failure();
             })
         },
-        onAppealCancel: function (data: any, callback: any, failure : any) {
+        onAppealCancel: function (data: any, callback: any, failure: any) {
             OrderService.onAppealCancel(data, (result) => {
                 callback(result);
             }, () => {
                 failure();
             })
         },
-        onConfirm: function (data: any, callback: any, failure : any) {
+        onConfirm: function (data: any, callback: any, failure: any) {
             OrderService.onConfirm(data, (result) => {
                 callback(result);
-            }, () =>{
+            }, () => {
                 failure();
             })
         },
         getOrderStatus: function (data: any, callback: any) {
             OrderService.getOrderStatus(data, (result) => {
-                tradeController.updateOrderStatus(result);
+                let data = {status : result}
+                tradeController.updateOrder(data);
                 callback(result);
             })
         },
+        getAppeal: function (data: any, callback: any) {
+            AppealService.getAppeal(data, (result) => {
+                let _result = {
+                    appealList : result
+                };
+                tradeController.updateOrder(_result);
+                callback(_result);
+            })
+        }
     },
     //채팅
     Message: {
@@ -1101,6 +1117,17 @@ export default {
                 marketPriceController.setMarketPriceList(priceList);
                 callback();
             })
+        }
+    },
+    Chat: {
+        isOpened: function () {
+            return chatController.setChatOpen(true);
+        },
+        isClosed: function () {
+            return chatController.setChatOpen(false);
+        },
+        controller: function () {
+            return chatController;
         }
     },
 

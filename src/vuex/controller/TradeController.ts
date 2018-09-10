@@ -19,8 +19,8 @@ export default class TradeController {
         return this.store.state.tradeProcess.currentOrder;
     }
 
-    updateOrderStatus(status: string){
-        this.store.dispatch(VuexTypes.UPDATE_CURRENT_ORDER, status);
+    updateOrder(data: any){
+        this.store.dispatch(VuexTypes.UPDATE_CURRENT_ORDER, data);
     }
 
 }
