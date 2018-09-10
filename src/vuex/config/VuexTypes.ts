@@ -103,6 +103,6 @@ export enum VuexTypes {
     //              Chat
     // =====================================
     SET_CHAT_OPEN = 'chat/SET_CHAT_OPEN',
-
-
+    SET_CHAT_MESSAGE = 'chat/SET_CHAT_MESSAGE',
+    SET_CHAT_SUBSCRIBE = 'chat/SET_CHAT_SUBSCRIBE',
 }

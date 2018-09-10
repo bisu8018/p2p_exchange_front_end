@@ -3272,46 +3272,46 @@ const strings = new Map([
         HK: '修改綁定的手機號碼'
     }],
     ['warn_completeProcessingOrder', {
-        KOR: '진행중인 주문을 마친뒤 상태변경 해주세요',
-        ENG: 'Please finish your order in progress.',
-        CN: '',
-        HK: ''
+        KOR: '진행중인 주문을 마친 뒤 상태 변경을 해주세요',
+        ENG: 'Please finish your order in progress at first.',
+        CN: '请先完成当前订单后，进行修改',
+        HK: '請先完成當前訂單後，進行修改'
     }],
     ['warn_changeStatusDisable', {
         KOR: '광고 상태를 비활성 해주세요',
-        ENG: 'Please disable the Ad status',
-        CN: '',
-        HK: ''
+        ENG: 'Please disable Ad status',
+        CN: '请关闭当前广告',
+        HK: '請關閉當前廣告'
     }],
     ['warn_needSetNickname', {
         KOR: '닉네임 설정이 필요합니다.',
-        ENG: 'Nickname settings are required.',
-        CN: '',
-        HK: ''
+        ENG: 'Nickname setting is required.',
+        CN: '需要设置昵称',
+        HK: '需要設置昵稱'
     }],
     ['warn_needSetIDVerification', {
         KOR: 'ID 인증이 필요합니다.',
         ENG: 'ID verification is required.',
-        CN: '',
-        HK: ''
+        CN: '需要验证ID',
+        HK: '需要驗證ID'
     }],
     ['warn_verification_no_phone_data', {
         KOR: '전화번호를 입력해 주십시오.',
-        ENG: 'Enter your phone number.',
-        CN: '',
-        HK: ''
+        ENG: 'Please Enter your phone number.',
+        CN: '请输入电话号码',
+        HK: '請輸入電話號碼'
     }],
     ['warn_verification_code_no_email_data', {
         KOR: '이메일을 입력해 주십시오.',
-        ENG: 'Enter your email.',
-        CN: '',
-        HK: ''
+        ENG: 'Please Enter your email.',
+        CN: '请输入电子邮箱',
+        HK: '請輸入Email'
     }],
     ['Please enter more than 0', {
         KOR: '0 보다 큰 값을 입력해 주세요',
-        ENG: 'Please enter more than 0',
-        CN: '',
-        HK: ''
+        ENG: 'Please enter digits more than 0.',
+        CN: '请输入大于0的价格',
+        HK: '請輸入大于0的價格'
     }],
     ['verify_warning_realName', {
         KOR: '실명을 입력해 주십시오.',
@@ -3346,20 +3346,20 @@ const strings = new Map([
     ['warn_need_Merchant_verification', {
         KOR: '판매자 인증이 필요합니다.',
         ENG: 'Merchant verification is required.',
-        CN: '',
-        HK: ''
+        CN: '需要商家验证',
+        HK: '需要商家驗證'
     }],
     ['comp_apply_merchant', {
         KOR: '판매자 신청이 완료되었습니다.',
-        ENG: 'Merchant application',
-        CN: '',
-        HK: ''
+        ENG: 'Merchant application completed.',
+        CN: '已完成商家申请',
+        HK: '已完成商家申請'
     }],
     ['err_login', {
         KOR: '로그인에 실패하였습니다.',
         ENG: 'Login failed.',
-        CN: '',
-        HK: ''
+        CN: '登录失败',
+        HK: '登錄失敗'
     }],
     ['warn_file_size', {
         KOR: '이미지 크기 초과하였습니다.',

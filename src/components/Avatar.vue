@@ -103,6 +103,12 @@
                             _msgAvatar.bgColor,
                             _msgAvatar.isLogin
                         );
+                    } else if (this.chat === 'open'){
+                        this.setAvatar(
+                            MainRepository.MyInfo.getUserInfo().nickname === '' ? 'A' : MainRepository.MyInfo.getUserInfo().nickname[0],
+                            MainRepository.MyInfo.getUserInfo().bgColor,
+                            true,
+                        )
                     } else {
                         // 로그인 상태 요청
                         MainRepository.Users.getOtherUsers(this.email, (userInfo) => {

@@ -52,6 +52,9 @@ import MyAd from "@/vuex/model/MyAd";
 import Vue from "vue";
 import ChatController from "@/vuex/controller/ChatController";
 import AppealService from "@/service/order/AppealService";
+import ChatService from "@/service/chat/ChatService";
+import Chat from "@/vuex/model/Chat";
+import ChatSubscribe from "@/vuex/model/ChatSubscribe";
 
 let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -1120,14 +1123,32 @@ export default {
         }
     },
     Chat: {
+        controller: function () {
+            return chatController;
+        },
         isOpened: function () {
             return chatController.setChatOpen(true);
         },
         isClosed: function () {
             return chatController.setChatOpen(false);
         },
-        controller: function () {
-            return chatController;
+        setMessage: function (data : any, callback: any) {
+            ChatService.getMessage('',(result)=> {
+                let _result = result.data.result;
+                let _chatMessage: Chat[] = [];
+
+                for (let key in _result) {
+                    _chatMessage.push(new Chat(_result[key]));
+                }
+
+                this.controller().setMessage(_chatMessage);
+                callback();
+            })
+        },
+        setChatSubscribe: function (data : any, callback: any) {
+            let _data = new ChatSubscribe(data);
+            this.controller().setChatSubscribe(_data);
+            callback();
         }
     },
 
