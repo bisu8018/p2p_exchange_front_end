@@ -22,55 +22,58 @@
 
                 <!-- 좌측 -->
                 <div>
-                    <!-- TradeCenter-->
-                    <div v-if="getDomain === 'OTC'" class="dropdown ">
-                        <div @click.stop="onTradeCenter" class="menu-button dropbtn">{{$str("TradeCenter")}}</div>
-                        <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
-                            <div class="submenu" @click="goGeneralTrade()">
-                                {{$str("GeneralTrade")}}
-                            </div>
-                            <div class="submenu" @click="goBlockTrade()">
-                                {{$str("BlockTrade")}}
-                            </div>
-                            <div class="submenu" @click="goCustomTokenTrade()">
-                                {{$str("CustomTokenTrade")}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Post Ad-->
-                    <div v-if="getDomain === 'OTC'" class="dropdown">
-                        <button class="menu-button dropbtn" @click.stop="onPostAD">{{$str("postAd")}}</button>
-                        <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
-                            <div class="submenu" @click="goPostAd(false)">
-                                {{$str("Post_General_AD")}}
-                            </div>
-                            <div class="submenu" @click="goPostAd(true)">
-                                {{$str("Post_Block_AD")}}
-                            </div>
-                        </div>
-                    </div>
-                    <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
-                    <div v-if="!isMobile" class="d-contents">
-                        <!-- Divider -->
-                        <div v-if="getDomain !== 'Wallet'" class="vertical-divider"></div>
-                        <!--Domain들-->
+                    <div class="d-contents">
                         <!--Wallet-->
-                        <button class="menu-button"  @click="goWallet()">
+                        <button v-if="!isMobile" class="menu-button"  @click="goWallet()">
                             {{$str("Wallet")}}
                         </button>
                         <!--OTC-->
-                        <button v-if="getDomain !=='OTC'" class="menu-button" @click="goOTC()">
+                        <button v-if="!isMobile" class="menu-button" @click="goOTC()"
+                                v-bind:class="{'left16-right32' : (getDomain === 'OTC')}" >
                             {{$str("OTC")}}
                         </button>
+                        <!-- TradeCenter-->
+                        <div v-if="getDomain === 'OTC'" class="dropdown ">
+                            <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16"
+
+                            >{{$str("TradeCenter")}}</div>
+                            <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
+                                <div class="submenu" @click="goGeneralTrade()">
+                                    {{$str("GeneralTrade")}}
+                                </div>
+                                <div class="submenu" @click="goBlockTrade()">
+                                    {{$str("BlockTrade")}}
+                                </div>
+                                <div class="submenu" @click="goCustomTokenTrade()">
+                                    {{$str("CustomTokenTrade")}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--Post Ad-->
+                        <div v-if="getDomain === 'OTC'" class="dropdown">
+                            <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
+                            <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
+                                <div class="submenu" @click="goPostAd(false)">
+                                    {{$str("Post_General_AD")}}
+                                </div>
+                                <div class="submenu" @click="goPostAd(true)">
+                                    {{$str("Post_Block_AD")}}
+                                </div>
+                            </div>
+                        </div>
+
                         <!--Exchange-->
-                        <button v-if="getDomain !=='Exchange'" class="menu-button" @click="goExchange()">
+                        <button v-if="!isMobile" class="menu-button" @click="goExchange()"
+                                v-bind:class="{'left32-right16' : (getDomain === 'OTC')}">
                             {{$str("Exchange")}}
                         </button>
                         <!--Service-->
-                        <button v-if="getDomain !=='Service'" class="menu-button" @click="goService()">
+                        <button v-if="!isMobile" class="menu-button" @click="goService()"
+                                v-bind:class="{'left16-right32' : getDomain === 'Service'}">
                             {{$str("Service")}}
                         </button>
+                        <div v-if="getDomain === 'Service'" class="menu-button dropbtn sub-domain-menu left32-right32">
+                            {{$str("My Token")}}</div>
                     </div>
                 </div>
 
@@ -468,14 +471,34 @@
         }
 
         .menu-button {
-            margin: auto 16px;
+            padding-top: 22px;
+            padding-bottom: 21px;
+            padding-right: 16px;
+            padding-left: 16px;
             cursor: pointer;
+        }
+        .left32-right16{
+            padding-left: 32px;
+            padding-right: 16px;
+        }
+        .left16-right32{
+            padding-left: 16px;
+            padding-right: 32px;
+        }
+        .left32-right32{
+            padding-left: 32px;
+            padding-right: 32px;
+        }
+
+        .sub-domain-menu{
+            background-color: rgba(0, 0, 0, 0.4);
         }
 
         .my-menu-button {
             margin: auto 16px;
             cursor: pointer;
         }
+
         .d-contents{
             display: flex;
         }
@@ -606,7 +629,6 @@
         .menu-margin {
             margin: auto 24px auto auto;
         }
-
         .menu-button {
             height: 52px;
             padding: 16px 24px 16px 24px;

@@ -5,8 +5,8 @@
         <div :class="tokenImg"></div>
         <h4 class="bold ml-2">{{ getCryptoName(item.cryptocurrency) }}</h4>
         <v-spacer/>
-        <span class="bold flex-position">
-          <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)}}</span>
+        <span class=" flex-position">
+          <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)}}</span>
           <span class="color-darkgray ml-2">≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
             <i v-if="isDrawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
             <i v-else class="material-icons  md-12 ">keyboard_arrow_down</i>
