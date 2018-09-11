@@ -14,7 +14,7 @@ export default class WalletTransfer {
     }
     update(data: any){
         if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = this.transTokenType(data.cryptocurrencyType);
-        if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = data.cryptocurrency;
+        if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.From !==undefined && data.From !==null) this.From = this.setToFrom(data.From);
         if(data.To !==undefined && data.To !==null) this.To = data.To;
         if(data.Volume !==undefined && data.Volume !==null) this.Volume = data.Volume;
@@ -30,6 +30,24 @@ export default class WalletTransfer {
             return 'Exchange Account'
         }
     }
+    transCrptocurrency(cryptocurrency){
+        switch (cryptocurrency) {
+            case 'BTC':
+            case 'bitcoin':
+                return 'BTC'
+
+            case 'ETH':
+            case 'ethereum':
+                return 'ETH'
+
+            case 'ALLB':
+            case 'allb':
+
+            default:
+                return 'ALLB'
+        }
+    }
+
     transTokenType(data: any){
         if(data ==='Coin'){
             return 'General Coin'

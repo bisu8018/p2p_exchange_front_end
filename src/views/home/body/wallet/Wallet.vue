@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div >
+    <!-- mobile에서 select box 선택을 위한 dim box-->
+    <div v-if="(isdropdown.walletType || isdropdown.currencyType ||isdropdown.walletType) && isMobile"
+         class="layout_dim" @click="showDropdown('closeAll')"></div>
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
       <div  class="balance-width flex-padding-web">
@@ -39,7 +42,7 @@
               <h5 class="mt-2">Payment</h5>
             </div>
           </div>
-          <div class="toolTap-transfer" @click="showTransfer()">
+          <div class="toolTap-transfer" @click="onTransfer()">
             <div class="sprite-img2 ic-wallet-transfer toolTap-img"></div>
             <div class="mt-2">
               Transfer
@@ -274,14 +277,15 @@
                     case 'menuType':
                         this.isdropdown.menuType = !this.isdropdown.menuType;
                         break;
+                    case 'closeAll':
+                        this.isdropdown.walletType = false;
+                        this.isdropdown.currencyType = false;
+                        this.isdropdown.menuType = false;
                 }
             },
 
             goDetails(){
                 MainRepository.router().goWalletDetail();
-            },
-            showTransfer(){
-                this.$eventBus.$emit('showTransferDialog','');
             },
 
         }
@@ -317,6 +321,11 @@
       margin: auto;
     }
 
+    .select-wallet-wrapper{
+      padding-top: 16px;
+      text-align: left;
+      position: relative;
+    }
 
     .dropdown-content {
 
@@ -331,11 +340,7 @@
       background-color: white;
       left: -15px;
     }
-/*
-    :hover.dropbtn .dropdown-content{
-      display: block;
-    }
-*/
+
     .dropdown-wallet{
       border: solid 1px #b2b2b2;
     }
@@ -354,7 +359,7 @@
       padding-right: 12px;
     }
     .dropdown-content {
-      position: absolute;
+      position: fixed;
       color: black;
       min-width: 46px;
       box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
@@ -362,12 +367,35 @@
       border-radius: 2px;
       text-align: center;
       background-color: white;
-      left: -15px;
+      bottom: 65px;
+      max-height: 100px;
+      right:0;
+      left: 0;
     }
 
+    .scroll-space {
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      max-height: 336px;
+    }
+
+    .layout_dim {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: #8d8d8d;
+      opacity: 0.5;
+      z-index: 1;
+    }
 
     .select-wallet-wrapper{
+      padding-top: 16px;
       margin-left: 16px;
+      text-align: left;
+      bottom: 0;
+
     }
 
     .toolTap-wrapper{
@@ -430,11 +458,7 @@
     line-height: 1.17;
   }
 
-  .select-wallet-wrapper{
-    padding-top: 16px;
-    text-align: left;
-    position: relative;
-  }
+
 
   .select-wallet{
     padding: 8px;

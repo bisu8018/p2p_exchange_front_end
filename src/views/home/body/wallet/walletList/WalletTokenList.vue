@@ -5,11 +5,13 @@
         <div :class="tokenImg"></div>
         <h4 class="bold ml-2">{{ getCryptoName(item.cryptocurrency) }}</h4>
         <v-spacer/>
-        <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)  }}</span>
-        <span class="color-darkgray ml-2">≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
-          <i v-if="isDrawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
-          <i v-else class="material-icons  md-12 ">keyboard_arrow_down</i>
-        </span>
+        <span class="bold flex-position">
+          <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)}}</span>
+          <span class="color-darkgray ml-2">≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
+            <i v-if="isDrawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
+            <i v-else class="material-icons  md-12 ">keyboard_arrow_down</i>
+          </span>
+          </span>
       </div>
       <v-layout row wrap v-if="isDrawer" class="detail-wrapper">
         <!--1. OTC Account -->
@@ -176,7 +178,9 @@
   }
   /*mobile 에서 좌우 패딩주기*/
   @media only screen and (max-width: 959px) {
-    .tokenlistWraaper{
+    .webCard{
+      padding-right: 12px;
+      padding-left: 12px;
     }
     .right-button{
       width: 50%;
@@ -194,6 +198,11 @@
       padding-bottom: 24px;
       padding-left: 12px;
       padding-right: 12px;
+    }
+
+    .flex-position{
+      display: flex;
+      flex-direction: column;
     }
   }
   /*web 에서 항목의 오른쪽을 줄이기 위해
