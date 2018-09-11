@@ -364,10 +364,9 @@
             <v-flex xs12 md8>
                 <div>
                     <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{ $str("autoReplyText") }}</div>
-                    <div class="price-input-wrapper">
-                <textarea class="common-textarea" :placeholder="$str('autoReplyPlaceholder')"
+
+                <textarea class="common-textarea textarea-wrapper" :placeholder="$str('autoReplyPlaceholder')"
                           v-model="autoReply"></textarea>
-                    </div>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -387,10 +386,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("termsTransactionText") }}
                     </div>
-                    <div class="price-input-wrapper">
-                <textarea class="common-textarea" :placeholder="$str('termsTransactionPlaceholder')"
+                <textarea class="common-textarea textarea-wrapper" :placeholder="$str('termsTransactionPlaceholder')"
                           v-model="termsOfTransaction"></textarea>
-                    </div>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -474,7 +471,8 @@
                     <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("tradePwText") }}</div>
                     <div class="p-relative">
                         <input type="password" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
-                               :placeholder="$str('tradePwText')" v-model="tradePassword" @keyup="onCheckTradePassword"/>
+                               :placeholder="$str('tradePwText')" v-model="tradePassword"
+                               @keyup="onCheckTradePassword"/>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
                         </div>
@@ -511,7 +509,8 @@
                 </div>
                 <div>
                     <button @click='onCheck' class="color-blue btn-blue btn-blue-hover">
-                        {{ edit === true ? $str("modify") : (message === 'general' ? $str("generalPostAdBtn") : $str("blockPostAdBtn")) }}
+                        {{ edit === true ? $str("modify") : (message === 'general' ? $str("generalPostAdBtn") :
+                        $str("blockPostAdBtn")) }}
                     </button>
                 </div>
             </v-flex>
@@ -542,7 +541,7 @@
             showModal: false,
             tradeType: "buy",
             cryptocurrency: "bitcoin",
-            cryptocurrencyType : 'general',
+            cryptocurrencyType: 'general',
             priceType: "fixedprice",
             fixedPrice: "",
             margin: "",
@@ -1148,8 +1147,6 @@
         line-height: 1.2;
     }
 
-
-
     .price-input-wrapper {
         border: solid 1px #8d8d8d;
         border-radius: 2px;
@@ -1237,6 +1234,14 @@
         top: -9% !important;
         border-top: 0px !important;
         border-bottom: 10px solid #545c6a !important;
+    }
+
+    .textarea-wrapper {
+        border: 1px solid #8d8d8d;
+    }
+
+    .textarea-wrapper:hover, .textarea-wrapper:focus {
+        border: solid 1px #316ee4;
     }
 </style>
 

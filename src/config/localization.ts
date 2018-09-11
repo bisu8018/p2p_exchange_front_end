@@ -3392,7 +3392,7 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['My Token', {
+    ['myToken', {
         KOR: '내 토큰',
         ENG: 'My Token',
         CN: '',
@@ -3500,6 +3500,128 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+
+    //My Token
+    ['tokenName', {
+        KOR: '토큰 이름',
+        ENG: 'Token name',
+        CN: '',
+        HK: ''
+    }],
+    ['tokenNameExplain', {
+        KOR: '토큰명을 입력해 주십시오. 오직 3-5 문자만 허용됩니다.',
+        ENG: 'Please input token name without any blank. Only 3-5 capital letters are available.',
+        CN: '',
+        HK: ''
+    }],
+    ['decimals', {
+        KOR: '소수점 자리',
+        ENG: 'Decimals',
+        CN: '',
+        HK: ''
+    }],
+    ['decimalsExplain', {
+        KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. ',
+        ENG: 'Defines the number of decimal places in the token. Numbers 0-18 are allowed. By 18 practices',
+        CN: '',
+        HK: ''
+    }],
+    ['description', {
+        KOR: '설명',
+        ENG: 'Description',
+        CN: '',
+        HK: ''
+    }],
+    ['descriptionExplain', {
+        KOR: '토큰에 대한 설명을 입력해 주십시오. (10 - 300 자 허용)',
+        ENG: 'Please input issuing token\'s descryption. (10 to 300 characters)',
+        CN: '',
+        HK: ''
+    }],
+    ['totalToken', {
+        KOR: '토큰 발행량',
+        ENG: 'Total tokens',
+        CN: '',
+        HK: ''
+    }],
+    ['totalTokenExplain', {
+        KOR: '1만 부터 10억개 까지 발행 할수 있습니다.',
+        ENG: 'You can create from 10,000 to 1 billion.',
+        CN: '',
+        HK: ''
+    }],
+    ['create', {
+        KOR: '생성',
+        ENG: 'Create',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_token_name_null', {
+        KOR: '토큰명을 입력해 주십시오.',
+        ENG: 'Please enter token name.',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_token_name_length', {
+        KOR: '3-5자 이내로 입력해 주십시오.',
+        ENG: 'Please enter 8 to 20 letters.',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_decimals_null', {
+        KOR: '소수점 자리를 입력해 주십시오.',
+        ENG: 'Please enter decimals.',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_decimals_number', {
+        KOR: '실수형으로 입력해 주십시오.',
+        ENG: 'Please enter real number',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_description_null', {
+        KOR: '토큰 설명을 입력해 주십시오.',
+        ENG: 'Please enter token description.',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_total_token_null', {
+        KOR: '토큰 발행량을 입력해 주십시오.',
+        ENG: 'Please enter total token.',
+        CN: '',
+        HK: ''
+    }],
+    ['warning_total_token_number', {
+        KOR: '정수형으로 입력해 주십시오.',
+        ENG: 'Pleaes enter integer number.',
+        CN: '',
+        HK: ''
+    }],
+    ['warn_file_exist', {
+        KOR: '이미지를 등록해 주십시오.',
+        ENG: 'Please register your image.',
+        CN: '',
+        HK: ''
+    }],
+    ['reissuable', {
+        KOR: '재발행 가능',
+        ENG: 'Reissuable',
+        CN: '',
+        HK: ''
+    }],
+    ['mainnet', {
+        KOR: '메인넷',
+        ENG: 'Mainnet',
+        CN: '',
+        HK: ''
+    }],
+    ['testnet', {
+        KOR: '테스트넷',
+        ENG: 'Testnet',
+        CN: '',
+        HK: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',
@@ -3511,17 +3633,50 @@ const strings = new Map([
         ENG: '',
         CN: '',
         HK: ''
-    }],['', {
+    }],
+    ['', {
         KOR: '',
         ENG: '',
         CN: '',
         HK: ''
-    }],['', {
+    }],
+    ['', {
         KOR: '',
         ENG: '',
         CN: '',
         HK: ''
-    }],['', {
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
         KOR: '',
         ENG: '',
         CN: '',

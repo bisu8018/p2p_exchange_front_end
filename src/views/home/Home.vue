@@ -1,32 +1,32 @@
 <template>
-  <v-app v-if="isInitCompleted" >
-    <div>
-      <div class="cssUnFixed" v-bind:class="{cssFixed : isFixed || isChatOpened}">
-        <abHeader></abHeader>
-        <v-content class="bg-white mt-6">
-          <alert></alert>
-          <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
-            <router-view></router-view>
-          </div>
-        </v-content>
-        <abFooter></abFooter>
-        <AbTab></AbTab>
-      </div>
+    <v-app v-if="isInitCompleted">
+        <div>
+            <div class="cssUnFixed" v-bind:class="{cssFixed : isFixed || isChatOpened}">
+                <abHeader></abHeader>
+                <v-content class="bg-white mt-6">
+                    <alert></alert>
+                    <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
+                        <router-view></router-view>
+                    </div>
+                </v-content>
+                <abFooter></abFooter>
+                <AbTab v-if="isMobile"></AbTab>
+            </div>
 
-      <!--Order fix list -->
-      <div class="cs-flex right-box" v-if="!isMobile && isFixed">
-        <my-order-fixed></my-order-fixed>
-      </div>
+            <!--Order fix list -->
+            <div class="cs-flex right-box" v-if="!isMobile && isFixed">
+                <my-order-fixed></my-order-fixed>
+            </div>
 
-      <!-- Chat -->
-      <div class="cs-flex right-box" v-if="!isMobile && isChatOpened">
-       <chat></chat>
-      </div>
+            <!-- Chat -->
+            <div class="cs-flex right-box chat-css" v-if="isChatOpened" :class="{'right-box-chat-mobile' : isMobile}">
+                <chat></chat>
+            </div>
 
-      <!--Chat manager-->
-      <chat-manager></chat-manager>
-    </div>
-  </v-app>
+            <!--Chat manager-->
+            <chat-manager></chat-manager>
+        </div>
+    </v-app>
 </template>
 
 <script lang="ts">
@@ -59,9 +59,8 @@
         },
         computed: {
             isMobile() {
-                if(MainRepository.State.isMobile()){
+                if (MainRepository.State.isMobile()) {
                     MainRepository.MyOrder.controller().setMyOrderModalFixed(false);
-                    MainRepository.Chat.isClosed();
                 }
                 return MainRepository.State.isMobile();
             },
@@ -73,24 +72,24 @@
                 }
             },
             isInitCompleted() {
-              return MainRepository.State.isInitCompleted();
+                return MainRepository.State.isInitCompleted();
             },
-            isFixed(){
-              return MainRepository.MyOrder.controller().getMyOrderModalFixed();
+            isFixed() {
+                return MainRepository.MyOrder.controller().getMyOrderModalFixed();
             },
             isChatOpened() {
                 return MainRepository.Chat.controller().getChatStatus();
             }
         },
-        beforeCreate: function() {
+        beforeCreate: function () {
             // vuex store를 넘겨준다.
-            MainRepository.init(this.$store, function() {
+            MainRepository.init(this.$store, function () {
             });
 
             MainRepository.initRouterController(this.$router);
         },
         mounted() {
-            this.$nextTick(function() {
+            this.$nextTick(function () {
                 window.addEventListener('resize', this.getWindowWidth);
                 this.getWindowWidth();
             })
@@ -115,54 +114,65 @@
 </script>
 
 <style>
-  /* 웹에서 최대 size 주기*/
+    /* 웹에서 최대 size 주기*/
 
-  @media only screen and (min-width: 960px) {
-    .mainView {
-      max-width: 1224px;
-      min-height: 400px;
-      margin-left: auto;
-      margin-right: auto;
+    @media only screen and (min-width: 960px) {
+        .mainView {
+            max-width: 1224px;
+            min-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*main일때만 예외로 width 할당*/
+        .fullSizeMainView {
+            max-width: 100%;
+        }
     }
-    /*main일때만 예외로 width 할당*/
-    .fullSizeMainView {
-      max-width: 100%;
+
+    /* mobile 에서 gutter 주기*/
+
+    @media only screen and (max-width: 959px) {
+        .mainView {
+            padding-left: 12px;
+            padding-right: 12px;
+            min-height: 400px;
+        }
+
+        /*main일때만 예외로 width 할당*/
+        .fullSizeMainView {
+            padding: 0px;
+            max-width: 100%;
+        }
     }
-  }
 
-  /* mobile 에서 gutter 주기*/
-
-  @media only screen and (max-width: 959px) {
-    .mainView {
-      padding-left: 12px;
-      padding-right: 12px;
-      min-height: 400px;
+    .right-box {
+        width: 300px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 120;
     }
-    /*main일때만 예외로 width 할당*/
-    .fullSizeMainView {
-      padding: 0px;
-      max-width: 100%;
+
+    .right-box-chat-mobile {
+        width: 100%;
+        height: calc(100% - 64px);
     }
-  }
-  .right-box{
-    width: 300px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
 
-  }
-  .cs-flex{
-    display: flex;
-  }
-  .cssFixed {
-    width: calc(100% - 300px);
-  }
+    .cs-flex {
+        display: flex;
+    }
 
-  cssUnFixed{
-    -webkit-box-flex: 1;
-    display: flex;
-    max-width: 100%;
+    .cssFixed {
+        width: calc(100% - 300px);
+    }
 
-  }
+    cssUnFixed {
+        -webkit-box-flex: 1;
+        display: flex;
+        max-width: 100%;
+
+    }
+
 </style>

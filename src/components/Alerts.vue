@@ -115,7 +115,6 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 2350 : this.show(this.type.Success, "", this.$str('comp_apply_merchant')); break;    // merchant 등록 완료
 
 
-
                     //클라이언트 단 에러코드 4000 ~
                     case 4001 : this.show(this.type.Warning, "", this.$str('')); break;
                     case 4002 : this.show(this.type.Warning, "", this.$str('err_agreeTermCheck')); break;       // 이용약관 체크 필요
@@ -129,6 +128,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4010 : this.show(this.type.Warning, "", this.$str('warn_need_Merchant_verification')); break;    // 인증 코드 실패, 번호 없음
                     case 4011 : this.show(this.type.Error, "", this.$str('err_login')); break;    // 로그인 실패
                     case 4012 : this.show(this.type.Error, "", this.$str('warn_file_size')); break;    // 이미지 용량 초과
+                    case 4013 : this.show(this.type.Error, "", this.$str('warn_file_exist')); break;    // 이미지 없음
 
                     //광고 에러코드 4100 ~
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재

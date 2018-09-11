@@ -17,9 +17,11 @@
                 <div v-for="data in getMassageList">
                     <!--상대방-->
                     <div class="mb-4 display-flex" v-if="getChatSubscribe.myInfo.name !== data.sender.name ">
-                        <avatar  :member="data.sender" :chat="'memberList'" class="mt-1"/>
+                        <div @click="goUserCenter()">
+                        <avatar  :member="data.sender" :chat="'memberList'" class="mt-1 c-pointer"/>
+                        </div>
                         <div class="pl-2">
-                            <div class="color-black h6 mb-1"> {{ data.sender.name }}</div>
+                            <div class="color-black h6 mb-1 c-pointer" @click="goUserCenter()"> {{ data.sender.name }}</div>
                             <div class="chat-content-wrapper text-xs-left color-black h6">
                                 {{ data.message }}
                             </div>
@@ -36,8 +38,8 @@
                     <div class="mb-4 display-flex " v-else>
                         <v-spacer></v-spacer>
                         <div class="pr-2">
-                            <div class="color-black h6 mb-1 text-xs-right"> {{ data.sender.name }}</div>
-                            <div class="chat-content-wrapper text-xs-left color-black h6">
+                            <div class="color-black h6 mb-1 text-xs-right c-pointer" @click="goUserCenter()"> {{ data.sender.name }}</div>
+                            <div class="chat-content-wrapper-mine text-xs-left color-black h6">
                                 {{ data.message }}
                             </div>
                             <div class="h6 color-darkgray text-xs-right mt-2 line-height-full ">
@@ -47,8 +49,8 @@
                             <!--<img :src="data.attachedImgUrl" class="w-full">-->
                             <!--</div>-->
                         </div>
-                        <div>
-                            <avatar :me=true  class="mt-1"></avatar>
+                        <div @click="goUserCenter()">
+                            <avatar :me=true  class="mt-1 c-pointer" ></avatar>
                         </div>
                     </div>
                 </div>
@@ -93,6 +95,7 @@
             needScrollDown: true,
             received_messages: [],
             memberListModal: false,
+            latestPostTime : 0,
 
             //파일 첨부
             file: '',
@@ -115,8 +118,18 @@
         methods: {
             onSend() {
                 let message = this.inputValue;
-                this.$eventBus.$emit('chatSendMessage', message);
-                this.inputValue = '';
+
+                if (message !== '') {
+                    //도배 및 중복 값 입력 방지
+                    if (Date.now() - this.latestPostTime < 500) {
+                        return false;
+                    } else {
+                        this.latestPostTime = Date.now();
+                        this.$eventBus.$emit('chatSendMessage', message);
+                        this.inputValue = '';
+                        this.scrollBottom();
+                    }
+                }
             },
             getTime(date) {
                 let _date = new Date(date).toTimeString().substr(0, 8);
@@ -170,6 +183,10 @@
             },
             onCloseMemberListModal() {
                 this.memberListModal = false;
+            },
+            goUserCenter() {
+                //유저센터 이동
+                alert('It\'s under development now.')
             }
         }
 
@@ -251,6 +268,33 @@
         background: #d8d8d8;
         border-radius: 2px;
     }
+
+    .chat-content-wrapper-mine {
+        width: 170px;
+        padding: 8px;
+        background: #c8d5ef;
+        border-radius: 2px;
+    }
+
+
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px white;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #d8d8d8;
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #d8d8d8;
+    }
+
 
 
 </style>

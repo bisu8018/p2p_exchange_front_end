@@ -1,6 +1,5 @@
 <template>
-  <div >
-    <div v-if="isMobile" class="tap">
+    <div class="tap">
       <v-layout>
           <!--Wallet-->
         <div class="tap-button" @click="goWallet">
@@ -33,16 +32,12 @@
           <!--Chat-->
         <div class="tap-button" @click="goChat">
           <div class="sprite-img2 ic-tab-chat-gray"
-               v-bind:class="{ 'ic-tab-chat-blue': (chatActive === true) }"></div>
-            <h6 v-bind:class="{ 'color-blue': (chatActive === true) }"
+               v-bind:class="{ 'ic-tab-chat-blue': onChat}"></div>
+            <h6 v-bind:class="{ 'color-blue': onChat}"
             >{{$str("Chat")}}</h6>
         </div>
       </v-layout>
     </div>
-    <div v-else>
-
-    </div>
-  </div>
 </template>
 
 <script>
@@ -51,7 +46,6 @@
         name: "Tab",
         data: () => ({
             show : false,
-            chatActive : false,
         }),
         computed: {
             isMobile() {
@@ -62,6 +56,9 @@
             },
             getDomain(){
                 return MainRepository.State.getDomain();
+            },
+            onChat() {
+                return MainRepository.Chat.controller().getChatStatus();
             }
         },
         methods: {
@@ -82,8 +79,11 @@
                 //MainRepository.router().goWallet();
             },
             goChat(){
-                this.chatActive = !this.chatActive;
-                //MainRepository.router().goWallet();
+                if(!this.onChat){
+                    MainRepository.Chat.isOpened();
+                }else{
+                    MainRepository.Chat.isClosed();
+                }
             },
         },
 

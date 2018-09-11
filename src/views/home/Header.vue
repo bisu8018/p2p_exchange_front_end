@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="getDomain === 'Service'" class="menu-button">{{$str("My Token")}}</div>
+                    <div v-if="getDomain === 'Service'" class="menu-button">{{$str("myToken")}}</div>
                     <div v-if="!isMobile" class="d-contents">
                         <!-- Divider -->
                         <div v-if="getDomain !== 'Wallet'" class="vertical-divider"></div>
@@ -317,7 +317,7 @@
             },
             goService() {
                 MainRepository.State.setDomain('Service')
-                //MainRepository.router().goWallet();
+                MainRepository.router().goMyToken();
             },
             serializeserialize(form) {
                 console.log(form);
@@ -633,7 +633,7 @@
         }
 
         .dropDownMenu {
-            z-index: 100;
+            z-index: 50;
             width: 100%;
             color: white;
             background-color: #002970;

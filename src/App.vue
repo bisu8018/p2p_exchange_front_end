@@ -415,6 +415,71 @@
         -webkit-user-select: none;
         user-select: none;
     }
+
+/*라디오 버튼 CSS
+  <input type="radio" id="mainnet" name="tokenServer"/>
+    <label for="mainnet">
+        <span>
+            <i class="material-icons">brightness_1</i>
+        </span>
+        <h5 class="d-inline-block">{{ $str("mainnet") }}</h5>
+    </label>
+*/
+
+    input[type="radio"] {
+        display:none;
+    }
+
+    input[type="radio"] + label {
+        color:#353535;
+        font-size: 12px;
+        align-items: center;
+        display: flex;
+    }
+
+    input[type="radio"] + label span {
+        display:inline-block;
+        width:20px;
+        height:20px;
+        margin-right: 8px;
+        vertical-align:middle;
+        text-align: center;
+        background: white;
+        border: 1px solid #8d8d8d;
+        cursor:pointer;
+        border-radius: 10px;
+    }
+
+    input[type="radio"]:checked + label span {
+        border: 1px solid #214ea1;
+        font-size: 12px;
+        color: #214ea1;
+        font-weight: bold;
+    }
+
+    input[type="radio"]:hover + label span {
+        border: 1px solid #214ea1;
+    }
+
+    input[type="radio"] + label span i{
+        display: none;
+    }
+
+    input[type="radio"]:checked + label span i{
+        font-size: 14px;
+        padding-top: 2px;
+        color: #214ea1;
+        font-weight: bold;
+        display: inline-block;
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+
+
     /* input number에서 측면 버튼 없애기*/
     input[type='number']::-webkit-inner-spin-button,
     input[type='number']::-webkit-outer-spin-button,
@@ -430,7 +495,7 @@
 
 
     .application .nav {
-        z-index: 112 !important;
+        z-index: 110 !important;
         width: 100%;
     }
 
@@ -1292,6 +1357,12 @@
         height: 18px;
     }
 
+    .ic-only-logo-otc {
+        background: -128px 0px;
+        width: 60px;
+        height: 18px;
+    }
+
 
 
     .ic-allb-sm {
@@ -1543,6 +1614,12 @@
         width: 70px;
         height: 20px;
     }
+
+
+
+    /*------컨플루언스 등록 필요-------*/
+    /*---------------------------------*/
+
     .ic-tab-chat-gray {
         background: 0px -105px;
         width: 24px;

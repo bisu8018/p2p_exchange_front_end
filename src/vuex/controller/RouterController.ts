@@ -187,4 +187,11 @@ export default class RouterController {
             r.push("/walletdetail?"+code);
         });
     }
+
+    goMyToken(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/myToken");
+        });
+    }
 }

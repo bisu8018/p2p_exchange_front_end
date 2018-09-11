@@ -132,7 +132,7 @@
 
                 <!--파일첨부-->
                 <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
-                       class="d-none" accept="image/*" capture="camera"/></label>
+                       class="d-none" accept="image/*" /></label>
             </div>
         </div>
     </div>
