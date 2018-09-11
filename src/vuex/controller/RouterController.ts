@@ -170,4 +170,21 @@ export default class RouterController {
             r.push("/wallet");
         });
     }
+
+    goWalletDetail(cryptoCurrency){
+        let code = '';
+        switch (cryptoCurrency) {
+            case 'bitcoin':
+                code = 'BTC'
+                break;
+
+            case 'ethereum':
+                code = 'ETH'
+                break;
+        }
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push("/walletdetail?"+code);
+        });
+    }
 }

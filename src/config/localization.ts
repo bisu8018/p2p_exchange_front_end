@@ -3434,9 +3434,57 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Hide small balances', {
+        KOR: '잔고 없은 계좌 가리기',
+        ENG: 'Hide small balances',
+        CN: '',
+        HK: ''
+    }],
+    ['Transfer to Exchange account to withdraw', {
+        KOR: '인출 할 Exchange 계정으로 전송',
+        ENG: 'Transfer to Exchange account to withdraw',
+        CN: '',
+        HK: ''
+    }],
+    ['Cryptocurrrency Type', {
+        KOR: '가상화폐 종류',
+        ENG: 'Cryptocurrrency Type',
+        CN: '',
+        HK: ''
+    }],
+    ['General Coin', {
+        KOR: '일반 코인',
+        ENG: 'General Coin',
+        CN: '',
+        HK: ''
+    }],
+    ['Custom Token', {
+        KOR: '커스텀 토큰',
+        ENG: 'Custom Token',
+        CN: '',
+        HK: ''
+    }],
+    ['Cryptocurrrency', {
+        KOR: '가상화폐',
+        ENG: 'Cryptocurrrency',
+        CN: '',
+        HK: ''
+    }],
+    ['OTC Account', {
+        KOR: 'OTC 계좌',
+        ENG: 'OTC Account',
+        CN: '',
+        HK: ''
+    }],
+    ['Exchange Account', {
+        KOR: 'Exchange 계좌',
+        ENG: 'Exchange Account',
+        CN: '',
+        HK: ''
+    }],
+    ['Transfer Now', {
+        KOR: '전송하기',
+        ENG: 'Transfer Now',
         CN: '',
         HK: ''
     }],
@@ -3462,7 +3510,22 @@ const strings = new Map([
         ENG: '',
         CN: '',
         HK: ''
+    }],['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
     }],
+
+
+
+
+
 
 
 

@@ -30,6 +30,11 @@ export default class Balance {
         return MainRepository.MarketPrice.controller().findPriceByCurrency(currency) * this.btcAmount;
     }
 
+    calcCurrencyFromCrypto(currency: CurrencyType): number {
+        // 수량 * currency 가격
+        return MainRepository.MarketPrice.controller().findPriceByCurrency(currency) * this.availableAmount;
+    }
+
     isNull (): boolean {
         return (this.ownerMemberNo === undefined)
     }

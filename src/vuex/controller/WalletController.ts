@@ -37,6 +37,7 @@ export default class WalletController {
         return result;
     }
 
+
     getTotalEstimatedValue(currency: string) {
         let _totalValue = {
             btc: 0,
@@ -56,6 +57,14 @@ export default class WalletController {
 
     getWithdraw(){
         return this.store.state.wallet.withdraw
+    }
+
+    setWithdrawCurrency(currency : any){
+        this.store.dispatch(VuexTypes.SET_WALLET_CURRENCY, currency);
+    }
+
+    getWithdrawCurrency(){
+        return this.store.state.wallet.currency
     }
 
     setWalletHistoryList(walletHistoryList : WalletHistory[]){

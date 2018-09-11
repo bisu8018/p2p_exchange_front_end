@@ -6,6 +6,7 @@ export default class TradeFilter {
     cryptocurrency: string;
     paymentMethods: string;
     amount: number;
+    cryptocurrencyType : string;
     page : number;
     size : number;
 
@@ -17,6 +18,7 @@ export default class TradeFilter {
         this.cryptocurrency = data.cryptocurrency || 'bitcoin';
         this.paymentMethods = data.paymentMethods || '';
         this.amount = Number(data.amount) || 0;
+        this.cryptocurrencyType = data.cryptocurrencyType || 'general';
         this.page = Number(data.page) || 1;
         this.size = data.size || 10;
     }
@@ -29,6 +31,7 @@ export default class TradeFilter {
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.paymentMethods !==undefined && data.paymentMethods !==null) this.transPayment(data.paymentMethods);
         if(data.amount !==undefined && data.amount !==null) this.amount = data.amount;
+        if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = data.cryptocurrencyType;
         if(data.page !==undefined && data.page !==null) this.page = data.page;
         if(data.size !==undefined && data.size !==null) this.size = data.size;
     }

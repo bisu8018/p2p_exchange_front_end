@@ -544,8 +544,6 @@
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
             currency: MainRepository.TradeView.getSelectFilter().currency,
             cryptocurrency: MainRepository.TradeView.getSelectFilter().cryptocurrency,
-            marketPrice: '',
-            tempMarketPrice: '',
 
             isValid: false,
         }),
@@ -586,9 +584,6 @@
         created() {
             //환율 및 유져 정보 get 필요
             let self = this;
-            Common.info.getMarketPrice(function (data) {
-                self.marketPrice = data;
-            });
             if (MainRepository.MyInfo.isLogin()) {
                 this.checkSelectBtn()
             }
