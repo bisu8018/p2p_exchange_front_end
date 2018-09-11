@@ -1,12 +1,12 @@
 <template>
   <div >
     <!-- mobile에서 select box 선택을 위한 dim box-->
-    <div v-if="(isdropdown.walletType || isdropdown.currencyType ||isdropdown.walletType) && isMobile"
+    <div v-if="(isdropdown.walletType || isdropdown.currencyType ||isdropdown.menuType) && isMobile"
          class="layout_dim" @click="showDropdown('closeAll')"></div>
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
       <div  class="balance-width flex-padding-web">
-        <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')">
+        <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')" v-bind:class="{'increase-z-index' : isdropdown.walletType}">
           {{selectedWallet}}
           <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
             <div class="dropdown-content dropdown-wallet" v-if="isdropdown.walletType">
@@ -20,7 +20,9 @@
         <v-layout mt-2 align-center justify-center fill-height @click="showDropdown('currencyType')">
           <h1>{{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</h1>
           <h4 class="ml-2 p-relative dropbtn" >
-              <span>{{ selectedCurrency}}</span>
+              <span v-bind:class="{'increase-z-index' : isdropdown.currencyType}">
+                {{ selectedCurrency}}
+              </span>
               <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
               <div class="dropdown-content scroll-space" v-if="isdropdown.currencyType">
                 <!-- 내 정보 list 버튼-->
@@ -87,7 +89,7 @@
         </v-flex>
         <v-flex md1 xs2 text-xs-right order-md4 order-xs2 class="mb-24">
           <span class="dropbtn p-relative" @click="showDropdown('menuType')">
-            <i class="material-icons color-darkgray" >menu</i>
+            <i class="material-icons color-darkgray" v-bind:class="{'increase-z-index' : isdropdown.menuType}">menu</i>
             <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown.menuType">
               <div class="select-wallet btn-blue-hover" @click="goDetails()" >Details</div>
             </div>
@@ -378,14 +380,19 @@
       -webkit-overflow-scrolling: touch;
       max-height: 336px;
     }
-
+    /*z-index 올려서 보이려 했는데 안됌...ㅠㅠ*/
+    .increase-z-index{
+      z-index: 2;
+      position: relative;
+      color: #ffffff;
+    }
     .layout_dim {
       position: fixed;
       top: 0;
       bottom: 0;
       right: 0;
       left: 0;
-      background-color: #8d8d8d;
+      background-color: rgba(0, 0, 0, 0.45);
       opacity: 0.5;
       z-index: 1;
     }
