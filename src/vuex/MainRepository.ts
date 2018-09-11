@@ -55,6 +55,7 @@ import AppealService from "@/service/order/AppealService";
 import ChatService from "@/service/chat/ChatService";
 import Chat from "@/vuex/model/Chat";
 import ChatSubscribe from "@/vuex/model/ChatSubscribe";
+import ChatMembers from "@/vuex/model/ChatMembers";
 
 let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -1148,7 +1149,26 @@ export default {
         setChatSubscribe: function (data : any, callback: any) {
             let _data = new ChatSubscribe(data);
             this.controller().setChatSubscribe(_data);
+
             callback();
+        },
+        setChatMembers: function (callback: any) {
+            let members : ChatMembers[] = [];
+
+            ChatService.getMembers('', (result)=> {
+                for (let key in result) {
+                    members.push(new ChatMembers(result[key]));
+                }
+                this.controller().setChatMembers(members);
+                callback();
+            });
+        },
+        addChatMessage: function (data : string) {
+            let _message = this.controller().getMessage();
+            _message.push(new Chat(data));
+            let _chatMessage = {msg : _message};
+
+            this.controller().setMessage(_chatMessage.msg);
         }
     },
 

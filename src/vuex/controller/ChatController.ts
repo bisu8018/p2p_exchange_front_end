@@ -27,12 +27,22 @@ export default class ChatController{
         return this.store.state.chat.chatMessage;
     }
 
+    //websocket subscribe info 저장
     setChatSubscribe(chatSubscribe : ChatSubscribe) {
         this.store.dispatch(VuexTypes.SET_CHAT_SUBSCRIBE, chatSubscribe);
     }
 
     getChatSubscribe(){
         return this.store.state.chat.chatSubscribe;
+    }
+
+    //members list저장
+    setChatMembers(chatMembers : any) {
+        this.store.dispatch(VuexTypes.SET_CHAT_MEMBERS, chatMembers);
+    }
+
+    getChatMembers(){
+        return this.store.state.chat.chatMembers;
     }
 
 

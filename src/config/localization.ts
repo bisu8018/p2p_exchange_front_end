@@ -664,7 +664,7 @@ const strings = new Map([
     }],
     ['priceText', {
         KOR: '거래 가격',
-        ENG: 'Transaction Price',
+        ENG: 'Price',
         CN: '交易价格',
         HK: '交易價格'
     }],
@@ -905,6 +905,12 @@ const strings = new Map([
     ['cryptoCurrency', {
         KOR: '암호화폐',
         ENG: 'Cryptocurrency',
+        CN: '加密货币',
+        HK: '加密貨幣'
+    }],
+    ['cryptoCurrencyType', {
+        KOR: '암호화폐 종류',
+        ENG: 'Cryptocurrency Type',
         CN: '加密货币',
         HK: '加密貨幣'
     }],
@@ -3434,9 +3440,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['userList', {
+        KOR: '유저 목록',
+        ENG: 'User List',
         CN: '',
         HK: ''
     }],

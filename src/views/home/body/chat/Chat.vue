@@ -1,6 +1,6 @@
 <template>
     <div class="chat-wrapper">
-        <div>
+        <div class="p-relative d-inline">
             <!--chat header section-->
             <v-layout class="header-box" align-center>
                 <i class="material-icons c-pointer " @click="clickCancel()">close</i>
@@ -16,44 +16,39 @@
             <div class="scroll-space" v-on:scroll.passive="scrollEvent" id="contentsWrapper">
                 <div v-for="data in getMassageList">
                     <!--상대방-->
-                    <div class="mb-3 display-flex" v-if="getChatSubscribe.myName !== data.sender ">
-                        <avatar :email=counterPartyEmail :chat="'open'"/>
-                        <div class="none-avatar"></div>
+                    <div class="mb-4 display-flex" v-if="getChatSubscribe.myInfo.name !== data.sender.name ">
+                        <avatar  :member="data.sender" :chat="'memberList'" class="mt-1"/>
                         <div class="pl-2">
-                            <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
-                                {{ getTime(data.registerDatetime) }}
-                                <!--<span>{{ getDateTime('date') }}</span>-->
-                            </div>
-                            <div class="chat-content-wrapper text-xs-left color-black h6"
-                                 v-if="data.attachedImgUrl === '' && !data.systemMessage">
+                            <div class="color-black h6 mb-1"> {{ data.sender.name }}</div>
+                            <div class="chat-content-wrapper text-xs-left color-black h6">
                                 {{ data.message }}
                             </div>
-                            <div class="chat-content-wrapper" v-else-if="data.attachedImgUrl !== ''">
-                                <img :src="data.attachedImgUrl" class="w-full">
+                            <div class="h6 color-darkgray mt-2 line-height-full text-xs-left">
+                                {{ getTime(data.sendDateTime) }}
                             </div>
+                            <!--<div class="chat-content-wrapper" v-else-if="data.attachedImgUrl !== ''">-->
+                            <!--<img :src="data.attachedImgUrl" class="w-full">-->
+                            <!--</div>-->
                         </div>
                     </div>
 
                     <!--자신-->
-                    <div class="mb-3 display-flex " v-else>
+                    <div class="mb-4 display-flex " v-else>
                         <v-spacer></v-spacer>
                         <div class="pr-2">
-                            <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
-                                {{ getTime(data.registerDatetime) }}
-                                <!--<span>{{ getDateTime('date') }}</span>-->
-                            </div>
-                            <div class="chat-content-wrapper text-xs-left color-black h6"
-                                 v-if="data.attachedImgUrl === ''">
+                            <div class="color-black h6 mb-1 text-xs-right"> {{ data.sender.name }}</div>
+                            <div class="chat-content-wrapper text-xs-left color-black h6">
                                 {{ data.message }}
                             </div>
-                            <div class="chat-content-wrapper" v-else>
-                                <img :src="data.attachedImgUrl" class="w-full">
+                            <div class="h6 color-darkgray text-xs-right mt-2 line-height-full ">
+                                {{ getTime(data.sendDateTime) }}
                             </div>
+                            <!--<div class="chat-content-wrapper" v-else>-->
+                            <!--<img :src="data.attachedImgUrl" class="w-full">-->
+                            <!--</div>-->
                         </div>
                         <div>
-                            <avatar
-                                    :me=true>
-                            </avatar>
+                            <avatar :me=true  class="mt-1"></avatar>
                         </div>
                     </div>
                 </div>
@@ -77,27 +72,20 @@
         </div>
 
         <!--members list modal-->
-        <div v-if="memberListModal">
-            <div class="member-list">
-                <v-layout class="member-list-header-box" align-center>
-                    <i class="material-icons c-pointer mr-2" @click="onMemberListModal()">keyboard_arrow_right</i>
-                    <h5>AllB {{$str("Chat")}}</h5>
-                </v-layout>
-                <v-divider/>
-            </div>
-            <div class="modal-wrapper" @click="onCloseMemberList()"></div>
-        </div>
+        <member-list-modal :onModal="memberListModal" @close="onCloseMemberListModal"></member-list-modal>
+
     </div>
 </template>
 
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
     import Avatar from '../../../../components/Avatar.vue';
+    import MemberListModal from './item/MemberListModal';
 
     export default {
         name: "Chat",
         components: {
-            Avatar
+            Avatar, MemberListModal
         },
         data: () => ({
             inputValue: "",
@@ -121,11 +109,11 @@
                 return MainRepository.Chat.controller().getMessage();
             },
             getChatSubscribe() {
-              return MainRepository.Chat.controller().getChatSubscribe();
+                return MainRepository.Chat.controller().getChatSubscribe();
             },
         },
         methods: {
-            onSend(){
+            onSend() {
                 let message = this.inputValue;
                 this.$eventBus.$emit('chatSendMessage', message);
                 this.inputValue = '';
@@ -172,20 +160,15 @@
             scrollEvent(e) {
                 this.offsetTop = e.target.scrollTop;
                 this.offsetTop = ((e.target.scrollTop || 0) - window.pageYOffset);
-                let a = this.$el.querySelector(".contents-wrapper").clientHeight;
-                let b = this.$el.querySelector(".contents-wrapper").scrollHeight;
+                let a = this.$el.querySelector(".scroll-space").clientHeight;
+                let b = this.$el.querySelector(".scroll-space").scrollHeight;
                 this.st = b - (a + this.offsetTop);
                 this.needScrollDown = this.st < 120;
             },
             onMemberListModal() {
-                if (this.memberListModal) {
-                    this.memberListModal = false
-                } else {
-                    this.memberListModal = true
-                }
-
+                this.memberListModal = true;
             },
-            onCloseMemberList() {
+            onCloseMemberListModal() {
                 this.memberListModal = false;
             }
         }
@@ -212,31 +195,21 @@
         border-left: #334B99 1px solid;
     }
 
-    .member-list-header-box {
-        display: flex;
-        background-color: #002970;
-        height: 64px;
-        padding: 22px 0px 22px 8px;
-        color: white;
-        border-left: #334B99 1px solid;
-    }
-
     .scroll-space {
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         position: relative;
         background-color: #ffffff;
-        height: calc(100% - 53px);
         padding-top: 24px;
         padding-left: 16px;
         padding-right: 16px;
+        height: calc(100% - 126px);
     }
 
     .chat-div {
         color: #214ea1;
         background-color: #ffffff;
-        position: absolute;
-        bottom: 0px;
+        position: relative;
         width: 100%;
         height: 62px;
         border-top: solid 1px #d1d1d1;
@@ -272,10 +245,6 @@
         display: flex;
     }
 
-    .none-avatar {
-        width: 34px;
-    }
-
     .chat-content-wrapper {
         width: 170px;
         padding: 8px;
@@ -283,30 +252,5 @@
         border-radius: 2px;
     }
 
-    .member-list {
-        background: white;
-        height: 100%;
-        width: 70%;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        z-index: 2;
-    }
-
-    .modal-wrapper {
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        background: black;
-        position: absolute;
-        opacity: 0.45;
-        z-index: 1;
-    }
-
-    .contents-wrapper {
-        border-bottom: 1px solid #d1d1d1;
-        height: 424px;
-        overflow-y: scroll;
-    }
 
 </style>

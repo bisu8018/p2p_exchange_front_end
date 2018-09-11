@@ -1,7 +1,7 @@
 import AxiosService from "@/service/AxiosService";
 import axios from "axios";
 import Vue from "vue";
-import chatServerInfo from "@/config/chatServerInfo";
+import chatServerInfo from "@/config/urlList";
 
 export default {
     _request: function (url: string, type: string, data: any, callback: any, failure: any) {
@@ -35,7 +35,7 @@ export default {
     getMembers: function (data: any, callback: any) {
         this._request('channels/all/members', 'GET', data,
             function (data: any) {
-                callback(data);
+                callback(data.data.result);
             },
             function () {
             })

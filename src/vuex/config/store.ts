@@ -30,5 +30,5 @@ export default {
         message,
         chat
     },
-    strict: true
+    strict: false
 }

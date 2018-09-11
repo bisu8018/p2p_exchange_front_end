@@ -1,15 +1,15 @@
 
 export default class Chat {
-    myName : string;
+    myInfo : any;
     joinMembers: any;
 
     constructor (data: any) {
-        this.myName = data.myName;
+        this.myInfo = data.myInfo;
         this.joinMembers = data.joinMembers;
     }
 
     isNull (): boolean {
-        return (this.myName === undefined)
+        return (this.myInfo === undefined)
     }
 }
 

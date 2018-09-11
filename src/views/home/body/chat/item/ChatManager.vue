@@ -5,7 +5,7 @@
     import Vue from 'vue';
     import SockJS from "sockjs-client";
     import Stomp from "webstomp-client";
-    import chatServerInfo from "../../../../../config/chatServerInfo";
+    import chatServerInfo from "../../../../../config/urlList";
     import MainRepository from "../../../../../vuex/MainRepository";
 
     export default Vue.extend({
@@ -13,6 +13,7 @@
         data() {
             return {
                 connected: false,
+                memberInterval: {},
             }
         },
         created() {
@@ -33,7 +34,14 @@
 
 
             this.$nextTick(function () {
+                //websocket 접속
                 this.connect();
+
+                //접속자 목록 로드
+                this.setMembers();
+                this.memberInterval = setInterval(() => {
+                    this.setMembers();
+                }, 5000);
             })
         },
         methods: {
@@ -49,6 +57,8 @@
             connect() {
                 this.socket = new SockJS(chatServerInfo.chatServerUrl());
                 this.stompClient = Stomp.over(this.socket);
+                this.stompClient.debug = () => {}; //webstomp debug turn off
+
                 this.stompClient.connect({},(result) => {
                         this.connected = true;
 
@@ -66,12 +76,13 @@
                 this.stompClient.subscribe("/subscribe/channels/" + channelId, tick => {
                     let result = JSON.parse(tick.body);
                     let chatMessage = result.message;
-                    console.log(result);
+                    //console.log(result);
 
-                    if(result.sender === 'SYSTEM'){
+                    if(result.sender.name === 'SYSTEM'){
                         MainRepository.Chat.setChatSubscribe(chatMessage, ()=>{});
                     }else{
                         //vuex 메세지 업데이트
+                        MainRepository.Chat.addChatMessage(result);
                     }
                 });
             },
@@ -80,6 +91,11 @@
                     //vuex에 전달
                     //this.received_messages.push(result);
                     callback(result);
+                });
+            },
+            setMembers(){
+                MainRepository.Chat.setChatMembers(result => {
+
                 });
             },
             disconnect() {
