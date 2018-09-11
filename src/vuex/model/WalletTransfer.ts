@@ -13,7 +13,7 @@ export default class WalletTransfer {
         this.Volume = data.Volume || '';
     }
     update(data: any){
-        if(data.type !==undefined && data.type !==null) this.cryptocurrencyType = data.cryptocurrencyType;
+        if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = this.transTokenType(data.cryptocurrencyType);
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = data.cryptocurrency;
         if(data.From !==undefined && data.From !==null) this.From = this.setToFrom(data.From);
         if(data.To !==undefined && data.To !==null) this.To = data.To;
@@ -29,7 +29,17 @@ export default class WalletTransfer {
             this.To = 'OTC Account';
             return 'Exchange Account'
         }
-
+    }
+    transTokenType(data: any){
+        if(data ==='Coin'){
+            return 'General Coin'
+        }
+        else if (data ==='CustomToken'){
+            return 'Custom Token'
+        }
+        else{
+            return '';
+        }
     }
 
 }

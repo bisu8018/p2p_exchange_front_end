@@ -87,7 +87,6 @@
             <i class="material-icons color-darkgray" >menu</i>
             <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown.menuType">
               <div class="select-wallet btn-blue-hover" @click="goDetails()" >Details</div>
-              <div class="select-wallet btn-blue-hover">MenuList2</div>
             </div>
           </span>
         </v-flex>
@@ -276,7 +275,6 @@
                         this.isdropdown.menuType = !this.isdropdown.menuType;
                         break;
                 }
-                //this.isdropdown = !this.isdropdown;
             },
 
             goDetails(){
@@ -319,10 +317,7 @@
       margin: auto;
     }
 
-    .dropbtn {
-      border: none;
-      cursor: pointer;
-    }
+
     .dropdown-content {
 
       position: absolute;
@@ -359,7 +354,6 @@
       padding-right: 12px;
     }
     .dropdown-content {
-      display: none;
       position: absolute;
       color: black;
       min-width: 46px;
@@ -370,9 +364,6 @@
       background-color: white;
       left: -15px;
     }
-
-
-
 
 
     .select-wallet-wrapper{
@@ -450,7 +441,10 @@
     text-align: left;
   }
 
-
+  .dropbtn {
+    border: none;
+    cursor: pointer;
+  }
 
   .comp-select-currencybox-icon{
     position: absolute;
