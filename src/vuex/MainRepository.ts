@@ -210,6 +210,12 @@ export default {
         getWithdraw: function () {
             return walletController.getWithdraw();
         },
+        setCurrency: function (data: any) {
+            walletController.setWithdrawCurrency(data)
+        },
+        getCurrency: function () {
+            return walletController.getWithdrawCurrency();
+        },
         postWithdraw: function (data: boolean, callback: any) {
             WalletService.postWithdraw(
                 {verificationMethod: data ? 'sms' : 'email'},
@@ -600,6 +606,7 @@ export default {
                 currency: tradelistController.getTradeFilter().currency,
                 amount: tradelistController.getTradeFilter().amount,
                 paymentMethods: tradelistController.getTradeFilter().paymentMethods,
+                cryptocurrencyType : tradelistController.getTradeFilter().cryptocurrencyType,
                 page: tradelistController.getTradeFilter().page,
                 size: tradelistController.getTradeFilter().size,
             }, function (data) {

@@ -26,6 +26,10 @@ const mutations = {
     [VuexTypes.UPDATE_WALLETHISTORYFILTER_DATA] (state: any, data: any) {
         state.walletHistoryFilter.update(data);
     },
+    //currency 선택
+    [VuexTypes.SET_WALLET_CURRENCY] (state: any, currency: any) {
+        state.currency = currency;
+    },
 
 };
 
@@ -48,6 +52,10 @@ const actions = {
     [VuexTypes.UPDATE_WALLETHISTORYFILTER_DATA](context: any, data: object) {
         context.commit(VuexTypes.UPDATE_WALLETHISTORYFILTER_DATA, data)
     },
+    //currency 선택
+    [VuexTypes.SET_WALLET_CURRENCY](context: any, data: object) {
+        context.commit(VuexTypes.SET_WALLET_CURRENCY, data)
+    },
 
 };
 
@@ -58,12 +66,14 @@ let walletList: Wallet[] = [];
 let withdraw = new Withdraw('');
 let walletHistoryList:WalletHistory[]  = [];
 let walletHistoryFilter = new MyTradeFilter('');
+let currency = 'CNY'
 
 const state = {
     walletList: walletList,
     withdraw : withdraw,
     walletHistoryList : walletHistoryList,
     walletHistoryFilter : walletHistoryFilter,
+    currency : currency,
 };
 export default {
     namespaced: false,

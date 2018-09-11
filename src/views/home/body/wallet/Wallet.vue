@@ -2,7 +2,7 @@
   <div>
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
-      <div  class="balance-width">
+      <div  class="balance-width flex-padding-web">
         <div class="dropbtn select-wallet-wrapper" @mouseover="showDropdown('on')">
           {{selectedWallet}}
           <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
@@ -28,7 +28,7 @@
               </div>
           </h4>
         </v-layout>
-        <v-layout mt-4a class="toolTap-wrapper">
+        <v-layout class="toolTap-wrapper">
           <div v-if="isMobile" class="toolTap-wrapper-mobile">
             <div class="toolTap-scan" @click="onScan()">
               <div class="sprite-img2 ic-wallet-scanning toolTap-img"></div>
@@ -39,7 +39,7 @@
               <h5 class="mt-2">Payment</h5>
             </div>
           </div>
-          <div class="toolTap-transfer" @click="onTransfer()">
+          <div class="toolTap-transfer" @click="showTransfer()">
             <div class="sprite-img2 ic-wallet-transfer toolTap-img"></div>
             <div class="mt-2">
               Transfer
@@ -50,256 +50,84 @@
       </div>
     </div>
     <!-- 상단 이하 부분-->
-    <div class="balance-width">
-      <v-layout>
-        <v-flex md6 xs10 class="cointype-select">
-          <button>Coin</button>
-          <div class="selectDivider"></div>
-          <button>Custom Token</button>
-          <div class="selectDivider"></div>
-          <button>Fiat</button>
-        </v-flex>
-        <v-flex md2 xs12>
-          Hide small balances
-        </v-flex>
-        <v-flex md3 xs12>
-          Search
-        </v-flex>
-        <v-flex md3 xs12>
-          <i class="material-icons color-darkgray" @click.stop="drawer = !drawer">menu</i>
-        </v-flex>
+    <div class="balance-width flex-padding-mobile">
+      <v-layout mt-4a row wrap fill-height align-center>
+        <v-flex md6 xs10 order-md1 order-xs1 class="mb-24 cs-flex">
+          <button @click="selectTokentype('Coin')" class="color-darkgray"
+                  v-bind:class="{'tokentype-active' : selectedTokenType === 'Coin'}"
+          >Coin</button>
 
-      </v-layout>
-      <v-layout row wrap mt-5>
-        <!--toolBox들.-->
-        <v-flex md6 xs12 text-xs-left text-md-right >
-          <v-layout row wrap justify-space-between>
-            <div class="mb-2">
-            <span class="dropbtn" @mouseover="showDropdown('on')">
-              <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
-              <!---->
-              <span>{{ toMoneyFormat($fixed(EstimatedCryptocurrencyValue, 'bitcoin')) }} BTC </span>
-              <span >≈ {{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</span>
-              <span class="ml-4 p-relative color-blue-active">
-                <span>{{ selectedCurrency}}</span>
-                <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
-                <div class="dropdown-content" v-if="isdropdown">
-                  <!-- 내 정보 list 버튼-->
-                    <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
-                         @click="clickedCurrency(currency.name)">
-                      {{currency.name}}
-                    </div>
-                </div>
-              </span>
-            </span>
+          <div class="selectDivider"></div>
+          <button @click="selectTokentype('CustomToken')" class="color-darkgray"
+                  v-bind:class="{'tokentype-active' : selectedTokenType === 'CustomToken'}"
+          >Custom Token</button>
+
+          <div class="selectDivider"></div>
+          <button @click="selectTokentype('Fiat')" class="color-darkgray"
+                  v-bind:class="{'tokentype-active' : selectedTokenType === 'Fiat'}"
+          >Fiat</button>
+        </v-flex>
+        <v-flex md2 xs12 order-md2 order-xs4>
+          <div class=" vertical-center p-relative">
+            <v-spacer></v-spacer>
+            <input type="checkbox" v-model="isChecked" id="hideSmallCheckbox">
+            <label for="hideSmallCheckbox"><span><i class="material-icons">done</i></span>
+              <h5 class="d-inline-block">{{$str("Hide small balances")}}</h5>
+            </label>
+          </div>
+        </v-flex>
+        <v-flex md3 xs12 order-md3 order-xs3 class="mb-16">
+          <div class="p-relative">
+            <input type="text" v-model="searchToken" class="input" :placeholder="$str('search')">
+            <i class="material-icons cs-search">search</i>
+          </div>
+        </v-flex>
+        <v-flex md1 xs2 text-xs-right order-md4 order-xs2 class="mb-24">
+          <span class="dropbtn p-relative" @mouseover="showDropdown('on')">
+            <i class="material-icons color-darkgray" >menu</i>
+            <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown">
+              <div class="select-wallet btn-blue-hover" @click="goDetails()" >Details</div>
+              <div class="select-wallet btn-blue-hover">MenuList2</div>
             </div>
-          </v-layout>
+          </span>
         </v-flex>
       </v-layout>
       <v-flex>
         <div class="cs-roundborder">
           <div  v-for="item in wallets" >
             <!--좌우 padding 맞춰주기 위해 사용.-->
-            <v-flex>
               <wallet-token-list
                       :item = "item"
               ></wallet-token-list>
-            </v-flex>
             <v-divider></v-divider>
           </div>
         </div>
       </v-flex>
     </div>
-
-
-
-    <!--wallets-->
-    <!--좌우 padding 맞추기용.-->
-
-
-    <v-layout row wrap mt-5 mb-3>
-      <!--Detail header-->
-      <v-flex md8 xs12 text-xs-left mb-4>
-        <h3 class="bold">{{$str("Details")}}</h3>
-      </v-flex>
-
-      <!--search filter -->
-      <v-flex md4 xs12 p-relative mb-2>
-        <v-layout row wrap class="statusBox">
-          <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-               v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
-                && selectedType === '' && coin === ''">
-            {{$str("walletDetailsFilterPlaceholder")}}</div>
-          <div class="statusChip" v-if="start_date != ''">
-            <v-layout align-center row fill-height>
-              {{start_date}} - {{end_date}}
-              <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('date')">close</i>
-            </v-layout>
-          </div>
-          <div class="statusChip" v-if="selectedType != ''">
-            <v-layout align-center row fill-height>
-              {{$str(selectedType)}}
-              <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('type')">close</i>
-            </v-layout>
-          </div>
-          <div class="statusChip" v-if="coin != ''">
-            <v-layout align-center row fill-height>
-              {{coin}}
-              <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('coin')">close</i>
-            </v-layout>
-          </div>
-          <!-- 필터 펼치기 버튼 -->
-          <v-spacer></v-spacer>
-          <i class="material-icons color-darkgray filter-img p-absolute c-pointer"
-             @click.stop="isModal = !isModal">filter_list</i>
-        </v-layout>
-
-        <!--필터링 card modal-->
-        <div class="cardModal cardModalMobile"  v-if="isModal">
-          <v-layout row wrap>
-
-            <v-flex xs12 text-xs-left text-black mb-2>{{$str("start")}} {{$str("date")}}</v-flex>
-            <v-flex xs12 mb-4>
-              <date-picker :classname = 'startdateclass' v-on:date="onStartDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
-            </v-flex>
-            <!--end date-->
-            <v-flex xs12 text-xs-left text-black mb-2>{{$str("end")}} {{$str("date")}}</v-flex>
-            <v-flex xs12>
-              <date-picker :classname = "enddateclass" v-on:date="onEndDate" :clear="clear" v-on:switch="clear = 'on'"></date-picker>
-            </v-flex>
-
-            <!-- Type 셀렉터-->
-            <v-flex xs12 text-xs-left cardText  >{{$str("Type")}}</v-flex>
-            <v-flex xs12 >
-              <div class="p-relative">
-                <select v-model="modal_selectedType"  class="comp-selectbox">
-                  <option v-for="type in types" v-bind:value="type.name" >{{$str(type.name)}}</option>
-                </select>
-                <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
-              </div>
-            </v-flex>
-            <!-- Coin 셀렉터-->
-            <v-flex xs12 text-xs-left class="cardText" >{{$str("Coin")}}</v-flex>
-            <v-flex xs12 >
-              <div class="p-relative">
-                <select v-model="modal_coin"  class="comp-selectbox">
-                  <option v-for="token in tokens" v-bind:value="token.name" >{{token.name}}</option>
-                </select>
-                <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
-              </div>
-            </v-flex>
-          </v-layout>
-          <!-- clear, cancel, search 버튼-->
-          <v-flex text-xs-right mt-4>
-            <v-layout>
-              <button class="btn-rounded-white text-white-hover" @click="onClear" >
-                <h6>{{$str("clear")}}</h6>
-              </button>
-              <!--좌우 정렬을 위한 spacer.-->
-              <v-spacer></v-spacer>
-              <button class="btn-rounded-white text-white-hover mr-3" @click="isModal = false" >
-                <h6>{{$str("cancel")}}</h6>
-              </button>
-              <button class="btn-rounded-blue btn-blue-hover" @click="onSearch" >
-                <h6>{{$str("search")}}</h6>
-              </button>
-            </v-layout>
-          </v-flex>
-        </div>
-      </v-flex>
-    </v-layout>
-
-
-    <!-- Web 일때-->
-    <div v-if="!isMobile">
-      <!-- 표의 header들은 Web일때만 보여짐 -->
-      <v-layout mb-3 color-darkgray>
-        <v-flex  md2 text-md-left>{{$str("Type")}}</v-flex>
-        <v-flex  md2 text-md-left>{{$str("Coin")}}</v-flex>
-        <v-flex  md2 text-md-left>{{$str("time")}}</v-flex>
-        <v-flex  md2 text-md-right>{{$str("amount")}}</v-flex>
-        <v-flex  md2 text-md-right>{{$str("status")}}</v-flex>
-        <v-flex  md2 text-md-right>{{$str("action")}}</v-flex>
-      </v-layout>
-      <v-flex><v-divider></v-divider></v-flex>
-    </div>
-    <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
-    <!--detailList-->
-    <div v-if="haveItems&& !showProgress">
-      <div  v-for="detailList in detailLists" >
-        <wallet-detail-list
-                :detailList="detailList"
-        ></wallet-detail-list>
-        <v-flex><v-divider></v-divider></v-flex>
-      </div>
-      <div class="mt-4">
-        <Pagination
-                :size="pageSize"
-                :type="pageType"
-        ></Pagination>
-      </div>
-    </div>
-    <!-- 해당되는 item이 1개도 없을때-->
-    <div v-else-if="!showProgress">
-      <div class="sprite-img ic-no-ad-lg no-more-ads">
-      </div>
-      <div class="color-gray no-more-ads-text">
-        {{$str("No more history")}}
-      </div>
-    </div>
+    <wallet-transfer-dialog/>
   </div>
 </template>
 
 <script>
-    import Pagination from '@/components/Pagination.vue';
-    import ListFilter from '@/components/ListFilter.vue';
     import MainRepository from "../../../../vuex/MainRepository";
     import WalletTokenList from "./walletList/WalletTokenList"
-    import WalletDetailList from "./walletList/WalletDetailList"
-    import DatePicker from '@/components/DatePicker.vue';
+    import WalletTransferDialog from "./dialog/WalletTransferDialog"
     import {abUtils} from "../../../../common/utils";
     import Common from "../../../../service/common/CommonService";
 
     export default {
         name: "Wallet",
         components: {
-            Pagination,
-            ListFilter,
-            WalletTokenList,
-            WalletDetailList,
-            DatePicker,
+            WalletTokenList, WalletTransferDialog
         },
         data: () => ({
-            pageSize: 8,
-            pageType: 'wallet',
+            isChecked : false,        //hide small에 을 check 한지 여부
             isdropdown : false,
-            isAmout : true,
-            isModal: false,
-            startdateclass : 'startdateclass',
-            enddateclass : 'enddateclass',
             amount : '',
-            start_date: "",
-            end_date: "",
-            selectedType : '',
-            coin: '',
-            modal_start_date: "",
-            modal_end_date: "",
-            modal_selectedType: "",
-            modal_coin: "",
             selectedCurrencyData : 'CNY',
             selectedWallet : 'OTC Wallet',
-            clear: null,
-            types : [
-                {name : 'Buy'},
-                {name : 'Sell'},
-                {name : 'Deposit'},
-                {name : 'Withdraw'},
-            ],
-            tokens : [
-                {name : 'BTC', fullname: 'bitcoin'},
-                {name : 'ETH', fullname: 'ethereum'},
-                {name : 'AllB', fullname: 'allb'},
-            ],
+            selectedTokenType : 'Coin',
+            searchToken : '',
             currencyLists : [
                 {name : 'CNY'},
                 {name : 'USD'},
@@ -321,7 +149,7 @@
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
             walletInterval: {},
-            showProgress : false,
+
         }),
         computed: {
             isMobile() {
@@ -329,10 +157,11 @@
             },
             selectedCurrency: {
                 get() {
-                    return this.selectedCurrencyData;
+                    return MainRepository.Wallet.getCurrency();
                 },
                 set(value) {
-                    this.selectedCurrencyData = value;
+                    MainRepository.Wallet.setCurrency(value)
+                    //this.selectedCurrencyData = value;
                     this.loadTotalEstimatedValue();
                 }
             },
@@ -340,12 +169,7 @@
                 this.loadTotalEstimatedValue();
                 return MainRepository.Wallet.getWallets();
             },
-            detailLists(){
-                return MainRepository.Wallet.getWalletHistories();
-            },
-            haveItems(){
-                return (MainRepository.Pagination.getTotalCount() >0)
-            },
+
         },
         created() {
             // 로그인 확인 -> Login 으로
@@ -353,15 +177,11 @@
                 MainRepository.router().goLogin();
                 return;
             }
-            MainRepository.Wallet.initHistory();
 
-            this.showProgress = true,
             // 최초 1회
             MainRepository.MarketPrice.load(() => {
                 MainRepository.Wallet.loadWallets(() => {});
-                MainRepository.Wallet.loadHistory(() => {
-                    this.showProgress = false;
-                });
+
             });
 
             this.walletInterval = setInterval(() => {
@@ -377,12 +197,11 @@
 
         },
         beforeDestroy(){
-          MainRepository.Wallet.initHistoryData();
           clearInterval(this.walletInterval);
         },
         methods: {
             loadTotalEstimatedValue() {
-                let totalValue = MainRepository.Wallet.controller().getTotalEstimatedValue(this.selectedCurrencyData);
+                let totalValue = MainRepository.Wallet.controller().getTotalEstimatedValue(this.selectedCurrency);
                 this.EstimatedCryptocurrencyValue = totalValue.btc;
                 if (totalValue.currency === 0) {
                     this.EstimatedCurrencyValue = '';
@@ -400,59 +219,29 @@
                 this.$eventBus.$emit('showAlert', 9000);
             },
             onTransfer(){
+                this.$eventBus.$emit('showTransferDialog');
             },
-            onStartDate(value) {
-                this.modal_start_date = value;
-            },
-            onEndDate(value) {
-                this.modal_end_date = value;
-            },
-            onClear() {
-                this.modal_start_date = ""
-                this.modal_end_date = ""
-                this.modal_selectedType = ""
-                this.modal_coin = ""
-            },
-            onSearch(){
-                //Axios 태우기
-                MainRepository.Wallet.updateHistoryPage({
-                    searchStartTime : this.modal_start_date,
-                    searchEndTime : this.modal_end_date,
-                    type : this.modal_selectedType,
-                    cryptocurrency : this.modal_coin,
-                });
-                this.start_date = this.modal_start_date;
-                this.end_date = this.modal_end_date;
-                this.selectedType = this.modal_selectedType;
-                this.coin = this.modal_coin;
-                this.isModal = false;
-            },
-            chipDelete (type) {
+            selectTokentype(type){
                 switch (type) {
-                    case 'date':
-                        this.start_date = '';
-                        this.modal_start_date = '';
-                        this.end_date = '';
-                        this.modal_end_date = '';
+                    case 'Coin':
+                        this.selectedTokenType = type
                         break;
-                    case 'type':
-                        this.selectedType = '';
-                        this.modal_selectedType = ''
+
+                    case 'CustomToken':
+                        this.selectedTokenType = type
                         break;
-                    case 'coin':
-                        this.coin = '';
-                        this.modal_coin = '';
+
+                    case 'Fiat':
+                        this.selectedTokenType = type
                         break;
+
                 }
-                MainRepository.Wallet.updateHistoryPage({
-                    searchStartTime : this.modal_start_date,
-                    searchEndTime : this.modal_end_date,
-                    type : this.modal_selectedType,
-                    cryptocurrency : this.modal_coin,
-                });
+                //여기서 axios call 하는 service 추가 필요.
             },
+
+
             clickedCurrency(item){
-                this.selectedCurrency = item;
+                MainRepository.Wallet.setCurrency(item);
                 this.isdropdown = false;
             },
             clickWallet(item){
@@ -461,7 +250,14 @@
             },
             showDropdown(){
                 this.isdropdown = true;
-            }
+            },
+
+            goDetails(){
+                MainRepository.router().goWalletDetail();
+            },
+            showTransfer(){
+                this.$eventBus.$emit('showTransferDialog','');
+            },
 
         }
 
@@ -472,19 +268,19 @@
 <style scoped>
   /* 웹에서*/
   @media only screen and (min-width: 960px) {
+    .flex-padding-web{
+      padding-left: 12px;
+      padding-right: 12px;
+    }
     .scroll-space {
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       position: relative;
       max-height: 336px;
     }
-    .no-more-ads{
-      margin: 120px auto 16px auto;
+    .toolTap-wrapper{
+      margin-top: 32px;
     }
-    .no-more-ads-text{
-      margin-bottom: 56px;
-    }
-
     .toolTap-transfer{
       text-align: right;
       cursor: pointer;
@@ -519,10 +315,20 @@
     .dropdown-wallet{
       border: solid 1px #b2b2b2;
     }
+    .dropdown-detail-menu{
+      border: solid 1px #b2b2b2;
+      right: 0px;
+      left: auto !important;
+    }
   }
 
   /* mobile 에서*/
   @media only screen and (max-width: 959px) {
+
+    .flex-padding-mobile{
+      padding-left: 12px;
+      padding-right: 12px;
+    }
     .dropdown-content {
       display: none;
       position: absolute;
@@ -536,14 +342,9 @@
       left: -15px;
     }
 
-    .cardModalMobile{
-      width: 100%;
-      left: 0%;
-    }
 
-    .no-more-ads{
-      margin: 48px auto 16px auto;
-    }
+
+
 
     .select-wallet-wrapper{
       margin-left: 16px;
@@ -551,6 +352,7 @@
 
     .toolTap-wrapper{
       background-color: #214ea1;
+      margin-top: 68px;
       padding-top: 16px;
       padding-bottom: 16px;
     }
@@ -581,7 +383,13 @@
       margin: auto;
     }
 
+    .mb-24{
+      margin-bottom: 24px;
+    }
 
+    .mb-16 {
+      margin-bottom: 16px;
+    }
   }
 
 
@@ -622,55 +430,7 @@
 
   }
 
-  .cardText{
-    margin-top: 24px;
-    margin-bottom: 8px;
-  }
-  .statusBox{
-    min-height: 40px;
-    border-radius: 2px;
-    border: solid 1px #8d8d8d;
-    width: 100%;
-    padding-right: 4px;
 
-  }
-  .cardModal{
-    z-index: 2;
-    position: absolute;
-    background-color: #ffffff;
-    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-    padding: 16px 8px 24px 8px;
-    width: 75%;
-    left: 22%;
-    top: 60px;
-
-  }
-  .cardModal:after{
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 95%;
-    margin-left: -8px;
-    width: 0; height: 0;
-    border-bottom: 8px solid  #ffffff;
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-
-  }
-  .cardModal:before{
-    content: '';
-    position: absolute;
-    border-style: solid;
-    bottom: 100.3%;
-    left: 95%;
-    margin-left: -8px;
-    width: 0; height: 0;
-    border-width: 10px;
-    border-bottom: 8px solid  #ffffff;
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-    border-color: transparent transparent #d8d8d8 transparent ;
-  }
 
 
   .selectDivider{
@@ -679,46 +439,43 @@
     width: 2px;
     margin-left: 16px;
     margin-right: 16px;
-  }
-  .statusChip{
-    height: 26px;
-    border-radius: 2px;
-    background-color: #9294a6;
-    padding: 4px 8px 4px 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #ffffff;
-    margin-top: 7px;
-    margin-bottom: 7px;
-    cursor: pointer;
+
   }
 
-  .statusChip:hover{
-    opacity: 0.8;
-  }
 
-  .filter-img {
-    right: 20px;
-    top: 8px;
-  }
+
   .cs-roundborder{
     border-radius: 2px;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+    margin-top: 24px;
   }
 
-  .list_progress {
-    margin-top: 80px;
-  }
 
   .cointype-select{
     color: #9294a6;
     text-align: left;
-
+    align-items: center;
   }
   .selectDivider{
-    display: inline-block;
+    display: inline-flex;
     border: solid 1px #d1d1d1;
     height: 27px;
     width: 1px;
   }
+  .tokentype-active{
+    color: #214ea1;
+    font-weight: 700;
+    border-bottom: 1px solid currentColor
+  }
+  .cs-search{
+    color: #9294a6;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+  }
+  .cs-flex{
+    display: flex;
+  }
 </style>
+
