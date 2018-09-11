@@ -156,10 +156,10 @@
                 this.isDrawer = !this.isDrawer;
             },
             showTransfer(){
-                this.$eventBus.$emit('showTransferDialog', {
-                    cryptoType : 'General Coin',
-                    selectedCryptocurrency : this.item.cryptoCurrency
-                });
+                MainRepository.Wallet.updateTransfer({
+                    cryptocurrency : this.item.cryptoCurrency,
+                })
+                this.$eventBus.$emit('showTransferDialog');
             },
             showDetails(){
                 MainRepository.router().goWalletDetail(this.item.cryptoCurrency);

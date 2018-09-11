@@ -3,26 +3,26 @@
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
       <div  class="balance-width flex-padding-web">
-        <div class="dropbtn select-wallet-wrapper" @mouseover="showDropdown('on')">
+        <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')">
           {{selectedWallet}}
           <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
-            <div class="dropdown-content dropdown-wallet" v-if="isdropdown">
-              <div class="select-wallet btn-blue-hover" @click="clickWallet('OTC Wallet')" >OTC Wallet</div>
-              <div class="select-wallet btn-blue-hover" @click="clickWallet('Exchange Wallet')">Exchange Wallet</div>
+            <div class="dropdown-content dropdown-wallet" v-if="isdropdown.walletType">
+              <div class="select-wallet btn-blue-hover" @click.stop="clickWallet('OTC Wallet')" >OTC Wallet</div>
+              <div class="select-wallet btn-blue-hover" @click.stop="clickWallet('Exchange Wallet')">Exchange Wallet</div>
             </div>
         </div>
         <h6 class="text-total">
           Total
         </h6>
-        <v-layout mt-2 align-center justify-center fill-height @mouseover="showDropdown('on')">
+        <v-layout mt-2 align-center justify-center fill-height @click="showDropdown('currencyType')">
           <h1>{{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</h1>
           <h4 class="ml-2 p-relative dropbtn" >
               <span>{{ selectedCurrency}}</span>
               <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
-              <div class="dropdown-content scroll-space" v-if="isdropdown">
+              <div class="dropdown-content scroll-space" v-if="isdropdown.currencyType">
                 <!-- 내 정보 list 버튼-->
                 <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
-                     @click="clickedCurrency(currency.name)">
+                     @click.stop="clickedCurrency(currency.name)">
                   {{currency.name}}
                 </div>
               </div>
@@ -83,9 +83,9 @@
           </div>
         </v-flex>
         <v-flex md1 xs2 text-xs-right order-md4 order-xs2 class="mb-24">
-          <span class="dropbtn p-relative" @mouseover="showDropdown('on')">
+          <span class="dropbtn p-relative" @click="showDropdown('menuType')">
             <i class="material-icons color-darkgray" >menu</i>
-            <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown">
+            <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown.menuType">
               <div class="select-wallet btn-blue-hover" @click="goDetails()" >Details</div>
               <div class="select-wallet btn-blue-hover">MenuList2</div>
             </div>
@@ -122,7 +122,11 @@
         },
         data: () => ({
             isChecked : false,        //hide small에 을 check 한지 여부
-            isdropdown : false,
+            isdropdown : {
+                walletType : false,
+                currencyType: false,
+                menuType: false,
+            },
             amount : '',
             selectedCurrencyData : 'CNY',
             selectedWallet : 'OTC Wallet',
@@ -219,12 +223,16 @@
                 this.$eventBus.$emit('showAlert', 9000);
             },
             onTransfer(){
+                MainRepository.Wallet.updateTransfer({
+                    cryptocurrencyType : this.selectedTokenType,
+                    cryptocurrency : '',
+                })
                 this.$eventBus.$emit('showTransferDialog');
             },
             selectTokentype(type){
                 switch (type) {
                     case 'Coin':
-                        this.selectedTokenType = type
+                        this.selectedTokenType = type;
                         break;
 
                     case 'CustomToken':
@@ -232,24 +240,43 @@
                         break;
 
                     case 'Fiat':
+                        this.$eventBus.$emit('showAlert', 9000);
                         this.selectedTokenType = type
                         break;
-
                 }
+                MainRepository.Wallet.updateTransfer({
+                    cryptocurrencyType : this.selectedTokenType
+                })
                 //여기서 axios call 하는 service 추가 필요.
             },
 
 
             clickedCurrency(item){
                 MainRepository.Wallet.setCurrency(item);
-                this.isdropdown = false;
+                this.showDropdown('currencyType');
+
             },
             clickWallet(item){
                 this.selectedWallet = item;
-                this.isdropdown = false;
+                //Exchange wallet 백단 작업완료시 page의 모든 값 reset하는 작업 필요
+                MainRepository.Wallet.updateTransfer({
+                    From : item
+                })
+                this.showDropdown('walletType');
             },
-            showDropdown(){
-                this.isdropdown = true;
+            showDropdown(item){
+                switch (item) {
+                    case 'walletType':
+                        this.isdropdown.walletType = !this.isdropdown.walletType;
+                        break;
+                    case 'currencyType':
+                        this.isdropdown.currencyType = !this.isdropdown.currencyType;
+                        break;
+                    case 'menuType':
+                        this.isdropdown.menuType = !this.isdropdown.menuType;
+                        break;
+                }
+                //this.isdropdown = !this.isdropdown;
             },
 
             goDetails(){
@@ -297,7 +324,7 @@
       cursor: pointer;
     }
     .dropdown-content {
-      display: none;
+
       position: absolute;
       color: black;
       min-width: 46px;
@@ -309,9 +336,11 @@
       background-color: white;
       left: -15px;
     }
+/*
     :hover.dropbtn .dropdown-content{
       display: block;
     }
+*/
     .dropdown-wallet{
       border: solid 1px #b2b2b2;
     }

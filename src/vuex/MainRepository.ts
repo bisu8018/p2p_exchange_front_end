@@ -198,6 +198,7 @@ export default {
 
             })
         },
+        //Withdraw
         setWithdraw: function (data: any) {
             walletController.setWithdraw(
                 new Withdraw(data)
@@ -205,12 +206,6 @@ export default {
         },
         getWithdraw: function () {
             return walletController.getWithdraw();
-        },
-        setCurrency: function (data: any) {
-            walletController.setWithdrawCurrency(data)
-        },
-        getCurrency: function () {
-            return walletController.getWithdrawCurrency();
         },
         postWithdraw: function (data: boolean, callback: any) {
             WalletService.postWithdraw(
@@ -226,6 +221,22 @@ export default {
                     callback(result);
                 })
         },
+        //Transfer
+        updateTransfer: function (data: any) {
+            walletController.updateTransfer(data)
+        },
+        getTransfer: function () {
+            return walletController.getTransfer();
+        },
+
+        //currency
+        setCurrency: function (data: any) {
+            walletController.setWithdrawCurrency(data)
+        },
+        getCurrency: function () {
+            return walletController.getWithdrawCurrency();
+        },
+
         //Wallet history
         initHistoryData() {
             this.setHIstoryFilter('')

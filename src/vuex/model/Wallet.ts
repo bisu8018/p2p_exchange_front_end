@@ -1,7 +1,7 @@
 import {CurrencyType} from "@/vuex/model/CurrencyType";
 import MainRepository from "@/vuex/MainRepository";
 
-export default class Balance {
+export default class Wallet {
     ownerMemberNo: number;
     cryptoCurrency : string;
     depositType: string;

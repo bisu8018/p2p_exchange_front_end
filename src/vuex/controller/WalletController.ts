@@ -51,6 +51,8 @@ export default class WalletController {
 
         return _totalValue;
     }
+
+    //withdraw
     setWithdraw(withdraw : Withdraw){
         this.store.dispatch(VuexTypes.SET_WITHDRAW_DATA, withdraw);
     }
@@ -66,7 +68,14 @@ export default class WalletController {
     getWithdrawCurrency(){
         return this.store.state.wallet.currency
     }
+    updateTransfer(data: any){
+        this.store.dispatch(VuexTypes.UPDATE_WALLET_TRANSFER, data);
+    }
+    getTransfer(){
+        return this.store.state.wallet.transfer;
+    }
 
+    //history
     setWalletHistoryList(walletHistoryList : WalletHistory[]){
         this.store.dispatch(VuexTypes.SET_WALLETHISTORYLIST_DATA, walletHistoryList);
 

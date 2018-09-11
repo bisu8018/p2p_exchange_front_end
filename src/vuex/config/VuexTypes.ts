@@ -74,6 +74,8 @@ export enum VuexTypes {
     // =====================================
     SET_WALLET_DATA = 'wallet/SET_WALLET_DATA',
     SET_WALLET_CURRENCY = 'wallet/SET_WALLET_CURRENCY',
+    UPDATE_WALLET_TRANSFER = 'wallet/UPDATE_WALLET_TRANSFER',
+
     SET_WITHDRAW_DATA = 'wallet/SET_WITHDRAW_DATA',
     //WalletHistory
     SET_WALLETHISTORYFILTER_DATA = 'wallet/SET_WALLETHISTORYFILTER_DATA',

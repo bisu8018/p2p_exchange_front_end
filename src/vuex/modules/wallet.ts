@@ -4,6 +4,7 @@ import Withdraw from "@/vuex/model/Withdraw";
 import WalletHistory from "@/vuex/model/WalletHistory";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 import Order from "@/vuex/model/Order";
+import WalletTransfer from "@/vuex/model/WalletTransfer";
 
 
 const mutations = {
@@ -29,6 +30,10 @@ const mutations = {
     //currency 선택
     [VuexTypes.SET_WALLET_CURRENCY] (state: any, currency: any) {
         state.currency = currency;
+    },
+    //Transfer update
+    [VuexTypes.UPDATE_WALLET_TRANSFER] (state: any, data: any) {
+        state.transfer.update(data);
     },
 
 };
@@ -56,6 +61,10 @@ const actions = {
     [VuexTypes.SET_WALLET_CURRENCY](context: any, data: object) {
         context.commit(VuexTypes.SET_WALLET_CURRENCY, data)
     },
+    //Transfer 선택
+    [VuexTypes.UPDATE_WALLET_TRANSFER](context: any, data: object) {
+        context.commit(VuexTypes.UPDATE_WALLET_TRANSFER, data)
+    },
 
 };
 
@@ -67,6 +76,7 @@ let withdraw = new Withdraw('');
 let walletHistoryList:WalletHistory[]  = [];
 let walletHistoryFilter = new MyTradeFilter('');
 let currency = 'CNY'
+let transfer = new WalletTransfer('');
 
 const state = {
     walletList: walletList,
@@ -74,6 +84,7 @@ const state = {
     walletHistoryList : walletHistoryList,
     walletHistoryFilter : walletHistoryFilter,
     currency : currency,
+    transfer : transfer,
 };
 export default {
     namespaced: false,
