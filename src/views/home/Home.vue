@@ -12,12 +12,19 @@
         <abFooter></abFooter>
         <AbTab></AbTab>
       </div>
+
+      <!--Order fix list -->
       <div class="cs-flex right-box" v-if="!isMobile && isFixed">
         <my-order-fixed></my-order-fixed>
       </div>
+
+      <!-- Chat -->
       <div class="cs-flex right-box" v-if="!isMobile && isChatOpened">
        <chat></chat>
       </div>
+
+      <!--Chat manager-->
+      <chat-manager></chat-manager>
     </div>
   </v-app>
 </template>
@@ -30,7 +37,8 @@
     import AbTab from "./Tab.vue"
     import Alert from './../../components/Alerts.vue';
     import MyOrderFixed from './../../views/home/body/MyOrderFixed.vue';
-    import Chat from './../../views/home/body/Chat.vue';
+    import Chat from './body/chat/Chat.vue';
+    import ChatManager from './body/chat/item/ChatManager.vue';
 
 
     export default Vue.extend({
@@ -41,7 +49,8 @@
             AbTab,
             Alert,
             MyOrderFixed,
-            Chat
+            Chat,
+            ChatManager
         },
         data() {
             return {
@@ -52,6 +61,7 @@
             isMobile() {
                 if(MainRepository.State.isMobile()){
                     MainRepository.MyOrder.controller().setMyOrderModalFixed(false);
+                    MainRepository.Chat.isClosed();
                 }
                 return MainRepository.State.isMobile();
             },
@@ -82,8 +92,7 @@
         mounted() {
             this.$nextTick(function() {
                 window.addEventListener('resize', this.getWindowWidth);
-                //Init
-                this.getWindowWidth()
+                this.getWindowWidth();
             })
         },
         methods: {

@@ -49,8 +49,23 @@
                 </div>
             </v-flex>
 
+            <!--토큰 종류 select box-->
+            <v-flex xs12 md2 offset-md4 :class="{'mt-4' : !isMobile}">
+                <div>
+                    <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrencyType") }}</div>
+                    <div class="p-relative">
+                        <select class="comp-selectbox h6" id="cryptocurrencyType" v-model="cryptocurrencyType"
+                                :class="{'input-disabled2' : edit}">
+                            <option value="general">General Token</option>
+                            <option value="custom">Custom Token</option>
+                        </select>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                    </div>
+                </div>
+            </v-flex>
+
             <!--코인 select box-->
-            <v-flex xs12 md2>
+            <v-flex xs12 md2 :class="{'mt-4' : !isMobile}">
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
@@ -527,6 +542,7 @@
             showModal: false,
             tradeType: "buy",
             cryptocurrency: "bitcoin",
+            cryptocurrencyType : 'general',
             priceType: "fixedprice",
             fixedPrice: "",
             margin: "",

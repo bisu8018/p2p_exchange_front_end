@@ -16,34 +16,36 @@
     export default {
         name: "Avatar",
         props: {
-            email: {
+            email: {    // 메일 전달
                 type: String,
                 default: ''
             },
-            me: {
+            me: {       // 자신 아바타
                 type: Boolean,
                 default: false
             },
-            chat: {
+            chat: {     // BUY/SELL : main, sub     OPEN CHAT : memberList
                 type: String,
                 default: '',
             },
-            big: {
+            big: {      // 큰 아바타
                 type: Boolean,
                 default: false
             },
-            useMemberInfo: {
+            useMemberInfo: {        // Trade Center 전용
                 type: Boolean,
                 default: false
             },
-            member: {}
+            member: {}      // Trade Center, Open Chat MemberList
         },
-        data: () => ({
-            loginColor: '#c8c8c8',
-            nickname: '',
-            bgColor: '#7f7f7f',
-            msgInterval: {},
-        }),
+        data() {
+            return {
+                loginColor: '#c8c8c8',
+                nickname: '',
+                bgColor: '#7f7f7f',
+                msgInterval: {},
+            }
+        },
         watch: {
             email() {
                 this.init();
@@ -72,7 +74,7 @@
                 return MainRepository.MyInfo.getUserInfo();
             },
         },
-        created() {
+        mounted() {
             this.init();
         },
         beforeDestroy() {
@@ -103,6 +105,13 @@
                             _msgAvatar.bgColor,
                             _msgAvatar.isLogin
                         );
+                    } else if (this.chat === 'memberList'){
+                        //Open Chat 일때 member props에 member list 저장
+                        this.setAvatar(
+                            this.member.name[0],
+                            this.member.bgColor,
+                            true,
+                        )
                     } else {
                         // 로그인 상태 요청
                         MainRepository.Users.getOtherUsers(this.email, (userInfo) => {
@@ -123,9 +132,6 @@
                         });
                     }
                 }
-            },
-            setSub(){
-
             },
             setAvatar(nickname, bgColor, isLogin) {
                 this.nickname = nickname;
