@@ -1,14 +1,80 @@
 <template>
   <div>
-    <v-layout row wrap mt-5>
-      <!--header-->
-      <v-flex md6 xs12 mb-4a text-xs-left>
-        <h2 class="bold">{{$str("Wallet")}}</h2>
-      </v-flex>
-      <!--toolBox들.-->
-      <v-flex md6 xs12 text-xs-left text-md-right >
-        <v-layout row wrap justify-space-between>
-          <div class="mb-2">
+    <!-- 상단 파란색 부분-->
+    <div class="balance-wrapper" >
+      <div  class="balance-width">
+        <div class="dropbtn select-wallet-wrapper" @mouseover="showDropdown('on')">
+          {{selectedWallet}}
+          <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+            <div class="dropdown-content dropdown-wallet" v-if="isdropdown">
+              <div class="select-wallet btn-blue-hover" @click="clickWallet('OTC Wallet')" >OTC Wallet</div>
+              <div class="select-wallet btn-blue-hover" @click="clickWallet('Exchange Wallet')">Exchange Wallet</div>
+            </div>
+        </div>
+        <h6 class="text-total">
+          Total
+        </h6>
+        <v-layout mt-2 align-center justify-center fill-height @mouseover="showDropdown('on')">
+          <h1>{{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</h1>
+          <h4 class="ml-2 p-relative dropbtn" >
+              <span>{{ selectedCurrency}}</span>
+              <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+              <div class="dropdown-content scroll-space" v-if="isdropdown">
+                <!-- 내 정보 list 버튼-->
+                <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
+                     @click="clickedCurrency(currency.name)">
+                  {{currency.name}}
+                </div>
+              </div>
+          </h4>
+        </v-layout>
+        <v-layout mt-4a class="toolTap-wrapper">
+          <div v-if="isMobile" class="toolTap-wrapper-mobile">
+            <div class="toolTap-scan" @click="onScan()">
+              <div class="sprite-img2 ic-wallet-scanning toolTap-img"></div>
+              <h5 class="mt-2">Scan</h5>
+            </div>
+            <div class="toolTap-payment" @click="onPayment()">
+              <div class="sprite-img2 ic-barcode toolTap-img"></div>
+              <h5 class="mt-2">Payment</h5>
+            </div>
+          </div>
+          <div class="toolTap-transfer" @click="onTransfer()">
+            <div class="sprite-img2 ic-wallet-transfer toolTap-img"></div>
+            <div class="mt-2">
+              Transfer
+            </div>
+          </div>
+        </v-layout>
+
+      </div>
+    </div>
+    <!-- 상단 이하 부분-->
+    <div class="balance-width">
+      <v-layout>
+        <v-flex md6 xs10 class="cointype-select">
+          <button>Coin</button>
+          <div class="selectDivider"></div>
+          <button>Custom Token</button>
+          <div class="selectDivider"></div>
+          <button>Fiat</button>
+        </v-flex>
+        <v-flex md2 xs12>
+          Hide small balances
+        </v-flex>
+        <v-flex md3 xs12>
+          Search
+        </v-flex>
+        <v-flex md3 xs12>
+          <i class="material-icons color-darkgray" @click.stop="drawer = !drawer">menu</i>
+        </v-flex>
+
+      </v-layout>
+      <v-layout row wrap mt-5>
+        <!--toolBox들.-->
+        <v-flex md6 xs12 text-xs-left text-md-right >
+          <v-layout row wrap justify-space-between>
+            <div class="mb-2">
             <span class="dropbtn" @mouseover="showDropdown('on')">
               <span class="color-darkgray mr-1 ">{{$str("Estimated_Value")}}：</span>
               <!---->
@@ -19,38 +85,37 @@
                 <i class="material-icons comp-select-currencybox-icon ">arrow_drop_down</i>
                 <div class="dropdown-content" v-if="isdropdown">
                   <!-- 내 정보 list 버튼-->
-                  <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
-                       @click="clickedCurrency(currency.name)">
-                    {{currency.name}}
-                  </div>
+                    <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
+                         @click="clickedCurrency(currency.name)">
+                      {{currency.name}}
+                    </div>
                 </div>
               </span>
             </span>
+            </div>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+      <v-flex>
+        <div class="cs-roundborder">
+          <div  v-for="item in wallets" >
+            <!--좌우 padding 맞춰주기 위해 사용.-->
+            <v-flex>
+              <wallet-token-list
+                      :item = "item"
+              ></wallet-token-list>
+            </v-flex>
+            <v-divider></v-divider>
           </div>
-          <div class="mb-4a">
-            <span class="color-darkgray mr-2">{{$str("Security_Deposit")}}:</span>
-            <span> 000000</span>
-          </div>
-        </v-layout>
+        </div>
       </v-flex>
-    </v-layout>
+    </div>
+
 
 
     <!--wallets-->
     <!--좌우 padding 맞추기용.-->
-    <v-flex>
-      <div class="cs-roundborder">
-        <div  v-for="item in wallets" >
-          <!--좌우 padding 맞춰주기 위해 사용.-->
-          <v-flex>
-            <wallet-token-list
-                  :item = "item"
-            ></wallet-token-list>
-          </v-flex>
-          <v-divider></v-divider>
-        </div>
-      </div>
-    </v-flex>
+
 
     <v-layout row wrap mt-5 mb-3>
       <!--Detail header-->
@@ -114,7 +179,7 @@
               </div>
             </v-flex>
             <!-- Coin 셀렉터-->
-            <v-flex xs12 text-xs-left cardText >{{$str("Coin")}}</v-flex>
+            <v-flex xs12 text-xs-left class="cardText" >{{$str("Coin")}}</v-flex>
             <v-flex xs12 >
               <div class="p-relative">
                 <select v-model="modal_coin"  class="comp-selectbox">
@@ -222,6 +287,7 @@
             modal_selectedType: "",
             modal_coin: "",
             selectedCurrencyData : 'CNY',
+            selectedWallet : 'OTC Wallet',
             clear: null,
             types : [
                 {name : 'Buy'},
@@ -241,6 +307,16 @@
                 {name : 'INR'},
                 {name : 'CAD'},
                 {name : 'KRW'},
+                {name : 'CHF'},
+                {name : 'TWD'},
+                {name : 'RUB'},
+                {name : 'GBP'},
+                {name : 'HKD'},
+                {name : 'EUR'},
+                {name : 'NGN'},
+                {name : 'IDR'},
+                {name : 'PHP'},
+                {name : 'KHR'},
             ],
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
@@ -317,6 +393,14 @@
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
             },
+            onScan(){
+                this.$eventBus.$emit('showAlert', 9000);
+            },
+            onPayment(){
+                this.$eventBus.$emit('showAlert', 9000);
+            },
+            onTransfer(){
+            },
             onStartDate(value) {
                 this.modal_start_date = value;
             },
@@ -371,6 +455,10 @@
                 this.selectedCurrency = item;
                 this.isdropdown = false;
             },
+            clickWallet(item){
+                this.selectedWallet = item;
+                this.isdropdown = false;
+            },
             showDropdown(){
                 this.isdropdown = true;
             }
@@ -382,19 +470,150 @@
 </script>
 
 <style scoped>
-  .select-currencybox{
-    cursor: pointer;
-    overflow: scroll;
-    color: #214ea1;
-    outline:0;
+  /* 웹에서*/
+  @media only screen and (min-width: 960px) {
+    .scroll-space {
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      max-height: 336px;
+    }
+    .no-more-ads{
+      margin: 120px auto 16px auto;
+    }
+    .no-more-ads-text{
+      margin-bottom: 56px;
+    }
+
+    .toolTap-transfer{
+      text-align: right;
+      cursor: pointer;
+      margin-left: auto;
+      margin-bottom: 32px;
+    }
+
+    .toolTap-img{
+      margin: auto;
+    }
+
+    .dropbtn {
+      border: none;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      color: black;
+      min-width: 46px;
+      max-height: 204px;
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      border-radius: 2px;
+      text-align: center;
+      background-color: white;
+      left: -15px;
+    }
+    :hover.dropbtn .dropdown-content{
+      display: block;
+    }
+    .dropdown-wallet{
+      border: solid 1px #b2b2b2;
+    }
   }
-  .select-currencybox:checked{
-    color: #353535;
+
+  /* mobile 에서*/
+  @media only screen and (max-width: 959px) {
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      color: black;
+      min-width: 46px;
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      border-radius: 2px;
+      text-align: center;
+      background-color: white;
+      left: -15px;
+    }
+
+    .cardModalMobile{
+      width: 100%;
+      left: 0%;
+    }
+
+    .no-more-ads{
+      margin: 48px auto 16px auto;
+    }
+
+    .select-wallet-wrapper{
+      margin-left: 16px;
+    }
+
+    .toolTap-wrapper{
+      background-color: #214ea1;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .toolTap-wrapper-mobile{
+      width: 65%;
+      display: flex;
+    }
+
+    .toolTap-scan{
+      width: 53%;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .toolTap-payment{
+      width: 47%;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .toolTap-transfer{
+      width: 35%;
+      text-align: center;
+      cursor: pointer;
+    }
+    .toolTap-img{
+      margin: auto;
+    }
+
 
   }
-  .select-currencybox:target{
 
+
+  .balance-wrapper{
+    background-color: #316ee4;
+    color : #ffffff;
   }
+  .balance-width{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text-total{
+    margin-top : 32px;
+    opacity: 0.5;
+    text-align: center;
+    line-height: 1.17;
+  }
+
+  .select-wallet-wrapper{
+    padding-top: 16px;
+    text-align: left;
+    position: relative;
+  }
+
+  .select-wallet{
+    padding: 8px;
+    text-align: left;
+  }
+
+
 
   .comp-select-currencybox-icon{
     position: absolute;
@@ -414,9 +633,6 @@
     width: 100%;
     padding-right: 4px;
 
-  }
-  .cardParent{
-    position: relative;
   }
   .cardModal{
     z-index: 2;
@@ -455,21 +671,14 @@
     border-left: 8px solid transparent;
     border-color: transparent transparent #d8d8d8 transparent ;
   }
-  /* filter card 가 mobile에선 width 100이므로
-  mobile에서만 추가 선언.*/
-  @media only screen and (max-width: 959px) {
-    .cardModalMobile{
-      width: 100%;
-      left: 0%;
-    }
-  }
+
 
   .selectDivider{
     border: solid 1px #d1d1d1;
     height: 56px;
     width: 2px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 16px;
+    margin-right: 16px;
   }
   .statusChip{
     height: 26px;
@@ -497,43 +706,19 @@
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
   }
 
-  .dropbtn {
-    border: none;
-    cursor: pointer;
-  }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    color: black;
-    min-width: 46px;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
-    z-index: 1;
-    border-radius: 2px;
-    text-align: center;
-    background-color: white;
-    left: -15px;
-  }
-  :hover.dropbtn .dropdown-content{
-    display: block;
-  }
-
-  /*web 일때*/
-  @media only screen and (min-width: 960px) {
-    .no-more-ads{
-      margin: 120px auto 16px auto;
-    }
-    .no-more-ads-text{
-      margin-bottom: 56px;
-    }
-
-  }
-  /*mobile 일때*/
-  @media only screen and (max-width: 959px) {
-    .no-more-ads{
-      margin: 48px auto 16px auto;
-    }
-  }
   .list_progress {
     margin-top: 80px;
+  }
+
+  .cointype-select{
+    color: #9294a6;
+    text-align: left;
+
+  }
+  .selectDivider{
+    display: inline-block;
+    border: solid 1px #d1d1d1;
+    height: 27px;
+    width: 1px;
   }
 </style>

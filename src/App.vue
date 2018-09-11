@@ -415,12 +415,18 @@
         -webkit-user-select: none;
         user-select: none;
     }
-
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
+    /* input number에서 측면 버튼 없애기*/
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']:hover::-webkit-inner-spin-button,
+    input[type='number']:hover::-webkit-outer-spin-button{
+        -webkit-appearance: none !important;
         margin: 0;
     }
+    input[type='number'] {
+        -moz-appearance:textfield;
+    }
+
 
 
     .application .nav {
@@ -1586,6 +1592,36 @@
         background: -23px -123px;
         width: 23px;
         height: 20px;
+    }
+    .ic-tab-service-blue {
+        background: -23px -123px;
+        width: 23px;
+        height: 20px;
+    }
+    .ic-mytoken-default {
+        background: 0px -143px;
+        width: 65px;
+        height: 65px;
+    }
+    .ic-mytoken-add {
+        background: 0px -208px;
+        width: 17.7px;
+        height: 17.7px;
+    }
+    .ic-barcode {
+        background: 0px -226px;
+        width: 18px;
+        height: 14px;
+    }
+    .ic-wallet-transfer{
+        background: -18px -226px;
+        width: 18px;
+        height: 14px;
+    }
+    .ic-wallet-scanning{
+        background: 0px -240px;
+        width: 20px;
+        height: 16px;
     }
 
 
