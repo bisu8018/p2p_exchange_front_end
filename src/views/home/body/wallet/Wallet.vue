@@ -240,7 +240,7 @@
 
                     case 'Fiat':
                         this.$eventBus.$emit('showAlert', 9000);
-                        this.selectedTokenType = type
+                        //this.selectedTokenType = type
                         break;
                 }
                 MainRepository.Wallet.updateTransfer({

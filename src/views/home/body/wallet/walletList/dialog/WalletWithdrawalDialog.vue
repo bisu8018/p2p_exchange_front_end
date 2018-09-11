@@ -4,7 +4,7 @@
       <div class="cs-flex mb-3">
         <!--header-->
         <div class=" h4 bold text-xs-left">
-          {{getCryptoName(cryptoCurrency) }} {{$str("withdraw")}}
+          {{getCryptoName(cryptocurrency) }} {{$str("withdraw")}}
         </div>
         <v-spacer></v-spacer>
         <i class="material-icons color-black c-pointer" @click="onClose">close</i>
@@ -40,7 +40,7 @@
           <input name="amount" v-model="amount" type="text" class="input"
                  v-bind:class="{'warning-border' : warning_amount}"
                  @blur="onCheckAmount" autocomplete="off" >
-          <span class="crypto-text">{{getCryptoName(cryptoCurrency) }}</span>
+          <span class="crypto-text">{{getCryptoName(cryptocurrency) }}</span>
           <div class="warning-text-wrapper">
             <p class="d-none" v-bind:class="{'warning-text' : warning_amount}">
               {{text_warning_amount}}</p>
@@ -60,7 +60,7 @@
         <div class="p-relative">
           <input name="fee" v-model="fee" type="text" class="input"
                  autocomplete="off" disabled>
-          <span class="crypto-text">{{getCryptoName(cryptoCurrency) }}</span>
+          <span class="crypto-text">{{getCryptoName(cryptocurrency) }}</span>
         </div>
       </div>
       <div class="cs-flex">
@@ -71,7 +71,7 @@
         <div class="p-relative">
           <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
                  autocomplete="off" disabled>
-          <span class="crypto-text">{{getCryptoName(cryptoCurrency) }}</span>
+          <span class="crypto-text">{{getCryptoName(cryptocurrency) }}</span>
         </div>
       </div>
       <div class="text-xs-right">
@@ -89,9 +89,9 @@
         {{$str("tips")}}
       </h6>
       <h6 class="color-darkgray text-xs-left mb-3">
-        {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{getCryptoName(cryptoCurrency) }}
+        {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{getCryptoName(cryptocurrency) }}
       </h6>
-      <h6 v-if="getCryptoName(cryptoCurrency)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
+      <h6 v-if="getCryptoName(cryptocurrency)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
         {{$str("withdrawtipsETH1")}}<br>
         {{$str("withdrawtipsETH2")}}<br>
         {{$str("withdrawtipsETH3")}}
@@ -111,7 +111,7 @@
     export default {
         name: "WalletWithdrawalDialog",
         props :{
-            cryptoCurrency : {
+            cryptocurrency : {
                 type: String,
                 default : ''
             },
@@ -140,14 +140,14 @@
             },
         },
         created(){
-            this.$eventBus.$on('showWithdrawDialog', (cryptoCurrency) => {
-                if(this.cryptoCurrency === cryptoCurrency){
+            this.$eventBus.$on('showWithdrawDialog', (cryptocurrency) => {
+                if(this.cryptocurrency === cryptocurrency){
                     this.show = true;
                 }
             });
         },
         mounted(){
-            switch (this.cryptoCurrency) {
+            switch (this.cryptocurrency) {
                 case 'bitcoin':
                 case 'BTC':
                     this.fee = 0.001
@@ -199,7 +199,7 @@
                   MainRepository.Wallet.setWithdraw({
                       addressTo : this.address,
                       amount : this.amount,
-                      cryptoCurrency : this.cryptoCurrency,
+                      cryptocurrency : this.cryptocurrency,
                       fee : this.fee,
                       ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
                       receiveAmount : this.receiveAmount
@@ -207,8 +207,8 @@
                   this.$router.push("/smsVerification");
                 }
             },
-            getCryptoName(cryptoCurrency) {
-                switch (cryptoCurrency) {
+            getCryptoName(cryptocurrency) {
+                switch (cryptocurrency) {
                     case 'bitcoin':
                     case 'BTC':
                         return 'BTC';

@@ -3,14 +3,14 @@
     <v-layout row wrap>
       <!--header-->
       <div class-="text-xs-left">
-        <h3 class="bold">{{$str("Deposit")}} {{getCryptoName(cryptoCurrency) }}</h3>
+        <h3 class="bold">{{$str("Deposit")}} {{getCryptoName(cryptocurrency) }}</h3>
       </div>
       <v-spacer></v-spacer>
       <div class="text-xs-right">
         <i class="material-icons color-black c-pointer" @click="onClose">close</i>
       </div>
       <v-flex xs12 color-darkgray text-xs-center mt-3 mb-4>
-        {{getCryptoName(cryptoCurrency) }} {{$str("Deposit_Address")}}
+        {{getCryptoName(cryptocurrency) }} {{$str("Deposit_Address")}}
       </v-flex>
       <v-flex xs12>
         <input type="text" id="copy-code" :value="walletAddress" class="wallet-address h6" disabled  >
@@ -33,7 +33,7 @@
           <h6>
             {{$str("BalanceDepositExplainTest")}}
             {{$str("BalanceDepositExplain1-1")}}
-            {{getCryptoName(cryptoCurrency) }}
+            {{getCryptoName(cryptocurrency) }}
             {{$str("BalanceDepositExplain1-2")}}
           </h6>
         </div>
@@ -45,9 +45,9 @@
         <div class="mb-3">
           <h6>
             {{$str("BalanceDepositExplain3-1")}}
-            0.001 {{getCryptoName(cryptoCurrency) }}.
+            0.001 {{getCryptoName(cryptocurrency) }}.
             {{$str("BalanceDepositExplain3-2")}}
-            0.001 {{getCryptoName(cryptoCurrency) }}.
+            0.001 {{getCryptoName(cryptocurrency) }}.
           </h6>
         </div>
         <div class="mb-3">
@@ -69,7 +69,7 @@
     export default {
         name: "WalletDepositDialog",
         props :{
-            cryptoCurrency : {
+            cryptocurrency : {
                 type: String,
                 default : ''
             },
@@ -83,8 +83,8 @@
             show: false,
         }),
         created(){
-            this.$eventBus.$on('showDepositDialog', (cryptoCurrency) => {
-                if(this.cryptoCurrency === cryptoCurrency){
+            this.$eventBus.$on('showDepositDialog', (cryptocurrency) => {
+                if(this.cryptocurrency === cryptocurrency){
                   this.show = true;
                 }
             });
@@ -97,8 +97,8 @@
             onClose: function () {
                 this.show = false;
             },
-            getCryptoName(cryptoCurrency) {
-                switch (cryptoCurrency) {
+            getCryptoName(cryptocurrency) {
+                switch (cryptocurrency) {
                     case 'bitcoin':
                     case 'BTC':
                         return 'BTC';

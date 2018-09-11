@@ -387,7 +387,7 @@
                 MainRepository.router().goBlockTrade();
             },
             goCustomTokenTrade() {
-                MainRepository.router().goBlockTrade();
+                MainRepository.router().goCustomTokenTrade();
             },
             goPostAd(isBlock) {
                 // Merchant 확인 로직 포함됨

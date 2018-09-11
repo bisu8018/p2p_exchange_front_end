@@ -217,7 +217,7 @@ export default {
                 {
                     addressTo: walletController.getWithdraw().addressTo,
                     amount: walletController.getWithdraw().amount,
-                    cryptoCurrency: walletController.getWithdraw().cryptoCurrency,
+                    cryptocurrency: walletController.getWithdraw().cryptocurrency,
                     fee: walletController.getWithdraw().fee,
                     ownerMemberNo: walletController.getWithdraw().ownerMemberNo,
                     receiveAmount: walletController.getWithdraw().receiveAmount

@@ -3,9 +3,9 @@
       <div class="token-item-wrapper" @click="changeDrawer()">
         <!--logo img-->
         <div :class="tokenImg"></div>
-        <h4 class="bold ml-2">{{ getCryptoName(item.cryptoCurrency) }}</h4>
+        <h4 class="bold ml-2">{{ getCryptoName(item.cryptocurrency) }}</h4>
         <v-spacer/>
-        <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency)  }}</span>
+        <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)  }}</span>
         <span class="color-darkgray ml-2">≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
           <i v-if="isDrawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
           <i v-else class="material-icons  md-12 ">keyboard_arrow_down</i>
@@ -18,11 +18,11 @@
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency)  }}</span>
+              <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)  }}</span>
             </v-layout>
             <v-layout justify-space-between >
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{ toMoneyFormat($fixed(item.frozenAmount, item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency) }}</span>
+              <span>{{ toMoneyFormat($fixed(item.frozenAmount, item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency) }}</span>
             </v-layout>
           </div>
         </v-flex>
@@ -32,11 +32,11 @@
             <h4 class="mb-3 medium margin-top-24">{{$str("Exchange_Account")}}</h4>
             <v-layout justify-space-between mb-2>
               <span class="color-darkgray">{{$str("Available")}}: </span>
-              <span>{{ toMoneyFormat($fixed('0000', item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency)  }}</span>
+              <span>{{ toMoneyFormat($fixed('0000', item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency)  }}</span>
             </v-layout>
             <v-layout justify-space-between >
               <span class="color-darkgray">{{$str("Frozen")}}: </span>
-              <span>{{ toMoneyFormat($fixed('0000', item.cryptoCurrency))}} {{getCryptoName(item.cryptoCurrency) }}</span>
+              <span>{{ toMoneyFormat($fixed('0000', item.cryptocurrency))}} {{getCryptoName(item.cryptocurrency) }}</span>
             </v-layout>
           </div>
         </v-flex>
@@ -64,12 +64,12 @@
       </v-layout>
       <!--Deposit modal-->
       <wallet-deposit-dialog
-              :cryptoCurrency = item.cryptoCurrency
+              :cryptocurrency = item.cryptocurrency
               :walletAddress = item.walletAddress
       />
       <!--withdraw modal-->
       <wallet-withdrawal-dialog
-              :cryptoCurrency = item.cryptoCurrency
+              :cryptocurrency = item.cryptocurrency
       />
 
     </div>
@@ -106,12 +106,12 @@
                 return MainRepository.Wallet.getCurrency()
             },
             estimatedValue(){
-                this.price = MainRepository.MarketPrice.controller().find(this.item.cryptoCurrency, this.currency).price
+                this.price = MainRepository.MarketPrice.controller().find(this.item.cryptocurrency, this.currency).price
                 return this.item.availableAmount * this.price;
             }
         },
         mounted(){
-            switch (this.item.cryptoCurrency) {
+            switch (this.item.cryptocurrency) {
                 case 'bitcoin':
                 case 'BTC':
                     this.tokenImg = 'sprite-img ic-btc-lg';
@@ -147,22 +147,22 @@
                 return abUtils.toMoneyFormat(String(value));
             },
             showDeposit(){
-                this.$eventBus.$emit('showDepositDialog', this.item.cryptoCurrency);
+                this.$eventBus.$emit('showDepositDialog', this.item.cryptocurrency);
             },
             showWithdrawal(){
-                this.$eventBus.$emit('showWithdrawDialog', this.item.cryptoCurrency);
+                this.$eventBus.$emit('showWithdrawDialog', this.item.cryptocurrency);
             },
             changeDrawer(){
                 this.isDrawer = !this.isDrawer;
             },
             showTransfer(){
                 MainRepository.Wallet.updateTransfer({
-                    cryptocurrency : this.item.cryptoCurrency,
+                    cryptocurrency : this.item.cryptocurrency,
                 })
                 this.$eventBus.$emit('showTransferDialog');
             },
             showDetails(){
-                MainRepository.router().goWalletDetail(this.item.cryptoCurrency);
+                MainRepository.router().goWalletDetail(this.item.cryptocurrency);
             },
 
         }
