@@ -202,6 +202,7 @@ export default {
 
             })
         },
+        //Withdraw
         setWithdraw: function (data: any) {
             walletController.setWithdraw(
                 new Withdraw(data)
@@ -210,19 +211,13 @@ export default {
         getWithdraw: function () {
             return walletController.getWithdraw();
         },
-        setCurrency: function (data: any) {
-            walletController.setWithdrawCurrency(data)
-        },
-        getCurrency: function () {
-            return walletController.getWithdrawCurrency();
-        },
         postWithdraw: function (data: boolean, callback: any) {
             WalletService.postWithdraw(
                 {verificationMethod: data ? 'sms' : 'email'},
                 {
                     addressTo: walletController.getWithdraw().addressTo,
                     amount: walletController.getWithdraw().amount,
-                    cryptoCurrency: walletController.getWithdraw().cryptoCurrency,
+                    cryptocurrency: walletController.getWithdraw().cryptocurrency,
                     fee: walletController.getWithdraw().fee,
                     ownerMemberNo: walletController.getWithdraw().ownerMemberNo,
                     receiveAmount: walletController.getWithdraw().receiveAmount
@@ -230,6 +225,22 @@ export default {
                     callback(result);
                 })
         },
+        //Transfer
+        updateTransfer: function (data: any) {
+            walletController.updateTransfer(data)
+        },
+        getTransfer: function () {
+            return walletController.getTransfer();
+        },
+
+        //currency
+        setCurrency: function (data: any) {
+            walletController.setWithdrawCurrency(data)
+        },
+        getCurrency: function () {
+            return walletController.getWithdrawCurrency();
+        },
+
         //Wallet history
         initHistoryData() {
             this.setHIstoryFilter('')

@@ -1,9 +1,9 @@
 import {CurrencyType} from "@/vuex/model/CurrencyType";
 import MainRepository from "@/vuex/MainRepository";
 
-export default class Balance {
+export default class Wallet {
     ownerMemberNo: number;
-    cryptoCurrency : string;
+    cryptocurrency : string;
     depositType: string;
     ownerEmail : string;
     availableAmount : number;
@@ -16,7 +16,7 @@ export default class Balance {
         if (data.ownerMemberNo !== undefined) {
             this.ownerMemberNo = Number(data.ownerMemberNo);
         }
-        this.cryptoCurrency = data.cryptoCurrency || '';
+        this.cryptocurrency = data.cryptocurrency || '';
         this.depositType = data.depositType || '';
         this.ownerEmail = data.ownerEmail || '';
         this.availableAmount = Number(data.availableAmount) || 0;
