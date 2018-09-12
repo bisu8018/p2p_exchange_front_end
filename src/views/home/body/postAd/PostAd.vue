@@ -75,7 +75,7 @@
                             <option value="ethereum">ETH</option>
                             <option value="allb">ALLB</option>
                         </select>
-                        <select-box :selectBoxType="'customToken'"   :class="{'input-disabled2' : edit}" v-else></select-box>
+                        <select-box :selectBoxType="'customToken'" v-model="customToken"  @customToken="selectCustomToken" :class="{'input-disabled2' : edit}" v-else></select-box>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
@@ -540,6 +540,7 @@
             showModal: false,
             tradeType: "buy",
             cryptocurrency: "bitcoin",
+            customToken: "bitcoin",
             cryptocurrencyType: 'general',
             priceType: "fixedprice",
             fixedPrice: "",
@@ -560,6 +561,8 @@
             tradePassword: "",
             agreeTerms: false,
             tmpMarketPrice: "",
+            tokenNo: '',
+
 
 
             isVerified: false,
@@ -638,6 +641,7 @@
                     this.adNo = result.adNo;
                     this.tradeType = result.tradeType;
                     this.cryptocurrency = result.cryptocurrency;
+                    this.customToken = result.customToken;
                     this.priceType = result.priceType;
                     this.fixedPrice = String(result.fixedPrice);
                     this.margin = result.margin;
@@ -651,6 +655,8 @@
                     this.counterpartyCheckbox_first = result.counterpartyFilterAdvancedVerificationYn;
                     this.counterpartyCheckbox_second = result.counterpartyFilterDoNotOtherMerchantsYn;
                     this.counterpartyCheckbox_third = result.counterpartyFilterMobileVerificationYn;
+                    this.cryptocurrencyType = result.cryptocurrencyType;
+                    this.tokenNo = result.tokenNo;
 
                     //결제수단 토글버튼
                     let paymentMethods = result.paymentMethods.split(',');
@@ -884,7 +890,6 @@
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
                 let bankToggle = this.bank_toggle_use ? 'bankaccount' : '';
-                let _adType = this.message === 'general' ? 'piece' : 'block';
 
                 let paymentMethodsArr = [
                     alipayToggle,
@@ -903,6 +908,7 @@
                     counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_second,
                     counterpartyFilterDoNotOtherMerchantsYn: self.counterpartyCheckbox_third,
                     cryptocurrency: self.cryptocurrency,
+                    cryptocurrencyType: self.cryptocurrencyType,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     fixedPrice: Number(self.fixedPrice),
                     margin: self.margin,
@@ -917,10 +923,11 @@
                     termsOfTransaction: self.termsOfTransaction,
                     tradePassword: self.tradePassword,
                     tradeType: self.tradeType,
-                    type: _adType,
+                    type: self.message,
                     volume: Number(self.volume),
                     status: 'enable',
                     volumeAvailable: Number(self.volume),
+                    tokenNo: self.tokenNo,
                 };
 
                 if (this.edit) {
@@ -941,6 +948,8 @@
                         });
                     }, (code) => {
                         MainRepository.router().goMyAd();
+                    }, () => {
+                        return false;
                     })
                 }
             },
@@ -1129,6 +1138,9 @@
             goMyPage() {
                 this.$router.push("/myPage");
             },
+            selectCustomToken(tokenNo) {
+                this.tokenNo = tokenNo;
+            }
 
         }
     });

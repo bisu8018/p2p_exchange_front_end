@@ -709,12 +709,12 @@ export default {
                     let item: CustomToken = new CustomToken(result[key])
                     customTokenList.push(item);
                 }
-                tradelistController.setCustomTokenList(customTokenList);
+                customTokenController.setCustomTokenList(customTokenList);
                 callback();
             })
         },
         getCustomTokenList(){
-            return tradelistController.getCustomTokenList();
+            return customTokenController.getCustomTokenList();
         }
 
 
@@ -1233,6 +1233,19 @@ export default {
                 callback(result);
             })
         },
+        setCustomTokenList(callback: any){
+            AdService.getCustomTokenList((data)=>{
+                let result = data;
+                let customTokenList: CustomToken[] = [];
+                for (let key in result) {
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let item: CustomToken = new CustomToken(result[key]);
+                    customTokenList.push(item);
+                }
+                customTokenController.setCustomTokenList(customTokenList);
+                callback();
+            })
+        }
     },
 
     router() {
