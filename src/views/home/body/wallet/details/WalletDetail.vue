@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-layout row wrap mt-5 mb-3>
+  <v-layout row wrap mt-4a mb-3>
     <!--Detail header-->
     <v-flex md8 xs12 text-xs-left mb-4>
       <h3 class="bold">{{$str("Details")}}</h3>

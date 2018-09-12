@@ -13,13 +13,14 @@
         <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
         <v-flex xs12 v-else>
           <div class="tokenlist-wrapper">
+            <!--CustomToken item-->
             <v-layout v-for="item in CustomTokenList" class="tokenlist" align-center row fill-height>
-              <v-flex xs2 class="cs-flex">
+              <v-flex xs6 class="cs-flex">
                 <img class="symbol" :src="item.symbolImgUrl">
                 <h4 class="medium">{{item.tokenName}}</h4>
               </v-flex>
-              <v-flex xs10 text-xs-right>
-                <span class="btn-rounded-white text-white-hover" @click="onDescription(item.tokenName)">Description</span>
+              <v-flex xs6 text-xs-right>
+                <span class="btn-rounded-white c-pointer text-white-hover" @click="onDescription(item.tokenName)">Description</span>
               </v-flex>
               <custom-token-description-dialog
                       :description = item.description
@@ -75,6 +76,7 @@
         }
       .symbol{
         margin-right: 32px;
+        margin-left: 16px;
       }
     }
 
@@ -87,6 +89,7 @@
         }
       .symbol{
         margin-right: 16px;
+        margin-left: 16px;
       }
     }
 
