@@ -3628,15 +3628,15 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['update_password_suspension_period', { //
+        KOR: '비밀번호 변경으로 24시간동안 거래가 불가합니다',
+        ENG: 'No trade for 24 hours due to password change',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['update_phone_suspension_period', {
+        KOR: '휴대폰 변경으로 24시간동안 거래가 불가합니다',
+        ENG: 'No trade for 24 hours due to phone number change',
         CN: '',
         HK: ''
     }],

@@ -3,6 +3,7 @@ import {Store} from "vuex";
 import TradeFilter from "@/vuex/model/TradeFilter";
 import TradeItem from "@/vuex/model/TradeItem";
 import Account from "@/vuex/model/Account";
+import CustomToken from "@/vuex/model/CustomToken";
 
 export default class TradeListController {
     store: Store<any>;
@@ -38,6 +39,14 @@ export default class TradeListController {
 
     getDrawerID() {
         return this.store.state.trade.drawerID;
+    }
+
+    setCustomTokenList(customTokenList : CustomToken[]) {
+        this.store.dispatch(VuexTypes.SET_CUSTOMTRADETOKEN_LIST, customTokenList);
+    }
+
+    getCustomTokenList() {
+        return this.store.state.trade.customTokenList;
     }
 
     //trade를 막기 위해 button대신 띄워주는 filter값 처리

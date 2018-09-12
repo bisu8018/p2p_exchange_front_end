@@ -35,6 +35,9 @@ export enum VuexTypes {
 
     SET_PAGE_DATA = 'trade/SET_PAGE_DATA',
     SET_TOTALCOUNT_DATA = 'trade/SET_TOTALCOUNT_DATA',
+    //Custom Trade
+    SET_CUSTOMTRADETOKEN_LIST = 'trade/SET_CUSTOMTRADETOKEN_LIST',
+
     //======================================
     //              MyTrade(My Ads & My Orders)
     // =====================================

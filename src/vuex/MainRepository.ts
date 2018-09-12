@@ -56,6 +56,7 @@ import ChatService from "@/service/chat/ChatService";
 import Chat from "@/vuex/model/Chat";
 import ChatSubscribe from "@/vuex/model/ChatSubscribe";
 import ChatMembers from "@/vuex/model/ChatMembers";
+import CustomToken from "@/vuex/model/CustomToken";
 
 let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -691,10 +692,21 @@ export default {
         },
     //Custom token Trade
         loadCustomTokenList(callback: any){
-            AdService.getCustomTokenList((result)=>{
-                callback(result);
+            AdService.getCustomTokenList((data)=>{
+                let result = data
+                let customTokenList: CustomToken[] = [];
+                for (let key in result) {
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let item: CustomToken = new CustomToken(result[key])
+                    customTokenList.push(item);
+                }
+                tradelistController.setCustomTokenList(customTokenList);
+                callback();
             })
         },
+        getCustomTokenList(){
+            return tradelistController.getCustomTokenList();
+        }
 
 
     },
