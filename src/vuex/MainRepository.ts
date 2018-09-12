@@ -564,7 +564,7 @@ export default {
         initData() {
             //filter 초기화
             tradelistController.updateTradeFilter({
-                type: 'piece',
+                type: 'general',
                 status: 'enable',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'Buy',
@@ -585,7 +585,7 @@ export default {
         },
         initPage(isBlock: boolean) {
             this.setTradeFilter({
-                type: isBlock ? 'block' : 'piece',
+                type: isBlock ? 'block' : 'general',
                 status: 'enable',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'sell',

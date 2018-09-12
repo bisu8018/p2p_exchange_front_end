@@ -884,7 +884,7 @@
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
                 let bankToggle = this.bank_toggle_use ? 'bankaccount' : '';
-                let _adType = this.message === 'general' ? 'piece' : 'block';
+                let _adType = this.message === 'general' ? 'general' : 'block';
 
                 let paymentMethodsArr = [
                     alipayToggle,

@@ -11,7 +11,7 @@ export default class TradeFilter {
     size : number;
 
     constructor (data: any) {
-        this.type = data.type ||'piece';
+        this.type = data.type ||'general';
         this.nationality = data.nationality || 'ALL';
         this.currency = data.currency || 'CNY';
         this.tradeType = data.tradeType || 'sell';
