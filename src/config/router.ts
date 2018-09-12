@@ -115,7 +115,6 @@ export default new Router({
         },
         {
             path: '/wallet',
-            name: 'wallet',
             component: Wallet,
             children: [
                 {
