@@ -442,7 +442,6 @@
         width:20px;
         height:20px;
         margin-right: 8px;
-        vertical-align:middle;
         text-align: center;
         background: white;
         border: 1px solid #8d8d8d;
@@ -467,7 +466,7 @@
 
     input[type="radio"]:checked + label span i{
         font-size: 14px;
-        padding-top: 2px;
+        vertical-align: middle;
         color: #214ea1;
         font-weight: bold;
         display: inline-block;
@@ -476,6 +475,7 @@
         -khtml-user-select: none;
         -webkit-user-select: none;
         user-select: none;
+        margin-bottom: 3px;
     }
 
 

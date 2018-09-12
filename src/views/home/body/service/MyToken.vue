@@ -12,9 +12,7 @@
             <v-flex xs12 mb-5>
                 <div class="img-circle-border vertical-center p-relative">
                     <div class="sprite-img2 ic-mytoken-default " v-if="file === ''"></div>
-                    <div v-else>
-                        <img :src="image" class="attachment-img-style">
-                    </div>
+                    <img :src="image" class="attachment-img-style" v-else>
                     <label>
                         <div class="sprite-img2 ic-mytoken-add mytoken-add-css"></div>
                         <!--파일첨부-->
@@ -41,10 +39,8 @@
             </v-flex>
 
             <!--토큰명 설명-->
-            <v-flex xs12 md5 v-if="!isMobile">
-                <div class="text-xs-left">
-                    <div class="input-explain color-darkgray">{{ $str("tokenNameExplain") }}
-                    </div>
+            <v-flex md5 v-if="!isMobile">
+                <div class="text-xs-left input-explain color-darkgray">{{ $str("tokenNameExplain") }}
                 </div>
             </v-flex>
         </v-layout>
@@ -71,10 +67,8 @@
             </v-flex>
 
             <!--소수점 자리수 설명-->
-            <v-flex xs12 md5 v-if="!isMobile">
-                <div class="text-xs-left">
-                    <div class="input-explain color-darkgray">{{ $str("decimalsExplain") }}
-                    </div>
+            <v-flex md5 v-if="!isMobile">
+                <div class="text-xs-left input-explain color-darkgray">{{ $str("decimalsExplain") }}
                 </div>
             </v-flex>
         </v-layout>
@@ -104,10 +98,9 @@
             </v-flex>
 
             <!--설명-->
-            <v-flex xs12 md5 v-if="!isMobile">
-                <div class=" text-xs-left">
-                    <div class="input-explain color-darkgray">{{ $str("descriptionExplain") }}
-                    </div>
+            <v-flex md5 v-if="!isMobile">
+                <div class="text-xs-left input-explain color-darkgray">{{ $str("descriptionExplain") }}
+
                 </div>
             </v-flex>
 
@@ -138,7 +131,7 @@
             </v-flex>
 
             <!--토큰 발행량 설명-->
-            <v-flex xs12 md5 v-if="!isMobile">
+            <v-flex md5 v-if="!isMobile">
                 <div class="text-xs-left">
                     <div class="input-explain color-darkgray mt-2">{{ $str("totalTokenExplain") }}
                     </div>
@@ -158,23 +151,35 @@
                 </div>
             </v-flex>
 
-            <!--토큰 서버 종류-->
-            <v-flex xs12 md2 offset-md3>
-                <div class="text-xs-left mt-2 vertical-center">
-                    <input type="radio" id="mainnet" name="tokenServer"/>
+            <!--메인넷-->
+            <v-flex xs6 md2 offset-md3>
+                <div class="text-xs-left mt-4 vertical-center">
+                    <input type="radio" id="mainnet" value="main" name="tokenServer" v-model="tokenServer"/>
                     <label for="mainnet">
                         <span>
                               <i class="material-icons">brightness_1</i>
                         </span>
                         <h5 class="d-inline-block">{{ $str("mainnet") }}</h5>
                     </label>
-                    <input type="radio" id="testnet" name="tokenServer"/>
+                </div>
+            </v-flex>
+
+            <!--테스트넷-->
+            <v-flex xs6 md2>
+                <div class="text-xs-left mt-4 vertical-center">
+                    <input type="radio" id="testnet" value="test" name="tokenServer" v-model="tokenServer"/>
                     <label for="testnet">
-                            <span class="vertical-center">
+                            <span>
                                   <i class="material-icons">brightness_1</i>
                             </span>
                         <h5 class="d-inline-block">{{ $str("testnet") }}</h5>
                     </label>
+                </div>
+            </v-flex>
+
+            <!--토큰 서버 설명-->
+            <v-flex md5 v-if="!isMobile">
+                <div class="text-xs-left mt-4 input-explain color-darkgray">{{ $str("tokenServerExplain") }}
                 </div>
             </v-flex>
 
@@ -260,7 +265,7 @@
             verify_warning_tradePassword: '',
 
             reissuable: false,
-
+            tokenServer : 'main',
 
             //파일 첨부
             file: '',
@@ -460,7 +465,11 @@
     }
 
     .attachment-img-style {
-        height: 105px;
+        position: absolute;
+        width: 86px;
+        height: 86px;
+        border-radius: 45px;
+        left: -1px;
     }
 
     .warning-textarea-wrapper {

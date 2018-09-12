@@ -17,11 +17,12 @@
                 <div v-for="data in getMassageList">
                     <!--상대방-->
                     <div class="mb-4 display-flex" v-if="getChatSubscribe.myInfo.name !== data.sender.name ">
-                        <div @click="goUserCenter()">
-                        <avatar  :member="data.sender" :chat="'memberList'" class="mt-1 c-pointer"/>
+                        <div>
+                            <avatar :member="data.sender" :chat="'memberList'" class="mt-1"/>
                         </div>
                         <div class="pl-2">
-                            <div class="color-black h6 mb-1 c-pointer" @click="goUserCenter()"> {{ data.sender.name }}</div>
+                            <div class="color-black h6 mb-1 c-pointer" @click="goUserCenter()"> {{ data.sender.name }}
+                            </div>
                             <div class="chat-content-wrapper text-xs-left color-black h6">
                                 {{ data.message }}
                             </div>
@@ -38,7 +39,9 @@
                     <div class="mb-4 display-flex " v-else>
                         <v-spacer></v-spacer>
                         <div class="pr-2">
-                            <div class="color-black h6 mb-1 text-xs-right c-pointer" @click="goUserCenter()"> {{ data.sender.name }}</div>
+                            <div class="color-black h6 mb-1 text-xs-right c-pointer" @click="goUserCenter()"> {{
+                                data.sender.name }}
+                            </div>
                             <div class="chat-content-wrapper-mine text-xs-left color-black h6">
                                 {{ data.message }}
                             </div>
@@ -49,8 +52,8 @@
                             <!--<img :src="data.attachedImgUrl" class="w-full">-->
                             <!--</div>-->
                         </div>
-                        <div @click="goUserCenter()">
-                            <avatar :me=true  class="mt-1 c-pointer" ></avatar>
+                        <div>
+                            <avatar :chat="'memberList'" :member="data.sender" class="mt-1"></avatar>
                         </div>
                     </div>
                 </div>
@@ -95,7 +98,7 @@
             needScrollDown: true,
             received_messages: [],
             memberListModal: false,
-            latestPostTime : 0,
+            latestPostTime: 0,
 
             //파일 첨부
             file: '',
@@ -276,8 +279,6 @@
         border-radius: 2px;
     }
 
-
-
     /* Track */
     ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px white;
@@ -294,7 +295,6 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #d8d8d8;
     }
-
 
 
 </style>

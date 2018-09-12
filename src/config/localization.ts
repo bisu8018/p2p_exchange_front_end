@@ -3622,9 +3622,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['tokenServerExplain', {
+        KOR: '메인넷 생성에 대한 요금은 1 ETH 입니다.',
+        ENG: 'The fee for the Mainnet creation is 1 Etherium.',
         CN: '',
         HK: ''
     }],
