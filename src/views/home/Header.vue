@@ -477,6 +477,24 @@
             padding-left: 16px;
             cursor: pointer;
         }
+        .sub-domain-menu{
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .left16-right32{
+            padding-right: 32px;
+            padding-left: 16px;
+        }
+
+        .left32-right16{
+            padding-right: 16px;
+            padding-left: 32px;
+        }
+
+        .left32-right32{
+            padding-right: 32px;
+            padding-left: 32px;
+        }
 
         .my-menu-button {
             margin: auto 16px;
