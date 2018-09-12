@@ -345,9 +345,10 @@
     .dropdown-content > div{
       cursor: pointer;
       padding-right: 16px;
-      padding-left: 16px;
+      padding-left: 8px;
       padding-top: 8px;
       padding-bottom: 8px;
+      font-size: 12px;
     }
 
     .dropdown-wallet{
