@@ -891,6 +891,7 @@
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
                 let bankToggle = this.bank_toggle_use ? 'bankaccount' : '';
 
+
                 let paymentMethodsArr = [
                     alipayToggle,
                     wechatToggle,
