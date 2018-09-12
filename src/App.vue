@@ -710,9 +710,13 @@
     button {
         display: inline-block;
     }
-
+    /*button tag의 border없애기*/
     button:focus {
         outline:0;
+    }
+    /*button tag의 border없애기 in firefox*/
+    button::-moz-focus-inner {
+        border: 0;
     }
 
 

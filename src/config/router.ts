@@ -8,6 +8,7 @@ import Signup from '../views/home/body/signup/SignUp.vue'
 import FindPassword from '../views/home/body/login/findPassword/FindPassword.vue'
 import GeneralTrade from '../views/home/body/tradeCenter/general/General.vue'
 import BlockTrade from '../views/home/body/tradeCenter/block/Block.vue'
+import CustomTokenSelect from '../views/home/body/tradeCenter/customToken/CustomTokenSelect.vue'
 import CustomTokenTrade from '../views/home/body/tradeCenter/customToken/CustomTokenTrade.vue'
 import GeneralAd from '../views/home/body/postAd/general/General.vue'
 import BlockAd from '../views/home/body/postAd/block/Block.vue'
@@ -72,6 +73,11 @@ export default new Router({
             path: '/blockTrade',
             name: 'blockTrade',
             component: BlockTrade
+        },
+        {
+            path: '/customTokenSelect',
+            name: 'customTokenSelect',
+            component: CustomTokenSelect
         },
         {
             path: '/customTokenTrade',

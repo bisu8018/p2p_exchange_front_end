@@ -3700,12 +3700,97 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['Custom Token Trade', {
+        KOR: 'Custom Token 거래',
+        ENG: 'Custom Token Trade',
+        CN: '',
+        HK: ''
+    }],
+    ['Description', {
+        KOR: '구체 정보',
+        ENG: 'Description',
+        CN: '',
+        HK: ''
+    }],
+    ['Trade', {
+        KOR: '거래',
+        ENG: 'Trade',
+        CN: '',
+        HK: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',
         CN: '',
         HK: ''
     }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+
 
 
 

@@ -1,126 +1,92 @@
 <template>
-    <div>
-        <v-flex xs12>
-            <h2 class="title">Custom Token Trade</h2>
-            <v-divider></v-divider>
-        </v-flex>
-        <v-flex xs12 md3 offset-md9 >
-            <div class="p-relative search-input">
-                <input type="text" v-model="searchCustomToken" class="input" :placeholder="$str('search')">
-                <i class="material-icons cs-search">search</i>
-            </div>
-        </v-flex>
-        <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
-        <v-flex xs12 v-else>
-          <div class="tokenlist-wrapper">
-            <!--CustomToken item-->
-            <v-layout v-for="item in CustomTokenList" class="tokenlist" align-center row fill-height>
-              <v-flex xs6 class="cs-flex">
-                <img class="symbol" :src="item.symbolImgUrl">
-                <h4 class="medium">{{item.tokenName}}</h4>
-              </v-flex>
-              <v-flex xs6 text-xs-right>
-                <span class="btn-rounded-white c-pointer text-white-hover" @click="onDescription(item.tokenName)">Description</span>
-              </v-flex>
-              <custom-token-description-dialog
-                      :description = item.description
-                      :tokenName = item.tokenName
-              ></custom-token-description-dialog>
-            </v-layout>
+  <div>
+    <v-flex xs12>
+      <h2 class="title">{{$str('Custom Token Trade')}}</h2>
+      <v-divider></v-divider>
+    </v-flex>
+    <v-flex xs12>
+      <h4 class="ml-2 p-relative" >
+        <div @click="showDropdown()">{{ selectedCustomToken}}
+        <i class="material-icons color-blue md-24 ">keyboard_arrow_down</i>
+        </div>
+        <div class="dropdown-content scroll-space" v-if="isdropdown">
+          <!-- 내 정보 list 버튼-->
+          <div v-for="item in CustomTokenLists" class=" btn-blue-hover"
+               @click.stop="clickedTokenItem(item)">
+            {{item}}
           </div>
-        </v-flex>
-    </div>
+        </div>
+      </h4>
+    </v-flex>
+  </div>
 </template>
 
 <script>
-    import Vue from 'vue';
-    import tradeCenter from "../TradeCenter.vue"
     import MainRepository from "../../../../../vuex/MainRepository";
-    import CustomTokenDescriptionDialog from "./dialog/CustomTokenDescriptionDialog"
     export default {
-        name: "CustomTokenTrade",
+        name: "CustomToken",
         components: {
-            CustomTokenDescriptionDialog,
-            tradeCenter,
+
         },
         data: () => ({
-            searchCustomToken : '',
             showProgress : false,
+            isdropdown : false,
+            selectedCustomToken : 'XRP',
         }),
         computed:{
-          CustomTokenList(){
-              return MainRepository.TradeView.getCustomTokenList();
-          }
+            CustomTokenLists(){
+                return MainRepository.TradeView.getCustomTokenList().tokenName;
+            }
         },
         created(){
             this.showProgress = true;
-            MainRepository.TradeView.loadCustomTokenList(()=>{
-                this.showProgress = false;
-            });
+
 
         },
         methods: {
-            onDescription(tokenName){
-                this.$eventBus.$emit('showCustomTokenDescriptionDialog', tokenName);
-            }
+            showDropdown(){
+              this.isdropdown = !this.isdropdown;
+            },
+            clickedTokenItem(){
+
+            },
         }
     }
 </script>
 
 <style scoped>
-    /* web*/
-    @media only screen and (min-width: 960px) {
-        .search-input{
-            margin-top: 32px;
-            margin-bottom: 32px;
-        }
-      .symbol{
-        margin-right: 32px;
-        margin-left: 16px;
-      }
-    }
-
-    /* mobile*/
-
-    @media only screen and (max-width: 959px) {
-        .search-input{
-            margin-top: 24px;
-            margin-bottom: 24px;
-        }
-      .symbol{
-        margin-right: 16px;
-        margin-left: 16px;
-      }
-    }
-
-    .title{
-        text-align: left;
-        font-weight : 700;
-        margin-top: 48px;
-        margin-bottom: 24px;
-    }
-    .cs-search{
-        color: #9294a6;
-        position: absolute;
-        right: 8px;
-        top: 8px;
-        cursor: pointer;
-    }
-  .symbol{
-    width: 24px;
-    height: 24px;
-    border-radius: 100px;
+  .title{
+    text-align: left;
+    font-weight : 700;
+    margin-top: 48px;
+    margin-bottom: 24px;
   }
-  .tokenlist{
-    min-height: 56px;
-    border-bottom: 1px solid #d1d1d1;
+  .scroll-space {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    max-height: 336px;
   }
-  .tokenlist-wrapper{
+
+  .dropdown-content {
+    position: absolute;
+    color: black;
+    min-width: 46px;
+    max-height: 204px;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+    z-index: 1;
     border-radius: 2px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+    text-align: center;
+    background-color: white;
+    left: -15px;
   }
-    .list_progress {
-      margin-top: 80px;
-    }
-
+  .dropdown-content > div{
+    cursor: pointer;
+    padding-right: 16px;
+    padding-left: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 12px;
+    text-align: center;
+  }
 </style>

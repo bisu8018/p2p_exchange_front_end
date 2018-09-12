@@ -98,10 +98,10 @@ export default class RouterController {
         });
     }
 
-    goCustomTokenTrade(){
+    goCustomTokenSelect(){
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('customTokenTrade');
+            r.push('customTokenSelect');
         });
     }
 
