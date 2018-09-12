@@ -95,6 +95,7 @@ export default {
         msgAvatarController = new MsgAvatarController(store);
         messageController = new MessageController(store);
         chatController = new ChatController(store);
+        customTokenController = new CustomTokenController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -141,6 +142,8 @@ export default {
                 self.Merchant.loadMyMerchantInfo(() => {
                 });
                 self.MarketPrice.load(() => {
+                });
+                self.MyToken.getMytoken(()=> {
                 });
                 self.MyInfo.loadMyPaymentMethods(() => {
                     callback();
@@ -548,6 +551,9 @@ export default {
         },
         Trade() {
             return TradeService;
+        },
+        Common() {
+            return CommonService;
         }
     },
 
@@ -621,7 +627,7 @@ export default {
                 currency: tradelistController.getTradeFilter().currency,
                 amount: tradelistController.getTradeFilter().amount,
                 paymentMethods: tradelistController.getTradeFilter().paymentMethods,
-                cryptocurrencyType : tradelistController.getTradeFilter().cryptocurrencyType,
+                cryptocurrencyType: tradelistController.getTradeFilter().cryptocurrencyType,
                 page: tradelistController.getTradeFilter().page,
                 size: tradelistController.getTradeFilter().size,
             }, function (data) {
@@ -1209,6 +1215,24 @@ export default {
 
             this.controller().setMessage(_chatMessage.msg);
         }
+    },
+    MyToken: {
+        controller: function () {
+            return customTokenController;
+        },
+        generateToken: function (data: any, callback: any, failure: any) {
+            customTokenService.generateToken(data, result => {
+                callback();
+            }, err => {
+                failure(err);
+            })
+        },
+        getMytoken: function (callback: any) {
+            customTokenService.getMyToken(result => {
+                customTokenController.setMyToken(new CustomToken(result));
+                callback(result);
+            })
+        },
     },
 
     router() {
