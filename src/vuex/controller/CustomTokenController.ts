@@ -17,5 +17,13 @@ export default class CustomTokenController {
     getMyToken() {
         return this.store.state.customToken.tokenInfo;
     }
+
+    setCustomTokenList(customTokenList : CustomToken[]) {
+        this.store.dispatch(VuexTypes.SET_CUSTOMTRADETOKEN_LIST, customTokenList);
+    }
+
+    getCustomTokenList() {
+        return this.store.state.customToken.customTokenList;
+    }
 }
 

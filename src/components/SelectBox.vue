@@ -16,8 +16,8 @@
             <select v-else-if="selectBoxType === 'phone'"  v-model="selectedPhone" @change="setPhone" class="o-none comp-selectbox h6">
                 <option v-for="phone in phones" class="o-none " v-bind:value="phone.code" >{{phone.code}}</option>
             </select>
-            <select v-else-if="selectBoxType === 'customToken'"  v-model="selectCustomToken" @change="setCustomToken" class="o-none comp-selectbox h6">
-                <option v-for="phone in phones" class="o-none " v-bind:value="phone.code" >{{phone.code}}</option>
+            <select v-else-if="selectBoxType === 'customToken'"  v-model="selectedCustomToken" @change="setCustomToken" class="o-none comp-selectbox h6">
+                <option v-for="customToken in customTokens" class="o-none " v-bind:value="customToken.tokenNo" >{{customToken.tokenName}}</option>
             </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
         </div>
@@ -117,9 +117,24 @@
                 {code : '+82', nation : Vue.prototype.$str('korea')},
                 {code : '+44', nation : Vue.prototype.$str('uk')},
             ],
-            selectCustomToken :[],
+            customTokens :[],
         }),
+        created(){
+            this.init();
+        },
         methods: {
+            init() {
+                this.selectedCountry = MainRepository.SelectBox.controller().getCountry();
+                this.selectedCurrency = MainRepository.SelectBox.controller().getCurrency();
+                this.selectedPayment = MainRepository.SelectBox.controller().getPayment();
+
+                //custom token get
+                if(this.selectBoxType === 'customToken'){
+                    MainRepository.MyToken.setCustomTokenList( () => {
+                        this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
+                    })
+                }
+            },
             setCountry(type) {
                 if(type === 'normal'){
                     MainRepository.SelectBox.controller().setCountry(this.selectedCountry);
@@ -138,11 +153,6 @@
             }, setCustomToken () {
                 this.$emit('customToken',this.selectedCustomToken);
             }
-        },
-        created(){
-            this.selectedCountry = MainRepository.SelectBox.controller().getCountry();
-            this.selectedCurrency = MainRepository.SelectBox.controller().getCurrency();
-            this.selectedPayment = MainRepository.SelectBox.controller().getPayment();
         },
     }
 </script>

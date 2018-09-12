@@ -41,14 +41,6 @@ export default class TradeListController {
         return this.store.state.trade.drawerID;
     }
 
-    setCustomTokenList(customTokenList : CustomToken[]) {
-        this.store.dispatch(VuexTypes.SET_CUSTOMTRADETOKEN_LIST, customTokenList);
-    }
-
-    getCustomTokenList() {
-        return this.store.state.trade.customTokenList;
-    }
-
     //trade를 막기 위해 button대신 띄워주는 filter값 처리
     setCannotTrade(MyInfo: Account, tradeCount: number, advanced: boolean, mobile: boolean, doNotMerchant: boolean){
         let _obj = {

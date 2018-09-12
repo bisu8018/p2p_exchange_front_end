@@ -1,8 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import TradeFilter from "@/vuex/model/TradeFilter";
 import TradeItem from "@/vuex/model/TradeItem";
-import CustomToken from "@/vuex/model/CustomToken";
-
 
 const mutations = {
     // -                   현재 상태                             -
@@ -22,12 +20,6 @@ const mutations = {
     [VuexTypes.SET_DRAWER_DATA] (state: any, drawerID: number) {
         state.drawerID = drawerID;
     },
-    // Custom Token List
-    [VuexTypes.SET_CUSTOMTRADETOKEN_LIST] (state: any, customTokenList: CustomToken[]) {
-        state.customTokenList = customTokenList;
-    },
-
-
 };
 
 
@@ -50,11 +42,6 @@ const actions = {
     [VuexTypes.SET_DRAWER_DATA] (context: any, drawerID: number) {
         context.commit(VuexTypes.SET_DRAWER_DATA, drawerID)
     },
-    //custom Token 리스트
-    [VuexTypes.SET_CUSTOMTRADETOKEN_LIST] (context: any, customTokenList: CustomToken[]) {
-        context.commit(VuexTypes.SET_CUSTOMTRADETOKEN_LIST, customTokenList)
-    },
-
 };
 
 const getters = {
@@ -63,15 +50,13 @@ const getters = {
 let tradeFilter = new TradeFilter('');  // array형 으로 초기화
 let tradeItems : TradeItem[] = [];
 let drawerID : Number = 0;
-let customTokenList : CustomToken[] = [];
+
 
 const state= {
 
     tradeFilter: tradeFilter,
     tradeItems: tradeItems,
     drawerID : drawerID,
-    customTokenList : customTokenList,
-
 }
 
 export default {
