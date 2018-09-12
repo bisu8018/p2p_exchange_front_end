@@ -191,7 +191,7 @@ export default class RouterController {
         }
         let r = this.router;
         Vue.nextTick(function () {
-            r.push("/walletdetail?"+code);
+            r.push("/wallet/details?"+code);
         });
     }
 

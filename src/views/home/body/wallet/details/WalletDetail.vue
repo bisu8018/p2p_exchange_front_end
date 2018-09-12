@@ -135,11 +135,11 @@
 <script>
     import Pagination from '@/components/Pagination.vue';
     import ListFilter from '@/components/ListFilter.vue';
-    import WalletDetailList from "./walletList/WalletDetailList"
+    import WalletDetailList from "./item/WalletDetailList"
     import DatePicker from '@/components/DatePicker.vue';
-    import MainRepository from "../../../../vuex/MainRepository";
-    import {abUtils} from "../../../../common/utils";
-    import Common from "../../../../service/common/CommonService";
+    import MainRepository from "../../../../../vuex/MainRepository";
+    import {abUtils} from "../../../../../common/utils";
+    import Common from "../../../../../service/common/CommonService";
     export default {
         name: "WalletDetail",
         components: {

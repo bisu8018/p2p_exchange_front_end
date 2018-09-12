@@ -8,7 +8,6 @@ import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 export default class WalletController {
     store: Store<any>;
     processingTime: number;
-
     constructor (vuexStore: Store<any>) {
         this.processingTime = 0;
         this.store = vuexStore

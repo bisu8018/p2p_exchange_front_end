@@ -1,7 +1,7 @@
 <template>
   <div >
     <!-- mobile에서 select box 선택을 위한 dim box-->
-    <div v-if="(isdropdown.walletType || isdropdown.currencyType ||isdropdown.menuType) && isMobile"
+    <div v-if="(isdropdown.walletType || isdropdown.currencyType ) && isMobile"
          class="layout_dim" @click="showDropdown('closeAll')"></div>
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
@@ -10,8 +10,8 @@
           {{selectedWallet}}
           <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
             <div class="dropdown-content dropdown-wallet" v-if="isdropdown.walletType">
-              <div class="select-wallet btn-blue-hover" @click.stop="clickWallet('OTC Wallet')" >OTC Wallet</div>
-              <div class="select-wallet btn-blue-hover" @click.stop="clickWallet('Exchange Wallet')">Exchange Wallet</div>
+              <div class=" btn-blue-hover" @click.stop="clickWallet('OTC Wallet')" >OTC Wallet</div>
+              <div class=" btn-blue-hover" @click.stop="clickWallet('Exchange Wallet')">Exchange Wallet</div>
             </div>
         </div>
         <h6 class="text-total">
@@ -51,70 +51,21 @@
             </div>
           </div>
         </v-layout>
-
       </div>
     </div>
     <!-- 상단 이하 부분-->
-    <div class="balance-width flex-padding-mobile">
-      <v-layout mt-4a row wrap fill-height align-center>
-        <v-flex md6 xs10 order-md1 order-xs1 class="mb-24 cs-flex">
-          <button @click="selectTokentype('Coin')" class="color-darkgray"
-                  v-bind:class="{'tokentype-active' : selectedTokenType === 'Coin'}"
-          >Coin</button>
-
-          <div class="selectDivider"></div>
-          <button @click="selectTokentype('CustomToken')" class="color-darkgray"
-                  v-bind:class="{'tokentype-active' : selectedTokenType === 'CustomToken'}"
-          >Custom Token</button>
-
-          <div class="selectDivider"></div>
-          <button @click="selectTokentype('Fiat')" class="color-darkgray"
-                  v-bind:class="{'tokentype-active' : selectedTokenType === 'Fiat'}"
-          >Fiat</button>
-        </v-flex>
-        <v-flex md2 xs12 order-md2 order-xs4>
-          <div class=" vertical-center p-relative">
-            <v-spacer></v-spacer>
-            <input type="checkbox" v-model="isChecked" id="hideSmallCheckbox">
-            <label for="hideSmallCheckbox"><span><i class="material-icons">done</i></span>
-              <h5 class="d-inline-block">{{$str("Hide small balances")}}</h5>
-            </label>
-          </div>
-        </v-flex>
-        <v-flex md3 xs12 order-md3 order-xs3 class="mb-16">
-          <div class="p-relative">
-            <input type="text" v-model="searchToken" class="input" :placeholder="$str('search')">
-            <i class="material-icons cs-search">search</i>
-          </div>
-        </v-flex>
-        <v-flex md1 xs2 text-xs-right order-md4 order-xs2 class="mb-24">
-          <span class="dropbtn p-relative" @click="showDropdown('menuType')">
-            <i class="material-icons color-darkgray" v-bind:class="{'increase-z-index' : isdropdown.menuType}">menu</i>
-            <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown.menuType">
-              <div class="select-wallet btn-blue-hover" @click="goDetails()" >Details</div>
-            </div>
-          </span>
-        </v-flex>
-      </v-layout>
-      <v-flex>
-        <div class="cs-roundborder">
-          <div  v-for="item in wallets" >
-            <!--좌우 padding 맞춰주기 위해 사용.-->
-              <wallet-token-list
-                      :item = "item"
-              ></wallet-token-list>
-            <v-divider></v-divider>
-          </div>
-        </div>
-      </v-flex>
+    <!-- 중첩된 router-->
+    <div class="balance-width flex-padding-mobile" >
+      <router-view></router-view>
     </div>
     <wallet-transfer-dialog/>
   </div>
 </template>
 
 <script>
+    import WalletToken from "./token/WalletToken"
     import MainRepository from "../../../../vuex/MainRepository";
-    import WalletTokenList from "./walletList/WalletTokenList"
+    import WalletTokenList from "./token/item/WalletTokenList"
     import WalletTransferDialog from "./dialog/WalletTransferDialog"
     import {abUtils} from "../../../../common/utils";
     import Common from "../../../../service/common/CommonService";
@@ -122,17 +73,17 @@
     export default {
         name: "Wallet",
         components: {
-            WalletTokenList, WalletTransferDialog
+            WalletTokenList, WalletTransferDialog, WalletToken
         },
         data: () => ({
             isChecked : false,        //hide small에 을 check 한지 여부
             isdropdown : {
                 walletType : false,
                 currencyType: false,
-                menuType: false,
             },
+            showDetail: false,
             amount : '',
-            selectedCurrencyData : 'CNY',
+            //selectedCurrencyData : 'CNY',
             selectedWallet : 'OTC Wallet',
             selectedTokenType : 'Coin',
             searchToken : '',
@@ -174,7 +125,6 @@
                 }
             },
             wallets() {
-                this.loadTotalEstimatedValue();
                 return MainRepository.Wallet.getWallets();
             },
 
@@ -188,13 +138,16 @@
 
             // 최초 1회
             MainRepository.MarketPrice.load(() => {
-                MainRepository.Wallet.loadWallets(() => {});
+                MainRepository.Wallet.loadWallets(() => {       //wallet 정보 load
+                    this.loadTotalEstimatedValue();           //wallet load후 내 총 잔고 계산
+                });
 
             });
-
             this.walletInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
-                    MainRepository.Wallet.loadWallets(() => {});
+                    MainRepository.Wallet.loadWallets(() => {
+                        this.loadTotalEstimatedValue();
+                    });
                     MainRepository.Wallet.loadHistory(() => {});       //History도 5초에 1번씩 불러오게 추가.
                 });
             }, 5000);
@@ -276,13 +229,9 @@
                     case 'currencyType':
                         this.isdropdown.currencyType = !this.isdropdown.currencyType;
                         break;
-                    case 'menuType':
-                        this.isdropdown.menuType = !this.isdropdown.menuType;
-                        break;
                     case 'closeAll':
                         this.isdropdown.walletType = false;
                         this.isdropdown.currencyType = false;
-                        this.isdropdown.menuType = false;
                 }
             },
 
@@ -349,15 +298,11 @@
       padding-top: 8px;
       padding-bottom: 8px;
       font-size: 12px;
+      text-align: center;
     }
 
     .dropdown-wallet{
       border: solid 1px #b2b2b2;
-    }
-    .dropdown-detail-menu{
-      border: solid 1px #b2b2b2;
-      right: 0px;
-      left: auto !important;
     }
   }
 
@@ -392,7 +337,7 @@
       -webkit-overflow-scrolling: touch;
       max-height: 300px;
     }
-    /*z-index 올려서 보이려 했는데 안됌...ㅠㅠ*/
+    /*z-index 올려*/
     .increase-z-index{
       z-index: 2;
       position: relative;
@@ -450,13 +395,6 @@
       margin: auto;
     }
 
-    .mb-24{
-      margin-bottom: 24px;
-    }
-
-    .mb-16 {
-      margin-bottom: 16px;
-    }
   }
 
 
@@ -479,69 +417,21 @@
 
 
 
-  .select-wallet{
-    padding: 8px;
-    text-align: left;
-  }
-
   .dropbtn {
     border: none;
     cursor: pointer;
   }
 
-  .comp-select-currencybox-icon{
-    position: absolute;
-    right: -20px;
-    top: 0px;
-
-  }
 
 
 
 
-  .selectDivider{
-    border: solid 1px #d1d1d1;
-    height: 56px;
-    width: 2px;
-    margin-left: 16px;
-    margin-right: 16px;
-
-  }
 
 
 
-  .cs-roundborder{
-    border-radius: 2px;
-    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
-    margin-top: 24px;
-  }
 
 
-  .cointype-select{
-    color: #9294a6;
-    text-align: left;
-    align-items: center;
-  }
-  .selectDivider{
-    display: inline-flex;
-    border: solid 1px #d1d1d1;
-    height: 27px;
-    width: 1px;
-  }
-  .tokentype-active{
-    color: #214ea1;
-    font-weight: 700;
-    border-bottom: 1px solid currentColor
-  }
-  .cs-search{
-    color: #9294a6;
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    cursor: pointer;
-  }
-  .cs-flex{
-    display: flex;
-  }
+
+
 </style>
 

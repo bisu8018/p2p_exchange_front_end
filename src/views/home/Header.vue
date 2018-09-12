@@ -68,7 +68,7 @@
                         </button>
                         <!--Service-->
                         <button v-if="!isMobile" class="menu-button" @click="goService()"
-                                v-bind:class="{'left16-right32' : getDomain === 'Service'}">
+                                v-bind:class="{'left16-right16' : getDomain === 'Service'}">
                             {{$str("Service")}}
                         </button>
                         <div v-if="getDomain === 'Service'" class="menu-button dropbtn sub-domain-menu left32-right32">

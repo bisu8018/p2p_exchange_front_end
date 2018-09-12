@@ -17,7 +17,8 @@ import MyOrder from '../views/home/body/myOrder/MyOrder.vue'
 import MyOrderSimpleMobile from '../views/home/body/myOrder/MyOrderSimpleMobile.vue'
 import MyAds from '../views/home/body/myAds/MyAds.vue'
 import Wallet from '../views/home/body/wallet/Wallet.vue'
-import WalletDetail from '../views/home/body/wallet/WalletDetail.vue'
+import WalletToken from '../views/home/body/wallet/token/WalletToken.vue'
+import WalletDetail from '../views/home/body/wallet/details/WalletDetail.vue'
 import SMSVerification from '../views/home/body/wallet/walletList/SMSVerification/SMSVerification.vue'
 import SuccessWithdraw from '../views/home/body/wallet/walletList/SMSVerification/SuccessWithdraw.vue'
 import MyPage from '../views/home/body/myPage/MyPage.vue'
@@ -115,12 +116,24 @@ export default new Router({
             path: '/wallet',
             name: 'wallet',
             component: Wallet,
+            children: [
+                {
+                    path: '',
+                    name: 'walletToken',
+                    component : WalletToken
+                },
+                {
+                    path: 'details',
+                    name: 'walletDetails',
+                    component : WalletDetail
+                }
+            ]
         },
-        {
-            path: '/walletdetail',
-            name: 'walletdetail',
-            component: WalletDetail,
-        },
+        // {
+        //     path: '/walletdetail',
+        //     name: 'walletdetail',
+        //     component: WalletDetail,
+        // },
         {
             path: '/myPage',
             name: 'myPage',
