@@ -143,7 +143,7 @@
             //AD Edit 시, 해당 post AD 페이지 이동
             onEdit() {
                 if(this.canModify) {
-                    let type = this.adslist.type === 'piece' ? false : true;
+                    let type = this.adslist.type === 'general' ? false : true;
                     MainRepository.router().editPostAd(type, this.adslist.adNo);
                 }else if(this.adslist.status !== 'disable'){
                     Vue.prototype.$eventBus.$emit('showAlert', 4102);

@@ -96,7 +96,7 @@
                 <div class="text-xs-left text-black mb-2">{{$str("adsType")}}</div>
                 <div class="mb-4 p-relative">
                     <select v-model="modal_adsType" class="comp-selectbox h6">
-                        <option name="general" value="piece">{{$str("general")}}</option>
+                        <option value="general">{{$str("general")}}</option>
                         <option value="block">{{$str("block")}}</option>
                     </select>
                     <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
@@ -217,9 +217,7 @@
                 this.coinType = this.modal_coinType;
                 this.tradeType = this.modal_tradeType;
                 this.adNo = this.modal_adNo;
-                if(this.modal_adsType ==='piece'){
-                    this.adsType = 'general';
-                }
+                this.adsType = this.modal_adsType
                 this.currency = this.modal_currency;
 
             },

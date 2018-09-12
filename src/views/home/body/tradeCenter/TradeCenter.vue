@@ -102,7 +102,7 @@
             //default filter값으로 list setting하기.
             if(this.message === "general"){
                 //main에서 search로 온 경우일때
-                if(param[1] === 'main'){ MainRepository.TradeView.updatePage({type : 'piece',}); }
+                if(param[1] === 'main'){ MainRepository.TradeView.updatePage({type : 'general',}); }
                 //header에서 온 경우일때
                 else { MainRepository.TradeView.initPage(false); }
             } //blocktrade로 온 경우일때

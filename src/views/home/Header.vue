@@ -32,25 +32,28 @@
                                 v-bind:class="{'left16-right32' : (getDomain === 'OTC')}" >
                             {{$str("OTC")}}
                         </button>
-                        <!-- TradeCenter-->
-                        <div v-if="getDomain === 'OTC'" class="dropdown ">
-                            <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16"
+                        <transition name="OTC" >
+                            <!-- TradeCenter-->
+                            <div v-if="getDomain === 'OTC'" key="TradeCenter" class="dropdown ">
+                                <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16"
 
-                            >{{$str("TradeCenter")}}</div>
-                            <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
-                                <div class="submenu" @click="goGeneralTrade()">
-                                    {{$str("GeneralTrade")}}
-                                </div>
-                                <div class="submenu" @click="goBlockTrade()">
-                                    {{$str("BlockTrade")}}
-                                </div>
-                                <div class="submenu" @click="goCustomTokenTrade()">
-                                    {{$str("CustomTokenTrade")}}
+                                >{{$str("TradeCenter")}}</div>
+                                <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
+                                    <div class="submenu" @click="goGeneralTrade()">
+                                        {{$str("GeneralTrade")}}
+                                    </div>
+                                    <div class="submenu" @click="goBlockTrade()">
+                                        {{$str("BlockTrade")}}
+                                    </div>
+                                    <div class="submenu" @click="goCustomTokenTrade()">
+                                        {{$str("CustomTokenTrade")}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--Post Ad-->
-                        <div v-if="getDomain === 'OTC'" class="dropdown">
+                        </transition>
+                        <transition name="OTC">
+                            <!--Post Ad-->
+                            <div v-if="getDomain === 'OTC'" key="PostAd" class="dropdown">
                         <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
                         <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
                             <div class="submenu" @click="goPostAd(false)">
@@ -61,6 +64,7 @@
                             </div>
                         </div>
                     </div>
+                        </transition>
                         <!--Exchange-->
                         <button v-if="!isMobile" class="menu-button" @click="goExchange()"
                                 v-bind:class="{'left32-right16' : (getDomain === 'OTC')}">
@@ -71,8 +75,10 @@
                                 v-bind:class="{'left16-right16' : getDomain === 'Service'}">
                             {{$str("Service")}}
                         </button>
-                        <div v-if="getDomain === 'Service'" class="menu-button dropbtn sub-domain-menu left32-right32">
-                            {{$str("myToken")}}</div>
+                        <transition name="Service" >
+                          <div v-if="getDomain === 'Service'" class="menu-button dropbtn sub-domain-menu left32-right32">
+                              {{$str("myToken")}}</div>
+                        </transition>
                     </div>
                 </div>
 
@@ -605,6 +611,36 @@
             margin-bottom: 50px;
             text-align: center;
         }
+        /*submenu animation*/
+        .OTC-enter-active, .OTC-leave-active{
+            transition: .2s ease-out;
+        }
+
+        .OTC-enter, .OTC-leave-to{
+          /*transform: scaleX(0.4);*/
+          transform: translateX(-10px);
+          margin-right: -100px;
+
+        }
+        .OTC-enter-to, .OTC-leave{
+
+        }
+
+        .Service-enter-active, .Service-leave-active{
+          transition: .2s ease-in;
+        }
+
+        .Service-enter, .Service-leave-to{
+          transform: translateX(-30px);
+          padding-left: 0px;
+          margin-left: 0px;
+
+        }
+        .Service-enter-to, .ServiceTC-leave{
+          margin-right: 0px;
+        }
+
+
     }
 
     /*mobile 일때*/
