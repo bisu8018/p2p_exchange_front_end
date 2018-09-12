@@ -26,7 +26,7 @@
               <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
               <div class="dropdown-content scroll-space" v-if="isdropdown.currencyType">
                 <!-- 내 정보 list 버튼-->
-                <div v-for="currency in currencyLists" class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer"
+                <div v-for="currency in currencyLists" class=" btn-blue-hover"
                      @click.stop="clickedCurrency(currency.name)">
                   {{currency.name}}
                 </div>
@@ -342,6 +342,13 @@
       background-color: white;
       left: -15px;
     }
+    .dropdown-content > div{
+      cursor: pointer;
+      padding-right: 16px;
+      padding-left: 16px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
 
     .dropdown-wallet{
       border: solid 1px #b2b2b2;
@@ -370,15 +377,19 @@
       text-align: center;
       background-color: white;
       bottom: 65px;
-      max-height: 100px;
       right:0;
       left: 0;
+    }
+    .dropdown-content > div{
+      height: 50px;
+      padding-top: 16px;
+      padding-bottom: 16px;
     }
 
     .scroll-space {
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
-      max-height: 336px;
+      max-height: 300px;
     }
     /*z-index 올려서 보이려 했는데 안됌...ㅠㅠ*/
     .increase-z-index{
