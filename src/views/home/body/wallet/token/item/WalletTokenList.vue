@@ -78,11 +78,11 @@
 </template>
 
 <script>
-    import MainRepository from '../../../../../vuex/MainRepository';
-    import Wallet from '../../../../../vuex/model/Wallet'
-    import {abUtils} from "../../../../../common/utils";
-    import WalletDepositDialog from './dialog/WalletDepositDialog'
-    import WalletWithdrawalDialog from './dialog/WalletWithdrawalDialog'
+    import MainRepository from '../../../../../../vuex/MainRepository';
+    import Wallet from '../../../../../../vuex/model/Wallet'
+    import {abUtils} from "../../../../../../common/utils";
+    import WalletDepositDialog from '../../walletList/dialog/WalletDepositDialog'
+    import WalletWithdrawalDialog from '../../walletList/dialog/WalletWithdrawalDialog'
 
     export default {
         name: "WalletTokenList",

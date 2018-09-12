@@ -95,7 +95,6 @@ export default {
         msgAvatarController = new MsgAvatarController(store);
         messageController = new MessageController(store);
         chatController = new ChatController(store);
-        customTokenController = new CustomTokenController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -142,8 +141,6 @@ export default {
                 self.Merchant.loadMyMerchantInfo(() => {
                 });
                 self.MarketPrice.load(() => {
-                });
-                self.MyToken.getMytoken(()=> {
                 });
                 self.MyInfo.loadMyPaymentMethods(() => {
                     callback();
@@ -551,9 +548,6 @@ export default {
         },
         Trade() {
             return TradeService;
-        },
-        Common() {
-            return CommonService;
         }
     },
 
@@ -627,7 +621,7 @@ export default {
                 currency: tradelistController.getTradeFilter().currency,
                 amount: tradelistController.getTradeFilter().amount,
                 paymentMethods: tradelistController.getTradeFilter().paymentMethods,
-                cryptocurrencyType: tradelistController.getTradeFilter().cryptocurrencyType,
+                cryptocurrencyType : tradelistController.getTradeFilter().cryptocurrencyType,
                 page: tradelistController.getTradeFilter().page,
                 size: tradelistController.getTradeFilter().size,
             }, function (data) {
@@ -699,6 +693,23 @@ export default {
                 callback(result);
             })
         },
+    //Custom token Trade
+        loadCustomTokenList(callback: any){
+            AdService.getCustomTokenList((data)=>{
+                let result = data
+                let customTokenList: CustomToken[] = [];
+                for (let key in result) {
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let item: CustomToken = new CustomToken(result[key])
+                    customTokenList.push(item);
+                }
+                tradelistController.setCustomTokenList(customTokenList);
+                callback();
+            })
+        },
+        getCustomTokenList(){
+            return tradelistController.getCustomTokenList();
+        }
 
 
     },
@@ -1067,7 +1078,7 @@ export default {
         },
         getOrderStatus: function (data: any, callback: any) {
             OrderService.getOrderStatus(data, (result) => {
-                let data = {status: result}
+                let data = {status : result}
                 tradeController.updateOrder(data);
                 callback(result);
             })
@@ -1075,7 +1086,7 @@ export default {
         getAppeal: function (data: any, callback: any) {
             AppealService.getAppeal(data, (result) => {
                 let _result = {
-                    appealList: result
+                    appealList : result
                 };
                 tradeController.updateOrder(_result);
                 callback(_result);
@@ -1161,8 +1172,8 @@ export default {
         isClosed: function () {
             return chatController.setChatOpen(false);
         },
-        setMessage: function (data: any, callback: any) {
-            ChatService.getMessage('', (result) => {
+        setMessage: function (data : any, callback: any) {
+            ChatService.getMessage('',(result)=> {
                 let _result = result.data.result;
                 let _chatMessage: Chat[] = [];
 
@@ -1174,16 +1185,16 @@ export default {
                 callback();
             })
         },
-        setChatSubscribe: function (data: any, callback: any) {
+        setChatSubscribe: function (data : any, callback: any) {
             let _data = new ChatSubscribe(data);
             this.controller().setChatSubscribe(_data);
 
             callback();
         },
         setChatMembers: function (callback: any) {
-            let members: ChatMembers[] = [];
+            let members : ChatMembers[] = [];
 
-            ChatService.getMembers('', (result) => {
+            ChatService.getMembers('', (result)=> {
                 for (let key in result) {
                     members.push(new ChatMembers(result[key]));
                 }
@@ -1191,31 +1202,13 @@ export default {
                 callback();
             });
         },
-        addChatMessage: function (data: string) {
+        addChatMessage: function (data : string) {
             let _message = this.controller().getMessage();
             _message.push(new Chat(data));
-            let _chatMessage = {msg: _message};
+            let _chatMessage = {msg : _message};
 
             this.controller().setMessage(_chatMessage.msg);
         }
-    },
-    MyToken: {
-        controller: function () {
-            return customTokenController;
-        },
-        generateToken: function (data: any, callback: any, failure: any) {
-            customTokenService.generateToken(data, result => {
-                callback();
-            }, err => {
-                failure(err);
-            })
-        },
-        getMytoken: function (callback: any) {
-            customTokenService.getMyToken(result => {
-                customTokenController.setMyToken(new CustomToken(result));
-                callback(result);
-            })
-        },
     },
 
     router() {

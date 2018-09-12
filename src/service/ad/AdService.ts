@@ -90,6 +90,15 @@ export default {
             function () {
             })
     },
+    // Custom token trade
+    getCustomTokenList: function (callback: any) {
+        AxiosService._requestWithUrlPram('trade/custom/token', 'GET', '',
+            function (data: any) {
+                callback(data);
+            },
+            function () {
+            })
+    },
 
 
 }

@@ -3652,6 +3652,18 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['update_password_suspension_period', { //
+        KOR: '비밀번호 변경으로 24시간동안 거래가 불가합니다',
+        ENG: 'No trade for 24 hours due to password change',
+        CN: '',
+        HK: ''
+    }],
+    ['update_phone_suspension_period', {
+        KOR: '휴대폰 변경으로 24시간동안 거래가 불가합니다',
+        ENG: 'No trade for 24 hours due to phone number change',
+        CN: '',
+        HK: ''
+    }],
     ['myTokenModalExplain2', {
         KOR: '요청 후 수정 또는 삭제를 할 수 없습니다.',
         ENG: 'YOU CANNOT MODIFY OR DELETE AFTER REQUEST.',

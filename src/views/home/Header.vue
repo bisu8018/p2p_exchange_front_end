@@ -22,7 +22,7 @@
 
                 <!-- 좌측 -->
                 <div>
-                    <div class="d-contents">
+                    <div class="display-flex">
                         <!--Wallet-->
                         <button v-if="!isMobile" class="menu-button"  @click="goWallet()">
                             {{$str("Wallet")}}
@@ -51,17 +51,16 @@
                         </div>
                         <!--Post Ad-->
                         <div v-if="getDomain === 'OTC'" class="dropdown">
-                            <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
-                            <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
-                                <div class="submenu" @click="goPostAd(false)">
-                                    {{$str("Post_General_AD")}}
-                                </div>
-                                <div class="submenu" @click="goPostAd(true)">
-                                    {{$str("Post_Block_AD")}}
-                                </div>
+                        <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
+                        <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
+                            <div class="submenu" @click="goPostAd(false)">
+                                {{$str("Post_General_AD")}}
+                            </div>
+                            <div class="submenu" @click="goPostAd(true)">
+                                {{$str("Post_Block_AD")}}
                             </div>
                         </div>
-
+                    </div>
                         <!--Exchange-->
                         <button v-if="!isMobile" class="menu-button" @click="goExchange()"
                                 v-bind:class="{'left32-right16' : (getDomain === 'OTC')}">
@@ -69,7 +68,7 @@
                         </button>
                         <!--Service-->
                         <button v-if="!isMobile" class="menu-button" @click="goService()"
-                                v-bind:class="{'left16-right32' : getDomain === 'Service'}">
+                                v-bind:class="{'left16-right16' : getDomain === 'Service'}">
                             {{$str("Service")}}
                         </button>
                         <div v-if="getDomain === 'Service'" class="menu-button dropbtn sub-domain-menu left32-right32">
@@ -477,13 +476,31 @@
             padding-left: 16px;
             cursor: pointer;
         }
+        .sub-domain-menu{
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .left16-right32{
+            padding-right: 32px;
+            padding-left: 16px;
+        }
+
+        .left32-right16{
+            padding-right: 16px;
+            padding-left: 32px;
+        }
+
+        .left32-right32{
+            padding-right: 32px;
+            padding-left: 32px;
+        }
 
         .my-menu-button {
             margin: auto 16px;
             cursor: pointer;
         }
 
-        .d-contents{
+        .display-flex{
             display: flex;
         }
 

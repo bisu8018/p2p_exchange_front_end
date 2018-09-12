@@ -93,7 +93,7 @@
 </template>
 
 <script>
-    import MainRepository from "../../../../../vuex/MainRepository";
+    import MainRepository from "../../../../../../vuex/MainRepository";
     import {abUtils} from '@/common/utils';
     export default {
         name: "WalletDetailList",

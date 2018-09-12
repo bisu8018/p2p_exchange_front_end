@@ -74,6 +74,8 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 433 : this.show(this.type.Error, "", "invalid_member_for_cancel"); break;
                     case 434 : this.show(this.type.Error, "", "has_processing_order"); break;
                     case 435 : this.show(this.type.Error, "", "already_expired_order"); break;
+                    case 451 : this.show(this.type.Error, "", "update_password_suspension_period"); break;  //password update  되면 24시간 거래x
+                    case 460 : this.show(this.type.Error, "", "update_phone_suspension_period"); break;  //phone update  되면 24시간 거래x
                     case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
