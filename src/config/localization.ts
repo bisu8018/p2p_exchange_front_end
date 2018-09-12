@@ -1147,7 +1147,7 @@ const strings = new Map([
     }],
     ['appealModalContent', {
         KOR: '이 이의 제기가 성공적으로 제출된 후에 자산은 동결되며 고객 서비스는 거래가 끝날 때까지 개입합니다. 악의적인 불만사항은 계정이 동결됩니다.',
-        ENG: 'The assets will be frozen after this appeal submit successfully, and the customer service will intervene in the transaction until the end. Malicious complainants will be frozen your accounts. ',
+        ENG: 'The assets will be frozen after this appeal submit successfully, and the customer customToken will intervene in the transaction until the end. Malicious complainants will be frozen your accounts. ',
         CN: '当投诉成功被提交时，资产将被冻结，客服将会介入此案件至交易结束时。恶意的客诉将导致您的帐户被冻结。',
         HK: '當投訴成功被提交時，資產將被凍結，客服將會介入此案件至交易結束時。惡意的客訴將導致您的帳戶被凍結。'
     }],
@@ -2311,6 +2311,12 @@ const strings = new Map([
         CN: '一旦关闭邮箱验证后，24小时内不能提款。',
         HK: '一但關掉Emali驗證後，24小時内不能提款。'
     }],
+    ['phoneTurnOffExplain', {
+        KOR: '휴대폰 인증이 비활성화 되면, 24시간 동안 출금하실 수 없습니다.',
+        ENG: 'The withdrawal will be disabled in next 24 hours once phone authentication is turned off.',
+        CN: '',
+        HK: ''
+    }],
     ['linkPhone', {
         KOR: '휴대폰 연동',
         ENG: 'Link mobile phone',
@@ -2444,9 +2450,9 @@ const strings = new Map([
         CN: '面对面服务',
         HK: '面對面服務'
     }],
-    ['Merchants will enjoy our one-to-one exclusive service.', {
+    ['Merchants will enjoy our one-to-one exclusive customToken.', {
         KOR: '판매자들은 저희의 일대일 전용 서비스를 즐길 수 있습니다.',
-        ENG: 'Merchants are able to use our one-to-one exclusive service.',
+        ENG: 'Merchants are able to use our one-to-one exclusive customToken.',
         CN: '商家可享受面对面专属服务。',
         HK: '商家可享受面對面專屬服務。'
     }],
@@ -3135,7 +3141,7 @@ const strings = new Map([
     }],
     ['landingContents_3', {
         KOR: '365일, 24시간 연중무휴 전문 상담사와 고객서비스 상담을 할 수 있으며, 언제든지 문제 해결이 가능합니다.',
-        ENG: '24/7 customer service with professional staff, solving your trade problem in anytime.',
+        ENG: '24/7 customer customToken with professional staff, solving your trade problem in anytime.',
         CN: '全年365天，全天24小时为您提供服务专线。',
         HK: '一年365天、24小時為您提供客服服務。'
     }],
@@ -3510,7 +3516,7 @@ const strings = new Map([
     }],
     ['tokenNameExplain', {
         KOR: '토큰명을 입력해 주십시오. 오직 3-5 문자만 허용됩니다.',
-        ENG: 'Please input token name without any blank. Only 3-5 capital letters are available.',
+        ENG: 'Please input customToken name without any blank. Only 3-5 capital letters are available.',
         CN: '',
         HK: ''
     }],
@@ -3522,7 +3528,7 @@ const strings = new Map([
     }],
     ['decimalsExplain', {
         KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. ',
-        ENG: 'Defines the number of decimal places in the token. Numbers 0-18 are allowed. By 18 practices',
+        ENG: 'Defines the number of decimal places in the customToken. Numbers 0-18 are allowed. By 18 practices',
         CN: '',
         HK: ''
     }],
@@ -3534,7 +3540,7 @@ const strings = new Map([
     }],
     ['descriptionExplain', {
         KOR: '토큰에 대한 설명을 입력해 주십시오. (10 - 300 자 허용)',
-        ENG: 'Please input issuing token\'s descryption. (10 to 300 characters)',
+        ENG: 'Please input issuing customToken\'s descryption. (10 to 300 characters)',
         CN: '',
         HK: ''
     }],
@@ -3558,7 +3564,7 @@ const strings = new Map([
     }],
     ['warning_token_name_null', {
         KOR: '토큰명을 입력해 주십시오.',
-        ENG: 'Please enter token name.',
+        ENG: 'Please enter customToken name.',
         CN: '',
         HK: ''
     }],
@@ -3580,15 +3586,21 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['warning_decimals_range', {
+        KOR: '18 이하로 입력해 주십시오.',
+        ENG: 'Please enter less than 18.',
+        CN: '',
+        HK: ''
+    }],
     ['warning_description_null', {
         KOR: '토큰 설명을 입력해 주십시오.',
-        ENG: 'Please enter token description.',
+        ENG: 'Please enter customToken description.',
         CN: '',
         HK: ''
     }],
     ['warning_total_token_null', {
         KOR: '토큰 발행량을 입력해 주십시오.',
-        ENG: 'Please enter total token.',
+        ENG: 'Please enter total customToken.',
         CN: '',
         HK: ''
     }],
@@ -3628,51 +3640,51 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenModalWarn', {
+        KOR: '내 토큰 생성 요청을 완료 하시겠습니까?',
+        ENG: 'Are you sure to complete MyToken generating order?',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenModalExplain1', {
+        KOR: '각 계정당 오직 한개의 토큰만 생성 할 수 있으며,',
+        ENG: 'Each ID can generate customToken only in once,',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenModalExplain2', {
+        KOR: '요청 후 수정 또는 삭제를 할 수 없습니다.',
+        ENG: 'YOU CANNOT MODIFY OR DELETE AFTER REQUEST.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['comp_request_complete', {
+        KOR: '요청 완료.',
+        ENG: 'Request complete.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenOrderSubj', {
+        KOR: '토큰 생성 요청이 완료되었습니다.',
+        ENG: 'Your token creation request is complete.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenOrderContent', {
+        KOR: '토큰 생성 요청이 완료되었습니다. 토큰 생성까지 약 1시간 소요 됩니다.',
+        ENG: 'Your token creation request is complete. It takes about an hour to generate the token.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenCompleteSubj', {
+        KOR: '토큰 생성이 완료되었습니다.',
+        ENG: 'Your token generation is complete.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['myTokenCompleteContent', {
+        KOR: '토큰 생성이 완료되었습니다. 각 ID 마다 오직 한개의 토큰만 생성 가능합니다.',
+        ENG: 'Token generating complete. Each ID can generate only one token.',
         CN: '',
         HK: ''
     }],

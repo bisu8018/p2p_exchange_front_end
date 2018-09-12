@@ -459,17 +459,15 @@
                     } else if (this.type === 'wechat') {
                         _purpose = 'wechatpay'
                     }
-                    CommonService.fileUpload.fileUpload({
+                    MainRepository.Service.Common.fileUpload.fileUpload({
                         file: this.submitFile(),
                         purpose: _purpose
                     }, (url) => {
-
                         if (this.type === 'alipay') {
                             this.paymentMethods.alipayQrCodeImgUrl = url
                         } else if (this.type === 'wechat') {
                             this.paymentMethods.wechatQrCodeImgUrl = url
                         }
-
                         this.onPost();
                     });
                 } else {

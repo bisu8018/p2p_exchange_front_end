@@ -21,7 +21,7 @@ export default {
     },
     fileUpload: {
         //파일 업로드
-        fileUpload: function (data:any, callback: any) {
+        fileUpload: function (data:any, callback: any) {console.log(data)
             let url = 'file?purpose=' + data.purpose;
             AxiosService._requestWithOnlyBody(url,'POST',data.file,
                 function (data) {

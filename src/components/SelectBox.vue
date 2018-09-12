@@ -16,6 +16,9 @@
             <select v-else-if="selectBoxType === 'phone'"  v-model="selectedPhone" @change="setPhone" class="o-none comp-selectbox h6">
                 <option v-for="phone in phones" class="o-none " v-bind:value="phone.code" >{{phone.code}}</option>
             </select>
+            <select v-else-if="selectBoxType === 'customToken'"  v-model="selectCustomToken" @change="setCustomToken" class="o-none comp-selectbox h6">
+                <option v-for="phone in phones" class="o-none " v-bind:value="phone.code" >{{phone.code}}</option>
+            </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
         </div>
     </v-layout>
@@ -34,6 +37,7 @@
             selectedCurrency: 'CNY',
             selectedPayment: 'ALL',
             selectedPhone: '+86',
+            selectedCustomToken: '',
             signupCountries: [
                 {country: Vue.prototype.$str('china'), code: 'CN'},
                 {country: Vue.prototype.$str('singapore'), code: 'SG'},
@@ -112,7 +116,8 @@
                 {code : '+886', nation : Vue.prototype.$str('taiwan')},
                 {code : '+82', nation : Vue.prototype.$str('korea')},
                 {code : '+44', nation : Vue.prototype.$str('uk')},
-            ]
+            ],
+            selectCustomToken :[],
         }),
         methods: {
             setCountry(type) {
@@ -122,19 +127,16 @@
                     MainRepository.SelectBox.controller().setCountry(this.selectedCountry_signup);
                     this.$emit('country',this.selectedCountry_signup);
                 }
-                //console.log("selectedCountry: " + this.selectedCountry);
-                //console.log("setCountry:" + MainRepository.SelectBox.controller().setCountry(this.selectedCountry));
             }, setCurrency() {
-                //console.log("selectedCurrency: " + this.selectedCurrency);
                 MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency);
                 this.$emit('currency',this.selectedCurrency);
-                //console.log("setCurrency:" + MainRepository.SelectBox.controller().setCurrency(this.selectedCurrency));
             }, setPayment() {
-                //console.log("selectedPayment:" + this.selectedPayment)
                 MainRepository.SelectBox.controller().setPayment(this.selectedPayment);
             }, setPhone() {
                 this.$emit('number',this.selectedPhone);
 
+            }, setCustomToken () {
+                this.$emit('customToken',this.selectedCustomToken);
             }
         },
         created(){

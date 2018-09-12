@@ -23,7 +23,7 @@ export default class SelectBoxController {
     }
 
     getCurrency() {
-        return this.store.state.selectBox.getCurrency;
+        return this.store.state.selectBox.currency;
     }
 
     // select box payment
@@ -32,7 +32,7 @@ export default class SelectBoxController {
     }
 
     getPayment() {
-        return this.store.state.selectBox.getPayment;
+        return this.store.state.selectBox.payment;
     }
 
     onClear(){

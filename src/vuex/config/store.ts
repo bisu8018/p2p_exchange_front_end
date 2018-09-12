@@ -11,6 +11,7 @@ import tradeProcess from "@/vuex/modules/tradeProcess";
 import msgAvatar from "@/vuex/modules/msgAvatar";
 import message from "@/vuex/modules/message";
 import chat from "@/vuex/modules/chat";
+import customToken from "@/vuex/modules/customToken";
 
 
 
@@ -28,7 +29,8 @@ export default {
         tradeProcess,
         msgAvatar,
         message,
-        chat
+        chat,
+        customToken
     },
     strict: false
 }

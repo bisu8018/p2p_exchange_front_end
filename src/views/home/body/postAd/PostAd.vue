@@ -18,7 +18,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select-box :selectBoxType="'signupCountry'" :country="myAdList.nationality"
+                        <select-box :selectBoxType="'signupCountry'"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
                     <div class="p-relative mb-0" :class="{'mb-3' : isMobile}">
-                        <select-box :selectBoxType="'currency'" :currency="myAdList.currency"
+                        <select-box :selectBoxType="'currency'"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
@@ -70,11 +70,12 @@
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
                         <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency"
-                                :class="{'input-disabled2' : edit}">
+                                :class="{'input-disabled2' : edit}" v-if="this.cryptocurrencyType === 'general'">
                             <option value="bitcoin">BTC</option>
                             <option value="ethereum">ETH</option>
                             <option value="allb">ALLB</option>
                         </select>
+                        <select-box :selectBoxType="'customToken'"   :class="{'input-disabled2' : edit}" v-else></select-box>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
@@ -113,9 +114,7 @@
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
                         <div v-if="priceType === 'floatprice'"
                              class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
-                            <div class="tooltip">
                                 <span class="tooltip-content">{{ $str("explainMargin") }}</span>
-                            </div>
                         </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"

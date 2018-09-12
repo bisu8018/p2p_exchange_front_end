@@ -8,7 +8,7 @@
                     <div class="h2 bold">{{type === 'email' ? $str("email") : $str("phone")}} {{$str("turnOff")}}</div>
                 </div>
                 <div class="color-darkgray mb-4 text-xs-left">
-                    {{$str("emailTurnOffExplain")}}
+                    {{type === 'email' ? $str("emailTurnOffExplain") : $str("phoneTurnOffExplain")}}
                 </div>
                     <span v-if="type === 'email'">
 

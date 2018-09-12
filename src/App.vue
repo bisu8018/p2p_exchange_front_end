@@ -614,6 +614,10 @@
         margin: 64px !important;
     }
 
+    .ma-a {
+        margin: auto !important;
+    }
+
     /* 패딩, padding 설정 */
 
     .pb-4a {

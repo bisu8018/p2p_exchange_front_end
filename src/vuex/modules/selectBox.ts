@@ -8,12 +8,11 @@ const mutations = {
         state.nationality = country;
     },
     [VuexTypes.SET_CURRENCY_DATA](state: any, currency: string) {
-        state.getCurrency = currency;
+        state.currency = currency;
     },
     [VuexTypes.SET_PAYMENET_DATA](state: any, payment: string) {
-        state.getPayment = payment;
+        state.payment = payment;
     },
-
 };
 
 const actions = {
@@ -35,14 +34,13 @@ const getters = {};
 
 //Country Selectbox
 let nationality: string = 'ALL';
-let getCurrency: string = 'CNY';
-let getPayment: string = 'ALL';
+let currency: string = 'CNY';
+let payment: string = 'ALL';
 
 const state = {
-    //Country Check
     nationality: nationality,
-    getCurrency: getCurrency,
-    getPayment: getPayment
+    currency: currency,
+    payment: payment,
 };
 
 export default {

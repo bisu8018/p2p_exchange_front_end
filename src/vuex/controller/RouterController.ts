@@ -1,12 +1,13 @@
 import Vue from "vue";
 import MainRepository from "@/vuex/MainRepository";
+import CustomToken from "@/vuex/model/CustomToken";
 
 export default class RouterController {
-  router: any;
+    router: any;
 
-  constructor(router: any) {
-    this.router = router;
-  }
+    constructor(router: any) {
+        this.router = router;
+    }
 
     goBack() {
         this.router.go(-1);
@@ -55,9 +56,9 @@ export default class RouterController {
                 } else {
                     Vue.nextTick(function () {
                         // edit에서 post ad 이동 시 뷰 새로고침
-                        if(params.length >1){
+                        if (params.length > 1) {
                             location.href = url;
-                        }else{
+                        } else {
                             r.push(url);
                         }
                     });
@@ -66,9 +67,9 @@ export default class RouterController {
         } else {
             Vue.nextTick(function () {
                 // edit에서 post ad 이동 시 뷰 새로고침
-                if(params.length >1){
+                if (params.length > 1) {
                     location.href = url;
-                }else{
+                } else {
                     r.push(url);
                 }
             });
@@ -79,7 +80,7 @@ export default class RouterController {
         let r = this.router;
         let url = isBlock ? '/blockAd' : '/generalAd';
         Vue.nextTick(function () {
-            r.push({ path : url, query: {no: number}});
+            r.push({path: url, query: {no: number}});
         });
     }
 
@@ -97,7 +98,7 @@ export default class RouterController {
         });
     }
 
-    goCustomTokenTrade(){
+    goCustomTokenTrade() {
         let r = this.router;
         Vue.nextTick(function () {
             r.push('customTokenTrade');
@@ -163,7 +164,7 @@ export default class RouterController {
         });
     }
 
-    goMyAd(){
+    goMyAd() {
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/myAds");
@@ -171,14 +172,14 @@ export default class RouterController {
     }
 
 
-    goWallet(){
+    goWallet() {
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/wallet");
         });
     }
 
-    goWalletDetail(cryptoCurrency){
+    goWalletDetail(cryptoCurrency) {
         let code = '';
         switch (cryptoCurrency) {
             case 'bitcoin':
@@ -191,14 +192,21 @@ export default class RouterController {
         }
         let r = this.router;
         Vue.nextTick(function () {
-            r.push("/walletdetail?"+code);
+            r.push("/walletdetail?" + code);
         });
     }
 
-    goMyToken(){
+    goMyToken() {
+        let tokenInfo = MainRepository.MyToken.controller().getMyToken();
         let r = this.router;
+        let url;
+        if (tokenInfo.isNull()) {
+            url = "/myToken"
+        } else {
+            url = "/myTokenComplete"
+        }
         Vue.nextTick(function () {
-            r.push("/myToken");
+            r.push(url);
         });
     }
 }

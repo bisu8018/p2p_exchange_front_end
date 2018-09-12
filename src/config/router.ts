@@ -29,6 +29,7 @@ import TurnOff from '../views/home/body/myPage/additionalVue/TurnOff.vue'
 import LinkAccount from '../views/home/body/myPage/additionalVue/LinkAccount.vue'
 import RestTradePassword from '../views/home/body/myPage/additionalVue/ResetTradePassword.vue'
 import MyToken from '../views/home/body/service/MyToken.vue'
+import MyTokenComplete from '../views/home/body/service/additionalVue/MyTokenComplete.vue'
 import Message from '../components/Message.vue'
 
 
@@ -180,6 +181,11 @@ export default new Router({
             path: '/myToken',
             name: 'myToken',
             component: MyToken,
+        },
+        {
+            path: '/myTokenComplete',
+            name: 'myTokenComplete',
+            component: MyTokenComplete,
         },
         {
             path: '*',

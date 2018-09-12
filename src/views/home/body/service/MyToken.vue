@@ -25,6 +25,12 @@
             <v-flex xs12 md3 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('tokenName') }}
             </v-flex>
+            <div v-else class="mb-2 vertical-center">
+                {{ $str('tokenName') }}
+                <div class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                        <span class="tooltip-content">{{ $str("tokenNameExplain") }}</span>
+                </div>
+            </div>
 
             <!--토큰명 입력-->
             <v-flex xs12 md4>
@@ -52,11 +58,17 @@
             <v-flex xs12 md3 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('decimals') }}
             </v-flex>
+            <div v-else class="mb-2 vertical-center">
+                {{ $str('decimals') }}
+                <div class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                    <span class="tooltip-content">{{ $str("decimalsExplain") }}</span>
+                </div>
+            </div>
 
             <!--소수점 자리수 입력-->
             <v-flex xs12 md4>
                 <div class="mb-3 p-relative">
-                    <input type="text" class="input" v-model="decimals" maxlength="18"
+                    <input type="text" class="input" v-model="decimals" maxlength="2"
                            @keyup="onCheck('decimals')" @blur="onCheck('decimals')"
                            v-bind:class="{'warning-border' : warning_decimals}">
                     <div class="warning-text-wrapper">
@@ -80,6 +92,9 @@
             <v-flex xs12 md3 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('description') }}
             </v-flex>
+            <div v-else class="mb-2">
+                {{ $str('description') }}
+            </div>
 
             <!--설명 입력-->
             <v-flex xs12 md4>
@@ -87,6 +102,7 @@
                 <textarea class="description-wrapper common-textarea"
                           v-model="description" maxlength="300"
                           @blur="onCheck('description')"
+                          :placeholder="isMobile ? $str('descriptionExplain') : ''"
                           v-bind:class="{'warning-border' : warning_description}">
 
                 </textarea>
@@ -115,6 +131,12 @@
             <v-flex xs12 md3 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('totalToken') }}
             </v-flex>
+            <div v-else class="mb-2 vertical-center">
+                {{ $str('decimals') }}
+                <div class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                    <span class="tooltip-content">{{ $str("totalTokenExplain") }}</span>
+                </div>
+            </div>
 
             <!--토큰 발행량 입력-->
             <v-flex xs12 md4>
@@ -161,6 +183,9 @@
                         </span>
                         <h5 class="d-inline-block">{{ $str("mainnet") }}</h5>
                     </label>
+                    <div class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip" v-if="isMobile">
+                        <span class="tooltip-content">{{ $str("tokenServerExplain") }}</span>
+                    </div>
                 </div>
             </v-flex>
 
@@ -194,11 +219,14 @@
             <v-flex xs12 md3 h3 bold color-black text-xs-left mb-4 v-if="!isMobile">
                 {{ $str('tradePwText') }}
             </v-flex>
+            <div v-else class="mb-2">
+                {{ $str('tradePwText') }}
+            </div>
 
             <!--토큰 발행량 입력-->
             <v-flex xs12 md4>
                 <div class="mb-3 p-relative">
-                    <input type="text" class="input" v-model="tradePassword" maxlength="20"
+                    <input type="password" class="input" v-model="tradePassword" maxlength="20"
                            v-bind:class="{'warning-border' : warning_tradePassword}"
                            @keyup="onCheck('tradePassword')"
                            @blur="onCheck('tradePassword')"
@@ -211,28 +239,29 @@
             </v-flex>
 
             <v-flex xs12>
-                <v-divider class="mt-4"></v-divider>
+                <v-divider class="mt-3"></v-divider>
             </v-flex>
         </v-layout>
 
 
         <!--***************      버튼       *********-->
 
-        <v-layout>
-            <v-flex xs12 md2 offset-md4 mt-2>
-                <button @click='' class="btn-white btn-white-hover">
-                    {{ $str("cancel") }}
-                </button>
-            </v-flex>
-
-            <v-flex xs12 md2 mt-2>
-                <button @click='' class="btn-blue btn-blue-hover" @click="onCheck('all')">
+        <v-layout wrap row >
+            <v-flex xs12 md2 mt-2 order-md4>
+                <button  class="btn-blue btn-blue-hover" @click="onCheck('all')">
                     {{ $str("create") }}
                 </button>
 
             </v-flex>
-        </v-layout>
+            <v-flex xs12 md2 offset-md4 mt-2>
+                <button  class="btn-white btn-white-hover" @click="goWallet()">
+                    {{ $str("cancel") }}
+                </button>
+            </v-flex>
 
+
+        </v-layout>
+        <my-token-modal :show="showModal" @close="onClose()" @confirm="onPostFile()"></my-token-modal>
     </div>
 </template>
 
@@ -240,9 +269,11 @@
     import Vue from 'vue';
     import MainRepository from "../../../../vuex/MainRepository";
     import {abUtils} from "../../../../common/utils";
+    import MyTokenModal from "./item/MyTokenModal.vue";
 
     export default Vue.extend({
         name: 'myToken',
+        components: {MyTokenModal},
         data: () => ({
             tokenName: '',
             warning_tokenName: false,
@@ -265,7 +296,9 @@
             verify_warning_tradePassword: '',
 
             reissuable: false,
-            tokenServer : 'main',
+            tokenServer: 'main',
+            showModal: false,
+            modalType: 'warning',   //warning -> confirm
 
             //파일 첨부
             file: '',
@@ -276,7 +309,16 @@
                 return MainRepository.State.isMobile();
             },
         },
+        created() {
+          this.init();
+        },
         methods: {
+            init() {
+                let tokenInfo = MainRepository.MyToken.controller().getMyToken();
+                if (!tokenInfo.isNull()) {
+                    MainRepository.router().goMyToken();
+                }
+            },
             onCheckAttachmentFile() {
                 //첨부파일 타입, 확장자, 용량 체크
                 let fileInfo = this.$refs.file.files[0];
@@ -345,10 +387,15 @@
                             this.warning_decimals = true;
                             this.verify_warning_decimals = Vue.prototype.$str('warning_decimals_null');
                             return false;
-                        } else if (!abUtils.isDouble(this.decimals) || this.decimals[0] === '.' || this.decimals[0] === '-') {
+                        } else if (!abUtils.isInteger(this.decimals) || this.decimals[0] === '-') {
                             this.decimals = '';
                             this.warning_decimals = true;
                             this.verify_warning_decimals = Vue.prototype.$str('warning_decimals_number');
+                            return false;
+                        }
+                        if (this.decimals > 18 ) {
+                            this.warning_decimals = true;
+                            this.verify_warning_decimals = Vue.prototype.$str('warning_decimals_range');
                             return false;
                         }
 
@@ -402,16 +449,51 @@
                         return true;
 
                     case 'all' :
-                        if (this.onCheck('tokenName') && this.onCheck('decimals') && this.onCheck('description') && this.onCheck('totalToken') && this.onCheck('tradePassword') && this.onCheck('tokenImg')) {
-                            Vue.prototype.$eventBus.$emit('showAlert', 4013);
-                            this.onPost();
-                        } else {
-                            return false;
-                        }
+                    if (this.onCheck('tokenName') && this.onCheck('decimals') && this.onCheck('description') && this.onCheck('totalToken') && this.onCheck('tradePassword') && this.onCheck('tokenImg')) {
+
+                        //모달 출력
+                        this.modalType = 'warning';
+                        this.showModal=  true;
+                    } else {
+                        return false;
+                    }
                 }
             },
-            onPost() {
+            onClose() {
+                this.showModal = false;
+            },
+            onPostFile() {
+                MainRepository.Service.Common().fileUpload.fileUpload({
+                    file: this.submitFile(),
+                    purpose: 'customtoken'
+                }, (url) => {
+                    this.onPost(url);
+                });
+            },
+            onPost(url) {
+                this.showModal = false;
+                let mainnetYn = this.tokenServer === 'main' ? 'y' : 'n';
+                let reissueYn = this.reissuable ? 'y' : 'n';
+                MainRepository.MyToken.generateToken({
+                    decimalCount: this.decimals,
+                    description: this.description,
+                    mainnetYn: mainnetYn,
+                    reissueYn: reissueYn,
+                    status: "registered",
+                    symbolImgUrl: url,
+                    tokenName: this.tokenName,
+                    tradeTokens: this.totalToken,
+                    tradePassword : this.tradePassword
+                }, result => {
+                    //다음 페이지 이동
+                    Vue.prototype.$eventBus.$emit('showAlert', 2004);
 
+                }, err => {
+                    return false;
+                })
+            },
+            goWallet() {
+                MainRepository.router().goWallet();
             }
         }
     });
@@ -456,6 +538,10 @@
         border-bottom: 10px solid #545c6a !important;
     }
 
+    .tooltip {
+        display: inline-block;
+    }
+
     .description-wrapper {
         border: 1px solid #8d8d8d;
     }
@@ -479,5 +565,22 @@
         top: 91px !important;
     }
 
+
+    /*textarea css*/
+    textarea::-webkit-input-placeholder {
+        color: #9294a6;
+    }
+
+    textarea:-moz-placeholder { /* Firefox 18- */
+        color: #9294a6;
+    }
+
+    textarea::-moz-placeholder { /* Firefox 19+ */
+        color: #9294a6;
+    }
+
+    textarea:-ms-input-placeholder {
+        color: #9294a6;
+    }
 </style>
 

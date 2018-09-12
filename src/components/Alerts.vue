@@ -87,6 +87,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 2001 : this.show(this.type.Success, "", this.$str('comp_copy')); break;    // 카피 완료
                     case 2002 : this.show(this.type.Success, "", this.$str('comp_verification_code_send')); break;    // 인증 코드 전송
                     case 2003 : this.show(this.type.Success, "", this.$str('comp_code_verified')); break;    // 코드 인증 성공
+                    case 2004 : this.show(this.type.Success, "", this.$str('comp_request_complete')); break;    // 코드 인증 성공
 
                     //로그인 및 회원가입 메세지 2050~
                     case 2051 : this.show(this.type.Success, "", this.$str('comp_copy')); break;    // 계정 존재 확인

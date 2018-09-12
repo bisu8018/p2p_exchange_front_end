@@ -73,7 +73,7 @@
                             {{$str("Service")}}
                         </button>
                         <div v-if="getDomain === 'Service'" class="menu-button dropbtn sub-domain-menu left32-right32">
-                            {{$str("My Token")}}</div>
+                            {{$str("myToken")}}</div>
                     </div>
                 </div>
 

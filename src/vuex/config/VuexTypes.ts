@@ -35,6 +35,8 @@ export enum VuexTypes {
 
     SET_PAGE_DATA = 'trade/SET_PAGE_DATA',
     SET_TOTALCOUNT_DATA = 'trade/SET_TOTALCOUNT_DATA',
+
+
     //======================================
     //              MyTrade(My Ads & My Orders)
     // =====================================
@@ -70,7 +72,7 @@ export enum VuexTypes {
     SET_MARKET_PRICE = 'market/SET_MARKET_PRICE',
 
     //======================================
-    //               Wallet 구 Balance
+    //               Wallet (구 Balance)
     // =====================================
     SET_WALLET_DATA = 'wallet/SET_WALLET_DATA',
     SET_WALLET_CURRENCY = 'wallet/SET_WALLET_CURRENCY',
@@ -109,4 +111,10 @@ export enum VuexTypes {
     SET_CHAT_MESSAGE = 'chat/SET_CHAT_MESSAGE',
     SET_CHAT_SUBSCRIBE = 'chat/SET_CHAT_SUBSCRIBE',
     SET_CHAT_MEMBERS = 'chat/SET_CHAT_MEMBERS',
+
+
+    //======================================
+    //              Custom Token
+    // =====================================
+    SET_MY_TOKEN = 'customToken/SET_MY_TOKEN',
 }
