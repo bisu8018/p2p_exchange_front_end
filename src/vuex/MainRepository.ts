@@ -689,6 +689,12 @@ export default {
                 callback(result);
             })
         },
+    //Custom token Trade
+        loadCustomTokenList(callback: any){
+            AdService.getCustomTokenList((result)=>{
+                callback(result);
+            })
+        },
 
 
     },

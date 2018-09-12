@@ -22,7 +22,7 @@
 
                 <!-- 좌측 -->
                 <div>
-                    <div class="d-contents">
+                    <div class="display-flex">
                         <!--Wallet-->
                         <button v-if="!isMobile" class="menu-button"  @click="goWallet()">
                             {{$str("Wallet")}}
@@ -51,17 +51,16 @@
                         </div>
                         <!--Post Ad-->
                         <div v-if="getDomain === 'OTC'" class="dropdown">
-                            <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
-                            <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
-                                <div class="submenu" @click="goPostAd(false)">
-                                    {{$str("Post_General_AD")}}
-                                </div>
-                                <div class="submenu" @click="goPostAd(true)">
-                                    {{$str("Post_Block_AD")}}
-                                </div>
+                        <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
+                        <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
+                            <div class="submenu" @click="goPostAd(false)">
+                                {{$str("Post_General_AD")}}
+                            </div>
+                            <div class="submenu" @click="goPostAd(true)">
+                                {{$str("Post_Block_AD")}}
                             </div>
                         </div>
-
+                    </div>
                         <!--Exchange-->
                         <button v-if="!isMobile" class="menu-button" @click="goExchange()"
                                 v-bind:class="{'left32-right16' : (getDomain === 'OTC')}">
@@ -501,7 +500,7 @@
             cursor: pointer;
         }
 
-        .d-contents{
+        .display-flex{
             display: flex;
         }
 

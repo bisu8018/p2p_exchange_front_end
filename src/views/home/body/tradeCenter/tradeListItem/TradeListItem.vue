@@ -587,7 +587,6 @@
             if (MainRepository.MyInfo.isLogin()) {
                 this.checkSelectBtn()
             }
-
         },
         updated(){
             if (MainRepository.MyInfo.isLogin()) {

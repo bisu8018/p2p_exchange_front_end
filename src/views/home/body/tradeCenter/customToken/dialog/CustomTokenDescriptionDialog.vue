@@ -13,12 +13,12 @@
 
 <script>
     export default {
-        name: "CustomTokenDescription",
+        name: "CustomTokenDescriptionDialog",
         data: () => ({
             show: false,
         }),
         created(){
-            this.$eventBus.$on('showTransferDialog', () => {
+            this.$eventBus.$on('showCustomTokenDescriptionDialog', () => {
                 this.show = true;
           })
         },

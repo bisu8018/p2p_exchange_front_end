@@ -30,7 +30,7 @@ export default class WalletController {
         let result = new Wallet('');
         for(let i = 0; i < this.getWallets().length; i++) {
             let _item = this.getWallets()[i];
-            if (_item.cryptoCurrency === crpto) {
+            if (_item.cryptocurrency === crpto) {
                 result = _item;
             }
         }

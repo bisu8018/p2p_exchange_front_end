@@ -20,6 +20,7 @@
 <script>
     import Vue from 'vue';
     import tradeCenter from "../TradeCenter.vue"
+    import MainRepository from "../../../../../vuex/MainRepository";
     export default {
         name: "CustomTokenTrade",
         components: {
@@ -28,6 +29,15 @@
         data: () => ({
             searchCustomToken : '',
         }),
+        computed:{
+          CustomTokenList(){
+              return
+          }
+        },
+        created(){
+            MainRepository.TradeView.loadCustomTokenList();
+
+        },
         methods: {
 
         }
