@@ -237,7 +237,7 @@
                 {currency: 'KHR'},
             ],
             tradeStatus: 'BUY',
-            tokenNo : '',
+            customTokenNo : '',
 
         }),
         computed: {
@@ -262,9 +262,13 @@
                 this.modal_end_date = value;
             },
             selectCustomToken(customToken) {
-                this.customToken = MainRepository.SelectBox.controller().getCustomToken();
+                let self = this
+                if(customToken !== undefined){
+                    self.customTokenNo = MainRepository.SelectBox.controller().getCustomToken();
+                }
             },
             onSearch() {
+
                 MainRepository.MyOrder.updatePage({
                         searchStartTime : this.modal_start_date,
                         searchEndTime : this.modal_end_date,
