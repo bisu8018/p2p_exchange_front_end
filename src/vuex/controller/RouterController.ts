@@ -108,9 +108,8 @@ export default class RouterController {
 
     goCustomTokenTrade(tokenNo){
         let r = this.router;
-        MainRepository.MyToken.setCustomTokenNo(tokenNo);
         Vue.nextTick(function () {
-            r.push('customTokenTrade');
+            r.push('customTokenTrade?'+tokenNo);
         });
     }
 

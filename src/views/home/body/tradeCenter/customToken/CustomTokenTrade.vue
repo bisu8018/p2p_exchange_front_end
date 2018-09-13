@@ -13,7 +13,7 @@
         <div class="dropdown-content scroll-space" v-if="isdropdown">
           <!-- 내 정보 list 버튼-->
           <div v-for="item in CustomTokenLists" class=" btn-blue-hover"
-               @click.stop="clickedTokenItem(item.tokenName)">
+               @click.stop="clickedTokenItem(item)">
             {{item.tokenName}}
           </div>
         </div>
@@ -37,9 +37,9 @@
 
         },
         data: () => ({
-            showProgress : false,
             isdropdown : false,
-            selectedCustomToken : 'XRP',
+            selectedCustomToken : '',
+            tokenNo : '',
         }),
         computed:{
             CustomTokenLists(){
@@ -47,19 +47,32 @@
             }
         },
         created(){
-            this.showProgress = true;
 
-            MainRepository.TradeView.loadCustomTokenList(()=>{})
-
-
+            //URL로 tokenNo 받기
+            let currentURL = window.location.href
+            let param = currentURL.split('?');
+            this.tokenNo = param[1];
+            //해당Custom Ad를 뿌려주기 위해 customTokenNo를 vuex에 set 해주기.
+            MainRepository.MyToken.setCustomTokenNo(this.tokenNo);
+            //customToken들 list 불러오기
+            MainRepository.TradeView.loadCustomTokenList(()=>{
+              this.selectedCustomToken = MainRepository.MyToken.controller().findCustomToken(Number(this.tokenNo), 'no').tokenName
+            })
         },
         methods: {
+            //새로고침시 동작하게 하면 됨
+            leaving(){
+              this.$router.replace('/customTokenTrade?'+this.tokenNo);
+            },
             showDropdown(){
               this.isdropdown = !this.isdropdown;
             },
             clickedTokenItem(item){
               this.showDropdown();
-              this.selectedCustomToken = item;
+              this.selectedCustomToken = item.tokenName;
+              this.tokenNo = item.tokenNo;
+              MainRepository.MyToken.setCustomTokenNo(item.tokenNo);
+              MainRepository.TradeView.load(()=>{});
             },
         }
     }

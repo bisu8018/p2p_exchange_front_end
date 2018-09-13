@@ -13,7 +13,7 @@
             </div>
           </v-flex>
           <v-flex md9 xs6 text-xs-left>
-            {{transCryptocurrency(currentWithdraw.cryptoCurrency)}}
+            {{transCryptocurrency(currentWithdraw.cryptocurrency)}}
           </v-flex>
         </v-layout>
         <v-layout mb-3>

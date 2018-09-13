@@ -34,7 +34,7 @@ export default class CustomTokenController {
     }
 
     //토큰 찾기   (type : no, name)
-    // ex MainRepository.MyToken.controller().findCustomToken(this.customTokenNo, 'no').tokenName
+    // ex MainRepository.MyToken.controller().findCustomToken(Number(this.tokenNo), 'no').tokenName
     findCustomToken(data,type) {
         let token = this.getCustomTokenList().find(function (element) {
             let compared = (type === 'no' ? element.tokenNo : element.tokenName);

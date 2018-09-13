@@ -67,4 +67,7 @@
     min-height: 56px;
     border-bottom: 1px solid #d1d1d1;
   }
+  .tokenlist:hover{
+    background-color: #F8F8FA;
+  }
 </style>
