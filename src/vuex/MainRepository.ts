@@ -1105,7 +1105,7 @@ export default {
             })
         }
     },
-    //채팅
+    //buy/sell 채팅
     Message: {
         controller(): MessageController {
             return messageController;

@@ -22,6 +22,7 @@ export enum VuexTypes {
     SET_COUNTRY_DATA = 'selectbox/SET_COUNTRY_DATA',
     SET_CURRENCY_DATA = 'selectbox/SET_CURRENCY_DATA',
     SET_PAYMENET_DATA = 'selectbox/SET_PAYMENET_DATA',
+    SET_CUSTOM_TOKEN_DATA = 'selectbox/SET_CUSTOM_TOKEN_DATA',
 
 
     //======================================

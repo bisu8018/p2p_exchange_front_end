@@ -316,11 +316,10 @@
                 }
             },
             goWallet() {
-                MainRepository.State.setDomain('Wallet')
+
                 MainRepository.router().goWallet();
             },
             goOTC() {
-                MainRepository.State.setDomain('OTC')
                 MainRepository.router().goMain();
             },
             goExchange() {
@@ -328,7 +327,6 @@
                 //MainRepository.router().goWallet();
             },
             goService() {
-                MainRepository.State.setDomain('Service')
                 MainRepository.router().goMyToken();
             },
             serializeserialize(form) {

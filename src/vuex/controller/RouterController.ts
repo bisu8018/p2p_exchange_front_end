@@ -18,6 +18,7 @@ export default class RouterController {
     }
 
     goMain() {
+        MainRepository.State.setDomain('OTC')
         let r = this.router;
         Vue.nextTick(function () {
             r.push('/');
@@ -180,6 +181,7 @@ export default class RouterController {
 
 
     goWallet(){
+        MainRepository.State.setDomain('Wallet');
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/wallet");
@@ -190,11 +192,11 @@ export default class RouterController {
         let code = '';
         switch (cryptoCurrency) {
             case 'bitcoin':
-                code = 'BTC'
+                code = 'BTC';
                 break;
 
             case 'ethereum':
-                code = 'ETH'
+                code = 'ETH';
                 break;
         }
         let r = this.router;
@@ -204,6 +206,7 @@ export default class RouterController {
     }
 
     goMyToken() {
+        MainRepository.State.setDomain('Service');
         let tokenInfo = MainRepository.MyToken.controller().getMyToken();
         let r = this.router;
         let url;

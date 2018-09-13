@@ -28,8 +28,8 @@
             });
 
             // chat send message
-            this.$eventBus.$on('chatSendMessage', (message) => {
-                this.send(message);
+            this.$eventBus.$on('chatSendMessage', (message,type) => {
+                this.send(message,type);
             });
 
 
@@ -45,10 +45,10 @@
             })
         },
         methods: {
-            send(message) {
+            send(message,type) {
                 if (this.stompClient && this.stompClient.connected) {
                     const msg = {message: message,
-                    type : 'CHAT'};
+                    type : type};
                     let channelId = 'all';
                     this.stompClient.send("/publish/channels/" + channelId, JSON.stringify(msg), {});
                     this.inputValue = '';
