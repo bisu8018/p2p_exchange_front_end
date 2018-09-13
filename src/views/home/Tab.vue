@@ -69,7 +69,8 @@
                 MainRepository.router().goMain();
             },
             goExchange(){
-                MainRepository.State.setDomain('Exchange')
+                this.$eventBus.$emit('showAlert', 9000);
+                //MainRepository.State.setDomain('Exchange')
                 //MainRepository.router().goWallet();
             },
             goService(){
