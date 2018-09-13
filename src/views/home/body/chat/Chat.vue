@@ -23,8 +23,11 @@
                         <div class="pl-2">
                             <div class="color-black h6 mb-1 c-pointer" @click="goUserCenter()"> {{ data.sender.name }}
                             </div>
-                            <div class="chat-content-wrapper text-xs-left color-black h6">
+                            <div class="chat-content-wrapper text-xs-left color-black h6" v-if="data.type === 'CHAT'">
                                 {{ data.message }}
+                            </div>
+                            <div class="chat-content-wrapper" v-else>
+                                <img :src="data.message" class="w-full">
                             </div>
                             <div class="h6 color-darkgray mt-2 line-height-full text-xs-left">
                                 {{ getTime(data.sendDateTime) }}
@@ -42,15 +45,16 @@
                             <div class="color-black h6 mb-1 text-xs-right c-pointer" @click="goUserCenter()"> {{
                                 data.sender.name }}
                             </div>
-                            <div class="chat-content-wrapper-mine text-xs-left color-black h6">
+                            <div class="chat-content-wrapper-mine text-xs-left color-black h6" v-if="data.type === 'CHAT'">
                                 {{ data.message }}
+                            </div>
+                            <div class="chat-content-wrapper" v-else>
+                                <img :src="data.message" class="w-full">
                             </div>
                             <div class="h6 color-darkgray text-xs-right mt-2 line-height-full ">
                                 {{ getTime(data.sendDateTime) }}
                             </div>
-                            <!--<div class="chat-content-wrapper" v-else>-->
-                            <!--<img :src="data.attachedImgUrl" class="w-full">-->
-                            <!--</div>-->
+
                         </div>
                         <div>
                             <avatar :chat="'memberList'" :member="data.sender" class="mt-1"></avatar>
@@ -67,7 +71,7 @@
                     <label class="file-icon-wrapper">
                         <i class="c-pointer material-icons color-darkgray file-icon">attachment</i>
                         <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
-                               class="d-none" accept="image/*" capture="camera"/>
+                               class="d-none" accept="image/*" />
                     </label>
                     <input type="text" v-model="inputValue" class="chat-input" :placeholder="$str('chatPlaceholder')"
                            @keypress.enter="onSend()"/>
@@ -119,8 +123,17 @@
             },
         },
         methods: {
-            onSend() {
-                let message = this.inputValue;
+            onSend(url) {
+                let message;
+                let type;
+
+                if(url){        //이미지 파일 전송
+                    message = url;
+                    type = 'IMAGE_CHAT'
+                }else{      //텍스트 전송
+                    message = this.inputValue;
+                    type = 'CHAT'
+                }
 
                 if (message !== '') {
                     //도배 및 중복 값 입력 방지
@@ -128,7 +141,7 @@
                         return false;
                     } else {
                         this.latestPostTime = Date.now();
-                        this.$eventBus.$emit('chatSendMessage', message);
+                        this.$eventBus.$emit('chatSendMessage', message, type);
                         this.inputValue = '';
                         this.scrollBottom();
                     }
@@ -165,6 +178,16 @@
                 let formData = new FormData();
                 formData.append('file', this.file);
                 return formData;
+            },
+            onPostImg() {
+                MainRepository.Service.Common().fileUpload.fileUpload({
+                    file: this.submitFile(),
+                    purpose: 'groupchat'
+                }, (url) => {
+                    this.onSend(url);
+                    this.file = '';
+                    this.image = '';
+                });
             },
             clickCancel() {
                 MainRepository.Chat.isClosed();

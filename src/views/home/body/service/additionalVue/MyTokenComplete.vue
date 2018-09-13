@@ -1,9 +1,11 @@
 <template>
     <v-flex xs12 md6 offset-md3 container mt-5>
         <div class="sprite-img ic-watch mt-2 mb-4 ma-a"></div>
-        <h3 class="font-weight-bold ">{{ status === 'registered' ? $str('myTokenOrderSubj') : $str('myTokenCompleteSubj') }}</h3>
+        <h3 class="font-weight-bold ">{{ status === 'registered' ? $str('myTokenOrderSubj') :
+            $str('myTokenCompleteSubj') }}</h3>
         <div class="divider-css" :class="{'divider-css-mobile' : isMobile}"></div>
-        <h5 class="color-darkgray pa-1" :class="{'content-css' : !isMobile}">{{ status === 'registered' ? $str('myTokenOrderContent') :  $str('myTokenCompleteContent') }}</h5>
+        <h5 class="color-darkgray pa-1" :class="{'content-css' : !isMobile}">{{ status === 'registered' ?
+            $str('myTokenOrderContent') : $str('myTokenCompleteContent') }}</h5>
         <div class="divider-css" :class="{'divider-css-mobile' : isMobile}"></div>
         <button class="btn-blue-wallet btn-blue-hover mt-2 mb-2" @click="goWallet()">
             {{ $str("Wallet") }}
@@ -31,9 +33,14 @@
         },
         methods: {
             init() {
-                let tokenInfo = MainRepository.MyToken.controller().getMyToken();
-                if (tokenInfo.isNull()) {
-                    MainRepository.router().goMyToken();
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return false;
+                } else {
+                    let tokenInfo = MainRepository.MyToken.controller().getMyToken();
+                    if (tokenInfo.isNull()) {
+                        MainRepository.router().goMyToken();
+                    }
                 }
             },
             goWallet() {
@@ -53,11 +60,11 @@
 
     .divider-css {
         border-bottom: 1px solid #d1d1d1;
-        margin : 24px -24px 24px -24px;
+        margin: 24px -24px 24px -24px;
     }
 
     .divider-css-mobile {
-        margin : 24px -16px 24px -16px;
+        margin: 24px -16px 24px -16px;
     }
 
     .btn-blue-wallet {

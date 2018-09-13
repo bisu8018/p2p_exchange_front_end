@@ -35,6 +35,15 @@ export default class SelectBoxController {
         return this.store.state.selectBox.payment;
     }
 
+    // select box custom token
+    setCustomToken(customToken: string){
+        this.store.dispatch(VuexTypes.SET_CUSTOM_TOKEN_DATA, customToken);
+    }
+
+    getCustomToken() {
+        return this.store.state.selectBox.customToken;
+    }
+
     onClear(){
         this.store.dispatch(VuexTypes.SET_COUNTRY_DATA, 'ALL');
         this.store.dispatch(VuexTypes.SET_CURRENCY_DATA, 'CNY');

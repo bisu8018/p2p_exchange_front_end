@@ -63,11 +63,9 @@
         },
         methods: {
             goWallet(){
-                MainRepository.State.setDomain('Wallet')
                 MainRepository.router().goWallet();
             },
             goOTC() {
-                MainRepository.State.setDomain('OTC')
                 MainRepository.router().goMain();
             },
             goExchange(){
@@ -75,8 +73,7 @@
                 //MainRepository.router().goWallet();
             },
             goService(){
-                MainRepository.State.setDomain('Service')
-                //MainRepository.router().goWallet();
+                MainRepository.router().goWallet();
             },
             goChat(){
                 if(!this.onChat){

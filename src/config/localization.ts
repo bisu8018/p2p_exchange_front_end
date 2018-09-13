@@ -228,10 +228,10 @@ const strings = new Map([
         HK: '請上傳圖像檔案'
     }],
     ['warningAttachmentFileSize', {
-        KOR: '5MB 이하 파일로 업로드 해주십시오.',
-        ENG: 'Please upload less than 5MB file.',
-        CN: '请上传5MB一下的档案',
-        HK: '請上傳5MB一下的檔案'
+        KOR: '20MB 이하 파일로 업로드 해주십시오.',
+        ENG: 'Please upload less than 20MB file.',
+        CN: '请上传20MB一下的档案',
+        HK: '請上傳20MB一下的檔案'
     }],
     //Trade Center
 
@@ -3643,6 +3643,18 @@ const strings = new Map([
     ['myTokenModalWarn', {
         KOR: '내 토큰 생성 요청을 완료 하시겠습니까?',
         ENG: 'Are you sure to complete MyToken generating order?',
+        CN: '',
+        HK: ''
+    }],
+    ['myTokenModalCancelSubj', {
+        KOR: '내 토큰 생성을 취소 하시겠습니까?',
+        ENG: 'Are you sure to cancel create My token?',
+        CN: '',
+        HK: ''
+    }],
+    ['myTokenModalCancelExplain', {
+        KOR: '페이지를 나갈 시, 입력하신 데이터가 삭제 됩니다. 취소 하시겠습니까?',
+        ENG: 'If you exit from this page, your data will not be saved. Are you sure to cancel?',
         CN: '',
         HK: ''
     }],

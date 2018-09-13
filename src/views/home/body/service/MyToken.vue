@@ -254,14 +254,14 @@
 
             </v-flex>
             <v-flex xs12 md2 offset-md4 mt-2>
-                <button  class="btn-white btn-white-hover" @click="goWallet()">
+                <button  class="btn-white btn-white-hover" @click="onModal('cancel')">
                     {{ $str("cancel") }}
                 </button>
             </v-flex>
 
 
         </v-layout>
-        <my-token-modal :show="showModal" @close="onClose()" @confirm="onPostFile()"></my-token-modal>
+        <my-token-modal :show="showModal" :type="modalType" @close="onClose()" @confirm="onPostFile()" @cancel="goWallet()"></my-token-modal>
     </div>
 </template>
 
@@ -298,7 +298,7 @@
             reissuable: false,
             tokenServer: 'main',
             showModal: false,
-            modalType: 'warning',   //warning -> confirm
+            modalType: 'warning',   //warning , cancel
 
             //파일 첨부
             file: '',
@@ -314,9 +314,14 @@
         },
         methods: {
             init() {
-                let tokenInfo = MainRepository.MyToken.controller().getMyToken();
-                if (!tokenInfo.isNull()) {
-                    MainRepository.router().goMyToken();
+                if (!MainRepository.MyInfo.isLogin()) {
+                    MainRepository.router().goLogin();
+                    return false;
+                }else{
+                    let tokenInfo = MainRepository.MyToken.controller().getMyToken();
+                    if (!tokenInfo.isNull()) {
+                        MainRepository.router().goMyToken();
+                    }
                 }
             },
             onCheckAttachmentFile() {
@@ -326,7 +331,6 @@
                 console.log(fileInfo);
                 if (fileSize > 2000000) {
                     // 용량 alert
-
                     this.$eventBus.$emit('showAlert', 4012);
                     document.getElementById("file").value = "";
                     return false;
@@ -450,14 +454,15 @@
 
                     case 'all' :
                     if (this.onCheck('tokenName') && this.onCheck('decimals') && this.onCheck('description') && this.onCheck('totalToken') && this.onCheck('tradePassword') && this.onCheck('tokenImg')) {
-
-                        //모달 출력
-                        this.modalType = 'warning';
-                        this.showModal=  true;
+                        this.onModal('warning');
                     } else {
                         return false;
                     }
                 }
+            },
+            onModal(type) {
+                this.modalType = type;
+                this.showModal=  true;
             },
             onClose() {
                 this.showModal = false;
@@ -494,7 +499,8 @@
             },
             goWallet() {
                 MainRepository.router().goWallet();
-            }
+            },
+
         }
     });
 </script>
