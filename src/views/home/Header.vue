@@ -38,31 +38,35 @@
                                 <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16"
 
                                 >{{$str("TradeCenter")}}</div>
-                                <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
-                                    <div class="submenu" @click="goGeneralTrade()">
-                                        {{$str("GeneralTrade")}}
+                                <transition name="SubMenu">
+                                    <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
+                                        <div class="submenu" @click="goGeneralTrade()">
+                                            {{$str("GeneralTrade")}}
+                                        </div>
+                                        <div class="submenu" @click="goBlockTrade()">
+                                            {{$str("BlockTrade")}}
+                                        </div>
+                                        <div class="submenu" @click="goCustomTokenTrade()">
+                                            {{$str("CustomTokenTrade")}}
+                                        </div>
                                     </div>
-                                    <div class="submenu" @click="goBlockTrade()">
-                                        {{$str("BlockTrade")}}
-                                    </div>
-                                    <div class="submenu" @click="goCustomTokenTrade()">
-                                        {{$str("CustomTokenTrade")}}
-                                    </div>
-                                </div>
+                                </transition>
                             </div>
                         </transition>
                         <transition name="OTC">
                             <!--Post Ad-->
                             <div v-if="getDomain === 'OTC'" key="PostAd" class="dropdown">
-                        <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
-                        <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
-                            <div class="submenu" @click="goPostAd(false)">
-                                {{$str("Post_General_AD")}}
-                            </div>
-                            <div class="submenu" @click="goPostAd(true)">
-                                {{$str("Post_Block_AD")}}
-                            </div>
-                        </div>
+                                <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
+                                <transition name="SubMenu">
+                                    <div v-if="!isMobile || postadDrawer" class="dropdown-content" style="min-width: 140px;">
+                                        <div class="submenu" @click="goPostAd(false)">
+                                            {{$str("Post_General_AD")}}
+                                        </div>
+                                        <div class="submenu" @click="goPostAd(true)">
+                                            {{$str("Post_Block_AD")}}
+                                        </div>
+                                    </div>
+                                </transition>
                     </div>
                         </transition>
                         <!--Exchange-->
@@ -611,7 +615,7 @@
             margin-bottom: 50px;
             text-align: center;
         }
-        /*submenu animation*/
+        /*subDomain animation*/
         .OTC-enter-active, .OTC-leave-active{
             transition: .2s ease-out;
         }
@@ -723,44 +727,66 @@
             height: 52px;
         }
 
-    }
+        /*subDomain animation*/
+        .SubMenu-enter-active, .SubMenu-leave-active{
+            transition: all .2s ease;
+        }
+        .SubMenu-enter{
+            /*transform: translateY(-56px);*/
+            height: 0;
+            opacity: 0;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+        .SubMenu-leave-to{
+            transform: scaleY(0.2);
+            height: 0;
+            opacity: 0;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
 
-    .nav {
-        height: 64px;
-        background-color: #002970;
-        color: white;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
+        .SubMenu-leave, .SubMenu-enter-to{
+        }
 
-    .verticalcentertext {
-        align-items: center;
-        display: flex;
-    }
+}
 
-    .vertical-divider {
-        width: 1px;
-        height: 20px;
-        margin: 22px 16px 22px 16px;
-        background-color: #9294a6;
-    }
+.nav {
+height: 64px;
+background-color: #002970;
+color: white;
+position: fixed;
+top: 0;
+width: 100%;
+}
 
-    .new-msg-dot {
-        width: 7px;
-        height: 7px;
-        background-color: #e62a2b;
-        border-radius: 20px;
-        position: absolute;
-        top: 1px;
-        left: -8px;
-    }
+.verticalcentertext {
+align-items: center;
+display: flex;
+}
 
-    .cssFixed {
-        width: auto !important;
-        right: 300px;
-        left: 0px;
-    }
+.vertical-divider {
+width: 1px;
+height: 20px;
+margin: 22px 16px 22px 16px;
+background-color: #9294a6;
+}
+
+.new-msg-dot {
+width: 7px;
+height: 7px;
+background-color: #e62a2b;
+border-radius: 20px;
+position: absolute;
+top: 1px;
+left: -8px;
+}
+
+.cssFixed {
+width: auto !important;
+right: 300px;
+left: 0px;
+}
 
 
 </style>
