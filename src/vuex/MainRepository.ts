@@ -958,6 +958,7 @@ export default {
                 searchEndTime: myTradeController.getMyOrderFilter().searchEndTime,
                 status: myTradeController.getMyOrderFilter().status,
                 orderNo: myTradeController.getMyOrderFilter().orderNo,
+                cryptocurrencyType: myTradeController.getMyOrderFilter().cryptocurrencyType,
                 cryptocurrency: myTradeController.getMyOrderFilter().cryptocurrency,
                 orderType: myTradeController.getMyOrderFilter().orderType,
                 tradeType: myTradeController.getMyOrderFilter().tradeType,

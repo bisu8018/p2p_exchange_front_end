@@ -18,7 +18,7 @@
                 </h6>
                 <h6 class="statusChip" v-if="cryptocurrencyType != ''">
                     <v-layout align-center row fill-height>
-                        {{$str(cryptocurrencyType)}}
+                      {{transTypeFullName(cryptocurrencyType)}}
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('cryptocurrencyType')">close</i>
                     </v-layout>
                 </h6>
@@ -73,7 +73,7 @@
                 <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrencyType")}}</div>
                 <div class="mb-4 p-relative">
                     <select v-model="modal_cryptocurrencyType" class="comp-selectbox h6">
-                        <option value="general">General Token</option>
+                        <option value="general">General Coin</option>
                         <option value="custom">Custom Token</option>
                     </select>
                     <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
@@ -222,6 +222,14 @@
             onEndDate(value) {
                 this.modal_end_date = value;
             },
+            transTypeFullName(name){
+                if(name ==='general'){
+                    return 'General Coin'
+                }
+                else{
+                    return 'Custom Token'
+                }
+            },
             onSearch() {
                 MainRepository.MyAds.updatePage({
                     searchStartTime : this.modal_start_date,
@@ -274,29 +282,39 @@
             },
             // 칩 x버튼 눌렀을 시 삭제
             chipDelete (type) {
-                if(type === 'date'){
-                    this.start_date = '';
-                    this.end_date = '';
-                    this.modal_start_date = "";
-                    this.modal_end_date = "";
-                }else if(type === 'adNo'){
-                    this.adNo = '';
-                    this.modal_adNo = '';
-                }else if(type === 'cryptocurrencyType'){
-                    this.cryptocurrencyType = '';
-                    this.modal_cryptocurrencyType = '';
-                }else if(type === 'cryptocurrency'){
-                    this.cryptocurrency = '';
-                    this.modal_cryptocurrency = '';
-                }else if(type === 'adsType'){
-                    this.adsType = '';
-                    this.modal_adsType = '';
-                }else if(type === 'tradeType'){
-                    this.tradeType = '';
-                    this.modal_tradeType = '';
-                }else if(type === 'currency'){
-                    this.currency = '';
-                    this.modal_currency = '';
+                switch(type) {
+                    case 'date':
+                        this.start_date = '';
+                        this.end_date = '';
+                        this.modal_start_date = "";
+                        this.modal_end_date = "";
+                        break
+                    case 'adNo':
+                        this.adNo = '';
+                        this.modal_adNo = '';
+                        break;
+                    case 'cryptocurrencyType':
+                        this.cryptocurrencyType = '';
+                        this.modal_cryptocurrencyType = '';
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = "";
+                        break;
+                    case 'cryptocurrency':
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = '';
+                        break;
+                    case 'adsType':
+                        this.adsType = '';
+                        this.modal_adsType = '';
+                        break;
+                    case 'tradeType':
+                        this.tradeType = '';
+                        this.modal_tradeType = '';
+                        break;
+                    case 'currency':
+                        this.currency = '';
+                        this.modal_currency = '';
+                        break;
                 }
                 MainRepository.MyAds.updatePage({
                     searchStartTime : this.modal_start_date,

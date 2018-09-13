@@ -31,7 +31,7 @@
                     </h6>
                     <h6 class="statusChip" v-if="cryptocurrencyType != ''">
                         <v-layout align-center row fill-height>
-                            {{$str(cryptocurrencyType)}}
+                            {{transTypeFullName(cryptocurrencyType)}}
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('cryptocurrencyType')">close</i>
                         </v-layout>
                     </h6>
@@ -96,7 +96,7 @@
                     <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrencyType")}}</div>
                     <div class="mb-4 p-relative">
                         <select v-model="modal_cryptocurrencyType" class="comp-selectbox h6">
-                            <option value="general">General Token</option>
+                            <option value="general">General Coin</option>
                             <option value="custom">Custom Token</option>
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
@@ -332,6 +332,8 @@
                     case 'cryptocurrencyType':
                         this.cryptocurrencyType = '';
                         this.modal_cryptocurrencyType = "";
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = "";
                         break;
                     case 'cryptocurrency':
                         this.cryptocurrency = '';
@@ -367,6 +369,14 @@
             },
             myOrderDownload(){
                 MainRepository.MyOrder.getMyOrderDownload();
+            },
+            transTypeFullName(name){
+                if(name ==='general'){
+                    return 'General Coin'
+                }
+                else{
+                    return 'Custom Token'
+                }
             }
         },
 
