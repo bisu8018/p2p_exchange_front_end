@@ -31,14 +31,9 @@
                     </h6>
                     <h6 class="statusChip" v-if="cryptocurrencyType != ''">
                         <v-layout align-center row fill-height>
-                            {{$str(transTypeFullName(cryptocurrencyType))}}
+                            {{$str(cryptocurrencyType)}}
+                            <span v-if="cryptocurrency != ''">: {{cryptocurrency}}</span>
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('cryptocurrencyType')">close</i>
-                        </v-layout>
-                    </h6>
-                    <h6 class="statusChip" v-if="cryptocurrency != ''">
-                        <v-layout align-center row fill-height>
-                            {{cryptocurrency}}
-                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('cryptocurrency')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="orderType != ''">
@@ -105,11 +100,16 @@
                     <!--암호화폐 종류-->
                     <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrency")}}</div>
                     <div class="mb-4 p-relative">
-                        <select class="comp-selectbox h6" v-model="modal_cryptocurrency">
+                        <select  v-if="modal_cryptocurrencyType === 'general'"
+                                 class="comp-selectbox h6" v-model="modal_cryptocurrency">
                             <option value="bitcoin">BTC</option>
                             <option value="ethereum">ETH</option>
                             <option value="allb">AllB</option>
                         </select>
+                        <select-box v-else :selectBoxType="'customToken'"
+                                    @customToken="selectCustomToken"
+                                    :class="{'input-disabled2' : (modal_cryptocurrencyType === '')}">
+                        </select-box>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
 
@@ -173,6 +173,7 @@
 <script>
     import Vue from 'vue';
     import MainRepository from '../../../../../vuex/MainRepository';
+    import SelectBox from '@/components/SelectBox.vue';
     import DatePicker from '@/components/DatePicker.vue';
     import {abUtils} from "@/common/utils";
     import MyOrderDownloadDialog from './dialog/MyOrderDownloadDialog'
@@ -181,7 +182,7 @@
     export default Vue.extend({
         name: "myOrder-filter",
         components: {
-            DatePicker, MyOrderDownloadDialog
+            DatePicker, MyOrderDownloadDialog, SelectBox
         },
         data: () => ({
             startdateclass : 'startdateclass',
@@ -236,6 +237,7 @@
                 {currency: 'KHR'},
             ],
             tradeStatus: 'BUY',
+            tokenNo : '',
 
         }),
         computed: {
@@ -259,6 +261,9 @@
             onEndDate(value) {
                 this.modal_end_date = value;
             },
+            selectCustomToken(tokenNo) {
+                this.tokenNo = tokenNo;
+            },
             onSearch() {
                 MainRepository.MyOrder.updatePage({
                         searchStartTime : this.modal_start_date,
@@ -275,8 +280,8 @@
                 this.end_date = this.modal_end_date;
                 this.orderStatus = this.modal_orderStatus;
                 this.orderNo = this.modal_orderNo;
-                this.cryptocurrencyType = this.modal_cryptocurrencyType;
-                this.cryptocurrency = this.modal_cryptocurrency;
+                this.cryptocurrencyType = this.transTypeFullName(this.modal_cryptocurrencyType);
+                this.cryptocurrency = this.transCryptocurrencyName(this.modal_cryptocurrency);
                 this.orderType = this.modal_orderType;
                 this.tradeType = this.modal_tradeType;
                 this.currency = this.modal_currency;
@@ -335,10 +340,6 @@
                         this.cryptocurrency = '';
                         this.modal_cryptocurrency = "";
                         break;
-                    case 'cryptocurrency':
-                        this.cryptocurrency = '';
-                        this.modal_cryptocurrency = "";
-                        break;
                     case 'orderType':
                         this.orderType = '';
                         this.modal_orderType = "";
@@ -374,8 +375,24 @@
                 if(name ==='general'){
                     return 'General Coin'
                 }
-                else{
+                else if(name ==='custom'){
                     return 'Custom Token'
+                }
+                else{
+                    return ''
+                }
+            },
+            transCryptocurrencyName(name){
+                switch (name) {
+                    case 'bitcoin':
+                        return 'BTC'
+
+                    case 'ethereum':
+                        return 'ETH'
+                    case 'allb':
+                        return 'AllB'
+                    default:
+                        return ''
                 }
             }
         },
@@ -477,4 +494,4 @@ mobile에서만 추가 선언.*/
         opacity: 0.8;
     }
 
-</style>7
+</style>

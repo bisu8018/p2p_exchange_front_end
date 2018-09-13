@@ -18,14 +18,9 @@
                 </h6>
                 <h6 class="statusChip" v-if="cryptocurrencyType != ''">
                     <v-layout align-center row fill-height>
-                      {{$str(transTypeFullName(cryptocurrencyType))}}
+                      {{$str(cryptocurrencyType)}}
+                        <span v-if="cryptocurrency != ''">: {{cryptocurrency}}</span>
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('cryptocurrencyType')">close</i>
-                    </v-layout>
-                </h6>
-                <h6 class="statusChip" v-if="cryptocurrency != ''">
-                    <v-layout align-center row fill-height>
-                        {{cryptocurrency}}
-                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('cryptocurrency')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="tradeType != ''">
@@ -82,11 +77,16 @@
                 <!--암호화폐 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrency")}}</div>
                 <div class="mb-4 p-relative">
-                    <select v-model="modal_cryptocurrency" class="comp-selectbox h6">
+                    <select v-if="modal_cryptocurrencyType === 'general'"
+                            v-model="modal_cryptocurrency" class="comp-selectbox h6">
                         <option value="bitcoin">BTC</option>
                         <option value="ethereum">ETH</option>
                         <option value="allb">AllB</option>
                     </select>
+                    <select-box v-else :selectBoxType="'customToken'"
+                                @customToken="selectCustomToken"
+                                :class="{'input-disabled2' : (modal_cryptocurrencyType === '')}">
+                    </select-box>
                     <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
                 <!--거래 종류-->
@@ -149,12 +149,13 @@
     import Vue from 'vue';
     import MainRepository from '../../../../../vuex/MainRepository';
     import DatePicker from '@/components/DatePicker.vue';
+    import SelectBox from '@/components/SelectBox.vue';
     import {abUtils} from "@/common/utils";
 
     export default Vue.extend({
         name: "MyAdsFilter",
         components: {
-            DatePicker
+            DatePicker, SelectBox
         },
         data: () => ({
             startdateclass : 'startdateclass',
@@ -199,6 +200,7 @@
                 {currency: 'PHP'},
                 {currency: 'KHR'},
             ],
+            tokenNo : '',
 
         }),
         computed: {
@@ -213,7 +215,8 @@
                 return (!this.showDateChip && this.adNo === '' && this.cryptocurrencyType === '' &&
                     this.cryptocurrency === '' && this.adsType === '' && this.tradeType === '' &&
                     this.currency === '')
-            }
+            },
+
         },
         methods: {
             onStartDate(value) {
@@ -222,12 +225,28 @@
             onEndDate(value) {
                 this.modal_end_date = value;
             },
+            selectCustomToken(tokenNo) {
+                this.tokenNo = tokenNo;
+            },
             transTypeFullName(name){
                 if(name ==='general'){
                     return 'General Coin'
                 }
                 else{
                     return 'Custom Token'
+                }
+            },
+            transCryptocurrencyName(name){
+                switch (name) {
+                    case 'bitcoin':
+                        return 'BTC'
+
+                    case 'ethereum':
+                        return 'ETH'
+                    case 'allb':
+                        return 'AllB'
+                    default:
+                        return ''
                 }
             },
             onSearch() {
@@ -244,8 +263,8 @@
                 this.isModal = false;
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
-                this.cryptocurrencyType = this.modal_cryptocurrencyType;
-                this.cryptocurrency = this.modal_cryptocurrency;
+                this.cryptocurrencyType = this.transTypeFullName(this.modal_cryptocurrencyType);
+                this.cryptocurrency = this.transCryptocurrencyName(this.modal_cryptocurrency);
                 this.tradeType = this.modal_tradeType;
                 this.adNo = this.modal_adNo;
                 this.adsType = this.modal_adsType
@@ -298,10 +317,6 @@
                         this.modal_cryptocurrencyType = '';
                         this.cryptocurrency = '';
                         this.modal_cryptocurrency = "";
-                        break;
-                    case 'cryptocurrency':
-                        this.cryptocurrency = '';
-                        this.modal_cryptocurrency = '';
                         break;
                     case 'adsType':
                         this.adsType = '';
