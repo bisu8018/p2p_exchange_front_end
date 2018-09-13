@@ -221,16 +221,18 @@ export default class RouterController {
     }
     goChat() {
         let nickName = MainRepository.MyInfo.getUserInfo().nickname;
-        if(nickName === '' || !nickName){
-            this.goMyPage();
-            Vue.prototype.$eventBus.$emit('showAlert', 4006);
-        }else{
-            if (MainRepository.Chat.controller().getChatStatus()) {
-                MainRepository.Chat.isClosed();
-            } else {
-                MainRepository.Chat.isOpened();
-                MainRepository.MyOrder.controller().setMyOrderModalFixed(false);        //my order modal fix 종료 후 채팅 open
+
+        if (MainRepository.MyInfo.isLogin()) {
+            if(nickName === '' || !nickName){
+                this.goMyPage();
+                Vue.prototype.$eventBus.$emit('showAlert', 4006);
             }
+        }
+        if (MainRepository.Chat.controller().getChatStatus()) {
+            MainRepository.Chat.isClosed();
+        } else {
+            MainRepository.Chat.isOpened();
+            MainRepository.MyOrder.controller().setMyOrderModalFixed(false);        //my order modal fix 종료 후 채팅 open
         }
     }
 }

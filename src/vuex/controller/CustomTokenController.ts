@@ -1,7 +1,6 @@
 import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import CustomToken from "@/vuex/model/CustomToken";
-import MarketPrice from "@/vuex/model/MarketPrice";
 
 export default class CustomTokenController {
     store: Store<any>;
@@ -24,6 +23,17 @@ export default class CustomTokenController {
 
     getCustomTokenList() {
         return this.store.state.customToken.customTokenList;
+    }
+
+    //토큰 찾기   (type : no, name)
+    findCustomToken(data,type) {
+        let token = this.getCustomTokenList().find(function (element) {
+            let compared = (type === 'no' ? element.tokenNo : element.tokenName);
+            if( data === compared){
+                return element;
+            }
+        });
+        return token;
     }
 }
 

@@ -178,7 +178,6 @@
                                 this.setCustomToken();
                             }
                             this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
-
                         });
                         break;
 

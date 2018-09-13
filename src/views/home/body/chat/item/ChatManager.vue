@@ -57,7 +57,7 @@
             connect() {
                 this.socket = new SockJS(chatServerInfo.chatServerUrl());
                 this.stompClient = Stomp.over(this.socket);
-                //this.stompClient.debug = () => {}; //webstomp debug turn off
+                this.stompClient.debug = () => {}; //webstomp debug turn off
 
                 this.stompClient.connect({},(result) => {
                         this.connected = true;
