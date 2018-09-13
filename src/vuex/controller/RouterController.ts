@@ -138,6 +138,10 @@ export default class RouterController {
     }
 
     goUserPage(memberNo) {
+        if(MainRepository.MyInfo.isLogin() && MainRepository.MyInfo.getUserInfo().memberNo === memberNo){
+            this.goMyPage();
+            return false;
+        }
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/userpage?" + memberNo);
@@ -226,6 +230,7 @@ export default class RouterController {
             if(nickName === '' || !nickName){
                 this.goMyPage();
                 Vue.prototype.$eventBus.$emit('showAlert', 4006);
+                return false;
             }
         }
         if (MainRepository.Chat.controller().getChatStatus()) {

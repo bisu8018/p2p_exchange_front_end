@@ -327,6 +327,11 @@
             }
         },
         created(){
+            if(MainRepository.MyInfo.isLogin() && MainRepository.MyInfo.getUserInfo().memberNo === memberNo){
+                this.goMyPage();
+                return false;
+            }
+
             let currentURL = window.location.href
             let param = currentURL.split('?');
             this.userMemberNo = Number(param[1])
