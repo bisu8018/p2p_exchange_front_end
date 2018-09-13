@@ -102,7 +102,7 @@
                 <!--광고 번호-->
                 <div class="text-xs-left text-black mb-2">{{$str("adsNo")}}</div>
                 <div class="mb-4">
-                    <input type="number" class="input" :placeholder='$str("adsNoPlaceholder")'>
+                    <input type="number" v-model="modal_adNo" class="input" :placeholder='$str("adsNoPlaceholder")'>
                 </div>
 
 
@@ -232,8 +232,11 @@
                 if(name ==='general'){
                     return 'General Coin'
                 }
-                else{
+                else if(name ==='custom'){
                     return 'Custom Token'
+                }
+                else{
+                    return ''
                 }
             },
             transCryptocurrencyName(name){

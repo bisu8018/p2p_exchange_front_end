@@ -261,8 +261,8 @@
             onEndDate(value) {
                 this.modal_end_date = value;
             },
-            selectCustomToken(tokenNo) {
-                this.tokenNo = tokenNo;
+            selectCustomToken(customToken) {
+                this.customToken = MainRepository.SelectBox.controller().getCustomToken();
             },
             onSearch() {
                 MainRepository.MyOrder.updatePage({
