@@ -51,6 +51,7 @@
             },
             onTrade(){
                 //해당 token의 tradecenter로 보냄.
+                this.$router.push("/CustomTokenTrade");
             }
         }
     }

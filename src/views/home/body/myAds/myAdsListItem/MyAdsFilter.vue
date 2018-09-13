@@ -3,8 +3,7 @@
         <v-flex xs12 md12 >
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-                      v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
-                      && adNo === '' && coinType === '' && adsType === '' && tradeType === '' && currency === ''">{{$str("adsFilterPlaceholder")}}</div>
+                      v-if="showPlaceholder">{{$str("adsFilterPlaceholder")}}</div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
                    @click.stop="isModal = !isModal">filter_list</i>
 
@@ -17,10 +16,16 @@
                         <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('date')">close</i>
                     </v-layout>
                 </h6>
-                <h6 class="statusChip" v-if="coinType != ''">
+                <h6 class="statusChip" v-if="cryptocurrencyType != ''">
                     <v-layout align-center row fill-height>
-                        {{coinType}}
-                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('coinType')">close</i>
+                      {{$str(transTypeFullName(cryptocurrencyType))}}
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('cryptocurrencyType')">close</i>
+                    </v-layout>
+                </h6>
+                <h6 class="statusChip" v-if="cryptocurrency != ''">
+                    <v-layout align-center row fill-height>
+                        {{cryptocurrency}}
+                        <i class="h5 material-icons ml-2 close-icons" @click="chipDelete('cryptocurrency')">close</i>
                     </v-layout>
                 </h6>
                 <h6 class="statusChip" v-if="tradeType != ''">
@@ -65,16 +70,25 @@
                 </div>
 
                 <!--암호화폐 종류-->
-                <div class="text-xs-left text-black mb-2">{{$str("Coin")}}</div>
+                <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrencyType")}}</div>
                 <div class="mb-4 p-relative">
-                    <select v-model="modal_coinType" class="comp-selectbox h6">
-                        <option value="BTC">BTC</option>
-                        <option value="ETH">ETH</option>
-                        <option value="USDT">USDT</option>
+                    <select v-model="modal_cryptocurrencyType" class="comp-selectbox h6">
+                        <option value="general">{{$str("General Coin")}}</option>
+                        <option value="custom">{{$str("Custom Token")}}</option>
                     </select>
                     <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
                 </div>
 
+                <!--암호화폐 종류-->
+                <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrency")}}</div>
+                <div class="mb-4 p-relative">
+                    <select v-model="modal_cryptocurrency" class="comp-selectbox h6">
+                        <option value="bitcoin">BTC</option>
+                        <option value="ethereum">ETH</option>
+                        <option value="allb">AllB</option>
+                    </select>
+                    <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                </div>
                 <!--거래 종류-->
                 <div class="text-xs-left text-black mb-2">{{$str("buySell")}}</div>
                 <div class="mb-4 p-relative">
@@ -150,14 +164,16 @@
             clear: 'on',
             start_date: "",
             end_date: "",
-            coinType: "",
+            cryptocurrencyType: "",
+            cryptocurrency: "",
             tradeType: "",
             adNo: "",
             adsType: "",
             currency: '',
             modal_start_date: "",
             modal_end_date: "",
-            modal_coinType: "",
+            modal_cryptocurrencyType: "",
+            modal_cryptocurrency: "",
             modal_tradeType: "",
             modal_adNo: "",
             modal_adsType: "",
@@ -192,6 +208,11 @@
             showDateChip(){
                 return (this.start_date !== undefined && this.start_date !== "")
                     &&(this.end_date !== undefined && this.end_date !== "");
+            },
+            showPlaceholder(){
+                return (!this.showDateChip && this.adNo === '' && this.cryptocurrencyType === '' &&
+                    this.cryptocurrency === '' && this.adsType === '' && this.tradeType === '' &&
+                    this.currency === '')
             }
         },
         methods: {
@@ -201,11 +222,20 @@
             onEndDate(value) {
                 this.modal_end_date = value;
             },
+            transTypeFullName(name){
+                if(name ==='general'){
+                    return 'General Coin'
+                }
+                else{
+                    return 'Custom Token'
+                }
+            },
             onSearch() {
                 MainRepository.MyAds.updatePage({
                     searchStartTime : this.modal_start_date,
                     searchEndTime : this.modal_end_date,
-                    cryptocurrency : this.modal_coinType,
+                    cryptocurrencyType : this.modal_cryptocurrencyType,
+                    cryptocurrency : this.modal_cryptocurrency,
                     tradeType : this.modal_tradeType,
                     adNo : this.modal_adNo,
                     adsType : this.modal_adsType,
@@ -214,7 +244,8 @@
                 this.isModal = false;
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
-                this.coinType = this.modal_coinType;
+                this.cryptocurrencyType = this.modal_cryptocurrencyType;
+                this.cryptocurrency = this.modal_cryptocurrency;
                 this.tradeType = this.modal_tradeType;
                 this.adNo = this.modal_adNo;
                 this.adsType = this.modal_adsType
@@ -224,7 +255,8 @@
             onClear() {
                 this.modal_start_date = "";
                 this.modal_end_date = "";
-                this.modal_coinType = "";
+                this.modal_cryptocurrencyType = "";
+                this.modal_cryptocurrency = "";
                 this.modal_tradeType = "";
                 this.modal_adNo = "";
                 this.modal_adsType = "";
@@ -235,7 +267,8 @@
                 this.isModal = false;
                 this.modal_start_date = "";
                 this.modal_end_date = "";
-                this.modal_coinType = "";
+                this.modal_cryptocurrencyType = "";
+                this.modal_cryptocurrency = "";
                 this.modal_tradeType = "";
                 this.modal_adNo = "";
                 this.modal_adsType = "";
@@ -249,31 +282,45 @@
             },
             // 칩 x버튼 눌렀을 시 삭제
             chipDelete (type) {
-                if(type === 'date'){
-                    this.start_date = '';
-                    this.end_date = '';
-                    this.modal_start_date = "";
-                    this.modal_end_date = "";
-                }else if(type === 'adNo'){
-                    this.adNo = '';
-                    this.modal_adNo = '';
-                }else if(type === 'coinType'){
-                    this.coinType = '';
-                    this.modal_coinType = '';
-                }else if(type === 'adsType'){
-                    this.adsType = '';
-                    this.modal_adsType = '';
-                }else if(type === 'tradeType'){
-                    this.tradeType = '';
-                    this.modal_tradeType = '';
-                }else if(type === 'currency'){
-                    this.currency = '';
-                    this.modal_currency = '';
+                switch(type) {
+                    case 'date':
+                        this.start_date = '';
+                        this.end_date = '';
+                        this.modal_start_date = "";
+                        this.modal_end_date = "";
+                        break
+                    case 'adNo':
+                        this.adNo = '';
+                        this.modal_adNo = '';
+                        break;
+                    case 'cryptocurrencyType':
+                        this.cryptocurrencyType = '';
+                        this.modal_cryptocurrencyType = '';
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = "";
+                        break;
+                    case 'cryptocurrency':
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = '';
+                        break;
+                    case 'adsType':
+                        this.adsType = '';
+                        this.modal_adsType = '';
+                        break;
+                    case 'tradeType':
+                        this.tradeType = '';
+                        this.modal_tradeType = '';
+                        break;
+                    case 'currency':
+                        this.currency = '';
+                        this.modal_currency = '';
+                        break;
                 }
                 MainRepository.MyAds.updatePage({
                     searchStartTime : this.modal_start_date,
                     searchEndTime : this.modal_end_date,
-                    cryptocurrency : this.modal_coinType,
+                    cryptocurrencyType : this.modal_cryptocurrencyType,
+                    cryptocurrency : this.modal_cryptocurrency,
                     tradeType : this.modal_tradeType,
                     adNo : this.modal_adNo,
                     adsType : this.modal_adsType,

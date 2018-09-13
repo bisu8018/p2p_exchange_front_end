@@ -9,7 +9,7 @@
       <i class="material-icons color-black c-pointer" @click="onClose">close</i>
     </div>
     <div class="color-darkgray text-xs-left mt-3 mb-4">
-      {{$str("Transfer to Exchange account to withdraw")}}
+      {{$str("Transfer to")}} {{$str(ToValue)}} {{$str("to withdraw")}}
     </div>
     <!-- 1. Cryptocurrency type 창-->
     <div class="text-xs-left">
@@ -40,7 +40,7 @@
       <div class="text-xs-left">{{$str("From")}}</div>
       <v-spacer></v-spacer>
       <div class="text-xs-right color-darkgray" >
-        <h6>({{FromValue}}: 0.0000 {{cryptocurrency}})</h6>
+        <h6>({{$str(FromValue)}}: 0.0000 {{cryptocurrency}})</h6>
       </div>
     </div>
 
@@ -57,7 +57,7 @@
         <div class="text-xs-left">{{$str("To")}}</div>
         <v-spacer></v-spacer>
         <div class="text-xs-right color-darkgray" >
-          <h6>({{ToValue}}: 0.0000 {{cryptocurrency}})</h6>
+          <h6>({{$str(ToValue)}}: 0.0000 {{cryptocurrency}})</h6>
         </div>
       </div>
 

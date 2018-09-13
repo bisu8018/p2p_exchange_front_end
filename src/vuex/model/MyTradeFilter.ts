@@ -4,6 +4,7 @@ export default class MyTradeFilter {
     status : string;
     orderNo : number;
     adNo : number;
+    cryptocurrencyType: string;
     cryptocurrency: string;
     orderType: string;
     adsType : string;
@@ -21,6 +22,7 @@ export default class MyTradeFilter {
         this.status = data.status || '';
         this.orderNo = data.orderNo;
         this.adNo = data.adNo || '';
+        this.cryptocurrencyType = data.cryptocurrencyType;
         this.cryptocurrency = data.cryptocurrency;
         this.tradeType = data.tradeType || '';
         this.orderType = data.orderType || '';
@@ -38,7 +40,8 @@ export default class MyTradeFilter {
         if(data.adNo !==undefined && data.adNo !==null) this.adNo = data.adNo;
         if(data.orderNo !==undefined && data.orderNo !==null) this.orderNo = data.orderNo;
         if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;
-        if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType
+        if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType;
+        if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = data.cryptocurrencyType;
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.orderType !==undefined && data.orderType !==null) this.orderType = data.orderType;
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;
@@ -55,6 +58,7 @@ export default class MyTradeFilter {
             return 'sell';
         }
     }*/
+
     transType(type){
         switch (type) {
             case 'Buy':

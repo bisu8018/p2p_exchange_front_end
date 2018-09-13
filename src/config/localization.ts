@@ -1459,7 +1459,7 @@ const strings = new Map([
         HK: '細節'
     }],
     ['Transfer', {
-        KOR: '이체',
+        KOR: '전환',
         ENG: 'Transfer',
         CN: '转帐',
         HK: '轉帳'
@@ -3712,12 +3712,91 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['Custom Token Trade', {
+        KOR: 'Custom Token 거래',
+        ENG: 'Custom Token Trade',
+        CN: '',
+        HK: ''
+    }],
+    ['Description', {
+        KOR: '구체 정보',
+        ENG: 'Description',
+        CN: '',
+        HK: ''
+    }],
+    ['Trade', {
+        KOR: '거래',
+        ENG: 'Trade',
+        CN: '',
+        HK: ''
+    }],
+    ['OTC Wallet', {
+        KOR: 'OTC 지갑',
+        ENG: 'OTC Wallet',
+        CN: '',
+        HK: ''
+    }],
+    ['Exchange Wallet', {
+        KOR: '중앙거래소 지갑',
+        ENG: 'Exchange Wallet',
+        CN: '',
+        HK: ''
+    }],
+    ['Total', {
+        KOR: 'Total',
+        ENG: 'Total',
+        CN: '',
+        HK: ''
+    }],
+    ['Scan', {
+        KOR: '스캔',
+        ENG: 'Scan',
+        CN: '',
+        HK: ''
+    }],
+    ['Payment', {
+        KOR: '결제',
+        ENG: 'Payment',
+        CN: '',
+        HK: ''
+    }],
+    ['Fiat', {
+        KOR: '지폐',
+        ENG: 'Fiat',
+        CN: '',
+        HK: ''
+    }],
+    ['Details', {
+        KOR: '세부사항',
+        ENG: 'Details',
+        CN: '',
+        HK: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',
         CN: '',
         HK: ''
     }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+
 
 
 
