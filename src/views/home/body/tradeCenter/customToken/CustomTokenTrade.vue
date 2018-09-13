@@ -5,11 +5,11 @@
       <v-divider></v-divider>
     </v-flex>
     <v-flex xs12 text-md-left text-xs-center>
-      <h4 class="p-relative c-pointer mt-4a" >
-        <div @click.stop="showDropdown()" class="cs-flex">
+      <h4 class="p-relative mt-4a" >
+        <button @click.stop="showDropdown()" class="cs-flex">
           <span class="mr-1">{{ selectedCustomToken}}</span>
           <i class="material-icons color-blue md-24 ">keyboard_arrow_down</i>
-        </div>
+        </button>
         <div class="dropdown-content scroll-space" v-if="isdropdown">
           <!-- 내 정보 list 버튼-->
           <div v-for="item in CustomTokenLists" class=" btn-blue-hover"
@@ -19,6 +19,11 @@
         </div>
       </h4>
     </v-flex>
+    <div>
+      <trade-center
+              :message = "'general'"
+      ></trade-center>
+    </div>
   </div>
 </template>
 
