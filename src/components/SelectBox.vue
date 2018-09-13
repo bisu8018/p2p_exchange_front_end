@@ -45,9 +45,9 @@
         name: 'selectBox',
         props: {
             'selectBoxType': {type: String, default: 'country'}, //country, currency, payment, phone
-            'country': {type: String, default: ''},
-            'currency': {type: String, default: ''},
-            'customToken': {type: String, default: ''},
+            'editCountry': {type: String, default: ''},
+            'editCurrency': {type: String, default: ''},
+            'editCustomToken': {type: Number},
         },
         data: () => ({
             selectedCountry: 'ALL',
@@ -143,7 +143,7 @@
             });
         },
         beforeDestroy() {
-          this.onClear();
+            this.onClear();
         },
         methods: {
             init() {
@@ -153,8 +153,8 @@
                         break;
 
                     case 'signupCountry' :
-                        if (this.country !== '') {
-                            this.selectedCountry_signup = this.country;
+                        if (this.editCountry !== '') {
+                            this.selectedCountry_signup = this.editCountry;
                             this.setCountry();
                         } else {
                             let _country = MainRepository.SelectBox.controller().getCountry();
@@ -163,8 +163,8 @@
                         break;
 
                     case 'currency' :
-                        if (this.currency !== '') {
-                            this.selectedCurrency = this.currency;
+                        if (this.editCurrency !== '') {
+                            this.selectedCurrency = this.editCurrency;
                             this.setCurrency();
                         } else {
                             this.selectedCurrency = MainRepository.SelectBox.controller().getCurrency();
@@ -172,14 +172,14 @@
                         break;
 
                     case 'customToken' :
-                        if (this.customToken !== '') {
-                            this.selectedCustomToken = this.customToken;
-                            this.setCustomToken();
-                        } else {
-                            MainRepository.MyToken.setCustomTokenList(() => {
-                                this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
-                            })
-                        }
+                        MainRepository.MyToken.setCustomTokenList(() => {
+                            if (this.editCustomToken !== '') {
+                                this.selectedCustomToken = this.editCustomToken;
+                                this.setCustomToken();
+                            }
+                            this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
+
+                        });
                         break;
 
                     case 'payment' :

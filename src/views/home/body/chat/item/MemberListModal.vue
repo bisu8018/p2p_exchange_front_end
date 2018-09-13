@@ -6,7 +6,7 @@
                 <h5>AllB {{$str("userList")}}</h5>
             </v-layout>
             <v-divider/>
-            <div v-for="data in getMemberList" class="member-list" @click="goUserCenter()">
+            <div v-for="data in getMemberList" class="member-list" @click="goUserPage()">
                 <avatar
                         :chat="'memberList'" :member="data" class="mr-2">
                 </avatar>
@@ -45,7 +45,7 @@
             onClose() {
                 this.$emit('close');
             },
-            goUserCenter() {
+            goUserPage() {
                 //유저센터 이동
                 alert('It\'s under development now.')
             }

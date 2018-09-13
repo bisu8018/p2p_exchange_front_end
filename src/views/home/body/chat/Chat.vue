@@ -18,16 +18,16 @@
                     <!--상대방-->
                     <div class="mb-4 display-flex" v-if="getChatSubscribe.myInfo.name !== data.sender.name ">
                         <div>
-                            <avatar :member="data.sender" :chat="'memberList'" class="mt-1"/>
+                            <avatar :member="data.sender" :chat="'memberList'" class="mt-1 c-pointer" @click="goUserPage()"/>
                         </div>
                         <div class="pl-2">
-                            <div class="color-black h6 mb-1 c-pointer" @click="goUserCenter()"> {{ data.sender.name }}
+                            <div class="chat-name" @click="goUserPage()"> {{ data.sender.name }}
                             </div>
                             <div class="chat-content-wrapper text-xs-left color-black h6" v-if="data.type === 'CHAT'">
                                 {{ data.message }}
                             </div>
                             <div class="chat-content-wrapper" v-else>
-                                <img :src="data.message" class="w-full">
+                                <a :href="data.message" target="_blank"><img :src="data.message" class="w-full"></a>
                             </div>
                             <div class="h6 color-darkgray mt-2 line-height-full text-xs-left">
                                 {{ getTime(data.sendDateTime) }}
@@ -42,14 +42,14 @@
                     <div class="mb-4 display-flex " v-else>
                         <v-spacer></v-spacer>
                         <div class="pr-2">
-                            <div class="color-black h6 mb-1 text-xs-right c-pointer" @click="goUserCenter()"> {{
+                            <div class="chat-name text-xs-right" @click="goUserPage()"> {{
                                 data.sender.name }}
                             </div>
                             <div class="chat-content-wrapper-mine text-xs-left color-black h6" v-if="data.type === 'CHAT'">
                                 {{ data.message }}
                             </div>
-                            <div class="chat-content-wrapper" v-else>
-                                <img :src="data.message" class="w-full">
+                            <div class="chat-content-wrapper-mine" v-else>
+                                <a :href="data.message" target="_blank"><img :src="data.message" class="w-full"></a>
                             </div>
                             <div class="h6 color-darkgray text-xs-right mt-2 line-height-full ">
                                 {{ getTime(data.sendDateTime) }}
@@ -210,7 +210,7 @@
             onCloseMemberListModal() {
                 this.memberListModal = false;
             },
-            goUserCenter() {
+            goUserPage() {
                 //유저센터 이동
                 alert('It\'s under development now.')
             }
@@ -318,6 +318,5 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #d8d8d8;
     }
-
 
 </style>

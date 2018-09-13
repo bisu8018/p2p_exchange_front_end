@@ -1923,7 +1923,6 @@
 
     /* MyInfo Item CSS END */
 
-
     /* Dialog */
     .dialog_btn-close {
         position: absolute;
@@ -1938,6 +1937,20 @@
 
     .dialog--footer {
         text-align: right;
+    }
+
+
+    /*group chat name css*/
+    .chat-name {
+        margin-bottom: 4px!important;
+        cursor: pointer;
+        font-size: 12px;
+        line-height: 1.6em;
+        color: #353535;
+    }
+
+    .chat-name:hover {
+        font-weight: bold;
     }
 
 </style>

@@ -18,7 +18,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
                     <div class="p-relative mb-0" >
-                        <select-box :selectBoxType="'signupCountry'" :country="myAdList.nationality"
+                        <select-box :selectBoxType="'signupCountry'" :editCountry="myAdList.nationality"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
                     <div class="p-relative mb-0" >
-                        <select-box :selectBoxType="'currency'" :currency="myAdList.currency"
+                        <select-box :selectBoxType="'currency'" :editCurrency="myAdList.currency"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
@@ -75,9 +75,9 @@
                             <option value="ethereum">ETH</option>
                             <option value="allb">ALLB</option>
                         </select>
-                        <select-box :selectBoxType="'customToken'"
+                        <select-box :selectBoxType="'customToken'" v-else
                                     @customToken="selectCustomToken" :class="{'input-disabled2' : edit}"
-                                    v-else :customToken="myAdList.tokenNo"></select-box>
+                                     :editCustomToken="myAdList.tokenNo"></select-box>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>

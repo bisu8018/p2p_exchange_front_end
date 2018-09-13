@@ -298,7 +298,7 @@
             reissuable: false,
             tokenServer: 'main',
             showModal: false,
-            modalType: 'warning',   //warning , cancel
+            modalType: 'warn',   //warn , cancel
 
             //파일 첨부
             file: '',
@@ -318,10 +318,7 @@
                     MainRepository.router().goLogin();
                     return false;
                 }else{
-                    let tokenInfo = MainRepository.MyToken.controller().getMyToken();
-                    if (!tokenInfo.isNull()) {
-                        MainRepository.router().goMyToken();
-                    }
+                    MainRepository.router().goMyToken();
                 }
             },
             onCheckAttachmentFile() {
@@ -454,7 +451,7 @@
 
                     case 'all' :
                     if (this.onCheck('tokenName') && this.onCheck('decimals') && this.onCheck('description') && this.onCheck('totalToken') && this.onCheck('tradePassword') && this.onCheck('tokenImg')) {
-                        this.onModal('warning');
+                        this.onModal('warn');
                     } else {
                         return false;
                     }
@@ -491,6 +488,7 @@
                     tradePassword : this.tradePassword
                 }, result => {
                     //다음 페이지 이동
+                    MainRepository.router().goMyToken();
                     Vue.prototype.$eventBus.$emit('showAlert', 2004);
 
                 }, err => {

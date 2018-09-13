@@ -76,11 +76,7 @@
                 MainRepository.router().goWallet();
             },
             goChat(){
-                if(!this.onChat){
-                    MainRepository.Chat.isOpened();
-                }else{
-                    MainRepository.Chat.isClosed();
-                }
+                MainRepository.router().goChat();
             },
         },
 

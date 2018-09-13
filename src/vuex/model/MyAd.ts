@@ -7,6 +7,7 @@ export default class MyAd {
     counterpartyFilterMobileVerificationYn : boolean;
     counterpartyFilterTradeCount: number;
     cryptocurrency: string;
+    cryptocurrencyType: string;
     currency: string;
     fixedPrice: number;
     margin: number;
@@ -21,6 +22,7 @@ export default class MyAd {
     volume: number;
     volumeAvailable: number;
     registerMemberNo: number;
+    tokenNo: number;
 
     constructor(data: any) {
         this.adNo = Number(data.adNo) ;
@@ -31,6 +33,7 @@ export default class MyAd {
         this.counterpartyFilterMobileVerificationYn = data.counterpartyFilterMobileVerificationYn || false ;
         this.counterpartyFilterTradeCount = data.counterpartyFilterTradeCount || 0 ;
         this.cryptocurrency = data.cryptocurrency ;
+        this.cryptocurrencyType = data.cryptocurrencyType ;
         this.currency = data.currency ;
         this.fixedPrice = Number(data.fixedPrice) || 0;
         this.margin = Number(data.margin) || 0;
@@ -45,6 +48,7 @@ export default class MyAd {
         this.volume = Number(data.volume) ;
         this.volumeAvailable = Number(data.volumeAvailable);
         this.registerMemberNo = Number(data.registerMemberNo);
+        this.tokenNo = Number(data.tokenNo);
     }
 
     isNull(): boolean {

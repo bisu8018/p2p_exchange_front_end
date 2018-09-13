@@ -12,16 +12,16 @@ export default class CustomToken {
     tradeTokens: number;
 
     constructor (data: any) {
-        this.decimalCount = data.decimalCount;
-        this.description = data.description;
-        this.mainnetYn = data.mainnetYn;
-        this.registerMemberNo = data.registerMemberNo;
-        this.reissueYn = data.reissueYn;
-        this.status = data.status;
-        this.symbolImgUrl = data.symbolImgUrl;
-        this.tokenName = data.tokenName;
+        this.decimalCount = data.decimalCount || '';
+        this.description = data.description || '';
+        this.mainnetYn = data.mainnetYn || '';
+        this.registerMemberNo = data.registerMemberNo || '';
+        this.reissueYn = data.reissueYn || '';
+        this.status = data.status || '';
+        this.symbolImgUrl = data.symbolImgUrl || '';
+        this.tokenName = data.tokenName || '';
         this.tokenNo = data.tokenNo;
-        this.tradeTokens = data.tradeTokens;
+        this.tradeTokens = data.tradeTokens || '';
     }
 
     isNull (): boolean {

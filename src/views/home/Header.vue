@@ -438,13 +438,7 @@
                 MainRepository.Chat.isClosed();     //채팅 종료 후 my order modal fix
             },
             goChat() {
-                if (MainRepository.Chat.controller().getChatStatus()) {
-                    MainRepository.Chat.isClosed();
-                } else {
-                    MainRepository.Chat.isOpened();
-                    MainRepository.MyOrder.controller().setMyOrderModalFixed(false);        //my order modal fix 종료 후 채팅 open
-                }
-
+               MainRepository.router().goChat();
             },
         },
 

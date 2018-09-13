@@ -106,11 +106,15 @@
                             _msgAvatar.isLogin
                         );
                     } else if (this.chat === 'memberList'){
-                        //Open Chat 일때 member props에 member list 저장
+                        let memberList = MainRepository.Chat.controller().getChatMembers();
+                        let user = memberList.find((element) => {
+                            return element.name === this.member.name;
+                        });
+
                         this.setAvatar(
                             this.member.name[0],
                             this.member.bgColor,
-                            true,
+                            user ? true : false,
                         )
                     } else {
                         // 로그인 상태 요청
