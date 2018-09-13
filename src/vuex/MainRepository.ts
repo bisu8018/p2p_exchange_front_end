@@ -566,6 +566,7 @@ export default {
             tradelistController.updateTradeFilter({
                 type: 'general',
                 status: 'enable',
+                cryptocurrencyType: (customTokenController.getCustomTokenNo() ===-1) ? 'general' : 'custom',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'Buy',
                 nationality: 'ALL',
@@ -587,6 +588,7 @@ export default {
             this.setTradeFilter({
                 type: isBlock ? 'block' : 'general',
                 status: 'enable',
+                cryptocurrencyType: (customTokenController.getCustomTokenNo() ===-1) ? 'general' : 'custom',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'sell',
                 nationality: 'ALL',
@@ -621,13 +623,13 @@ export default {
             TradeService.tradeView.tradePage({
                 type: tradelistController.getTradeFilter().type,
                 status: 'enable',
+                cryptocurrencyType: (customTokenController.getCustomTokenNo() ===-1) ? 'general' : 'custom',
                 cryptocurrency: tradelistController.getTradeFilter().cryptocurrency,
                 tradeType: tradelistController.getTradeFilter().tradeType,
                 nationality: tradelistController.getTradeFilter().nationality,
                 currency: tradelistController.getTradeFilter().currency,
                 amount: tradelistController.getTradeFilter().amount,
                 paymentMethods: tradelistController.getTradeFilter().paymentMethods,
-                cryptocurrencyType: tradelistController.getTradeFilter().cryptocurrencyType,
                 page: tradelistController.getTradeFilter().page,
                 size: tradelistController.getTradeFilter().size,
             }, function (data) {
@@ -715,7 +717,8 @@ export default {
         },
         getCustomTokenList(){
             return customTokenController.getCustomTokenList();
-        }
+        },
+
 
 
     },
@@ -1251,7 +1254,13 @@ export default {
                 customTokenController.setCustomTokenList(customTokenList);
                 callback();
             })
-        }
+        },
+        setCustomTokenNo(tokenNo){
+            customTokenController.setCustomTokenNo(tokenNo);
+        },
+        getCustomTokenNo(){
+            return customTokenController.getCustomTokenNo();
+        },
     },
 
     router() {

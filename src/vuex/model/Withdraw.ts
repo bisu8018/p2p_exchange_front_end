@@ -2,7 +2,7 @@ export default class Withdraw {
 
     addressTo: string;
     amount: number;
-    cryptoCurrency: string;
+    cryptocurrency: string;
     fee: number;
     ownerMemberNo: number;
     receiveAmount: number;
@@ -11,7 +11,7 @@ export default class Withdraw {
     constructor(data: any) {
         this.addressTo = data.addressTo || '';
         this.amount = data.amount || '';
-        this.cryptoCurrency = data.cryptoCurrency || '';
+        this.cryptocurrency = data.cryptocurrency || '';
         this.fee = data.fee || '';
         this.ownerMemberNo = data.ownerMemberNo || '';
         this.receiveAmount = data.receiveAmount || '';

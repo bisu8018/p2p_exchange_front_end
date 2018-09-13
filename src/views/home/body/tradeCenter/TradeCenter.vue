@@ -96,26 +96,6 @@
             showNickNameModal : false,
             showProgress : false,
         }),
-        created() {
-            let currentURL = window.location.href
-            let param = currentURL.split('?');
-            //default filter값으로 list setting하기.
-            if(this.message === "general"){
-                //main에서 search로 온 경우일때
-                if(param[1] === 'main'){ MainRepository.TradeView.updatePage({type : 'general',}); }
-                //header에서 온 경우일때
-                else { MainRepository.TradeView.initPage(false); }
-            } //blocktrade로 온 경우일때
-            else { MainRepository.TradeView.initPage(true); }
-
-            this.showProgress = true;
-            MainRepository.TradeView.load(() => {
-                this.showProgress = false;
-            })
-
-            // Buy/Sell 로 선택된 item 초기화
-            MainRepository.TradeView.setchangeDrawer(-1);
-        },
         computed: {
             TradeItemLists(){
                 //최신화된 model list를 불러옴.
@@ -136,7 +116,37 @@
               return MainRepository.MyInfo.getUserInfo().isLogin()
             }
         },
+        created() {
+            //customtokenTrade인지 여부 확인.
+            this.customCheck();
+            let currentURL = window.location.href
+            let param = currentURL.split('?');
+            //default filter값으로 list setting하기.
+            if(this.message === "general" ||this.message === "customToken"){
+                //main에서 search로 온 경우일때
+                if(param[1] === 'main'){ MainRepository.TradeView.updatePage({type : 'general',}); }
+                //header에서 온 경우일때
+                else { MainRepository.TradeView.initPage(false); }
+            } //blocktrade로 온 경우일때
+            else if(this.message === "block"){
+                MainRepository.TradeView.initPage(true);
+            }
+
+            this.showProgress = true;
+            MainRepository.TradeView.load(() => {
+                this.showProgress = false;
+            })
+
+            // Buy/Sell 로 선택된 item 초기화
+            MainRepository.TradeView.setchangeDrawer(-1);
+        },
         methods: {
+            customCheck(){
+                if(this.message !== 'customToken'){
+                    MainRepository.MyToken.setCustomTokenNo(-1);
+                }
+
+            },
             onSetUpClick() {
                 this.showNickNameModal = true;
             },

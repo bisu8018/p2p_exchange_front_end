@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import MainRepository from "../../../../../../vuex/MainRepository"
     export default {
         name: "CustomTokenDescriptionDialog",
         data: () => ({
@@ -35,6 +36,10 @@
             },
             tokenName: {    // token 설명
                 type: String,
+                default: ''
+            },
+            tokenNo: {    // token 설명
+                type: Number,
                 default: ''
             },
         },
@@ -51,7 +56,7 @@
             },
             onTrade(){
                 //해당 token의 tradecenter로 보냄.
-                this.$router.push("/CustomTokenTrade");
+                MainRepository.router().goCustomTokenTrade(this.tokenNo);
             }
         }
     }

@@ -36,6 +36,7 @@
         data: () => ({
             searchCustomToken : '',
             showProgress : false,
+
         }),
         computed:{
           CustomTokenList(){
@@ -48,8 +49,11 @@
                 this.showProgress = false;
             });
 
+
+
         },
         methods: {
+
         }
     }
 </script>

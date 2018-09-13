@@ -10,6 +10,10 @@ const mutations = {
     [VuexTypes.SET_CUSTOMTRADETOKEN_LIST] (state: any, customTokenList: CustomToken[]) {
         state.customTokenList = customTokenList;
     },
+    //custom Token No
+    [VuexTypes.SET_CUSTOMTOKEN_NUMBER] (state: any, tokenNo: Number) {
+        state.tokenNo = tokenNo;
+    },
 };
 
 
@@ -21,6 +25,10 @@ const actions = {
     [VuexTypes.SET_CUSTOMTRADETOKEN_LIST] (context: any, customTokenList: CustomToken[]) {
         context.commit(VuexTypes.SET_CUSTOMTRADETOKEN_LIST, customTokenList)
     },
+    //custom Token No
+    [VuexTypes.SET_CUSTOMTOKEN_NUMBER] (context: any, tokenNo: Number) {
+        context.commit(VuexTypes.SET_CUSTOMTOKEN_NUMBER, tokenNo)
+    },
 };
 
 const getters = {
@@ -28,10 +36,12 @@ const getters = {
 
 let tokenInfo : CustomToken =  new CustomToken('');
 let customTokenList : CustomToken[] = [];
+let tokenNo : number = -1
 
 const state= {
     tokenInfo: tokenInfo,
     customTokenList : customTokenList,
+    tokenNo : tokenNo,
 };
 export default {
     namespaced: false,
