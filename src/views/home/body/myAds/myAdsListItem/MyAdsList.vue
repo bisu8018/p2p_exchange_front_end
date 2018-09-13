@@ -164,7 +164,7 @@
             },
             closeEnable(){
                 this.showEnableDialog = false
-                MainRepository.MyAds.load();
+                MainRepository.MyAds.load(() => {});
             },
             showDisable(){
                 //disable은 진행중 order 있어도, 언제든 가능.
@@ -173,7 +173,7 @@
                     adNo : this.adslist.adNo
                 },function (result) {
                     Vue.prototype.$eventBus.$emit('showAlert', 2104);
-                    MainRepository.MyAds.load();
+                    MainRepository.MyAds.load(() => {});
                 })
             },
             showDelete(){
@@ -189,7 +189,7 @@
             },
             closeDelete(){
                 this.showDeleteDialog = false
-                MainRepository.MyAds.load();
+                MainRepository.MyAds.load(() => {});
             },
 
         },

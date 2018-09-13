@@ -17,7 +17,7 @@
             <v-flex xs12 md2 :class="{'mb-3' : isMobile}">
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
-                    <div class="p-relative mb-0" >
+                    <div class="p-relative mb-0">
                         <select-box :selectBoxType="'signupCountry'" :editCountry="myAdList.nationality"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
@@ -28,7 +28,7 @@
             <v-flex xs12 md2 :class="{'mb-3' : isMobile}">
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
-                    <div class="p-relative mb-0" >
+                    <div class="p-relative mb-0">
                         <select-box :selectBoxType="'currency'" :editCurrency="myAdList.currency"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
@@ -39,7 +39,7 @@
             <v-flex xs12 md2 :class="{'mb-3' : isMobile}">
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("tradeType") }}</div>
-                    <div class="p-relative mb-0" >
+                    <div class="p-relative mb-0">
                         <select class="comp-selectbox h6" v-model="tradeType" :class="{'input-disabled2' : edit}">
                             <option value="buy">{{ $str("buyText") }}</option>
                             <option value="sell">{{ $str("sellText") }}</option>
@@ -77,7 +77,7 @@
                         </select>
                         <select-box :selectBoxType="'customToken'" v-else
                                     @customToken="selectCustomToken" :class="{'input-disabled2' : edit}"
-                                     :editCustomToken="myAdList.tokenNo"></select-box>
+                                    :editCustomToken="myAdList.tokenNo"></select-box>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
                 </div>
@@ -101,7 +101,8 @@
                     <div class="p-relative mb-3">
                         <select class="comp-selectbox h6" v-model="priceType" @change="onClear">
                             <option value="fixedprice">{{ $str("fixedPrice") }}</option>
-                            <option value="floatprice" v-if="cryptocurrencyType !== 'custom'">{{ $str("floatPrice") }}</option>     <!--custom token, 시장가 없음-->
+                            <option value="floatprice" v-if="cryptocurrencyType !== 'custom'">{{ $str("floatPrice") }}
+                            </option>     <!--custom token, 시장가 없음-->
                         </select>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -116,7 +117,7 @@
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
                         <div v-if="priceType === 'floatprice'"
                              class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
-                                <span class="tooltip-content">{{ $str("explainMargin") }}</span>
+                            <span class="tooltip-content">{{ $str("explainMargin") }}</span>
                         </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
@@ -231,7 +232,8 @@
                     </div>
                     <div class="price-input-wrapper mb-3 p-relative"
                          v-bind:class="{'warning-border' : warning_max_limit}">
-                        <input type="text" class="price-input" :placeholder="$str('minLimitPlaceholder') + (minLimit < getMinLimit ? getMinLimit : minLimit)"
+                        <input type="text" class="price-input"
+                               :placeholder="$str('minLimitPlaceholder') + (minLimit < getMinLimit ? getMinLimit : minLimit)"
                                @keyup="onNumberCheck('maxLimit')"
                                v-model="maxLimit">
                         <div class="border-indicator h6">
@@ -366,8 +368,8 @@
                 <div>
                     <div class="text-xs-left mb-2  h5 color-black" v-if="isMobile">{{ $str("autoReplyText") }}</div>
 
-                <textarea class="common-textarea textarea-wrapper" :placeholder="$str('autoReplyPlaceholder')"
-                          v-model="autoReply"></textarea>
+                    <textarea class="common-textarea textarea-wrapper" :placeholder="$str('autoReplyPlaceholder')"
+                              v-model="autoReply"></textarea>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -387,8 +389,9 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black " v-if="isMobile">{{ $str("termsTransactionText") }}
                     </div>
-                <textarea class="common-textarea textarea-wrapper" :placeholder="$str('termsTransactionPlaceholder')"
-                          v-model="termsOfTransaction"></textarea>
+                    <textarea class="common-textarea textarea-wrapper"
+                              :placeholder="$str('termsTransactionPlaceholder')"
+                              v-model="termsOfTransaction"></textarea>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -426,13 +429,13 @@
                 <div>
                     <!--고급 인증 미구현-->
                     <!--<div class="text-xs-left mb-4 vertical-center">-->
-                        <!--<input type="checkbox" id="first_condition_chkbox" v-model="counterpartyCheckbox_first"/>-->
-                        <!--<label for="first_condition_chkbox">-->
-                            <!--<span>-->
-                                <!--<i class="material-icons">done</i>-->
-                            <!--</span>-->
-                            <!--<h5 class="d-inline-block">{{ $str("counterpartyCheckbox1") }}</h5>-->
-                        <!--</label>-->
+                    <!--<input type="checkbox" id="first_condition_chkbox" v-model="counterpartyCheckbox_first"/>-->
+                    <!--<label for="first_condition_chkbox">-->
+                    <!--<span>-->
+                    <!--<i class="material-icons">done</i>-->
+                    <!--</span>-->
+                    <!--<h5 class="d-inline-block">{{ $str("counterpartyCheckbox1") }}</h5>-->
+                    <!--</label>-->
                     <!--</div>-->
                     <div class="text-xs-left mb-4 ">
                         <input type="checkbox" id="second_condition_chkbox" v-model="counterpartyCheckbox_second"/>
@@ -567,7 +570,6 @@
             initCheck: false,
 
 
-
             isVerified: false,
             warning_fixed_price: false,
             warning_float_price: false,
@@ -651,16 +653,20 @@
                 return MainRepository.SelectBox.controller().getCurrency();
             },
             getMarketPrice() {
-                let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                for (let i = 0; i < Object.keys(this.marketPrice).length; i++) {
-                    if (this.marketPrice[i].cryptocurrency === this.cryptocurrency && this.marketPrice[i].currency === tmp_currency) {
-                        //console.log(this.marketPrice[i]);
-                        let tmp_price = this.marketPrice[i].price;
-                        tmp_price = Math.floor(tmp_price * 100) / 100;
-                        this.tmpMarketPrice = tmp_price;
-                        return abUtils.toMoneyFormat(String(tmp_price));
-                        break;
+                if (this.cryptocurrencyType === 'general') {
+                    let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
+                    for (let i = 0; i < Object.keys(this.marketPrice).length; i++) {
+                        if (this.marketPrice[i].cryptocurrency === this.cryptocurrency && this.marketPrice[i].currency === tmp_currency) {
+                            //console.log(this.marketPrice[i]);
+                            let tmp_price = this.marketPrice[i].price;
+                            tmp_price = Math.floor(tmp_price * 100) / 100;
+                            this.tmpMarketPrice = tmp_price;
+                            return abUtils.toMoneyFormat(String(tmp_price));
+                            break;
+                        }
                     }
+                } else {
+                    return 0;
                 }
             },
             getMinLimit() {
@@ -689,13 +695,21 @@
                 return MainRepository.MyInfo.controller().findPaymentMethods('bankaccount');
             },
             getCryptoCurrency() {
-                if (this.cryptocurrency === 'bitcoin') {
-                    return 'BTC'
-                } else if (this.cryptocurrency === 'ethereum') {
-                    return 'ETH'
+                if (this.cryptocurrencyType === 'general') {
+                    if (this.cryptocurrency === 'bitcoin') {
+                        return 'BTC'
+                    } else if (this.cryptocurrency === 'ethereum') {
+                        return 'ETH'
+                    } else {
+                        return 'ALLB'
+                    }
                 } else {
-                    return 'ALLB'
+                    let tokenModel = MainRepository.MyToken.controller().findCustomToken(this.tokenNo,'no')
+                    if(tokenModel){
+                        return tokenModel.tokenName;
+                    }
                 }
+
             },
             getWallet() {
                 if (Object.keys(MainRepository.Wallet.getWallets()).length > 0) {
@@ -778,7 +792,7 @@
                         // 수정 모드 시 타이밍 이슈로 인한 체크값 설정
                         this.initCheck = true;
                     })
-                }else{
+                } else {
                     this.initCheck = true;
                 }
             },

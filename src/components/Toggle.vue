@@ -11,9 +11,14 @@
 <script>
     export default {
         name: "toggle",
-        props :['toggle'],
-        created () {
-            //console.log(this.toggle);
+        props :{
+            toggle: {
+                type: Boolean
+            }
+        },
+        data () {
+            return {
+            }
         },
         methods: {
             onToggle(item) {

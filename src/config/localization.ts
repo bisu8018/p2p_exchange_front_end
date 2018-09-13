@@ -2964,12 +2964,6 @@ const strings = new Map([
         CN: '请输入正确的邮箱验证编码',
         HK: '請輸入正確的Email編碼'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
     ['All Payments', {
         KOR: '모든 결제수단',
         ENG: 'All Payments',

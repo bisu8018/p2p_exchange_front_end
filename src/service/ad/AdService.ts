@@ -92,7 +92,10 @@ export default {
     },
     // Custom token trade
     getCustomTokenList: function (callback: any) {
-        AxiosService._requestWithUrlPram('trade/custom/token', 'GET', '',
+        let data = {
+          status : 'verified'
+        };
+        AxiosService._requestWithUrlPram('customtoken', 'GET', data,
             function (data: any) {
                 callback(data);
             },

@@ -1953,4 +1953,20 @@
         font-weight: bold;
     }
 
+
+    /*언어 드롭다운 (header, footer) */
+    .lang-menu > div{
+        padding : 8px 16px 8px 16px;
+        cursor: pointer;
+    }
+
+    .lang-menu > div:hover {
+        background-color: #f8f8fa;
+    }
+
+    .lang-menu > div:active {
+        background-color: #316ee4;
+        color: white
+    }
+
 </style>

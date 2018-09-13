@@ -76,15 +76,15 @@
             </button>
 
             <!--언어 설정시 dropdown box-->
-            <div class="dropup-content">
+            <div class="dropup-content lang-menu">
               <!-- 언어 list 버튼-->
-              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('ZH')">简体中文
+              <div  @click="changeLang('ZH')">简体中文
               </div>
-              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('HK')">繁體中文
+              <div  @click="changeLang('HK')">繁體中文
               </div>
-              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('EN')">English
+              <div  @click="changeLang('EN')">English
               </div>
-              <div class=" btn-blue-hover pr-3 pl-3 pt-2 pb-2 c-pointer" @click="changeLang('KO')">한국어
+              <div  @click="changeLang('KO')">한국어
               </div>
             </div>
           </div>
