@@ -36,6 +36,7 @@
         data: () => ({
             searchCustomToken : '',
             showProgress : false,
+            tokenNo : MainRepository.MyToken.getCustomTokenNo(),
         }),
         computed:{
           CustomTokenList(){
@@ -47,9 +48,18 @@
             MainRepository.TradeView.loadCustomTokenList(()=>{
                 this.showProgress = false;
             });
+            //새로고침해서 들어가지게 된 경우
+            this.checkReload();
 
         },
         methods: {
+            checkReload(){
+                if(MainRepository.MyToken.getCustomTokenNo() === -1){
+                    let tmpTokenNo = this.CustomTokenList[0].tokenNo;
+                    MainRepository.MyToken.getCustomTokenNo(tmpTokenNo)
+                }
+                console.log()
+            }
         }
     }
 </script>
