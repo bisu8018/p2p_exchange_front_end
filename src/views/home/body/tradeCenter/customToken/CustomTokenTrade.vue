@@ -4,16 +4,17 @@
       <h2 class="title">{{$str('Custom Token Trade')}}</h2>
       <v-divider></v-divider>
     </v-flex>
-    <v-flex xs12>
-      <h4 class="ml-2 p-relative" >
-        <div @click="showDropdown()">{{ selectedCustomToken}}
-        <i class="material-icons color-blue md-24 ">keyboard_arrow_down</i>
+    <v-flex xs12 text-md-left text-xs-center>
+      <h4 class="p-relative c-pointer mt-4a" >
+        <div @click.stop="showDropdown()" class="cs-flex">
+          <span class="mr-1">{{ selectedCustomToken}}</span>
+          <i class="material-icons color-blue md-24 ">keyboard_arrow_down</i>
         </div>
         <div class="dropdown-content scroll-space" v-if="isdropdown">
           <!-- 내 정보 list 버튼-->
           <div v-for="item in CustomTokenLists" class=" btn-blue-hover"
-               @click.stop="clickedTokenItem(item)">
-            {{item}}
+               @click.stop="clickedTokenItem(item.tokenName)">
+            {{item.tokenName}}
           </div>
         </div>
       </h4>
@@ -23,9 +24,11 @@
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
+    import TradeCenter from "../TradeCenter";
     export default {
         name: "CustomToken",
         components: {
+            TradeCenter
 
         },
         data: () => ({
@@ -35,11 +38,12 @@
         }),
         computed:{
             CustomTokenLists(){
-                return MainRepository.TradeView.getCustomTokenList().tokenName;
+                return MainRepository.TradeView.getCustomTokenList();
             }
         },
         created(){
             this.showProgress = true;
+            MainRepository.TradeView.loadCustomTokenList(()=>{})
 
 
         },
@@ -47,8 +51,9 @@
             showDropdown(){
               this.isdropdown = !this.isdropdown;
             },
-            clickedTokenItem(){
-
+            clickedTokenItem(item){
+              this.showDropdown();
+              this.selectedCustomToken = item;
             },
         }
     }
@@ -78,7 +83,6 @@
     border-radius: 2px;
     text-align: center;
     background-color: white;
-    left: -15px;
   }
   .dropdown-content > div{
     cursor: pointer;
@@ -86,7 +90,7 @@
     padding-left: 8px;
     padding-top: 8px;
     padding-bottom: 8px;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
   }
 </style>

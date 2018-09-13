@@ -3,8 +3,7 @@
         <v-flex pr-0 pl-0>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
-                      v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
-                      && orderStatus === '' && orderNo === '' && coinType === '' && orderType === '' && tradeType === '' && currency === ''">
+                      v-if="showPlaceholder">
                   {{$str("orderFilterPlaceholder")}}
                 </div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
@@ -30,10 +29,16 @@
                             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('orderNo')">close</i>
                         </v-layout>
                     </h6>
-                    <h6 class="statusChip" v-if="coinType != ''">
+                    <h6 class="statusChip" v-if="cryptocurrencyType != ''">
                         <v-layout align-center row fill-height>
-                            {{coinType}}
-                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('coinType')">close</i>
+                            {{$str(cryptocurrencyType)}}
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('cryptocurrencyType')">close</i>
+                        </v-layout>
+                    </h6>
+                    <h6 class="statusChip" v-if="cryptocurrency != ''">
+                        <v-layout align-center row fill-height>
+                            {{cryptocurrency}}
+                            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('cryptocurrency')">close</i>
                         </v-layout>
                     </h6>
                     <h6 class="statusChip" v-if="orderType != ''">
@@ -77,7 +82,7 @@
                             <option v-for="status in orderStatusList" v-bind:value="status.code">{{status.status}}
                             </option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
 
                     <!--주문 번호-->
@@ -87,15 +92,25 @@
                                v-model="modal_orderNo">
                     </div>
 
-                    <!--암호화폐 종류-->
-                    <div class="text-xs-left text-black mb-2">{{$str("Coin")}}</div>
+                    <!--암호화폐 타입-->
+                    <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrencyType")}}</div>
                     <div class="mb-4 p-relative">
-                        <select v-model="modal_coinType" class="comp-selectbox h6">
-                            <option value="BTC">BTC</option>
-                            <option value="ETH">ETH</option>
-                            <option value="ALLB">ALLB</option>
+                        <select v-model="modal_cryptocurrencyType" class="comp-selectbox h6">
+                            <option value="general">General Token</option>
+                            <option value="custom">Custom Token</option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                    </div>
+
+                    <!--암호화폐 종류-->
+                    <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrency")}}</div>
+                    <div class="mb-4 p-relative">
+                        <select class="comp-selectbox h6" v-model="modal_cryptocurrency">
+                            <option value="bitcoin">BTC</option>
+                            <option value="ethereum">ETH</option>
+                            <option value="allb">AllB</option>
+                        </select>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
 
                     <!--주문 종류-->
@@ -105,7 +120,7 @@
                             <option value="general">{{$str("general")}}</option>
                             <option value="block">{{$str("block")}}</option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
 
                     <!--거래 종류-->
@@ -115,7 +130,7 @@
                             <option value="buy">{{$str("buy")}}</option>
                             <option value="sell">{{$str("sell")}}</option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
 
                     <!--화폐 종류-->
@@ -126,7 +141,7 @@
                                 {{currency.currency}}
                             </option>
                         </select>
-                        <v-icon class="comp-selectbox-icon ">keyboard_arrow_down</v-icon>
+                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
 
                     <!-- cancel, search 버튼-->
@@ -178,7 +193,8 @@
             end_date: "",
             orderStatus: "",
             orderNo: "",
-            coinType: "",
+            cryptocurrencyType: "",
+            cryptocurrency: "",
             orderType: "",
             tradeType: "",
             currency: '',
@@ -186,7 +202,8 @@
             modal_end_date: "",
             modal_orderStatus: "",
             modal_orderNo: "",
-            modal_coinType: "",
+            modal_cryptocurrencyType: "",
+            modal_cryptocurrency: "",
             modal_orderType: "",
             modal_tradeType: "",
             modal_currency: '',
@@ -219,7 +236,6 @@
                 {currency: 'KHR'},
             ],
             tradeStatus: 'BUY',
-            tradeCoin: 'BTC',
 
         }),
         computed: {
@@ -229,6 +245,11 @@
             showDateChip(){
                 return (this.start_date !== undefined && this.start_date !== "")
                     &&(this.end_date !== undefined && this.end_date !== "");
+            },
+            showPlaceholder(){
+                return  (!this.showDateChip && this.orderStatus === '' && this.orderNo === '' &&
+                    this.cryptocurrency === ''&& this.cryptocurrencyType === '' &&
+                    this.orderType === '' &&  this.tradeType === '' && this.currency === '')
             }
         },
         methods: {
@@ -244,7 +265,8 @@
                         searchEndTime : this.modal_end_date,
                         status : this.modal_orderStatus,
                         orderNo : this.modal_orderNo,
-                        cryptocurrency : this.modal_coinType,
+                        cryptocurrencyType : this.modal_cryptocurrencyType,
+                        cryptocurrency : this.modal_cryptocurrency,
                         orderType : this.modal_orderType,
                         tradeType : this.modal_tradeType,
                         currency : this.modal_currency,
@@ -253,7 +275,8 @@
                 this.end_date = this.modal_end_date;
                 this.orderStatus = this.modal_orderStatus;
                 this.orderNo = this.modal_orderNo;
-                this.coinType = this.modal_coinType;
+                this.cryptocurrencyType = this.modal_cryptocurrencyType;
+                this.cryptocurrency = this.modal_cryptocurrency;
                 this.orderType = this.modal_orderType;
                 this.tradeType = this.modal_tradeType;
                 this.currency = this.modal_currency;
@@ -264,7 +287,8 @@
                 this.modal_end_date = "";
                 this.modal_orderStatus = "";
                 this.modal_orderNo = "";
-                this.modal_coinType = "";
+                this.modal_cryptocurrencyType = "";
+                this.modal_cryptocurrency = "";
                 this.modal_orderType = "";
                 this.modal_tradeType = "";
                 this.modal_currency = "";
@@ -276,7 +300,8 @@
                 this.modal_end_date = "";
                 this.modal_orderStatus = "";
                 this.modal_orderNo = "";
-                this.modal_coinType = "";
+                this.modal_cryptocurrencyType = "";
+                this.modal_cryptocurrency = "";
                 this.modal_orderType = "";
                 this.modal_tradeType = "";
                 this.modal_currency = "";
@@ -304,9 +329,13 @@
                         this.orderNo = '';
                         this.modal_orderNo = "";
                         break;
-                    case 'coinType':
-                        this.coinType = '';
-                        this.modal_coinType = "";
+                    case 'cryptocurrencyType':
+                        this.cryptocurrencyType = '';
+                        this.modal_cryptocurrencyType = "";
+                        break;
+                    case 'cryptocurrency':
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = "";
                         break;
                     case 'orderType':
                         this.orderType = '';
@@ -326,7 +355,8 @@
                     searchEndTime : this.modal_end_date,
                     status : this.modal_orderStatus,
                     orderNo : this.modal_orderNo,
-                    cryptocurrency : this.modal_coinType,
+                    cryptocurrencyType : this.modal_cryptocurrencyType,
+                    cryptocurrency : this.modal_cryptocurrency,
                     orderType : this.modal_orderType,
                     tradeType : this.modal_tradeType,
                     currency : this.modal_currency,
