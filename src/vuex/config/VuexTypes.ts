@@ -38,6 +38,7 @@ export enum VuexTypes {
     SET_TOTALCOUNT_DATA = 'trade/SET_TOTALCOUNT_DATA',
 
 
+
     //======================================
     //              MyTrade(My Ads & My Orders)
     // =====================================
@@ -119,4 +120,6 @@ export enum VuexTypes {
     // =====================================
     SET_MY_TOKEN = 'customToken/SET_MY_TOKEN',
     SET_CUSTOMTRADETOKEN_LIST = 'customToken/SET_CUSTOMTRADETOKEN_LIST',
+    //CustomTrade시 tokenNo 저장해 두기 위함
+    SET_CUSTOMTOKEN_NUMBER = 'customToken/SET_CUSTOMTOKEN_NUMBER',
 }

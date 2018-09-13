@@ -24,6 +24,14 @@ export default class CustomTokenController {
     getCustomTokenList() {
         return this.store.state.customToken.customTokenList;
     }
+    //CustomTrade시 tokenNo 저장해 두기 위함
+    setCustomTokenNo(tokenNo: Number) {
+        this.store.dispatch(VuexTypes.SET_CUSTOMTOKEN_NUMBER, tokenNo);
+    }
+
+    getCustomTokenNo() {
+        return this.store.state.customToken.tokenNo;
+    }
 
     //토큰 찾기   (type : no, name)
     // ex MainRepository.MyToken.controller().findCustomToken(this.customTokenNo, 'no').tokenName

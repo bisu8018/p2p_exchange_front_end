@@ -715,7 +715,8 @@ export default {
         },
         getCustomTokenList(){
             return customTokenController.getCustomTokenList();
-        }
+        },
+
 
 
     },
@@ -1251,7 +1252,13 @@ export default {
                 customTokenController.setCustomTokenList(customTokenList);
                 callback();
             })
-        }
+        },
+        setCustomTokenNo(tokenNo){
+            customTokenController.setCustomTokenNo(tokenNo);
+        },
+        getCustomTokenNo(){
+            return customTokenController.getCustomTokenNo();
+        },
     },
 
     router() {

@@ -99,26 +99,20 @@ export default class RouterController {
         });
     }
 
-        goCustomTokenSelect(){
-            /*
-                let r = this.router;
-                Vue.nextTick(function () {
-                    r.push('customTokenSelect');
-                });
-                */
-            Vue.prototype.$eventBus.$emit('showAlert', 9000);
+    goCustomTokenSelect(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push('customTokenSelect');
+        });
+    }
 
-        }
-
-        goCustomTokenTrade(){
-            /*
-                let r = this.router;
-                Vue.nextTick(function () {
-                    r.push('customTokenTrade');
-                });
-                */
-            Vue.prototype.$eventBus.$emit('showAlert', 9000);
-            }
+    goCustomTokenTrade(tokenNo){
+        let r = this.router;
+        MainRepository.MyToken.setCustomTokenNo(tokenNo);
+        Vue.nextTick(function () {
+            r.push('customTokenTrade');
+        });
+    }
 
     goMerchant() {
         let r = this.router;

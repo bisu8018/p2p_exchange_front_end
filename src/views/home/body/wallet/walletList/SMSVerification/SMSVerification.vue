@@ -115,8 +115,8 @@
               },
               onChange() {
                   let self = this;
-                  MainRepository.Balance.postWithdraw(this.verifyWithPhone, function (data){
-                      MainRepository.Balance.controller().processingTime = data.result.txTime;
+                  MainRepository.Wallet.postWithdraw(this.verifyWithPhone, function (data){
+                      MainRepository.Wallet.controller().processingTime = data.result.txTime;
                       self.$router.push("/successWithdraw");
                   });
               },

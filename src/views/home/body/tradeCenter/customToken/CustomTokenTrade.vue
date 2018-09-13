@@ -21,7 +21,7 @@
     </v-flex>
     <div>
       <trade-center
-              :message = "'general'"
+              :message = "'customToken'"
       ></trade-center>
     </div>
   </div>
@@ -48,6 +48,7 @@
         },
         created(){
             this.showProgress = true;
+
             MainRepository.TradeView.loadCustomTokenList(()=>{})
 
 

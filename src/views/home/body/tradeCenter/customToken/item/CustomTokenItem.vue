@@ -12,6 +12,7 @@
     <custom-token-description-dialog
             :description = item.description
             :tokenName = item.tokenName
+            :tokenNo = item.tokenNo
     ></custom-token-description-dialog>
   </v-layout>
 </template>
@@ -33,7 +34,7 @@
                 this.$eventBus.$emit('showCustomTokenDescriptionDialog', tokenName);
             },
             goCustomTokenTrade(){
-                MainRepository.router().goCustomTokenTrade();
+                MainRepository.router().goCustomTokenTrade(this.item.tokenNo);
             },
         },
     }

@@ -78,8 +78,8 @@
                 return;
             }
 
-            this.processingTime = MainRepository.Balance.controller().processingTime;
-            this.currentWithdraw = MainRepository.Balance.getWithdraw()
+            this.processingTime = MainRepository.Wallet.controller().processingTime;
+            this.currentWithdraw = MainRepository.Wallet.getWithdraw()
 
         },
         methods : {
