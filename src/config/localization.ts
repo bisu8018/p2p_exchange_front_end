@@ -1459,7 +1459,7 @@ const strings = new Map([
         HK: '細節'
     }],
     ['Transfer', {
-        KOR: '이체',
+        KOR: '전환',
         ENG: 'Transfer',
         CN: '转帐',
         HK: '轉帳'
@@ -3718,51 +3718,45 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['OTC Wallet', {
+        KOR: 'OTC 지갑',
+        ENG: 'OTC Wallet',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Exchange Wallet', {
+        KOR: '중앙거래소 지갑',
+        ENG: 'Exchange Wallet',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Total', {
+        KOR: 'Total',
+        ENG: 'Total',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Scan', {
+        KOR: '스캔',
+        ENG: 'Scan',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Payment', {
+        KOR: '결제',
+        ENG: 'Payment',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Fiat', {
+        KOR: '지폐',
+        ENG: 'Fiat',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Details', {
+        KOR: '세부사항',
+        ENG: 'Details',
         CN: '',
         HK: ''
     }],

@@ -1,13 +1,13 @@
 <template>
-  <v-layout class="tokenlist" align-center row fill-height>
-    <v-flex xs6 class="cs-flex">
+  <v-layout class="tokenlist" align-center row fill-height >
+    <v-flex xs8 md10 class="cs-flex c-pointer" @click="goCustomTokenTrade">
       <img class="symbol" :src="item.symbolImgUrl">
       <h4 class="medium">{{item.tokenName}}</h4>
     </v-flex>
-    <v-flex xs6 text-xs-right>
-                <span class="btn-rounded-white c-pointer text-white-hover" @click="onDescription(item.tokenName)">
-                  {{$str('Description')}}
-                </span>
+    <v-flex xs4 md2 text-xs-right>
+      <span class="btn-rounded-white c-pointer text-white-hover" @click="onDescription(item.tokenName)">
+        {{$str('Description')}}
+      </span>
     </v-flex>
     <custom-token-description-dialog
             :description = item.description
@@ -18,6 +18,7 @@
 
 <script>
     import CustomTokenDescriptionDialog from "../dialog/CustomTokenDescriptionDialog"
+    import MainRepository from "../../../../../../vuex/MainRepository"
     export default {
         name: "CustomTokenItem",
         components: {
@@ -30,7 +31,10 @@
         methods: {
             onDescription(tokenName){
                 this.$eventBus.$emit('showCustomTokenDescriptionDialog', tokenName);
-            }
+            },
+            goCustomTokenTrade(){
+                MainRepository.router().goCustomTokenTrade();
+            },
         },
     }
 </script>

@@ -105,6 +105,13 @@ export default class RouterController {
         });
     }
 
+    goCustomTokenTrade(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            r.push('customTokenTrade');
+        });
+    }
+
     goMerchant() {
         let r = this.router;
         Vue.nextTick(function () {

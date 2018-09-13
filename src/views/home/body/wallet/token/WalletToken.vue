@@ -7,17 +7,17 @@
       <v-flex md6 xs10 order-md1 order-xs1 class="mb-24 cs-flex">
         <button @click="selectTokentype('Coin')" class="color-darkgray"
                 v-bind:class="{'tokentype-active' : selectedTokenType === 'Coin'}"
-        >Coin</button>
+        >{{$str("Coin")}}</button>
 
         <div class="selectDivider"></div>
         <button @click="selectTokentype('CustomToken')" class="color-darkgray"
                 v-bind:class="{'tokentype-active' : selectedTokenType === 'CustomToken'}"
-        >Custom Token</button>
+        >{{$str("Custom Token")}}</button>
 
         <div class="selectDivider"></div>
         <button @click="selectTokentype('Fiat')" class="color-darkgray"
                 v-bind:class="{'tokentype-active' : selectedTokenType === 'Fiat'}"
-        >Fiat</button>
+        >{{$str("Fiat")}}</button>
       </v-flex>
       <v-flex md2 xs12 order-md2 order-xs4>
         <div class=" vertical-center p-relative">
@@ -38,7 +38,7 @@
           <span class="dropbtn p-relative" @click="showDropdown('menuType')">
             <i class="material-icons color-darkgray" v-bind:class="{'increase-z-index' : isdropdown.menuType}">menu</i>
             <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown.menuType">
-              <div class=" btn-blue-hover" @click="goDetails()" >Details</div>
+              <div class=" btn-blue-hover" @click="goDetails()" >{{$str("Details")}}</div>
             </div>
           </span>
       </v-flex>
@@ -165,6 +165,7 @@
       border: solid 1px #b2b2b2;
       right: 0px;
       left: auto !important;
+      min-width: 80px;
     }
   }
 

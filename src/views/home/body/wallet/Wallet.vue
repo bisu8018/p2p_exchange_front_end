@@ -7,15 +7,15 @@
     <div class="balance-wrapper" >
       <div  class="balance-width flex-padding-web">
         <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')" v-bind:class="{'increase-z-index' : isdropdown.walletType}">
-          {{selectedWallet}}
+          {{$str(selectedWallet)}}
           <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
             <div class="dropdown-content dropdown-wallet" v-if="isdropdown.walletType">
-              <div class=" btn-blue-hover" @click.stop="clickWallet('OTC Wallet')" >OTC Wallet</div>
-              <div class=" btn-blue-hover" @click.stop="clickWallet('Exchange Wallet')">Exchange Wallet</div>
+              <div class=" btn-blue-hover" @click.stop="clickWallet('OTC Wallet')" >{{$str("OTC Wallet")}}</div>
+              <div class=" btn-blue-hover" @click.stop="clickWallet('Exchange Wallet')">{{$str("Exchange Wallet")}}</div>
             </div>
         </div>
         <h6 class="text-total">
-          Total
+          {{$str("Total")}}
         </h6>
         <v-layout mt-2 align-center justify-center fill-height @click="showDropdown('currencyType')">
           <h1>{{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</h1>
@@ -37,17 +37,17 @@
           <div v-if="isMobile" class="toolTap-wrapper-mobile">
             <div class="toolTap-scan" @click="onScan()">
               <div class="sprite-img2 ic-wallet-scanning toolTap-img"></div>
-              <h5 class="mt-2">Scan</h5>
+              <h5 class="mt-2">{{$str("Scan")}}</h5>
             </div>
             <div class="toolTap-payment" @click="onPayment()">
               <div class="sprite-img2 ic-barcode toolTap-img"></div>
-              <h5 class="mt-2">Payment</h5>
+              <h5 class="mt-2">{{$str("Payment")}}</h5>
             </div>
           </div>
           <div class="toolTap-transfer" @click="onTransfer()">
             <div class="sprite-img2 ic-wallet-transfer toolTap-img"></div>
             <div class="mt-2">
-              Transfer
+              {{$str("Transfer")}}
             </div>
           </div>
         </v-layout>
