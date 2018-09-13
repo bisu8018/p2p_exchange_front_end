@@ -1,4 +1,5 @@
 export default class TradeFilter {
+    tokenNo : number;
     type: string;
     nationality : string;
     currency: string;
@@ -11,6 +12,7 @@ export default class TradeFilter {
     size : number;
 
     constructor (data: any) {
+        this.tokenNo = data.tokenNo ||'';
         this.type = data.type ||'general';
         this.nationality = data.nationality || 'ALL';
         this.currency = data.currency || 'CNY';
@@ -24,6 +26,7 @@ export default class TradeFilter {
     }
 
     update (data: any){
+        if(data.tokenNo !==undefined && data.tokenNo !==null) this.tokenNo = data.tokenNo;
         if(data.type !==undefined && data.type !==null) this.type = data.type;
         if(data.nationality !==undefined && data.nationality !==null) this.nationality = data.nationality;
         if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;

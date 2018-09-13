@@ -115,7 +115,8 @@
                         break;
 
                     case 'CustomToken':
-                        this.selectedTokenType = type
+                        this.$eventBus.$emit('showAlert', 9000);
+                        //this.selectedTokenType = type
                         break;
 
                     case 'Fiat':

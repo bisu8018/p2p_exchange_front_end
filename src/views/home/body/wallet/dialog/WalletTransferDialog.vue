@@ -167,6 +167,7 @@
             },
             onTransfer(){
               //post axios call
+                this.$eventBus.$emit('showAlert', 9000);
             },
             onFrom(){
                 if(this.FromData ==='OTC Account'){

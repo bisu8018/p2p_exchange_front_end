@@ -138,7 +138,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4102 : this.show(this.type.Warning, "", this.$str('warn_changeStatusDisable')); break;       // disable 상태 변경 필요
 
                     // 준비중
-                    case 9000 : this.show(this.type.Warning, "", this.$str('It\'s under development now.')); break;       // 진행중인 거래 존재
+                    case 9000 : this.show(this.type.Warning, "", this.$str('It\'s under development now.')); break;       // 개발중입니다.
 
 
 
