@@ -33,8 +33,8 @@
         <v-flex xs6 md2 mb-4>
           <div class="p-relative">
             <select v-model="selectedTradeType" class="comp-selectbox o-none h6">
-              <option class="o-none">{{$str("buy")}}</option>
-              <option class="o-none">{{$str("sell")}}</option>
+              <option value="Buy" class="o-none">{{$str("Buy")}}</option>
+              <option value="Sell" class="o-none">{{$str("Sell")}}</option>
             </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
           </div>
@@ -119,7 +119,7 @@
         data() {
             return {
                 selectedCryptocurrency : 'BTC',
-                selectedTradeType : Vue.prototype.$str('Buy'),
+                selectedTradeType : 'Buy',
                 amount : '',
                 currentLang : abGetLang(),
             }
