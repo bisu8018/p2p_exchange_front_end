@@ -11,7 +11,7 @@
       <v-layout row wrap class="statusBox">
         <div class="color-darkgray  p-relative  ma-2 d-inline-block"
              v-if=" (start_date === '' || start_date === undefined) && (end_date === '' || end_date === undefined)
-                && selectedType === '' && coin === ''">
+                && selectedType === '' && cryptocurrency === ''">
           {{$str("walletDetailsFilterPlaceholder")}}</div>
         <div class="statusChip" v-if="start_date != ''">
           <v-layout align-center row fill-height>
@@ -25,10 +25,10 @@
             <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('type')">close</i>
           </v-layout>
         </div>
-        <div class="statusChip" v-if="coin != ''">
+        <div class="statusChip" v-if="cryptocurrency != ''">
           <v-layout align-center row fill-height>
-            {{coin}}
-            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('coin')">close</i>
+            {{cryptocurrency}}
+            <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete('cryptocurrency')">close</i>
           </v-layout>
         </div>
         <!-- 필터 펼치기 버튼 -->
@@ -61,11 +61,11 @@
               <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
             </div>
           </v-flex>
-          <!-- Coin 셀렉터-->
-          <v-flex xs12 text-xs-left class="cardText" >{{$str("Coin")}}</v-flex>
+          <!-- cryptocurrency 셀렉터-->
+          <v-flex xs12 text-xs-left class="cardText" >{{$str("cryptoCurrency")}}</v-flex>
           <v-flex xs12 >
             <div class="p-relative">
-              <select v-model="modal_coin"  class="comp-selectbox">
+              <select v-model="modal_cryptocurrency"  class="comp-selectbox">
                 <option v-for="token in tokens" v-bind:value="token.name" >{{token.name}}</option>
               </select>
               <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
@@ -97,7 +97,7 @@
     <!-- 표의 header들은 Web일때만 보여짐 -->
     <v-layout mb-3 color-darkgray>
       <v-flex  md2 text-md-left>{{$str("Type")}}</v-flex>
-      <v-flex  md2 text-md-left>{{$str("Coin")}}</v-flex>
+      <v-flex  md2 text-md-left>{{$str("cryptoCurrency")}}</v-flex>
       <v-flex  md2 text-md-left>{{$str("time")}}</v-flex>
       <v-flex  md2 text-md-right>{{$str("amount")}}</v-flex>
       <v-flex  md2 text-md-right>{{$str("status")}}</v-flex>
@@ -155,11 +155,11 @@
             start_date: "",
             end_date: "",
             selectedType : '',
-            coin: '',
+            cryptocurrency: '',
             modal_start_date: "",
             modal_end_date: "",
             modal_selectedType: "",
-            modal_coin: "",
+            modal_cryptocurrency: "",
             clear: null,
             isModal: false,
             isAmout : true,
@@ -180,7 +180,8 @@
         computed: {
             isMobile() {
                 return MainRepository.State.isMobile();
-            },detailLists(){
+            },
+            detailLists(){
                 return MainRepository.Wallet.getWalletHistories();
             },
             haveItems(){
@@ -197,8 +198,8 @@
                 MainRepository.Wallet.updateHistoryPage({
                     cryptocurrency: urlParam,
                 });
-                this.coin = urlParam;
-                this.modal_coin = urlParam;
+                this.cryptocurrency = urlParam;
+                this.modal_cryptocurrency = urlParam;
             }
 
             MainRepository.MarketPrice.load(() => {
@@ -240,7 +241,7 @@
                 this.modal_start_date = ""
                 this.modal_end_date = ""
                 this.modal_selectedType = ""
-                this.modal_coin = ""
+                this.modal_cryptocurrency = ""
             },
             onSearch(){
                 //Axios 태우기
@@ -248,12 +249,12 @@
                     searchStartTime : this.modal_start_date,
                     searchEndTime : this.modal_end_date,
                     type : this.modal_selectedType,
-                    cryptocurrency : this.modal_coin,
+                    cryptocurrency : this.modal_cryptocurrency,
                 });
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
                 this.selectedType = this.modal_selectedType;
-                this.coin = this.modal_coin;
+                this.cryptocurrency = this.modal_cryptocurrency;
                 this.isModal = false;
             },
             chipDelete (type) {
@@ -268,16 +269,16 @@
                         this.selectedType = '';
                         this.modal_selectedType = ''
                         break;
-                    case 'coin':
-                        this.coin = '';
-                        this.modal_coin = '';
+                    case 'cryptocurrency':
+                        this.cryptocurrency = '';
+                        this.modal_cryptocurrency = '';
                         break;
                 }
                 MainRepository.Wallet.updateHistoryPage({
                     searchStartTime : this.modal_start_date,
                     searchEndTime : this.modal_end_date,
                     type : this.modal_selectedType,
-                    cryptocurrency : this.modal_coin,
+                    cryptocurrency : this.modal_cryptocurrency,
                 });
             },
         }

@@ -142,7 +142,7 @@
 
             },
             goDetails(){
-                MainRepository.router().goWalletDetail();
+                MainRepository.router().goWalletDetail('');
             },
         }
     }

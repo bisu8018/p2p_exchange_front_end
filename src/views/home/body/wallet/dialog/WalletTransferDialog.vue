@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show">
+  <v-dialog v-model="show" persistent>
     <div class="cs-flex mb-3">
       <!--header-->
       <div class=" h4 bold text-xs-left">
@@ -128,13 +128,15 @@
         }),
         computed:{
             isGeneralCoin(){
-                return  (MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin')
+                return  (this.cryptocurrencyType ==='General Coin')
             },
             tokenNo(){
               if(!this.isGeneralCoin && this.cryptocurrency !== ''){
                   this.currentToken = MainRepository.MyToken.controller().findCustomToken(this.cryptocurrency, 'name')
-                  console.log(this.currentToken.tokenNo)
                   return this.currentToken.tokenNo
+              }
+              else{
+                  return -1
               }
             },
             ToValue :{
@@ -165,6 +167,9 @@
                 this.Volume = MainRepository.Wallet.getStatus().Volume;
                 this.show = true;
             });
+
+        },
+        updated(){
         },
         beforeDestroy(){
           this.initData();
@@ -208,7 +213,7 @@
 
             selectCustomToken(customToken) {
                 let self = this
-                if(customToken !== undefined){
+                if(customToken !== undefined && customToken !== -1){
                     let tokenNo = MainRepository.SelectBox.controller().getCustomToken();
                     self.cryptocurrency = MainRepository.MyToken.controller().findCustomToken(tokenNo, 'no').tokenName
                 }

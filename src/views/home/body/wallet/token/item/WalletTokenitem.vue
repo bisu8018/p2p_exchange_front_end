@@ -178,7 +178,7 @@
                 this.$eventBus.$emit('showTransferDialog');
             },
             showDetails(){
-                MainRepository.router().goWalletDetail(this.item.cryptocurrency);
+                MainRepository.router().goWalletDetail(this.tokenName);
             },
 
         }
