@@ -3766,9 +3766,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['No more item', {
+        KOR: '해당 결과 없음',
+        ENG: 'No more item',
         CN: '',
         HK: ''
     }],

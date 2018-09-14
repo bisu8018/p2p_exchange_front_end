@@ -190,6 +190,16 @@ export default {
         controller(): WalletController {
             return walletController;
         },
+        //두 cryprocurrencyType의 지갑 모두 불러오기 위함.
+        load(callback: any){
+            //general 일때
+            this.loadWallets(()=>{})
+            //custom 일때
+            this.loadCustomTokenWallets(()=>{
+                callback();
+            })
+        },
+        //general Coin
         loadWallets: function (callback: any) {
             WalletService.getWallets({
                 email: instance.MyInfo.getUserInfo().email
@@ -201,6 +211,20 @@ export default {
         getWallets: function () {
             return walletController.getWallets();
         },
+        //Custom Token
+        loadCustomTokenWallets: function (callback: any) {
+            WalletService.getCustomTokenWallets({
+                email: instance.MyInfo.getUserInfo().email
+            }, (result) => {
+                walletController.setCustomTokenWallet(result);
+                callback();
+            })
+        },
+
+        getCustomTokenWallets: function () {
+            return walletController.getCustomTokenWallet();
+        },
+
         setSecurityWallets: function (callback: any) {
             WalletService.getMySecurityBalance({
                 email: instance.MyInfo.getUserInfo().email
@@ -233,19 +257,21 @@ export default {
                 })
         },
         //Transfer
-        updateTransfer: function (data: any) {
-            walletController.updateTransfer(data)
+        initStatus: function () {
+            walletController.updateStatus({
+                cryptocurrencyType : 'General Coin',
+                cryptocurrency :'',
+                From :'OTC Account',
+                To : 'Exchange Account',
+                Volume : '',
+                currency : 'CNY'
+            })
         },
-        getTransfer: function () {
-            return walletController.getTransfer();
+        updateStatus: function (data: any) {
+            walletController.updateStatus(data)
         },
-
-        //currency
-        setCurrency: function (data: any) {
-            walletController.setWithdrawCurrency(data)
-        },
-        getCurrency: function () {
-            return walletController.getWithdrawCurrency();
+        getStatus: function () {
+            return walletController.getStatus();
         },
 
         //Wallet history

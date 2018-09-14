@@ -6,12 +6,12 @@
     <v-layout mt-4a row wrap fill-height align-center>
       <v-flex md6 xs10 order-md1 order-xs1 class="mb-24 cs-flex">
         <button @click="selectTokentype('Coin')" class="color-darkgray"
-                v-bind:class="{'tokentype-active' : selectedTokenType === 'Coin'}"
+                v-bind:class="{'tokentype-active' : selectedTokenType === 'General Coin'}"
         >{{$str("Coin")}}</button>
 
         <div class="selectDivider"></div>
         <button @click="selectTokentype('CustomToken')" class="color-darkgray"
-                v-bind:class="{'tokentype-active' : selectedTokenType === 'CustomToken'}"
+                v-bind:class="{'tokentype-active' : selectedTokenType === 'Custom Token'}"
         >{{$str("Custom Token")}}</button>
 
         <div class="selectDivider"></div>
@@ -48,9 +48,9 @@
       <div class="cs-roundborder">
         <div  v-for="item in wallets" >
           <!--좌우 padding 맞춰주기 위해 사용.-->
-          <wallet-token-list
+          <wallet-token-item
                   :item = "item"
-          ></wallet-token-list>
+          ></wallet-token-item>
           <v-divider></v-divider>
         </div>
       </div>
@@ -59,15 +59,15 @@
 </template>
 
 <script>
-    import WalletTokenList from "./item/WalletTokenList"
+    import WalletTokenItem from "./item/WalletTokenitem"
     import MainRepository from "../../../../../vuex/MainRepository";
     export default {
         name: "WalletToken",
         components: {
-            WalletTokenList,
+            WalletTokenItem,
         },
         data: () => ({
-            selectedTokenType : 'Coin',
+            selectedTokenType : 'General Coin',
             isChecked : false,        //hide small에 을 check 한지 여부
             searchToken : '',
             isdropdown : {
@@ -80,20 +80,33 @@
             },
             selectedCurrency: {
                 get() {
-                    return MainRepository.Wallet.getCurrency();
+                    return MainRepository.Wallet.getStatus().currency;
                 },
                 set(value) {
-                    MainRepository.Wallet.setCurrency(value)
+                    MainRepository.Wallet.updateStatus({currency : value})
                     //this.selectedCurrencyData = value;
                 }
             },
             wallets() {
-                return MainRepository.Wallet.getWallets();
+                //general coin 일때
+                if(MainRepository.Wallet.getStatus().cryptocurrencyType ==='General Coin'){
+                    return MainRepository.Wallet.getWallets();
+                }
+                //custom token 일때
+                else{
+                    return MainRepository.Wallet.getCustomTokenWallets();
+                }
+
             },
 
         },
+        watch: {
+            searchToken: function (value) {
+                //this.CustomTokenListData = MainRepository.MyToken.controller().findCustomTokenList(value);
+            },
+        },
         created() {
-
+            MainRepository.Wallet.initStatus()
         },
         methods: {
             toMoneyFormat(value) {
@@ -111,12 +124,11 @@
             selectTokentype(type){
                 switch (type) {
                     case 'Coin':
-                        this.selectedTokenType = type;
+                        this.selectedTokenType = 'General Coin';
                         break;
 
                     case 'CustomToken':
-                        this.$eventBus.$emit('showAlert', 9000);
-                        //this.selectedTokenType = type
+                        this.selectedTokenType = 'Custom Token'
                         break;
 
                     case 'Fiat':
@@ -124,10 +136,10 @@
                         //this.selectedTokenType = type
                         break;
                 }
-                MainRepository.Wallet.updateTransfer({
+                MainRepository.Wallet.updateStatus({
                     cryptocurrencyType : this.selectedTokenType
                 })
-                //여기서 axios call 하는 service 추가 필요.
+
             },
             goDetails(){
                 MainRepository.router().goWalletDetail();

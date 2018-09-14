@@ -61,9 +61,6 @@
         },
         methods: {
             //새로고침시 동작하게 하면 됨
-            leaving(){
-              this.$router.replace('/customTokenTrade?'+this.tokenNo);
-            },
             showDropdown(){
               this.isdropdown = !this.isdropdown;
             },
@@ -71,8 +68,11 @@
               this.showDropdown();
               this.selectedCustomToken = item.tokenName;
               this.tokenNo = item.tokenNo;
+
               MainRepository.MyToken.setCustomTokenNo(item.tokenNo);
               MainRepository.TradeView.load(()=>{});
+              //계속 url을 업데이트 쳐줘야하므로 router push를 함.
+              MainRepository.router().goCustomTokenTrade(item.tokenNo);
             },
         }
     }

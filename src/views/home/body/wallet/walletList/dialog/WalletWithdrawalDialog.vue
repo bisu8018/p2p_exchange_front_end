@@ -4,7 +4,7 @@
       <div class="cs-flex mb-3">
         <!--header-->
         <div class=" h4 bold text-xs-left">
-          {{getCryptoName(cryptocurrency) }} {{$str("withdraw")}}
+          {{tokenName}} {{$str("withdraw")}}
         </div>
         <v-spacer></v-spacer>
         <i class="material-icons color-black c-pointer" @click="onClose">close</i>
@@ -40,7 +40,7 @@
           <input name="amount" v-model="amount" type="text" class="input"
                  v-bind:class="{'warning-border' : warning_amount}"
                  @blur="onCheckAmount" autocomplete="off" >
-          <span class="crypto-text">{{getCryptoName(cryptocurrency) }}</span>
+          <span class="crypto-text">{{tokenName}}</span>
           <div class="warning-text-wrapper">
             <p class="d-none" v-bind:class="{'warning-text' : warning_amount}">
               {{text_warning_amount}}</p>
@@ -60,7 +60,7 @@
         <div class="p-relative">
           <input name="fee" v-model="fee" type="text" class="input"
                  autocomplete="off" disabled>
-          <span class="crypto-text">{{getCryptoName(cryptocurrency) }}</span>
+          <span class="crypto-text">{{tokenName}}</span>
         </div>
       </div>
       <div class="cs-flex">
@@ -71,7 +71,7 @@
         <div class="p-relative">
           <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
                  autocomplete="off" disabled>
-          <span class="crypto-text">{{getCryptoName(cryptocurrency) }}</span>
+          <span class="crypto-text">{{tokenName}}</span>
         </div>
       </div>
       <div class="text-xs-right">
@@ -89,9 +89,9 @@
         {{$str("tips")}}
       </h6>
       <h6 class="color-darkgray text-xs-left mb-3">
-        {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{getCryptoName(cryptocurrency) }}
+        {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{tokenName}}
       </h6>
-      <h6 v-if="getCryptoName(cryptocurrency)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
+      <h6 v-if="getCryptoName(tokenName)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
         {{$str("withdrawtipsETH1")}}<br>
         {{$str("withdrawtipsETH2")}}<br>
         {{$str("withdrawtipsETH3")}}
@@ -111,7 +111,7 @@
     export default {
         name: "WalletWithdrawalDialog",
         props :{
-            cryptocurrency : {
+            tokenName : {
                 type: String,
                 default : ''
             },
@@ -120,9 +120,7 @@
             show : false,
             confirm : false,
             qrCodeImgUrl: '',
-            minAmount : '',
             amount : '',
-            fee : 0,
             address : '',
 
             text_warning_address: "",
@@ -138,37 +136,55 @@
                 }
                 return (this.amount - this.fee);
             },
+            fee(){
+                switch (this.tokenName) {
+                    case 'bitcoin':
+                    case 'BTC':
+                        return 0.001
+
+                    case 'ethereum':
+                    case 'ETH':
+                        return  0.05
+
+                    case 'allb':
+                    case 'ALLB':
+                        return 0
+                    default: return 0
+                }
+            },
+            minAmount(){
+                switch (this.tokenName) {
+                    case 'bitcoin':
+                    case 'BTC':
+                        return 0.01
+
+                    case 'ethereum':
+                    case 'ETH':
+                        return  0.05
+
+                    case 'allb':
+                    case 'ALLB':
+                        return 0
+                    default: return 0
+                }
+            }
         },
         created(){
-            this.$eventBus.$on('showWithdrawDialog', (cryptocurrency) => {
-                if(this.cryptocurrency === cryptocurrency){
+            this.$eventBus.$on('showWithdrawDialog', (tokenName) => {
+                if(this.tokenName === tokenName){
                     this.show = true;
                 }
             });
         },
-        mounted(){
-            switch (this.cryptocurrency) {
-                case 'bitcoin':
-                case 'BTC':
-                    this.fee = 0.001
-                    this.minAmount = 0.01
-                    break;
-
-                case 'ethereum':
-                case 'ETH':
-                    this.fee = 0.05
-                    this.minAmount = 0.05
-                    break;
-
-                case 'allb':
-                case 'ALLB':
-                    this.fee = 0
-                    this.minAmount = 0
-                    break;
-            }
-        },
         methods: {
+            initData(){
+                this.minAmount = ''
+                this.amount = ''
+                this.fee = 0
+                this.address = ''
+            },
             onClose: function () {
+                this.initData();
                 this.show = false;
             },
             onCheckAddress(){
@@ -199,7 +215,7 @@
                   MainRepository.Wallet.setWithdraw({
                       addressTo : this.address,
                       amount : this.amount,
-                      cryptocurrency : this.cryptocurrency,
+                      cryptocurrency : this.getCryptoName(this.tokenName),
                       fee : this.fee,
                       ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
                       receiveAmount : this.receiveAmount
@@ -211,13 +227,16 @@
                 switch (cryptocurrency) {
                     case 'bitcoin':
                     case 'BTC':
-                        return 'BTC';
+                        return 'bitcoin';
                     case 'ethereum':
                     case 'ETH':
-                        return 'ETH';
+                        return 'ethereum';
                     case 'allb':
                     case 'ALLB':
-                        return 'ALLB';
+                        return 'allb';
+
+                    default:
+                        return cryptocurrency;
                 }
             },
         },

@@ -27,8 +27,8 @@
               <div class="dropdown-content scroll-space" v-if="isdropdown.currencyType">
                 <!-- 내 정보 list 버튼-->
                 <div v-for="currency in currencyLists" class=" btn-blue-hover"
-                     @click.stop="clickedCurrency(currency.name)">
-                  {{currency.name}}
+                     @click.stop="clickedCurrency(currency.code)">
+                  {{currency.code}}
                 </div>
               </div>
           </h4>
@@ -65,10 +65,10 @@
 <script>
     import WalletToken from "./token/WalletToken"
     import MainRepository from "../../../../vuex/MainRepository";
-    import WalletTokenList from "./token/item/WalletTokenList"
+    import WalletTokenList from "./token/item/WalletTokenitem"
     import WalletTransferDialog from "./dialog/WalletTransferDialog"
     import {abUtils} from "../../../../common/utils";
-    import Common from "../../../../service/common/CommonService";
+    import SelectBox from "../../../../vuex/model/SelectBox";
 
     export default {
         name: "Wallet",
@@ -85,26 +85,7 @@
             amount : '',
             //selectedCurrencyData : 'CNY',
             selectedWallet : 'OTC Wallet',
-            selectedTokenType : 'Coin',
-            searchToken : '',
-            currencyLists : [
-                {name : 'CNY'},
-                {name : 'USD'},
-                {name : 'SGD'},
-                {name : 'INR'},
-                {name : 'CAD'},
-                {name : 'KRW'},
-                {name : 'CHF'},
-                {name : 'TWD'},
-                {name : 'RUB'},
-                {name : 'GBP'},
-                {name : 'HKD'},
-                {name : 'EUR'},
-                {name : 'NGN'},
-                {name : 'IDR'},
-                {name : 'PHP'},
-                {name : 'KHR'},
-            ],
+            currencyLists : SelectBox.currencies(),
             EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
             walletInterval: {},
@@ -116,16 +97,13 @@
             },
             selectedCurrency: {
                 get() {
-                    return MainRepository.Wallet.getCurrency();
+                    return MainRepository.Wallet.getStatus().currency;
                 },
                 set(value) {
-                    MainRepository.Wallet.setCurrency(value)
+                    MainRepository.Wallet.updateStatus({currency : value})
                     //this.selectedCurrencyData = value;
                     this.loadTotalEstimatedValue();
                 }
-            },
-            wallets() {
-                return MainRepository.Wallet.getWallets();
             },
 
         },
@@ -135,24 +113,25 @@
                 MainRepository.router().goLogin();
                 return;
             }
-
             // 최초 1회
             MainRepository.MarketPrice.load(() => {
-                MainRepository.Wallet.loadWallets(() => {       //wallet 정보 load
+                //general Coin일때.
+                MainRepository.Wallet.load(() => {       //wallet 정보 load
                     this.loadTotalEstimatedValue();           //wallet load후 내 총 잔고 계산
                 });
 
             });
+            // 5초에 1번씩 불러옴
             this.walletInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
-                    MainRepository.Wallet.loadWallets(() => {
+                    //generalcoin 잔고
+                    MainRepository.Wallet.load(() => {
                         this.loadTotalEstimatedValue();
                     });
-                    MainRepository.Wallet.loadHistory(() => {});       //History도 5초에 1번씩 불러오게 추가.
                 });
+                //History 내역.
+                MainRepository.Wallet.loadHistory(() => {});
             }, 5000);
-
-
         },
         mounted() {
 
@@ -180,43 +159,21 @@
                 this.$eventBus.$emit('showAlert', 9000);
             },
             onTransfer(){
-                MainRepository.Wallet.updateTransfer({
-                    cryptocurrencyType : this.selectedTokenType,
+                MainRepository.Wallet.updateStatus({
                     cryptocurrency : '',
                 })
                 this.$eventBus.$emit('showTransferDialog');
             },
-            selectTokentype(type){
-                switch (type) {
-                    case 'Coin':
-                        this.selectedTokenType = type;
-                        break;
-
-                    case 'CustomToken':
-                        this.selectedTokenType = type
-                        break;
-
-                    case 'Fiat':
-                        this.$eventBus.$emit('showAlert', 9000);
-                        //this.selectedTokenType = type
-                        break;
-                }
-                MainRepository.Wallet.updateTransfer({
-                    cryptocurrencyType : this.selectedTokenType
-                })
-                //여기서 axios call 하는 service 추가 필요.
-            },
-
 
             clickedCurrency(item){
-                MainRepository.Wallet.setCurrency(item);
+                MainRepository.Wallet.updateStatus({currency: item});
                 this.showDropdown('currencyType');
 
             },
             clickWallet(item){
                 this.selectedWallet = item;
                 //Exchange wallet 백단 작업완료시 page의 모든 값 reset하는 작업 필요
-                MainRepository.Wallet.updateTransfer({
+                MainRepository.Wallet.updateStatus({
                     From : item
                 })
                 this.showDropdown('walletType');
