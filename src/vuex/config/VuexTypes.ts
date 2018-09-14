@@ -23,6 +23,7 @@ export enum VuexTypes {
     SET_CURRENCY_DATA = 'selectbox/SET_CURRENCY_DATA',
     SET_PAYMENET_DATA = 'selectbox/SET_PAYMENET_DATA',
     SET_CUSTOM_TOKEN_DATA = 'selectbox/SET_CUSTOM_TOKEN_DATA',
+    SET_GENERAL_TOKEN_DATA = 'selectbox/SET_GENERAL_TOKEN_DATA',
 
 
     //======================================
@@ -121,7 +122,19 @@ export enum VuexTypes {
     //              Custom Token
     // =====================================
     SET_MY_TOKEN = 'customToken/SET_MY_TOKEN',
-    SET_CUSTOMTRADETOKEN_LIST = 'customToken/SET_CUSTOMTRADETOKEN_LIST',
-    //CustomTrade시 tokenNo 저장해 두기 위함
+    SET_CUSTOMTRADETOKEN_LIST = 'customToken/SET_CUSTOMTRADETOKEN_LIST',    //CustomTrade시 tokenNo 저장해 두기 위함
     SET_CUSTOMTOKEN_NUMBER = 'customToken/SET_CUSTOMTOKEN_NUMBER',
+
+
+    //======================================
+    //              General Token
+    // =====================================
+    SET_GENERAL_TOKEN_LIST = 'generalToken/SET_GENERAL_TOKEN_LIST',
+
+
+
+
+
+
+
 }

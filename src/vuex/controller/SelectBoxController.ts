@@ -36,12 +36,21 @@ export default class SelectBoxController {
     }
 
     // select box custom token
-    setCustomToken(customToken: string){
+    setCustomToken(customToken: number){
         this.store.dispatch(VuexTypes.SET_CUSTOM_TOKEN_DATA, customToken);
     }
 
     getCustomToken() {
         return this.store.state.selectBox.customToken;
+    }
+
+    // select box custom token
+    setGeneralToken(generalToken: number){
+        this.store.dispatch(VuexTypes.SET_GENERAL_TOKEN_DATA, generalToken);
+    }
+
+    getGeneralToken() {
+        return this.store.state.selectBox.generalToken;
     }
 
     onClear(){

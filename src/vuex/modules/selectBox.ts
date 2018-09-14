@@ -16,6 +16,9 @@ const mutations = {
     [VuexTypes.SET_CUSTOM_TOKEN_DATA](state: any, customToken: string) {
         state.customToken = customToken;
     },
+    [VuexTypes.SET_GENERAL_TOKEN_DATA](state: any, generalToken: string) {
+        state.customToken = generalToken;
+    },
 
 };
 
@@ -31,8 +34,11 @@ const actions = {
     [VuexTypes.SET_PAYMENET_DATA](store: any, payment: string) {
         store.commit(VuexTypes.SET_PAYMENET_DATA, payment);
     },
-    [VuexTypes.SET_CUSTOM_TOKEN_DATA](store: any, customToken: string) {
+    [VuexTypes.SET_CUSTOM_TOKEN_DATA](store: any, customToken: number) {
         store.commit(VuexTypes.SET_CUSTOM_TOKEN_DATA, customToken);
+    },
+    [VuexTypes.SET_GENERAL_TOKEN_DATA](store: any, generalToken: number) {
+        store.commit(VuexTypes.SET_GENERAL_TOKEN_DATA, generalToken);
     },
 };
 
@@ -43,13 +49,15 @@ const getters = {};
 let nationality: string = 'ALL';
 let currency: string = 'CNY';
 let payment: string = 'ALL';
-let customToken: string = '';
+let customToken: number = 0;
+let generalToken: number = 0;
 
 const state = {
     nationality: nationality,
     currency: currency,
     payment: payment,
-    customToken: customToken
+    customToken: customToken,
+    generalToken: generalToken
 };
 
 export default {

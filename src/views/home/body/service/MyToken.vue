@@ -488,8 +488,10 @@
                     tradePassword : this.tradePassword
                 }, result => {
                     //다음 페이지 이동
-                    MainRepository.router().goMyToken();
-                    Vue.prototype.$eventBus.$emit('showAlert', 2004);
+                    MainRepository.MyToken.getMytoken(() => {
+                        MainRepository.router().goMyToken();
+                        Vue.prototype.$eventBus.$emit('showAlert', 2004);
+                    });
 
                 }, err => {
                     return false;

@@ -12,6 +12,7 @@ import MarketPriceController from "@/vuex/controller/MarketPriceController";
 import AccountController from "@/vuex/controller/AccountController";
 import MsgAvatarController from "@/vuex/controller/MsgAvatarController";
 import CustomTokenController from "@/vuex/controller/CustomTokenController";
+import GeneralTokenController from "@/vuex/controller/GeneralTokenController";
 
 import AccountService from "@/service/account/AccountService";
 import TradeService from "@/service/trade/TradeService";
@@ -59,6 +60,7 @@ import ChatSubscribe from "@/vuex/model/ChatSubscribe";
 import ChatMembers from "@/vuex/model/ChatMembers";
 import customTokenService from "@/service/customToken/customTokenService";
 import CustomToken from "@/vuex/model/CustomToken";
+import GeneralToken from "@/vuex/model/GeneralToken";
 
 let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -75,6 +77,7 @@ let msgAvatarController: MsgAvatarController;
 let messageController: MessageController;
 let chatController: ChatController;
 let customTokenController: CustomTokenController;
+let generalTokenController: GeneralTokenController;
 
 let store: Store<any>;
 let instance: any;
@@ -96,6 +99,7 @@ export default {
         messageController = new MessageController(store);
         chatController = new ChatController(store);
         customTokenController = new CustomTokenController(store);
+        generalTokenController = new GeneralTokenController(store);
 
         // 자기 참조할 때 씀
         marketPriceController = new MarketPriceController(store);
@@ -143,10 +147,10 @@ export default {
                 });
                 self.MarketPrice.load(() => {
                 });
-                self.MyToken.getMytoken(()=> {
-                });
                 self.MyInfo.loadMyPaymentMethods(() => {
-                    callback();
+                    self.MyToken.getMytoken(()=> {
+                        callback();
+                    });
                 });
 
             },
@@ -744,9 +748,6 @@ export default {
         getCustomTokenList(){
             return customTokenController.getCustomTokenList();
         },
-
-
-
     },
     SelectBox: {
         controller(): SelectBoxController {
@@ -1281,12 +1282,30 @@ export default {
                 callback();
             })
         },
+        setGeneralTokenList(callback: any){
+            AdService.setGeneralTokenList((data)=>{
+                let result = data;
+                let generalTokenList: GeneralToken[] = [];
+                for (let key in result) {
+                    //한 itemlist를 model화 시켜 다시 list에 넣어줌
+                    let item: GeneralToken = new GeneralToken(result[key]);
+                    generalTokenList.push(item);
+                }
+                generalTokenController.setGeneralTokenList(generalTokenList);
+                callback();
+            })
+        },
         setCustomTokenNo(tokenNo){
             customTokenController.setCustomTokenNo(tokenNo);
         },
         getCustomTokenNo(){
             return customTokenController.getCustomTokenNo();
         },
+    },
+    GeneralToken: {
+      controller () {
+          return generalTokenController;
+      }  ,
     },
 
     router() {
