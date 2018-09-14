@@ -34,8 +34,7 @@
         </option>
       </select>
       <select-box v-else :selectBoxType="'customToken'"
-                  @customToken="selectCustomToken" :editCustomToken="cryptocurrency"
-                  :class="{'input-disabled2' : (modal_cryptocurrencyType === '')}">
+                  @customToken="selectCustomToken" :editCustomToken="tokenNo">
       </select-box>
       <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
     </div>
@@ -104,6 +103,7 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import WalletStatus from "../../../../../vuex/model/WalletStatus";
     import SelectBox from '@/components/SelectBox.vue';
+    import CustomToken from "../../../../../vuex/model/CustomToken";
 
     export default {
         name: "WalletTransferDialog",
@@ -118,6 +118,7 @@
             ToData : '',
             Volume : '',
             clickToAll: true,
+            currentToken : new CustomToken(''),
             cryptocurrencyList : [
                 {name : 'BTC', fullname: 'bitcoin'},
                 {name : 'ETH', fullname: 'ethereum'},
@@ -128,6 +129,13 @@
         computed:{
             isGeneralCoin(){
                 return  (MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin')
+            },
+            tokenNo(){
+              if(!this.isGeneralCoin && this.cryptocurrency !== ''){
+                  this.currentToken = MainRepository.MyToken.controller().findCustomToken(this.cryptocurrency, 'name')
+                  console.log(this.currentToken.tokenNo)
+                  return this.currentToken.tokenNo
+              }
             },
             ToValue :{
                 get(){
