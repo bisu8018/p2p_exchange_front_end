@@ -100,6 +100,7 @@
             MainRepository.Wallet.initStatus()
         },
         methods: {
+            
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
             },

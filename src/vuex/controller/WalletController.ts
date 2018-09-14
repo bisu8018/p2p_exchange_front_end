@@ -54,7 +54,6 @@ export default class WalletController {
             this.getWallets().find(function (element) {
                 let compared =  self.transCryptocurrencyName(element.cryptocurrency);
                 if( compared.indexOf(value) > -1){
-                    console.log('push'+element.cryptocurrency)
                     tokenList.push(element);
                 }
             });
@@ -65,7 +64,6 @@ export default class WalletController {
             this.getCustomTokenWallet().find(function (element) {
                 let compared =  element.tokenName;
                 if( compared.indexOf(value) > -1){
-                    console.log('push'+element.tokenName)
                     tokenList.push(element);
                 }
             });
