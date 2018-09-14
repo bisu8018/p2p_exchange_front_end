@@ -129,8 +129,6 @@
                         this.loadTotalEstimatedValue();
                     });
                 });
-                //History 내역.
-                MainRepository.Wallet.loadHistory(() => {});
             }, 5000);
         },
         mounted() {

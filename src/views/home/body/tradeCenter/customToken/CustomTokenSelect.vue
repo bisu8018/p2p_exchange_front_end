@@ -28,7 +28,7 @@
           {{$str("No more item")}}
         </div>
       </v-flex>
-      <!--customToen을 불러오기위한 dummy 태그-->
+      <!--customToken을 불러오기위한 dummy 태그-->
       <div v-if="CustomTokenList"></div>
     </div>
 </template>

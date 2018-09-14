@@ -46,7 +46,7 @@
     <!--Tokenitems-->
     <v-flex>
       <div class="cs-roundborder">
-        <div  v-for="item in wallets" >
+        <div  v-for="item in walletListData" >
           <!--좌우 padding 맞춰주기 위해 사용.-->
           <wallet-token-item
                   :item = "item"
@@ -55,6 +55,8 @@
         </div>
       </div>
     </v-flex>
+    <!--wallet을 불러오기위한 dummy 태그-->
+    <div v-if="wallets"></div>
   </div >
 </template>
 
@@ -72,7 +74,8 @@
             searchToken : '',
             isdropdown : {
                 menuType: false
-            }
+            },
+            walletListData: []
         }),
         computed: {
             isMobile() {
@@ -88,22 +91,10 @@
                 }
             },
             wallets() {
-                //general coin 일때
-                if(MainRepository.Wallet.getStatus().cryptocurrencyType ==='General Coin'){
-                    return MainRepository.Wallet.getWallets();
-                }
-                //custom token 일때
-                else{
-                    return MainRepository.Wallet.getCustomTokenWallets();
-                }
-
+                //search input에 해당하는 token만 보여주는 상태.
+                this.walletListData = MainRepository.Wallet.controller().findWalletsByName(this.searchToken, this.selectedTokenType);
             },
 
-        },
-        watch: {
-            searchToken: function (value) {
-                //this.CustomTokenListData = MainRepository.MyToken.controller().findCustomTokenList(value);
-            },
         },
         created() {
             MainRepository.Wallet.initStatus()
@@ -136,6 +127,7 @@
                         //this.selectedTokenType = type
                         break;
                 }
+                this.searchToken = '';
                 MainRepository.Wallet.updateStatus({
                     cryptocurrencyType : this.selectedTokenType
                 })
