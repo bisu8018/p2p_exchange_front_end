@@ -90,7 +90,7 @@ export default class MyTradeFilter {
                 return 'ethereum'
 
             default:
-                return ''
+                return cryptocurrency
         }
     }
 

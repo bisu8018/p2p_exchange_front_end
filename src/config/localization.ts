@@ -3766,6 +3766,12 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['No more item', {
+        KOR: '해당 결과 없음',
+        ENG: 'No more item',
+        CN: '',
+        HK: ''
+    }],
     ['landingSubj_1', {
         KOR: '최고의 블록체인 기반 OTC 거래 플랫폼, AllB OTC!',
         ENG: 'The First Blockchain based OTC platform, AllB OTC!',
@@ -3856,30 +3862,7 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
-        HK: ''
-    }],
+
 
 
 

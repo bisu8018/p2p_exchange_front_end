@@ -20,6 +20,14 @@ export default class WalletController {
     getWallet() {
         return this.store.state.wallet.walletList;
     }
+    //custom token
+    setCustomTokenWallet(walletData: any) {
+        this.store.dispatch(VuexTypes.SET_WALLET_CUSTOMTOEKN, walletData);
+    }
+
+    getCustomTokenWallet() {
+        return this.store.state.wallet.customWalletList;
+    }
 
     getWallets() {
         return this.store.state.wallet.walletList;
@@ -60,18 +68,11 @@ export default class WalletController {
         return this.store.state.wallet.withdraw
     }
 
-    setWithdrawCurrency(currency : any){
-        this.store.dispatch(VuexTypes.SET_WALLET_CURRENCY, currency);
+    updateStatus(data: any){
+        this.store.dispatch(VuexTypes.UPDATE_WALLET_STATUS, data);
     }
-
-    getWithdrawCurrency(){
-        return this.store.state.wallet.currency
-    }
-    updateTransfer(data: any){
-        this.store.dispatch(VuexTypes.UPDATE_WALLET_TRANSFER, data);
-    }
-    getTransfer(){
-        return this.store.state.wallet.transfer;
+    getStatus(){
+        return this.store.state.wallet.walletStatus;
     }
 
     //history

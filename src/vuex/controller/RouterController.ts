@@ -88,28 +88,28 @@ export default class RouterController {
     goGeneralTrade() {
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('generalTrade');
+            r.push('/generalTrade');
         });
     }
 
     goBlockTrade() {
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('blockTrade');
+            r.push('/blockTrade');
         });
     }
 
     goCustomTokenSelect(){
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('customTokenSelect');
+            r.push('/customTokenSelect');
         });
     }
 
     goCustomTokenTrade(tokenNo){
         let r = this.router;
         Vue.nextTick(function () {
-            r.push('customTokenTrade?'+tokenNo);
+            r.push('/customTokenTrade?'+tokenNo);
         });
     }
 
@@ -202,6 +202,8 @@ export default class RouterController {
             case 'ethereum':
                 code = 'ETH';
                 break;
+            default:
+                code = cryptoCurrency;
         }
         let r = this.router;
         Vue.nextTick(function () {

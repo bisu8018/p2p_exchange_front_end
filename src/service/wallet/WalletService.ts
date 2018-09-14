@@ -17,6 +17,14 @@ export default {
             function () {
             })
     },
+    getCustomTokenWallets : function (data: any, callback: any) {
+        AxiosService._requestWithUrlPram('balance/customtoken', 'GET', data ,
+            function (data: any) {
+                callback(data)
+            },
+            function () {
+            })
+    },
     postWithdraw: function (method: any, data: any, callback: any) {
         AxiosService._requestWithPramAndBodyAndEmail('deposit/withdraw', 'POST', method, data ,
             function (data: any) {

@@ -225,8 +225,11 @@
             onEndDate(value) {
                 this.modal_end_date = value;
             },
-            selectCustomToken(tokenNo) {
-                this.tokenNo = tokenNo;
+            selectCustomToken(customToken) {
+                let self = this
+                if(customToken !== undefined){
+                    self.modal_cryptocurrency = MainRepository.MyToken.controller().findCustomToken(customToken, 'no').tokenName
+                }
             },
             transTypeFullName(name){
                 if(name ==='general'){
@@ -249,7 +252,7 @@
                     case 'allb':
                         return 'AllB'
                     default:
-                        return ''
+                        return name;
                 }
             },
             onSearch() {

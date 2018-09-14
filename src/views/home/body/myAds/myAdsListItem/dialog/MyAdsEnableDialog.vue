@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show">
+  <v-dialog v-model="show" persistent>
     <div class="cs-flex mb-4">
       <!--header-->
       <div class=" h4 bold text-xs-left">

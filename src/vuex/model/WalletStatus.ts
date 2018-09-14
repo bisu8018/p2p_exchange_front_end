@@ -1,9 +1,10 @@
-export default class WalletTransfer {
+export default class WalletStatus {
     cryptocurrencyType : string;
     cryptocurrency: string;
     From : string;
     To: string;
     Volume: string;
+    currency: string;
 
     constructor (data: any) {
         this.cryptocurrencyType = data.cryptocurrencyType ||'General Coin';
@@ -11,13 +12,15 @@ export default class WalletTransfer {
         this.From = data.From || 'OTC Account';
         this.To = data.To || 'Exchange Account';
         this.Volume = data.Volume || '';
+        this.currency = data.currency || 'CNY';
     }
     update(data: any){
-        if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = this.transTokenType(data.cryptocurrencyType);
+        if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = data.cryptocurrencyType;
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.From !==undefined && data.From !==null) this.From = this.setToFrom(data.From);
         if(data.To !==undefined && data.To !==null) this.To = data.To;
         if(data.Volume !==undefined && data.Volume !==null) this.Volume = data.Volume;
+        if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;
     }
 
     setToFrom(From: any){
@@ -42,22 +45,11 @@ export default class WalletTransfer {
 
             case 'ALLB':
             case 'allb':
-
+                return 'AllB'
             default:
-                return 'ALLB'
+                return cryptocurrency
         }
     }
 
-    transTokenType(data: any){
-        if(data ==='Coin'){
-            return 'General Coin'
-        }
-        else if (data ==='CustomToken'){
-            return 'Custom Token'
-        }
-        else{
-            return '';
-        }
-    }
 
 }

@@ -44,5 +44,18 @@ export default class CustomTokenController {
         });
         return token;
     }
+
+    // name기반으로 customtokenList 찾기.
+    findCustomTokenList(value) {
+        let tokenList:CustomToken[] = []
+        this.getCustomTokenList().find(function (element) {
+            let compared =  element.tokenName;
+            if( compared.indexOf(value) > -1){
+                console.log('push'+element.tokenName)
+                tokenList.push(element);
+            }
+        });
+        return tokenList;
+    }
 }
 

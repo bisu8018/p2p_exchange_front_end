@@ -10,6 +10,16 @@ export default class Wallet {
     frozenAmount : number;
     walletAddress : string;
     btcAmount: number;
+    //CustomToken
+    registerMemberNo: number;
+    modifyMemberNo: number;
+    tokenNo: number;
+    tokenName: string;
+    mainnetYn: boolean;
+    symbolImgUrl: string;
+    decimalCount: number;
+
+
 
     constructor (data: any) {
         this.ownerMemberNo = 0;
@@ -23,6 +33,14 @@ export default class Wallet {
         this.frozenAmount = Number(data.frozenAmount) || 0;
         this.walletAddress = data.walletAddress || '';
         this.btcAmount = data.btcAmount || 0;
+        //CustomToken
+        this.registerMemberNo = data.registerMemberNo || 0;
+        this.modifyMemberNo = data.modifyMemberNo || 0;
+        this.tokenNo = data.tokenNo || -1;
+        this.tokenName = data.tokenName || '';
+        this.mainnetYn = data.mainnetYn;
+        this.symbolImgUrl = data.symbolImgUrl;
+        this.decimalCount = data.decimalCount;
     }
 
     calcTo(currency: CurrencyType): number {
@@ -39,5 +57,6 @@ export default class Wallet {
         return (this.ownerMemberNo === undefined)
     }
 }
+
 
 

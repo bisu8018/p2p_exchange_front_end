@@ -4,7 +4,7 @@ import Withdraw from "@/vuex/model/Withdraw";
 import WalletHistory from "@/vuex/model/WalletHistory";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
 import Order from "@/vuex/model/Order";
-import WalletTransfer from "@/vuex/model/WalletTransfer";
+import WalletStatus from "@/vuex/model/WalletStatus";
 
 
 const mutations = {
@@ -14,6 +14,14 @@ const mutations = {
             state.walletList.push(new Wallet(data[key]));
         }
     },
+    //customToken wallet list
+    [VuexTypes.SET_WALLET_CUSTOMTOEKN](state: any, data: any) {
+        state.customWalletList = [];
+        for(let key in data) {
+            state.customWalletList.push(new Wallet(data[key]));
+        }
+    },
+
     [VuexTypes.SET_WITHDRAW_DATA] (state: any, withdraw: Withdraw) {
         state.withdraw = withdraw;
     },
@@ -27,13 +35,9 @@ const mutations = {
     [VuexTypes.UPDATE_WALLETHISTORYFILTER_DATA] (state: any, data: any) {
         state.walletHistoryFilter.update(data);
     },
-    //currency 선택
-    [VuexTypes.SET_WALLET_CURRENCY] (state: any, currency: any) {
-        state.currency = currency;
-    },
-    //Transfer update
-    [VuexTypes.UPDATE_WALLET_TRANSFER] (state: any, data: any) {
-        state.transfer.update(data);
+    //Status update
+    [VuexTypes.UPDATE_WALLET_STATUS] (state: any, data: any) {
+        state.walletStatus.update(data);
     },
 
 };
@@ -43,6 +47,11 @@ const actions = {
     [VuexTypes.SET_WALLET_DATA](context: any, data: any) {
         context.commit(VuexTypes.SET_WALLET_DATA, data)
     },
+    //customToken wallet list
+    [VuexTypes.SET_WALLET_CUSTOMTOEKN](context: any, data: any) {
+        context.commit(VuexTypes.SET_WALLET_CUSTOMTOEKN, data)
+    },
+
     [VuexTypes.SET_WITHDRAW_DATA](context: any, withdraw: Withdraw) {
         context.commit(VuexTypes.SET_WITHDRAW_DATA, withdraw)
     },
@@ -57,13 +66,9 @@ const actions = {
     [VuexTypes.UPDATE_WALLETHISTORYFILTER_DATA](context: any, data: object) {
         context.commit(VuexTypes.UPDATE_WALLETHISTORYFILTER_DATA, data)
     },
-    //currency 선택
-    [VuexTypes.SET_WALLET_CURRENCY](context: any, data: object) {
-        context.commit(VuexTypes.SET_WALLET_CURRENCY, data)
-    },
-    //Transfer 선택
-    [VuexTypes.UPDATE_WALLET_TRANSFER](context: any, data: object) {
-        context.commit(VuexTypes.UPDATE_WALLET_TRANSFER, data)
+    //Update
+    [VuexTypes.UPDATE_WALLET_STATUS](context: any, data: object) {
+        context.commit(VuexTypes.UPDATE_WALLET_STATUS, data)
     },
 
 };
@@ -72,19 +77,19 @@ const getters = {
 };
 
 let walletList: Wallet[] = [];
+let customWalletList: Wallet[] = [];
 let withdraw = new Withdraw('');
 let walletHistoryList:WalletHistory[]  = [];
 let walletHistoryFilter = new MyTradeFilter('');
-let currency = 'CNY'
-let transfer = new WalletTransfer('');
+let walletStatus = new WalletStatus('');
 
 const state = {
     walletList: walletList,
+    customWalletList : customWalletList,
     withdraw : withdraw,
     walletHistoryList : walletHistoryList,
     walletHistoryFilter : walletHistoryFilter,
-    currency : currency,
-    transfer : transfer,
+    walletStatus : walletStatus,
 };
 export default {
     namespaced: false,

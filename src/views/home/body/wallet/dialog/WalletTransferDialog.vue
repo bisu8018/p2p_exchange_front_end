@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show">
+  <v-dialog v-model="show" persistent>
     <div class="cs-flex mb-3">
       <!--header-->
       <div class=" h4 bold text-xs-left">
@@ -28,11 +28,14 @@
       <div class="text-xs-left">{{$str("Cryptocurrrency")}}</div>
     </div>
     <div class="mt-2 mb-4 p-relative">
-      <select class="comp-selectbox h6" v-model="cryptocurrency">
-        <option v-for="cryptocurencyItem in cryptocurrencyList" v-bind:value="cryptocurencyItem.name">
+      <select v-if="isGeneralCoin" class="comp-selectbox h6" v-model="cryptocurrency">
+        <option  v-for="cryptocurencyItem in cryptocurrencyList" v-bind:value="cryptocurencyItem.name">
           {{cryptocurencyItem.name}}
         </option>
       </select>
+      <select-box v-else :selectBoxType="'customToken'"
+                  @customToken="selectCustomToken" :editCustomToken="tokenNo">
+      </select-box>
       <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
     </div>
     <!-- 3. From 창-->
@@ -98,10 +101,15 @@
 
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
-    import WalletTransfer from "../../../../../vuex/model/WalletTransfer";
+    import WalletStatus from "../../../../../vuex/model/WalletStatus";
+    import SelectBox from '@/components/SelectBox.vue';
+    import CustomToken from "../../../../../vuex/model/CustomToken";
 
     export default {
         name: "WalletTransferDialog",
+        components: {
+            SelectBox
+        },
         data: () => ({
             show : false,
             cryptocurrencyType : '',
@@ -110,6 +118,7 @@
             ToData : '',
             Volume : '',
             clickToAll: true,
+            currentToken : new CustomToken(''),
             cryptocurrencyList : [
                 {name : 'BTC', fullname: 'bitcoin'},
                 {name : 'ETH', fullname: 'ethereum'},
@@ -118,6 +127,18 @@
 
         }),
         computed:{
+            isGeneralCoin(){
+                return  (this.cryptocurrencyType ==='General Coin')
+            },
+            tokenNo(){
+              if(!this.isGeneralCoin && this.cryptocurrency !== ''){
+                  this.currentToken = MainRepository.MyToken.controller().findCustomToken(this.cryptocurrency, 'name')
+                  return this.currentToken.tokenNo
+              }
+              else{
+                  return -1
+              }
+            },
             ToValue :{
                 get(){
                     return this.ToData;
@@ -139,13 +160,16 @@
         },
         created(){
             this.$eventBus.$on('showTransferDialog', () => {
-                this.cryptocurrencyType = MainRepository.Wallet.getTransfer().cryptocurrencyType;
-                this.cryptocurrency = MainRepository.Wallet.getTransfer().cryptocurrency;
-                this.FromValue = MainRepository.Wallet.getTransfer().From;
-                this.ToValue = MainRepository.Wallet.getTransfer().To;
-                this.Volume = MainRepository.Wallet.getTransfer().Volume;
+                this.cryptocurrencyType = MainRepository.Wallet.getStatus().cryptocurrencyType;
+                this.cryptocurrency = MainRepository.Wallet.getStatus().cryptocurrency;
+                this.FromValue = MainRepository.Wallet.getStatus().From;
+                this.ToValue = MainRepository.Wallet.getStatus().To;
+                this.Volume = MainRepository.Wallet.getStatus().Volume;
                 this.show = true;
             });
+
+        },
+        updated(){
         },
         beforeDestroy(){
           this.initData();
@@ -159,6 +183,7 @@
                 this.Volume = '';
             },
             onClose: function () {
+                this.initData()
                 this.show = false;
             },
             fillAll(){
@@ -185,6 +210,15 @@
                     this.FromData = 'OTC Account'
                 }
             },
+
+            selectCustomToken(customToken) {
+                let self = this
+                if(customToken !== undefined && customToken !== -1){
+                    let tokenNo = MainRepository.SelectBox.controller().getCustomToken();
+                    self.cryptocurrency = MainRepository.MyToken.controller().findCustomToken(tokenNo, 'no').tokenName
+                }
+            },
+
         },
     }
 </script>

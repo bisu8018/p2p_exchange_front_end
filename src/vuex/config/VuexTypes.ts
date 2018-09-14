@@ -78,8 +78,10 @@ export enum VuexTypes {
     //               Wallet (구 Balance)
     // =====================================
     SET_WALLET_DATA = 'wallet/SET_WALLET_DATA',
-    SET_WALLET_CURRENCY = 'wallet/SET_WALLET_CURRENCY',
-    UPDATE_WALLET_TRANSFER = 'wallet/UPDATE_WALLET_TRANSFER',
+    SET_WALLET_CUSTOMTOEKN = 'wallet/SET_WALLET_CUSTOMTOEKN',
+
+    //wallet의 상태값 저장
+    UPDATE_WALLET_STATUS = 'wallet/UPDATE_WALLET_STATUS',
 
     SET_WITHDRAW_DATA = 'wallet/SET_WITHDRAW_DATA',
     //WalletHistory

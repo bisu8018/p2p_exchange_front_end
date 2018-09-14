@@ -36,6 +36,7 @@ export default class WalletHistory {
 
             case 'ethereum':
                 return 'ETH'
+            default: return cryptocurrency;
         }
     }
 
