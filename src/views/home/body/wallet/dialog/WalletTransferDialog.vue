@@ -201,7 +201,8 @@
             selectCustomToken(customToken) {
                 let self = this
                 if(customToken !== undefined){
-                    self.cryptocurrency = MainRepository.SelectBox.controller().getCustomToken();
+                    let tokenNo = MainRepository.SelectBox.controller().getCustomToken();
+                    self.cryptocurrency = MainRepository.MyToken.controller().findCustomToken(tokenNo, 'no').tokenName
                 }
             },
 

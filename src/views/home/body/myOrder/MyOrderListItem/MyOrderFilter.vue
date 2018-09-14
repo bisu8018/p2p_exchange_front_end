@@ -264,7 +264,7 @@
             selectCustomToken(customToken) {
                 let self = this
                 if(customToken !== undefined){
-                    self.customTokenNo = MainRepository.SelectBox.controller().getCustomToken();
+                    self.modal_cryptocurrency = MainRepository.MyToken.controller().findCustomToken(customToken, 'no').tokenName
                 }
             },
             onSearch() {
@@ -396,7 +396,7 @@
                     case 'allb':
                         return 'AllB'
                     default:
-                        return ''
+                        return name
                 }
             }
         },
