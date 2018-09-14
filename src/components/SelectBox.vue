@@ -1,12 +1,24 @@
 <template>
     <v-layout wrap align-center>
-        <div class="p-relative selectbox-width">
-            <select  v-model="selected"
-                     @change="setting()"
+
+        <!--토큰 리스트 로딩-->
+        <div class="p-relative"
+             v-if="selectBoxType === 'customToken' && customTokens.length === 0 || selectBoxType === 'generalToken'  && generalTokens.length === 0">
+            <input type="text" class="input c-progress" placeholder="Loading . . ." readonly/>
+            <v-progress-circular indeterminate class="color-blue progress-circular-selectbox"></v-progress-circular>
+        </div>
+
+        <!--셀렉트 박스-->
+        <div class="p-relative selectbox-width" v-else>
+            <select v-model="selected"
+                    @change="setting()"
                     class="o-none comp-selectbox h6">
                 <option v-for="data in getList" class="o-none "
-                        v-bind:value=" selectBoxType === 'customToken' ? data.tokenNo : data.code">
-                    {{ selectBoxType === 'customToken' ?
+                        v-bind:value="
+                        selectBoxType === 'customToken' || selectBoxType === 'generalToken' ?
+                        data.tokenNo : data.code">
+
+                    {{ selectBoxType === 'customToken' || selectBoxType === 'generalToken' ?
                     data.tokenName : (data.value ? data.value : data.code) }}
                 </option>
             </select>
@@ -22,14 +34,10 @@
         name: 'selectBox',
         props: {
             'selectBoxType': {type: String, default: 'country'},        //country, currency, payment, phone, customToken
-
-            // 수정 모드
-            'editCountry': {type: String, default: ''},
-            'editCurrency': {type: String, default: ''},
-            'editCustomToken': {type: Number},
+            'editValue': ''    // 수정 모드, 데이터
         },
         data: () => ({
-            selected : '',
+            selected: '',
 
             //SelectBox.ts import
             signupCountries: SelectBox.signupCountries(),
@@ -38,29 +46,33 @@
             payments: SelectBox.payments(),
             phones: SelectBox.phones(),
             customTokens: [],
+            generalTokens: [],
         }),
-        computed : {
-          getList () {
-              switch (this.selectBoxType) {
-                  case 'country' :
-                      return this.countries;
+        computed: {
+            getList() {
+                switch (this.selectBoxType) {
+                    case 'country' :
+                        return this.countries;
 
-                  case 'signupCountry' :
-                      return this.signupCountries;
+                    case 'signupCountry' :
+                        return this.signupCountries;
 
-                  case 'currency' :
-                      return this.currencies;
+                    case 'currency' :
+                        return this.currencies;
 
-                  case 'customToken' :
-                      return this.customTokens;
+                    case 'customToken' :
+                        return this.customTokens;
 
-                  case 'payment' :
-                      return this.payments;
+                    case 'generalToken' :
+                        return this.generalTokens;
 
-                  case 'phone' :
-                      return this.phones;
-              }
-          }
+                    case 'payment' :
+                        return this.payments;
+
+                    case 'phone' :
+                        return this.phones;
+                }
+            }
         },
         created() {
             this.$nextTick(() => {
@@ -80,8 +92,8 @@
                         break;
 
                     case 'signupCountry' :
-                        if (this.editCountry !== '') {
-                            this.selected = this.editCountry;
+                        if (this.editValue) {
+                            this.selected = this.editValue;
                             this.setting();
                         } else {
                             let _country = MainRepository.SelectBox.controller().getCountry();
@@ -90,8 +102,8 @@
                         break;
 
                     case 'currency' :
-                        if (this.editCurrency !== '') {
-                            this.selected = this.editCurrency;
+                        if (this.editValue) {
+                            this.selected = this.editValue;
                             this.setting();
                         } else {
                             this.selected = MainRepository.SelectBox.controller().getCurrency();
@@ -100,11 +112,24 @@
 
                     case 'customToken' :
                         MainRepository.MyToken.setCustomTokenList(() => {
-                            if (this.editCustomToken !== '') {
-                                this.selected = this.editCustomToken;
+                            if (this.editValue) {
+                                this.selected = this.editValue;
                                 this.setting();
                             }
                             this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
+                            this.selected = this.customTokens[0].tokenNo;
+                        });
+                        break;
+
+                    case 'generalToken' :
+                        MainRepository.MyToken.setGeneralTokenList(() => {
+                            if (this.editValue) {
+                                this.selected = this.editValue;
+                                this.setting();
+                            } else {
+                                this.selected = 2147483646;
+                            }
+                            this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
                         });
                         break;
 
@@ -116,24 +141,27 @@
 
             //  VUEX 값 설정
             setting() {
-                switch (this.selectBoxType) {
+                let type = this.selectBoxType;
+
+                switch (type) {
                     case 'county' :
                         MainRepository.SelectBox.controller().setCountry(this.selected);
                         break;
 
                     case 'signupCountry' :
                         MainRepository.SelectBox.controller().setCountry(this.selected);
-                        this.$emit('country', this.selected);
                         break;
 
                     case 'currency' :
                         MainRepository.SelectBox.controller().setCurrency(this.selected);
-                        this.$emit('currency', this.selected);
                         break;
 
                     case 'customToken' :
                         MainRepository.SelectBox.controller().setCustomToken(this.selected);
-                        this.$emit('customToken', this.selected);
+                        break;
+
+                    case 'generalToken' :
+                        MainRepository.SelectBox.controller().setGeneralToken(this.selected);
                         break;
 
                     case 'payment' :
@@ -141,9 +169,9 @@
                         break;
 
                     case 'phone' :
-                        this.$emit('number', this.selected);
                         break;
                 }
+                this.$emit(type, this.selected);
             },
         },
     }

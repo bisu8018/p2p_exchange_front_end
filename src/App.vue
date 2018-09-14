@@ -1106,6 +1106,9 @@
     .c-pointer {
         cursor: pointer;
     }
+    .c-progress {
+        cursor: progress;
+    }
 
     /*float */
 
@@ -2058,4 +2061,21 @@
         margin-bottom: 14px;
     }
 
+
+    /*vuetify 로딩 아이콘*/
+    .progress-circular {
+        width: 24px !important;
+        height: 24px !important;
+        position: absolute;
+        right: 10px;
+        top: -2px;
+    }
+
+    .progress-circular-selectbox {
+        width: 20px !important;
+        height: 20px !important;
+        position: absolute !important;
+        right: 12px;
+        top: 8px;
+    }
 </style>

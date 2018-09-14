@@ -550,14 +550,6 @@
         color: #9294a6;
     }
 
-    .progress-circular {
-        width: 24px !important;
-        height: 24px !important;
-        position: absolute;
-        right: 10px;
-        top: -2px;
-    }
-
     .check-icon {
         font-size: 102px;
         font-weight: bold;

@@ -150,3 +150,19 @@ export function findPaymentName(code: string) {
     }
 }
 
+
+export function transCryptocurrencyName(name: string){
+    switch (name) {
+        case 'bitcoin':
+            return 'BTC';
+        case 'ethereum':
+            return 'ETH';
+        case 'BTC':
+            return 'bitcoin';
+        case 'ETH':
+            return 'ethereum';
+        default:
+            return 'ALLB';
+    }
+}
+

@@ -97,5 +97,5 @@ export default {
             {code: '+44', value: Vue.prototype.$str('uk')},
         ];
         return phones;
-    }
+    },
 }

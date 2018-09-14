@@ -12,6 +12,7 @@ import msgAvatar from "@/vuex/modules/msgAvatar";
 import message from "@/vuex/modules/message";
 import chat from "@/vuex/modules/chat";
 import customToken from "@/vuex/modules/customToken";
+import generalToken from "@/vuex/modules/generalToken";
 
 
 
@@ -30,7 +31,8 @@ export default {
         msgAvatar,
         message,
         chat,
-        customToken
+        customToken,
+        generalToken
     },
     strict: false
 }

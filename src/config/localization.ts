@@ -3769,38 +3769,38 @@ const strings = new Map([
     ['landingSubj_1', {
         KOR: '최고의 블록체인 기반 OTC 거래 플랫폼, AllB OTC!',
         ENG: 'The First Blockchain based OTC platform, AllB OTC!',
-        CN: '',
-        HK: ''
+        CN: '埃尔比，基于区块链的全球领先场外交易平台',
+        HK: '埃爾比，基於區塊鏈的全球領先場外交易平台'
     }],
     ['landingSubj_2', {
         KOR: 'AllB OTC에서 어떻게 거래하나요?',
         ENG: 'How to trade on AllB OTC?',
-        CN: '',
-        HK: ''
+        CN: '如何在埃尔比进行交易？',
+        HK: '如何在埃爾比進行交易？'
     }],
     ['landingSubj_3', {
         KOR: 'AllB 의 첫 무료 토큰을 받으세요.',
         ENG: 'Get your first free AllB token',
-        CN: '',
-        HK: ''
+        CN: '请领取埃尔比首发免费代币',
+        HK: '請領取埃爾比首發免費代幣'
     }],
     ['landingContent_1', {
         KOR: '안전함, 신송성, 높은 신뢰도, 대규모 시장의 플랫폼!',
         ENG: 'Safety, Fastest, Reliable, Big market!',
-        CN: '',
-        HK: ''
+        CN: '安全、迅速、可靠的大规模市场！',
+        HK: '安全、迅速、可靠的大規模市場！'
     }],
     ['landingContent_2', {
         KOR: 'OTC 거래, 5분이면 이해됩니다!',
         ENG: '5 minutes to understand the OTC Transactions!',
-        CN: '',
-        HK: ''
+        CN: '只需5分钟，即可轻松搞定！',
+        HK: '只要5分鐘，即可輕鬆搞定！'
     }],
     ['landingContent_3', {
         KOR: '첫 번째 에어드랍 토큰,',
         ENG: 'The first airdrop AllB token,',
-        CN: '',
-        HK: ''
+        CN: '埃尔比的首发空投币，',
+        HK: '埃爾比的首發空投幣，'
     }],
     ['', {
         KOR: '',

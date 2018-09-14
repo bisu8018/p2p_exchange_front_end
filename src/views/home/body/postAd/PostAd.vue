@@ -18,7 +18,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("country") }}</div>
                     <div class="p-relative mb-0">
-                        <select-box :selectBoxType="'signupCountry'" :editCountry="myAdList.nationality"
+                        <select-box :selectBoxType="'signupCountry'" :editValue="myAdList.nationality"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("currency") }}</div>
                     <div class="p-relative mb-0">
-                        <select-box :selectBoxType="'currency'" :editCurrency="myAdList.currency"
+                        <select-box :selectBoxType="'currency'" :editValue="myAdList.currency"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrencyType") }}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrencyType" v-model="cryptocurrencyType"
+                        <select class="comp-selectbox h6" id="cryptocurrencyType" v-model="cryptocurrencyType" @change="selectCurrencyType()"
                                 :class="{'input-disabled2' : edit}">
                             <option value="general">General Token</option>
                             <option value="custom">Custom Token</option>
@@ -69,16 +69,14 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrency" v-model="cryptocurrency"
-                                :class="{'input-disabled2' : edit}" v-if="this.cryptocurrencyType === 'general'">
-                            <option value="bitcoin">BTC</option>
-                            <option value="ethereum">ETH</option>
-                            <option value="allb">ALLB</option>
-                        </select>
-                        <select-box :selectBoxType="'customToken'" v-else
-                                    @customToken="selectCustomToken" :class="{'input-disabled2' : edit}"
-                                    :editCustomToken="myAdList.tokenNo"></select-box>
-                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'generalToken'" v-if="this.cryptocurrencyType === 'general'"
+                                    @generalToken="selectToken" :class="{'input-disabled2' : edit}"
+                                    :editValue="myAdList.tokenNo"></select-box>
+                        <div v-else>
+                            <select-box :selectBoxType="'customToken'"
+                                        @customToken="selectToken" :class="{'input-disabled2' : edit}"
+                                        :editValue="myAdList.tokenNo"></select-box>
+                        </div>
                     </div>
                 </div>
             </v-flex>
@@ -147,7 +145,7 @@
                     <div class="price-clac-wrapper text-xs-left">
                         <div class="h1 bold mb-3" :class="{'pt-3':!isMobile}">{{ priceType === 'fixedprice' ?
                             toMoneyFormat || 0 : (tradeType === 'sell' ? getFloatPriceSell : getFloatPriceBuy) || 0 }}
-                            {{ getCurrency }}/{{ getCryptoCurrency }}
+                            {{ getCurrency }}/{{ cryptocurrency }}
                         </div>
                     </div>
                 </div>
@@ -158,7 +156,7 @@
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
                     <div class="price-calculate color-darkgray">{{ $str("marektPrice") }} :
-                        {{ getMarketPrice || 0 }} {{ getCurrency }}/{{ getCryptoCurrency }}
+                        {{ getMarketPrice || 0 }} {{ getCurrency }}/{{ cryptocurrency }}
                     </div>
                     <div class="price-explain color-darkgray">{{ priceType === 'fixedprice' ? $str("fixedPriceExplain")
                         : $str("floatPriceExplain") }}
@@ -190,7 +188,7 @@
                                @keyup="onNumberCheck('volume')" ref="volume"
                                :placeholder=" tradeType === 'sell' ? $str('volumePlaceholderMobile') + getWallet : 0">
                         <div class="border-indicator h6">
-                            {{ getCryptoCurrency }}
+                            {{ cryptocurrency }}
                         </div>
                         <div class="warning-text-wrapper">
                     <span class="d-none"
@@ -532,6 +530,7 @@
     import Common from "../../../../service/common/CommonService";
     import MainRepository from "../../../../vuex/MainRepository";
     import {abUtils} from "../../../../common/utils";
+    import {transCryptocurrencyName} from "../../../../common/common";
     import PostAdModal from "./postAdItem/PostAdModal.vue";
 
     export default Vue.extend({
@@ -545,8 +544,8 @@
             balace: '',
             showModal: false,
             tradeType: "buy",
-            cryptocurrency: "bitcoin",
             cryptocurrencyType: 'general',
+            cryptocurrency: 'BTC',
             priceType: "fixedprice",
             fixedPrice: "",
             margin: "",
@@ -655,8 +654,9 @@
             getMarketPrice() {
                 if (this.cryptocurrencyType === 'general') {
                     let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
+                    let coinFullName = transCryptocurrencyName(this.cryptocurrency)
                     for (let i = 0; i < Object.keys(this.marketPrice).length; i++) {
-                        if (this.marketPrice[i].cryptocurrency === this.cryptocurrency && this.marketPrice[i].currency === tmp_currency) {
+                        if (this.marketPrice[i].cryptocurrency === coinFullName && this.marketPrice[i].currency === tmp_currency) {
                             //console.log(this.marketPrice[i]);
                             let tmp_price = this.marketPrice[i].price;
                             tmp_price = Math.floor(tmp_price * 100) / 100;
@@ -713,7 +713,7 @@
             },
             getWallet() {
                 if (Object.keys(MainRepository.Wallet.getWallets()).length > 0) {
-                    if (this.cryptocurrency === 'ethereum' || this.cryptocurrency === 'bitcoin') {
+                    if (this.cryptocurrency === 'ETH' || this.cryptocurrency === 'BIT') {
                         this.balance = MainRepository.Wallet.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
                         return this.balance
                     } else {
@@ -761,7 +761,6 @@
 
                         this.adNo = result.adNo;
                         this.tradeType = result.tradeType;
-                        this.cryptocurrency = result.cryptocurrency;
                         this.priceType = result.priceType;
                         this.fixedPrice = String(result.fixedPrice);
                         this.margin = result.margin;
@@ -932,7 +931,7 @@
                     counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
                     counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_second,
                     counterpartyFilterDoNotOtherMerchantsYn: self.counterpartyCheckbox_third,
-                    cryptocurrency: self.cryptocurrency,
+                    cryptocurrency: transCryptocurrencyName(self.cryptocurrency),
                     cryptocurrencyType: self.cryptocurrencyType,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     fixedPrice: Number(self.fixedPrice),
@@ -1159,8 +1158,20 @@
             goMyPage() {
                 this.$router.push("/myPage");
             },
-            selectCustomToken(tokenNo) {
+            selectToken(tokenNo) {
+                let _tokenName ;
+                if(this.cryptocurrencyType === 'general'){
+                    _tokenName = MainRepository.GeneralToken.controller().findGeneralToken(tokenNo, 'no').tokenName;
+                }else{
+                    _tokenName = MainRepository.MyToken.controller().findCustomToken(tokenNo, 'no').tokenName;
+                }
+                this.cryptocurrency = _tokenName;
                 this.tokenNo = tokenNo;
+            },
+            selectCurrencyType(){
+                if(this.cryptocurrencyType === 'custom'){
+                    this.priceType = 'fixedprice'
+                }
             }
 
         }
