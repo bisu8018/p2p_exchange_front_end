@@ -1,5 +1,8 @@
 import Vue from 'vue'
 
+// 최대한 value, code 규칙 지켜서 값 넣을것
+
+
 export default {
     signupCountries() {
         const signupCountries = [

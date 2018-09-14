@@ -6,7 +6,8 @@
                     class="o-none comp-selectbox h6">
                 <option v-for="data in getList" class="o-none "
                         v-bind:value=" selectBoxType === 'customToken' ? data.tokenNo : data.code">
-                    {{ selectBoxType === 'customToken' ? data.tokenName : (data.value ? data.value : data.code) }}
+                    {{ selectBoxType === 'customToken' ? data.tokenName :
+                    (data.value ? data.value : data.code) }}
                 </option>
             </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
@@ -20,8 +21,7 @@
     export default {
         name: 'selectBox',
         props: {
-            //country, currency, payment, phone, customToken
-            'selectBoxType': {type: String, default: 'country'},
+            'selectBoxType': {type: String, default: 'country'},        //country, currency, payment, phone, customToken
 
             // 수정 모드
             'editCountry': {type: String, default: ''},
@@ -30,12 +30,8 @@
         },
         data: () => ({
             selected : '',
-            selectedCountry: '',
-            selectedCountry_signup: 'CN',
-            selectedCurrency: 'CNY',
-            selectedPayment: 'ALL',
-            selectedPhone: '+86',
-            selectedCustomToken: '',
+
+            //SelectBox.ts import
             signupCountries: SelectBox.signupCountries(),
             countries: SelectBox.countries(),
             currencies: SelectBox.currencies(),
@@ -76,7 +72,7 @@
         },
         methods: {
 
-            //  값 초기화
+            //  VUEX 초기화
             init() {
                 switch (this.selectBoxType) {
                     case 'country' :
