@@ -614,6 +614,25 @@
         margin: 64px !important;
     }
 
+    .mb-6a {
+        margin-bottom: 100px !important;
+    }
+
+    .mt-6a {
+        margin-top: 100px !important;
+    }
+
+    .mr-6a {
+        margin-right: 100px !important;
+    }
+
+    .ml-6a {
+        margin-left: 100px !important;
+    }
+    .ma-6a {
+        margin: 100px !important;
+    }
+
     .ma-a {
         margin: auto !important;
     }
@@ -1581,12 +1600,6 @@
         width: 384px;
         height: 356px;
     }
-
-    .ic-404 {
-        background: 0px -772px;
-        width: 384px;
-        height: 356px;
-    }
     .ic-appeal-sm {
         background: 0px 0px;
         width: 16px;
@@ -1708,16 +1721,34 @@
         width: 20px;
         height: 16px;
     }
+    .ic-allb-logo-big {
+        background: 0px -256px;
+        width: 142px;
+        height: 112px;
+    }
 
 
+    /*sprite-img-small  전용*/
 
+    .ic-allb-logo-big {
+        background: 0px -599px;
+        width: 104px;
+        height: 78px;
+    }
+
+
+    /*sprite image*/
 
     .sprite-img {
         background-size: 384px 1128px;
         background-image: url(./assets/img/sprite_x2.png);
     }
     .sprite-img2 {
-        background-size: 200px 300px;
+        background-size: 200px 600px;
+        background-image: url(./assets/img/sprite_image-2.png);
+    }
+    .sprite-img2-small {
+        background-size: 140px 420px;
         background-image: url(./assets/img/sprite_image-2.png);
     }
 
@@ -1967,6 +1998,64 @@
     .lang-menu > div:active {
         background-color: #316ee4;
         color: white
+    }
+
+    /* Main.vue 사용 CSS */
+    .landing-img-first {
+        width: 100%;
+        height: 100%;
+        background: url('assets/img/landing_img_first.png');
+        background-position: 50% 50%;
+        padding-top: 170px;
+    }
+    .landing-img-second {
+        width: 100%;
+        height: 100%;
+        background: url('assets/img/landing_img_second.png');
+        background-position: 50% 50%;
+        padding-top: 150px;
+    }
+    .landing-img-third {
+        width: 100%;
+        height: 100%;
+        background: url('assets/img/landing_img_third.png');
+        background-position: 50% 50%;
+        padding-top: 150px;
+    }
+    .landing-subject {
+        font-size: 45px;
+        color: white;
+        letter-spacing: 2px;
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+
+    .landing-content {
+        font-size: 30px;
+        color: white;
+        letter-spacing: 2px;
+        font-weight: 500;
+    }
+
+    .amount-box{
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-right: 0.5px;
+    }
+    .currency-box-border {
+        position : absolute;
+        height: 40px;
+        width: 1px;
+        top: 0px;
+        background-color: #8d8d8d;
+    }
+
+    .arrows-style {
+        background: #214EA1;
+        border-radius: 6px;
+        color: white;
+        font-size: 28px;
+        margin-bottom: 14px;
     }
 
 </style>

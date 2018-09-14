@@ -2,22 +2,26 @@
     <div>
         <v-parallax style="height: 600px;" v-if="!isMobile">
             <v-carousel delimiter-icon="remove" lazy style="height: 600px;">
-              <v-carousel-item v-if="currentLang === 'EN'" :src="require('@/assets/img/1_page_english.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang === 'EN'" :src="require('@/assets/img/2_page_english.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang === 'EN'" :src="require('@/assets/img/3_page_english.png')"></v-carousel-item>
-
-              <v-carousel-item v-if="currentLang === 'KO'" :src="require('@/assets/img/1_page_korean.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang === 'KO'" :src="require('@/assets/img/2_page_korean.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang === 'KO'" :src="require('@/assets/img/3_page_korean.png')"></v-carousel-item>
-
-              <v-carousel-item v-if="currentLang=== 'ZH'" :src="require('@/assets/img/1_page_chinese_g.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang=== 'ZH'" :src="require('@/assets/img/2_page_chinese_g.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang=== 'ZH'" :src="require('@/assets/img/3_page_chinese_g.png')"></v-carousel-item>
-
-              <v-carousel-item v-if="currentLang=== 'HK'" :src="require('@/assets/img/1_page_chinese_b.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang=== 'HK'" :src="require('@/assets/img/2_page_chinese_b.png')"></v-carousel-item>
-              <v-carousel-item v-if="currentLang=== 'HK'" :src="require('@/assets/img/3_page_chinese_b.png')"></v-carousel-item>
-
+                <v-carousel-item>
+                    <div class="landing-img-first">
+                        <div class="sprite-img2-small ic-allb-logo-big d-inline-block mb-2"></div>
+                        <div class="landing-subject"> {{ $str('landingSubj_1') }}</div>
+                        <div class="landing-content"> {{ $str('landingContent_1') }}</div>
+                    </div>
+                </v-carousel-item>
+                <v-carousel-item>
+                    <div class="landing-img-second">
+                        <div class="landing-subject mt-6a"> {{ $str('landingSubj_2') }}</div>
+                        <div class="landing-content"> {{ $str('landingContent_2') }}</div>
+                    </div>
+                </v-carousel-item>
+                <v-carousel-item>
+                    <div class="landing-img-third">
+                        <div class="landing-subject mt-6a"> {{ $str('landingSubj_3') }}</div>
+                        <div class="landing-content"> {{ $str('landingContent_3') }}</div>
+                        <div class="landing-content"> ABT, ABC, ABH!</div>
+                    </div>
+                </v-carousel-item>
             </v-carousel>
         </v-parallax>
       <div v-if="isMobile" class="pageView mt-5">
@@ -164,10 +168,6 @@
             padding-right: 12px;
         }
     }
-
-    /* 패럴랙스에 이미지 삽입
-    :src="require('@/assets/img/main.jpg')" */
-
     h1 {
         font-size: 48px;
         line-height: 1.2em;
@@ -191,19 +191,7 @@
       height: 40px;
       padding-top: 8px;
     }
-    .amount-box{
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-right: 0.5px;
-    }
-    .currency-box-border {
-      position : absolute;
-      height: 40px;
-      width: 1px;
-      top: 0px;
-      background-color: #8d8d8d;
 
-    }
 
     .userInput{
       min-width: 155px;
@@ -212,14 +200,6 @@
       .userInput {
         width: 100%;
       }
-    }
-
-    .arrows-style {
-        background: #214EA1;
-        border-radius: 6px;
-        color: white;
-        font-size: 28px;
-        margin-bottom: 14px;
     }
 
 </style>

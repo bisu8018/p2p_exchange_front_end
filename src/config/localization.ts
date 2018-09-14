@@ -3766,6 +3766,96 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['landingSubj_1', {
+        KOR: '최고의 블록체인 기반 OTC 거래 플랫폼, AllB OTC!',
+        ENG: 'The First Blockchain based OTC platform, AllB OTC!',
+        CN: '',
+        HK: ''
+    }],
+    ['landingSubj_2', {
+        KOR: 'AllB OTC에서 어떻게 거래하나요?',
+        ENG: 'How to trade on AllB OTC?',
+        CN: '',
+        HK: ''
+    }],
+    ['landingSubj_3', {
+        KOR: 'AllB 의 첫 무료 토큰을 받으세요.',
+        ENG: 'Get your first free AllB token',
+        CN: '',
+        HK: ''
+    }],
+    ['landingContent_1', {
+        KOR: '안전함, 신송성, 높은 신뢰도, 대규모 시장의 플랫폼!',
+        ENG: 'Safety, Fastest, Reliable, Big market!',
+        CN: '',
+        HK: ''
+    }],
+    ['landingContent_2', {
+        KOR: 'OTC 거래, 5분이면 이해됩니다!',
+        ENG: '5 minutes to understand the OTC Transactions!',
+        CN: '',
+        HK: ''
+    }],
+    ['landingContent_3', {
+        KOR: '첫 번째 에어드랍 토큰,',
+        ENG: 'The first airdrop AllB token,',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
     ['', {
         KOR: '',
         ENG: '',

@@ -6,8 +6,8 @@
                     class="o-none comp-selectbox h6">
                 <option v-for="data in getList" class="o-none "
                         v-bind:value=" selectBoxType === 'customToken' ? data.tokenNo : data.code">
-                    {{ selectBoxType === 'customToken' ? data.tokenName :
-                    (data.value ? data.value : data.code) }}
+                    {{ selectBoxType === 'customToken' ?
+                    data.tokenName : (data.value ? data.value : data.code) }}
                 </option>
             </select>
             <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
@@ -111,7 +111,6 @@
                     case 'payment' :
                         this.selected = MainRepository.SelectBox.controller().getPayment();
                         break;
-
                 }
             },
 
