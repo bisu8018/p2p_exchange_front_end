@@ -60,7 +60,7 @@ export default class WalletController {
             return tokenList;
         }
         else{
-            let tokenList:CustomToken[] = []
+            let tokenList:Wallet[] = []
             this.getCustomTokenWallet().find(function (element) {
                 let compared =  element.tokenName;
                 if( compared.indexOf(value) > -1){
@@ -69,6 +69,17 @@ export default class WalletController {
             });
             return tokenList;
         }
+    }
+    //잔고 있는 Wallet model만  return 시켜줌.
+    getHaveBalance(walletData : Wallet[]){
+        let tokenList:Wallet[] = []
+        for (let key in walletData) {
+            //잔고 있는 Wallet model만 들어감.
+            if(walletData[key].availableAmount > 0 || walletData[key].frozenAmount > 0){
+                tokenList.push(walletData[key]);
+            }
+        }
+        return tokenList;
     }
 
     transCryptocurrencyName(name){

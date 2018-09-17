@@ -44,7 +44,7 @@
       </v-flex>
     </v-layout>
     <!--Tokenitems-->
-    <v-flex>
+    <v-flex v-if="haveItems">
       <div class="cs-roundborder">
         <div  v-for="item in walletListData" >
           <!--좌우 padding 맞춰주기 위해 사용.-->
@@ -53,6 +53,13 @@
           ></wallet-token-item>
           <v-divider></v-divider>
         </div>
+      </div>
+    </v-flex>
+    <v-flex v-else>
+      <div class="sprite-img ic-no-ad-lg no-more-ads">
+      </div>
+      <div class="color-gray no-more-ads-text">
+        {{$str("No more item")}}
       </div>
     </v-flex>
     <!--wallet을 불러오기위한 dummy 태그-->
@@ -81,6 +88,9 @@
             isMobile() {
                 return MainRepository.State.isMobile();
             },
+            haveItems(){
+                return (this.walletListData.length !== 0)
+            },
             selectedCurrency: {
                 get() {
                     return MainRepository.Wallet.getStatus().currency;
@@ -93,6 +103,9 @@
             wallets() {
                 //search input에 해당하는 token만 보여주는 상태.
                 this.walletListData = MainRepository.Wallet.controller().findWalletsByName(this.searchToken, this.selectedTokenType);
+                if(this.isChecked){
+                    this.walletListData = this.showHaveBalance(this.walletListData);
+                }
             },
 
         },
@@ -100,9 +113,11 @@
             MainRepository.Wallet.initStatus()
         },
         methods: {
-            
             toMoneyFormat(value) {
                 return abUtils.toMoneyFormat(String(value));
+            },
+            showHaveBalance(walletData){
+                return MainRepository.Wallet.controller().getHaveBalance(walletData);
             },
             showDropdown(item){
                 switch (item) {
@@ -128,7 +143,7 @@
                         //this.selectedTokenType = type
                         break;
                 }
-                this.searchToken = '';
+                this.searchToken
                 MainRepository.Wallet.updateStatus({
                     cryptocurrencyType : this.selectedTokenType
                 })
@@ -172,6 +187,12 @@
       right: 0px;
       left: auto !important;
       min-width: 80px;
+    }
+    .no-more-ads{
+      margin: 120px auto 16px auto;
+    }
+    .no-more-ads-text{
+      margin-bottom: 56px;
     }
   }
 
@@ -219,6 +240,10 @@
 
     .mb-16 {
       margin-bottom: 16px;
+    }
+
+    .no-more-ads{
+      margin: 48px auto 16px auto;
     }
 
   }
