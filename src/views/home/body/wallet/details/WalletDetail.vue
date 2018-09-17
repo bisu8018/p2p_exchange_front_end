@@ -207,6 +207,7 @@
                     this.showProgress = false;
                 });
             })
+            // 5초에 1번씩 불러옴
             this.walletInterval = setInterval(() => {
                 MainRepository.MarketPrice.load(() => {
                     MainRepository.Wallet.loadHistory(() => {});

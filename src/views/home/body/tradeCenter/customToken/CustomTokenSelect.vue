@@ -11,7 +11,7 @@
             </div>
         </v-flex>
         <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
-        <v-flex xs12 v-else-if="!haveItems">
+        <v-flex xs12 v-else-if="haveItems">
           <div class="tokenlist-wrapper">
             <!--CustomToken item-->
             <div v-for="item in CustomTokenListData">
@@ -28,7 +28,7 @@
           {{$str("No more item")}}
         </div>
       </v-flex>
-      <!--customToen을 불러오기위한 dummy 태그-->
+      <!--customToken을 불러오기위한 dummy 태그-->
       <div v-if="CustomTokenList"></div>
     </div>
 </template>
@@ -53,7 +53,7 @@
                 this.CustomTokenListData = MainRepository.TradeView.getCustomTokenList();
             },
             haveItems(){
-                  return (this.CustomTokenListData.length === 0)
+                  return (this.CustomTokenListData.length !== 0)
             },
 
         },

@@ -4,6 +4,7 @@ import Wallet from "@/vuex/model/Wallet";
 import Withdraw from "@/vuex/model/Withdraw";
 import WalletHistory from "@/vuex/model/WalletHistory";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
+import CustomToken from "@/vuex/model/CustomToken";
 
 export default class WalletController {
     store: Store<any>;
@@ -44,6 +45,56 @@ export default class WalletController {
         return result;
     }
 
+    // name기반으로 walletList 찾기.
+    //value 가 검색알파벳, type은 general과 custom
+    findWalletsByName(value, type) {
+        if (type === 'General Coin'){
+            let self = this
+            let tokenList:Wallet[] = []
+            this.getWallets().find(function (element) {
+                let compared =  self.transCryptocurrencyName(element.cryptocurrency);
+                if( compared.indexOf(value) > -1){
+                    tokenList.push(element);
+                }
+            });
+            return tokenList;
+        }
+        else{
+            let tokenList:Wallet[] = []
+            this.getCustomTokenWallet().find(function (element) {
+                let compared =  element.tokenName;
+                if( compared.indexOf(value) > -1){
+                    tokenList.push(element);
+                }
+            });
+            return tokenList;
+        }
+    }
+    //잔고 있는 Wallet model만  return 시켜줌.
+    getHaveBalance(walletData : Wallet[]){
+        let tokenList:Wallet[] = []
+        for (let key in walletData) {
+            //잔고 있는 Wallet model만 들어감.
+            if(walletData[key].availableAmount > 0 || walletData[key].frozenAmount > 0){
+                tokenList.push(walletData[key]);
+            }
+        }
+        return tokenList;
+    }
+
+    transCryptocurrencyName(name){
+        switch (name) {
+            case 'bitcoin':
+                return 'BTC'
+
+            case 'ethereum':
+                return 'ETH'
+            case 'allb':
+                return 'AllB'
+            default:
+                return name
+        }
+    }
 
     getTotalEstimatedValue(currency: string) {
         let _totalValue = {
