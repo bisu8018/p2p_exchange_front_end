@@ -48,10 +48,11 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                 // Title === "" 의 경우 Title = Type
                 switch (param) {
                     case 0 : this.show(this.type.Success, "", ""); break;
-                    case 400 : this.show(this.type.Error, "", ""); break;
+                    case 400 : this.show(this.type.Error, "", "duplicate_request"); break;
                     case 401 : this.show(this.type.Error, "401 Error", abGetLang('401')); break;
+                    case 406 : this.show(this.type.Error, "", "suspended_account"); break;
                     case 412 : this.show(this.type.Error, "", 'invalid_request'); break;
-                    //case 413 : this.show(this.type.Error, "", this.$str('invalid_email_verification_code')); break;
+                    case 413 : this.show(this.type.Error, "", this.$str('invalid_email_verification_code')); break;
                     case 414 : this.show(this.type.Error, "", 'not_verified_email'); break;
                     case 415 : this.show(this.type.Error, "", 'id_verification_required'); break;
                     case 416 : this.show(this.type.Error, "", 'already_setted'); break;
@@ -74,11 +75,23 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 433 : this.show(this.type.Error, "", "invalid_member_for_cancel"); break;
                     case 434 : this.show(this.type.Error, "", "has_processing_order"); break;
                     case 435 : this.show(this.type.Error, "", "already_expired_order"); break;
+                    case 436 : this.show(this.type.Error, "", "invalid_sms_verification_code"); break;
+                    case 437 : this.show(this.type.Error, "", "invalid_sms_phone_number"); break;
+                    case 450 : this.show(this.type.Error, "", "block_member"); break;
                     case 451 : this.show(this.type.Error, "", "update_password_suspension_period"); break;  //password update  되면 24시간 거래x
+                    case 452 : this.show(this.type.Error, "", "trade_count_limit"); break;
+                    case 453 : this.show(this.type.Error, "", "already_disabled_ad"); break;
+                    case 454 : this.show(this.type.Error, "", "already_enable_ad"); break;
+                    case 455 : this.show(this.type.Error, "", "not_disabled_ad"); break;
+                    case 456 : this.show(this.type.Error, "", "not_enable_ad"); break;
+                    case 457 : this.show(this.type.Error, "", "invalid_amount"); break;
+                    case 458 : this.show(this.type.Error, "", "duplicated_custom_token_name"); break;
+                    case 459 : this.show(this.type.Error, "", "duplicated_custom_token_name_short"); break;
                     case 460 : this.show(this.type.Error, "", "update_phone_suspension_period"); break;  //phone update  되면 24시간 거래x
                     case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
+                    case 513 : this.show(this.type.Error, "", "sms_sender_error"); break;
 
 
 

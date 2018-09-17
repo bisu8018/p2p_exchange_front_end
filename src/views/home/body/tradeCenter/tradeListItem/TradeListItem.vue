@@ -327,6 +327,7 @@
                     </v-layout>
                 </v-flex>
             </v-layout>
+            <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
             <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, getNickName이 false일때-->
             <v-flex v-if="drawer && !isValid">
                 <div class="tradeWebModal">
@@ -371,8 +372,8 @@
             <v-flex v-else-if="drawer">
                 <div class="tradeWebModal">
                     <v-layout row wrap>
-                        <v-flex md3 text-md-left>
-                            <v-layout row pl-4>
+                        <v-flex md3 text-md-left pl-4>
+                            <v-layout row>
                                 <avatar useMemberInfo :member="user.ownerMember"/>
 
                             <!-- merchant 정보-->
@@ -394,7 +395,7 @@
                             </v-layout>
                         </v-flex>
                         <!--두번째열-->
-                        <v-flex md2 text-md-left>
+                        <v-flex md2 text-md-left pl-1>
                             <div class="bold color-orange-price">
                                 {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}
                             </div>
@@ -442,7 +443,7 @@
                                 </div>
                             </v-layout>
                         </v-flex>
-                        <v-flex md3 text-md-left>
+                        <v-flex md3 text-md-right pr-4>
                             <!--confirm 버튼-->
                             <button class="btn-rounded-blue btn-blue-hover mr-3"
                                     @click="goTrade">{{$str("confirm")}}
@@ -453,9 +454,9 @@
                             </button>
                         </v-flex>
                     </v-layout>
-                    <v-layout row wrap tradeWebModal-secondRow>
+                    <v-layout row wrap class="tradeWebModal-secondRow">
                         <v-flex md6 text-md-left>
-                            <div class="margin-left-74">
+                            <div class="margin-left-62">
                                 <!--Bank account-->
                                 <div v-if="user.bank_account">
                                     <div class="sprite-img ic-bank mr-2 f-left"></div>
@@ -487,14 +488,14 @@
                                 </div>
                             </div>
                         </v-flex>
-                        <v-flex md2 text-md-right>
+                        <v-flex md3 text-md-right pr-4>
                             <h6 class="color-darkgray">{{$str("Payment window is")}} {{user.paymentWindow}} {{$str("minuteText")}}</h6>
                         </v-flex>
                     </v-layout>
 
                     <!-- 판매자가 남긴 요구 메모가 있을시-->
                     <v-layout>
-                        <v-flex md12 mt-5 mb-5 v-if="user.termsOfTransaction !== '' " margin-left-74 mr-4 text-md-left>
+                        <v-flex md12 mt-4 v-if="user.termsOfTransaction !== '' " margin-left-62 mr-4 text-md-left>
                             <h6 class="color-darkgray">
                                 {{$str("userMemo")}}： <br>
                                 {{user.termsOfTransaction}}
@@ -608,7 +609,6 @@
             },
 
             onNumberCheck(type) {
-                console.log(type);
                 if (type === 'toValue') {
                     if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.
                         this.verify_warning_toValue = Vue.prototype.$str("Enter less than maximum limit");
@@ -857,20 +857,20 @@
         /*position: absolute;*/
         border-radius: 2px;
         padding-top: 24px;
+        padding-bottom: 24px;
         box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
         display: block;
-        min-height: 171px;
         background-color: #ffffff;
         width: 100%;
         z-index: 1;
     }
 
     .tradeWebModal-secondRow {
-        margin-top: 36px;
+        margin-top: 24px;
     }
 
-    .margin-left-74 {
-        margin-left: 74px;
+    .margin-left-62 {
+        margin-left: 62px;
     }
 
     .mobileModal {

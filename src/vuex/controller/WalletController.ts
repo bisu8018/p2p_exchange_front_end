@@ -48,6 +48,9 @@ export default class WalletController {
     // name기반으로 walletList 찾기.
     //value 가 검색알파벳, type은 general과 custom
     findWalletsByName(value, type) {
+        //대문자로 바꿔줘서
+        value = value.toUpperCase();
+        //general 일때
         if (type === 'General Coin'){
             let self = this
             let tokenList:Wallet[] = []
@@ -59,6 +62,7 @@ export default class WalletController {
             });
             return tokenList;
         }
+        //custom 일때
         else{
             let tokenList:Wallet[] = []
             this.getCustomTokenWallet().find(function (element) {

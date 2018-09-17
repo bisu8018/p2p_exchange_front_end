@@ -18,7 +18,7 @@
           <!--판매자 rank-->
           <h6 class="ml-3 color-darkgray">{{$str("accountCreatedTime")}}: {{transTime(merchant.createDatetime)}}</h6>
         </v-flex>
-        <v-flex xs12><v-divider></v-divider></v-flex>
+        <v-flex xs12><div class="divider"></div></v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>{{$str("Security_Deposit")}}</v-flex>
         <v-flex xs4 text-xs-right mt-3 mb-2>{{merchant.securityDeposit}} BTC</v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Completion_rate")}}</v-flex>
@@ -29,7 +29,7 @@
         <v-flex xs4 text-xs-right mb-2>{{merchant.tradeMonthTimes}} {{$str("Times")}}</v-flex>
         <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-3>{{$str("Avg_release")}}</v-flex>
         <v-flex xs4 text-xs-right mb-3>{{merchant.avgRelease}} {{$str("Min")}}</v-flex>
-        <v-flex xs12><v-divider></v-divider></v-flex>
+        <v-flex xs12><div class="divider"></div></v-flex>
 
         <v-flex xs3 offset-xs2 text-xs-left mt-4>
           <v-layout v-if="merchant.emailVerification" align-center>
@@ -67,7 +67,6 @@
               <user-trade-item
                       :user="user"
               ></user-trade-item>
-            <v-flex><v-divider></v-divider></v-flex>
           </div>
         </div>
         <!--Buy-->
@@ -79,7 +78,6 @@
           <user-trade-item
                   :user="user"
           ></user-trade-item>
-          <v-flex><v-divider></v-divider></v-flex>
         </div>
       </div>
       </div>
@@ -142,7 +140,7 @@
           <div class="color-darkgray"> {{$str("Avg_release")}}</div>
         </v-flex>
       </v-layout>
-      <v-flex><v-divider></v-divider></v-flex>
+      <v-flex><div class="divider"></div></v-flex>
       <!--2번째 줄-->
       <v-layout mt-3 mb-4a>
         <v-flex md3 text-md-left>
@@ -198,14 +196,13 @@
               {{$str("control")}}
             </v-flex>
           </v-layout>
-          <v-flex><v-divider></v-divider></v-flex>
+          <v-flex><div class="divider"></div></v-flex>
 
           <!-- user item list들 10개씩 출력-->
           <div v-for="user in BuyLists"  >
             <user-trade-item
                     :user ="user"
             ></user-trade-item>
-            <v-flex><v-divider></v-divider></v-flex>
           </div>
         </div>
         <!--Online Buy title-->
@@ -234,13 +231,12 @@
               {{$str("control")}}
             </v-flex>
           </v-layout>
-          <v-flex><v-divider></v-divider></v-flex>
+          <v-flex><div class="divider"></div></v-flex>
           <!-- user item list들 10개씩 출력-->
           <div v-for="user in SellLists"  >
             <user-trade-item
                     :user ="user"
             ></user-trade-item>
-            <v-flex><v-divider></v-divider></v-flex>
           </div>
         </div>
       </div>
@@ -327,16 +323,18 @@
             }
         },
         created(){
-            if(MainRepository.MyInfo.isLogin() && MainRepository.MyInfo.getUserInfo().memberNo === memberNo){
-                this.goMyPage();
-                return false;
-            }
+
 
             let currentURL = window.location.href
             let param = currentURL.split('?');
             this.userMemberNo = Number(param[1])
             let self = this;
             this.showProgress = true;
+
+            if(MainRepository.MyInfo.isLogin() && MainRepository.MyInfo.getUserInfo().memberNo === this.userMemberNo){
+                this.goMyPage();
+                return false;
+            }
             //상단 과거 이력정보 5개
             MainRepository.Users.getUserPageHistoryInfo(
                 {memberNo : self.userMemberNo},function (result) {

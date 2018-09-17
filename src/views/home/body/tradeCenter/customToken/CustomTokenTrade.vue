@@ -95,7 +95,7 @@
   .dropdown-content {
     position: absolute;
     color: black;
-    min-width: 46px;
+    min-width: 68px;
     max-height: 204px;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
     z-index: 1;

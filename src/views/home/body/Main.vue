@@ -158,6 +158,9 @@
             margin-left: auto;
             margin-right: auto;
         }
+      .userInput{
+        min-width: 155px;
+      }
     }
 
     /* mobile 에서 gutter 주기*/
@@ -167,6 +170,9 @@
             padding-left: 12px;
             padding-right: 12px;
         }
+      .userInput {
+        width: 100%;
+      }
     }
     h1 {
         font-size: 48px;
@@ -193,13 +199,6 @@
     }
 
 
-    .userInput{
-      min-width: 155px;
-    }
-    @media only screen and (max-width: 959px) {
-      .userInput {
-        width: 100%;
-      }
-    }
+
 
 </style>

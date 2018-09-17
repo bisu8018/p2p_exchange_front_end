@@ -1149,7 +1149,14 @@
         pointer-events: none;
     }
 
+    /*divider
+    ex) <div class="divider"></div>*/
+    .divider{
+        height: 1px;
+        width: 100%;
+        background-color: #d8d8d8;
 
+    }
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
     /*<a class="tooltips">*/
     /*<span>Alipay</span>*/

@@ -36,7 +36,7 @@
       </v-flex>
       <v-flex md1 xs2 text-xs-right order-md4 order-xs2 class="mb-24">
           <span class="dropbtn p-relative" @click="showDropdown('menuType')">
-            <i class="material-icons color-darkgray" v-bind:class="{'increase-z-index' : isdropdown.menuType}">menu</i>
+            <i class="material-icons color-darkgray">menu</i>
             <div class="dropdown-content dropdown-detail-menu" v-if="isdropdown.menuType">
               <div class=" btn-blue-hover" @click="goDetails()" >{{$str("Details")}}</div>
             </div>
@@ -202,25 +202,20 @@
       position: fixed;
       color: black;
       min-width: 46px;
+      min-height: 65px;
       box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
-      z-index: 1;
+      z-index: 101;
       border-radius: 2px;
       text-align: center;
       background-color: white;
-      bottom: 65px;
+      bottom: 0px;
       right:0;
       left: 0;
     }
     .dropdown-content > div{
-      height: 50px;
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-    /*z-index 올려*/
-    .increase-z-index{
-      z-index: 2;
-      position: relative;
-      color: #ffffff;
+      /*height: 50px;*/
+      padding-top: 22px;
+      padding-bottom: 22px;
     }
 
     .layout_dim {
