@@ -62,7 +62,7 @@
       </div>
       <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
       <!-- Nicname 설정을 안했을경우 띄움-->
-      <v-flex v-if="drawer&& !setNickName">
+      <v-flex v-if="drawer&& !isValid">
         <div class="mobileModal">
           <v-layout>
             <v-flex xs2 pl-2>
@@ -273,37 +273,26 @@
       </v-layout>
       <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
       <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
-      <v-flex v-if="drawer && !setNickName">
+      <v-flex v-if="drawer && !isValid">
         <div class="tradeWebModal">
           <v-layout row wrap>
-            <v-flex md3 text-md-left>
-              <v-layout pl-4>
-                <!--avatar-->
-                <avatar me>
-                </avatar>
+            <v-flex md4 text-md-left pl-4>
+              <v-layout>
+                <!--token-->
+                <span :class="tokenImg" > </span>
+                <div class="ml-3 bold">
+                  <span>{{user.cryptocurrency}}</span>
                 <!-- merchant 정보-->
-                <span>
-                  <span class="mr-2 ml-3 medium color-blue-active">
-                    {{user.nickname}} ( {{user.volumeAvailable}} | {{user.tradeRate}}%)
-                  </span>
-                  <!--판매자 rank-->
-                  <a class="tooltip d-inline-block" v-if="user.rank==1">
-                    <div class="sprite-img ic-premium ml-2"></div>
-                    <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-                  </a>
-                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-                    <div class="sprite-img ic-certified ml-2"></div>
-                    <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-                  </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
-                </span>
+                  <div class="color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                </div>
+
               </v-layout>
             </v-flex>
-            <v-flex md9>
+            <v-flex md8 pr-4>
               <!--수직, 수평가운데 정렬.-->
-              <v-layout row align-center fill-height justify-end pr-4>
+              <v-layout row align-center fill-height justify-end >
                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
-                <h5 class="color-blue-active" @click="showNickNameModal = true">
+                <h5 class="color-blue-active" @click="onValidClick()">
                   {{$str("Set up now.")}}</h5>
                 <v-divider class="mx-3" inset vertical></v-divider>
                 <button class="btn-rounded-white text-white-hover"
@@ -444,6 +433,8 @@
             :show=showNickNameModal
             v-on:close="closeNicknameModal"
     ></nick-name-modal>
+
+    <div v-if="myPaments || myInfo "></div>
   </div>
 </template>
 
@@ -478,6 +469,8 @@
             clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
 
+            isValid: false,
+
         }),
 
         computed : {
@@ -487,9 +480,21 @@
             drawer() {
                 return (MainRepository.TradeView.getDrawer() == this.user.adNo);
             },
-            setNickName() {
+            getNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
+            },
+            myInfo() {
+                if (MainRepository.MyInfo.checkValidity(false)) {
+                    this.isValid = true;
+                }
+                return MainRepository.MyInfo.getUserInfo();
+            },
+            myPaments() {
+                if (MainRepository.MyInfo.checkValidity(false)) {
+                    this.isValid = true;
+                }
+                return MainRepository.MyInfo.getMyPaymentMethods();
             },
             getBalance(){
                 let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(
@@ -683,6 +688,13 @@
                 }
                 /////////////////////////////////
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
+            },
+            onValidClick() {
+                if (this.myInfo.nickName === "") {
+                    this.showNickNameModal = true;
+                } else {
+                    MainRepository.MyInfo.checkValidity(true);
+                }
             },
             closeNicknameModal() {
                 this.showNickNameModal = false;

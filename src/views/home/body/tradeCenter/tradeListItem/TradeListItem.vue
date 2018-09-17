@@ -79,7 +79,7 @@
                     </ul>
                 </div>
             </div>
-
+            <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
             <!-- Nicname 설정을 안했을경우 띄움-->
             <v-flex v-if="drawer&& !isValid">
                 <div class="mobileModal">
@@ -184,7 +184,7 @@
                     <v-layout>
                         <v-flex xs3 offset-xs2 text-xs-left>
                             <h5 class="medium color-darkgray">
-                                {{$str("payment")}}:
+                                {{$str("payment")}} :
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
@@ -331,31 +331,31 @@
             <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, getNickName이 false일때-->
             <v-flex v-if="drawer && !isValid">
                 <div class="tradeWebModal">
-                    <v-layout row wrap>
-                        <v-flex md3 text-md-left>
-                            <v-layout pl-4>
+                    <v-layout>
+                        <v-flex md3 text-md-left pl-4>
+                            <v-layout row wrap>
                                 <avatar useMemberInfo :member="user.ownerMember"/>
                                 <!-- merchant 정보-->
                                 <span>
-                  <span class="mr-2 ml-3 medium color-blue-active" @click="onNicknameClick">
-                    {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
-                  </span>
-                                    <!--판매자 rank-->
-                  <a class="tooltip d-inline-block" v-if="user.rank==1">
-                    <div class="sprite-img ic-premium ml-2"></div>
-                    <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-                  </a>
-                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-                    <div class="sprite-img ic-certified ml-2"></div>
-                    <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-                  </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
-                </span>
+                                <span class="mr-2 ml-3 medium color-blue-active" @click="onNicknameClick">
+                                  {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
+                                </span>
+                                                    <!--판매자 rank-->
+                                  <a class="tooltip d-inline-block" v-if="user.rank==1">
+                                    <div class="sprite-img ic-premium ml-2"></div>
+                                    <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
+                                  </a>
+                                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
+                                    <div class="sprite-img ic-certified ml-2"></div>
+                                    <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
+                                  </a>
+                                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
+                                </span>
                             </v-layout>
                         </v-flex>
-                        <v-flex md9>
+                        <v-flex md9 pr-4>
                             <!--수직, 수평가운데 정렬.-->
-                            <v-layout row align-center fill-height justify-end pr-4>
+                            <v-layout row align-center fill-height justify-end >
                                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
                                 <h5 class="color-blue-active" @click="onValidClick">
                                     {{$str("Set up now.")}}</h5>

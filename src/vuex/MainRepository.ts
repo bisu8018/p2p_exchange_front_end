@@ -148,9 +148,9 @@ export default {
                 self.MarketPrice.load(() => {
                 });
                 self.MyInfo.loadMyPaymentMethods(() => {
-                    // self.MyToken.getMytoken(()=> {
-                    //     callback();
-                    // });
+                    self.MyToken.getMytoken(()=> {
+                        callback();
+                    });
                 });
 
             },

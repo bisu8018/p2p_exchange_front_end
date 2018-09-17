@@ -1149,8 +1149,8 @@
         pointer-events: none;
     }
 
-    /*divider
-    ex) <div class="divider"></div>*/
+    /*divider ex) <div class="divider"></div>*/
+
     .divider{
         height: 1px;
         width: 100%;

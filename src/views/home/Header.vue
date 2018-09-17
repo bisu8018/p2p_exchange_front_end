@@ -2,6 +2,7 @@
 <!-- CSS가 두벌이므로 참고할것-->
 <template>
     <div>
+        <div v-if="drawer && isMobile" class="layout_dim" @click="closeHeader()"></div>
         <div class="nav" v-bind:class="{cssFixed : isFixed || isChatOpened}">
             <div class="mobile-header">
                 <!--logo-->
@@ -284,7 +285,8 @@
             },
             isChatOpened() {
                 return MainRepository.Chat.controller().getChatStatus();
-            }
+            },
+
         },
         created() {
             this.currentLang = abGetLang();
@@ -445,6 +447,9 @@
             goChat() {
                MainRepository.router().goChat();
             },
+            closeHeader(){
+                this.drawer = false;
+            }
         },
 
 
@@ -752,6 +757,17 @@
         }
 
         .SubMenu-leave, .SubMenu-enter-to{
+        }
+
+        .layout_dim {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.45);
+            opacity: 0.5;
+            z-index: 1;
         }
 
 }
