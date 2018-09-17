@@ -2073,7 +2073,7 @@
     .progress-circular {
         width: 24px !important;
         height: 24px !important;
-        position: absolute;
+        position: absolute !important;
         right: 10px;
         top: -2px;
     }

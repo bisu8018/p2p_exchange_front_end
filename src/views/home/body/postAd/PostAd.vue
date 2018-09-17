@@ -54,7 +54,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrencyType") }}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrencyType" v-model="cryptocurrencyType" @change="selectCurrencyType()"
+                        <select class="comp-selectbox h6" id="cryptocurrencyType" v-model="cryptocurrencyType"
+                                @change="selectCurrencyType()"
                                 :class="{'input-disabled2' : edit}">
                             <option value="general">General Token</option>
                             <option value="custom">Custom Token</option>
@@ -113,19 +114,16 @@
                     <div class="text-xs-left mb-2  color-black display-flex ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
-                        <div v-if="priceType === 'floatprice'"
-                             class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                        <div v-if="priceType === 'floatprice'" class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
                             <span class="tooltip-content">{{ $str("explainMargin") }}</span>
                         </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
                          v-bind:class="{'warning-border' : warning_fixed_price, 'warning-border' : warning_float_price}">
                         <input type="text" class="price-input" placeholder="0" v-model="fixedPrice"
-                               @keyup="onNumberCheck('fixedPrice')" v-if="priceType === 'fixedprice'"
-                        >
+                               @keyup="onNumberCheck('fixedPrice')" v-if="priceType === 'fixedprice'">
                         <input type="text" class="price-input" placeholder="0" v-model="margin"
-                               @keyup="onNumberCheck('floatPrice')" v-else maxlength="4"
-                        >
+                               @keyup="onNumberCheck('floatPrice')" v-else maxlength="4">
                         <div class="border-indicator h6">
                             {{ priceType === 'fixedprice' ? getCurrency : '%' }}
                         </div>
@@ -694,23 +692,6 @@
             getBank() {
                 return MainRepository.MyInfo.controller().findPaymentMethods('bankaccount');
             },
-            getCryptoCurrency() {
-                if (this.cryptocurrencyType === 'general') {
-                    if (this.cryptocurrency === 'bitcoin') {
-                        return 'BTC'
-                    } else if (this.cryptocurrency === 'ethereum') {
-                        return 'ETH'
-                    } else {
-                        return 'ALLB'
-                    }
-                } else {
-                    let tokenModel = MainRepository.MyToken.controller().findCustomToken(this.tokenNo,'no')
-                    if(tokenModel){
-                        return tokenModel.tokenName;
-                    }
-                }
-
-            },
             getWallet() {
                 if (Object.keys(MainRepository.Wallet.getWallets()).length > 0) {
                     if (this.cryptocurrency === 'ETH' || this.cryptocurrency === 'BIT') {
@@ -1159,18 +1140,18 @@
                 this.$router.push("/myPage");
             },
             selectToken(tokenNo) {
-                let _tokenName ;
-                if(this.cryptocurrencyType === 'general'){
+                let _tokenName;
+                if (this.cryptocurrencyType === 'general') {
                     _tokenName = MainRepository.GeneralToken.controller().findGeneralToken(tokenNo, 'no').tokenName;
-                }else{
+                } else {
                     _tokenName = MainRepository.MyToken.controller().findCustomToken(tokenNo, 'no').tokenName;
                 }
                 this.cryptocurrency = _tokenName;
                 this.tokenNo = tokenNo;
             },
-            selectCurrencyType(){
-                if(this.cryptocurrencyType === 'custom'){
-                    this.priceType = 'fixedprice'
+            selectCurrencyType() {
+                if (this.cryptocurrencyType === 'custom') {
+                    this.priceType = 'fixedprice';
                 }
             }
 

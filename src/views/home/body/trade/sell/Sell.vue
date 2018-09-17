@@ -2,65 +2,29 @@
     <div class="mt-5 mb-5 mr-3 ml-3 p-relative">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
-
-                <!--{{ order_number }} 주문번호-->
-                {{ $str('order') }} : #{{ getOrderNumber }}
-
+                {{ $str('order') }} : #{{ getOrderNumber }}         <!--{{ order_number }} 주문번호-->
             </div>
-
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
-
-                <!--buy/sell -->
                 {{ $str('sell') }}
-
-                <!--토큰량 -->
                 {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
-
-                <!-- 토큰종류-->
                 {{ currentOrder.cryptocurrency }}
                 <span class="mr-2"></span>
-
-                <!-- 닉네임-->
                 <div class="d-inline-block">  {{ $str('from') }} {{ counterPartyNickname }}</div>
-
             </div>
-
-
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
-
-                    {{ $str('price') }} :
-
-                    <!-- 가격 -->
+                    {{ $str('price') }} :            <!-- 가격 -->
                     <span class="ml-3 h3">{{ toMoneyFormat(currentOrder.price) }}
-
-                        <!-- 화폐단위-->  <!-- 토큰종류 -->
                         {{ currentOrder.currency }} / {{ currentOrder.cryptocurrency }}
-
                     </span>
                 </div>
-
                 <div class="color-black">
-
-                    {{ $str('amount') }} :
-
-                    <!--{{ currentOrder.price }} 가격 -->
-
+                    {{ $str('amount') }} :           <!--{{ currentOrder.price }} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
-
                         <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">
-
-                          {{ toMoneyFormat(currentOrder.amount) }}
-
-                            <!--{{ currentOrder.currency }} 화폐단위-->
-                            {{ currentOrder.currency }}
-
-                        </span>
-
+                             {{ toMoneyFormat(currentOrder.amount) }}{{ currentOrder.currency }}</span>      <!--{{ currentOrder.currency }} 화폐단위-->
                         <input type="text" :value="currentOrder.amount" id="amountValue" class="referenceNum">
-
                         <span class="tooltip-content">{{ $str("Copy") }}</span>
-
                     </div>
                 </div>
             </div>
@@ -70,70 +34,63 @@
              v-for="item in getMyPaymentMethodSelectList()">
             <trade-item :item="item"></trade-item>
         </div>
+
+        <!--*******************  cancel / expired 상태  ******************-->
+
         <div class="h4 bold color-black text-xs-left mb-4">
             <v-flex xs12 md4>
-
-                <!--status cancel 일 시 설명 문구-->
                 <div class="cancel-explain mb-4 "
                      v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
                     {{ $str("cancelExplain") }}
                 </div>
             </v-flex>
 
-            <!--unpaid 상태 일때-->
+            <!--*******************  unpaid 상태  ******************-->
+
             <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
-
                 {{ $str("payingExplain1") }}
-                {{ counterPartyNickname }}
+                {{ counterPartyNickname }}           <!-- 닉네임-->
                 {{ $str("payingExplain2") }}
-
                 <span class="color-orange-price">{{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>
-
-                {{ $str("payingExplain3") }}
-
-                <!--타이머 스크립트 작성 필요-->
-                <span class="color-green">{{  limitTime  }}</span>
-
+                 {{ $str("payingExplain3") }}
+                <span class="color-green">{{  limitTime  }}</span>       <!-- 지불기간-->
                 {{ $str("payingExplain4") }}
             </div>
 
+            <!--*******************  paid 상태  ******************-->
 
-            <!--paid 상태 일때-->
             <div class="mb-2" v-if="currentOrder.status === 'paid'">
-
                 {{ $str("confirmgExplain1") }}
                 {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
-
                 <span class="color-orange-price">{{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>
             </div>
 
 
             <div>
-                <!-- complete / Cancel 상태 -->
+
+                <!--*******************  cancel/ expired 상태  ******************-->
+
                 <span v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
                     {{ $str("cancel") }}
                 </span>
 
-                <!-- complete / Cancel 상태 -->
+                <!--*******************  complete / cancel / expired 상태  ******************-->
+
                 <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
                     {{ $str("complete") }},
                 </span>
 
-                <!-- Complaining 일 때 -->
+                <!--*******************  complaining 상태  ******************-->
+
                 <span v-if="currentOrder.status === 'complaining'">
                     {{ $str("appealCodeExplain") }}
                     {{ getAppeal.appealNo }} ,
                 </span>
-
                 {{ $str("referenceText") }} :
-
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
-
-                        <!--{{ 거래번호 }}-->
-                        {{ currentOrder.referenceNo }}
-
+                        {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                     </span>
                     <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
                     <span class="tooltip-content">{{ $str("Copy") }}</span>
@@ -141,96 +98,82 @@
             </div>
         </div>
 
+        <!--*******************  unpaid 상태  ******************-->
 
-        <!--unpaid process indicator (unpaid 상태 일때) -->
-        <v-flex xs12 mb-4 v-if="currentOrder.status != 'complete'">
+        <v-flex xs12 mb-4 v-if="currentOrder.status === 'unpaid'">      <!--unpaid process indicator-->
             <v-flex md3>
-            <span v-if="currentOrder.status === 'unpaid'" class="p-relative">
-                <input type="text" class="buying-process"
-                       :value="$str('buyingIndicator')"
-                       readonly>
-                <v-progress-circular indeterminate class="color-blue progress-circular"
-                ></v-progress-circular>
-            </span>
+                <span class="p-relative">
+                    <input type="text" class="buying-process"
+                           :value="$str('buyingIndicator')"
+                           readonly>
+                    <v-progress-circular indeterminate class="color-blue progress-circular"></v-progress-circular>
+                </span>
             </v-flex>
         </v-flex>
 
+        <!--*******************  confirm 상태  ******************-->
 
-        <!--거래 성사 버튼 (confirm 상태 일때) -->
         <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="currentOrder.status === 'paid'">
             <input type="button" class="btn-blue btn-blue-hover mb-4"
                    :value="$str('confirmRelease')" @click="onModal('confirm')">
         </v-flex>
 
-        <!--거래완료 아이콘 및 메세지 (complete 상태일때)-->
+        <!--*******************  complete 상태  ******************-->
+
         <v-flex xs12 md12 mb-4 text-xs-left payment-complete-wrapper align-center
                 v-else-if="currentOrder.status === 'complete'">
             <div><i class="material-icons check-icon">check_circle</i></div>
         </v-flex>
 
-        <!--거래 취소 아이콘 (cancel 상태일때)-->
+        <!--*******************  cancel 상태  ******************-->
+
         <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left
-                v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">     <!--거래 취소 아이콘 (cancel 상태일때)-->
             <i class="material-icons cancel-icon">cancel</i>
         </v-flex>
 
-        <!--이의제기 아이콘 및 취소 버튼 (appeal 상태일때)-->
-        <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">
+        <!--*******************  appeal 상태  ******************-->
+
+        <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">         <!--이의제기 아이콘 및 취소 버튼-->
             <i class="material-icons  warning-icon ">error</i>
         </v-flex>
 
 
-        <!--데스크탑 환경에서 설명-->
-        <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">
-            <p class="mb-1 h6 ">
-                {{ $str('sellChecklist1') }}
-            </p>
-            <p class="mb-1 h6 ">
-                {{ $str('sellChecklist2') }}
-            <p class="mb-0 h6 ">
-                {{ $str('sellChecklist3') }}
-            </p>
+
+        <v-flex xs12 md6 mb-4 h6 text-xs-left color-darkgray v-if="!isMobile()">        <!--데스크탑 환경에서 설명-->
+            <p class="mb-1 h6 ">{{ $str('sellChecklist1') }}</p>
+            <p class="mb-1 h6 ">{{ $str('sellChecklist2') }}</p>
+            <p class="mb-0 h6 ">{{ $str('sellChecklist3') }}</p>
         </v-flex>
 
+        <!--*******************  appeal 상태  ******************-->
 
-        <!--이의제기 취소 버튼 (appeal 상태일때)-->
         <v-flex xs6 md12 mb-4a text-md-left text-xs-right
                 v-if="currentOrder.status === 'complaining' && checkAppealBtn === true "
-                :class="{'pt-4' : isMobile()}">
-            <a class="color-blue-active"
-               @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
+                :class="{'pt-4' : isMobile()}">          <!--이의제기 취소 버튼 -->
+            <a class="color-blue-active" @click="onModal('cancelAppeal')">{{ $str('cancelModalButton') }}</a>
         </v-flex>
 
 
-        <!--채팅창-->
-        <div>
-            <div v-if="isInitCompleted">
+
+            <div v-if="isInitCompleted">         <!--채팅창-->
                 <message :order="currentOrder"></message>
             </div>
+
+
+        <div class="h6 text-xs-left color-darkgray  mt-4a" v-if="isMobile()">       <!--모바일 환경에서 설명-->
+            <p class="mb-1 h6">{{ $str('sellChecklist1') }}</p>
+            <p class="mb-1 h6">{{ $str('sellChecklist2') }}</p>
+            <p class="mb-0 h6">{{ $str('sellChecklist3') }}</p>
         </div>
 
+        <!--*******************  confirm 상태  ******************-->
 
-        <!--모바일 환경에서 설명-->
-        <div class="h6 text-xs-left color-darkgray  mt-4a" v-if="isMobile()">
-            <p class="mb-1 h6">
-                {{ $str('sellChecklist1') }}
-            </p>
-            <p class="mb-1 h6">
-                {{ $str('sellChecklist2') }}
-            </p>
-            <p class="mb-0 h6">
-                {{ $str('sellChecklist3') }}
-            </p>
-        </div>
-
-
-        <!--거래 성사 버튼 (confirm 상태 일때) -->
-        <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="currentOrder.status === 'paid'">
+        <v-flex xs6 md12 mb-4a text-md-left text-xs-left v-if="currentOrder.status === 'paid'">     <!--거래 성사 버튼 -->
             <input class="text-white-hover btn-rounded-white h5" type="button"
                    :value="$str('appeal')" @click="onModal('appeal')" v-on:appeal="onAppeal"
                    v-on:cancelAppeal="onCancelAppeal">
         </v-flex>
-
 
         <sell-modal :show="showModal" :type="modalType" v-on:confirm="onConfirm" v-on:close="onClose"
                     v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></sell-modal>
@@ -266,7 +209,6 @@
             counterPartyNickname() {    //상대방 닉네임 GET
                 let merchantNickname = this.currentOrder.merchantNickname;
                 let customerNickname = this.currentOrder.customerNickname;
-                let customerMemberNo = this.currentOrder.customerMemberNo;
                 let myNickname = MainRepository.MyInfo.getUserInfo().nickname;
 
 
@@ -534,8 +476,6 @@
         font-size: 14px;
         color: #9294a6;
     }
-
-
 
     .check-icon {
         font-size: 102px;
