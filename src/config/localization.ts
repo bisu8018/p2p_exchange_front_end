@@ -3187,6 +3187,24 @@ const strings = new Map([
         CN: '广告已完成修改',
         HK: '廣告已完成修改'
     }],
+    ['comp_ad_disable', {
+        KOR: '광고가 비활성화 되었습니다.',
+        ENG: 'AD has been disabled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_enable', {
+        KOR: '광고가 활성화 되었습니다.',
+        ENG: 'AD has been enabled.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_ad_delete', {
+        KOR: '광고가 삭제 되었습니다.',
+        ENG: 'AD has been deleted.',
+        CN: '',
+        HK: ''
+    }],
     ['comp_order_appeal', {
         KOR: '이의제기가 등록되었습니다.',
         ENG: 'Appeal registered successfully.',
@@ -3278,8 +3296,8 @@ const strings = new Map([
         HK: '修改綁定的手機號碼'
     }],
     ['warn_completeProcessingOrder', {
-        KOR: '진행중인 주문을 마친 뒤 상태 변경을 해주세요',
-        ENG: 'Please finish your order in progress at first.',
+        KOR: '진행중인 주문을 완료 해주세요',
+        ENG: 'Finish your order in progress.',
         CN: '请先完成当前订单后，进行修改',
         HK: '請先完成當前訂單後，進行修改'
     }],

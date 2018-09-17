@@ -94,42 +94,42 @@
                     case 'signupCountry' :
                         if (this.editValue) {
                             this.selected = this.editValue;
-                            this.setting();
                         } else {
                             let _country = MainRepository.SelectBox.controller().getCountry();
                             this.selected = _country === 'ALL' ? 'CN' : _country;
                         }
+                        this.setting();
                         break;
 
                     case 'currency' :
                         if (this.editValue) {
                             this.selected = this.editValue;
-                            this.setting();
                         } else {
                             this.selected = MainRepository.SelectBox.controller().getCurrency();
                         }
+                        this.setting();
                         break;
 
                     case 'customToken' :
                         MainRepository.MyToken.setCustomTokenList(() => {
-                            if (this.editValue) {
-                                this.selected = this.editValue;
-                                this.setting();
-                            }
                             this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
                             this.selected = this.customTokens[0].tokenNo;
+                            if (this.editValue) {
+                                this.selected = this.editValue;
+                            }
+                            this.setting();
                         });
                         break;
 
                     case 'generalToken' :
                         MainRepository.MyToken.setGeneralTokenList(() => {
+                            this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
                             if (this.editValue) {
                                 this.selected = this.editValue;
-                                this.setting();
                             } else {
-                                this.selected = 2147483646;
+                                this.selected = 2147483646;     //BTC
                             }
-                            this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
+                            this.setting();
                         });
                         break;
 
