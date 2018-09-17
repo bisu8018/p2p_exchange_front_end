@@ -49,17 +49,14 @@
             </v-flex>
             <!-- amount -->
             <v-flex xs12 md3 mb-4>
-                <v-layout>
-                    <v-flex xs9 pl-0 pr-0>
+                <v-layout >
+                    <v-flex xs9 pl-0 pr-0 class="p-relative">
                         <input type="text" class="input amount-box" v-model="amount"
                                :placeholder="$str('How_much_you_want_to_trade?')">
                     </v-flex>
                     <!-- currency -->
-                    <v-flex xs3 pl-0 pr-0>
-                        <div class="p-relative">
-                            <select-box :selectBoxType="'currency'"></select-box>
-                            <div class="currency-box-border"></div>
-                        </div>
+                    <v-flex xs3 pl-0 pr-0 >
+                        <select-box :selectBoxType="'currency'"></select-box>
                     </v-flex>
                 </v-layout>
             </v-flex>
@@ -175,9 +172,18 @@
             padding-left: 12px;
             padding-right: 12px;
         }
-      .userInput {
-        width: 100%;
-      }
+
+        .userInput {
+            width: 100%;
+        }
+        .amount-box{
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            position: absolute;
+            right: -1px;
+            z-index: 2;
+        }
+
     }
 
     h1 {
