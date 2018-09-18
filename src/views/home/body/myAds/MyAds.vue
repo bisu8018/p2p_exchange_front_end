@@ -1,12 +1,11 @@
 <template>
     <div>
-        <v-layout row wrap mt-5 mb-4a>
-            <!--header-->
-            <v-flex md2 xs12 class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</v-flex>
-            <v-spacer></v-spacer>
-            <v-flex md10 xs12>
-                <my-ads-filter></my-ads-filter>
-            </v-flex>
+        <v-layout row wrap mt-5 class="web-margin-bottom">
+          <!--header-->
+          <v-flex md8 xs12 class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</v-flex>
+          <v-flex md4 xs12>
+              <my-ads-filter></my-ads-filter>
+          </v-flex>
         </v-layout>
 
       <div v-if="!isMobile">
@@ -119,6 +118,9 @@
     .pagination-top-margin{
       margin-top : 48px;
     }
+    .web-margin-bottom{
+      margin-bottom: 12px;
+    }
   }
   /*mobile 일때*/
   @media only screen and (max-width: 959px) {
@@ -128,6 +130,7 @@
     .pagination-top-margin{
       margin-top : 32px;
     }
+
   }
   .list_progress {
     margin-top: 80px;

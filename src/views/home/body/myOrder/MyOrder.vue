@@ -1,10 +1,9 @@
 <template>
     <div>
-        <v-layout row wrap mt-5 mb-2a>
+        <v-layout row wrap mt-5 class="web-margin-bottom">
             <!--header-->
-            <v-flex mt-2 xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
-            <v-spacer></v-spacer>
-            <v-flex xs12 md10 >
+            <v-flex mt-2 xs12 md6 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
+            <v-flex xs12 md6 mb-3>
                 <my-order-filter></my-order-filter>
             </v-flex>
         </v-layout>
@@ -121,6 +120,9 @@
         .pagination-top-margin{
             margin-top : 48px;
         }
+      .web-margin-bottom{
+        margin-bottom: 16px;
+      }
     }
     /*mobile 일때*/
     @media only screen and (max-width: 959px) {

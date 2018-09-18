@@ -1,12 +1,11 @@
 <template>
-    <v-layout row wrap>
+    <v-layout row wrap mb-2>
         <v-flex xs12 md12 >
-            <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
+            <div class="ads-filter" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if="showPlaceholder">{{$str("adsFilterPlaceholder")}}</div>
-                <i class="material-icons p-absolute filter-img color-darkgray c-pointer"
+                <i class="material-icons  filter-img "
                    @click.stop="isModal = !isModal">filter_list</i>
-
 
             <!--chips-->
             <div class="mr-5 chip-wrapper d-inline-block">
@@ -354,6 +353,44 @@
 </script>
 
 <style scoped>
+
+    /* mobile 에서 */
+    @media only screen and (max-width: 959px) {
+        .card-modal {
+            z-index: 2;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+            padding: 16px 8px 24px 8px;
+            min-height: 200px;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        .ads-filter {
+            height: 40px;
+            border: solid 1px #8d8d8d;
+            min-width: unset;
+        }
+
+
+    }
+
+    /* 웹에서 */
+    @media only screen and (min-width: 960px) {
+        .card-modal {
+            z-index: 2;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+            padding: 16px 8px 24px 8px;
+            min-height: 200px;
+            width: 75%;
+            right: 0;
+        }
+    }
+
     .close-icons {
         margin-top: 2px;
     }
@@ -361,28 +398,14 @@
         padding-top: 6px;
     }
 
-    .order-filter {
+    .ads-filter {
         height: 40px;
         border: solid 1px #8d8d8d;
-        min-width: 376px;
         border-radius: 2px;
-    }
-
-    @media (max-width: 768px) {
-        .order-filter {
-            height: 40px;
-            border: solid 1px #8d8d8d;
-            min-width: unset;
-        }
-    }
-
-    .card-modal {
-        z-index: 2;
-        position: absolute;
-        background-color: #ffffff;
-        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-        padding: 16px 8px 24px 8px;
-        min-height: 200px;
+        width: 100%;
+        position: relative;
+        text-align: left;
+        display: inline-table;
     }
 
     .card-modal:after {
@@ -413,16 +436,13 @@
         border-color: transparent transparent #d8d8d8 transparent ;
     }
 
-    /* filter card 가 mobile에선 width 100이므로
-mobile에서만 추가 선언.*/
-    .card-modal-mobile {
-        width: 100%;
-        left: 0%;
-    }
 
     .filter-img {
         right: 7px;
         top: 7px;
+        position: absolute;
+        color: #9294a6;
+        cursor: pointer;
     }
 
     .input {

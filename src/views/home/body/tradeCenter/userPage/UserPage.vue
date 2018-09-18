@@ -94,7 +94,7 @@
           <div class="color-darkgray">{{$str("Trades_in_30_days")}}</div>
         </v-flex>
         <v-flex md1 text-md-right >
-          <div>{{merchant.avgRelease}} {{$str("Min")}}</div>
+          <div>{{merchant.avgRelease}} {{$str("min")}}</div>
           <div class="color-darkgray"> {{$str("Avg_release")}}</div>
         </v-flex>
       </v-layout>
