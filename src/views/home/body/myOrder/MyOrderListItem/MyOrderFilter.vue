@@ -1,7 +1,7 @@
 <template>
     <v-layout row wrap>
         <div :class="{'layout_dim' : isModal }" @click="onOutsideClick"></div>
-        <v-flex pr-0 pl-0>
+        <v-flex md8 xs12 pr-0 pl-0>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if="showPlaceholder">
@@ -163,7 +163,7 @@
 
 
         <!--데스크탑 환경에서만 표시 -->
-        <v-flex md2 pl-4 pr-0 v-if="!isMobile">
+        <v-flex md4 pl-4 pr-0 v-if="!isMobile">
             <button class="btn-white" @click="showDownloadDialog">{{$str("Export")}}</button>
         </v-flex>
 
@@ -409,7 +409,7 @@
 </script>
 
 <style scoped>
-    @media (max-width: 959px) {
+    @media only screen and (max-width: 959px) {
         .order-filter {
             height: 40px;
             border: solid 1px #8d8d8d;
@@ -454,6 +454,7 @@
         height: 40px;
         border: solid 1px #8d8d8d;
         border-radius: 2px;
+        width: 100%;
     }
 
 

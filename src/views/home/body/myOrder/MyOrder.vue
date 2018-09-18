@@ -2,9 +2,8 @@
     <div>
         <v-layout row wrap mt-5 mb-2a>
             <!--header-->
-            <v-flex mt-2 xs12 md2 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
-            <v-spacer></v-spacer>
-            <v-flex xs12 md10 >
+            <v-flex mt-2 xs12 md6 class="text-xs-left h2 bold mb-4a">{{$str("MyOrder")}}</v-flex>
+            <v-flex xs12 md6>
                 <my-order-filter></my-order-filter>
             </v-flex>
         </v-layout>
