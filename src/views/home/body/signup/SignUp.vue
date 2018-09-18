@@ -84,14 +84,13 @@
     import AccountService from '@/service/account/AccountService';
     import SelectBox from '@/components/SelectBox.vue';
     import VerificationModal from '@/components/VerificationModal.vue';
-    import Alerts from '@/components/Alerts.vue';
     import VerificationCode from '@/components/VerificationCode.vue';
     import MainRepository from "@/vuex/MainRepository";
 
     export default Vue.extend({
         name: 'home',
         components: {
-            SelectBox, VerificationModal, Alerts, VerificationCode
+            SelectBox, VerificationModal, VerificationCode
         },
         data: () => ({
             email: "",

@@ -1,5 +1,10 @@
 <template>
     <div class="mt-5 mb-5 mr-3 ml-3 p-relative"  v-if="isInitCompleted">
+
+
+        <!--***************      첫번째       *********-->
+        <!--***************       섹션        *********-->
+
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 {{ $str('order') }} : #{{ getOrderNumber }}         <!--{{ order_number }} 주문번호-->
@@ -8,8 +13,8 @@
                 {{ $str('buy') }}
                 {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
                 {{ currentOrder.cryptocurrency }}
-                <span class="mr-2"></span>
-                <div class="d-inline-block"> {{ $str('from') }} {{ counterPartyNickname }}</div>
+                <br v-if="isMobile()"/>
+                {{ $str('from') }} {{ counterPartyNickname }}
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">
@@ -29,6 +34,10 @@
                 </div>
             </div>
         </v-layout>
+
+
+        <!--***************      두번째       *********-->
+        <!--***************       섹션        *********-->
 
         <div v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired'"
              v-for="item in getMyPaymentMethodSelectList()">
@@ -92,7 +101,7 @@
                             {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                        </span>
                         <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
-                        <span class="tooltip-content">Copy</span>
+                        <span class="tooltip-content">{{ $str("Copy") }}</span>
                     </div>
                 </v-flex>
             </v-flex>

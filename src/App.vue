@@ -572,6 +572,21 @@
         background-color: #214ea1;
     }
 
+    /* border 색깔 */
+
+    .bd-green{
+        border-color: #71aa3a;
+    }
+
+    .bd-orange{
+        border-color: #f9a825;
+    }
+
+    .bd-red{
+        border-color: #e62a2b;
+    }
+
+
     /* 마진, margin 설정*/
 
     .mb-4a {
@@ -2206,4 +2221,71 @@
         right: 12px;
         top: 10px;
     }
+
+
+    /* Alert CSS */
+    @media only screen and (min-width: 959px) {
+        .notifications-wrapper {
+            position: fixed;
+            right: 32px;
+            top: 64px;
+            width: 290px;
+            z-index: 999;
+
+        }
+    }
+
+    @media only screen and (max-width: 959px) {
+        .notifications-wrapper {
+            position: fixed;
+            padding: 0 15px 0 15px;
+            width: 100%;
+            z-index: 999;
+        }
+    }
+
+    .subj-css {
+        display: flex;
+        text-align: left;
+        margin-top: 3px;
+        margin-left: 12px;
+        position: relative;
+    }
+
+    .close-css {
+        right: 11px;
+        top: 0;
+        position: absolute;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .icon-css {
+        margin-top: 6px;
+        margin-right: 10px;
+    }
+
+    .content-css {
+        text-align: left;
+        margin-left: 44px;
+    }
+
+    .notification {
+        height: 72px;
+        border-radius: 3px;
+        border-width: 1px 1px 1px 5px;
+        border-style: solid;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+        background-color: #ffffff;
+        margin-bottom: 8px;
+    }
+
+    .alertItem-enter-active, .alertItem-leave-active {
+        transition: all .3s ease;
+    }
+    .alertItem-enter, .alertItem-leave-to  {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+
 </style>

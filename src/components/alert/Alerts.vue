@@ -2,7 +2,7 @@
 showWarning(){ this.$eventBus.$emit('showAlert', 2); }
  과 같이 선언하시면 됩니다.-->
 <template>
-    <div class="notifications">
+    <div class="notifications-wrapper">
       <notification v-for="notification in notifications" :notification="notification" @close-notification="removeNotification" transition="fade">
       </notification>
     </div>
@@ -14,8 +14,8 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
     //     leaveClass: 'fadeOutDown' // class of animate.css
     // })
     import Vue from 'vue';
-    import notification from '@/components/Alert_item.vue';
-    import {abGetLang} from "../config/localization";
+    import notification from '@/components/alert/Alert_item.vue';
+    import {abGetLang} from "../../config/localization";
 
     const NotificationStore = {
         state: [], // here the notifications will be added
@@ -211,20 +211,5 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
 </script>
 
 <style scoped>
-  .notifications {
-    position: fixed;
-    right: 32px;
-    top: 64px;
-    width: 290px;
-    z-index: 999;
-  }
 
-  @media only screen and (max-width: 959px) {
-    .notifications {
-      width: 98%;
-      left: 12px;
-      right: 0;
-
-    }
-  }
 </style>

@@ -8,8 +8,8 @@
                 {{ $str('sell') }}
                 {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
                 {{ currentOrder.cryptocurrency }}
-                <span class="mr-2"></span>
-                <div class="d-inline-block">  {{ $str('from') }} {{ counterPartyNickname }}</div>
+                <br v-if="isMobile()"/>
+                {{ $str('from') }} {{ counterPartyNickname }}
             </div>
             <div class="text-xs-left mb-4 ">
                 <div class="color-black mb-3 ">

@@ -689,7 +689,7 @@ export default {
         // cryptocurrency & tradeType
         // tradecenter 왼쪽 필터
         setTradeLeftFilter(cryptocurrency: string, tradeType: string,) {
-            var LeftFilterArr = {
+            let LeftFilterArr = {
                 cryptocurrency: cryptocurrency,
                 tradeType: tradeType,
                 page: 1,                     //이 1은 TradeFilter에 들어가는 page 정보이므로 여기에 추가해 줘야함.

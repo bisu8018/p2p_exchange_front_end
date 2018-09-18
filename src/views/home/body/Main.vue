@@ -40,11 +40,7 @@
             <!-- tradeType -->
             <v-flex xs6 md2 mb-4>
                 <div class="p-relative">
-                    <select v-model="selectedTradeType" class="comp-selectbox o-none h6">
-                        <option value="Buy" class="o-none">{{$str("Buy")}}</option>
-                        <option value="Sell" class="o-none">{{$str("Sell")}}</option>
-                    </select>
-                    <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+                    <select-box :selectBoxType="'tradeType'"  v-on:tradeType="setTradeType" ></select-box>
                 </div>
             </v-flex>
             <!-- amount -->
@@ -64,12 +60,7 @@
                 <v-layout justify-space-between>
                     <div class="p-relative userInput">
                         <!-- cryptocurrency -->
-                        <select v-model="selectedCryptocurrency" class="comp-selectbox  o-none h6">
-                            <option class="o-none">BTC</option>
-                            <option class="o-none">ETH</option>
-                            <option class="o-none">ALLB</option>
-                        </select>
-                        <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'generalToken'" @generalToken="selectToken" ></select-box>
                     </div>
                     <div v-if="isMobile" class="pl-1 pr-1"></div>
                     <div v-else class="color-darkgray pt-2 mb-4">{{$str('Via')}}</div>
@@ -125,14 +116,12 @@
         },
         data() {
             return {
-                selectedCryptocurrency: 'BTC',
-                selectedTradeType: 'Buy',
+                tokenNo: '',
+                cryptocurrency: '',
+                tradeType: '',
                 amount: '',
                 currentLang: abGetLang(),
             }
-        },
-        mounted() {
-
         },
         methods: {
             goLogin() {
@@ -142,11 +131,18 @@
                 this.$router.push("/signup");
             },
             goSearchedTradeCenter() {
-                MainRepository.TradeView.setTradeLeftFilter(this.selectedCryptocurrency, this.selectedTradeType);
+                MainRepository.TradeView.setTradeLeftFilter(this.tradeType, this.cryptocurrency);
                 MainRepository.TradeView.setTradeRightFilter('', '', '', this.amount);
                 this.$router.push("/generalTrade?main");
-            }
-
+            },
+            setTradeType(code){
+                this.tradeType = code;
+            },
+            selectToken(tokenNo) {
+                let _tokenName = MainRepository.GeneralToken.controller().findGeneralToken(tokenNo, 'no').tokenName;
+                this.cryptocurrency = _tokenName;
+                this.tokenNo = tokenNo;
+            },
         },
     })
 </script>

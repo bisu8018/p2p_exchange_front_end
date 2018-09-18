@@ -911,8 +911,8 @@ const strings = new Map([
     ['cryptoCurrencyType', {
         KOR: '암호화폐 종류',
         ENG: 'Cryptocurrency Type',
-        CN: '加密货币',
-        HK: '加密貨幣'
+        CN: '加密货币种类',
+        HK: '加密貨幣種類'
     }],
     ['lowBalance', {
         KOR: '보유하고 계신 코인 잔액이 부족합니다',
@@ -2314,8 +2314,8 @@ const strings = new Map([
     ['phoneTurnOffExplain', {
         KOR: '휴대폰 인증이 비활성화 되면, 24시간 동안 출금하실 수 없습니다.',
         ENG: 'The withdrawal will be disabled in next 24 hours once phone authentication is turned off.',
-        CN: '',
-        HK: ''
+        CN: '一旦关闭手机验证后，24小时内不能提款。',
+        HK: '一旦關掉手機驗證後，24小時内不能提款。'
     }],
     ['linkPhone', {
         KOR: '휴대폰 연동',
@@ -3219,7 +3219,7 @@ const strings = new Map([
     }],
     ['comp_copy', {
         KOR: '복사되었습니다.',
-        ENG: 'Copied',
+        ENG: 'Copied.',
         CN: '已复制',
         HK: '已復制'
     }],
@@ -3386,403 +3386,403 @@ const strings = new Map([
         HK: '登錄失敗'
     }],
     ['warn_file_size', {
-        KOR: '이미지 크기 초과하였습니다.',
-        ENG: '',
-        CN: '',
-        HK: ''
+        KOR: '이미지 크기가 너무 큽니다.',
+        ENG: 'This image is too big.',
+        CN: '图片容量太大',
+        HK: '圖片容量太大'
     }],
     ['ExportDataExplain', {
-        KOR: '시스템은 결과를 .xlsx 파일로 내보내고 한 번에 최대 1000 개의 주문을 다운 받을 수 있습니다.',
-        ENG: 'System will export the results to .xlsx file, and you can run up to 1000 orders at one time.',
-        CN: '',
-        HK: ''
+        KOR: '시스템은 결과를 .xlsx 파일로 내보내며, 한 번에 최대 1000 개의 주문을 다운 받을 수 있습니다.',
+        ENG: 'System will export the results to .xlsx file, and you can get the file that listed up to 1000 orders at once.',
+        CN: '系统通过 .xlsx 形式将造出文件，可下载一次最多1000件的订单目录。',
+        HK: '系統通過 .xlsx 形式將造出文件，一次可下載最多1000件訂單目錄。'
     }],
 // Meny 새로 추가되는 항목 18/09/07
     ['GeneralTrade', {
         KOR: '일반 거래',
         ENG: 'General Trade',
-        CN: '',
-        HK: ''
+        CN: '普通交易',
+        HK: '普通交易'
     }],
     ['CustomTokenTrade', {
-        KOR: 'Custom Token 거래',
-        ENG: 'Custom Token Trade',
-        CN: '',
-        HK: ''
+        KOR: 'CustomToken 거래',
+        ENG: 'CustomToken Trade',
+        CN: '自定义代币交易',
+        HK: '自定義代幣交易' //다른 곳에서 이렇게 써서, 이렇게 번역했어요.
     }],
     ['myToken', {
         KOR: '내 토큰',
         ENG: 'My Token',
-        CN: '',
-        HK: ''
+        CN: '我的代币',
+        HK: '我的代幣'
     }],
     ['Wallet', {
         KOR: '지갑',
         ENG: 'Wallet',
-        CN: '',
-        HK: ''
+        CN: '钱包',
+        HK: '錢包'
     }],
     ['OTC', {
         KOR: 'OTC',
         ENG: 'OTC',
-        CN: '',
-        HK: ''
+        CN: '场外交易',
+        HK: '場外交易'
     }],
     ['Exchange', {
-        KOR: '중앙거래소',
+        KOR: '거래소',
         ENG: 'Exchange',
-        CN: '',
-        HK: ''
+        CN: '币币交易',
+        HK: '幣幣交易'
     }],
     ['Service', {
         KOR: '서비스',
         ENG: 'Service',
-        CN: '',
-        HK: ''
+        CN: '服务',
+        HK: '服務'
     }],
     ['Chat', {
         KOR: '채팅',
         ENG: 'Chat',
-        CN: '',
-        HK: ''
+        CN: '聊天',
+        HK: '聊天'
     }],
     ['Fixed', {
         KOR: 'Fixed',
         ENG: 'Fixed',
-        CN: '',
-        HK: ''
+        CN: '固定',
+        HK: '固定'
     }],
     ['It\'s under development now.', {
         KOR: '준비중 입니다.',
-        ENG: 'It\'s under development now.',
-        CN: '',
-        HK: ''
+        ENG: 'Under development',
+        CN: '正在开发中',
+        HK: '正在開發中'
     }],
     ['Hide small balances', {
-        KOR: '잔고 없은 계좌 가리기',
+        KOR: '잔고 없는 계좌 가리기',
         ENG: 'Hide small balances',
-        CN: '',
-        HK: ''
+        CN: '隐藏无余额账户',
+        HK: '隱藏無餘額帳戶'
     }],
     ['Transfer to Exchange account to withdraw', {
         KOR: '인출 할 Exchange 계정으로 전송',
-        ENG: 'Transfer to Exchange account to withdraw',
-        CN: '',
-        HK: ''
+        ENG: 'Transfer to Exchange account for withdrawal',
+        CN: '传送到要提款的交易账户',
+        HK: '傳送到要提款的交易帳戶'
     }],
     ['Cryptocurrrency Type', {
-        KOR: '가상화폐 종류',
+        KOR: '암호화폐 종류',
         ENG: 'Cryptocurrrency Type',
-        CN: '',
-        HK: ''
+        CN: '加密货币',
+        HK: '加密貨幣'
     }],
     ['General Coin', {
         KOR: '일반 코인',
         ENG: 'General Coin',
-        CN: '',
-        HK: ''
+        CN: '普通代币',
+        HK: '普通代幣'
     }],
     ['Custom Token', {
         KOR: '커스텀 토큰',
-        ENG: 'Custom Token',
-        CN: '',
-        HK: ''
+        ENG: 'CustomToken',
+        CN: '自定义代币',
+        HK: '自定義代幣'
     }],
     ['Cryptocurrrency', {
-        KOR: '가상화폐',
+        KOR: '암호화폐',
         ENG: 'Cryptocurrrency',
-        CN: '',
-        HK: ''
+        CN: '加密货币',
+        HK: '加密貨幣'
     }],
     ['OTC Account', {
         KOR: 'OTC 계좌',
         ENG: 'OTC Account',
-        CN: '',
-        HK: ''
+        CN: '场外账户',
+        HK: '場外帳戶'
     }],
     ['Exchange Account', {
         KOR: 'Exchange 계좌',
         ENG: 'Exchange Account',
-        CN: '',
-        HK: ''
+        CN: '交易账户',
+        HK: '交易帳戶'
     }],
     ['Transfer Now', {
         KOR: '전송하기',
         ENG: 'Transfer Now',
-        CN: '',
-        HK: ''
+        CN: '立刻传送',
+        HK: '立刻傳送'
     }],
     ['userList', {
         KOR: '유저 목록',
         ENG: 'User List',
-        CN: '',
-        HK: ''
+        CN: '用户目录',
+        HK: '用戶目錄'
     }],
 
     //My Token
     ['tokenName', {
         KOR: '토큰 이름',
         ENG: 'Token name',
-        CN: '',
-        HK: ''
+        CN: '代币名',
+        HK: '代幣名'
     }],
     ['tokenNameExplain', {
-        KOR: '토큰명을 입력해 주십시오. 오직 3-5 문자만 허용됩니다.',
-        ENG: 'Please input customToken name without any blank. Only 3-5 capital letters are available.',
-        CN: '',
-        HK: ''
+        KOR: '토큰명을 입력해 주십시오. 3-5개의 문자만 허용됩니다.',
+        ENG: 'Please input CustomToken name without any blank. Only 3-5 capital letters are available.',
+        CN: '请输入代币名，只能输入3~5个字',
+        HK: '請輸入代幣名，只能輸入3~5個字'
     }],
     ['decimals', {
         KOR: '소수점 자리',
         ENG: 'Decimals',
-        CN: '',
-        HK: ''
+        CN: '小数点',
+        HK: '小數點'
     }],
     ['decimalsExplain', {
         KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. ',
-        ENG: 'Defines the number of decimal places in the customToken. Numbers 0-18 are allowed. By 18 practices',
-        CN: '',
-        HK: ''
+        ENG: 'Defines the number of decimal places in the CustomToken. Numbers 0-18 are allowed.',
+        CN: '请输入代币小数点的位置，只能输入0~18个数字',
+        HK: '請輸入代幣小數點的位置，只能輸入0~18個數字'
     }],
     ['description', {
         KOR: '설명',
         ENG: 'Description',
-        CN: '',
-        HK: ''
+        CN: '描述',
+        HK: '描述'
     }],
     ['descriptionExplain', {
         KOR: '토큰에 대한 설명을 입력해 주십시오. (10 - 300 자 허용)',
-        ENG: 'Please input issuing customToken\'s descryption. (10 to 300 characters)',
-        CN: '',
-        HK: ''
+        ENG: 'Please input issuing CustomToken\'s descryption. (10 to 300 characters)',
+        CN: '请输入代币的详细描述（可输入10~300个字）',
+        HK: '請輸入代幣的詳細描述（可輸入10~300個字）'
     }],
     ['totalToken', {
         KOR: '토큰 발행량',
-        ENG: 'Total tokens',
-        CN: '',
-        HK: ''
+        ENG: 'Total issued tokens',
+        CN: '发行代币量',
+        HK: '發行代幣量'
     }],
     ['totalTokenExplain', {
         KOR: '1만 부터 10억개 까지 발행 할수 있습니다.',
         ENG: 'You can create from 10,000 to 1 billion.',
-        CN: '',
-        HK: ''
+        CN: '您可发行1万到10亿个代币',
+        HK: '您可發行1萬到10億個代幣'
     }],
     ['create', {
         KOR: '생성',
         ENG: 'Create',
-        CN: '',
-        HK: ''
+        CN: '制作',
+        HK: '製作'
     }],
     ['warning_token_name_null', {
         KOR: '토큰명을 입력해 주십시오.',
-        ENG: 'Please enter customToken name.',
-        CN: '',
-        HK: ''
+        ENG: 'Please enter the CustomToken name.',
+        CN: '请输入代币名',
+        HK: '請輸入代幣名'
     }],
     ['warning_token_name_length', {
         KOR: '3-5자 이내로 입력해 주십시오.',
         ENG: 'Please enter 8 to 20 letters.',
-        CN: '',
-        HK: ''
+        CN: '请输入3~5字之内的文字',
+        HK: '請輸入3~5字之内的文字'
     }],
     ['warning_decimals_null', {
         KOR: '소수점 자리를 입력해 주십시오.',
         ENG: 'Please enter decimals.',
-        CN: '',
-        HK: ''
+        CN: '请输入小数点范围',
+        HK: '請輸入小數點範圍'
     }],
     ['warning_decimals_number', {
-        KOR: '실수형으로 입력해 주십시오.',
+        KOR: '숫자를 입력해 주십시오.',
         ENG: 'Please enter real number',
-        CN: '',
-        HK: ''
+        CN: '请输入数字',
+        HK: '請輸入數字'
     }],
     ['warning_decimals_range', {
         KOR: '18 이하로 입력해 주십시오.',
         ENG: 'Please enter less than 18.',
-        CN: '',
-        HK: ''
+        CN: '请输入18以下的数字',
+        HK: '請輸入18以下的數字'
     }],
     ['warning_description_null', {
         KOR: '토큰 설명을 입력해 주십시오.',
-        ENG: 'Please enter customToken description.',
-        CN: '',
-        HK: ''
+        ENG: 'Please enter CustomToken description.',
+        CN: '请输入代币描述',
+        HK: '請輸入代幣描述'
     }],
     ['warning_total_token_null', {
         KOR: '토큰 발행량을 입력해 주십시오.',
-        ENG: 'Please enter total customToken.',
-        CN: '',
-        HK: ''
+        ENG: 'Please enter total issued CustomToken.',
+        CN: '请输入代币发行量',
+        HK: '請輸入代幣發行量'
     }],
     ['warning_total_token_number', {
         KOR: '정수형으로 입력해 주십시오.',
         ENG: 'Pleaes enter integer number.',
-        CN: '',
-        HK: ''
+        CN: '请用整数的方式输入',
+        HK: '請用整數的方式輸入'
     }],
     ['warn_file_exist', {
         KOR: '이미지를 등록해 주십시오.',
         ENG: 'Please register your image.',
-        CN: '',
-        HK: ''
+        CN: '请注册图片',
+        HK: '請注冊圖片'
     }],
     ['reissuable', {
         KOR: '재발행 가능',
         ENG: 'Reissuable',
-        CN: '',
-        HK: ''
+        CN: '可重发',
+        HK: '可重發'
     }],
     ['mainnet', {
         KOR: '메인넷',
         ENG: 'Mainnet',
-        CN: '',
-        HK: ''
+        CN: '主网',
+        HK: '主網'
     }],
     ['testnet', {
         KOR: '테스트넷',
         ENG: 'Testnet',
-        CN: '',
-        HK: ''
+        CN: '测网',
+        HK: '測網'
     }],
     ['tokenServerExplain', {
         KOR: '메인넷 생성에 대한 요금은 1 ETH 입니다.',
-        ENG: 'The fee for the Mainnet creation is 1 Etherium.',
-        CN: '',
-        HK: ''
+        ENG: 'The fee for the Mainnet creation is 1 ETH.',
+        CN: '制作主网的费用为1ETH。',
+        HK: '製作主網的費用為1ETH。'
     }],
     ['myTokenModalWarn', {
         KOR: '내 토큰 생성 요청을 완료 하시겠습니까?',
         ENG: 'Are you sure to complete MyToken generating order?',
-        CN: '',
-        HK: ''
+        CN: '您确定完成我的代币制作邀请吗？',
+        HK: '您確定完成我的代幣製作邀請嗎？'
     }],
     ['myTokenModalCancelSubj', {
         KOR: '내 토큰 생성을 취소 하시겠습니까?',
         ENG: 'Are you sure to cancel create My token?',
-        CN: '',
-        HK: ''
+        CN: '您确定取消制作我的代币吗？',
+        HK: '您確定取消製作我的代幣嗎？'
     }],
     ['myTokenModalCancelExplain', {
         KOR: '페이지를 나갈 시, 입력하신 데이터가 삭제 됩니다. 취소 하시겠습니까?',
         ENG: 'If you exit from this page, your data will not be saved. Are you sure to cancel?',
-        CN: '',
-        HK: ''
+        CN: '如离开本网页，您已输入的所有数据都被却在。您确定取消吗？',
+        HK: '若離開本網頁，您已輸入的所有數據都被卻在。您確定取消嗎？'
     }],
     ['myTokenModalExplain1', {
         KOR: '각 계정당 오직 한개의 토큰만 생성 할 수 있으며,',
-        ENG: 'Each ID can generate customToken only in once,',
-        CN: '',
-        HK: ''
+        ENG: 'Each ID can generate CustomToken only in once,',
+        CN: '每账户限定只能制作一种代币',
+        HK: '沒帳戶限定只能製作一種代幣'
     }],
     ['update_password_suspension_period', { //
         KOR: '비밀번호 변경으로 24시간동안 거래가 불가합니다',
-        ENG: 'No trade for 24 hours due to password change',
-        CN: '',
-        HK: ''
+        ENG: 'Cannot trade for 24 hours due to password change',
+        CN: '由于更改密码，您不能24小时内进行交易。',
+        HK: '由於更改密碼，您不能24小時内進行交易。'
     }],
     ['update_phone_suspension_period', {
         KOR: '휴대폰 변경으로 24시간동안 거래가 불가합니다',
-        ENG: 'No trade for 24 hours due to phone number change',
-        CN: '',
-        HK: ''
+        ENG: 'Cannot trade for 24 hours due to phone number change',
+        CN: '由于更改手机号码，您不能24小时内进行交易。',
+        HK: '由於更改手機好嗎，您不能24小時内進行交易。'
     }],
     ['myTokenModalExplain2', {
         KOR: '요청 후 수정 또는 삭제를 할 수 없습니다.',
         ENG: 'YOU CANNOT MODIFY OR DELETE AFTER REQUEST.',
-        CN: '',
-        HK: ''
+        CN: '邀请以后，您不能修改或删除。',
+        HK: '邀請以後，您不能修改或刪除。'
     }],
     ['comp_request_complete', {
         KOR: '요청 완료.',
         ENG: 'Request complete.',
-        CN: '',
-        HK: ''
+        CN: '邀请完成',
+        HK: '邀請完成'
     }],
     ['myTokenOrderSubj', {
         KOR: '토큰 생성 요청이 완료되었습니다.',
         ENG: 'Your token creation request is complete.',
-        CN: '',
-        HK: ''
+        CN: '已完成代币制作邀请。',
+        HK: '已完成代幣製作邀請。'
     }],
     ['myTokenOrderContent', {
         KOR: '토큰 생성 요청이 완료되었습니다. 토큰 생성까지 약 1시간 소요 됩니다.',
         ENG: 'Your token creation request is complete. It takes about an hour to generate the token.',
-        CN: '',
-        HK: ''
+        CN: '已完成代币制作邀请，到代币制作完成，大约需要1小时。',
+        HK: '已完成代幣製作邀請，到代幣製作完成，大約需要1小時。'
     }],
     ['myTokenCompleteSubj', {
         KOR: '토큰 생성이 완료되었습니다.',
         ENG: 'Your token generation is complete.',
-        CN: '',
-        HK: ''
+        CN: '您的代币制作已完成',
+        HK: '您的代幣製作已完成'
     }],
     ['myTokenCompleteContent', {
         KOR: '토큰 생성이 완료되었습니다. 각 ID 마다 오직 한개의 토큰만 생성 가능합니다.',
         ENG: 'Token generating complete. Each ID can generate only one token.',
-        CN: '',
-        HK: ''
+        CN: '您的代币制作已完成，每个ID只能制作一种代币。',
+        HK: '您的代幣製作已完成，每個ID只能製作一種代幣。'
     }],
     ['Custom Token Trade', {
-        KOR: 'Custom Token 거래',
-        ENG: 'Custom Token Trade',
-        CN: '',
-        HK: ''
+        KOR: 'CustomToken 거래',
+        ENG: 'CustomToken Trade',
+        CN: '自定义代币交易',
+        HK: '自定義代幣交易'
     }],
     ['Description', {
         KOR: '구체 정보',
         ENG: 'Description',
-        CN: '',
-        HK: ''
+        CN: '描述',
+        HK: '描述'
     }],
     ['Trade', {
         KOR: '거래',
         ENG: 'Trade',
-        CN: '',
-        HK: ''
+        CN: '交易',
+        HK: '交易'
     }],
     ['OTC Wallet', {
         KOR: 'OTC 지갑',
         ENG: 'OTC Wallet',
-        CN: '',
-        HK: ''
+        CN: '场外交易钱包',
+        HK: '場外交易錢包'
     }],
     ['Exchange Wallet', {
-        KOR: '중앙거래소 지갑',
+        KOR: '거래소 지갑',
         ENG: 'Exchange Wallet',
-        CN: '',
-        HK: ''
+        CN: '交易所钱包',
+        HK: '交易所錢包'
     }],
     ['Total', {
-        KOR: 'Total',
+        KOR: '총액',
         ENG: 'Total',
-        CN: '',
-        HK: ''
+        CN: '总额',
+        HK: '總額'
     }],
     ['Scan', {
         KOR: '스캔',
         ENG: 'Scan',
-        CN: '',
-        HK: ''
+        CN: '扫描',
+        HK: '掃描'
     }],
     ['Payment', {
         KOR: '결제',
         ENG: 'Payment',
-        CN: '',
-        HK: ''
+        CN: '付款',
+        HK: '付款'
     }],
     ['Fiat', {
-        KOR: '지폐',
+        KOR: '법정 통화',
         ENG: 'Fiat',
-        CN: '',
-        HK: ''
+        CN: '法币',
+        HK: '法幣'
     }],
     ['Details', {
         KOR: '세부사항',
         ENG: 'Details',
-        CN: '',
-        HK: ''
+        CN: '详情',
+        HK: '詳情'
     }],
     ['No more item', {
         KOR: '해당 결과 없음',

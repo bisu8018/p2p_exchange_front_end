@@ -35,7 +35,7 @@
     import AbHeader from "./Header.vue"
     import AbFooter from "./Footer.vue"
     import AbTab from "./Tab.vue"
-    import Alert from './../../components/Alerts.vue';
+    import Alert from '../../components/alert/Alerts.vue';
     import MyOrderFixed from './../../views/home/body/MyOrderFixed.vue';
     import Chat from './body/chat/Chat.vue';
     import ChatManager from './body/chat/item/ChatManager.vue';
@@ -126,7 +126,7 @@
     @media only screen and (min-width: 960px) {
         .mainView {
             max-width: 1224px;
-            min-height: 400px;
+            min-height: 800px;
             margin-left: auto;
             margin-right: auto;
         }
