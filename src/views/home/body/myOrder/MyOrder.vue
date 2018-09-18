@@ -24,17 +24,17 @@
                     </v-layout>
                 </v-flex>
             </v-layout>
-            <v-flex><v-divider></v-divider></v-flex>
+            <v-flex><div class="divider"></div></v-flex>
         </div>
         <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
         <!--main list view-->
         <div v-if="haveItems&& !showProgress">
             <!-- user item list들 10개씩 출력-->
             <div v-for="orderlist in OrderLists" >
-                <my-order-list
+                <my-order-list-item
                         :orderlist="orderlist"
-                ></my-order-list>
-                <v-flex><v-divider></v-divider></v-flex>
+                ></my-order-list-item>
+                <v-flex><div class="divider"></div></v-flex>
             </div>
             <!-- pagination -->
             <Pagination class="pagination-top-margin"
@@ -58,13 +58,13 @@
     import ListFilter from '@/components/ListFilter.vue';
     import MainRepository from "../../../../vuex/MainRepository";
     import Pagination from '@/components/Pagination.vue';
-    import MyOrderList from './MyOrderListItem/MyOrderList';
+    import MyOrderListItem from './MyOrderListItem/MyOrderListItem';
     import MyOrderFilter from './MyOrderListItem/MyOrderFilter';
     import {abUtils} from '@/common/utils';
 
     export default {
         name: "MyOrder",
-        components: {ListFilter, Pagination, MyOrderList, MyOrderFilter},
+        components: {ListFilter, Pagination, MyOrderListItem, MyOrderFilter},
         data: () => ({
             pageSize : 10,
             pageType : 'MyOrder',

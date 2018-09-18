@@ -10,15 +10,13 @@
             <div class="buyBtn" @click="onTokenClicked('current','Buy')"
                  :class="{mobileActiveBtn : tradeType ==='Buy'}"
             >
-              <button :class="{mobileActiveBtnText : tradeType ==='Buy'}"
-                      >{{$str("buy")}}</button>
+              <button>{{$str("buy")}}</button>
             </div>
             <!--sell-->
             <div class="sellBtn" @click="onTokenClicked('current','Sell')"
                  :class="{mobileActiveBtn : tradeType ==='Sell'}"
             >
-              <button :class="{mobileActiveBtnText : tradeType ==='Sell'}"
-                      >{{$str("sell")}}</button>
+              <button>{{$str("sell")}}</button>
             </div>
         </v-flex>
           <!-- BTC ALLB ETH  버튼 -->
@@ -26,7 +24,7 @@
           <!-- < 화살표-->
           <i class="material-icons md-24 c-pointer"
              @click="onTokenClicked('left')"
-             v-bind:class="{'color-blue-active' : isRightClicked}"
+             v-bind:class="{'color-blue-active' : !isRightClicked}"
           >keyboard_arrow_left</i>
           <!--token[0] 버튼-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"-->
@@ -47,7 +45,7 @@
           <!-- > 화살표 -->
           <i class="material-icons md-24 c-pointer"
              @click="onTokenClicked('right')"
-             v-bind:class="{'color-blue-active' : !isRightClicked}"
+             v-bind:class="{'color-blue-active' : isRightClicked}"
           >keyboard_arrow_right</i>
         </v-layout>
         <!--필터링된 사항들-->
@@ -118,7 +116,7 @@
                   <!-- < 화살표-->
                   <i class="material-icons md-24 c-pointer"
                      @click="onTokenClicked('left', 'Buy')"
-                     v-bind:class="{'color-blue-active' : isRightClicked}"
+                     v-bind:class="{'color-blue-active' : !isRightClicked}"
                   >keyboard_arrow_left</i>
                   <!--left 버튼-->
                   <button @click="onTokenClicked(0, 'Buy')"><h4>{{tokens.left}}</h4></button>
@@ -131,7 +129,7 @@
                   <!-- > 화살표-->
                   <i class="material-icons md-24 c-pointer"
                      @click="onTokenClicked('right', 'Buy')"
-                     v-bind:class="{'color-blue-active' : !isRightClicked}"
+                     v-bind:class="{'color-blue-active' : isRightClicked}"
                   >keyboard_arrow_right</i>
               </v-layout>
           </v-layout>
@@ -153,7 +151,7 @@
               <!-- < 화살표-->
               <i class="material-icons md-24 c-pointer"
                  @click="onTokenClicked('left', 'Sell')"
-                 v-bind:class="{'color-blue-active' : isRightClicked}"
+                 v-bind:class="{'color-blue-active' : !isRightClicked}"
               >keyboard_arrow_left</i>
               <!--left 버튼-->
               <button @click="onTokenClicked(0, 'Sell')"><h4>{{tokens.left}}</h4></button>
@@ -166,7 +164,7 @@
               <!-- > 화살표-->
               <i class="material-icons md-24 c-pointer"
                  @click="onTokenClicked('right', 'Sell')"
-                 v-bind:class="{'color-blue-active' : !isRightClicked}"
+                 v-bind:class="{'color-blue-active' : isRightClicked}"
               >keyboard_arrow_right</i>
             </v-layout>
           </v-layout>
@@ -264,7 +262,7 @@
             paymentMethod: 'ALL',
             amount : '',
             modal_amount : '',
-            isRightClicked : false, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
+            isRightClicked : true, //토큰선택의 오른쪽 화살표가 활성화된게 디폴트임.
 
             clicked : [
                 {isBTC : true},
@@ -365,7 +363,7 @@
             onTokenClicked(item, tradeType){
                 ///////////setItem
                 if(item ==='right' || item === 2){
-                    this.isRightClicked = false;
+                    this.isRightClicked = true;
                     let temp = this.tokens.left
                     this.tokens.left = this.tokens.center;
                     this.tokens.center = this.tokens.right;
@@ -373,7 +371,7 @@
                     this.tradeCoin= this.tokens.center
                 }
                 else if(item ==='left'|| item === 0){
-                    this.isRightClicked = true;
+                    this.isRightClicked = false;
                     let temp = this.tokens.right;
                     this.tokens.right = this.tokens.center;
                     this.tokens.center = this.tokens.left;
@@ -469,18 +467,28 @@
       left: 20px;
       bottom: -8px;
     }
+
     .mobileActiveBtn{
       background: #214ea1;
       border: solid 1px #214ea1;
 
     }
-    .mobileActiveBtnText{
+    .mobileActiveBtn > button{
       line-height:50px;
       color:white !important;
       position: absolute;
       left: 20px;
       bottom: -8px;
     }
+    /*.mobileActiveBtnText{*/
+      /*line-height:50px;*/
+      /*color:white !important;*/
+      /*position: absolute;*/
+      /*left: 20px;*/
+      /*bottom: -8px;*/
+    /*}*/
+
+
     .cardParent{
       position: relative;
     }

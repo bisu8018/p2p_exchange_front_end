@@ -109,10 +109,10 @@
   <!--detailList-->
   <div v-if="haveItems&& !showProgress">
     <div  v-for="detailList in detailLists" >
-      <wallet-detail-list
+      <wallet-detail-list-item
               :detailList="detailList"
-      ></wallet-detail-list>
-      <v-flex><v-divider></v-divider></v-flex>
+      ></wallet-detail-list-item>
+      <v-flex><div class="divider"></div></v-flex>
     </div>
     <div class="mt-4">
       <Pagination
@@ -135,7 +135,7 @@
 <script>
     import Pagination from '@/components/Pagination.vue';
     import ListFilter from '@/components/ListFilter.vue';
-    import WalletDetailList from "./item/WalletDetailList"
+    import WalletDetailListItem from "./item/WalletDetailListItem"
     import DatePicker from '@/components/DatePicker.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
     import {abUtils} from "../../../../../common/utils";
@@ -145,7 +145,7 @@
         components: {
             Pagination,
             ListFilter,
-            WalletDetailList,
+            WalletDetailListItem,
             DatePicker,
         },
         data: () => ({

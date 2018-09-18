@@ -9,27 +9,27 @@
       </v-layout>
       <!--coin-->
       <v-layout mb-2>
-        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Coin")}}:</v-flex>
+        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Coin")}} :</v-flex>
         <v-flex xs6 text-xs-right>{{detailList.cryptocurrency}}</v-flex>
       </v-layout>
       <!-- time-->
       <v-layout mb-2>
-        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("time")}}:</v-flex>
+        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("time")}} :</v-flex>
         <v-flex xs6 text-xs-right>{{transTime(detailList.registerDatetime)}}</v-flex>
       </v-layout>
       <!-- amount -->
       <v-layout mb-2>
-        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("amount")}}:</v-flex>
+        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("amount")}} :</v-flex>
         <v-flex xs6 text-xs-right>{{ $fixed(detailList.amount, detailList.cryptocurrency) }} {{detailList.cryptocurrency}}</v-flex>
       </v-layout>
       <!-- status -->
       <v-layout mb-2>
-        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("status")}}:</v-flex>
+        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("status")}} :</v-flex>
         <v-flex xs6 text-xs-right>{{$str(detailList.status)}}</v-flex>
       </v-layout>
       <!-- action -->
       <v-layout mb-4>
-        <v-flex xs4 text-xs-left h5 color-darkgray>{{$str("action")}}:</v-flex>
+        <v-flex xs4 text-xs-left h5 color-darkgray>{{$str("action")}} :</v-flex>
         <v-flex xs8 text-xs-right>
 
           <!--button v-if="detailList.status == 'Under examination'" class="btn-rounded-white mr-3" @click="">{{$str("cancel")}}</button-->
@@ -70,21 +70,21 @@
     <v-flex v-if="isdrawer" xs12 >
       <div class="detail-list-modal">
         <v-layout text-xs-left mb-2 >
-          <v-flex md2 xs6 pl-4 >{{$str("Address")}}:</v-flex>
+          <v-flex md2 xs6 pl-4 >{{$str("Address")}} :</v-flex>
           <v-flex md10 xs6 word-break>{{detailList.addressTo}}</v-flex>
         </v-layout>
         <v-layout text-xs-left mb-2>
-          <v-flex md2 xs6 pl-4>{{$str("TxID")}}:</v-flex>
+          <v-flex md2 xs6 pl-4>{{$str("TxID")}} :</v-flex>
           <v-flex md10 xs6 word-break> {{detailList.txHash}}</v-flex>
         </v-layout>
         <v-layout text-xs-left mb-2>
-          <v-flex md2 xs6 pl-4>{{$str("fee")}}:</v-flex>
+          <v-flex md2 xs6 pl-4>{{$str("fee")}} :</v-flex>
           <!-- {{detailList.fee}} -->
           <v-flex md10 xs6>0</v-flex>
 
         </v-layout>
         <v-layout text-xs-left>
-          <v-flex md2 xs6 pl-4>{{$str("Processing Time")}}:</v-flex>
+          <v-flex md2 xs6 pl-4>{{$str("Processing Time")}} :</v-flex>
           <v-flex md10 xs6> {{transTime(detailList.registerDatetime)}}</v-flex>
         </v-layout>
       </div>

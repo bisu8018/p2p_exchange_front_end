@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="pagination-wrapper">
         <v-pagination v-model="currentPage"
                       :color="'TextBlue'"
-                      :length="pages" :total-visible="6"
+                      :length="pages" 
                       v-on:input="onChanged"></v-pagination>
     </div>
 </template>
@@ -50,4 +50,10 @@
     });
 </script>
 <style>
+    .pagination-wrapper {
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
 </style>

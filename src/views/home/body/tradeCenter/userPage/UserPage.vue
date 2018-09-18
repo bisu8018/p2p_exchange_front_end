@@ -3,6 +3,7 @@
     <!-- mobile 일때 -->
     <div v-if="isMobile">
       <v-layout row wrap>
+        <!--판매자 정보-->
         <v-flex xs12 text-xs-left mt-5 mb-4>
           <div v-if="merchant.email !== ''">
             <avatar :email="merchant.email"
@@ -56,49 +57,6 @@
           </v-layout>
         </v-flex>
       </v-layout>
-      <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
-      <div v-if="!showBlockView&& haveItem && !showProgress">
-        <!--SELL-->
-        <div v-if="haveSellList ">
-          <v-flex xs12 text-xs-left mt-5 mb-2>
-            <h3 class="bold">{{$str("Online_Buy")}}</h3>
-          </v-flex>
-          <div  v-for="user in SellLists" >
-              <user-trade-item
-                      :user="user"
-              ></user-trade-item>
-          </div>
-        </div>
-        <!--Buy-->
-        <div v-if="haveBuyList">
-        <v-flex text-xs-left mt-5 mb-2>
-          <h3 class="bold">{{$str("Online_Sell")}}</h3>
-        </v-flex>
-        <div  v-for="user in BuyLists">
-          <user-trade-item
-                  :user="user"
-          ></user-trade-item>
-        </div>
-      </div>
-      </div>
-      <v-flex v-else-if="!showProgress" >
-        <div class="no-online-border">
-          <div class="sprite-img ic-no-ad-lg no-more-ads"></div>
-          <div class="color-gray ">
-            {{$str("No Online advertisement")}}
-          </div>
-        </div>
-      </v-flex>
-      <v-flex text-xs-right color-darkgray mt-3 mb-5>
-        <div v-if="!showBlockView">
-          {{$str("Do_not_want_to_trade_with_this_user?")}}
-          <span class="color-blue-active" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
-        </div>
-        <div v-else>
-          {{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}
-          <span class="color-blue-active" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
-        </div>
-      </v-flex>
     </div>
     <!--Web 일때-->
     <div v-else>
@@ -167,16 +125,17 @@
           </v-layout>
         </v-flex>
       </v-layout>
-      <v-progress-circular v-if="showProgress" indeterminate class="color-blue progress-circular list_progress"/>
-
-      <div v-if="!showBlockView && haveItem && !showProgress">
-        <div v-if="haveBuyList">
-          <!--Online Sell title-->
-          <v-flex text-md-left mb-4 bold>
-            <h3>{{$str("Online_Sell")}}</h3>
+    </div>
+    <div class="p-relative">
+      <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
+      <div v-if="!showBlockView&& haveItem && !showProgress">
+        <!--SELL-->
+        <div v-if="haveSellList ">
+          <v-flex xs12 text-xs-left mt-5 mb-4>
+            <h3 class="bold">{{$str("Online_Buy")}}</h3>
           </v-flex>
           <!-- chart의 title들 -->
-          <v-layout mb-3>
+          <v-layout v-if="!isMobile" row wrap>
             <v-flex  md3 text-md-left color-darkgray>
               {{$str("Coin")}}
             </v-flex>
@@ -195,23 +154,20 @@
             <v-flex  md1 text-md-right color-darkgray>
               {{$str("control")}}
             </v-flex>
+            <v-flex md12 mt-2><div class="divider"></div></v-flex>
           </v-layout>
-          <v-flex><div class="divider"></div></v-flex>
-
-          <!-- user item list들 10개씩 출력-->
-          <div v-for="user in BuyLists"  >
-            <user-trade-item
-                    :user ="user"
-            ></user-trade-item>
+          <div  v-for="user in SellLists" >
+              <user-trade-item
+                      :user="user"
+              ></user-trade-item>
           </div>
         </div>
-        <!--Online Buy title-->
-        <div v-if="haveSellList">
-          <v-flex text-md-left mb-4 mt-4a bold>
-            <h3>{{$str("Online_Buy")}}</h3>
+        <!--Buy-->
+        <div v-if="haveBuyList">
+          <v-flex text-xs-left mt-5 mb-4>
+            <h3 class="bold">{{$str("Online_Sell")}}</h3>
           </v-flex>
-          <!-- chart의 title들 -->
-          <v-layout mb-3>
+          <v-layout v-if="!isMobile" row wrap>
             <v-flex  md3 text-md-left color-darkgray>
               {{$str("Coin")}}
             </v-flex>
@@ -230,12 +186,11 @@
             <v-flex  md1 text-md-right color-darkgray>
               {{$str("control")}}
             </v-flex>
+            <v-flex md12 mt-2><div class="divider"></div></v-flex>
           </v-layout>
-          <v-flex><div class="divider"></div></v-flex>
-          <!-- user item list들 10개씩 출력-->
-          <div v-for="user in SellLists"  >
+          <div  v-for="user in BuyLists">
             <user-trade-item
-                    :user ="user"
+                    :user="user"
             ></user-trade-item>
           </div>
         </div>
@@ -248,34 +203,33 @@
           </div>
         </div>
       </v-flex>
-      <v-flex text-md-right mt-3 mb-6>
-        <div v-if="!showBlockView">
-          {{$str("Do_not_want_to_trade_with_this_user?")}}
-          <span class="color-blue-active" @click="showBlockModal = true"> {{$str("Block_this_user")}}</span>
+      <v-flex text-xs-right color-darkgray mt-3 mb-5>
+        <div v-if="!showBlockView" class="both-flex">
+          <div>{{$str("Do_not_want_to_trade_with_this_user?")}}</div>
+          <span class="color-blue-active" @click="showBlockModal = true">&nbsp;{{$str("Block_this_user")}}</span>
         </div>
-        <div v-else>
-          {{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}
-          <span class="color-blue-active" @click="UnblockThisUser()"> {{$str("Unblock this user")}}</span>
+        <div v-else class="both-flex">
+          <div>{{$str("This user cannot access your ads or trade with you cause you have blocked him/her.")}}</div>
+          <span class="color-blue-active" @click="UnblockThisUser()">&nbsp;{{$str("Unblock this user")}}</span>
         </div>
       </v-flex>
     </div>
 
-
     <v-dialog v-model="showBlockModal">
       <v-layout row wrap>
-        <v-flex pl-3 pr-3 mb-4>
+        <v-flex xs12 mb-4>
           <h3 class="bold f-left">{{$str("Notice")}}</h3>
-          <button class="f-right"><i class="material-icons " @click="showBlockModal = false">close</i></button>
+          <i class="material-icons c-pointer f-right" @click="showBlockModal = false">close</i>
         </v-flex>
-        <v-flex pl-3 pr-3 mb-4 text-xs-left>
+        <v-flex mb-4 text-xs-left>
           <h5 class="color-darkgray">{{$str("Block_user_explain")}}</h5>
         </v-flex>
-        <v-flex pl-3 pr-3>
+        <v-flex >
           <v-layout justify-end>
             <button class="btn-rounded-white text-white-hover" @click="showBlockModal = false">
               <h6 >{{$str("cancel")}}</h6>
             </button>
-            <button class="btn-rounded-blue btn-blue-hover" @click="blockThisUser">
+            <button class="btn-rounded-blue btn-blue-hover" @click="blockThisUser()">
               <h6 >{{$str("confirm")}}</h6>
             </button>
           </v-layout>
@@ -384,7 +338,7 @@
                 MainRepository.Users.postBlockThisUser({
                         memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
                         blockMemberNo: self.userMemberNo
-                },function (result) {
+                },function () {
                         self.showBlockModal = false;
                         self.blockThisMember = true;
                     }
@@ -396,7 +350,7 @@
                 MainRepository.Users.deleteBlockThisUser({
                     email: MainRepository.MyInfo.getUserInfo().email,
                     BlockMemberNo: self.userMemberNo
-                }, function (result) {
+                }, function () {
                         self.showUnBlockModal = false;
                         self.blockThisMember = false;
                     }
@@ -409,8 +363,26 @@
 </script>
 
 <style scoped>
-  .userWebList{
+  /*mobile에서*/
+  @media only screen and (max-width: 959px) {
+    .no-online-border{
+      margin-top: 48px;
+    }
+    .both-flex{
+      display: flex;
+      flex-direction: column;
+    }
+  }
 
+  /* Web 에서 */
+  @media only screen and (min-width: 960px){
+    .both-flex{
+      display: flex;
+      float: right;
+    }
+  }
+
+  .userWebList{
     position: relative;
     z-index: 0;
   }
@@ -425,6 +397,7 @@
   }
   .list_progress {
     margin-top: 80px;
+
   }
 
   .no-more-ads{
@@ -436,9 +409,6 @@
     padding-top: 112px;
     padding-bottom: 112px;
   }
-  @media only screen and (max-width: 959px) {
-    .no-online-border{
-      margin-top: 48px;
-    }
-  }
+
+
 </style>
