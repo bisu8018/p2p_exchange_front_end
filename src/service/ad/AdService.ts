@@ -104,7 +104,7 @@ export default {
     },
     // Generate token trade
     setGeneralTokenList: function (callback: any) {
-        AxiosService._requestWithUrlPram('trade/general/token', 'GET', '',
+        AxiosService._requestWithUrlPram('token/general', 'GET', '',
             function (data: any) {
                 callback(data);
             },

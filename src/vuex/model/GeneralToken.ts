@@ -2,10 +2,12 @@
 export default class GeneralToken {
     tokenNo : number;
     tokenName: string;
+    type: string;
 
     constructor (data: any) {
         this.tokenNo = data.tokenNo || '';
-        this.tokenName = data.tokenName ?  this.transCryptocurrency(data.tokenName) : '';
+        this.tokenName = data.name ?  this.transCryptocurrency(data.name) : '';
+        this.type = data.type ;
     }
 
     isNull (): boolean {

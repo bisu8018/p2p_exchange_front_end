@@ -92,7 +92,14 @@
             this.$nextTick(function () {
                 window.addEventListener('resize', this.getWindowWidth);
                 this.getWindowWidth();
-            })
+            });
+
+            // 클릭 이벤트 (ex, 영역 밖 클릭 시 모달 종료)
+            Vue.prototype.$eventBus.$on('clickEvent', (callback) => {
+                this.$el.addEventListener("click", (event) => {
+                    callback(event);
+                });
+            });
         },
         methods: {
             getWindowWidth() {

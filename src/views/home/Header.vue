@@ -35,9 +35,7 @@
                         <transition name="OTC" >
                             <!-- TradeCenter-->
                             <div v-if="getDomain === 'OTC'" key="TradeCenter" class="dropdown ">
-                                <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16"
-
-                                >{{$str("TradeCenter")}}</div>
+                                <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16">{{$str("TradeCenter")}}</div>
                                 <transition name="SubMenu">
                                     <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
                                         <div class="submenu" @click="goGeneralTrade()">
@@ -540,9 +538,11 @@
             background-color: #ddd;
         }
 
+
         .dropdown:hover .dropdown-content,
         .dropdown-content button {
             display: block;
+
         }
 
         /*sub menu 드롭다운*/

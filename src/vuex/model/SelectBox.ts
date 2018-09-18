@@ -51,23 +51,23 @@ export default {
     },
     currencies() {
         const currencies = [
-            {code: 'CNY'},
-            {code: 'USD'},
-            {code: 'SGD'},
-            {code: 'INR'},
-            {code: 'VND'},
-            {code: 'CAD'},
+            {code: 'CNY', value: 'CNY'},
+            {code: 'USD', value: 'USD'},
+            {code: 'SGD', value: 'SGD'},
+            {code: 'INR', value: 'INR'},
+            {code: 'VND', value: 'INR'},
+            {code: 'CAD', value: 'INR'},
             //  {code : 'AUD'},
-            {code: 'KRW'},
-            {code: 'CHF'},
-            {code: 'TWD'},
-            {code: 'RUB'},
-            {code: 'GBP'},
-            {code: 'HKD'},
-            {code: 'EUR'},
-            {code: 'NGN'},
-            {code: 'IDR'},
-            {code: 'PHP'},
+            {code: 'KRW', value: 'INR'},
+            {code: 'CHF', value: 'INR'},
+            {code: 'TWD', value: 'INR'},
+            {code: 'RUB', value: 'INR'},
+            {code: 'GBP', value: 'INR'},
+            {code: 'HKD', value: 'INR'},
+            {code: 'EUR', value: 'INR'},
+            {code: 'NGN', value: 'INR'},
+            {code: 'IDR', value: 'INR'},
+            {code: 'PHP', value: 'INR'},
             // {code : 'KHR'},
         ];
         return currencies;
@@ -82,7 +82,7 @@ export default {
         return payments;
     },
     phones() {
-        const phones =[
+        const phones = [
             // {code : '0086', nation : 'China'},
             // {code : '00852', nation : 'Hong Kong(China)'},
             // {code : '00886', nation : 'Taiwan(China)'},
