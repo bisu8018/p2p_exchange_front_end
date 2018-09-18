@@ -1,5 +1,6 @@
 <template>
     <v-layout row wrap>
+        <div :class="{'layout_dim' : isModal }" @click="onOutsideClick"></div>
         <v-flex pr-0 pl-0>
             <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
@@ -398,13 +399,46 @@
                     default:
                         return name
                 }
-            }
+            },
+            onOutsideClick() {
+                this.isModal = false;
+            },
         },
 
     });
 </script>
 
 <style scoped>
+    @media (max-width: 959px) {
+        .order-filter {
+            height: 40px;
+            border: solid 1px #8d8d8d;
+            min-width: unset;
+        }
+        .card-modal {
+            z-index: 2;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+            padding: 16px 8px 24px 8px;
+            min-height: 200px;
+            width: 100%;
+            left: 0;
+        }
+    }
+    /* 웹에서 */
+    @media only screen and (min-width: 960px) {
+        .card-modal {
+            z-index: 2;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+            padding: 16px 8px 24px 8px;
+            min-height: 200px;
+            width: 75%;
+            right: 0;
+        }
+    }
     .close-icons {
         margin-top: 2px;
     }
@@ -419,26 +453,10 @@
     .order-filter {
         height: 40px;
         border: solid 1px #8d8d8d;
-        min-width: 376px;
         border-radius: 2px;
     }
 
-    @media (max-width: 768px) {
-        .order-filter {
-            height: 40px;
-            border: solid 1px #8d8d8d;
-            min-width: unset;
-        }
-    }
 
-    .card-modal {
-        z-index: 2;
-        position: absolute;
-        background-color: #ffffff;
-        box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-        padding: 16px 8px 24px 8px;
-        min-height: 200px;
-    }
 
     .card-modal:after {
         content: '';
@@ -467,12 +485,7 @@
         border-color: transparent transparent #d8d8d8 transparent ;
     }
 
-    /* filter card 가 mobile에선 width 100이므로
-mobile에서만 추가 선언.*/
-    .card-modal-mobile {
-        width: 100%;
-        left: 0%;
-    }
+
 
     .filter-img {
         right: 7px;
@@ -496,6 +509,14 @@ mobile에서만 추가 선언.*/
     }
     .statusChip:hover{
         opacity: 0.8;
+    }
+    .layout_dim {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
     }
 
 </style>

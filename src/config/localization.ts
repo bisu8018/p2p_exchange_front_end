@@ -3917,9 +3917,10 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    //wallet
+    ['Please enter less than Limit', {
+        KOR: '제한액 이하를 입력해주세요',
+        ENG: 'Please enter less than Limit',
         CN: '',
         HK: ''
     }],

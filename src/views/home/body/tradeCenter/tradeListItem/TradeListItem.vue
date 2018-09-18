@@ -779,6 +779,9 @@
                     return;
                 }
                 /////////////////////////////////
+                this.toValue = '';
+                this.fromValue = '';
+                this.tradePW = '';
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
             onNicknameClick() {

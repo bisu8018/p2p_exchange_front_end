@@ -25,7 +25,7 @@
           </v-flex>
           <v-flex md2 text-md-right>{{$str("control")}}</v-flex>
         </v-layout>
-        <v-flex><v-divider></v-divider></v-flex>
+        <v-flex><div class="divider"></div></v-flex>
       </div>
       <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
 
@@ -34,10 +34,10 @@
           <div>
               <!-- user ad list들 10개씩 출력-->
               <div v-for="adslist in AdsLists" >
-                <my-ads-list
+                <my-ads-list-item
                         :adslist="adslist"
-                ></my-ads-list>
-                <v-flex><v-divider></v-divider></v-flex>
+                ></my-ads-list-item>
+                <v-flex><div class="divider"></div></v-flex>
               </div>
               <!-- pagination -->
             <Pagination class="pagination-top-margin"
@@ -61,12 +61,12 @@
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
     import Pagination from '@/components/Pagination.vue';
-    import MyAdsList from './myAdsListItem/MyAdsList';
+    import MyAdsListItem from './myAdsListItem/MyAdsListItem';
     import MyAdsFilter from './myAdsListItem/MyAdsFilter';
 
     export default {
         name: "MyAds",
-        components: {Pagination, MyAdsList, MyAdsFilter},
+        components: {Pagination, MyAdsListItem, MyAdsFilter},
         data: () => ({
             pageSize : 10,
             pageType : "myAds",

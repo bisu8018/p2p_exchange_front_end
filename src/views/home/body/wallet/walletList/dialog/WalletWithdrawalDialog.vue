@@ -32,7 +32,7 @@
         <div class="text-xs-left">{{$str("amount")}}</div>
         <v-spacer></v-spacer>
         <div class="text-xs-right color-darkgray">
-          <h6>({{$str("Available")}}: {{toMoneyFormat(availableAmount)}} {{$str("limit")}} : {{$fixed(minAmount,tokenName)}}</h6>
+          <h6>({{$str("Available")}}: {{toMoneyFormat(availableAmount)}} {{$str("limit")}} : {{$fixed(maxAmount,tokenName)}}</h6>
         </div>
       </div>
       <div class="mt-2 mb-4">
@@ -92,7 +92,7 @@
         {{$str("tips")}}
       </h6>
       <h6 class="color-darkgray text-xs-left mb-3">
-        {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{tokenName}}
+        {{$str("Minimum withdrawal amount")}}: {{maxAmount}} {{tokenName}}
       </h6>
       <h6 v-if="getCryptoName(tokenName)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
         {{$str("withdrawtipsETH1")}}<br>
@@ -137,15 +137,14 @@
             warning_address: false,
             warning_amount: false,
             fee : 0,
-            minAmount : 0,
+            maxAmount : 0,
         }),
         computed:{
             receiveAmount(){
                 if(this.amount < this.fee){
                     return 0;
                 }
-                return (this.amount*Math.pow(10, 8) - this.fee*Math.pow(10, 8))
-                        /Math.pow(10, 8);
+                return (this.amount*Math.pow(10, 9) - this.fee*Math.pow(10, 9))/Math.pow(10, 9);
             },
         },
         created(){
@@ -158,7 +157,7 @@
         },
         methods: {
             initData(){
-                this.minAmount = this.calMinAmount();
+                this.maxAmount = this.calMaxAmount();
                 this.amount = ''
                 this.fee = this.calFee()
                 this.address = ''
@@ -187,7 +186,7 @@
                         return 0;
                 }
             },
-            calMinAmount(){
+            calMaxAmount(){
                 switch (this.tokenName) {
                     case 'bitcoin':
                     case 'BTC':
@@ -207,16 +206,19 @@
 
             onNumberCheck(type) {
                 if (type === 'Amount') {
-                    if(this.amount >this.minAmount){
+                    if(this.amount >this.maxAmount){
                         this.warning_amount = true;
                         this.text_warning_amount = this.$str("Please enter less than Limit");
+                        return false;
                     }
-                    else{
-                        this.warning_amount = false;
+                    if (this.amount <= 0 ) {
+                        this.warning_amount = true;
+                        this.text_warning_amount = this.$str("Please enter more than 0");
+                        return false;
                     }
+                    this.warning_amount = false;
 
                 }
-
             },
 
             onCheckAddress(){
@@ -239,7 +241,7 @@
                     this.text_warning_amount = this.$str("Please enter more than 0");
                     return false;
                 }
-                if (this.amount > this.minAmount ) {
+                if (this.amount > this.maxAmount ) {
                     this.warning_amount = true;
                     this.text_warning_amount = this.$str("Please enter less than Limit");
                     return false;

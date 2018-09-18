@@ -4,11 +4,11 @@
       <h2 class="title">{{$str('Custom Token Trade')}}</h2>
       <v-divider></v-divider>
     </v-flex>
-    <v-flex xs12 text-md-left text-xs-center>
-      <h4 class="p-relative mt-4a" >
-        <button @click.stop="showDropdown()" class="cs-flex">
-          <span class="mr-1">{{ selectedCustomToken}}</span>
-          <i class="material-icons color-blue md-24 ">keyboard_arrow_down</i>
+    <v-flex xs12 class="selector-wrapper" >
+      <span class="p-relative  ">
+        <button @click.stop="showDropdown()" class="token-selector">
+          <h2 class="mr-1 bold">{{ selectedCustomToken}}</h2>
+          <i class="material-icons color-blue md-24 mt-1">keyboard_arrow_down</i>
         </button>
         <div class="dropdown-content scroll-space" v-if="isdropdown">
           <!-- 내 정보 list 버튼-->
@@ -17,7 +17,7 @@
             {{item.tokenName}}
           </div>
         </div>
-      </h4>
+      </span>
     </v-flex>
     <div>
       <trade-center
@@ -38,7 +38,7 @@
         },
         data: () => ({
             isdropdown : false,
-            selectedCustomToken : '',
+            selectedCustomToken : '...',
             tokenNo : '',
         }),
         computed:{
@@ -79,6 +79,35 @@
 </script>
 
 <style scoped>
+
+  /* 웹에서 최대 size 주기*/
+  @media only screen and (min-width: 960px) {
+    .selector-wrapper{
+      text-align: left;
+      padding-top: 32px;
+      /*기존의 tradecenter의 margin-top이 48이므로 디자인상 갭을 줄이기 위함*/
+      margin-bottom: -38px;
+    }
+  }
+
+  /* mobile 에서 gutter 주기*/
+  @media only screen and (max-width: 959px) {
+    .selector-wrapper{
+      text-align: center;
+      padding-top: 32px;
+      /*기존의 tradecenter의 margin-top이 48이므로 디자인상 갭을 줄이기 위함*/
+      margin-bottom: -24px;
+    }
+
+    .dropdown-content{
+      left: -24px !important;
+    }
+  }
+
+  .token-selector {
+    cursor: pointer;
+    display: inline-flex;
+  }
   .title{
     text-align: left;
     font-weight : 700;
@@ -95,21 +124,22 @@
   .dropdown-content {
     position: absolute;
     color: black;
-    min-width: 68px;
+    min-width: 128px;
     max-height: 204px;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
     z-index: 1;
     border-radius: 2px;
-    text-align: center;
+    left:0;
+    text-align: left;
     background-color: white;
   }
   .dropdown-content > div{
     cursor: pointer;
     padding-right: 16px;
-    padding-left: 8px;
+    padding-left: 24px;
     padding-top: 8px;
     padding-bottom: 8px;
-    font-size: 14px;
-    text-align: center;
+    font-size: 12px;
+    text-align: left;
   }
 </style>
