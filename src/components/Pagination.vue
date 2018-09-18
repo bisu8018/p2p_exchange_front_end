@@ -2,7 +2,7 @@
     <div class="pagination-wrapper">
         <v-pagination v-model="currentPage"
                       :color="'TextBlue'"
-                      :length="pages" 
+                      :length="pages"
                       v-on:input="onChanged"></v-pagination>
     </div>
 </template>
