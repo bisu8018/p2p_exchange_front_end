@@ -885,7 +885,6 @@
     /*============셀렉박스 공통 CSS*========*/
 
     .comp-selectbox {
-
         width: 100%;
         height: 40px;
         border-radius: 2px;
@@ -896,6 +895,15 @@
         outline: none;
     }
 
+  .comp-selectbox-parted {
+        border : none !important;
+        border-right: solid 1px #8d8d8d !important;;
+    }
+    /*
+      .comp-selectbox-parted:hover {
+          border-right: solid 1px #316ee4 !important;
+      }*/
+
     .comp-selectbox:hover,  .comp-selectbox:focus {
         border: solid 1px #316ee4;
     }
@@ -903,7 +911,7 @@
     .comp-selectbox-icon {    /*셀렉박스 화살표 아이콘 공통 CSS*/           /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
         position: absolute;
         right: 8px;
-        top: 8px;
+        top: 9px;
         pointer-events: none;
         color: #9294a6;
         transition: 0.3s all ease;
@@ -911,6 +919,11 @@
         -moz-transition: 0.3s all ease;
         -ms-transition: 0.3s all ease;
         -o-transition: 0.3s all ease;
+    }
+
+    .comp-selectbox-icon-phone {
+        left: 38px !important;
+        right: auto !important;
     }
 
     .arrow-spin-left {
@@ -996,8 +1009,7 @@
         position: relative;
         list-style-type: none;
         text-align: left;
-        padding-left: 24px;
-        padding-top: 10px;
+        padding : 10px 24px 10px 24px;
         font-size: 12px;
     }
 
@@ -1005,7 +1017,23 @@
         border-bottom: none;
     }
 
+    .selectbox-wrapper {                      /*input text box 와 selectbox 결합 시 적용*/
+        display: flex;
+        border: solid 1px #8d8d8d;
+    }
+    .selectbox-wrapper:hover {
+        border-color: #316ee4;
+    }
 
+    .selectbox-wrapper:hover :first-child :first-child :first-child  {
+        border-color: #316ee4 !important;
+    }
+
+    .selectbox-width-part {
+        width: 80px;
+        left: 0;
+        bottom: 0;
+    }
 
 
 
@@ -1053,7 +1081,7 @@
         pointer-events: none;
     }
 
-    .input-disabled2 > div > select:first-child {
+    .input-disabled2 > div > div{
         background: #f8f8fa !important;
         color: #9294a6;
         cursor: no-drop;

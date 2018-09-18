@@ -15,8 +15,9 @@
                 <!--새로운 전화번호 입력-->
                 <div class="mb-4">
                     <div class="text-xs-left mb-2 color-black">{{$str("newPhoneNumber")}}</div>
-                    <div class="p-relative phone-wrapper">
-                        <select-box :selectBoxType ="'phone'" v-on:number="setCode" class="selectbox-width selectbox-locale-number"></select-box>
+                    <div class="p-relative selectbox-wrapper">
+                        <phone-select-box :selectBoxType="'phone'" v-on:phone="setCode"
+                                          class="selectbox-width-part"></phone-select-box>
                         <input type="tel" class="input input-phone" v-model="newPhoneNumber" maxlength="18">
                     </div>
                 </div>
@@ -48,7 +49,7 @@
 <script>
     import {abUtils} from '@/common/utils';
     import AccountService from "../../../../../service/account/AccountService";
-    import SelectBox from "../../../../../components/SelectBox";
+    import PhoneSelectBox from "../item/phoneSelectBox.vue";
     import VerificationCode from '@/components/VerificationCode.vue';
     import ChangePhoneModal from '../item/ChangePhoneModal.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
@@ -56,7 +57,7 @@
 
     export default {
         name: 'changePhone',
-        components: {SelectBox, VerificationCode, ChangePhoneModal},
+        components: {PhoneSelectBox, VerificationCode, ChangePhoneModal},
         data: function () {
             return {
                 newPhoneNumber: '',
@@ -91,9 +92,9 @@
             onChange() {
                 let self = this;
                 // AXIOS post 작업 진행
-                AccountService.Account.changePassword(this.old_password, this.new_password, () => {
+                MainRepository.Service.Account().Account.changePassword(this.old_password, this.new_password, () => {
                     this.goMyPage();
-                });
+                }, () => {});
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
@@ -153,31 +154,9 @@
     .button-style {
         width: 96px;
     }
-
-    .selectbox-width {
-        width: 80px;
-        left: 0;
-        bottom: 0;
-    }
-    .selectbox-locale-number :first-child :first-child{
-        border: none !important;
-        border-right: solid 1px #8d8d8d !important;
-    }
     .input-phone {
         border: none;
         font-size: 12px;
     }
 
-    .phone-wrapper {
-        display: flex;
-        border: solid 1px #8d8d8d;
-    }
-
-    .phone-wrapper:hover{
-        border: solid 1px #316ee4;
-    }
-
-    .phone-wrapper:hover :first-child :first-child :first-child  {
-        border-right: solid 1px #316ee4 !important;
-    }
 </style>

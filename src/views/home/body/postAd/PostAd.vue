@@ -40,11 +40,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("tradeType") }}</div>
                     <div class="p-relative mb-0">
-                        <select class="comp-selectbox h6" v-model="tradeType" :class="{'input-disabled2' : edit}">
-                            <option value="buy">{{ $str("buyText") }}</option>
-                            <option value="sell">{{ $str("sellText") }}</option>
-                        </select>
-                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'tradeType'" :editValue="myAdList.tradeType"
+                                    v-on:tradeType="setTradeType" :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -54,13 +51,8 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrencyType") }}</div>
                     <div class="p-relative">
-                        <select class="comp-selectbox h6" id="cryptocurrencyType" v-model="cryptocurrencyType"
-                                @change="selectCurrencyType()"
-                                :class="{'input-disabled2' : edit}">
-                            <option value="general">General Token</option>
-                            <option value="custom">Custom Token</option>
-                        </select>
-                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'cryptocurrencyType'" :editValue="myAdList.cryptocurrencyType"
+                                    v-on:cryptocurrencyType="setCryptocurrencyType" :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -70,7 +62,7 @@
                 <div>
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrency") }}</div>
                     <div class="p-relative">
-                        <select-box :selectBoxType="'generalToken'" v-if="this.cryptocurrencyType === 'general'"
+                        <select-box :selectBoxType="'generalToken'" v-if="cryptocurrencyType === 'general'"
                                     @generalToken="selectToken" :class="{'input-disabled2' : edit}"
                                     :editValue="myAdList.tokenNo"></select-box>
                         <div v-else>
@@ -98,12 +90,9 @@
                 <div>
                     <div class="text-xs-left mb-2 h5 color-black ">{{ $str("priceType") }}</div>
                     <div class="p-relative mb-3">
-                        <select class="comp-selectbox h6" v-model="priceType" @change="onClear">
-                            <option value="fixedprice">{{ $str("fixedPrice") }}</option>
-                            <option value="floatprice" v-if="cryptocurrencyType !== 'custom'">{{ $str("floatPrice") }}
-                            </option>     <!--custom token, 시장가 없음-->
-                        </select>
-                        <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
+                        <select-box :selectBoxType="'priceType'"
+                                    @priceType="selectPriceType" :editValue="myAdList.priceType"
+                                    :optionFilter="cryptocurrencyType"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -530,6 +519,7 @@
     import {abUtils} from "../../../../common/utils";
     import {transCryptocurrencyName} from "../../../../common/common";
     import PostAdModal from "./postAdItem/PostAdModal.vue";
+    import Policy from "../../../../vuex/model/Policy";
 
     export default Vue.extend({
         name: 'postAd',
@@ -541,7 +531,7 @@
             adNo: 0,
             balace: '',
             showModal: false,
-            tradeType: "buy",
+            tradeType: "",
             cryptocurrencyType: 'general',
             cryptocurrency: 'BTC',
             priceType: "fixedprice",
@@ -593,28 +583,6 @@
 
             //edit 상태값
             edit: false,
-
-            // 후오비 정책
-            officialMinLimit: [
-                {currency: 'CNY', minLimit: 100},
-                {currency: 'USD', minLimit: 15},
-                {currency: 'SGD', minLimit: 20},
-                {currency: 'INR', minLimit: 1000},
-                {currency: 'VND', minLimit: 350000},
-                {currency: 'CAD', minLimit: 20},
-                {currency: 'CNY', minLimit: 20},
-                {currency: 'KRW', minLimit: 15000},
-                {currency: 'CHF', minLimit: 15},
-                {currency: 'TWD', minLimit: 500},
-                {currency: 'RUB', minLimit: 1000},
-                {currency: 'GBP', minLimit: 10},
-                {currency: 'HKD', minLimit: 100},
-                {currency: 'EUR', minLimit: 10},
-                {currency: 'NGN', minLimit: 5000},
-                {currency: 'IDR', minLimit: 200000},
-                {currency: 'PHP', minLimit: 1000},
-                {currency: 'KHR', minLimit: 60000},
-            ],
 
         }),
         beforeCreate() {
@@ -668,10 +636,11 @@
                 }
             },
             getMinLimit() {
+                let officialMinLimit = Policy.officialMinLimit();
                 let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                for (let i = 0; i < Object.keys(this.officialMinLimit).length; i++) {
-                    if (this.officialMinLimit[i].currency === tmp_currency) {
-                        let tmp_minLimit = this.officialMinLimit[i].minLimit;
+                for (let i = 0; i < Object.keys(officialMinLimit).length; i++) {
+                    if (officialMinLimit[i].currency === tmp_currency) {
+                        let tmp_minLimit = officialMinLimit[i].minLimit;
                         if (this.message != 'general') {
                             tmp_minLimit = tmp_minLimit * 1000;
                         }
@@ -1149,19 +1118,22 @@
                 this.cryptocurrency = _tokenName;
                 this.tokenNo = tokenNo;
             },
-            selectCurrencyType() {
-                if (this.cryptocurrencyType === 'custom') {
+            setTradeType(code){
+                this.tradeType = code;
+            },
+            setCryptocurrencyType(code){
+                this.cryptocurrencyType = code;
+                if (code === 'custom') {
                     this.priceType = 'fixedprice';
                 }
-            }
-
+            },
+            selectPriceType(code){
+                this.priceType = code;
+            },
         }
     });
 </script>
 <style scoped>
-    .selectbox-width {
-        width: 100% !important;
-    }
 
     .warning-text {
         text-align: right;

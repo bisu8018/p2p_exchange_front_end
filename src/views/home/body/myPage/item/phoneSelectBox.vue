@@ -1,19 +1,21 @@
 <template>
     <v-layout wrap align-center>
-        <div class="p-relative selectbox-width" @click="onShow()">
-            <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType" :class="selectBoxType">
-                {{ selectedValue }}
+        <div class="w-full" @click="onShow()">
+            <div class="o-none comp-selectbox comp-selectbox-parted h6 vertical-center" :id="selectBoxType" :class="selectBoxType">
+                {{ selected }}
             </div>
-            <div class="p-relative">
-                <ul class="o-none select-option-list"  :class="{'scroll-out' : showOptions , 'scroll-up' : !showOptions && showOptions !== ''  && !showInit}">
-                    <li class="select-option vertical-center" v-for="data in getList" @click="onSelect(data)"
-                        :class="selected === (selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenNo : data.code) ? 'selected-option' : ''">
-                        {{ selectBoxType === 'customToken' || selectBoxType === 'generalToken' ?
-                        data.tokenName : (data.value ? data.value : data.code) }}
+
+            <i class="material-icons comp-selectbox-icon comp-selectbox-icon-phone" :class="{'arrow-spin-left' : showOptions}">keyboard_arrow_down</i>
+
+            <div class="">
+                <ul class="o-none select-option-list"  :class="{'scroll-out' : showOptions , 'scroll-up' : !showOptions && showOptions !== ''&& !showInit}">
+                    <li class="select-option vertical-center" v-for="data in phones" @click="onSelect(data)"
+                        :class="selected === data.code ? 'selected-option' : ''">
+                        {{ data.value }}
+                        <span class="f-right">{{ data.code }}</span>
                     </li>
                 </ul>
             </div>
-            <i class="material-icons comp-selectbox-icon" :class="{'arrow-spin-left' : showOptions}">keyboard_arrow_down</i>
         </div>
     </v-layout>
 </template>
@@ -30,16 +32,10 @@
         },
         data: () => ({
             selected: '',
-            selectedValue: "",
             showOptions: '',
-            showInit: false,
             phones: SelectBox.phones(),
+            showInit: false,
         }),
-        computed: {
-            getList() {
-                return this.phones;
-            },
-        },
         created() {
             this.$nextTick(() => {
                 this.init();
@@ -61,8 +57,7 @@
                 if (this.editValue) {
                     this.selected = this.editValue;
                 } else {
-                    this.selected = this.getList[0].code;
-                    this.selectedValue = this.getList[0].value;
+                    this.selected = this.phones[0].code;
                 }
                 this.setting();
             },
@@ -75,7 +70,6 @@
             //선택 시
             onSelect(data) {
                 this.selected = data.code;
-                this.selectedValue = data.value;
                 this.setting();
             },
             //영역 밖 클릭시 스크롤 업
@@ -88,7 +82,6 @@
             onShow() {
                 if(this.showOptions === '' || !this.showOptions){
                     this.showOptions = true;
-                    this.showInit = false;
                 }else{
                     this.showOptions = false;
                 }
@@ -97,4 +90,6 @@
     }
 </script>
 
-<style> /*특정 뷰에서 셀렉박스 길이 설정 필요 시, selectbox-width 클래스 지정 후 사용*/</style>
+<style>
+
+</style>
