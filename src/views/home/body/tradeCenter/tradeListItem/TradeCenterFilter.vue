@@ -6,29 +6,23 @@
       <v-layout row wrap v-if="isMobile" mb-3>
         <!-- buy sell 버튼 -->
         <v-flex xs12>
-          <div v-if="tradeType ==='Buy'">
             <!--buy가 활성화-->
-            <div class="buyBtn mobileActiveBtn">
-              <button class="mobileActiveBtnText" @click="onTokenClicked('current','Buy')">{{$str("buy")}}</button>
+            <div class="buyBtn" @click="onTokenClicked('current','Buy')"
+                 :class="{mobileActiveBtn : tradeType ==='Buy'}"
+            >
+              <button :class="{mobileActiveBtnText : tradeType ==='Buy'}"
+                      >{{$str("buy")}}</button>
             </div>
             <!--sell-->
-            <div class="sellBtn mobileInactiveBtn">
-              <button class="mobileInactiveBtnText" @click="onTokenClicked('current','Sell')">{{$str("sell")}}</button>
+            <div class="sellBtn" @click="onTokenClicked('current','Sell')"
+                 :class="{mobileActiveBtn : tradeType ==='Sell'}"
+            >
+              <button :class="{mobileActiveBtnText : tradeType ==='Sell'}"
+                      >{{$str("sell")}}</button>
             </div>
-          </div>
-          <div v-else>
-            <!--buy-->
-            <div class="buyBtn mobileInactiveBtn">
-              <button class="mobileInactiveBtnText" @click="onTokenClicked('current','Buy')">{{$str("buy")}}</button>
-            </div>
-            <!--sell 이 활성화-->
-            <div class="sellBtn mobileActiveBtn">
-              <button class="mobileActiveBtnText" @click="onTokenClicked('current','Sell')"> {{$str("sell")}}</button>
-            </div>
-          </div>
         </v-flex>
           <!-- BTC ALLB ETH  버튼 -->
-        <v-layout justify-space-between row mt-4 color-darkgray  medium>
+        <v-layout v-if="!isCustomTrade" justify-space-between row mt-4 color-darkgray  medium >
           <!-- < 화살표-->
           <i class="material-icons md-24 c-pointer"
              @click="onTokenClicked('left')"
@@ -77,7 +71,7 @@
           </v-layout>
 
           <!--필터링 card modal-->
-          <div class="cardModal cardModalMobile"  v-if="isModal">
+          <div class="cardModal"  v-if="isModal">
             <v-layout row wrap>
               <v-flex xs12 text-xs-left cardText>{{$str("country")}}</v-flex>
               <!--country select box-->
@@ -113,15 +107,14 @@
       <!-- Web 일때 -->
       <!--buy 부분 -->
       <v-layout row v-else mb-5>
-        <v-flex md3 pr-0>
+        <v-flex md3 pr-0 v-if="!isCustomTrade">
           <v-layout column>
               <v-layout row mb-3>
                 <v-flex md3 offset-md2 text-md-left>
-                  <h4 class="bold">{{$str("buy")}}</h4>
+                  <h4 class="bold" >{{$str("buy")}}</h4>
                 </v-flex>
-                <v-flex md5></v-flex>
               </v-layout>
-              <v-layout justify-space-between row medium color-darkgray>
+              <v-layout  justify-space-between row medium color-darkgray>
                   <!-- < 화살표-->
                   <i class="material-icons md-24 c-pointer"
                      @click="onTokenClicked('left', 'Buy')"
@@ -144,18 +137,17 @@
           </v-layout>
         </v-flex>
         <!-- 가운데 divider-->
-        <v-flex md1 justify-center >
+        <v-flex md1 justify-center v-if="!isCustomTrade">
           <div class="selectDivider"></div>
         </v-flex>
 
         <!-- Sell 부분 -->
-        <v-flex md3 pl-0 >
+        <v-flex md3 pl-0  v-if="!isCustomTrade">
           <v-layout column>
             <v-layout row mb-3>
               <v-flex md3 offset-md2 bold text-md-left>
                 <h4>{{$str("sell")}}</h4>
               </v-flex>
-              <v-flex md5></v-flex>
             </v-layout>
             <v-layout justify-space-between row color-darkgray>
               <!-- < 화살표-->
@@ -180,10 +172,24 @@
           </v-layout>
         </v-flex>
 
+        <v-flex v-else>
+          <v-layout mt-4a>
+            <h4 class="medium color-darkgray c-pointer" @click="onTokenClicked('current','Buy')"
+                :class="{'color-blue-active underline bold' : tradeType==='Buy'}">
+              {{$str("buy")}}
+            </h4>
+            <div class="selectDivider-small"></div>
+            <h4 class="medium color-darkgray c-pointer" @click="onTokenClicked('current','Sell')"
+                :class="{'color-blue-active underline bold' : tradeType==='Sell'}">
+              {{$str("sell")}}
+            </h4>
+          </v-layout>
+        </v-flex>
+
 
         <!--right filter-->
-        <v-flex md4 offset-md1 class="cardParent">
-          <v-layout row class="statusBox" mt-4a>
+        <v-flex md4 offset-md1 class="cardParent p-relative">
+          <v-layout row class="statusBox" >
             <h6  class="statusChip" @click="transisModal('open')">{{$str(getCountryName(nationality))}}</h6>
             <h6  class="statusChip" @click="transisModal('open')">{{currency}}</h6>
             <h6  class=" statusChip" @click="transisModal('open')">{{$str(getPaymentName(paymentMethod))}}</h6>
@@ -273,6 +279,7 @@
                 right: 'ALLB',
             },
             showDim: false,
+            isCustomTrade : false,
 
         }),
         computed: {
@@ -284,7 +291,18 @@
             let currentURL = window.location.href
             var param = currentURL.split('?');
             if(param[1] === 'main') {
-                //main에서 바로 넘어오는경우 정보 동기화.
+                this.setCurrentData();
+            }
+            //custom Token Trade 일때
+            if(this.$route.name === 'customTokenTrade'){
+              this.isCustomTrade = true;
+              this.tradeCoin = MainRepository.MyToken.getCustomTokenNo();
+            }
+
+        },
+        methods : {
+            //main에서 바로 넘어오는경우 정보 동기화.
+            setCurrentData(){
                 this.tradeCoin = MainRepository.TradeView.getSelectFilter().cryptocurrency;
                 this.tradeType = MainRepository.TradeView.getSelectFilter().tradeType;
                 this.nationality = MainRepository.TradeView.getSelectFilter().nationality;
@@ -311,9 +329,7 @@
                 if(this.paymentMethod ===''){
                     this.paymentMethod = 'ALL'
                 }
-            }
-        },
-        methods : {
+            },
             getPaymentName(name) {
                 return findPaymentName(name);
             },
@@ -423,46 +439,90 @@
 </script>
 
 <style scoped>
-  /*mobile버전의 buysell 버튼 관련 css*/
-  .sellBtn{
-    height: 36px;
-    width:67px;
-    border-top-right-radius:200px;
-    border-bottom-right-radius:200px;
-    display: inline-block;
-    position: relative;
+  /* mobile 에서*/
+  @media only screen and (max-width: 959px) {
+    /*mobile버전의 buysell 버튼 관련 css*/
+    .sellBtn{
+      height: 36px;
+      width:67px;
+      border-top-right-radius:200px;
+      border-bottom-right-radius:200px;
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      border: solid 1px #214ea1;
+    }
+    .buyBtn{
+      height: 36px;
+      width:67px;
+      border-top-left-radius:200px;
+      border-bottom-left-radius:200px;
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      border: solid 1px #214ea1;
+    }
+    .buyBtn > button, .sellBtn > button{
+      line-height:50px;
+      color:#214ea1;
+      position: absolute;
+      left: 20px;
+      bottom: -8px;
+    }
+    .mobileActiveBtn{
+      background: #214ea1;
+      border: solid 1px #214ea1;
+
+    }
+    .mobileActiveBtnText{
+      line-height:50px;
+      color:white !important;
+      position: absolute;
+      left: 20px;
+      bottom: -8px;
+    }
+    .cardParent{
+      position: relative;
+    }
+    .cardModal{
+      z-index: 2;
+      position: absolute;
+      background-color: #ffffff;
+      box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+      padding: 16px 8px 24px 8px;
+      top: 88px ;
+      width: 100% ;
+      left: 0;
+    }
   }
-  .buyBtn{
-    height: 36px;
-    width:67px;
-    border-top-left-radius:200px;
-    border-bottom-left-radius:200px;
-    display: inline-block;
-    position: relative;
-  }
-  .mobileActiveBtn{
-    background: #214ea1;
-    border: solid 1px #214ea1;
+
+  /* 웹에서 */
+  @media only screen and (min-width: 960px) {
+    .cardParent {
+      margin-top: 32px;
+      position: relative;
+    }
+
+    .selectDivider-small {
+      border: solid 1px #d1d1d1;
+      height: 16px;
+      width: 2px;
+      margin-left: 32px;
+      margin-right: 32px;
+      margin-top: 6px;
+    }
+    .cardModal{
+      z-index: 2;
+      position: absolute;
+      background-color: #ffffff;
+      box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
+      padding: 16px 8px 24px 8px;
+      width: 75%;
+      left: 22%;
+      top: 60px;
+    }
 
   }
-  .mobileActiveBtnText{
-    line-height:50px;
-    color:white;
-    position: absolute;
-    left: 20px;
-    bottom: -8px;
-  }
-  .mobileInactiveBtn{
-    border: solid 1px #214ea1;
-  }
-  .mobileInactiveBtnText{
-    line-height:50px;
-    color:#214ea1;
-    position: absolute;
-    left: 20px;
-    bottom: -8px;
-  }
-
   .underline{
     border-bottom: 1px solid currentColor
   }
@@ -479,20 +539,7 @@
     width: 100%;
 
   }
-  .cardParent{
-    position: relative;
-  }
-   .cardModal{
-    z-index: 2;
-    position: absolute;
-    background-color: #ffffff;
-    box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
-    padding: 16px 8px 24px 8px;
-    width: 75%;
-    left: 22%;
-     top: 90px;
 
-  }
    .cardModal:after{
      content: '';
      position: absolute;
@@ -520,12 +567,7 @@
      border-left: 8px solid transparent;
      border-color: transparent transparent #d8d8d8 transparent ;
    }
-   /* filter card 가 mobile에선 width 100이므로
-   mobile에서만 추가 선언.*/
-  .cardModalMobile{
-    width: 100%;
-    left: 0%;
-  }
+
 
 
   .selectDivider{
