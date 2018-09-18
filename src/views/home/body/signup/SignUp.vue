@@ -220,9 +220,6 @@
 </script>
 
 <style>
-    .selectbox-width {
-        width: 100%;
-    }
 
     .signup-flex {
         display: flex;

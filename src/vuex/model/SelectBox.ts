@@ -98,4 +98,66 @@ export default {
         ];
         return phones;
     },
+    tradeTypes() {
+        const tradeTypes = [
+            {code: 'buy', value: Vue.prototype.$str('buyText')},
+            {code: 'sell', value: Vue.prototype.$str('sellText')},
+        ];
+        return tradeTypes;
+    },
+    cryptocurrencyTypes() {
+        const cryptocurrencyTypes = [
+            {code: 'general', value: Vue.prototype.$str('General Coin')},
+            {code: 'custom', value: Vue.prototype.$str('Custom Token')},
+        ];
+        return cryptocurrencyTypes;
+    },
+    priceTypes() {
+        const priceTypes = [
+            {code: 'fixedprice', value: Vue.prototype.$str('fixedPrice')},
+            {code: 'floatprice', value: Vue.prototype.$str('floatPrice')},
+        ];
+        return priceTypes;
+    },
+
+
+
+
+    findValue(type,data){
+        let value;
+        let list = this.getList(type) || [];
+        value = list.find(function (element) {
+            if( data === element.code){
+                return element.value;
+            }
+        });
+        return value.value;
+    },
+    getList(type) {
+        switch (type) {
+            case 'country' :
+                return this.countries();
+
+            case 'signupCountry' :
+                return this.signupCountries();
+
+            case 'currency' :
+                return this.currencies();
+
+            case 'payment' :
+                return this.payments();
+
+            case 'phone' :
+                return this.phones();
+
+            case 'tradeType' :
+                return this.tradeTypes();
+
+            case 'cryptocurrencyType' :
+                return this.cryptocurrencyTypes();
+
+            case 'priceType' :
+                return this.priceTypes();
+        }
+    },
 }

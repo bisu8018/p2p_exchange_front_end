@@ -13,9 +13,9 @@
                         <div class=" color-black  mb-2 text-xs-left">
                             {{$str("phoneNumber")}}
                         </div>
-                        <div class="p-relative phone-wrapper">
+                        <div class="p-relative selectbox-wrapper">
                             <phone-select-box :selectBoxType="'phone'" v-on:phone="setCode"
-                                        class="selectbox-width selectbox-locale-number"></phone-select-box>
+                                        class="selectbox-width-part"></phone-select-box>
                             <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
                         </div>
                     </div>
@@ -29,32 +29,10 @@
                                            :type="'phone'"></verification-code>
                     </div>
                 </div>
-
-                <!--이메일 연동은 회원가입 시 이뤄지기에 현재 미사용-->
-                <!--<div v-else>-->
-                <!--&lt;!&ndash;이메일 입력&ndash;&gt;-->
-                <!--<div class="mb-4">-->
-                <!--<div class=" color-black  mb-2 text-xs-left">-->
-                <!--{{$str("email")}}-->
-                <!--</div>-->
-                <!--<div class="input-disabled  vertical-center disabled">{{setEmail}}</div>-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash;이메일인증&ndash;&gt;-->
-                <!--<div class="mb-4">-->
-                <!--<div class=" color-black  mb-2 text-xs-left">-->
-                <!--{{$str("emailVerification")}}-->
-                <!--</div>-->
-                <!--<div class="p-relative">-->
-                <!--<input type="text" class="input" v-model="emailVerificationCode" maxlength="12">-->
-                <!--<span class="cs-click-send text-white-hover" @click="sendVerificationCode">{{$str("clickToSend")}}</span>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
                     <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onLink">{{$str('link')}}</button>
-                </div>../vuex/model/SelectBox
+                </div>
             </div>
         </v-flex>
     </v-layout>
@@ -149,31 +127,5 @@
     .input-phone {
         border: none;
         font-size: 12px;
-    }
-
-
-    .selectbox-width {
-        width: 80px;
-        left: 0;
-        bottom: 0;
-    }
-
-
-    .phone-wrapper {
-        display: flex;
-        border: solid 1px #8d8d8d;
-    }
-    .phone-wrapper:hover {
-        border: solid 1px #316ee4;
-    }
-
-
-    .selectbox-locale-number :first-child :first-child{
-        border: none !important;
-        border-right: solid 1px #8d8d8d !important;
-    }
-
-    .phone-wrapper:hover :first-child :first-child :first-child  {
-        border-right: solid 1px #316ee4 !important;
     }
 </style>

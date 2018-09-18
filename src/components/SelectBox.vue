@@ -2,25 +2,32 @@
     <v-layout wrap align-center>
 
         <!--토큰 리스트 로딩-->
-        <div class="p-relative"
+        <div class="p-relative w-full"
              v-if="selectBoxType === 'customToken' && customTokens.length === 0 || selectBoxType === 'generalToken'  && generalTokens.length === 0">
             <input type="text" class="input" placeholder="Loading . . ." readonly/>
             <v-progress-circular indeterminate class="color-blue progress-circular-selectbox"></v-progress-circular>
         </div>
-        <div class="p-relative selectbox-width" v-else @click="onShow()">
+        <div class="p-relative  w-full" v-else @click="onShow()">
             <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType" :class="selectBoxType">
-                    {{ selectedValue }}
+                {{ selectedValue }}
             </div>
             <div class="p-relative">
-                <ul class="o-none select-option-list"  :class="{'scroll-out' : showOptions , 'scroll-up' : !showOptions && showOptions !== ''  && !showInit}">
-                    <li class="select-option vertical-center" v-for="data in getList" @click="onSelect(data)"
-                    :class="selected === (selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenNo : data.code) ? 'selected-option' : ''">
+                <ul class="o-none select-option-list"
+                    :class="{'scroll-out' : showOptions , 'scroll-up' : !showOptions && showOptions !== ''  && !showInit}">
+                    <li class="select-option vertical-center"
+                        v-for="data in getList"
+                        @click="onSelect(data)"
+                        v-if="selectBoxType !== 'customToken' && selectBoxType !== 'generalToken' ? getCondition !== data.code : true"
+                        :class="selected === (selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenNo : data.code) ? 'selected-option' : ''">
+
                         {{ selectBoxType === 'customToken' || selectBoxType === 'generalToken' ?
-                        data.tokenName : (data.value ? data.value : data.code) }}
+                        data.tokenName : data.value }}
+
                     </li>
                 </ul>
             </div>
-            <i class="material-icons comp-selectbox-icon" :class="{'arrow-spin-left' : showOptions}">keyboard_arrow_down</i>
+            <i class="material-icons comp-selectbox-icon"
+               :class="{'arrow-spin-left' : showOptions}">keyboard_arrow_down</i>
         </div>
     </v-layout>
 </template>
@@ -33,7 +40,8 @@
         name: 'selectBox',
         props: {
             'selectBoxType': {type: String, default: 'country'},        //country, currency, payment, phone, customToken
-            'editValue': ''    // 수정 모드, 데이터
+            'editValue': '',    // 수정 모드, 데이터
+            'optionFilter': ''    // 옵션 필터링
         },
         data: () => ({
             selected: '',
@@ -43,10 +51,14 @@
 
             //SelectBox.ts import
             signupCountries: SelectBox.signupCountries(),
+            signupCountry: SelectBox.signupCountries(),
             countries: SelectBox.countries(),
             currencies: SelectBox.currencies(),
             payments: SelectBox.payments(),
             phones: SelectBox.phones(),
+            tradeTypes: SelectBox.tradeTypes(),
+            cryptocurrencyTypes: SelectBox.cryptocurrencyTypes(),
+            priceTypes: SelectBox.priceTypes(),
             customTokens: [],
             generalTokens: [],
         }),
@@ -73,8 +85,29 @@
 
                     case 'phone' :
                         return this.phones;
+
+                    case 'tradeType' :
+                        return this.tradeTypes;
+
+                    case 'cryptocurrencyType' :
+                        return this.cryptocurrencyTypes;
+
+                    case 'priceType' :
+                        return this.priceTypes;
                 }
             },
+            //특정 option에 대한 작업 필요 시 이용
+            getCondition() {
+                switch (this.selectBoxType) {
+                    case 'priceType' :
+                        if (this.optionFilter === 'custom') {
+                            this.selected = 'fixedprice';
+                            this.selectedValue = SelectBox.findValue(this.selectBoxType, this.selected);
+                            return 'floatprice'
+                        }
+                        break;
+                }
+            }
         },
         created() {
             this.$nextTick(() => {
@@ -83,12 +116,13 @@
         },
         mounted() {
             this.$eventBus.$emit('clickEvent', (event) => {
-               this.hideOnClickOutside(event);
+                this.hideOnClickOutside(event);
             });
         },
         beforeDestroy() {
             this.selected = '';
-            this.$eventBus.$off('clickEvent', (event) => {});
+            this.$eventBus.$off('clickEvent', (event) => {
+            });
         },
         methods: {
 
@@ -99,9 +133,13 @@
                     case 'signupCountry' :
                     case 'currency' :
                     case 'payment' :
+                    case 'tradeType' :
+                    case 'priceType' :
+                    case 'cryptocurrencyType' :
                     case 'phone' :
                         if (this.editValue) {
                             this.selected = this.editValue;
+                            this.selectedValue = SelectBox.findValue(this.selectBoxType, this.editValue);
                         } else {
                             this.selected = this.getList[0].code;
                             this.selectedValue = this.getList[0].value;
@@ -111,7 +149,7 @@
 
                     case 'customToken' :
                         MainRepository.MyToken.setCustomTokenList(() => {
-                            this.customTokens= MainRepository.MyToken.controller().getCustomTokenList();
+                            this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
                             this.selected = this.getList[0].tokenNo;
                             this.selectedValue = this.getList[0].tokenName;
                             if (this.editValue) {
@@ -161,6 +199,9 @@
                         break;
 
                     case 'phone' :
+                    case 'tradeType' :
+                    case 'priceType' :
+                    case 'cryptocurrencyType' :
                         break;
                 }
                 this.$emit(type, this.selected);
@@ -174,6 +215,9 @@
                     case 'signupCountry' :
                     case 'payment' :
                     case 'phone' :
+                    case 'tradeType' :
+                    case 'priceType' :
+                    case 'cryptocurrencyType' :
                     case 'currency' :
                         this.selected = data.code;
                         this.selectedValue = data.value;
@@ -189,21 +233,23 @@
             },
             //영역 밖 클릭시 스크롤 업
             hideOnClickOutside(event) {
-                if (!event.target.classList.contains(this.selectBoxType) ){
+                if (!event.target.classList.contains(this.selectBoxType)) {
                     this.showInit = true;
                     this.showOptions = false;
                 }
             },
             onShow() {
-                if(this.showOptions === '' || !this.showOptions){
+                if (this.showOptions === '' || !this.showOptions) {
                     this.showOptions = true;
                     this.showInit = false;
-                }else{
+                } else {
                     this.showOptions = false;
                 }
-            }
+            },
         },
     }
 </script>
 
-<style> /*특정 뷰에서 셀렉박스 길이 설정 필요 시, selectbox-width 클래스 지정 후 사용*/</style>
+<style>
+
+</style>
