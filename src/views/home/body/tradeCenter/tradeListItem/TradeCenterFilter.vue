@@ -36,18 +36,18 @@
           >keyboard_arrow_left</i>
           <!--token[0] 버튼-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[0].isBTC}"-->
-          <button
+          <button class="mobile-token"
                 @click="onTokenClicked(0,'current')"><h4>{{tokens.left}}</h4>
           </button>
           <!-- token[1] 버튼. 활성화된 버튼 -->
           <!--v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"-->
           <button
-                 class="color-blue-active bold underline"
+                 class="mobile-token color-blue-active bold underline"
                  @click="onTokenClicked(1,'current')"><h4>{{tokens.center}}</h4>
           </button>
           <!--token[2]-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"-->
-          <button
+          <button class="mobile-token"
                 @click="onTokenClicked(2,'current')"><h4>{{tokens.right}}</h4>
           </button>
           <!-- > 화살표 -->
@@ -558,5 +558,9 @@
     right: 0;
     left: 0;
     z-index: 1;
+  }
+
+  .mobile-token{
+
   }
 </style>

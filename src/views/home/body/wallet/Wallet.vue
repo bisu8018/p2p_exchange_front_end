@@ -6,7 +6,7 @@
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
       <div  class="balance-width flex-padding-web">
-        <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')" v-bind:class="{'increase-z-index' : isdropdown.walletType}">
+        <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')" >
           {{$str(selectedWallet)}}
           <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
             <div class="dropdown-content dropdown-wallet" v-if="isdropdown.walletType">
@@ -20,7 +20,7 @@
         <v-layout mt-2 align-center justify-center fill-height @click="showDropdown('currencyType')">
           <h1>{{ toMoneyFormat($fixed(EstimatedCurrencyValue, selectedCurrency)) }}</h1>
           <h4 class="ml-2 p-relative dropbtn" >
-              <span v-bind:class="{'increase-z-index' : isdropdown.currencyType}">
+              <span >
                 {{ selectedCurrency}}
               </span>
               <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
@@ -272,12 +272,13 @@
       position: fixed;
       color: black;
       min-width: 46px;
+
       box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
-      z-index: 1;
+      z-index: 101;
       border-radius: 2px;
       text-align: center;
       background-color: white;
-      bottom: 65px;
+      bottom: 0px;
       right:0;
       left: 0;
     }
@@ -291,12 +292,6 @@
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       max-height: 300px;
-    }
-    /*z-index 올려*/
-    .increase-z-index{
-      z-index: 2;
-      position: relative;
-      color: #ffffff;
     }
     .layout_dim {
       position: fixed;

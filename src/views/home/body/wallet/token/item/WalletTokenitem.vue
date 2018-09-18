@@ -10,22 +10,22 @@
           <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{tokenName}}</span>
           <span v-if="isGeneralCoin" class="color-darkgray ml-2">
             ≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
-            <i v-if="isDrawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
+            <i v-if="drawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
             <i v-else class="material-icons  md-12 ">keyboard_arrow_down</i>
           </span>
         </span>
       </div>
-      <v-layout row wrap v-if="isDrawer" class="detail-wrapper">
+      <v-layout row wrap v-if="drawer" class="detail-wrapper">
         <!--1. OTC Account -->
         <v-flex md4 xs12  text-xs-left>
           <div class="webCard">
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
-              <span class="color-darkgray">{{$str("Available")}}: </span>
+              <span class="color-darkgray">{{$str("Available")}} : </span>
               <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
             <v-layout justify-space-between >
-              <span class="color-darkgray">{{$str("Frozen")}}: </span>
+              <span class="color-darkgray">{{$str("Frozen")}} : </span>
               <span>{{ toMoneyFormat($fixed(item.frozenAmount, item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
           </div>
@@ -35,11 +35,11 @@
           <div class="webCard">
             <h4 class="mb-3 medium margin-top-24">{{$str("Exchange_Account")}}</h4>
             <v-layout justify-space-between mb-2>
-              <span class="color-darkgray">{{$str("Available")}}: </span>
+              <span class="color-darkgray">{{$str("Available")}} : </span>
               <span>{{ toMoneyFormat($fixed('0000', item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
             <v-layout justify-space-between >
-              <span class="color-darkgray">{{$str("Frozen")}}: </span>
+              <span class="color-darkgray">{{$str("Frozen")}} : </span>
               <span>{{ toMoneyFormat($fixed('0000', item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
           </div>
@@ -74,6 +74,7 @@
       <!--withdraw modal-->
       <wallet-withdrawal-dialog
               :tokenName = tokenName
+              :availableAmount = item.availableAmount
       />
 
     </div>
@@ -100,7 +101,6 @@
                 {isETH : false},
                 {isALLB : false},
             ],
-            isDrawer : false,
             estimatedCurrencyValue : false,
             price : '',
         }),
@@ -114,6 +114,9 @@
             },
             isGeneralCoin(){
               return  (MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin')
+            },
+            drawer() {
+                return (MainRepository.TradeView.getDrawer() == this.item.tokenNo);
             },
             tokenImg() {
                 switch (this.item.cryptocurrency) {
@@ -169,7 +172,7 @@
                 this.$eventBus.$emit('showWithdrawDialog', this.tokenName);
             },
             changeDrawer(){
-                this.isDrawer = !this.isDrawer;
+                MainRepository.TradeView.setchangeDrawer(this.item.tokenNo);
             },
             showTransfer(){
                 MainRepository.Wallet.updateStatus({

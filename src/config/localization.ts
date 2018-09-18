@@ -3826,33 +3826,94 @@ const strings = new Map([
         CN: '埃尔比的首发空投币，',
         HK: '埃爾比的首發空投幣，'
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    //alerts 추가
+    ['duplicate_request', {
+        KOR: '중복된 요청입니다',
+        ENG: 'Duplicate request',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['suspended_account', {
+        KOR: '정지된 계정입니다',
+        ENG: 'Suspended account',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['already_expired_order', {
+        KOR: '이미 만료 된 주문입니다',
+        ENG: 'Already expired order',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['invalid_sms_verification_code', {
+        KOR: 'SMS 인증코드가 맞지않습니다',
+        ENG: 'Invalid SMS verification code',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['invalid_sms_phone_number', {
+        KOR: '휴대폰 SMS 번호가 맞지않습니다',
+        ENG: 'Invalid SMS phone number',
+        CN: '',
+        HK: ''
+    }],
+    ['block_member', {
+        KOR: '차단된 계정입니다',
+        ENG: 'Block member',
+        CN: '',
+        HK: ''
+    }],
+    ['trade_count_limit', {
+        KOR: '거래횟수가 부족합니다',
+        ENG: 'Limit your Trade count',
+        CN: '',
+        HK: ''
+    }],
+    ['already_disabled_ad', {
+        KOR: '이미 비활성화된 광고입니다',
+        ENG: 'Already disabled Ad',
+        CN: '',
+        HK: ''
+    }],
+    ['already_enable_ad', {
+        KOR: '이미 활성화된 광고입니다',
+        ENG: 'Already enable Ad',
+        CN: '',
+        HK: ''
+    }],
+    ['not_disabled_ad', {
+        KOR: '비활성화된 광고가 아닙니다',
+        ENG: 'Not disabled Ad',
+        CN: '',
+        HK: ''
+    }],
+    ['not_enable_ad', {
+        KOR: '활성화된 광고가 아닙니다',
+        ENG: 'Not enable Ad',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_amount', {
+        KOR: '올바르지 못한 양입니다.',
+        ENG: 'Invalid amount',
+        CN: '',
+        HK: ''
+    }],
+    ['duplicated_custom_token_name', {
+        KOR: '중복되는 Custom token 이름입니다',
+        ENG: 'Duplicated custom token name',
+        CN: '',
+        HK: ''
+    }],
+    ['duplicated_custom_token_name_short', {
+        KOR: '중복되는 Custom token 축약명입니다',
+        ENG: 'Duplicated custom token short name',
+        CN: '',
+        HK: ''
+    }],
+    ['sms_sender_error', {
+        KOR: 'SMS 발신 오류',
+        ENG: 'SMS sender error',
         CN: '',
         HK: ''
     }],

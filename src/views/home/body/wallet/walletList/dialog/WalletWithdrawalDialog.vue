@@ -32,13 +32,14 @@
         <div class="text-xs-left">{{$str("amount")}}</div>
         <v-spacer></v-spacer>
         <div class="text-xs-right color-darkgray">
-          <h6>({{$str("Available")}}: 0.0000 {{$str("limit")}} : 0.100000</h6>
+          <h6>({{$str("Available")}}: {{toMoneyFormat(availableAmount)}} {{$str("limit")}} : {{$fixed(minAmount,tokenName)}}</h6>
         </div>
       </div>
       <div class="mt-2 mb-4">
         <div class="p-relative">
           <input name="amount" v-model="amount" type="text" class="input"
                  v-bind:class="{'warning-border' : warning_amount}"
+                 @keyup="onNumberCheck('Amount')"
                  @blur="onCheckAmount" autocomplete="off" >
           <span class="crypto-text">{{tokenName}}</span>
           <div class="warning-text-wrapper">
@@ -52,14 +53,15 @@
         <div class="text-xs-left">{{$str("fee")}}</div>
         <v-spacer></v-spacer>
         <div class="text-xs-right color-darkgray" >
-          <h6>({{$str("Range")}}: 0.0000 - 0.001000)</h6>
+          <h6>({{$str("Range")}}: {{$fixed(fee,tokenName)}} - {{$fixed(fee,tokenName)}})</h6>
         </div>
       </div>
 
       <div class="mt-2 mb-4">
         <div class="p-relative">
-          <input name="fee" v-model="fee" type="text" class="input"
-                 autocomplete="off" disabled>
+          <div class="input text-xs-left vertical-center">
+            {{$fixed(fee,tokenName)}}
+          </div>
           <span class="crypto-text">{{tokenName}}</span>
         </div>
       </div>
@@ -69,8 +71,9 @@
       <!-- 4. Receive Amount창-->
       <div class="mt-2 mb-4">
         <div class="p-relative">
-          <input name="receiveAmount" v-model="receiveAmount" type="text" class="input color-darkgray"
-                 autocomplete="off" disabled>
+          <div class="input text-xs-left vertical-center color-darkgray">
+            {{toMoneyFormat(receiveAmount)}}
+          </div>
           <span class="crypto-text">{{tokenName}}</span>
         </div>
       </div>
@@ -108,12 +111,18 @@
 
 <script>
     import MainRepository from '../../../../../../vuex/MainRepository';
+    import {abUtils} from '@/common/utils';
+    import Vue from "vue";
     export default {
         name: "WalletWithdrawalDialog",
         props :{
             tokenName : {
                 type: String,
                 default : ''
+            },
+            availableAmount : {
+                type: Number,
+                default : 0
             },
         },
         data: () => ({
@@ -127,16 +136,41 @@
             text_warning_amount: "",
             warning_address: false,
             warning_amount: false,
-
+            fee : 0,
+            minAmount : 0,
         }),
         computed:{
             receiveAmount(){
                 if(this.amount < this.fee){
                     return 0;
                 }
-                return (this.amount - this.fee);
+                return (this.amount*Math.pow(10, 8) - this.fee*Math.pow(10, 8))
+                        /Math.pow(10, 8);
             },
-            fee(){
+        },
+        created(){
+            this.$eventBus.$on('showWithdrawDialog', (tokenName) => {
+                if(this.tokenName === tokenName){
+                    this.show = true;
+                    this.initData();
+                }
+            });
+        },
+        methods: {
+            initData(){
+                this.minAmount = this.calMinAmount();
+                this.amount = ''
+                this.fee = this.calFee()
+                this.address = ''
+            },
+            onClose: function () {
+                this.initData();
+                this.show = false;
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(Vue.prototype.$fixed(value, this.tokenName));
+            },
+            calFee(){
                 switch (this.tokenName) {
                     case 'bitcoin':
                     case 'BTC':
@@ -144,15 +178,16 @@
 
                     case 'ethereum':
                     case 'ETH':
-                        return  0.05
+                        return  0.005
 
                     case 'allb':
                     case 'ALLB':
                         return 0
-                    default: return 0
+                    default:
+                        return 0;
                 }
             },
-            minAmount(){
+            calMinAmount(){
                 switch (this.tokenName) {
                     case 'bitcoin':
                     case 'BTC':
@@ -165,28 +200,25 @@
                     case 'allb':
                     case 'ALLB':
                         return 0
-                    default: return 0
+                    default:
+                        return 0;
                 }
-            }
-        },
-        created(){
-            this.$eventBus.$on('showWithdrawDialog', (tokenName) => {
-                if(this.tokenName === tokenName){
-                    this.show = true;
+            },
+
+            onNumberCheck(type) {
+                if (type === 'Amount') {
+                    if(this.amount >this.minAmount){
+                        this.warning_amount = true;
+                        this.text_warning_amount = this.$str("Please enter less than Limit");
+                    }
+                    else{
+                        this.warning_amount = false;
+                    }
+
                 }
-            });
-        },
-        methods: {
-            initData(){
-                this.minAmount = ''
-                this.amount = ''
-                this.fee = 0
-                this.address = ''
+
             },
-            onClose: function () {
-                this.initData();
-                this.show = false;
-            },
+
             onCheckAddress(){
                 if (this.address === "") {
                     this.warning_address = true;
@@ -202,14 +234,21 @@
                     this.text_warning_amount = this.$str("Please_enter_a_vaild_number");
                     return false;
                 }
-                if (this.amount <= 0) {
+                if (this.amount <= 0 ) {
                     this.warning_amount = true;
                     this.text_warning_amount = this.$str("Please enter more than 0");
                     return false;
                 }
+                if (this.amount > this.minAmount ) {
+                    this.warning_amount = true;
+                    this.text_warning_amount = this.$str("Please enter less than Limit");
+                    return false;
+                }
+                this.amount = this.$fixed(this.amount, this.tokenName);
                 this.warning_amount = false;
                 return true;
             },
+
             goSMSVerification(){
                 if(this.onCheckAddress() && this.onCheckAmount()){
                   MainRepository.Wallet.setWithdraw({
@@ -223,6 +262,8 @@
                   this.$router.push("/smsVerification");
                 }
             },
+
+
             getCryptoName(cryptocurrency) {
                 switch (cryptocurrency) {
                     case 'bitcoin':
@@ -253,5 +294,8 @@
   }
   .cs-flex{
     display: flex;
+  }
+  .color-darkgray{
+    color: #9294a6 !important;
   }
 </style>

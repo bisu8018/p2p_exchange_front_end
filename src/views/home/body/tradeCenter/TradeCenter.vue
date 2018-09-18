@@ -36,21 +36,18 @@
                     {{$str("control")}}
                 </v-flex>
             </v-layout>
-            <v-flex><v-divider></v-divider></v-flex>
+            <v-flex><div class="divider"></div></v-flex>
         </div>
 
         <v-progress-circular v-if="showProgress" indeterminate class="color-blue list_progress"/>
 
         <!--본 list들-->
         <div v-if="haveItems && !showProgress">
-            <div>
-                <!-- user item list들 10개씩 출력-->
-                <div v-for="user in TradeItemLists"  >
-                    <trade-list-item
-                            :user ="user"
-                    ></trade-list-item>
-                    <v-flex><v-divider></v-divider></v-flex>
-                </div>
+            <!-- user item list들 10개씩 출력-->
+            <div v-for="user in TradeItemLists"  >
+                <trade-list-item
+                        :user ="user"
+                ></trade-list-item>
             </div>
             <!-- pagination -->
             <div class="mt-5">

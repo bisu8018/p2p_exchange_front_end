@@ -60,8 +60,9 @@
           </v-flex>
         </v-layout>
       </div>
+      <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
       <!-- Nicname 설정을 안했을경우 띄움-->
-      <v-flex v-if="drawer&& !setNickName">
+      <v-flex v-if="drawer&& !isValid">
         <div class="mobileModal">
           <v-layout>
             <v-flex xs2 pl-2>
@@ -270,38 +271,28 @@
           </v-layout>
         </v-flex>
       </v-layout>
+      <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
       <!--nickname 설정 안했을때 띄우는 modal. click은 했는데, setNickName이 false일때-->
-      <v-flex v-if="drawer && !setNickName">
+      <v-flex v-if="drawer && !isValid">
         <div class="tradeWebModal">
           <v-layout row wrap>
-            <v-flex md3 text-md-left>
-              <v-layout pl-4>
-                <!--avatar-->
-                <avatar me>
-                </avatar>
+            <v-flex md4 text-md-left pl-4>
+              <v-layout>
+                <!--token-->
+                <span :class="tokenImg" > </span>
+                <div class="ml-3 bold">
+                  <span>{{user.cryptocurrency}}</span>
                 <!-- merchant 정보-->
-                <span>
-                  <span class="mr-2 ml-3 medium color-blue-active">
-                    {{user.nickname}} ( {{user.volumeAvailable}} | {{user.tradeRate}}%)
-                  </span>
-                  <!--판매자 rank-->
-                  <a class="tooltip d-inline-block" v-if="user.rank==1">
-                    <div class="sprite-img ic-premium ml-2"></div>
-                    <span class="premiumTooltip tooltip-content">{{$str("Premium merchant")}}</span>
-                  </a>
-                  <a class="tooltip d-inline-block" v-else-if="user.rank==2">
-                    <div class="sprite-img ic-certified ml-2"></div>
-                    <span class="certifiedTooltip tooltip-content">{{$str("Certified merchant")}}</span>
-                  </a>
-                  <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
-                </span>
+                  <div class="color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                </div>
+
               </v-layout>
             </v-flex>
-            <v-flex md9>
+            <v-flex md8 pr-4>
               <!--수직, 수평가운데 정렬.-->
-              <v-layout row align-center fill-height justify-end pr-4>
+              <v-layout row align-center fill-height justify-end >
                 <h5>{{$str("You need to complete the necessary transaction information.")}}&nbsp;</h5>
-                <h5 class="color-blue-active" @click="showNickNameModal = true">
+                <h5 class="color-blue-active" @click="onValidClick()">
                   {{$str("Set up now.")}}</h5>
                 <v-divider class="mx-3" inset vertical></v-divider>
                 <button class="btn-rounded-white text-white-hover"
@@ -316,8 +307,8 @@
       <v-flex v-else-if="drawer" >
         <div class="tradeWebModal">
         <v-layout row wrap>
-          <v-flex md3 text-md-left >
-            <v-layout pl-4 >
+          <v-flex md3 text-md-left pl-4>
+            <v-layout >
               <span :class="tokenImg" > </span>
               <span>
                 <span class="ml-3 bold">{{user.cryptocurrency}}</span>
@@ -326,7 +317,7 @@
             </v-layout>
           </v-flex>
           <!--둘째줄-->
-          <v-flex md2 text-md-left>
+          <v-flex md2 text-md-left pl-1>
             <div class="bold color-orange-price">
               {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}
             </div>
@@ -373,7 +364,7 @@
               </div>
             </v-layout>
           </v-flex>
-          <v-flex md3 text-md-left>
+          <v-flex md3 text-md-right>
             <!--confirm 버튼-->
             <button class="btn-rounded-blue btn-blue-hover mr-3"
                     @click="goTrade">{{$str("confirm")}}
@@ -384,9 +375,9 @@
             </button>
           </v-flex>
         </v-layout>
-        <v-layout row wrap tradeWebModal-secondRow>
+        <v-layout row wrap class="tradeWebModal-secondRow">
           <v-flex md6 text-md-left>
-            <div class="margin-left-74">
+            <div class="margin-left-62">
               <!--Bank account-->
               <div v-if="user.bank_account">
                 <div class="sprite-img ic-bank mr-2 f-left"></div>
@@ -418,7 +409,7 @@
               </div>
             </div>
           </v-flex>
-          <v-flex md2 text-md-right>
+          <v-flex md3 text-md-right pr-4>
             <h6 class="color-darkgray">{{$str("Payment window is")}} {{user.paymentWindow}} {{$str("minuteText")}}</h6>
           </v-flex>
         </v-layout>
@@ -427,7 +418,7 @@
 
         <!-- 판매자가 남긴 요구 메모가 있을시-->
         <v-layout >
-          <v-flex md12 mt-5 mb-5 v-if="user.termsOfTransaction !== '' " margin-left-74 mr-4 text-md-left>
+          <v-flex md12 mt-4 v-if="user.termsOfTransaction !== '' " margin-left-62 mr-4 text-md-left>
             <h6 class="color-darkgray">
               {{$str("userMemo")}}： <br>
               {{user.termsOfTransaction}}
@@ -442,6 +433,8 @@
             :show=showNickNameModal
             v-on:close="closeNicknameModal"
     ></nick-name-modal>
+
+    <div v-if="myPaments || myInfo "></div>
   </div>
 </template>
 
@@ -476,6 +469,8 @@
             clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
 
+            isValid: false,
+
         }),
 
         computed : {
@@ -485,9 +480,21 @@
             drawer() {
                 return (MainRepository.TradeView.getDrawer() == this.user.adNo);
             },
-            setNickName() {
+            getNickName() {
                 //nickname 설정이 필요하면 false, 설정이미 했으면 true
                 return (MainRepository.MyInfo.getUserInfo().nickname !== '')
+            },
+            myInfo() {
+                if (MainRepository.MyInfo.checkValidity(false)) {
+                    this.isValid = true;
+                }
+                return MainRepository.MyInfo.getUserInfo();
+            },
+            myPaments() {
+                if (MainRepository.MyInfo.checkValidity(false)) {
+                    this.isValid = true;
+                }
+                return MainRepository.MyInfo.getMyPaymentMethods();
             },
             getBalance(){
                 let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(
@@ -682,6 +689,13 @@
                 /////////////////////////////////
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
+            onValidClick() {
+                if (this.myInfo.nickName === "") {
+                    this.showNickNameModal = true;
+                } else {
+                    MainRepository.MyInfo.checkValidity(true);
+                }
+            },
             closeNicknameModal() {
                 this.showNickNameModal = false;
             },
@@ -727,21 +741,21 @@
     width: 101px;
   }
   .tradeWebModal{
-    min-height: 171px;
     background-color: #ffffff;
     width: 100%;
     border-radius: 2px;
     padding-top: 24px;
+    padding-bottom: 24px;
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     display: block;
   }
 
 
   .tradeWebModal-secondRow{
-    margin-top: 36px;
+    margin-top: 24px;
   }
-  .margin-left-74{
-    margin-left: 74px;
+  .margin-left-62{
+    margin-left: 62px;
   }
   .mobileModal{
     border-radius: 2px;

@@ -74,7 +74,7 @@
                 //MainRepository.router().goWallet();
             },
             goService(){
-                MainRepository.router().goWallet();
+                MainRepository.router().goMyToken();
             },
             goChat(){
                 MainRepository.router().goChat();

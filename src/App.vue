@@ -1253,7 +1253,14 @@
         pointer-events: none;
     }
 
+    /*divider ex) <div class="divider"></div>*/
 
+    .divider{
+        height: 1px;
+        width: 100%;
+        background-color: #d8d8d8;
+
+    }
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
     /*<a class="tooltips">*/
     /*<span>Alipay</span>*/
@@ -2144,18 +2151,7 @@
         font-weight: 500;
     }
 
-    .amount-box{
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-right: 0.5px;
-    }
-    .currency-box-border {
-        position : absolute;
-        height: 40px;
-        width: 1px;
-        top: 0px;
-        background-color: #8d8d8d;
-    }
+
 
     .arrows-style {
         background: #214EA1;
