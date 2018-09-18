@@ -14,8 +14,8 @@
                             {{$str("phoneNumber")}}
                         </div>
                         <div class="p-relative phone-wrapper">
-                            <select-box :selectBoxType="'phone'" v-on:number="setCode"
-                                        class="selectbox-width selectbox-locale-number"></select-box>
+                            <phone-select-box :selectBoxType="'phone'" v-on:phone="setCode"
+                                        class="selectbox-width selectbox-locale-number"></phone-select-box>
                             <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                 <div class="text-xs-right">
                     <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
                     <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onLink">{{$str('link')}}</button>
-                </div>
+                </div>../vuex/model/SelectBox
             </div>
         </v-flex>
     </v-layout>
@@ -62,13 +62,13 @@
 
 <script>
     import {abUtils} from '@/common/utils';
-    import SelectBox from "../../../../../components/SelectBox";
+    import PhoneSelectBox from "../item/phoneSelectBox.vue";
     import VerificationCode from '@/components/VerificationCode.vue';
     import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
         name: 'linkAccount',
-        components: {SelectBox, VerificationCode},
+        components: {PhoneSelectBox, VerificationCode},
         computed: {
             getPhoneNumber() {
                 let numLength = this.phone_number.length;

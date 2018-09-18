@@ -880,8 +880,12 @@
         color: #316ee4 !important;
     }
 
+
+
+    /*============셀렉박스 공통 CSS*========*/
+
     .comp-selectbox {
-        /*셀렉박스 공통 CSS*/
+
         width: 100%;
         height: 40px;
         border-radius: 2px;
@@ -896,15 +900,115 @@
         border: solid 1px #316ee4;
     }
 
-    .comp-selectbox-icon {
-        /*셀렉박스 화살표 아이콘 공통 CSS*/
+    .comp-selectbox-icon {    /*셀렉박스 화살표 아이콘 공통 CSS*/           /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
         position: absolute;
-        /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
         right: 8px;
         top: 8px;
         pointer-events: none;
         color: #9294a6;
+        transition: 0.3s all ease;
+        -webkit-transition: 0.3s all ease;
+        -moz-transition: 0.3s all ease;
+        -ms-transition: 0.3s all ease;
+        -o-transition: 0.3s all ease;
     }
+
+    .arrow-spin-left {
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    .select-option-list {
+        display: none;
+        overflow: auto;
+        position: absolute;
+        margin-top: 4px;
+        z-index: 1500;
+        padding: 0;
+        width: 100%;
+        border-radius: 2px;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+        background-color: #ffffff;
+        border: solid 1px #b2b2b2;
+        animation-duration: 0.3s;
+    }
+
+    .scroll-out {
+        max-height: 200px;
+        display: block;
+        opacity: 1;
+        animation-name: scroll-out;
+    }
+
+    .scroll-up {
+        display: block;
+        opacity: 0;
+        max-height: 0px;
+        animation-name: scroll-up ;
+    }
+
+
+    @keyframes scroll-out {
+        0% {
+            opacity: 0;
+            max-height: 0px;
+        }
+        100% {
+            opacity: 1;
+            max-height: 200px;
+        }
+    }
+
+    @keyframes scroll-up {
+        0% {
+            opacity: 1;
+            max-height: 200px;
+        }
+        100% {
+            opacity: 0;
+            max-height: 0px;
+
+        }
+    }
+
+    .select-option:hover {
+        background-color: #f8f8fa;
+    }
+
+    .select-option:active {
+        background-color: #316ee4;
+        color: white
+    }
+
+    .selected-option {
+        background-color: #316ee4 !important;
+        color: white
+    }
+
+    .select-option {
+        height: 40px;
+        display: block;
+        background-color: white;
+        border-bottom: 1px solid #dddddd;
+        cursor: pointer;
+        width: 100%;
+        position: relative;
+        list-style-type: none;
+        text-align: left;
+        padding-left: 24px;
+        padding-top: 10px;
+        font-size: 12px;
+    }
+
+    .select-option:last-child {
+        border-bottom: none;
+    }
+
+
+
+
+
 
 
     /*input text 필드 공통 CSS*/
@@ -2072,6 +2176,6 @@
         height: 20px !important;
         position: absolute !important;
         right: 12px;
-        top: 8px;
+        top: 10px;
     }
 </style>

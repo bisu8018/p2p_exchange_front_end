@@ -1286,6 +1286,17 @@ export default {
                 callback();
             })
         },
+        setCustomTokenNo(tokenNo){
+            customTokenController.setCustomTokenNo(tokenNo);
+        },
+        getCustomTokenNo(){
+            return customTokenController.getCustomTokenNo();
+        },
+    },
+    GeneralToken: {
+      controller () {
+          return generalTokenController;
+      },
         setGeneralTokenList(callback: any){
             AdService.setGeneralTokenList((data)=>{
                 let result = data;
@@ -1299,17 +1310,6 @@ export default {
                 callback();
             })
         },
-        setCustomTokenNo(tokenNo){
-            customTokenController.setCustomTokenNo(tokenNo);
-        },
-        getCustomTokenNo(){
-            return customTokenController.getCustomTokenNo();
-        },
-    },
-    GeneralToken: {
-      controller () {
-          return generalTokenController;
-      }  ,
     },
 
     router() {

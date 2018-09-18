@@ -87,7 +87,7 @@
         name: 'findPassword',
         data: function () {
             return {
-                status: 'password',             //email -> verification -> password
+                status: 'email',             //email -> verification -> password
                 email: '',
                 new_password: '',
                 confirm_password: '',
