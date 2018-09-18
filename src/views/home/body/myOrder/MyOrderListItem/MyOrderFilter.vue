@@ -164,9 +164,11 @@
 
         <!--데스크탑 환경에서만 표시 -->
         <v-flex md4 pl-4 pr-0 v-if="!isMobile">
-            <button class="btn-white" @click="showDownloadDialog">{{$str("Export")}}</button>
+            <div class="btn-white align-center" @click="showDownloadDialog">
+                <i class="material-icons md-24 export-icon">save_alt</i>
+                {{$str("Export")}}
+            </div>
         </v-flex>
-
         <my-order-download-dialog></my-order-download-dialog>
     </v-layout>
 </template>
@@ -437,6 +439,15 @@
             min-height: 200px;
             width: 75%;
             right: 0;
+        }
+        .export-icon{
+            width: 18px;
+            margin-right: 16px;
+        }
+        .align-center{
+            display: flex;
+            align-content: center;
+            justify-content: center;
         }
     }
     .close-icons {

@@ -14,10 +14,10 @@
                 v-bind:class="{'tokentype-active' : selectedTokenType === 'Custom Token'}"
         >{{$str("Custom Token")}}</button>
 
-        <div class="selectDivider"></div>
+        <!--div class="selectDivider"></div>
         <button @click="selectTokentype('Fiat')" class="color-darkgray"
                 v-bind:class="{'tokentype-active' : selectedTokenType === 'Fiat'}"
-        >{{$str("Fiat")}}</button>
+        >{{$str("Fiat")}}</button-->
       </v-flex>
       <v-flex md2 xs12 order-md2 order-xs4>
         <div class=" vertical-center p-relative">
@@ -140,14 +140,12 @@
 
                     case 'Fiat':
                         this.$eventBus.$emit('showAlert', 9000);
-                        //this.selectedTokenType = type
+                        this.selectedTokenType = 'Fiat'
                         break;
                 }
-                this.searchToken
                 MainRepository.Wallet.updateStatus({
                     cryptocurrencyType : this.selectedTokenType
                 })
-
             },
             goDetails(){
                 MainRepository.router().goWalletDetail('');

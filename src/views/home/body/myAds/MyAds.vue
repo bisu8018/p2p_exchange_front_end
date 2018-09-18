@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-layout row wrap mt-5 mb-4a>
+        <v-layout row wrap mt-5 class="web-margin-bottom">
           <!--header-->
           <v-flex md8 xs12 class="text-xs-left h2 bold mb-4a">{{$str("MyAds")}}</v-flex>
           <v-flex md4 xs12>
@@ -117,6 +117,9 @@
     }
     .pagination-top-margin{
       margin-top : 48px;
+    }
+    .web-margin-bottom{
+      margin-bottom: 12px;
     }
   }
   /*mobile 일때*/

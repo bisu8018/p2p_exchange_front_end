@@ -1,5 +1,5 @@
 <template>
-    <v-layout row wrap>
+    <v-layout row wrap mb-2>
         <v-flex xs12 md12 >
             <div class="ads-filter" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
