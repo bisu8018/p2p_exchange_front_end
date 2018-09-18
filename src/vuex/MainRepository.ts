@@ -1265,7 +1265,6 @@ export default {
         },
         getMytoken: function (callback: any) {
             customTokenService.getMyToken(result => {
-                console.log(result)
                 if(result){
                     customTokenController.setMyToken(new CustomToken(result));
                     callback(result);

@@ -21,11 +21,11 @@
           <div class="webCard">
             <h4 class="mb-3 medium">{{$str("OTC_Account")}}</h4>
             <v-layout justify-space-between mb-2>
-              <span class="color-darkgray">{{$str("Available")}}: </span>
+              <span class="color-darkgray">{{$str("Available")}} : </span>
               <span>{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
             <v-layout justify-space-between >
-              <span class="color-darkgray">{{$str("Frozen")}}: </span>
+              <span class="color-darkgray">{{$str("Frozen")}} : </span>
               <span>{{ toMoneyFormat($fixed(item.frozenAmount, item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
           </div>
@@ -35,11 +35,11 @@
           <div class="webCard">
             <h4 class="mb-3 medium margin-top-24">{{$str("Exchange_Account")}}</h4>
             <v-layout justify-space-between mb-2>
-              <span class="color-darkgray">{{$str("Available")}}: </span>
+              <span class="color-darkgray">{{$str("Available")}} : </span>
               <span>{{ toMoneyFormat($fixed('0000', item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
             <v-layout justify-space-between >
-              <span class="color-darkgray">{{$str("Frozen")}}: </span>
+              <span class="color-darkgray">{{$str("Frozen")}} : </span>
               <span>{{ toMoneyFormat($fixed('0000', item.cryptocurrency))}} {{tokenName}}</span>
             </v-layout>
           </div>

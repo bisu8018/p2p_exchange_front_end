@@ -33,11 +33,10 @@
                                 v-bind:class="{'left16-right32' : (getDomain === 'OTC')}" >
                             {{$str("OTC")}}
                         </button>
-                        <transition name="OTC" >
+                        <transition-group  name="OTC" class="both-flex">
                             <!-- TradeCenter-->
                             <div v-if="getDomain === 'OTC'" key="TradeCenter" class="dropdown ">
                                 <div @click.stop="onTradeCenter" class="menu-button dropbtn sub-domain-menu left32-right16"
-
                                 >{{$str("TradeCenter")}}</div>
                                 <transition name="SubMenu">
                                     <div v-if="!isMobile || tradeCenterDrawer" class="dropdown-content" style="min-width: 140px;">
@@ -53,8 +52,6 @@
                                     </div>
                                 </transition>
                             </div>
-                        </transition>
-                        <transition name="OTC">
                             <!--Post Ad-->
                             <div v-if="getDomain === 'OTC'" key="PostAd" class="dropdown">
                                 <button class="menu-button dropbtn sub-domain-menu left16-right32" @click.stop="onPostAD">{{$str("postAd")}}</button>
@@ -68,8 +65,8 @@
                                         </div>
                                     </div>
                                 </transition>
-                    </div>
-                        </transition>
+                            </div>
+                        </transition-group >
                         <!--Exchange-->
                         <button v-if="!isMobile" class="menu-button" @click="goExchange()"
                                 v-bind:class="{'left32-right16' : (getDomain === 'OTC')}">
@@ -626,14 +623,16 @@
             text-align: center;
         }
         /*subDomain animation*/
+
         .OTC-enter-active, .OTC-leave-active{
-            transition: .2s ease-out;
+            transition: 0.2s ease-out;
         }
 
         .OTC-enter, .OTC-leave-to{
           /*transform: scaleX(0.4);*/
-          transform: translateX(-10px);
-          margin-right: -100px;
+            transform: translate(-40%, 0) scaleX(0.4);
+            margin-right: -100px;
+            opacity: 0;
 
         }
         .OTC-enter-to, .OTC-leave{
@@ -645,16 +644,20 @@
         }
 
         .Service-enter, .Service-leave-to{
-          transform: translateX(-30px);
+          transform: translateX(-30px) scaleX(0.3);
           padding-left: 0px;
           margin-left: 0px;
+            opacity: 0.3;
 
         }
         .Service-enter-to, .ServiceTC-leave{
           margin-right: 0px;
         }
 
-
+        .both-flex{
+            display: flex;
+            flex-direction: row;
+        }
     }
 
     /*mobile 일때*/
@@ -739,24 +742,27 @@
 
         /*subDomain animation*/
         .SubMenu-enter-active, .SubMenu-leave-active{
-            transition: all .2s ease;
+            transition: all .3s ease-out;
         }
         .SubMenu-enter{
             /*transform: translateY(-56px);*/
-            height: 0;
+            transform: translateY(-52px) scaleY(0.4);
+            height: 30px;
             opacity: 0;
             padding-top: 0px;
-            padding-bottom: 0px;
+            padding-bottom: -30px;
+            margin-bottom: -30px;
         }
         .SubMenu-leave-to{
-            transform: scaleY(0.2);
+            transform: translateY(-10px) scaleY(0.4) ;
             height: 0;
             opacity: 0;
             padding-top: 0px;
             padding-bottom: 0px;
         }
 
-        .SubMenu-leave, .SubMenu-enter-to{
+        .SubMenu-leave{
+            height: 100px;
         }
 
         .layout_dim {
@@ -768,6 +774,11 @@
             background-color: rgba(0, 0, 0, 0.45);
             opacity: 0.5;
             z-index: 1;
+        }
+
+        .both-flex{
+            display: flex;
+            flex-direction: column;
         }
 
 }
