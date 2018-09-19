@@ -18,21 +18,29 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
 
         addNotification: function (notification) {
             if (this.state.length > 0) {
-                if (this.state[this.state.length - 1].text = notification.text) {
-
+                let prev = this.state[this.state.length - 1];
+                let calced = notification.timestamp - prev.timestamp;
+                if (prev.text === notification.text && calced < 1500) {
+                    return false;
                 }
-                notification['index'] = this.state[this.state.length - 1].index + 1;
             }
-            this.state.push(notification)
+            this.state.push(notification);
         },
-        removeNotification: function (index) {
-            console.log(index);
-            for(let i = this.state.length - 1; i >= 0; i--) {
-                if(this.state[i].index === index) {
-                    this.state.splice(i, 1);
-                }
-            }
-            //this.state.splice(notification, 0);
+        removeNotification: function (timestamp) {
+            //Array 및 v-for문 특성상 계속 쌓아둬야만, Alert_item.vue의 isClosed와 병행 이용 가능
+            //본 함수 이용 불가
+
+            /* for(let i = 0 ; i < this.state.length ; i++) {
+                 console.log(i)
+                 console.log(this.state.length)
+                 console.log(this.state)
+                 if(this.state[i].timestamp === timestamp) {
+                     console.log(timestamp)
+                     console.log(this.state[i].timestamp)
+                     this.state.splice(i, 1);
+                     break;
+                 }
+             }*/
         }
     };
 
@@ -352,7 +360,6 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     text: text,
                     type: type,
                     timeout: true,
-                    index: 0,
                     timestamp: Date.now()
                 });
             },
@@ -361,32 +368,6 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
             },
             removeNotification: function (notification) {
                 NotificationStore.removeNotification(notification)
-            },
-            showSuccessMessage: function (title, text) {
-                NotificationStore.addNotification({
-                    title: title,
-                    text: text,
-                    type: "Success",
-                    timeout: true
-                });
-
-            },
-            showWarningMessage: function (title, text) {
-                NotificationStore.addNotification({
-                    title: title,
-                    text: text,
-                    type: "Warning",
-                    timeout: true
-                });
-
-            },
-            showErrorMessage: function (title, text) {
-                NotificationStore.addNotification({
-                    title: title,
-                    text: text,
-                    type: "Error",
-                    timeout: true
-                });
             },
         },
         beforeDestroy() {

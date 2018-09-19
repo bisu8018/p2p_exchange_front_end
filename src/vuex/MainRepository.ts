@@ -139,7 +139,7 @@ export default {
             function (data) {
                 accountController.setUserInfo(new Account(data));
 
-                self.Wallet.loadWallets(() => {
+                self.Wallet.load(() => {
                 });
                 self.Wallet.setSecurityWallets(() => {
                 });
@@ -197,11 +197,14 @@ export default {
         //두 cryprocurrencyType의 지갑 모두 불러오기 위함.
         load(callback: any){
             //general 일때
-            this.loadWallets(()=>{})
-            //custom 일때
-            this.loadCustomTokenWallets(()=>{
-                callback();
+            this.loadWallets(()=>{
+                //custom 일때
+                this.loadCustomTokenWallets(()=>{
+                    callback();
+                })
             })
+
+
         },
         //general Coin
         loadWallets: function (callback: any) {

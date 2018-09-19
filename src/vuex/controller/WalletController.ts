@@ -93,8 +93,26 @@ export default class WalletController {
 
             case 'ethereum':
                 return 'ETH'
+
             case 'allb':
                 return 'AllB'
+
+            default:
+                return name
+        }
+    }
+
+    transCryptocurrencyFullName(name){
+        switch (name) {
+            case 'BTC':
+                return 'bitcoin';
+
+            case 'ETH':
+                return 'ethereum';
+
+            case 'AllB':
+                return 'allb';
+
             default:
                 return name
         }

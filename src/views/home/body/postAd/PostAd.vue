@@ -52,7 +52,8 @@
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrencyType") }}</div>
                     <div class="p-relative">
                         <select-box :selectBoxType="'cryptocurrencyType'" :editValue="myAdList.cryptocurrencyType"
-                                    v-on:cryptocurrencyType="setCryptocurrencyType" :class="{'input-disabled2' : edit}"></select-box>
+                                    v-on:cryptocurrencyType="setCryptocurrencyType"
+                                    :class="{'input-disabled2' : edit}"></select-box>
                     </div>
                 </div>
             </v-flex>
@@ -103,7 +104,8 @@
                     <div class="text-xs-left mb-2  color-black display-flex ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
                         {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
-                        <div v-if="priceType === 'floatprice'" class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
+                        <div v-if="priceType === 'floatprice'"
+                             class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
                             <span class="tooltip-content">{{ $str("explainMargin") }}</span>
                         </div>
                     </div>
@@ -142,7 +144,8 @@
             <!--환율 설명-->
             <v-flex xs12 md8 offset-md4>
                 <div class="price-clac-wrapper text-xs-left">
-                    <div class="price-calculate color-darkgray">{{ $str("marektPrice") }} :
+                    <div class="price-calculate color-darkgray" v-if="cryptocurrencyType === 'general'">{{
+                        $str("marektPrice") }} :
                         {{ getMarketPrice || 0 }} {{ getCurrency }}/{{ cryptocurrency }}
                     </div>
                     <div class="price-explain color-darkgray">{{ priceType === 'fixedprice' ? $str("fixedPriceExplain")
@@ -662,13 +665,19 @@
                 return MainRepository.MyInfo.controller().findPaymentMethods('bankaccount');
             },
             getWallet() {
-                if (Object.keys(MainRepository.Wallet.getWallets()).length > 0) {
-                    if (this.cryptocurrency === 'ETH' || this.cryptocurrency === 'BIT') {
-                        this.balance = MainRepository.Wallet.controller().findByCrptoCurrency(this.cryptocurrency).availableAmount;
-                        return this.balance
-                    } else {
-                        this.balance = 0;
-                        return 0;
+                let wallets
+                if (this.cryptocurrencyType === 'general') {
+                    wallets = MainRepository.Wallet.getWallets();
+                }else{
+                    wallets = MainRepository.Wallet.getCustomTokenWallets();
+                }
+
+                if (wallets.length > 0) {
+                    for (let key in wallets) {
+                        if (wallets[key].tokenNo === this.tokenNo) {
+                            this.balance = wallets[key].availableAmount;
+                            return this.balance
+                        }
                     }
                 } else {
                     this.balance = 0;
@@ -858,7 +867,6 @@
                 this.onPost();
             },
             onPost: function () {
-                let self = this;
                 //결제수단 토글 object 화
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
@@ -875,38 +883,38 @@
                 nationality = nationality === 'ALL' ? 'CN' : nationality;
 
                 let data = {
-                    adNo: self.adNo,
-                    autoReply: self.autoReply,
-                    counterpartyFilterTradeCount: self.counterpartyFilterTradeCount,
-                    counterpartyFilterAdvancedVerificationYn: self.counterpartyCheckbox_first,
-                    counterpartyFilterMobileVerificationYn: self.counterpartyCheckbox_second,
-                    counterpartyFilterDoNotOtherMerchantsYn: self.counterpartyCheckbox_third,
-                    cryptocurrency: transCryptocurrencyName(self.cryptocurrency),
-                    cryptocurrencyType: self.cryptocurrencyType,
+                    adNo: this.adNo,
+                    autoReply: this.autoReply,
+                    counterpartyFilterTradeCount: this.counterpartyFilterTradeCount,
+                    counterpartyFilterAdvancedVerificationYn: this.counterpartyCheckbox_first,
+                    counterpartyFilterMobileVerificationYn: this.counterpartyCheckbox_second,
+                    counterpartyFilterDoNotOtherMerchantsYn: this.counterpartyCheckbox_third,
+                    cryptocurrency: this.cryptocurrency,
+                    cryptocurrencyType: this.cryptocurrencyType,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
-                    fixedPrice: Number(self.fixedPrice),
-                    margin: self.margin,
-                    maxLimit: Number(self.maxLimit),
-                    minLimit: Number(self.minLimit),
+                    fixedPrice: Number(this.fixedPrice),
+                    margin: this.margin,
+                    maxLimit: Number(this.maxLimit),
+                    minLimit: Number(this.minLimit),
                     memberNo: MainRepository.MyInfo.getUserInfo().memberNo,
                     nationality: nationality,
-                    paymentWindow: Number(self.paymentWindow),
+                    paymentWindow: Number(this.paymentWindow),
                     paymentMethods: String(paymentMethodsArr),
-                    priceType: self.priceType,
-                    termsAgreeYn: self.agreeTerms,
-                    termsOfTransaction: self.termsOfTransaction,
-                    tradePassword: self.tradePassword,
-                    tradeType: self.tradeType,
-                    type: self.message,
-                    volume: Number(self.volume),
+                    priceType: this.priceType,
+                    termsAgreeYn: this.agreeTerms,
+                    termsOfTransaction: this.termsOfTransaction,
+                    tradePassword: this.tradePassword,
+                    tradeType: this.tradeType,
+                    type: this.message,
+                    volume: Number(this.volume),
                     status: 'enable',
-                    volumeAvailable: Number(self.volume),
-                    tokenNo: self.tokenNo,
+                    volumeAvailable: Number(this.volume),
+                    tokenNo: this.tokenNo,
                 };
 
                 if (this.edit) {
                     MainRepository.AD.editAD(data, (result) => {
-                        MainRepository.Wallet.loadWallets(function () {
+                        MainRepository.Wallet.loadWallets( () => {
                                 Vue.prototype.$eventBus.$emit('showAlert', 2103);
                                 MainRepository.router().goMyAd();
                             },
@@ -916,13 +924,11 @@
                     })
                 } else {
                     MainRepository.AD.postAD(data, function (result) {
-                        MainRepository.Wallet.loadWallets(function () {
+                        MainRepository.Wallet.loadWallets( () => {
                             Vue.prototype.$eventBus.$emit('showAlert', 2101);
                             MainRepository.router().goGeneralTrade();
                         });
                     }, (code) => {
-                        MainRepository.router().goMyAd();
-                    }, () => {
                         return false;
                     })
                 }
@@ -1118,16 +1124,16 @@
                 this.cryptocurrency = _tokenName;
                 this.tokenNo = tokenNo;
             },
-            setTradeType(code){
+            setTradeType(code) {
                 this.tradeType = code;
             },
-            setCryptocurrencyType(code){
+            setCryptocurrencyType(code) {
                 this.cryptocurrencyType = code;
                 if (code === 'custom') {
                     this.priceType = 'fixedprice';
                 }
             },
-            selectPriceType(code){
+            selectPriceType(code) {
                 this.priceType = code;
             },
         }

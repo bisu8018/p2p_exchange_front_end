@@ -68,7 +68,7 @@
             if (timeout) {
                 let delay = this.notification.delay || 3000;
                 this.timer = setTimeout(function () {
-                    this.triggerClose(this.notification)
+                   this.triggerClose(this.notification)
                 }.bind(this), delay)
             }
 
@@ -78,7 +78,8 @@
             triggerClose: function (notification) {
                 clearTimeout(this.timer);
                 this.isClosed = false;
-                this.$emit('close-notification', notification.index)
+                this.$emit('close-notification', notification.timestamp)
+
             }
         }
     }
