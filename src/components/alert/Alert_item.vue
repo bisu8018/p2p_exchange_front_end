@@ -31,6 +31,7 @@
         </div>
     </transition>
 </template>
+
 <script>
     import Vue from 'vue';
 
@@ -65,7 +66,7 @@
             //시간할당
             let timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true
             if (timeout) {
-                let delay = this.notification.delay || 3000
+                let delay = this.notification.delay || 3000;
                 this.timer = setTimeout(function () {
                     this.triggerClose(this.notification)
                 }.bind(this), delay)
@@ -75,9 +76,9 @@
         methods: {
             //닫게 될때
             triggerClose: function (notification) {
-                clearTimeout(this.timer)
+                clearTimeout(this.timer);
                 this.isClosed = false;
-                this.$emit('close-notification', notification)
+                this.$emit('close-notification', notification.index)
             }
         }
     }

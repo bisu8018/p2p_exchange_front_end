@@ -382,6 +382,13 @@ export default {
                 callback(result);
             })
         },
+        setUseYnPaymentMethod : function (email: string, paymentType: any, callback: any) {
+            AccountService.Account.setUseYnPaymentMethod(email, paymentType, (result) => {
+                instance.MyInfo.loadMyPaymentMethods(() => {
+                })
+                callback(result);
+            })
+        },
         deletePaymentMethod: function (email: string, paymentMethods: any, callback: any) {
             AccountService.Account.deletePaymentMethod(email, paymentMethods, (result) => {
                 instance.MyInfo.loadMyPaymentMethods(() => {

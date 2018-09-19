@@ -1143,28 +1143,6 @@
         line-height: 1.2;
     }
 
-    .price-input-wrapper {
-        border: solid 1px #8d8d8d;
-        border-radius: 2px;
-        display: flex;
-        position: relative;
-    }
-
-    .price-input-wrapper:hover, .price-input-wrapper:focus {
-        border: solid 1px #316ee4;
-    }
-
-    .price-input {
-        height: 40px;
-        padding-left: 8px;
-        padding-right: 8px;
-        font-size: 12px;
-        font-weight: 500;
-        width: 100%;
-        color: #353535;
-        outline: none;
-    }
-
     .display-flex {
         display: flex;
     }
@@ -1175,22 +1153,6 @@
         position: absolute;
         top: 10px;
         right: 10px;
-    }
-
-    .refresh-btn {
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
-
-    .refresh-icon {
-        top: 5px;
-        position: absolute;
-        left: 10px;
-    }
-
-    .refresh-btn-span {
-        margin-top: 1px;
-        margin-left: 22px;
     }
 
     .verify-slider-wrapper {

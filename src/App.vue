@@ -895,6 +895,23 @@
         color: #316ee4 !important;
     }
 
+    /*refresh 버튼*/
+
+    .refresh-btn {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .refresh-icon {
+        top: 5px;
+        position: absolute;
+        left: 10px;
+    }
+
+    .refresh-btn-span {
+        margin-top: 1px;
+        margin-left: 22px;
+    }
 
 
     /*============셀렉박스 공통 CSS*========*/
@@ -919,7 +936,11 @@
           border-right: solid 1px #316ee4 !important;
       }*/
 
-    .comp-selectbox:hover,  .comp-selectbox:focus {
+    .comp-selectbox:hover {
+        border: solid 1px #316ee4;
+    }
+
+    .comp-selectbox-active {
         border: solid 1px #316ee4;
     }
 
@@ -2286,5 +2307,33 @@
         transform: translateX(100px);
         opacity: 0;
     }
+
+
+
+    /*post AD 사용 CSS*/
+    .price-input-wrapper {
+        border: solid 1px #8d8d8d;
+        border-radius: 2px;
+        display: flex;
+        position: relative;
+    }
+
+    .price-input-wrapper:hover, .price-input-wrapper:focus-within {
+        border: solid 1px #316ee4;
+    }
+
+    .price-input {
+        height: 40px;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        width: 100%;
+        color: #353535;
+        outline: none;
+    }
+
+
+
 
 </style>

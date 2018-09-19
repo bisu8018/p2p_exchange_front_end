@@ -8,7 +8,7 @@
             <v-progress-circular indeterminate class="color-blue progress-circular-selectbox"></v-progress-circular>
         </div>
         <div class="p-relative  w-full" v-else @click="onShow()">
-            <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType" :class="selectBoxType">
+            <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType" :class="[selectBoxType, showOptions ? 'comp-selectbox-active' : '']">
                 {{ selectedValue }}
             </div>
             <div class="p-relative">

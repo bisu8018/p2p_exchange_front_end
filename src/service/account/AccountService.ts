@@ -149,14 +149,7 @@ export default {
         // 결제수단 설정
         addPaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
             let url = 'payment/';
-            if (paymentMethod.type === 'bankaccount') {
-                paymentMethod.type = 'bank';
-            }
             url += paymentMethod.type;
-
-            if (paymentMethod.type === 'bank') {
-                paymentMethod.type = 'bankaccount';
-            }
 
             AxiosService._requestWithBodyAndEmail(url, 'POST', paymentMethod,
                 function (data: any) {
@@ -165,12 +158,20 @@ export default {
                 function () {
                 })
         },
+        // 결제수단 설정
+        setUseYnPaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
+            let url = 'payment/';
+            url += paymentMethod.type;
+
+            AxiosService._requestWithBodyAndEmail(url, 'PUT', paymentMethod,
+                function (data: any) {
+                    callback(data);
+                },
+                function () {
+                })
+        },
         // 결제수단 삭제
         deletePaymentMethod: function (email: string, paymentMethod: PaymentMethod, callback: any) {
-
-            if (paymentMethod.type === 'bank') {
-                paymentMethod.type = 'bankaccount';
-            }
 
             AxiosService._requestWithBodyAndEmail('payment', 'DELETE', paymentMethod,
                 function (data: any) {

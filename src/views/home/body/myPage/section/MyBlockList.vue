@@ -24,6 +24,7 @@
         <!-- Pagination -->
         <div class="pagination-wrapper">
             <v-pagination
+                    v-if="blockList.totalCount !== 0"
                     v-model="blockPage"
                     @input="onBlockPage(blockPage)"
                     :color="'TextBlue'"
@@ -54,7 +55,7 @@
                 let a = 0;
                 a = this.blockList.totalCount;
 
-                let result = 0;
+                let result = 1;
 
                 // 나머지가 없을 때
                 if (a % 10 === 0 && a > 9) {

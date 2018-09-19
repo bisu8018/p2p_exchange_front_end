@@ -85,6 +85,7 @@
             <!-- Pagination -->
             <div class="pagination-wrapper">
                 <v-pagination
+                        v-if="securitySettings.totalCount !== 0"
                         v-model="historyPage"
                         @input="onHistoryPage(historyPage)"
                         :color="'TextBlue'"
@@ -140,7 +141,7 @@
                 } else if (type === 'security') {
                     a = this.securitySettings.totalCount;
                 }
-                let result = 0;
+                let result = 1;
 
                 // 나머지가 없을 때
                 if (a % 10 === 0 && a > 9) {

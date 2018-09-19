@@ -73,11 +73,8 @@
             onEdit(item) {
                 this.$emit('edit', item);
             },
-            onToggle(item) {
-                //this.$emit('toggle', item);
-
-                let self = this;
-                let _paymentMethods = new PaymentMethod(self.data);
+            onToggle() {
+                let _paymentMethods = new PaymentMethod(this.data);
 
                 if (_paymentMethods.activeYn === 'y') {
                     _paymentMethods.activeYn = 'n';
@@ -85,11 +82,12 @@
                     _paymentMethods.activeYn = 'y';
                 }
 
-                if (_paymentMethods.type === 'bankaccount') {
-                    _paymentMethods.type = 'bank';
-                }
-
-                MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
+                MainRepository.MyPage.setUseYnPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, (data) => {
+                    if (_paymentMethods.activeYn === 'y') {
+                        this.$eventBus.$emit('showAlert', 2255);
+                    } else {
+                        this.$eventBus.$emit('showAlert', 2256);
+                    }
                 });
             },
         },
