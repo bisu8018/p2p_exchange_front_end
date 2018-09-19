@@ -123,7 +123,9 @@
             onConfirm() {
                 // AXIOS POST 성공 후
                 let self = this;
-                MainRepository.MyPage.changeTradePassword(self.new_password, (result) => {
+                MainRepository.MyPage.changeTradePassword(
+                    {verificationMethod : 'email'},self.new_password,
+                    (result) => {
                     MainRepository.router().goMyPage();
                 }, () => {
                     return false;

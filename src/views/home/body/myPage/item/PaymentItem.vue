@@ -74,7 +74,7 @@
                 this.$emit('edit', item);
             },
             onToggle(item) {
-                this.$emit('toggle', item);
+                //this.$emit('toggle', item);
 
                 let self = this;
                 let _paymentMethods = new PaymentMethod(self.data);
@@ -92,21 +92,6 @@
                 MainRepository.MyPage.setPaymentMethod(MainRepository.MyInfo.getUserInfo().email, _paymentMethods, function (data) {
                 });
             },
-            // paymentType() {
-            //     if (this.data.type === 'alipay') {
-            //         this.paymentImg = 'ic-alipay';
-            //         this.paymentTxt = this.$str('alipayText');
-            //         this.id = this.data.alipayId;
-            //     } else if (this.data.type === 'wechat') {
-            //         this.paymentImg = 'ic-wechatpay';
-            //         this.paymentTxt = this.$str('wechatPayText');
-            //         this.id = this.data.wechatId;
-            //     } else if (this.data.type === 'bankaccount') {
-            //         this.paymentImg = 'ic-bank';
-            //         this.paymentTxt = this.$str('bankAccountText');
-            //         this.id = this.data.bankAccount;
-            //     }
-            // }
         },
         created() {
 

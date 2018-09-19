@@ -419,8 +419,8 @@ export default {
                 callback(_securitySettings);
             })
         },
-        changeTradePassword: function (data: string, callback: any, failure: any) {
-            AccountService.Account.changeTradePassword(data
+        changeTradePassword: function (param: any, data: any, callback: any, failure: any) {
+            AccountService.Account.changeTradePassword(param, data
                 , (result) => {
                     callback(result);
                 }, (code) => {

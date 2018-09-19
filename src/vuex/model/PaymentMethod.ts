@@ -14,6 +14,7 @@ export default class PaymentMethod {
     type: string;
     wechatId: string;
     wechatQrCodeImgUrl: string;
+    tradePassword: string;
 
     // viewModel
     iconClass: string;
@@ -34,6 +35,7 @@ export default class PaymentMethod {
         this.type = data.type || '';
         this.wechatId = data.wechatId || '';
         this.wechatQrCodeImgUrl = data.wechatQrCodeImgUrl || '';
+        this.tradePassword = data.tradePassword || '';
 
         this.iconClass = data.iconClass;
 

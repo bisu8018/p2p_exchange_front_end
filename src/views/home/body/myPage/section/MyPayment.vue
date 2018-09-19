@@ -77,7 +77,7 @@
                 this.showModal = false;
             },
             onAddPayment() {
-                // this.$router.push('/myPage')
+                this.$eventBus.emit('refreshMypage');
             },
             onEdit(item) {
                 this.showModal = true;

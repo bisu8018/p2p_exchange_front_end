@@ -193,8 +193,8 @@ export default {
                     failure();
                 })
         },
-        changeTradePassword: function (data: any, callback: any, failure: any) {
-            AxiosService._requestWithPlainBody('member/tradePassword', 'PUT', data,
+        changeTradePassword: function (param: any, data: any, callback: any, failure: any) {
+            AxiosService._requestWithPramAndPlainBodyAndEmail('member/tradePassword', 'PUT', param, data,
                 function (data: any) {
                     callback(data);
                 },

@@ -169,7 +169,7 @@
                 <div class="p-relative mb-4">
                     <input type="password" class="input"
                            :placeholder="$str('tradePwPlaceholder')"
-                           v-model="password"
+                           v-model="paymentMethods.tradePassword"
                            :class="{'warning-border' : warning_trade_password}"
                            @keyup="onCheck('tradePassword')"/>
                     <div class="warning-text-wrapper">
@@ -233,7 +233,6 @@
                 verify_warning_attachment_file: '',
                 file: '',
                 image: '',
-                password: '',
             }
         },
         computed: {
@@ -355,7 +354,7 @@
                     //거래 비밀번호 체크
                     case 'tradePassword':
 
-                        if (this.password === '') {
+                        if (this.paymentMethods.tradePassword === '') {
                             this.warning_trade_password = true;
                             return false;
                         }
@@ -407,8 +406,8 @@
                 this.paymentMethods.type = '';
                 this.paymentMethods.wechatId = '';
                 this.paymentMethods.wechatQrCodeImgUrl = '';
+                this.paymentMethods.tradePassword = '';
                 this.typeData = '';
-                this.password = '';
             },
             getImg() {
                 let type = this.paymentMethods.type;
@@ -477,9 +476,7 @@
             },
             onPost() {
                 MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
-                    this.$emit('paymentMethod');
-
-                    this.$eventBus.$emit('showAlert', 0);
+                    this.$eventBus.$emit('showAlert', 2253);
                     this.onClose();
                     this.$emit('done');
                 });
@@ -492,12 +489,10 @@
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
                 MainRepository.MyPage.deletePaymentMethod(this.myInfo.email, this.paymentMethods, function (data) {
-                    // 이벤트버스 날리기~~'ㅅ'
+                    this.$eventBus.$emit('showAlert', 2254);
+                    this.onClose();
+                    this.$emit('delete');
                 });
-
-                this.$eventBus.$emit('showAlert', 0);
-                this.onClose();
-                this.$emit('delete');
             }
         },
     }

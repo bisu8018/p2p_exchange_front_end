@@ -3301,6 +3301,18 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['comp_payment_method_register', {
+        KOR: '결제수단이 등록 되었습니다.',
+        ENG: 'Payment method is registered successfully.',
+        CN: '',
+        HK: ''
+    }],
+    ['comp_payment_method_delete', {
+        KOR: '결제수단이 삭제 되었습니다.',
+        ENG: 'Payment method is deleted successfully.',
+        CN: '',
+        HK: ''
+    }],
     ['warn_completeProcessingOrder', {
         KOR: '진행중인 주문을 완료 해주세요',
         ENG: 'Finish your order in progress.',
