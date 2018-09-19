@@ -882,6 +882,13 @@
                 let nationality = MainRepository.SelectBox.controller().getCountry()
                 nationality = nationality === 'ALL' ? 'CN' : nationality;
 
+                let _cryptocurrency;
+                if(this.cryptocurrencyType === 'general'){
+                    _cryptocurrency = MainRepository.Wallet.controller().transCryptocurrencyFullName(this.cryptocurrency);
+                }else{
+                    _cryptocurrency = 'custom';
+                }
+
                 let data = {
                     adNo: this.adNo,
                     autoReply: this.autoReply,
@@ -889,7 +896,7 @@
                     counterpartyFilterAdvancedVerificationYn: this.counterpartyCheckbox_first,
                     counterpartyFilterMobileVerificationYn: this.counterpartyCheckbox_second,
                     counterpartyFilterDoNotOtherMerchantsYn: this.counterpartyCheckbox_third,
-                    cryptocurrency: this.cryptocurrency,
+                    cryptocurrency: _cryptocurrency,
                     cryptocurrencyType: this.cryptocurrencyType,
                     currency: MainRepository.SelectBox.controller().getCurrency(),
                     fixedPrice: Number(this.fixedPrice),
