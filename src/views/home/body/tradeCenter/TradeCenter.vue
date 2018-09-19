@@ -119,7 +119,7 @@
             let currentURL = window.location.href
             let param = currentURL.split('?');
             //default filter값으로 list setting하기.
-            if(this.message === "general" ||this.message === "customToken"){
+            if(this.message === "general"){
                 //main에서 search로 온 경우일때
                 if(param[1] === 'main'){ MainRepository.TradeView.updatePage({type : 'general',}); }
                 //header에서 온 경우일때
@@ -127,6 +127,12 @@
             } //blocktrade로 온 경우일때
             else if(this.message === "block"){
                 MainRepository.TradeView.initPage(true);
+            }
+            else if(this.message === "customToken"){
+                MainRepository.TradeView.initPage(false);
+                MainRepository.TradeView.updatePage(
+                    {cryptocurrency : 'custom'}
+                )
             }
 
             this.showProgress = true;

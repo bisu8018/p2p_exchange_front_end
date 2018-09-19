@@ -1,5 +1,5 @@
 import MemberInfo from "@/vuex/model/MemberInfo";
-
+import MainRepository from "@/vuex/MainRepository"
 export default class TradeItem {
     adNo : number;
     memberNo: number;
@@ -115,6 +115,12 @@ export default class TradeItem {
 
             case 'ethereum':
                 return 'ETH'
+
+            case 'custom':
+                return MainRepository.MyToken.controller().findCustomToken(
+                    Number(MainRepository.MyToken.getCustomTokenNo()), 'no').tokenName
+            default:
+                return cryptocurrency
         }
     }
     //marginPrice와 fixedPrice중 선택

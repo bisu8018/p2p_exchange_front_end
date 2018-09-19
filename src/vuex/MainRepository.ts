@@ -61,6 +61,7 @@ import ChatMembers from "@/vuex/model/ChatMembers";
 import customTokenService from "@/service/customToken/customTokenService";
 import CustomToken from "@/vuex/model/CustomToken";
 import GeneralToken from "@/vuex/model/GeneralToken";
+import wallet from "@/vuex/modules/wallet";
 
 let myTradeController: MyTradeController;
 let selectBoxController: SelectBoxController;
@@ -1296,6 +1297,16 @@ export default {
         },
         getCustomTokenNo(){
             return customTokenController.getCustomTokenNo();
+        },
+        generateTokenWallet: function(tokenNo : number, callback: any){
+            //지갑생성
+            customTokenService.generateTokenWallet(tokenNo, (result) => {
+                //customtoken지갑 load
+                instance.Wallet.loadCustomTokenWallets(()=>{
+                    //deposit 혹은 order로 이동
+                    callback(result);
+                })
+            })
         },
     },
     GeneralToken: {

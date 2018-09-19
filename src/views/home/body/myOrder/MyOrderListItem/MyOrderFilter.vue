@@ -164,7 +164,7 @@
 
         <!--데스크탑 환경에서만 표시 -->
         <v-flex md4 pl-4 pr-0 v-if="!isMobile">
-            <div class="btn-white align-center" @click="showDownloadDialog">
+            <div class="btn-white align-center " @click="showDownloadDialog">
                 <i class="material-icons md-24 export-icon">save_alt</i>
                 {{$str("Export")}}
             </div>
@@ -448,6 +448,7 @@
             display: flex;
             align-content: center;
             justify-content: center;
+            cursor: pointer;
         }
     }
     .close-icons {
