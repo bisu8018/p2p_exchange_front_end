@@ -712,7 +712,7 @@ const strings = new Map([
     }],
     ['paymentWindowExplain', {
         KOR: '구매자는 지불 기간 내에 지불금을 이체해야 합니다. 그러지 못할 경우 거래는 자동으로 취소됩니다',
-        ENG: 'Buyer should initiate the payment within the payment period. Otherwise the order will be cancelled automatically.',
+        ENG: 'Buyer should initiate the payment within the payment period. Otherwise the order will be canceled automatically.',
         CN: '买家必须要在支付时限内完成转账支付，否则此交易将自动取消。',
         HK: '買家必須要在支付時限內完成轉賬支付，否則此交易將自動取消。'
     }],
@@ -1333,9 +1333,15 @@ const strings = new Map([
         CN: '已支付',
         HK: '已支付'
     }],
+    ['canceled', {
+        KOR: '취소',
+        ENG: 'Canceled',
+        CN: '取消',
+        HK: '取消'
+    }],
     ['cancelled', {
         KOR: '취소',
-        ENG: 'Cancelled',
+        ENG: 'Canceled',
         CN: '取消',
         HK: '取消'
     }],
@@ -3189,21 +3195,21 @@ const strings = new Map([
     }],
     ['comp_ad_disable', {
         KOR: '광고가 비활성화 되었습니다.',
-        ENG: 'AD has been disabled.',
-        CN: '',
-        HK: ''
+        ENG: 'AD successfully disabled.',
+        CN: '广告已完成下线',
+        HK: '廣告已完成下綫'
     }],
     ['comp_ad_enable', {
         KOR: '광고가 활성화 되었습니다.',
-        ENG: 'AD has been enabled.',
-        CN: '',
-        HK: ''
+        ENG: 'AD successfully enabled.',
+        CN: '广告已完成上线',
+        HK: '廣告已完成上綫'
     }],
     ['comp_ad_delete', {
         KOR: '광고가 삭제 되었습니다.',
-        ENG: 'AD has been deleted.',
-        CN: '',
-        HK: ''
+        ENG: 'AD successfully deleted.',
+        CN: '广告已删除',
+        HK: '廣告已刪除'
     }],
     ['comp_order_appeal', {
         KOR: '이의제기가 등록되었습니다.',
@@ -3298,32 +3304,38 @@ const strings = new Map([
     ['comp_unblock', {
         KOR: '차단이 해제 되었습니다.',
         ENG: 'Unblocked successfully.',
-        CN: '',
-        HK: ''
+        CN: '已完成解除防止',
+        HK: '已完成解除防止'
     }],
     ['comp_payment_method_register', {
         KOR: '결제수단이 등록 되었습니다.',
-        ENG: 'Payment method is registered successfully.',
-        CN: '',
-        HK: ''
+        ENG: 'Payment method registered successfully.',
+        CN: '支付方式已注册',
+        HK: '支付方式已注冊'
     }],
     ['comp_payment_method_delete', {
         KOR: '결제수단이 삭제 되었습니다.',
-        ENG: 'Payment method is deleted successfully.',
-        CN: '',
-        HK: ''
+        ENG: 'Payment method deleted successfully.',
+        CN: '支付方式已删除',
+        HK: '支付方式已刪除'
     }],
     ['comp_payment_method_active', {
         KOR: '결제수단이 활성화 되었습니다.',
-        ENG: 'Payment method is activated..',
-        CN: '',
-        HK: ''
+        ENG: 'Payment method activated successfully.',
+        CN: '支付方式已上线',
+        HK: '支付方式已上綫'
     }],
     ['comp_payment_method_deactive', {
         KOR: '결제수단이 비활성화 되었습니다.',
-        ENG: 'Payment method is deactived.',
-        CN: '',
-        HK: ''
+        ENG: 'Payment method deactived successfully.',
+        CN: '支付方式已下线',
+        HK: '支付方式已下綫'
+    }],
+    ['comp_my_identification_register', {
+        KOR: '인증 요청이 완료 되었습니다.',
+        ENG: 'Verification request completed.',
+        CN: '已完成验证邀请',
+        HK: '已完成驗證邀請'
     }],
     ['warn_completeProcessingOrder', {
         KOR: '진행중인 주문을 완료 해주세요',
@@ -3816,9 +3828,9 @@ const strings = new Map([
     }],
     ['No more item', {
         KOR: '해당 결과 없음',
-        ENG: 'No more item',
-        CN: '',
-        HK: ''
+        ENG: 'No records',
+        CN: '没有此结果',
+        HK: '沒有此結果'
     }],
     ['landingSubj_1', {
         KOR: '최고의 블록체인 기반 OTC 거래 플랫폼, AllB OTC!',
@@ -3860,100 +3872,101 @@ const strings = new Map([
     ['duplicate_request', {
         KOR: '중복된 요청입니다',
         ENG: 'Duplicate request',
-        CN: '',
-        HK: ''
+        CN: '重复邀请',
+        HK: '重複邀請'
     }],
     ['suspended_account', {
         KOR: '정지된 계정입니다',
-        ENG: 'Suspended account',
-        CN: '',
-        HK: ''
+        ENG: 'Already suspended account',
+        CN: '已停止账户',
+        HK: '已停止賬戶'
     }],
     ['already_expired_order', {
         KOR: '이미 만료 된 주문입니다',
         ENG: 'Already expired order',
-        CN: '',
-        HK: ''
+        CN: '已结束订单',
+        HK: '已結束訂單'
     }],
     ['invalid_sms_verification_code', {
-        KOR: 'SMS 인증코드가 맞지않습니다',
+        KOR: 'SMS 인증코드가 맞지 않습니다',
         ENG: 'Invalid SMS verification code',
-        CN: '',
-        HK: ''
+        CN: '短信验证号码不正确',
+        HK: '簡訊驗證號嗎不正確'
     }],
     ['invalid_sms_phone_number', {
-        KOR: '휴대폰 SMS 번호가 맞지않습니다',
-        ENG: 'Invalid SMS phone number',
-        CN: '',
-        HK: ''
+        KOR: '휴대폰 번호가 맞지 않습니다',
+        ENG: 'Invalid phone number',
+        CN: '手机号码不正确',
+        HK: '手機號碼不正確'
     }],
     ['block_member', {
         KOR: '차단된 계정입니다',
-        ENG: 'Block member',
-        CN: '',
-        HK: ''
+        ENG: 'Already blocked account.',
+        CN: '已防止的账户',
+        HK: '已防止的賬戶'
     }],
     ['trade_count_limit', {
         KOR: '거래횟수가 부족합니다',
         ENG: 'Limit your Trade count',
-        CN: '',
-        HK: ''
+        CN: '交易次数不足',
+        HK: '交易次數不足'
     }],
     ['already_disabled_ad', {
         KOR: '이미 비활성화된 광고입니다',
         ENG: 'Already disabled Ad',
-        CN: '',
-        HK: ''
+        CN: '已下线的广告',
+        HK: '已下綫的廣告'
     }],
     ['already_enable_ad', {
         KOR: '이미 활성화된 광고입니다',
         ENG: 'Already enable Ad',
-        CN: '',
-        HK: ''
+        CN: '已上线的广告',
+        HK: '已上綫的廣告'
     }],
     ['not_disabled_ad', {
         KOR: '비활성화된 광고가 아닙니다',
-        ENG: 'Not disabled Ad',
-        CN: '',
-        HK: ''
+        ENG: 'Not a disabled Ad',
+        CN: '不是下线的广告',
+        HK: '不是下綫的廣告'
     }],
     ['not_enable_ad', {
         KOR: '활성화된 광고가 아닙니다',
-        ENG: 'Not enable Ad',
-        CN: '',
-        HK: ''
+        ENG: 'Not an enabled Ad',
+        CN: '不是上线的广告',
+        HK: '不是上綫的廣告'
     }],
     ['invalid_amount', {
         KOR: '올바르지 못한 양입니다.',
         ENG: 'Invalid amount',
-        CN: '',
-        HK: ''
+        CN: '数量不正确',
+        HK: '數量不正確'
     }],
     ['duplicated_custom_token_name', {
-        KOR: '중복되는 Custom token 이름입니다',
-        ENG: 'Duplicated custom token name',
-        CN: '',
-        HK: ''
+        KOR: '중복되는 CustomToken 이름입니다',
+        ENG: 'Duplicated CustomToken name',
+        CN: '重复的自定义代币名称',
+        HK: '重複的自定義代幣名稱'
     }],
     ['duplicated_custom_token_name_short', {
-        KOR: '중복되는 Custom token 축약명입니다',
-        ENG: 'Duplicated custom token short name',
-        CN: '',
-        HK: ''
+        KOR: '중복되는 CustomToken 축약명입니다',
+        ENG: 'Duplicated CustomToken shorten name',
+        CN: '重复的自定义代币简约名称',
+        HK: '重複的自定義代幣簡約名稱'
     }],
     ['sms_sender_error', {
         KOR: 'SMS 발신 오류',
-        ENG: 'SMS sender error',
-        CN: '',
-        HK: ''
+        ENG: 'SMS sending error',
+        CN: '短信发送错误',
+        HK: '短信發送錯誤'
     }],
     //wallet
     ['Please enter less than Limit', {
         KOR: '제한액 이하를 입력해주세요',
-        ENG: 'Please enter less than Limit',
-        CN: '',
-        HK: ''
+        ENG: 'Please enter less than limit price.',
+        CN: '请输入底限额以下的金额',
+        HK: '請輸入底限額以下的金額'
     }],
+
     ['', {
         KOR: '',
         ENG: '',

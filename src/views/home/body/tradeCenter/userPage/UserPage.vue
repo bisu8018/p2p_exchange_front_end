@@ -317,7 +317,7 @@
                 })
             // 나의 block 리스트 정보 GET
             if(MainRepository.MyInfo.isLogin()){
-              MainRepository.MyPage.getBlockList(function (result) {
+              MainRepository.MyPage.getBlockList(1,function (result) {
                   for(let key in result){
                     if(self.userMemberNo == result[key].blockMemberNo){
 

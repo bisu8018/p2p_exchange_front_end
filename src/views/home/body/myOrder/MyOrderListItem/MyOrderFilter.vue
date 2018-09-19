@@ -2,7 +2,7 @@
     <v-layout row wrap>
         <div :class="{'layout_dim' : isModal }" @click="onOutsideClick"></div>
         <v-flex md8 xs12 pr-0 pl-0>
-            <div class="order-filter p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
+            <div class="order-filter no-drag p-relative f-right text-xs-left d-inline-table" v-bind:class="{'w-full' : isMobile}">
                 <div class="color-darkgray  p-relative  ma-2 d-inline-block"
                       v-if="showPlaceholder">
                   {{$str("orderFilterPlaceholder")}}
@@ -102,14 +102,14 @@
                     <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrency")}}</div>
                     <div class="mb-4 p-relative">
                         <select  v-if="modal_cryptocurrencyType === 'general'"
+                                 :class="{'input-disabled2' : (modal_cryptocurrencyType === '')}"
                                  class="comp-selectbox h6" v-model="modal_cryptocurrency">
                             <option value="bitcoin">BTC</option>
                             <option value="ethereum">ETH</option>
                             <option value="allb">AllB</option>
                         </select>
                         <select-box v-else :selectBoxType="'customToken'"
-                                    @customToken="selectCustomToken"
-                                    :class="{'input-disabled2' : (modal_cryptocurrencyType === '')}">
+                                    @customToken="selectCustomToken">
                         </select-box>
                         <i class="material-icons comp-selectbox-icon ">keyboard_arrow_down</i>
                     </div>
@@ -214,7 +214,7 @@
             orderStatusList: [
                 {status: Vue.prototype.$str("unpaid"), code: 'unpaid'},
                 {status: Vue.prototype.$str("paid"), code: 'paid'},
-                {status: Vue.prototype.$str("cancelled"), code: 'cancelled'},
+                {status: Vue.prototype.$str("canceled"), code: 'cancelled'},
                 {status: Vue.prototype.$str("complete"), code: 'complete'},
                 {status: Vue.prototype.$str("complaining"), code: 'complaining'},
             ],
@@ -437,7 +437,7 @@
             box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
             padding: 16px 8px 24px 8px;
             min-height: 200px;
-            width: 75%;
+            width: 100%;
             right: 0;
         }
         .export-icon{

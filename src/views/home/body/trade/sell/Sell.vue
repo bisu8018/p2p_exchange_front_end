@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 mr-3 ml-3 p-relative">
+    <div class="mt-5 mb-5 mr-3 ml-3 p-relative"  v-if="isInitCompleted"  :class="{'ml-3' : !isMobile(),'mr-3' : !isMobile()}">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 {{ $str('order') }} : #{{ getOrderNumber }}         <!--{{ order_number }} 주문번호-->
@@ -71,8 +71,11 @@
 
                 <!--*******************  cancel/ expired 상태  ******************-->
 
-                <span v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                <span v-if="currentOrder.status === 'cancelled' ">
                     {{ $str("cancel") }}
+                </span>
+                <span v-else-if="currentOrder.status === 'expired'">
+                    {{ $str("expired") }}
                 </span>
 
                 <!--*******************  complete / cancel / expired 상태  ******************-->
@@ -156,7 +159,7 @@
 
 
 
-            <div v-if="isInitCompleted">         <!--채팅창-->
+            <div>         <!--채팅창-->
                 <message :order="currentOrder"></message>
             </div>
 

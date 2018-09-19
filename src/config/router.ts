@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AbMain from '../views/home/body/Main.vue'
+import AbMain from '../views/home/body/main/Main.vue'
 import PageNotFound from '../views/home/body/PageNotFound.vue'
 import Home from '../views/home/Home.vue'
 import Login from '../views/home/body/login/Login.vue'

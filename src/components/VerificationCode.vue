@@ -50,7 +50,7 @@ this.verify = true;
                 type: String,
                 default: ''
             },
-            // signup, email, phone, depositSMS, depositEmail, chageTradePassword
+            // signup, email, phone, depositSMS, depositEmail, chageTradePassword, resetPassword
             type: {
                 type: String,
                 default: 'signup'

@@ -39,8 +39,11 @@ export default {
             } else if (type === 'changeTradePassword') {    //거래 비밀번호 인증코드
                 url = 'resetTradePassword';
                 _type = 'POST';
-            } else if (type === 'emailPhoneChange') {    //거래 비밀번호 인증코드
+            } else if (type === 'emailPhoneChange') {    //전화번호 변경 인증코드
                 url = 'changePhoneNumber/email';
+                _type = 'POST';
+            } else if (type === 'resetPassword') {    //전화번호 변경 인증코드
+                url = 'resetPassword';
                 _type = 'POST';
             }
             AxiosService._requestWithUrlPram(url, _type, data,
@@ -67,8 +70,10 @@ export default {
                 url = 'resetTradePasswordVerification';
             } else if (type === 'phoneChange') {     //휴대전화 인증코드
                 url = 'memberVerification/sms/status'
-            } else if (type === 'emailPhoneChange') {    //거래 비밀번호 인증코드
+            } else if (type === 'emailPhoneChange') {    //전화번호 변경 인증코드
                 url = 'changePhoneNumberVerification/email';
+            } else if (type === 'resetPassword') {    //전화번호 변경 인증코드
+                url = 'resetPassword/verify';
             }
 
             AxiosService._requestWithUrlPram(url, 'PUT', data,
@@ -218,7 +223,7 @@ export default {
                 },
                 function () {
                 })
-        }
+        },
     },
     Verification: {
         // 유저인증정보

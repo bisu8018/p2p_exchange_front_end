@@ -34,7 +34,7 @@
                         <input type="text" class="input verification-account color-darkgray" v-model="email" disabled>
                     </div>
                     <div class="text-xs-left mb-2 color-black">{{$str("emailVerificationCode")}}</div>
-                    <verification-code v-on:verify="onCheckVerificationCode()" :email="email" :type="'email'"></verification-code>
+                    <verification-code v-on:verify="onCheckVerificationCode()" :email="email" :type="'resetPassword'"></verification-code>
                 </div>
 
                 <!--비밀번호 입력-->

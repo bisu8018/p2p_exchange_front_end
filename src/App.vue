@@ -24,8 +24,7 @@
             setEventBus(this.$eventBus);
             setRouter(this.$router);
         },
-        methods: {
-        }
+        methods: {}
     });
 </script>
 
@@ -34,14 +33,14 @@
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 400;
-        src:  url(assets/font/notosans/NotoSansSC-Regular.woff) format('woff');
+        src: url(assets/font/notosans/NotoSansSC-Regular.woff) format('woff');
     }
 
     @font-face {
         font-family: 'Noto Sans SC';
         font-style: normal;
         font-weight: 500;
-        src:  url(assets/font/notosans/NotoSansSC-Medium.woff) format('woff')
+        src: url(assets/font/notosans/NotoSansSC-Medium.woff) format('woff')
     }
 
     @font-face {
@@ -58,12 +57,10 @@
         font-style: normal;
         font-weight: 400;
         /* For IE6-8 */
-        src: local('Material Icons'), local('MaterialIcons-Regular'),   url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
+        src: local('Material Icons'), local('MaterialIcons-Regular'), url(assets/font/material/MaterialIcons-Regular.ttf) format('truetype');
     }
 
-
-
-.material-icons {
+    .material-icons {
         font-family: 'Material Icons';
         font-weight: normal;
         font-style: normal;
@@ -332,7 +329,6 @@
         color: #9294a6;
     }
 
-
     /*스크롤바 스타일 설정*/
     /* width */
     ::-webkit-scrollbar {
@@ -356,8 +352,6 @@
         background: #a0a0a0;
     }
 
-
-
     /*체크박스 CSS
     이용법 :
     <input type="checkbox" v-model="checkbox" id="termsCheckbox"> //실제 체크박스
@@ -365,25 +359,25 @@
        */
 
     input[type="checkbox"] {
-        display:none;
+        display: none;
     }
 
     input[type="checkbox"] + label {
-        color:#353535;
+        color: #353535;
         font-size: 12px;
         align-items: center;
         display: flex;
     }
 
     input[type="checkbox"] + label span {
-        display:inline-block;
-        width:20px;
-        height:20px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
         margin-right: 8px;
-        vertical-align:middle;
+        vertical-align: middle;
         background: white;
         border: 1px solid #8d8d8d;
-        cursor:pointer;
+        cursor: pointer;
         border-radius: 2px;
     }
 
@@ -398,11 +392,11 @@
         border: 1px solid #214ea1;
     }
 
-    input[type="checkbox"] + label span i{
+    input[type="checkbox"] + label span i {
         display: none;
     }
 
-    input[type="checkbox"]:checked + label span i{
+    input[type="checkbox"]:checked + label span i {
         padding-top: 1px;
         padding-left: 2px;
         font-size: 15px;
@@ -416,36 +410,36 @@
         user-select: none;
     }
 
-/*라디오 버튼 CSS
-  <input type="radio" id="mainnet" name="tokenServer"/>
-    <label for="mainnet">
-        <span>
-            <i class="material-icons">brightness_1</i>
-        </span>
-        <h5 class="d-inline-block">{{ $str("mainnet") }}</h5>
-    </label>
-*/
+    /*라디오 버튼 CSS
+      <input type="radio" id="mainnet" name="tokenServer"/>
+        <label for="mainnet">
+            <span>
+                <i class="material-icons">brightness_1</i>
+            </span>
+            <h5 class="d-inline-block">{{ $str("mainnet") }}</h5>
+        </label>
+    */
 
     input[type="radio"] {
-        display:none;
+        display: none;
     }
 
     input[type="radio"] + label {
-        color:#353535;
+        color: #353535;
         font-size: 12px;
         align-items: center;
         display: flex;
     }
 
     input[type="radio"] + label span {
-        display:inline-block;
-        width:20px;
-        height:20px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
         margin-right: 8px;
         text-align: center;
         background: white;
         border: 1px solid #8d8d8d;
-        cursor:pointer;
+        cursor: pointer;
         border-radius: 10px;
     }
 
@@ -460,11 +454,11 @@
         border: 1px solid #214ea1;
     }
 
-    input[type="radio"] + label span i{
+    input[type="radio"] + label span i {
         display: none;
     }
 
-    input[type="radio"]:checked + label span i{
+    input[type="radio"]:checked + label span i {
         font-size: 14px;
         vertical-align: middle;
         color: #214ea1;
@@ -478,21 +472,18 @@
         margin-bottom: 3px;
     }
 
-
-
     /* input number에서 측면 버튼 없애기*/
     input[type='number']::-webkit-inner-spin-button,
     input[type='number']::-webkit-outer-spin-button,
     input[type='number']:hover::-webkit-inner-spin-button,
-    input[type='number']:hover::-webkit-outer-spin-button{
+    input[type='number']:hover::-webkit-outer-spin-button {
         -webkit-appearance: none !important;
         margin: 0;
     }
+
     input[type='number'] {
-        -moz-appearance:textfield;
+        -moz-appearance: textfield;
     }
-
-
 
     .application .nav {
         z-index: 110 !important;
@@ -521,6 +512,7 @@
         color: #214EA1;
         cursor: pointer;
     }
+
     .color-blue-active:hover {
         color: #316ee4 !important;
 
@@ -574,18 +566,17 @@
 
     /* border 색깔 */
 
-    .bd-green{
+    .bd-green {
         border-color: #71aa3a;
     }
 
-    .bd-orange{
+    .bd-orange {
         border-color: #f9a825;
     }
 
-    .bd-red{
+    .bd-red {
         border-color: #e62a2b;
     }
-
 
     /* 마진, margin 설정*/
 
@@ -644,6 +635,7 @@
     .ml-6a {
         margin-left: 100px !important;
     }
+
     .ma-6a {
         margin: 100px !important;
     }
@@ -676,7 +668,6 @@
 
     /* 폰트 사이즈, 웨이트 등 */
 
-
     /*상하 가운데 정렬*/
 
     .vertical-center {
@@ -684,28 +675,24 @@
         display: flex;
     }
 
-
     /*좌우 가운데 정렬*/
 
     .horizontal-center {
         margin: 0 auto;
     }
 
-
     /*텍스트 정렬*/
-    .ta-center{
+    .ta-center {
         text-align: center;
     }
 
-    .ta-right{
+    .ta-right {
         text-align: right;
     }
 
-    .ta-left{
+    .ta-left {
         text-align: left;
     }
-
-
 
     /*태그*/
     h1 {
@@ -744,15 +731,16 @@
     button {
         display: inline-block;
     }
+
     /*button tag의 border없애기*/
     button:focus {
-        outline:0;
+        outline: 0;
     }
+
     /*button tag의 border없애기 in firefox*/
     button::-moz-focus-inner {
         border: 0;
     }
-
 
     /*클래스*/
     .h1 {
@@ -824,6 +812,16 @@
         bottom: 6px !important;
         right: 0 !important;
         top: 42px !important;
+    }
+
+
+    /*드래그 방지*/
+    .no-drag {
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        user-select: none;
     }
 
     /*vuetify 버튼 클릭 시 CSS 에니메이션 숨김 처리*/
@@ -913,7 +911,6 @@
         margin-left: 22px;
     }
 
-
     /*============셀렉박스 공통 CSS*========*/
 
     .comp-selectbox {
@@ -927,10 +924,11 @@
         outline: none;
     }
 
-  .comp-selectbox-parted {
-        border : none !important;
+    .comp-selectbox-parted {
+        border: none !important;
         border-right: solid 1px #8d8d8d !important;;
     }
+
     /*
       .comp-selectbox-parted:hover {
           border-right: solid 1px #316ee4 !important;
@@ -944,7 +942,7 @@
         border: solid 1px #316ee4;
     }
 
-    .comp-selectbox-icon {    /*셀렉박스 화살표 아이콘 공통 CSS*/           /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
+    .comp-selectbox-icon { /*셀렉박스 화살표 아이콘 공통 CSS*/ /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
         position: absolute;
         right: 8px;
         top: 9px;
@@ -994,9 +992,8 @@
         display: block;
         opacity: 0;
         max-height: 0px;
-        animation-name: scroll-up ;
+        animation-name: scroll-up;
     }
-
 
     @keyframes scroll-out {
         0% {
@@ -1045,7 +1042,7 @@
         position: relative;
         list-style-type: none;
         text-align: left;
-        padding : 10px 24px 10px 24px;
+        padding: 10px 24px 10px 24px;
         font-size: 12px;
     }
 
@@ -1053,15 +1050,16 @@
         border-bottom: none;
     }
 
-    .selectbox-wrapper {                      /*input text box 와 selectbox 결합 시 적용*/
+    .selectbox-wrapper { /*input text box 와 selectbox 결합 시 적용*/
         display: flex;
         border: solid 1px #8d8d8d;
     }
+
     .selectbox-wrapper:hover {
         border-color: #316ee4;
     }
 
-    .selectbox-wrapper:hover :first-child :first-child :first-child  {
+    .selectbox-wrapper:hover :first-child :first-child :first-child {
         border-color: #316ee4 !important;
     }
 
@@ -1070,10 +1068,6 @@
         left: 0;
         bottom: 0;
     }
-
-
-
-
 
     /*input text 필드 공통 CSS*/
     input {
@@ -1117,7 +1111,7 @@
         pointer-events: none;
     }
 
-    .input-disabled2 > div > div{
+    .input-disabled2 > div > div {
         background: #f8f8fa !important;
         color: #9294a6;
         cursor: no-drop;
@@ -1156,7 +1150,7 @@
     }
 
     /*타이머*/
-    .cs-timer{
+    .cs-timer {
         font-size: 12px;
         font-weight: 500;
         font-style: normal;
@@ -1189,9 +1183,8 @@
         display: inline-block;
         margin-right: 4px;
         font-weight: bold;
-        color : #bf2324;
+        color: #bf2324;
     }
-
 
     /*vuetify dialog*/
 
@@ -1274,6 +1267,7 @@
     .c-pointer {
         cursor: pointer;
     }
+
     .c-progress {
         cursor: progress;
     }
@@ -1319,12 +1313,13 @@
 
     /*divider ex) <div class="divider"></div>*/
 
-    .divider{
+    .divider {
         height: 1px;
         width: 100%;
         background-color: #d8d8d8;
 
     }
+
     /*hover시 상단 말풍선. 아래와 같이 사용가능*/
     /*<a class="tooltips">*/
     /*<span>Alipay</span>*/
@@ -1402,11 +1397,7 @@
         background: none;
     }
 
-
-
-
     /*섹션 보더*/
-
 
     .section-border {
         -webkit-border-radius: 2px;
@@ -1416,7 +1407,6 @@
         -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
         box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
     }
-
 
     /*섹션 보더 그림자 더 퍼진거*/
 
@@ -1430,11 +1420,7 @@
         box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     }
 
-
-
-
     /*Sprite 이미지*/
-
 
     .ic-no-ad-lg {
         background: 0px 0px;
@@ -1442,13 +1428,11 @@
         height: 150px;
     }
 
-
     .ic-merchant-ad-lg {
         background: 0px -150px;
         width: 128px;
         height: 128px;
     }
-
 
     .ic-merchant-logo-lg {
         background: -128px -150px;
@@ -1468,7 +1452,6 @@
         height: 90px;
     }
 
-
     .ic-merchant-logo-sm {
         background: -90px -278px;
         width: 90px;
@@ -1480,7 +1463,6 @@
         width: 90px;
         height: 90px;
     }
-
 
     .ic-complete-lg {
         background: 0px -368px;
@@ -1499,8 +1481,6 @@
         width: 86px;
         height: 86px;
     }
-
-
 
     .ic-no-ad-sm {
         background: 0px -454px;
@@ -1568,14 +1548,11 @@
         height: 18px;
     }
 
-
-
     .ic-allb-sm {
         background: 0 -626px;
         width: 24px;
         height: 24px;
     }
-
 
     .ic-btc-sm {
         background: -24px -626px;
@@ -1655,8 +1632,6 @@
         height: 24px;
     }
 
-
-
     .ic-bank {
         background: 0px -650px;
         width: 20px;
@@ -1686,7 +1661,6 @@
         width: 20px;
         height: 20px;
     }
-
 
     .ic-error {
         background: 0px -670px;
@@ -1723,7 +1697,6 @@
         width: 19px;
         height: 18px;
     }
-
 
     .ic-premium {
         background: 0px -716px;
@@ -1778,43 +1751,48 @@
         width: 384px;
         height: 356px;
     }
+
     .ic-appeal-sm {
         background: 0px 0px;
         width: 16px;
         height: 16px;
     }
+
     .ic-paid-sm {
-          background: -16px 0px;
-          width: 16px;
-          height: 16px;
+        background: -16px 0px;
+        width: 16px;
+        height: 16px;
     }
+
     .ic-cancel-red-sm {
         background: -32px 0px;
         width: 16px;
         height: 16px;
     }
+
     .ic_postad_help {
         background: -48px 0px;
         width: 16px;
         height: 16px;
     }
+
     .ic-appeal-octa-lg {
         background: 0px -50px;
         width: 34px;
         height: 34px;
     }
+
     .ic-header-logo-mobile {
         background: 0px -234px;
         width: 125px;
         height: 20px;
     }
+
     .ic-header-logo-web {
         background: 0px -84px;
         width: 70px;
         height: 20px;
     }
-
-
 
     /*------컨플루언스 등록 필요-------*/
     /*---------------------------------*/
@@ -1824,87 +1802,102 @@
         width: 24px;
         height: 18px;
     }
+
     .ic-tab-chat-blue {
         background: -24px -105px;
         width: 24px;
         height: 18px;
     }
+
     .ic-tab-exchange-gray {
         background: -48px -105px;
         width: 20px;
         height: 18px;
     }
+
     .ic-tab-exchange-blue {
         background: -68px -105px;
         width: 20px;
         height: 18px;
     }
+
     .ic-tab-wallet-gray {
         background: -88px -105px;
         width: 18px;
         height: 18px;
     }
+
     .ic-tab-wallet-blue {
         background: -106px -105px;
         width: 18px;
         height: 18px;
     }
+
     .ic-tab-otc-gray {
         background: -124px -105px;
         width: 28px;
         height: 18px;
-     }
+    }
+
     .ic-tab-otc-blue {
         background: -152px -105px;
         width: 28px;
         height: 18px;
     }
+
     .ic-tab-service-gray {
         background: 0px -123px;
         width: 23px;
         height: 20px;
     }
+
     .ic-tab-service-blue {
         background: -23px -123px;
         width: 23px;
         height: 20px;
     }
+
     .ic-tab-service-blue {
         background: -23px -123px;
         width: 23px;
         height: 20px;
     }
+
     .ic-mytoken-default {
         background: 0px -143px;
         width: 65px;
         height: 65px;
     }
+
     .ic-mytoken-add {
         background: 0px -208px;
         width: 17.7px;
         height: 17.7px;
     }
+
     .ic-barcode {
         background: 0px -226px;
         width: 18px;
         height: 14px;
     }
-    .ic-wallet-transfer{
+
+    .ic-wallet-transfer {
         background: -18px -226px;
         width: 18px;
         height: 14px;
     }
-    .ic-wallet-scanning{
+
+    .ic-wallet-scanning {
         background: 0px -240px;
         width: 20px;
         height: 16px;
     }
+
     .ic-allb-logo-big {
         background: 0px -256px;
         width: 142px;
         height: 112px;
     }
-
 
     /*sprite-img-small  전용*/
 
@@ -1914,40 +1907,41 @@
         height: 78px;
     }
 
-
     /*sprite image*/
 
     .sprite-img {
         background-size: 384px 1128px;
         background-image: url(./assets/img/sprite_x2.png);
     }
+
     .sprite-img2 {
         background-size: 200px 600px;
         background-image: url(./assets/img/sprite_image-2.png);
     }
+
     .sprite-img2-small {
         background-size: 140px 420px;
         background-image: url(./assets/img/sprite_image-2.png);
     }
 
-    .badge{
+    .badge {
         background-color: #e62a2b;
         border-radius: 100px;
-        text-align:center;
+        text-align: center;
         font-size: 12px;
         line-height: 13px;
         color: #ffffff;
         width: 17px;
         height: 17px;
-        margin : auto 0 auto 0;
-        padding : 2px 0 2px 0;
-        cursor : pointer;
+        margin: auto 0 auto 0;
+        padding: 2px 0 2px 0;
+        cursor: pointer;
 
-        -moz-border-radius : 100px;
-        -webkit-border-radius : 100px;
-        -ms-border-radius :100px;
-        -khtml-border-radius : 100px;
-        -o-border-radius :100px;
+        -moz-border-radius: 100px;
+        -webkit-border-radius: 100px;
+        -ms-border-radius: 100px;
+        -khtml-border-radius: 100px;
+        -o-border-radius: 100px;
     }
 
     /* MyInfo Item CSS */
@@ -2039,8 +2033,8 @@
         position: relative;
     }
 
-    .myPage-box .otherInfo-body:last-child{
-        border-bottom: none ;
+    .myPage-box .otherInfo-body:last-child {
+        border-bottom: none;
     }
 
     .otherInfo-body > li {
@@ -2147,10 +2141,9 @@
         text-align: right;
     }
 
-
     /*group chat name css*/
     .chat-name {
-        margin-bottom: 4px!important;
+        margin-bottom: 4px !important;
         cursor: pointer;
         font-size: 12px;
         line-height: 1.6em;
@@ -2161,10 +2154,9 @@
         font-weight: bold;
     }
 
-
     /*언어 드롭다운 (header, footer) */
-    .lang-menu > div{
-        padding : 8px 16px 8px 16px;
+    .lang-menu > div {
+        padding: 8px 16px 8px 16px;
         cursor: pointer;
     }
 
@@ -2185,6 +2177,7 @@
         background-position: 50% 50%;
         padding-top: 170px;
     }
+
     .landing-img-second {
         width: 100%;
         height: 100%;
@@ -2192,6 +2185,7 @@
         background-position: 50% 50%;
         padding-top: 150px;
     }
+
     .landing-img-third {
         width: 100%;
         height: 100%;
@@ -2199,6 +2193,7 @@
         background-position: 50% 50%;
         padding-top: 150px;
     }
+
     .landing-subject {
         font-size: 45px;
         color: white;
@@ -2214,16 +2209,29 @@
         font-weight: 500;
     }
 
-
-
     .arrows-style {
         background: #214EA1;
         border-radius: 6px;
         color: white;
         font-size: 28px;
-        margin-bottom: 14px;
+        margin-bottom: 11px;
     }
 
+    /* 웹에서 최대 width 주기*/
+    @media only screen and (min-width: 960px) {
+        .pageView {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    @media only screen and (max-width: 959px) {
+        .pageView {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
 
     /*vuetify 로딩 아이콘*/
     .progress-circular {
@@ -2241,7 +2249,6 @@
         right: 12px;
         top: 10px;
     }
-
 
     /* Alert CSS */
     @media only screen and (min-width: 959px) {
@@ -2303,12 +2310,11 @@
     .alertItem-enter-active, .alertItem-leave-active {
         transition: all .3s ease;
     }
-    .alertItem-enter, .alertItem-leave-to  {
+
+    .alertItem-enter, .alertItem-leave-to {
         transform: translateX(100px);
         opacity: 0;
     }
-
-
 
     /*post AD 사용 CSS*/
     .price-input-wrapper {
@@ -2332,8 +2338,6 @@
         color: #353535;
         outline: none;
     }
-
-
 
 
 </style>

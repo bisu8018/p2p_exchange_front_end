@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 mr-3 ml-3 p-relative"  v-if="isInitCompleted">
+    <div class="mt-5 mb-5  p-relative"  v-if="isInitCompleted" :class="{'ml-3' : !isMobile(),'mr-3' : !isMobile()}">
 
 
         <!--***************      첫번째       *********-->
@@ -45,11 +45,11 @@
         </div>
 
         <v-layout wrap row>
-            <v-flex xs12 md4>
-                <div class="cancel-explain mb-4 " v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
-                    {{ $str("cancelExplain") }}         <!--status cancel 일 시 설명 문구-->
-                </div>
+            <!--*******************  expired, cancelled 상태  ******************-->
+            <v-flex xs12 md4 cancel-explain mb-4  v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">    <!--status cancel 일 시 설명 문구-->
+                    {{ $str("cancelExplain") }}
             </v-flex>
+
             <v-flex xs12 mb-4>
                 <v-flex xs12 md5 h4 bold color-black text-xs-left>
 
@@ -77,15 +77,19 @@
                     {{ $str("buyingExplain3") }}
                     </span>
 
-                    <!--*******************  complete, Cancel 상태  ******************-->
+                    <!--*******************  expired, cancelled 상태  ******************-->
 
-                    <span v-else-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                    <span v-else-if="currentOrder.status === 'cancelled'">
                     {{ $str("cancel") }}
                     </span>
+                    <span v-else-if="currentOrder.status === 'expired'">
+                    {{ $str("expired") }},
+                    </span>
+
 
                     <!--*******************  complete, Cancel, expired 상태  ******************-->
 
-                    <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                    <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled'">
                     {{ $str("complete") }},
                     </span>
 

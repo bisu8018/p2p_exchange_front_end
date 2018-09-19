@@ -18,7 +18,7 @@
                     <!--상대방-->
                     <div class="mb-4 display-flex" v-if="getChatSubscribe.myInfo.name !== data.sender.name ">
                         <div>
-                            <avatar :member="data.sender" :chat="'memberList'" class="mt-1 c-pointer" @click="goUserPage(data.sender.memberNo)"/>
+                            <avatar :member="data.sender" :chat="'memberList'" class="mt-1"/>
                         </div>
                         <div class="pl-2">
                             <div class="chat-name" @click="goUserPage(data.sender.memberNo)"> {{ data.sender.name }}
@@ -57,7 +57,7 @@
 
                         </div>
                         <div>
-                            <avatar :chat="'memberList'" :member="data.sender" class="mt-1" @click="goUserPage(data.sender.memberNo)"></avatar>
+                            <avatar :chat="'memberList'" :member="data.sender" class="mt-1"></avatar>
                         </div>
                     </div>
                 </div>

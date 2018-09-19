@@ -8,12 +8,12 @@
 
         <!--상대방 정보-->
         <div style="border-bottom: 1px solid #d1d1d1; height: 82px; display: flex">
-            <div class="pl-3 pr-3 pt-4 pb-4">
+            <div class="pl-3 pr-3 pt-4 pb-4 " >
                 <avatar v-if="counterPartyEmail != ''"  :email=counterPartyEmail  :chat="'main'"/>
             </div>
 
             <div class="text-xs-left pt-twenty">
-                <span class="h5 bold color-black">{{ counterPartyNickname }}</span><br>
+                <span class="h5 bold color-black c-pointer" @click="goUserPage">{{ counterPartyNickname }}</span><br>
                 <!--30일간 거래 횟수-->
                 <span class="h6 color-darkgray">{{ $str('Trades_in_30_days') }} : {{ transactionNum }}</span>
             </div>
@@ -35,7 +35,7 @@
             <div v-for="data in messageList">
 
                 <!--시스템 메세지-->
-                <div v-if="data.systemMessage" class="mb-3">
+                <div v-if="data.systemMessage" class="mb-4">
                     <div class="h6 color-darkgray pb-2 line-height-full">
                         {{ getTime(data.registerDatetime) }}
                         <!--<span>{{ getDateTime('date') }}</span>-->
@@ -51,13 +51,13 @@
                 <div v-else>
 
                     <!--상대방-->
-                    <div class="mb-3 display-flex" v-if="data.mine === false ">
+                    <div class="mb-4 display-flex" v-if="data.mine === false ">
                         <div v-if="!data.systemMessage">
                             <avatar v-if="counterPartyEmail !== ''"  :email=counterPartyEmail  :chat="'sub'"/>
                         </div>
                         <div v-else class="none-avatar"></div>
                         <div class="pl-2">
-                            <div class="h6 color-darkgray pb-2 line-height-full text-xs-left">
+                            <div class="h6 color-darkgray pb-1 line-height-full text-xs-left">
                                 {{ getTime(data.registerDatetime) }}
                                 <!--<span>{{ getDateTime('date') }}</span>-->
                             </div>
@@ -72,10 +72,10 @@
                     </div>
 
                     <!--자신-->
-                    <div class="mb-3 display-flex " v-else>
+                    <div class="mb-4 display-flex " v-else>
                         <v-spacer></v-spacer>
                         <div class="pr-2">
-                            <div class="h6 color-darkgray text-xs-right pb-2 line-height-full">
+                            <div class="h6 color-darkgray text-xs-right pb-1 line-height-full">
                                 {{ getTime(data.registerDatetime) }}
                                 <!--<span>{{ getDateTime('date') }}</span>-->
                             </div>
@@ -360,6 +360,10 @@
                 this.st = b - (a + this.offsetTop);
                 this.needScrollDown = this.st < 120;
             },
+            goUserPage() {
+                //유저페이지 이동
+                MainRepository.router().goUserPage(this.counterPartyMemberNo);
+            }
         }
     })
 </script>

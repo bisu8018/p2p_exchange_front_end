@@ -132,7 +132,7 @@
                 alert('준비중입니다');
             },
             onDoneIdVerification() {
-                this.$eventBus.$emit('showAlert', 0);
+                this.$eventBus.$emit('showAlert', 2257);
                 this.$eventBus.$emit('refreshMypage');
             }
         },
