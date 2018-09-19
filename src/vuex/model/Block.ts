@@ -1,20 +1,18 @@
+import BlockMemberList from "@/vuex/model/BlockMemberList";
+
 export default class Block {
-    bgColor : string;
-    blockMemberNo: number;
-    email: string;
-    memo: string;
-    nickName: string;
+    blockMemberList: BlockMemberList;
+    totalCount: number;
+    pageNo: number;
 
 
     constructor(data: any) {
-        this.blockMemberNo = data.blockMemberNo || -1;
-        this.memo = data.memo || '';
-        this.email = data.email || '';
-        this.bgColor = data.bgColor || '';
-        this.nickName = data.nickname || '';
+        this.blockMemberList = data.blockMemberList;
+        this.totalCount = data.totalCount;
+        this.pageNo = data.pageNo;
     }
 
-    isNull(): boolean {
+  /*  isNull(): boolean {
         return (this.email === undefined || this.email === '')
-    }
+    }*/
 }

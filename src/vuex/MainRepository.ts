@@ -389,19 +389,14 @@ export default {
                 callback(result);
             })
         },
-        getBlockList: function (callback: any) {
+        getBlockList: function (page: number, callback: any) {
             AccountService.BlockList.getBlockList({
-                email: instance.MyInfo.getUserInfo().email
+                email: instance.MyInfo.getUserInfo().email,
+                page: page,
+                size: 10
             }, (result) => {
-                let blockList = new Block('');
-                const blockList_arr = new Array();
-
-                for (let i = 0; i < result.length; i++) {
-                    const blockList_tmp = result[i];
-                    blockList = new Block(blockList_tmp);
-                    blockList_arr.push(blockList);
-                }
-                callback(blockList_arr);
+                let _blockMember = new Block(result);
+                callback(_blockMember);
             })
         },
         getLoginHistory: function (page: number, callback: any) {

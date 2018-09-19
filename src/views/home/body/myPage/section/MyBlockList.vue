@@ -1,5 +1,5 @@
 <template>
-    <div class="myPage-box">
+    <div class="myPage-box pb-1">
 
         <!-- Header -->
         <div class="otherInfo-header">
@@ -10,17 +10,24 @@
         </div>
 
         <!-- Body : isEmpty -->
-        <div class="ta-center py-3" v-if="blockList.length === 0">
+        <div class="ta-center py-3" v-if="blockList.totalCount === 0">
             <p class="pt-2 pb-3 color-darkgray">{{ $str('noMoreRecords') }}</p>
         </div>
 
         <!-- Body : !isEmpty -->
         <div v-else>
-            <div class="blocked-user-item" v-for="block in blockList">
-                <block-list-item
-                        :data="block"
-                />
+            <div class="blocked-user-item" v-for="block in blockList.blockMemberList">
+                <block-list-item :data="block" />
             </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper">
+            <v-pagination
+                    v-model="blockPage"
+                    @input="onBlockPage(blockPage)"
+                    :color="'TextBlue'"
+                    :length="pageLength()" />
         </div>
     </div>
 </template>
@@ -33,10 +40,38 @@
         name: "my-block-list",
         props: {
             blockList: {}
+        },
+        data() {
+            return {
+                blockPage: 1,
+            }
+        },
+        methods: {
+            onBlockPage(num) {
+                this.$emit('onBlockPage', num);
+            },
+            pageLength() {
+                let a = 0;
+                a = this.blockList.totalCount;
+
+                let result = 0;
+
+                // 나머지가 없을 때
+                if (a % 10 === 0 && a > 9) {
+                    result = a / 10;
+                } else if (a % 10 !== 0 && a > 9) {
+                    result = (parseInt(a / 10)) + 1;
+                }
+                return result;
+            },
         }
     }
 </script>
 
 <style scoped>
-
+    .pagination-wrapper {
+        max-width: 360px;
+        margin: 48px auto 48px;
+        text-align: center;
+    }
 </style>

@@ -35,6 +35,7 @@
             <!-- 4. Block List -->
             <my-block-list
                :block-list="blockList"
+               @onBlockPage="onBlockPage"
             />
 
             <!-- 5. History -->
@@ -160,7 +161,7 @@
                 MainRepository.MyInfo.loadMyPaymentMethods(() => {});
 
                 // GET Block List
-                MainRepository.MyPage.getBlockList(function (blockList) {
+                MainRepository.MyPage.getBlockList(1,function (blockList) {
                     self.blockList = blockList;
                 });
 
@@ -178,6 +179,12 @@
                 let self = this;
                 MainRepository.MyPage.getLoginHistory(num, function (loginHistory) {
                     self.loginHistory = loginHistory;
+                });
+            },
+            onBlockPage(num) {
+                let self = this;
+                MainRepository.MyPage.getBlockList(num, function (blockList) {
+                    self.blockList = blockList;
                 });
             },
             onHistoryPage(num) {

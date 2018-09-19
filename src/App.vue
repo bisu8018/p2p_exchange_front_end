@@ -2018,8 +2018,7 @@
         position: relative;
     }
 
-    .myPage-box .otherInfo-body:last-child,
-    .blocked-user-item:last-child {
+    .myPage-box .otherInfo-body:last-child{
         border-bottom: none ;
     }
 

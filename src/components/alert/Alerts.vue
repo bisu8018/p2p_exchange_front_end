@@ -126,6 +126,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
 
                     //마이페이지 메세지 2250~
                     case 2251 : this.show(this.type.Success, "", this.$str('comp_linked_phone_change')); break;    // 연동 전화번호 수정 완료
+                    case 2252 : this.show(this.type.Success, "", this.$str('comp_unblock')); break;    // 연동 전화번호 수정 완료
 
                     //Merchant 메세지 2350~
                     case 2350 : this.show(this.type.Success, "", this.$str('comp_apply_merchant')); break;    // merchant 등록 완료

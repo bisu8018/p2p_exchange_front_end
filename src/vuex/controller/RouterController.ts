@@ -142,6 +142,7 @@ export default class RouterController {
             this.goMyPage();
             return false;
         }
+        console.log(1)
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/userpage?" + memberNo);

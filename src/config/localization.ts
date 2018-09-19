@@ -3295,6 +3295,12 @@ const strings = new Map([
         CN: '修改绑定的手机号码',
         HK: '修改綁定的手機號碼'
     }],
+    ['comp_unblock', {
+        KOR: '차단이 해제 되었습니다.',
+        ENG: 'Unblocked successfully.',
+        CN: '',
+        HK: ''
+    }],
     ['warn_completeProcessingOrder', {
         KOR: '진행중인 주문을 완료 해주세요',
         ENG: 'Finish your order in progress.',

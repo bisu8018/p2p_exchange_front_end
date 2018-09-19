@@ -12,7 +12,7 @@
         <div class="block-list-item_wrapper">
             <div>
                 <avatar :email="data.email" />
-                <p class="color-blue-active">{{ data.nickName }}</p>
+                <p class="color-blue-active" @click="goUserPage">{{ data.nickname || data.email }}</p>
             </div>
             <div>
                 <btn-mypage
@@ -62,10 +62,14 @@
                     }, function (result) {
                         self.onCheckUnblock = false;
                         self.$eventBus.$emit('refreshMypage');
-                        self.$eventBus.$emit('showAlert', 0);
+                        self.$eventBus.$emit('showAlert', 2252);
                     }
                 )
             },
+            goUserPage() {
+                //유저페이지 이동
+                MainRepository.router().goUserPage(this.data.blockMemberNo);
+            }
         }
     }
 </script>
