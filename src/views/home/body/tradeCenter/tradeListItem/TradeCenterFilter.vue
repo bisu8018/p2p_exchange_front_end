@@ -170,6 +170,7 @@
           </v-layout>
         </v-flex>
 
+        <!--custom token 일때-->
         <v-flex v-else>
           <v-layout mt-4a>
             <h4 class="medium color-darkgray c-pointer" @click="onTokenClicked('current','Buy')"
@@ -294,7 +295,6 @@
             //custom Token Trade 일때
             if(this.$route.name === 'customTokenTrade'){
               this.isCustomTrade = true;
-              this.tradeCoin = MainRepository.MyToken.getCustomTokenNo();
             }
 
         },

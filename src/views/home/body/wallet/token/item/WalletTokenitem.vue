@@ -166,7 +166,14 @@
                 return abUtils.toMoneyFormat(String(value));
             },
             showDeposit(){
-                this.$eventBus.$emit('showDepositDialog', this.tokenName);
+                if(this.item.walletAddress ===""){
+                    MainRepository.MyToken.generateTokenWallet(this.item.tokenNo,()=>{
+                        this.$eventBus.$emit('showDepositDialog', this.tokenName);
+                    })
+                }
+                else{
+                  this.$eventBus.$emit('showDepositDialog', this.tokenName);
+                }
             },
             showWithdrawal(){
                 this.$eventBus.$emit('showWithdrawDialog', this.tokenName);

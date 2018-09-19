@@ -47,11 +47,12 @@ export default class CustomTokenController {
 
     // name기반으로 customtokenList 찾기.
     findCustomTokenList(value) {
+        //대문자로 바꿔줘서
+        value = value.toUpperCase();
         let tokenList:CustomToken[] = []
         this.getCustomTokenList().find(function (element) {
             let compared =  element.tokenName;
             if( compared.indexOf(value) > -1){
-                console.log('push'+element.tokenName)
                 tokenList.push(element);
             }
         });

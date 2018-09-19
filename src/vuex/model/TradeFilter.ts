@@ -61,9 +61,13 @@ export default class TradeFilter {
 
             case 'ALLB':
             case 'allb':
+                return 'allb'
+
+            case 'custom':
+                return 'custom'
 
             default:
-                return 'allb'
+                return cryptocurrency
         }
     }
 

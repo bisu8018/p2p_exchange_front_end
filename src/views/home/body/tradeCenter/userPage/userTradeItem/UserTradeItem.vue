@@ -547,7 +547,7 @@
                         this.warning_fromValue = true;
                         return false;
                     }
-                    if (this.fromValue > this.getBalance) {
+                    if (this.user.tradeType=='sell' && this.fromValue > this.getBalance) {
                         this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                         this.warning_fromValue = true;
                         return false;
@@ -579,7 +579,7 @@
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-                if(this.toValue > this.user.tradePrice * this.getBalance){
+                if(this.user.tradeType=='sell' && this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;
                 }
                 if(this.toValue < this.user.minLimit){
@@ -642,7 +642,7 @@
                     this.warning_fromValue = true;
                     return false;
                 }
-                if (this.fromValue > this.getBalance) {
+                if (this.user.tradeType=='sell' && this.fromValue > this.getBalance) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
                     return false;

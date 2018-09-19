@@ -635,7 +635,7 @@
                         this.warning_fromValue = true;
                         return false;
                     }
-                    if (this.fromValue > this.getBalance) {
+                    if (this.user.tradeType=='sell' && this.fromValue > this.getBalance) {
                         this.verify_warning_toValue = Vue.prototype.$str("Enter less than available");
                         this.warning_fromValue = true;
                         return false;
@@ -658,28 +658,42 @@
                 }
 
             },
+            haveNoCustomWallet(){
+                return (this.$route.name === 'customTokenTrade') &&
+                    (MainRepository.Wallet.controller().findWalletsByName(this.user.cryptocurrency, 'custom')[0].walletAddress === "")
+            },
             goTrade() {
-                let instance = this;
                 if (this.onChecktoValue() && this.onCheckfromValue()
-                &&(this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
-                    MainRepository.TradeProcess.createOrder({
-                        email : MainRepository.MyInfo.getUserInfo().email,
-                        adNo : this.user.adNo,
-                        amount : this.toValue,
-                        coinCount : this.toValue/this.user.tradePrice,
-                        coinFeeCount : (this.toValue/this.user.tradePrice) * this.user.fee,
-                        coinWithoutFeeCount : this.fromValue,
-                        customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
-                        merchantMemberNo :  this.user.memberNo,
-                        price : this.user.tradePrice,
-                        status : "unpaid",
-                        tradePassword : this.tradePW,
-                    }, function (orderNo) {
-                        let isBuy = instance.user.tradeType === 'buy';
-                        MainRepository.router().goBuyOrSell(isBuy, orderNo);
-                    });
-
+                &&( this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
+                    //customtokenTrade일때 지갑에 없으면.
+                    if(this.haveNoCustomWallet()){
+                        MainRepository.MyToken.generateTokenWallet(MainRepository.MyToken.getCustomTokenNo(),()=>{
+                            this.createOrder();
+                        })
+                    }
+                    else{
+                        this.createOrder();
+                    }
                 }
+            },
+            createOrder(){
+                let self = this;
+                MainRepository.TradeProcess.createOrder({
+                    email : MainRepository.MyInfo.getUserInfo().email,
+                    adNo : this.user.adNo,
+                    amount : this.toValue,
+                    coinCount : this.toValue/this.user.tradePrice,
+                    coinFeeCount : (this.toValue/this.user.tradePrice) * this.user.fee,
+                    coinWithoutFeeCount : this.fromValue,
+                    customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
+                    merchantMemberNo :  this.user.memberNo,
+                    price : this.user.tradePrice,
+                    status : "unpaid",
+                    tradePassword : this.tradePW,
+                }, function (orderNo) {
+                    let isBuy = self.user.tradeType === 'buy';
+                    MainRepository.router().goBuyOrSell(isBuy, orderNo);
+                });
             },
             //trade modal에서 input에서 All 버튼 누를때
             fillAll() {
@@ -754,7 +768,7 @@
                     this.warning_fromValue = true;
                     return false;
                 }
-                if (this.fromValue > this.getBalance) {
+                if (this.user.tradeType=='sell' && this.fromValue > this.getBalance) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
                     return false;
