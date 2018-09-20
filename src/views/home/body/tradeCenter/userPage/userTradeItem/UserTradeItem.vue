@@ -502,9 +502,8 @@
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
             getBalance(){
-                let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(
-                    MainRepository.TradeView.getSelectFilter().cryptocurrency
-                );
+                let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(this.user.cryptocurrency);
+
                 return MyBalance.availableAmount
             },
             isGeneralCoin(){
@@ -591,17 +590,21 @@
                 this.clickFromAll = false;
                 //차후 마진고려해 수정해야함
                 this.toValue = this.user.maxLimit
+                console.log(this.toValue)
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-                if(this.user.tradeType=='sell' && this.toValue > this.user.tradePrice * this.getBalance){
+                console.log(this.toValue)
+                if(this.user.tradeType=='buy' && this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;
                 }
+                console.log(this.toValue)
                 if(this.toValue < this.user.minLimit){
                     this.warning_toValue = true;
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     return false;
                 }
+                console.log(this.toValue)
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
 
@@ -702,6 +705,9 @@
                     return;
                 }
                 /////////////////////////////////
+                this.toValue = '';
+                this.fromValue = '';
+                this.tradePW = '';
                 MainRepository.TradeView.setchangeDrawer(this.user.adNo);
             },
             onValidClick() {

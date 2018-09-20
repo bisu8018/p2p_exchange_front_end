@@ -717,7 +717,6 @@
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     return false;
                 }
-                console.log(this.toValue)
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
                 this.toValue = this.$fixed(this.toValue, this.user.currency)

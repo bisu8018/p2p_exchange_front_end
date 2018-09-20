@@ -30,6 +30,7 @@
 <script>
     import MainRepository from "../../../../../vuex/MainRepository";
     import TradeCenter from "../TradeCenter";
+    import CustomToken from '@/vuex/model/CustomToken'
     export default {
         name: "CustomToken",
         components: {
@@ -65,7 +66,7 @@
         beforeDestroy(){
             this.selectedCustomToken = '...';
             MainRepository.CustomToken.setCustomTokenNo(-1);
-            MainRepository.CustomToken.setSelectedCustomToken(CustomToken(''))
+            MainRepository.CustomToken.setSelectedCustomToken(new CustomToken(''))
         },
         methods: {
             //새로고침시 동작하게 하면 됨
