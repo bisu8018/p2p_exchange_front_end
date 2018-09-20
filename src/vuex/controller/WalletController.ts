@@ -35,9 +35,11 @@ export default class WalletController {
     }
 
     findByCrptoCurrency(crpto: string) {
+        crpto = this.transCryptocurrencyFullName(crpto);
         let result = new Wallet('');
         for(let i = 0; i < this.getWallets().length; i++) {
             let _item = this.getWallets()[i];
+            console.log(_item.cryptocurrency);
             if (_item.cryptocurrency === crpto) {
                 result = _item;
             }
@@ -102,20 +104,14 @@ export default class WalletController {
         }
     }
 
-    transCryptocurrencyFullName(name){
+    transCryptocurrencyFullName(name : string){
         switch (name) {
-            case 'BTC':
-                return 'bitcoin';
-
-            case 'ETH':
-                return 'ethereum';
-
-            case 'AllB':
-                return 'allb';
-
-            default:
-                return name
+            case 'BTC': name = 'bitcoin'; break
+            case 'ETH': name ='ethereum'; break
+            case 'AllB':name ='allb';break
+            default: break
         }
+        return name
     }
 
     getTotalEstimatedValue(currency: string) {

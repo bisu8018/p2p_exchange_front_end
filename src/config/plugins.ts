@@ -79,13 +79,8 @@ export default (Vue: any) => {
 
     Vue.prototype.$fixed = function (value: number, currency: string) {
         let fixedDigits = 0;
-        //if (String(value).indexOf(".")==-1) { return value }
+        let isCustomToken = false;
 
-        //customtoken일때
-        if(MainRepository.CustomToken.getCustomTokenNo() !== -1){
-            //fixedDigits = MainRepository.CustomToken.getSelectedCustomToken().decimalCount;
-            fixedDigits = 5;
-        }
         switch (currency) {
             case CurrencyType.CNY: fixedDigits = 0; break;
             case CurrencyType.KRW: fixedDigits = 0; break;
@@ -97,10 +92,20 @@ export default (Vue: any) => {
             case 'bitcoin': fixedDigits = 8; break;
             case 'ETH' :
             case 'ethereum': fixedDigits = 6; break;
+            //customtoken일때
+            default:
+                isCustomToken = true;
+                fixedDigits = MainRepository.CustomToken.getSelectedCustomToken().decimalCount;
         }
-
-        let fixedValue = Math.floor(value*Math.pow(10, fixedDigits))/Math.pow(10, fixedDigits);
+        if(isCustomToken){
+            let pointer = Math.pow(10, fixedDigits);
+            return String(Math.floor(value * pointer)/pointer);
+        }
+        let pointer = Math.pow(10, fixedDigits);
+        let fixedValue = Math.floor(value * pointer)/pointer;
+        //if (String(value).indexOf(".")==-1) { return value }
         //fixedValue = fixedValue.replace(/(0+$)/, "");
         return String(fixedValue.toFixed(fixedDigits));
     }
 }
+

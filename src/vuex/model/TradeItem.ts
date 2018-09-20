@@ -38,6 +38,10 @@ export default class TradeItem {
     status : string;
     processingOrderCount : number;
     fee : number;
+    //customtoken 추가후
+    symbolImgUrl: string;
+    tokenName: string;
+    decimalCount : number;
 
 
     constructor (data: any) {
@@ -78,6 +82,10 @@ export default class TradeItem {
         this.processingOrderCount = data.processingOrderCount;
         this.fee = this.transFee(data.fee);
 
+        this.decimalCount = data.decimalCount || '';
+        this.symbolImgUrl = data.symbolImgUrl || '';
+        this.tokenName = data.tokenName || '';
+
     }
 
     //paymentmethods 재가공
@@ -117,7 +125,9 @@ export default class TradeItem {
                 return 'ETH'
 
             case 'custom':
-                return MainRepository.MyToken.controller().getSelectedCustomToken().tokenName
+                return MainRepository.MyToken.controller().getSelectedCustomToken().tokenName;
+            case '':
+                return this.tokenName
             default:
                 return cryptocurrency
         }
