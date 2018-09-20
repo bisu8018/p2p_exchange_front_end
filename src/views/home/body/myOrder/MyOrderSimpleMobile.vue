@@ -28,7 +28,7 @@
 <script>
     import MainRepository from "../../../../vuex/MainRepository";
     import MyOrder from "./MyOrder";
-    import MyOrderSimpleItem from "./MyOrderListItem/MyOrderSimpleItem";
+    import MyOrderSimpleItem from "./item/MyOrderSimpleItem";
     export default {
         components: {
             MyOrderSimpleItem,

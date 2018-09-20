@@ -162,7 +162,7 @@ export function transCryptocurrencyName(name: string){
         case 'ETH':
             return 'ethereum';
         default:
-            return 'ALLB';
+            return '';
     }
 }
 

@@ -6,6 +6,7 @@ export default class MyTradeFilter {
     adNo : number;
     cryptocurrencyType: string;
     cryptocurrency: string;
+    tokenNo: string;
     orderType: string;
     adsType : string;
     tradeType : string;
@@ -24,6 +25,7 @@ export default class MyTradeFilter {
         this.adNo = data.adNo || '';
         this.cryptocurrencyType = data.cryptocurrencyType;
         this.cryptocurrency = data.cryptocurrency;
+        this.tokenNo = data.tokenNo || '';
         this.tradeType = data.tradeType || '';
         this.orderType = data.orderType || '';
         this.adsType = data.adsType || '';
@@ -42,6 +44,7 @@ export default class MyTradeFilter {
         if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;
         if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType;
         if(data.cryptocurrencyType !==undefined && data.cryptocurrencyType !==null) this.cryptocurrencyType = data.cryptocurrencyType;
+        if(data.tokenNo !==undefined && data.tokenNo !==null) this.tokenNo = data.tokenNo;
         if(data.cryptocurrency !==undefined && data.cryptocurrency !==null) this.cryptocurrency = this.transCrptocurrency(data.cryptocurrency);
         if(data.orderType !==undefined && data.orderType !==null) this.orderType = data.orderType;
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;

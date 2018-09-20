@@ -32,8 +32,8 @@
 </template>
 
 <script>
-    import MainRepository from "../../../vuex/MainRepository";
-    import MyOrderSimpleItem from "./myOrder/MyOrderListItem/MyOrderSimpleItem";
+    import MainRepository from "../../../../../vuex/MainRepository";
+    import MyOrderSimpleItem from "./MyOrderSimpleItem";
 
     export default {
         name: "MyOrderFixed",

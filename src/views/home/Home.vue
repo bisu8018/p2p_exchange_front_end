@@ -36,7 +36,7 @@
     import AbFooter from "./Footer.vue"
     import AbTab from "./Tab.vue"
     import Alert from '../../components/alert/Alerts.vue';
-    import MyOrderFixed from './../../views/home/body/MyOrderFixed.vue';
+    import MyOrderFixed from './body/myOrder/item/MyOrderFixed.vue';
     import Chat from './body/chat/Chat.vue';
     import ChatManager from './body/chat/item/ChatManager.vue';
 

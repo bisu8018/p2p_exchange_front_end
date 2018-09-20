@@ -315,7 +315,7 @@
         }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         @keyframes isMove {
             0% {
                 background-position: -100px 0;
