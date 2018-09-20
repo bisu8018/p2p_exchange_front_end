@@ -149,7 +149,7 @@ export default {
                 self.MarketPrice.load(() => {
                 });
                 self.MyInfo.loadMyPaymentMethods(() => {
-                    self.MyToken.getMytoken(()=> {
+                    self.MyToken.getMytoken(() => {
                         callback();
                     });
                 });
@@ -196,11 +196,11 @@ export default {
             return walletController;
         },
         //두 cryprocurrencyType의 지갑 모두 불러오기 위함.
-        load(callback: any){
+        load(callback: any) {
             //general 일때
-            this.loadWallets(()=>{
+            this.loadWallets(() => {
                 //custom 일때
-                this.loadCustomTokenWallets(()=>{
+                this.loadCustomTokenWallets(() => {
                     callback();
                 })
             })
@@ -267,12 +267,12 @@ export default {
         //Transfer
         initStatus: function () {
             walletController.updateStatus({
-                cryptocurrencyType : 'General Coin',
-                cryptocurrency :'',
-                From :'OTC Account',
-                To : 'Exchange Account',
-                Volume : '',
-                currency : 'CNY'
+                cryptocurrencyType: 'General Coin',
+                cryptocurrency: '',
+                From: 'OTC Account',
+                To: 'Exchange Account',
+                Volume: '',
+                currency: 'CNY'
             })
         },
         updateStatus: function (data: any) {
@@ -338,11 +338,11 @@ export default {
         getWalletHistories() {
             return walletController.getWalletHistoryList();
         },
-        generateTokenWallet: function(tokenNo : number, callback: any){
+        generateTokenWallet: function (tokenNo: number, callback: any) {
             //지갑생성
             customTokenService.generateTokenWallet(tokenNo, (result) => {
                 //customtoken지갑 load
-                instance.Wallet.loadCustomTokenWallets(()=>{
+                instance.Wallet.loadCustomTokenWallets(() => {
                     //deposit 혹은 order로 이동
                     callback(result);
                 })
@@ -396,7 +396,7 @@ export default {
                 callback(result);
             })
         },
-        setUseYnPaymentMethod : function (email: string, paymentType: any, callback: any) {
+        setUseYnPaymentMethod: function (email: string, paymentType: any, callback: any) {
             AccountService.Account.setUseYnPaymentMethod(email, paymentType, (result) => {
                 instance.MyInfo.loadMyPaymentMethods(() => {
                 })
@@ -612,7 +612,7 @@ export default {
             tradelistController.updateTradeFilter({
                 type: 'general',
                 status: 'enable',
-                cryptocurrencyType: (customTokenController.getCustomTokenNo() ===-1) ? 'general' : 'custom',
+                cryptocurrencyType: (customTokenController.getCustomTokenNo() === -1) ? 'general' : 'custom',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'Buy',
                 nationality: 'ALL',
@@ -634,7 +634,7 @@ export default {
             this.setTradeFilter({
                 type: isBlock ? 'block' : 'general',
                 status: 'enable',
-                cryptocurrencyType: (customTokenController.getCustomTokenNo() ===-1) ? 'general' : 'custom',
+                cryptocurrencyType: (customTokenController.getCustomTokenNo() === -1) ? 'general' : 'custom',
                 cryptocurrency: 'bitcoin',
                 tradeType: 'sell',
                 nationality: 'ALL',
@@ -669,7 +669,7 @@ export default {
             TradeService.tradeView.tradePage({
                 type: tradelistController.getTradeFilter().type,
                 status: 'enable',
-                cryptocurrencyType: (customTokenController.getCustomTokenNo() ===-1) ? 'general' : 'custom',
+                cryptocurrencyType: (customTokenController.getCustomTokenNo() === -1) ? 'general' : 'custom',
                 cryptocurrency: tradelistController.getTradeFilter().cryptocurrency,
                 tradeType: tradelistController.getTradeFilter().tradeType,
                 nationality: tradelistController.getTradeFilter().nationality,
@@ -747,9 +747,9 @@ export default {
                 callback(result);
             })
         },
-    //Custom token Trade
-        loadCustomTokenList(callback: any){
-            AdService.getCustomTokenList((data)=>{
+        //Custom token Trade
+        loadCustomTokenList(callback: any) {
+            AdService.getCustomTokenList((data) => {
                 let result = data
                 let customTokenList: CustomToken[] = [];
                 for (let key in result) {
@@ -761,7 +761,7 @@ export default {
                 callback();
             })
         },
-        getCustomTokenList(){
+        getCustomTokenList() {
             return customTokenController.getCustomTokenList();
         },
     },
@@ -1038,10 +1038,11 @@ export default {
             //pagination 아닌, filter 값 변경시
             if (data.page === undefined) {
                 myTradeController.updateMyOrderFilter({page: 1});
-                instance.Pagination.setPage(1,0,'');
+                instance.Pagination.setPage(1, 0, '');
             }
             myTradeController.updateMyOrderFilter(data);
-            this.load(() => {});
+            this.load(() => {
+            });
         },
         getPage() {
             return myTradeController.getMyOrderItems();
@@ -1133,7 +1134,7 @@ export default {
         },
         getOrderStatus: function (data: any, callback: any) {
             OrderService.getOrderStatus(data, (result) => {
-                let data = {status : result}
+                let data = {status: result}
                 tradeController.updateOrder(data);
                 callback(result);
             })
@@ -1141,7 +1142,7 @@ export default {
         getAppeal: function (data: any, callback: any) {
             AppealService.getAppeal(data, (result) => {
                 let _result = {
-                    appealList : result
+                    appealList: result
                 };
                 tradeController.updateOrder(_result);
                 callback(_result);
@@ -1227,8 +1228,8 @@ export default {
         isClosed: function () {
             return chatController.setChatOpen(false);
         },
-        setMessage: function (data : any, callback: any) {
-            ChatService.getMessage('',(result)=> {
+        setMessage: function (data: any, callback: any) {
+            ChatService.getMessage('', (result) => {
                 let _result = result.data.result;
                 let _chatMessage: Chat[] = [];
 
@@ -1240,16 +1241,16 @@ export default {
                 callback();
             })
         },
-        setChatSubscribe: function (data : any, callback: any) {
+        setChatSubscribe: function (data: any, callback: any) {
             let _data = new ChatSubscribe(data);
             this.controller().setChatSubscribe(_data);
 
             callback();
         },
         setChatMembers: function (callback: any) {
-            let members : ChatMembers[] = [];
+            let members: ChatMembers[] = [];
 
-            ChatService.getMembers('', (result)=> {
+            ChatService.getMembers('', (result) => {
                 for (let key in result) {
                     members.push(new ChatMembers(result[key]));
                 }
@@ -1257,10 +1258,10 @@ export default {
                 callback();
             });
         },
-        addChatMessage: function (data : string) {
+        addChatMessage: function (data: string) {
             let _message = this.controller().getMessage();
             _message.push(new Chat(data));
-            let _chatMessage = {msg : _message};
+            let _chatMessage = {msg: _message};
 
             this.controller().setMessage(_chatMessage.msg);
         }
@@ -1278,18 +1279,18 @@ export default {
         },
         getMytoken: function (callback: any) {
             customTokenService.getMyToken(result => {
-                if(result){
+                if (result) {
                     customTokenController.setMyToken(new CustomToken(result));
                     callback(result);
-                }else{
+                } else {
                     callback(true);
                 }
             })
         },
     },
     CustomToken: {
-        setCustomTokenList(callback: any){
-            AdService.getCustomTokenList((data)=>{
+        setCustomTokenList(callback: any) {
+            AdService.getCustomTokenList((data) => {
                 let result = data;
                 let customTokenList: CustomToken[] = [];
                 for (let key in result) {
@@ -1301,19 +1302,19 @@ export default {
                 callback();
             })
         },
-        setCustomTokenNo(tokenNo){
+        setCustomTokenNo(tokenNo) {
             customTokenController.setCustomTokenNo(tokenNo);
         },
-        getCustomTokenNo(){
+        getCustomTokenNo() {
             return customTokenController.getCustomTokenNo();
         },
     },
     GeneralToken: {
-      controller () {
-          return generalTokenController;
-      },
-        setGeneralTokenList(callback: any){
-            AdService.setGeneralTokenList((data)=>{
+        controller() {
+            return generalTokenController;
+        },
+        setGeneralTokenList(callback: any) {
+            AdService.setGeneralTokenList((data) => {
                 let result = data;
                 let generalTokenList: GeneralToken[] = [];
                 for (let key in result) {
