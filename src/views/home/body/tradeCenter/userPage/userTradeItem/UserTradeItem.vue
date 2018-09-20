@@ -10,10 +10,11 @@
         <!--userPage 일때-->
         <v-layout  mt-4 align-center fill-height>
           <v-flex xs2>
-            <h5 :class="tokenImg"></h5>
+            <h5 v-if=isGeneralCoin :class="tokenImg"></h5>
+            <img v-else class="symbol" :src="user.symbolImgUrl">
           </v-flex>
           <v-flex xs10 text-xs-left>
-            <span class="bold">{{user.cryptocurrency}}</span>
+            <span class="bold">{{tokenName}}</span>
           </v-flex>
         </v-layout>
 
@@ -22,7 +23,7 @@
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>{{ $str('Available') }} :</v-flex>
-          <v-flex xs6 text-xs-right> {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}} </v-flex>
+          <v-flex xs6 text-xs-right> {{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
@@ -56,7 +57,7 @@
           <!--거래 버튼-->
           <v-flex xs5 text-xs-right>
             <button class="btn-rounded-blue medium" @click="changeDrawer">
-              {{$str(user.tradeType)}} {{user.cryptocurrency}}</button>
+              {{$str(user.tradeType)}} {{tokenName}}</button>
           </v-flex>
         </v-layout>
       </div>
@@ -71,7 +72,7 @@
             </v-flex>
             <v-flex xs10 text-xs-left mb-4>
               <h5 class="medium color-blue-active">
-                {{user.nickname}} ( {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} | {{user.tradeRate}}%)
+                {{user.nickname}} ( {{ $fixed(user.volumeAvailable, tokenName) }} | {{user.tradeRate}}%)
               </h5>
               <a class="tooltip d-inline-block" v-if="user.rank==1">
                 <div class="sprite-img ic-premium ml-2"></div>
@@ -83,7 +84,7 @@
               </a>
 
               <h5 class="color-darkgray medium">
-                {{$str("Available")}} {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}
+                {{$str("Available")}} {{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}}
               </h5>
             </v-flex>
           </v-layout>
@@ -107,10 +108,11 @@
         <!-- name-->
         <v-layout mt-4 align-center fill-height>
           <v-flex xs2 pl-2 >
-            <h5 :class="tokenImg"></h5>
+            <h5 v-if="isGeneralCoin" :class="tokenImg"></h5>
+            <img v-else class="symbol" :src="user.symbolImgUrl">
           </v-flex>
           <v-flex xs8 text-xs-left>
-            <span class="bold">{{user.cryptocurrency}}</span>
+            <span class="bold">{{tokenName}}</span>
           </v-flex>
           <v-flex xs2 text-xs-center>
             <button><i class="material-icons" @click="changeDrawer">close</i></button>
@@ -124,7 +126,7 @@
             </h5>
           </v-flex>
           <v-flex xs4 offset-xs1 text-xs-right>
-            <h5>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</h5>
+            <h5>{{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -190,7 +192,7 @@
               <span class="cs-click-send" @mousedown="fillAll()"
                     v-if="clickFromAll">{{$str("All")}}</span>
               <!--cryptocurrency placeholder-->
-              <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
+              <span class="cs-timer" v-else>{{tokenName}}</span>
               <div class="warning-text-wrapper">
                 <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                   {{verify_warning_fromValue}}</p>
@@ -236,12 +238,13 @@
         <v-flex  md3 text-md-left>
           <v-layout justify-start align-center>
             <!--coin 종류에 따라 하나만 이미지 보여줌-->
-            <span :class="tokenImg" > </span>
-            <span class="ml-3 bold">{{user.cryptocurrency}}</span>
+            <span v-if="isGeneralCoin" :class="tokenImg" > </span>
+            <img v-else class="symbol" :src="user.symbolImgUrl">
+            <span class="ml-3 bold">{{tokenName}}</span>
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}} </v-flex>
+        <v-flex md2 text-md-left >{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{tokenName}} </v-flex>
         <!--limits-->
         <v-flex md2 text-md-left >{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
         <!--price-->
@@ -266,7 +269,7 @@
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
             <button class="btn-rounded-blue medium" @click="changeDrawer">
-              <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
+              <h5>{{$str(user.tradeType)}} {{tokenName}}</h5>
             </button>
           </v-layout>
         </v-flex>
@@ -279,11 +282,12 @@
             <v-flex md4 text-md-left pl-4>
               <v-layout>
                 <!--token-->
-                <span :class="tokenImg" > </span>
+                <span v-if="isGeneralCoin" :class="tokenImg" > </span>
+                <img v-else class="symbol" :src="user.symbolImgUrl">
                 <div class="ml-3 bold">
-                  <span>{{user.cryptocurrency}}</span>
+                  <span>{{tokenName}}</span>
                 <!-- merchant 정보-->
-                  <div class="color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{user.cryptocurrency}}</div>
+                  <div class="color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{tokenName}}</div>
                 </div>
 
               </v-layout>
@@ -309,10 +313,11 @@
         <v-layout row wrap>
           <v-flex md3 text-md-left pl-4>
             <v-layout >
-              <span :class="tokenImg" > </span>
+              <span v-if="isGeneralCoin" :class="tokenImg" > </span>
+              <img v-else class="symbol" :src="user.symbolImgUrl">
               <span>
-                <span class="ml-3 bold">{{user.cryptocurrency}}</span>
-                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</div>
+                <span class="ml-3 bold">{{tokenName}}</span>
+                <div class="ml-3 color-darkgray medium">{{$str("Available")}}  {{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}}</div>
               </span>
             </v-layout>
           </v-flex>
@@ -348,7 +353,7 @@
               <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
               <!--from input-->
               <div class="p-relative">
-                <input type="number" class="input userInput textRightPlaceholder"
+                <input type="number" class="input fromInput textRightPlaceholder"
                        name="fromValue" v-model="fromValue" @keyup="onNumberCheck('fromValue')"
                        @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
                        v-bind:class="{'warning-border' : warning_fromValue}">
@@ -356,7 +361,7 @@
                 <span class="cs-click-send" @mousedown="fillAll()"
                       v-if="clickFromAll">{{$str("All")}}</span>
                 <!--cryptocurrency placeholder-->
-                <span class="cs-timer" v-else>{{user.cryptocurrency}}</span>
+                <span class="cs-timer" v-else>{{tokenName}}</span>
                 <div class="warning-text-wrapper">
                   <p class="d-none" v-bind:class="{'warning-text' : warning_fromValue}">
                     {{verify_warning_fromValue}}</p>
@@ -502,9 +507,19 @@
                 );
                 return MyBalance.availableAmount
             },
+            isGeneralCoin(){
+                return this.user.tokenName === ""
+            },
+            tokenName(){
+                if(this.isGeneralCoin) {
+                    return this.user.cryptocurrency
+                }else{
+                    return this.item.tokenName;
+                }
+            }
         },
         mounted(){
-            switch (this.user.cryptocurrency) {
+            switch (this.tokenName) {
                 case 'bitcoin':
                 case 'BTC':
                     this.tokenImg = 'sprite-img ic-btc-lg';
@@ -538,7 +553,7 @@
                     //fromvalue 계산해줌
                     temp = this.toValue/ this.user.tradePrice   //coinCount
                     temp -= temp*this.user.fee;             //coinWithoutFee
-                    this.fromValue =this.$fixed(temp, this.user.cryptocurrency);           //소수점 6번째자리까지
+                    this.fromValue =this.$fixed(temp, this.tokenName);           //소수점 6번째자리까지
 
                 }else if(type ==='fromValue'){
                     let tempTovalue = this.fromValue * this.user.tradePrice;
@@ -593,7 +608,7 @@
                 this.toValue = this.$fixed(this.toValue, this.user.currency)
                 let temp = this.toValue/ this.user.tradePrice   //coinCount
                 temp -= temp*this.user.fee;             //coinWithoutFee
-                this.fromValue =this.$fixed(temp, this.user.cryptocurrency);
+                this.fromValue =this.$fixed(temp, this.tokenName);
 
             },
             inputFocus(type){
@@ -630,7 +645,7 @@
             onCheckfromValue(){
                 //All 버튼 없애기.
                 this.clickFromAll = false;
-                this.fromValue = this.$fixed(this.fromValue, this.user.cryptocurrency)
+                this.fromValue = this.$fixed(this.fromValue, this.tokenName)
                 let tempTovalue = this.toValue;
                 if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
@@ -718,6 +733,11 @@
   .userInput{
     max-width: 153px;
   }
+
+  .fromInput{
+    max-width: 153px;
+    padding-right: 36px;
+  }
   .mobileInput{
     height: 36px;
 
@@ -766,5 +786,10 @@
     box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.23);
     padding-top: 24px;
     padding-bottom: 24px;
+  }
+  .symbol{
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
   }
 </style>

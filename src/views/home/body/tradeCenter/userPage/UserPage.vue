@@ -137,7 +137,7 @@
           <!-- chart의 title들 -->
           <v-layout v-if="!isMobile" row wrap>
             <v-flex  md3 text-md-left color-darkgray>
-              {{$str("Coin")}}
+              {{$str("cryptoCurrency")}}
             </v-flex>
             <v-flex  md2 text-md-left color-darkgray>
               {{$str("Available")}}
@@ -169,7 +169,7 @@
           </v-flex>
           <v-layout v-if="!isMobile" row wrap>
             <v-flex  md3 text-md-left color-darkgray>
-              {{$str("Coin")}}
+              {{$str("cryptoCurrency")}}
             </v-flex>
             <v-flex  md2 text-md-left color-darkgray>
               {{$str("Available")}}

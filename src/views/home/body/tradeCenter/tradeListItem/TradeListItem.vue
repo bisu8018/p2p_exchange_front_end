@@ -427,11 +427,11 @@
                                 <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
                                 <!--from input-->
                                 <div class="p-relative">
-                                    <textarea type="number" class="input fromInput textRightPlaceholder"
+                                    <input type="number" class="input fromInput textRightPlaceholder"
                                            name="fromValue" v-model="fromValue" @keyup="onNumberCheck('fromValue')"
                                            @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
                                            v-bind:class="{'warning-border' : warning_fromValue}">
-                                    </textarea>
+
                                     <!--All 버튼-->
                                     <span class="cs-click-send" @mousedown="fillAll()"
                                           v-if="clickFromAll">{{$str("All")}}</span>
@@ -702,9 +702,11 @@
                 this.clickFromAll = false;
                 //차후 마진고려해 수정해야함
                 this.toValue = this.user.maxLimit
+                console.log(this.toValue)
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
+                console.log(this.toValue)
                 /*
                 if(this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;
@@ -715,7 +717,7 @@
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     return false;
                 }
-
+                console.log(this.toValue)
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
                 this.toValue = this.$fixed(this.toValue, this.user.currency)
@@ -834,9 +836,7 @@
     }
     .fromInput{
         max-width: 153px;
-        resize: none;
-        padding-right: 32px;
-        padding-top: 8px;
+        padding-right: 36px;
     }
 
 
