@@ -270,44 +270,42 @@
                     self.modal_cryptocurrency = MainRepository.MyToken.controller().findCustomToken(customToken, 'no').tokenName
                 }
             },
-            onSearch() {
-
+            onUpdate() {
                 MainRepository.MyOrder.updatePage({
-                        searchStartTime : this.modal_start_date,
-                        searchEndTime : this.modal_end_date,
-                        status : this.modal_orderStatus,
-                        orderNo : this.modal_orderNo,
-                        cryptocurrencyType : this.modal_cryptocurrencyType,
-                        cryptocurrency : this.modal_cryptocurrency,
-                        orderType : this.modal_orderType,
-                        tradeType : this.modal_tradeType,
-                        currency : this.modal_currency,
-                   });
+                    searchStartTime : this.modal_start_date,
+                    searchEndTime : this.modal_end_date,
+                    status : this.modal_orderStatus,
+                    orderNo : this.modal_orderNo,
+                    cryptocurrencyType : this.modal_cryptocurrencyType,
+                    cryptocurrency : this.modal_cryptocurrency,
+                    orderType : this.modal_orderType,
+                    tradeType : this.modal_tradeType,
+                    currency : this.modal_currency,
+                });
+            },
+            onSearch() {
+               this.onUpdate();
+
                 this.start_date = this.modal_start_date;
                 this.end_date = this.modal_end_date;
                 this.orderStatus = this.modal_orderStatus;
                 this.orderNo = this.modal_orderNo;
-                this.cryptocurrencyType = this.transTypeFullName(this.modal_cryptocurrencyType);
-                this.cryptocurrency = this.transCryptocurrencyName(this.modal_cryptocurrency);
+                this.cryptocurrencyType = WalletController.findByCrptoCurrency(this.modal_cryptocurrencyType);
+                this.cryptocurrency = MainRepository.Wallet.controller().findByCrptoCurrency(this.modal_cryptocurrency);
                 this.orderType = this.modal_orderType;
                 this.tradeType = this.modal_tradeType;
                 this.currency = this.modal_currency;
                 this.isModal = false;
             },
             onClear() {
-                this.modal_start_date = "";
-                this.modal_end_date = "";
-                this.modal_orderStatus = "";
-                this.modal_orderNo = "";
-                this.modal_cryptocurrencyType = "";
-                this.modal_cryptocurrency = "";
-                this.modal_orderType = "";
-                this.modal_tradeType = "";
-                this.modal_currency = "";
                 this.clear = null;
+                this.clearData();
             },
             onCancel() {
                 this.isModal = false;
+                this.clearData();
+            },
+            clearData() {
                 this.modal_start_date = "";
                 this.modal_end_date = "";
                 this.modal_orderStatus = "";
@@ -360,17 +358,7 @@
                         this.modal_currency = "";
                         break;
                 }
-                MainRepository.MyOrder.updatePage({
-                    searchStartTime : this.modal_start_date,
-                    searchEndTime : this.modal_end_date,
-                    status : this.modal_orderStatus,
-                    orderNo : this.modal_orderNo,
-                    cryptocurrencyType : this.modal_cryptocurrencyType,
-                    cryptocurrency : this.modal_cryptocurrency,
-                    orderType : this.modal_orderType,
-                    tradeType : this.modal_tradeType,
-                    currency : this.modal_currency,
-                });
+                this.onUpdate();
             },
             showDownloadDialog(){
                 this.$eventBus.$emit('showMyOrderDownloadDialog');

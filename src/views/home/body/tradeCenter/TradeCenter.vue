@@ -146,7 +146,7 @@
         methods: {
             customCheck(){
                 if(this.message !== 'customToken'){
-                    MainRepository.MyToken.setCustomTokenNo(-1);
+                    MainRepository.CustomToken.setCustomTokenNo(-1);
                 }
 
             },

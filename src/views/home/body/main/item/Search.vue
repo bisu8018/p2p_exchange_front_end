@@ -128,8 +128,4 @@
         right: 0px;
     }
 
-    .select-option{
-        background: red;
-    }
-
 </style>

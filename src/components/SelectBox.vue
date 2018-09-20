@@ -1,16 +1,22 @@
 <template>
     <v-layout wrap align-center>
 
-        <!--토큰 리스트 로딩-->
+        <!--token list loading indicator-->
         <div class="p-relative w-full"
              v-if="selectBoxType === 'customToken' && customTokens.length === 0 || selectBoxType === 'generalToken'  && generalTokens.length === 0">
             <input type="text" class="input" placeholder="Loading . . ." readonly/>
             <v-progress-circular indeterminate class="color-blue progress-circular-selectbox"></v-progress-circular>
         </div>
+
+        <!--select box-->
         <div class="p-relative  w-full" v-else @click="onShow()">
+
+            <!--body-->
             <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType" :class="[selectBoxType, showOptions ? 'comp-selectbox-active' : '']">
                 {{ selectedValue }}
             </div>
+
+            <!--scroll-->
             <div class="p-relative">
                 <ul class="o-none select-option-list"
                     :class="{'scroll-out' : showOptions , 'scroll-up' : !showOptions && showOptions !== ''  && !showInit}">
@@ -19,13 +25,12 @@
                         @click="onSelect(data)"
                         v-if="selectBoxType !== 'customToken' && selectBoxType !== 'generalToken' ? getCondition !== data.code : true"
                         :class="selected === (selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenNo : data.code) ? 'selected-option' : ''">
-
-                        {{ selectBoxType === 'customToken' || selectBoxType === 'generalToken' ?
-                        data.tokenName : data.value }}
-
+                        {{ selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenName : data.value }}
                     </li>
                 </ul>
             </div>
+
+            <!--arrow icon-->
             <i class="material-icons comp-selectbox-icon"
                :class="{'arrow-spin-left' : showOptions}">keyboard_arrow_down</i>
         </div>
@@ -126,7 +131,7 @@
         },
         methods: {
 
-            //  VUEX 초기화
+            //  초기화
             init() {
                 switch (this.selectBoxType) {
                     case 'country' :
@@ -148,7 +153,7 @@
                         break;
 
                     case 'customToken' :
-                        MainRepository.MyToken.setCustomTokenList(() => {
+                        MainRepository.CustomToken.setCustomTokenList(() => {
                             this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
                             this.selected = this.getList[0].tokenNo;
                             this.selectedValue = this.getList[0].tokenName;

@@ -667,7 +667,7 @@
                 &&( this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
                     //customtokenTrade일때 지갑에 없으면.
                     if(this.haveNoCustomWallet()){
-                        MainRepository.MyToken.generateTokenWallet(MainRepository.MyToken.getCustomTokenNo(),()=>{
+                        MainRepository.Wallet.generateTokenWallet(MainRepository.CustomToken.getCustomTokenNo(),()=>{
                             this.createOrder();
                         })
                     }

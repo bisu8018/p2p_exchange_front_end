@@ -5,7 +5,7 @@ import MainRepository from "../../vuex/MainRepository"
 export default {
     tradeView: {
         tradePage: function (data: any, callback: any) {
-            let tokenNo = MainRepository.MyToken.getCustomTokenNo();
+            let tokenNo = MainRepository.CustomToken.getCustomTokenNo();
             let url = 'trade'
             // CustomTokenTrade 일경우
             if(tokenNo !== -1){

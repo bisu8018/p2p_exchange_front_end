@@ -167,7 +167,7 @@
             },
             showDeposit(){
                 if(this.item.walletAddress ===""){
-                    MainRepository.MyToken.generateTokenWallet(this.item.tokenNo,()=>{
+                    MainRepository.Wallet.generateTokenWallet(this.item.tokenNo,()=>{
                         this.$eventBus.$emit('showDepositDialog', this.tokenName);
                     })
                 }

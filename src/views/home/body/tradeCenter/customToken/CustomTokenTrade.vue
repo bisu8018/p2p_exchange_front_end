@@ -53,7 +53,7 @@
             let param = currentURL.split('?');
             this.tokenNo = param[1];
             //해당Custom Ad를 뿌려주기 위해 customTokenNo를 vuex에 set 해주기.
-            MainRepository.MyToken.setCustomTokenNo(this.tokenNo);
+            MainRepository.CustomToken.setCustomTokenNo(this.tokenNo);
             //customToken들 list 불러오기
             MainRepository.TradeView.loadCustomTokenList(()=>{
               this.selectedCustomToken = MainRepository.MyToken.controller().findCustomToken(Number(this.tokenNo), 'no').tokenName
@@ -70,7 +70,7 @@
                 this.selectedCustomToken = item.tokenName;
                 this.tokenNo = item.tokenNo;
 
-                MainRepository.MyToken.setCustomTokenNo(item.tokenNo);
+                MainRepository.CustomToken.setCustomTokenNo(item.tokenNo);
                 MainRepository.TradeView.load(()=>{});
                 //계속 url을 업데이트 쳐줘야하므로 router push를 함.
                 MainRepository.router().goCustomTokenTrade(item.tokenNo);

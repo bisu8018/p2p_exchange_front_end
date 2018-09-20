@@ -118,7 +118,7 @@ export default class TradeItem {
 
             case 'custom':
                 return MainRepository.MyToken.controller().findCustomToken(
-                    Number(MainRepository.MyToken.getCustomTokenNo()), 'no').tokenName
+                    Number(MainRepository.CustomToken.getCustomTokenNo()), 'no').tokenName
             default:
                 return cryptocurrency
         }

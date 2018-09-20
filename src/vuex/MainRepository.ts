@@ -337,7 +337,17 @@ export default {
         },
         getWalletHistories() {
             return walletController.getWalletHistoryList();
-        }
+        },
+        generateTokenWallet: function(tokenNo : number, callback: any){
+            //지갑생성
+            customTokenService.generateTokenWallet(tokenNo, (result) => {
+                //customtoken지갑 load
+                instance.Wallet.loadCustomTokenWallets(()=>{
+                    //deposit 혹은 order로 이동
+                    callback(result);
+                })
+            })
+        },
 
     },
     MyPage: {
@@ -1014,7 +1024,7 @@ export default {
                 currency: '',
                 page: '1',
                 size: '10',
-            })
+            });
             //pagination 초기화
             paginationController.setPage(1);
             paginationController.setTotalCount(1);
@@ -1025,16 +1035,13 @@ export default {
             )
         },
         updatePage(data) {
-            //pagination이 아닌 filter의 값 변경시
+            //pagination 아닌, filter 값 변경시
             if (data.page === undefined) {
                 myTradeController.updateMyOrderFilter({page: 1});
-                instance.Pagination.setPage(1,);
+                instance.Pagination.setPage(1,0,'');
             }
             myTradeController.updateMyOrderFilter(data);
-
-
-            this.load(() => {
-            });
+            this.load(() => {});
         },
         getPage() {
             return myTradeController.getMyOrderItems();
@@ -1279,6 +1286,8 @@ export default {
                 }
             })
         },
+    },
+    CustomToken: {
         setCustomTokenList(callback: any){
             AdService.getCustomTokenList((data)=>{
                 let result = data;
@@ -1297,16 +1306,6 @@ export default {
         },
         getCustomTokenNo(){
             return customTokenController.getCustomTokenNo();
-        },
-        generateTokenWallet: function(tokenNo : number, callback: any){
-            //지갑생성
-            customTokenService.generateTokenWallet(tokenNo, (result) => {
-                //customtoken지갑 load
-                instance.Wallet.loadCustomTokenWallets(()=>{
-                    //deposit 혹은 order로 이동
-                    callback(result);
-                })
-            })
         },
     },
     GeneralToken: {
