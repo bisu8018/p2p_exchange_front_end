@@ -427,10 +427,11 @@
                                 <i class="material-icons color-darkgray swapIcon">swap_horiz</i>
                                 <!--from input-->
                                 <div class="p-relative">
-                                    <input type="number" class="input userInput textRightPlaceholder"
+                                    <textarea type="number" class="input fromInput textRightPlaceholder"
                                            name="fromValue" v-model="fromValue" @keyup="onNumberCheck('fromValue')"
                                            @focus="inputFocus('fromValue')" @blur="onCheckfromValue"
                                            v-bind:class="{'warning-border' : warning_fromValue}">
+                                    </textarea>
                                     <!--All 버튼-->
                                     <span class="cs-click-send" @mousedown="fillAll()"
                                           v-if="clickFromAll">{{$str("All")}}</span>
@@ -830,6 +831,12 @@
 
     .userInput {
         max-width: 153px;
+    }
+    .fromInput{
+        max-width: 153px;
+        resize: none;
+        padding-right: 32px;
+        padding-top: 8px;
     }
 
 

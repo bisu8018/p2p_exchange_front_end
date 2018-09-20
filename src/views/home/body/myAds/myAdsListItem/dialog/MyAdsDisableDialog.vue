@@ -10,15 +10,17 @@
     </div>
     <div class="mb-2 text-xs-left">
       <v-layout align-center>
-        <div class="sprite-img ic-warning"></div>
-        <h5 class="ml-2">{{$str("Are you sure to delete this ad?")}}</h5>
+        <div class="sprite-img ic-warning img-width"></div>
+        <h5 class="pl-2">
+          {{$str("If you press disable, your Ad would be not appeared on Ads list. Are you sure to disable?")}}
+        </h5>
       </v-layout>
     </div>
     <div class="text-xs-right">
       <button class="btn-rounded-white text-white-hover" @click="onClose" >
         <h6>{{$str("cancel")}}</h6>
       </button>
-      <button class="btn-rounded-blue btn-blue-hover" @click="deleteAd">
+      <button class="btn-rounded-blue btn-blue-hover" @click="disableAd">
         <h6>{{$str("confirm")}}</h6>
       </button>
     </div>
@@ -30,7 +32,7 @@
     import MainRepository from "../../../../../../vuex/MainRepository";
     import Vue from 'vue';
     export default {
-        name: "DeleteDialog",
+        name: "MyAdsDisableDialog",
         props :{
             adNo : {
                 type: Number,
@@ -42,7 +44,7 @@
             show : false,
         }),
         created(){
-            this.$eventBus.$on('showMyAdsDeleteDialog', (adNo) => {
+            this.$eventBus.$on('showMyAdsDisableDialog', (adNo) => {
                 if(this.adNo === adNo){
                     this.show = true;
                 }
@@ -52,24 +54,27 @@
             onClose: function () {
                 this.show = false;
             },
-            deleteAd(){
+            disableAd(){
                 let self = this;
-                AdService.deleteAD({
+                AdService.disableAD({
                     email : MainRepository.MyInfo.getUserInfo().email,
                     adNo : this.adNo
-                },function (result) {
+                },function () {
                     self.onClose();
                     MainRepository.MyAds.load(() => {});
-                    Vue.prototype.$eventBus.$emit('showAlert', 2106);
+                    Vue.prototype.$eventBus.$emit('showAlert', 2104);
+
                 })
             }
         },
-
     }
 </script>
 
 <style scoped>
   .cs-flex {
     display: flex;
+  }
+  .img-width{
+    width: 36px;
   }
 </style>

@@ -1309,6 +1309,12 @@ export default {
         getCustomTokenNo() {
             return customTokenController.getCustomTokenNo();
         },
+        setSelectedCustomToken(token : CustomToken){
+            customTokenController.setSelectedCustomToken(token);
+        },
+        getSelectedCustomToken(){
+            return customTokenController.getSelectedCustomToken();
+        }
     },
     GeneralToken: {
         controller() {

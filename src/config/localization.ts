@@ -3967,9 +3967,10 @@ const strings = new Map([
         HK: '請輸入底限額以下的金額'
     }],
 
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['If you press disable, your Ad would be not appeared on Ads list. Are you sure to disable?', {
+        KOR: '비활성을 누르면. 당신의 광고는 거래소 광고에서 사라집니다. 비활성 하시겠습니까?',
+        ENG: 'If you press disable, your Ad would be not appeared on Ads list." +\n' +
+        '            "Are you sure to disable?',
         CN: '',
         HK: ''
     }],

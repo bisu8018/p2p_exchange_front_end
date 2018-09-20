@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import {abString} from "@/config/localization";
 import {CurrencyType} from "@/vuex/model/CurrencyType";
 import Clipboard from 'v-clipboard'
+import MainRepository from "@/vuex/MainRepository";
 
 
 export default (Vue: any) => {
@@ -80,6 +81,11 @@ export default (Vue: any) => {
         let fixedDigits = 0;
         //if (String(value).indexOf(".")==-1) { return value }
 
+        //customtoken일때
+        if(MainRepository.CustomToken.getCustomTokenNo() !== -1){
+            //fixedDigits = MainRepository.CustomToken.getSelectedCustomToken().decimalCount;
+            fixedDigits = 5;
+        }
         switch (currency) {
             case CurrencyType.CNY: fixedDigits = 0; break;
             case CurrencyType.KRW: fixedDigits = 0; break;
@@ -92,6 +98,7 @@ export default (Vue: any) => {
             case 'ETH' :
             case 'ethereum': fixedDigits = 6; break;
         }
+
         let fixedValue = Math.floor(value*Math.pow(10, fixedDigits))/Math.pow(10, fixedDigits);
         //fixedValue = fixedValue.replace(/(0+$)/, "");
         return String(fixedValue.toFixed(fixedDigits));

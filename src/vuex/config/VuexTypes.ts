@@ -27,7 +27,7 @@ export enum VuexTypes {
 
 
     //======================================
-    //              TradeView
+    //              TradeView(Tradecenter)
     // =====================================
     SET_SELECTTRADEFILTER_DATA = 'trade/SET_SELECTTRADEVIEW_DATA',
     UPDATE_SELECTTRADEVIEW_DATA = 'trade/UPDATE_SELECTTRADEVIEW_DATA',
@@ -124,6 +124,7 @@ export enum VuexTypes {
     SET_MY_TOKEN = 'customToken/SET_MY_TOKEN',
     SET_CUSTOMTRADETOKEN_LIST = 'customToken/SET_CUSTOMTRADETOKEN_LIST',    //CustomTrade시 tokenNo 저장해 두기 위함
     SET_CUSTOMTOKEN_NUMBER = 'customToken/SET_CUSTOMTOKEN_NUMBER',
+    SET_SELECTED_CUSTOMTOKEN = 'customToken/SET_SELECTED_CUSTOMTOKEN',
 
 
     //======================================
