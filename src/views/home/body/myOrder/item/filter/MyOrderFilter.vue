@@ -56,9 +56,14 @@
 
             //showDateChip 처리!!
             showPlaceholder() {
-                return (!this.showDateChip && this.status === '' && this.orderNo === '' &&
-                    this.cryptocurrency === '' && this.cryptocurrencyType === '' &&
-                    this.orderType === '' && this.tradeType === '' && this.currency === '')
+                for(let key in this.chipData){
+                    if(this.chipData[key] !== ''){
+                        return false;
+                        break;
+                    }else{
+                        return true;
+                    }
+                }
             }
         },
         methods: {
