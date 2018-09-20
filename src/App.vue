@@ -2180,6 +2180,10 @@
         background: url('assets/img/landing_img_first.png');
         background-position: 50% 50%;
         padding-top: 170px;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
 
     .landing-img-second {
@@ -2188,6 +2192,10 @@
         background: url('assets/img/landing_img_second.png');
         background-position: 50% 50%;
         padding-top: 150px;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
 
     .landing-img-third {
@@ -2196,6 +2204,10 @@
         background: url('assets/img/landing_img_third.png');
         background-position: 50% 50%;
         padding-top: 150px;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
 
     .landing-subject {
