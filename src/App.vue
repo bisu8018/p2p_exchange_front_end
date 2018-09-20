@@ -2077,7 +2077,7 @@
 
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         .otherInfo-body {
             display: block;
         }

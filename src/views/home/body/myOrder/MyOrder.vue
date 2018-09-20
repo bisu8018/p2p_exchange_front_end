@@ -57,8 +57,8 @@
     import ListFilter from '@/components/ListFilter.vue';
     import MainRepository from "../../../../vuex/MainRepository";
     import Pagination from '@/components/Pagination.vue';
-    import MyOrderListItem from './MyOrderListItem/MyOrderListItem';
-    import MyOrderFilter from './MyOrderListItem/MyOrderFilter';
+    import MyOrderListItem from './item/MyOrderListItem';
+    import MyOrderFilter from './item/filter/MyOrderFilter';
     import {abUtils} from '@/common/utils';
 
     export default {

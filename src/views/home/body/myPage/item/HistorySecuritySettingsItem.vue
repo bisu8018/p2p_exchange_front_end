@@ -88,7 +88,7 @@
         display: none;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         .label-mobile-history {
             color: #9294a6;
             display: inline-block;

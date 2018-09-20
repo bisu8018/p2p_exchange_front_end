@@ -109,7 +109,7 @@ export default {
         instance = this;
 
         // 모바일 체크 -> Vuex
-        if (document.documentElement.clientWidth < 768) {
+        if (document.documentElement.clientWidth < 959) {
             this.State.controller().setMobile(true);
         } else {
             this.State.controller().setMobile(false);
@@ -959,6 +959,7 @@ export default {
                 orderNo: myTradeController.getMyOrderFilter().orderNo,
                 cryptocurrencyType: myTradeController.getMyOrderFilter().cryptocurrencyType,
                 cryptocurrency: myTradeController.getMyOrderFilter().cryptocurrency,
+                tokenNo: myTradeController.getMyOrderFilter().tokenNo,
                 orderType: myTradeController.getMyOrderFilter().orderType,
                 tradeType: myTradeController.getMyOrderFilter().tradeType,
                 currency: myTradeController.getMyOrderFilter().currency,

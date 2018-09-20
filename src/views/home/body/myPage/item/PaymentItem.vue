@@ -147,7 +147,7 @@
 
 
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         .payment-item_wrapper {
             display: block;
         }

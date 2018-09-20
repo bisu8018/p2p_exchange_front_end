@@ -24,8 +24,8 @@
                         v-for="data in getList"
                         @click="onSelect(data)"
                         v-if="selectBoxType !== 'customToken' && selectBoxType !== 'generalToken' ? getCondition !== data.code : true"
-                        :class="selected === (selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenNo : data.code) ? 'selected-option' : ''">
-                        {{ selectBoxType === 'customToken' || selectBoxType === 'generalToken' ? data.tokenName : data.value }}
+                        :class="selected === (data.tokenNo || data.code) ? 'selected-option' : ''">
+                        {{ data.tokenName || data.value }}
                     </li>
                 </ul>
             </div>
@@ -255,6 +255,4 @@
     }
 </script>
 
-<style>
-
-</style>
+<style></style>

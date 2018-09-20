@@ -220,7 +220,7 @@
 <script>
     import Vue from 'vue';
     import Avatar from '@/components/Avatar.vue';
-    import MyOrderSimpleItem from './body/myOrder/MyOrderListItem/MyOrderSimpleItem'
+    import MyOrderSimpleItem from './body/myOrder/item/MyOrderSimpleItem'
     import axios from 'axios'
 
     import {

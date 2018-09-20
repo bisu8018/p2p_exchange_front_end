@@ -42,7 +42,7 @@
         color: #fff !important;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         .btn-mypage {
             font-size: 12px;
             letter-spacing: 0;

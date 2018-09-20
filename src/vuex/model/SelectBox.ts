@@ -26,6 +26,23 @@ export default {
         ];
         return signupCountries;
     },
+    orderStatus() {
+      const orderStatus =[
+          {value: Vue.prototype.$str("unpaid"), code: 'unpaid'},
+          {value: Vue.prototype.$str("paid"), code: 'paid'},
+          {value: Vue.prototype.$str("canceled"), code: 'cancelled'},
+          {value: Vue.prototype.$str("complete"), code: 'complete'},
+          {value: Vue.prototype.$str("complaining"), code: 'complaining'},
+      ]  ;
+        return orderStatus;
+    },
+    orderTypes() {
+        const orderTypes =[
+            {value: Vue.prototype.$str("general"), code: 'general'},
+            {value: Vue.prototype.$str("block"), code: 'block'},
+        ];
+        return orderTypes;
+    },
     countries() {
         const countries = [
             {value: Vue.prototype.$str('allCountries'), code: 'ALL'},
@@ -55,19 +72,19 @@ export default {
             {code: 'USD', value: 'USD'},
             {code: 'SGD', value: 'SGD'},
             {code: 'INR', value: 'INR'},
-            {code: 'VND', value: 'INR'},
-            {code: 'CAD', value: 'INR'},
+            {code: 'VND', value: 'VND'},
+            {code: 'CAD', value: 'CAD'},
             //  {code : 'AUD'},
-            {code: 'KRW', value: 'INR'},
-            {code: 'CHF', value: 'INR'},
-            {code: 'TWD', value: 'INR'},
-            {code: 'RUB', value: 'INR'},
-            {code: 'GBP', value: 'INR'},
-            {code: 'HKD', value: 'INR'},
-            {code: 'EUR', value: 'INR'},
-            {code: 'NGN', value: 'INR'},
-            {code: 'IDR', value: 'INR'},
-            {code: 'PHP', value: 'INR'},
+            {code: 'KRW', value: 'KRW'},
+            {code: 'CHF', value: 'CHF'},
+            {code: 'TWD', value: 'TWD'},
+            {code: 'RUB', value: 'RUB'},
+            {code: 'GBP', value: 'GBP'},
+            {code: 'HKD', value: 'HKD'},
+            {code: 'EUR', value: 'EUR'},
+            {code: 'NGN', value: 'NGN'},
+            {code: 'IDR', value: 'IDR'},
+            {code: 'PHP', value: 'PHP'},
             // {code : 'KHR'},
         ];
         return currencies;
@@ -158,6 +175,12 @@ export default {
 
             case 'priceType' :
                 return this.priceTypes();
+
+            case 'orderStatus' :
+                return this.orderStatus();
+
+            case 'orderType' :
+                return this.orderTypes();
         }
     },
 }

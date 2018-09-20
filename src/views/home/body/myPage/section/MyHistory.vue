@@ -224,7 +224,7 @@
         text-align: right;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         .mobile-hide {
             overflow: hidden;
             display: block;
