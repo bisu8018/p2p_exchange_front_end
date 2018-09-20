@@ -10,7 +10,7 @@
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer" @click.stop="onModal">filter_list</i>
 
                 <!--  chips  -->
-                <my-order-chips :chipData="chipData" @delete="chipDelete"></my-order-chips>
+                <my-order-chips :chipData="chipData" @delete="onPost"></my-order-chips>
 
                 <!--  filter  -->
                 <my-order-content :chipData="chipData" :onModal="isModal" @closeModal="closeModal" @update="onUpdate"></my-order-content>
@@ -38,6 +38,7 @@
     import MyOrderDownloadDialog from '../dialog/MyOrderDownloadDialog'
     import MyOrderContent from './MyOrderContent.vue'
     import MyOrderChips from './MyOrderChips.vue'
+    import MyOrderChipsModel from "../../../../../../vuex/model/MyOrderChips";
 
     export default Vue.extend({
         name: "myOrder-filter",
@@ -46,18 +47,7 @@
         },
         data: () => ({
             isModal: false,
-            chipData: {
-                start_date: "",
-                end_date: "",
-                orderStatus: "",
-                orderNo: "",
-                cryptocurrencyType: "",
-                cryptocurrency: "",
-                tokenNo: '',
-                orderType: "",
-                tradeType: "",
-                currency: '',
-            },
+            chipData: new MyOrderChipsModel(''),
         }),
         computed: {
             isMobile() {
@@ -66,7 +56,7 @@
 
             //showDateChip 처리!!
             showPlaceholder() {
-                return (!this.showDateChip && this.orderStatus === '' && this.orderNo === '' &&
+                return (!this.showDateChip && this.status === '' && this.orderNo === '' &&
                     this.cryptocurrency === '' && this.cryptocurrencyType === '' &&
                     this.orderType === '' && this.tradeType === '' && this.currency === '')
             }
@@ -91,18 +81,10 @@
                         _cryptocurrencyType = transCryptocurrencyName(data.cryptocurrency);
                     }
                 }
-
-                this.chipData.searchStartTime = data.start_date;
-                this.chipData.searchEndTime = data.end_date;
-                this.chipData.status = data.orderStatus;
-                this.chipData.orderNo = data.orderNo;
-                this.chipData.cryptocurrencyType = data.cryptocurrencyType;
-                this.chipData.cryptocurrency = _cryptocurrencyType;
-                this.chipData.tokenNo = data.tokenNo;
-                this.chipData.orderType = data.orderType;
-                this.chipData.tradeType = data.tradeType;
-                this.chipData.currency = data.currency;
-
+                this.onPost(data)
+            },
+            onPost(data){
+                this.chipData.update(data);
                 MainRepository.MyOrder.updatePage(this.chipData);
             },
             showDownloadDialog() {
@@ -110,35 +92,6 @@
             },
             myOrderDownload() {
                 MainRepository.MyOrder.getMyOrderDownload();
-            },
-            // 칩 x버튼 눌렀을 시 삭제
-            chipDelete(data) {
-                switch (data) {
-                    case 'date':
-                        this.chipData.start_date = '';
-                        this.chipData.end_date = '';
-                        break;
-                    case 'orderStatus':
-                        this.chipData.orderStatus = '';
-                        break;
-                    case 'orderNo':
-                        this.chipData.orderNo = '';
-                        break;
-                    case 'cryptocurrencyType':
-                        this.chipData.cryptocurrencyType = '';
-                        this.chipData.cryptocurrency = '';
-                        break;
-                    case 'orderType':
-                        this.chipData.orderType = '';
-                        break;
-                    case 'tradeType':
-                        this.chipData.tradeType = '';
-                        break;
-                    case 'currency':
-                        this.chipData.currency = '';
-                        break;
-                }
-                MainRepository.MyOrder.updatePage(this.chipData);
             },
         },
 

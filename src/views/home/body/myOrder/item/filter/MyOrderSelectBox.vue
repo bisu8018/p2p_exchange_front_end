@@ -50,7 +50,7 @@
             countries: SelectBox.countries(),
             currencies: SelectBox.currencies(),
             tradeTypes: SelectBox.tradeTypes(),
-            orderStatus: SelectBox.orderStatus(),
+            status: SelectBox.status(),
             orderTypes: SelectBox.orderTypes(),
             cryptocurrencyTypes: SelectBox.cryptocurrencyTypes(),
             customTokens: [],
@@ -74,8 +74,8 @@
                     case 'cryptocurrencyType' :
                         return this.cryptocurrencyTypes;
 
-                    case 'orderStatus' :
-                        return this.orderStatus;
+                    case 'status' :
+                        return this.status;
 
                     case 'orderType' :
                         return this.orderTypes;
@@ -109,10 +109,17 @@
                         this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
                     });
                 }
-
                 if(this.filterValue !== '' && this.filterValue) {
                     this.selected = this.filterValue;
-                    this.selectedValue = SelectBox.findValue(this.selectBoxType, this.filterValue);
+
+                    if(this.selectBoxType === 'customToken' ){
+                        this.selectedValue = MainRepository.CustomToken.controller().findCustomToken(this.filterValue, 'no').tokenName;
+                    }else if(this.selectBoxType === 'generalToken'){
+                        this.selectedValue = MainRepository.GeneralToken.controller().findGeneralToken(this.filterValue, 'no').tokenName;
+                    }else{
+                        this.selectedValue = SelectBox.findValue(this.selectBoxType, this.filterValue);
+                    }
+
                 }
             },
             //선택 시
@@ -125,7 +132,7 @@
                     this.selectedValue = data.value;
                 }
 
-                this.$emit(this.selectBoxType, this.selected);
+                this.$emit(this.selectBoxType, [this.selectBoxType,this.selected]);
             },
             //영역 밖 클릭시 스크롤 업
             hideOnClickOutside(event) {

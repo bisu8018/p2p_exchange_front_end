@@ -1290,6 +1290,9 @@ export default {
         },
     },
     CustomToken: {
+        controller: function () {
+            return customTokenController;
+        },
         setCustomTokenList(callback: any) {
             AdService.getCustomTokenList((data) => {
                 let result = data;

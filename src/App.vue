@@ -1216,7 +1216,11 @@
     /* 디스플레이 관련 */
 
     .d-none {
-        display: none;
+        display: none ;
+    }
+
+    .d-none-important {
+        display: none !important;
     }
 
     .mobile-hide {

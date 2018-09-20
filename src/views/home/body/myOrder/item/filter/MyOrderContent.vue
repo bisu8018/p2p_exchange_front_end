@@ -4,50 +4,50 @@
         <!--  start date  -->
         <div class="text-xs-left text-black mb-2">{{$str("start")}} {{$str("date")}}</div>
         <div class="mb-4">
-            <date-picker :classname='startdateclass' v-on:date="onStartDate" :clear="clear"
+            <date-picker :classname='startdateclass' v-on:date="onStartDate" :clear="clear" :propsDate="chipValues.searchStartTime"
                          v-on:switch="clear = 'on'"></date-picker>
         </div>
 
         <!--  end date  -->
         <div class="text-xs-left text-black mb-2">{{$str("end")}} {{$str("date")}}</div>
         <div class="mb-4">
-            <date-picker :classname="enddateclass" v-on:date="onEndDate" :clear="clear"
+            <date-picker :classname="enddateclass" v-on:date="onEndDate" :clear="clear" :propsDate="chipValues.searchEndTime"
                          v-on:switch="clear = 'on'"></date-picker>
         </div>
 
         <!--  주문 상태  -->
         <div class="text-xs-left text-black mb-2">{{$str("orderStatus")}}</div>
         <div class="mb-4 p-relative">
-            <my-order-select-box :selectBoxType="'orderStatus'" :filterValue="orderStatus"
-                                 v-on:orderStatus="setOrderStatus"></my-order-select-box>
+            <my-order-select-box :selectBoxType="'status'" :filterValue="chipValues.status"
+                                 v-on:status="setData"></my-order-select-box>
         </div>
 
         <!--  주문 번호  -->
         <div class="text-xs-left text-black mb-2">{{$str("orderNo")}}</div>
         <div class="mb-4">
             <input type="text" class="input" :placeholder='$str("orderNoPlaceholder")' @keyup="onCheckNum()"
-                   v-model="orderNo">
+                   v-model="chipValues.orderNo">
         </div>
 
         <!--  암호화폐 타입  -->
         <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrencyType")}}</div>
         <div class="mb-4 p-relative">
-            <my-order-select-box :selectBoxType="'cryptocurrencyType'" :filterValue="cryptocurrencyType"
-                                 v-on:cryptocurrencyType="setCryptocurrencyType"></my-order-select-box>
+            <my-order-select-box :selectBoxType="'cryptocurrencyType'" :filterValue="chipValues.cryptocurrencyType"
+                                 v-on:cryptocurrencyType="setData"></my-order-select-box>
         </div>
 
         <!--  암호화폐 종류  -->
         <div class="text-xs-left text-black mb-2">{{$str("cryptoCurrency")}}</div>
         <div class="mb-4 p-relative">
             <my-order-select-box :class="{'input-disabled2' : true}"
-                                 v-if="!cryptocurrencyType"></my-order-select-box>
+                                 v-if="!chipValues.cryptocurrencyType"></my-order-select-box>
             <div v-else>
-                <my-order-select-box :selectBoxType="'generalToken'" v-if="cryptocurrencyType === 'general'"
-                                     @generalToken="selectToken"
-                                     :filterValue="cryptocurrency"></my-order-select-box>
+                <my-order-select-box :selectBoxType="'generalToken'" v-if="chipValues.cryptocurrencyType === 'general'"
+                                     @generalToken="setData"
+                                     :filterValue="chipValues.tokenNo"></my-order-select-box>
                 <div v-else>
                     <my-order-select-box :selectBoxType="'customToken'"
-                                         @customToken="selectToken" :filterValue="tokenNo"></my-order-select-box>
+                                         @customToken="setData" :filterValue="chipValues.tokenNo"></my-order-select-box>
                 </div>
             </div>
         </div>
@@ -55,22 +55,22 @@
         <!--  주문 종류  -->
         <div class="text-xs-left text-black mb-2">{{$str("orderType")}}</div>
         <div class="mb-4 p-relative">
-            <my-order-select-box :selectBoxType="'orderType'" :filterValue="orderType"
-                                 v-on:orderType="setOrderType"></my-order-select-box>
+            <my-order-select-box :selectBoxType="'orderType'" :filterValue="chipValues.orderType"
+                                 v-on:orderType="setData"></my-order-select-box>
         </div>
 
         <!--  거래 종류  -->
         <div class="text-xs-left text-black mb-2">{{$str("buySell")}}</div>
         <div class="mb-4 p-relative">
-            <my-order-select-box :selectBoxType="'tradeType'" :filterValue="tradeType"
-                                 v-on:tradeType="setTradeType"></my-order-select-box>
+            <my-order-select-box :selectBoxType="'tradeType'" :filterValue="chipValues.tradeType"
+                                 v-on:tradeType="setData"></my-order-select-box>
         </div>
 
         <!--  화폐 종류  -->
         <div class="text-xs-left text-black mb-2">{{$str("currency")}}</div>
         <div class="mb-4 p-relative">
-            <my-order-select-box :selectBoxType="'currency'" :filterValue="currency"
-                                 v-on:currency="setCurrency"></my-order-select-box>
+            <my-order-select-box :selectBoxType="'currency'" :filterValue="chipValues.currency"
+                                 v-on:currency="setData"></my-order-select-box>
         </div>
 
         <!--   cancel, search 버튼  -->
@@ -95,6 +95,7 @@
     import {abUtils} from "@/common/utils";
     import Vue from 'vue';
     import MainRepository from "../../../../../../vuex/MainRepository";
+    import MyOrderChipsModel from "../../../../../../vuex/model/MyOrderChips";
 
     export default Vue.extend({
         name: "my-order-content",
@@ -107,20 +108,10 @@
         },
         data: () => ({
             clear: 'on',
-
             startdateclass: 'startdateclass',
             enddateclass: 'enddateclass',
-
-            start_date: "",
-            end_date: "",
-            orderStatus: "",
-            orderNo: "",
-            cryptocurrencyType: "",
-            cryptocurrency: "",
-            tokenNo: '',
-            orderType: "",
-            tradeType: "",
-            currency: '',
+            chipValues: new MyOrderChipsModel(''),
+            orderNo: ''
         }),
         computed: {},
         created() {
@@ -134,92 +125,68 @@
             });
         },
         beforeDestroy() {
-            this.clearData();
             this.$eventBus.$off('clickEvent', (event) => {
             });
         },
         methods: {
             init() {
-                this.start_date = this.chipData.start_date;
-                this.end_date = this.chipData.end_date;
-                this.orderStatus = this.chipData.orderStatus;
-                this.orderNo = this.chipData.orderNo;
-                this.cryptocurrencyType = this.chipData.cryptocurrencyType;
-                this.cryptocurrency = this.chipData.cryptocurrency;
-                this.tokenNo = this.chipData.tokenNo;
-                this.orderType = this.chipData.orderType;
-                this.tradeType = this.chipData.tradeType;
-                this.currency = this.chipData.currency;
+                this.chipValues.update(this.chipData);
             },
             onStartDate(value) {
-                this.start_date = value;
+                this.setData(['searchStartTime', value]);
+                return this.chipValues.searchStartTime;
             },
             onEndDate(value) {
-                this.end_date = value;
+                this.setData(['searchEndTime', value]);
+                return this.chipValues.searchEndTime;
             },
-            clearData() {
-                this.start_date = "";
-                this.end_date = "";
-                this.orderStatus = "";
-                this.orderNo = "";
-                this.cryptocurrencyType = "";
-                this.cryptocurrency = "";
-                this.tokenNo = '';
-                this.orderType = "";
-                this.tradeType = "";
-                this.currency = "";
-            },
-            setCryptocurrencyType(code) {
-                this.cryptocurrencyType = code;
-            },
-            selectToken(tokenNo) {
-                if (tokenNo) {
-                    let _tokenName;
-                    if (this.cryptocurrencyType === 'general') {
-                        _tokenName = MainRepository.GeneralToken.controller().findGeneralToken(tokenNo, 'no').tokenName;
-                    } else {
-                        _tokenName = MainRepository.MyToken.controller().findCustomToken(tokenNo, 'no').tokenName;
-                    }
-                    this.cryptocurrency = _tokenName;
-                    this.tokenNo = tokenNo;
-                }
-            },
-            setTradeType(code) {
-                this.tradeType = code;
-            },
-            setCurrency(code) {
-                this.currency = code;
-            },
-            setOrderStatus(code) {
-                this.orderStatus = code;
-            },
-            setOrderType(code) {
-                this.orderType = code;
-            },
-            // 자연수 체크
             onCheckNum() {
-                if (!abUtils.isNaturalNumber(this.orderNo)) {
-                    this.orderNo = "";
+                // 자연수 체크
+                if (!abUtils.isNaturalNumber(this.chipValues.orderNo)) {
+                    this.chipValues.orderNo = "";
+                } else {
+                    this.setData('orderNo', this.chipValues.orderNo);
                 }
+            },
+            setData(emitData) {
+                let _data = {};
+                let index = emitData[0];
+                let data = emitData[1];
+                switch (index) {
+                    case 'customToken':
+                        _data = {
+                            cryptocurrency: 'custom',
+                            tokenNo: data
+                        };
+                        break;
+                    case 'generalToken' :
+                        let _tokenName = MainRepository.GeneralToken.controller().findGeneralToken(data, 'no').tokenName;
+                        _data = {
+                            cryptocurrency: _tokenName,
+                            tokenNo: data
+                        };
+                        break;
+                    case 'cryptocurrencyType' :
+                        _data = {
+                            cryptocurrencyType: data,
+                            cryptocurrency: '',
+                            tokenNo: ''
+                        };
+                        break;
+                    default :
+                        _data[index] = data;
+                        break;
+
+                }
+
+                this.chipValues.update(_data);
             },
             onClear() {
                 this.clear = null;
-                this.clearData();
+                this.chipValues.clear();
             },
             onSearch() {
-                let data = {
-                    start_date: this.start_date,
-                    end_date: this.end_date,
-                    orderStatus: this.orderStatus,
-                    orderNo: this.orderNo,
-                    cryptocurrencyType: this.cryptocurrencyType,
-                    cryptocurrency: this.cryptocurrency,
-                    tokenNo: this.tokenNo,
-                    orderType: this.orderType,
-                    tradeType: this.tradeType,
-                    currency: this.currency,
-                };
-                this.$emit('update', data);
+                this.$emit('update', this.chipValues);
                 this.onCancel();
             },
             onCancel() {

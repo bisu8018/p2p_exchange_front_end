@@ -26,15 +26,15 @@ export default {
         ];
         return signupCountries;
     },
-    orderStatus() {
-      const orderStatus =[
+    status() {
+      const status =[
           {value: Vue.prototype.$str("unpaid"), code: 'unpaid'},
           {value: Vue.prototype.$str("paid"), code: 'paid'},
           {value: Vue.prototype.$str("canceled"), code: 'cancelled'},
           {value: Vue.prototype.$str("complete"), code: 'complete'},
           {value: Vue.prototype.$str("complaining"), code: 'complaining'},
       ]  ;
-        return orderStatus;
+        return status;
     },
     orderTypes() {
         const orderTypes =[
@@ -176,8 +176,8 @@ export default {
             case 'priceType' :
                 return this.priceTypes();
 
-            case 'orderStatus' :
-                return this.orderStatus();
+            case 'status' :
+                return this.status();
 
             case 'orderType' :
                 return this.orderTypes();
