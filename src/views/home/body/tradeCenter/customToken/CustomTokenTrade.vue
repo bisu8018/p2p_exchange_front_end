@@ -56,9 +56,15 @@
             MainRepository.CustomToken.setCustomTokenNo(this.tokenNo);
             //customToken들 list 불러오기
             MainRepository.TradeView.loadCustomTokenList(()=>{
-              this.selectedCustomToken = MainRepository.MyToken.controller().findCustomToken(Number(this.tokenNo), 'no').tokenName
-
+                MainRepository.CustomToken.setSelectedCustomToken(
+                    MainRepository.MyToken.controller().findCustomToken(Number(this.tokenNo), 'no')
+                );
+                this.selectedCustomToken = MainRepository.CustomToken.getSelectedCustomToken().tokenName;
             })
+        },
+        beforeDestroy(){
+            this.selectedCustomToken = '...';
+            MainRepository.CustomToken.setCustomTokenNo(-1);
         },
         methods: {
             //새로고침시 동작하게 하면 됨
@@ -69,8 +75,8 @@
                 this.isdropdown = false;
                 this.selectedCustomToken = item.tokenName;
                 this.tokenNo = item.tokenNo;
-
                 MainRepository.CustomToken.setCustomTokenNo(item.tokenNo);
+                MainRepository.CustomToken.setSelectedCustomToken(item);
                 MainRepository.TradeView.load(()=>{});
                 //계속 url을 업데이트 쳐줘야하므로 router push를 함.
                 MainRepository.router().goCustomTokenTrade(item.tokenNo);

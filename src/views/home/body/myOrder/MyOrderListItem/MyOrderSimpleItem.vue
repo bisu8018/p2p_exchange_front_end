@@ -91,7 +91,7 @@
         right: 12px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 959px) {
         .my-order-simple_wrapper {
             padding: 24px 0;
             position: relative;

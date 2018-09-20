@@ -34,10 +34,6 @@
     export default {
         name: "EnableDialog",
         props :{
-            show : {
-                type: Boolean,
-                default : false
-            },
             cryptocurrency:{
                 type: String,
                 default : ''
@@ -50,10 +46,18 @@
         data: () => ({
             confirm : false,
             amount : '',
+            show : false,
         }),
+        created(){
+            this.$eventBus.$on('showMyAdsEnableDialog', (adNo) => {
+                if(this.adNo === adNo){
+                    this.show = true;
+                }
+            });
+        },
         methods: {
             onClose: function () {
-                this.$emit('close');
+                this.show = false;
             },
             setEnable(){
                 let self = this;
@@ -62,10 +66,12 @@
                       email : MainRepository.MyInfo.getUserInfo().email,
                       adNo : this.adNo,
                       availableAmount : this.amount
-                  },function (result) {
+                  },function () {
                       //disable 성공 알람 띄우기.
                       self.onClose();
+                      MainRepository.MyAds.load(() => {});
                       Vue.prototype.$eventBus.$emit('showAlert', 2105);
+
                   })
                 }
             },

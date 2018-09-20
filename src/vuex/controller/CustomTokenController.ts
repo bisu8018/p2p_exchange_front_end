@@ -33,6 +33,13 @@ export default class CustomTokenController {
         return this.store.state.customToken.tokenNo;
     }
 
+    setSelectedCustomToken(token: CustomToken){
+        this.store.dispatch(VuexTypes.SET_SELECTED_CUSTOMTOKEN, token);
+    }
+    getSelectedCustomToken() {
+        return this.store.state.customToken.selectedCustomToken;
+    }
+
     //토큰 찾기   (type : no, name)
     // ex MainRepository.MyToken.controller().findCustomToken(Number(this.tokenNo), 'no').tokenName
     findCustomToken(data,type) {

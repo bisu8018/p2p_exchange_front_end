@@ -89,17 +89,14 @@
             </v-layout>
         </div>
         <my-ads-enable-dialog
-                v-if="showEnableDialog"
-                :show = showEnableDialog
                 :cryptocurrency = adslist.cryptocurrency
                 :adNo = adslist.adNo
-                v-on:close="closeEnable"
         />
         <my-ads-delete-dialog
-                v-if="showDeleteDialog"
-                :show = showDeleteDialog
                 :adNo = adslist.adNo
-                v-on:close="closeDelete"
+        />
+        <my-ads-disable-dialog
+                :adNo = adslist.adNo
         />
     </div>
 </template>
@@ -110,20 +107,23 @@
     import Vue from 'vue';
     import MyAdsDeleteDialog from './dialog/MyAdsDeleteDialog';
     import MyAdsEnableDialog from './dialog/MyAdsEnableDialog';
+    import MyAdsDisableDialog from './dialog/MyAdsDisableDialog';
     import AdService from "../../../../../service/ad/AdService";
 
     export default {
         name: "MyAdsList",
 
-        components: {MyAdsEnableDialog,MyAdsDeleteDialog},
+        components: {
+            MyAdsEnableDialog,
+            MyAdsDeleteDialog,
+            MyAdsDisableDialog
+        },
         props: {
             adslist: {},
         },
 
         data: () => ({
             amount : '',
-            showEnableDialog : false,
-            showDeleteDialog : false,
         }),
         computed: {
             isMobile() {
@@ -154,7 +154,7 @@
             },
             showEnable(){
                 if(this.canModify) {
-                    this.showEnableDialog = true
+                    this.$eventBus.$emit('showMyAdsEnableDialog', this.adslist.adNo);
                 }else if(this.adslist.status !== 'disable'){
                     Vue.prototype.$eventBus.$emit('showAlert', 4102);
                 }
@@ -162,23 +162,12 @@
                     Vue.prototype.$eventBus.$emit('showAlert', 4101);
                 }
             },
-            closeEnable(){
-                this.showEnableDialog = false
-                MainRepository.MyAds.load(() => {});
-            },
             showDisable(){
-                //disable은 진행중 order 있어도, 언제든 가능.
-                AdService.disableAD({
-                    email : MainRepository.MyInfo.getUserInfo().email,
-                    adNo : this.adslist.adNo
-                },function (result) {
-                    Vue.prototype.$eventBus.$emit('showAlert', 2104);
-                    MainRepository.MyAds.load(() => {});
-                })
+                this.$eventBus.$emit('showMyAdsDisableDialog', this.adslist.adNo);
             },
             showDelete(){
                 if(this.canModify) {
-                    this.showDeleteDialog = true
+                    this.$eventBus.$emit('showMyAdsDeleteDialog', this.adslist.adNo);
                 }
                 else if(this.adslist.status !== 'disable'){
                     Vue.prototype.$eventBus.$emit('showAlert', 4102);
@@ -186,10 +175,6 @@
                 else{
                     Vue.prototype.$eventBus.$emit('showAlert', 4101);
                 }
-            },
-            closeDelete(){
-                this.showDeleteDialog = false
-                MainRepository.MyAds.load(() => {});
             },
 
         },
