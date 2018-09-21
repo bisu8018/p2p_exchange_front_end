@@ -20,7 +20,7 @@
         >{{$str("Fiat")}}</button-->
       </v-flex>
       <v-flex md2 xs12 order-md2 order-xs4>
-        <div class=" vertical-center p-relative">
+        <div v-if="!isGeneralCoin" class=" vertical-center p-relative">
           <v-spacer></v-spacer>
           <input type="checkbox" v-model="isChecked" id="hideSmallCheckbox">
           <label for="hideSmallCheckbox"><span><i class="material-icons">done</i></span>
@@ -90,6 +90,9 @@
             },
             haveItems(){
                 return (this.walletListData.length !== 0)
+            },
+            isGeneralCoin(){
+              return this.selectedTokenType === 'General Coin';
             },
             selectedCurrency: {
                 get() {

@@ -40,7 +40,7 @@ export default class TradeFilter {
     }
 
     transTradeType(tradeType){
-        if(tradeType === 'Buy'){
+        if(tradeType === 'Buy'||tradeType === 'buy'){
             return 'sell';
         }
         else{

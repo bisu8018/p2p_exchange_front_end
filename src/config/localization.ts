@@ -3974,9 +3974,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Please enter more than limit', {
+        KOR: '제한액 이상의 금액을 입력하세요',
+        ENG: 'Please enter more than limit',
         CN: '',
         HK: ''
     }],

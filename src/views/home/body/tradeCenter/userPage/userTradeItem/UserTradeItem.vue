@@ -448,6 +448,7 @@
     import MainRepository from "../../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
     import {abUtils} from "../../../../../../common/utils";
+    import CustomToken from "@/vuex/model/CustomToken";
     import NickNameModal from '@/components/NickNameModal.vue';
 
     export default {
@@ -513,9 +514,20 @@
                 if(this.isGeneralCoin) {
                     return this.user.cryptocurrency
                 }else{
-                    return this.item.tokenName;
+                    return this.user.tokenName;
                 }
             }
+        },
+        created(){
+            //customtoken 일때
+          if(!this.isGeneralCoin){
+              //소수점 계산 fixed를 위해 가능 소숫점 자릿수 setting 작업
+              MainRepository.CustomToken.setSelectedCustomToken(
+                  new CustomToken({
+                      decimalCount : this.user.decimalCount
+                  })
+              )
+          }
         },
         mounted(){
             switch (this.tokenName) {
@@ -590,21 +602,20 @@
                 this.clickFromAll = false;
                 //차후 마진고려해 수정해야함
                 this.toValue = this.user.maxLimit
-                console.log(this.toValue)
+
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-                console.log(this.toValue)
-                if(this.user.tradeType=='buy' && this.toValue > this.user.tradePrice * this.getBalance){
+
+                if(this.user.tradeType=='sell' && this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;
                 }
-                console.log(this.toValue)
+
                 if(this.toValue < this.user.minLimit){
                     this.warning_toValue = true;
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     return false;
                 }
-                console.log(this.toValue)
                 this.warning_toValue = false;
                 this.warning_fromValue = false;
 

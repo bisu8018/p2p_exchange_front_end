@@ -482,6 +482,7 @@
         }
         .sub-domain-menu{
             background-color: rgba(0, 0, 0, 0.4);
+            max-height: 64px;
         }
 
         .left16-right32{

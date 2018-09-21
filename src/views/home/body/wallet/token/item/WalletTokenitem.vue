@@ -86,6 +86,7 @@
     import {abUtils} from "../../../../../../common/utils";
     import WalletDepositDialog from '../../walletList/dialog/WalletDepositDialog'
     import WalletWithdrawalDialog from '../../walletList/dialog/WalletWithdrawalDialog'
+    import CustomToken from "@/vuex/model/CustomToken";
 
     export default {
         name: "WalletTokenList",
@@ -110,7 +111,8 @@
             },
             estimatedValue(){
                 this.price = MainRepository.MarketPrice.controller().find(this.item.cryptocurrency, this.currency).price
-                return this.item.availableAmount * this.price;
+
+                return (this.item.availableAmount + this.item.frozenAmount) * this.price;
             },
             isGeneralCoin(){
               return  (MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin')
@@ -137,12 +139,21 @@
                 if(this.isGeneralCoin) {
                     return this.getCryptoName(this.item.cryptocurrency)
                 }else{
+
                     return this.item.tokenName;
                 }
-            }
-
+            },
         },
-        mounted(){
+        created(){
+            //customtoken 일때
+            if(MainRepository.Wallet.getStatus().cryptocurrencyType === 'Custom Token') {
+                //소수점 계산 fixed를 위해 가능 소숫점 자릿수 setting 작업
+                MainRepository.CustomToken.setSelectedCustomToken(
+                    new CustomToken({
+                        decimalCount : this.item.decimalCount
+                    })
+                )
+            }
 
         },
         methods: {
