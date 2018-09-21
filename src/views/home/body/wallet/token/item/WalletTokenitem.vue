@@ -7,7 +7,7 @@
         <h4 class="bold ml-2">{{ tokenName }}</h4>
         <v-spacer/>
         <span class=" flex-position">
-          <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{tokenName}}</span>
+          <span class="bold">{{ toMoneyFormat($fixed(totalValue, item.cryptocurrency))}} {{tokenName}}</span>
           <span v-if="isGeneralCoin" class="color-darkgray ml-2">
             ≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
             <i v-if="drawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
@@ -109,10 +109,12 @@
             currency(){
                 return MainRepository.Wallet.getStatus().currency
             },
+            totalValue(){
+              return  this.item.availableAmount + this.item.frozenAmount
+            },
             estimatedValue(){
                 this.price = MainRepository.MarketPrice.controller().find(this.item.cryptocurrency, this.currency).price
-
-                return (this.item.availableAmount + this.item.frozenAmount) * this.price;
+                return this.totalValue * this.price;
             },
             isGeneralCoin(){
               return  (MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin')
@@ -154,7 +156,6 @@
                     })
                 )
             }
-
         },
         methods: {
             getCryptoName(curerncy) {
