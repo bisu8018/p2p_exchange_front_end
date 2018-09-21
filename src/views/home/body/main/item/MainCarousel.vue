@@ -8,7 +8,7 @@
                     <div class="landing-content"> {{ $str('landingContent_1') }}</div>
                 </div>
             </v-carousel-item>
-           <!-- <v-carousel-item>
+            <v-carousel-item>
                 <div class="landing-img-second">
                     <div class="landing-subject mt-6a"> {{ $str('landingSubj_2') }}</div>
                     <div class="landing-content"> {{ $str('landingContent_2') }}</div>
@@ -20,7 +20,7 @@
                     <div class="landing-content"> {{ $str('landingContent_3') }}</div>
                     <div class="landing-content"> ABT, ABC, ABH!</div>
                 </div>
-            </v-carousel-item>-->
+            </v-carousel-item>
         </v-carousel>
     </v-parallax>
 </template>
