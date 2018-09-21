@@ -9,8 +9,8 @@
       </v-layout>
       <!--coin-->
       <v-layout mb-2>
-        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("Coin")}} :</v-flex>
-        <v-flex xs6 text-xs-right>{{detailList.cryptocurrency}}</v-flex>
+        <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("cryptoCurrency")}} :</v-flex>
+        <v-flex xs6 text-xs-right>{{tokenName}}</v-flex>
       </v-layout>
       <!-- time-->
       <v-layout mb-2>
@@ -20,7 +20,7 @@
       <!-- amount -->
       <v-layout mb-2>
         <v-flex xs6 text-xs-left h5 color-darkgray>{{$str("amount")}} :</v-flex>
-        <v-flex xs6 text-xs-right>{{ $fixed(detailList.amount, detailList.cryptocurrency) }} {{detailList.cryptocurrency}}</v-flex>
+        <v-flex xs6 text-xs-right>{{ $fixed(detailList.amount, tokenName) }} {{tokenName}}</v-flex>
       </v-layout>
       <!-- status -->
       <v-layout mb-2>
@@ -46,13 +46,13 @@
           {{$str(detailList.depositType)}}
         </v-flex>
         <v-flex md2 text-md-left>
-          {{detailList.cryptocurrency}}
+          {{tokenName}}
         </v-flex>
         <v-flex md2 text-md-left>
           {{transTime(detailList.registerDatetime)}}
         </v-flex>
         <v-flex md2 text-md-right>
-          {{ $fixed(detailList.amount, detailList.cryptocurrency) }} {{detailList.cryptocurrency}}
+          {{ $fixed(detailList.amount, tokenName) }} {{tokenName}}
         </v-flex>
         <v-flex md2 text-md-right>
           {{$str(detailList.status)}}
@@ -95,15 +95,14 @@
 <script>
     import MainRepository from "../../../../../../vuex/MainRepository";
     import {abUtils} from '@/common/utils';
+    import CustomToken from "@/vuex/model/CustomToken";
     export default {
         name: "WalletDetailList",
         props : {
             detailList : {},
         },
-
         data: () => ({
             isdrawer : false,
-
 
         }),
         computed: {
@@ -112,6 +111,27 @@
             },
             showDetailBtn(){
                 return (this.detailList.depositType == 'Deposit'|| this.detailList.depositType == 'Withdrawal')
+            },
+            isGeneralCoin(){
+                return  (this.detailList.tokenName === "")
+            },
+            tokenName(){
+                if(this.isGeneralCoin) {
+                    return this.detailList.cryptocurrency
+                }else{
+                    return this.detailList.tokenName;
+                }
+            },
+        },
+        created(){
+            //customtoken 일때
+            if(!this.isGeneralCoin) {
+                //소수점 계산 fixed를 위해 가능 소숫점 자릿수 setting 작업
+                MainRepository.CustomToken.setSelectedCustomToken(
+                    new CustomToken({
+                        decimalCount : this.detailList.decimalCount
+                    })
+                )
             }
         },
         methods : {

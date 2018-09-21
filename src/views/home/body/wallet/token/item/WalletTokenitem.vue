@@ -7,7 +7,7 @@
         <h4 class="bold ml-2">{{ tokenName }}</h4>
         <v-spacer/>
         <span class=" flex-position">
-          <span class="bold">{{ toMoneyFormat($fixed(item.availableAmount, item.cryptocurrency))}} {{tokenName}}</span>
+          <span class="bold">{{ toMoneyFormat($fixed(totalValue, item.cryptocurrency))}} {{tokenName}}</span>
           <span v-if="isGeneralCoin" class="color-darkgray ml-2">
             ≈ {{toMoneyFormat($fixed(estimatedValue, currency))}} {{currency}}
             <i v-if="drawer" class="material-icons  md-12 ">keyboard_arrow_up</i>
@@ -86,6 +86,7 @@
     import {abUtils} from "../../../../../../common/utils";
     import WalletDepositDialog from '../../walletList/dialog/WalletDepositDialog'
     import WalletWithdrawalDialog from '../../walletList/dialog/WalletWithdrawalDialog'
+    import CustomToken from "@/vuex/model/CustomToken";
 
     export default {
         name: "WalletTokenList",
@@ -108,9 +109,12 @@
             currency(){
                 return MainRepository.Wallet.getStatus().currency
             },
+            totalValue(){
+              return  this.item.availableAmount + this.item.frozenAmount
+            },
             estimatedValue(){
                 this.price = MainRepository.MarketPrice.controller().find(this.item.cryptocurrency, this.currency).price
-                return this.item.availableAmount * this.price;
+                return this.totalValue * this.price;
             },
             isGeneralCoin(){
               return  (MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin')
@@ -137,13 +141,21 @@
                 if(this.isGeneralCoin) {
                     return this.getCryptoName(this.item.cryptocurrency)
                 }else{
+
                     return this.item.tokenName;
                 }
-            }
-
+            },
         },
-        mounted(){
-
+        created(){
+            //customtoken 일때
+            if(MainRepository.Wallet.getStatus().cryptocurrencyType === 'Custom Token') {
+                //소수점 계산 fixed를 위해 가능 소숫점 자릿수 setting 작업
+                MainRepository.CustomToken.setSelectedCustomToken(
+                    new CustomToken({
+                        decimalCount : this.item.decimalCount
+                    })
+                )
+            }
         },
         methods: {
             getCryptoName(curerncy) {

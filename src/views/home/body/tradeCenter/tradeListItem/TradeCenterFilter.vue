@@ -315,7 +315,7 @@
                     this.tokens = {left: 'BTC',center: 'ALLB',right: 'ETH',}
                 }
                 //TradeType 수정.
-                if(this.tradeType == 'buy'){
+                if(this.tradeType == 'buy'||this.tradeType == 'Buy'){
                     this.tradeType = 'Sell'
                 } else{
                     this.tradeType = 'Buy'

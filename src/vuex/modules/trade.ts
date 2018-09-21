@@ -49,7 +49,7 @@ const getters = {
 
 let tradeFilter = new TradeFilter('');  // array형 으로 초기화
 let tradeItems : TradeItem[] = [];
-let drawerID : Number = 0;
+let drawerID : Number = -1;
 
 
 const state= {

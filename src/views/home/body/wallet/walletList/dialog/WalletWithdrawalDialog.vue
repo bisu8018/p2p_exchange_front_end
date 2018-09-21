@@ -32,7 +32,9 @@
         <div class="text-xs-left">{{$str("amount")}}</div>
         <v-spacer></v-spacer>
         <div class="text-xs-right color-darkgray">
-          <h6>({{$str("Available")}}: {{toMoneyFormat(availableAmount)}} {{$str("limit")}} : {{$fixed(maxAmount,tokenName)}}</h6>
+          <span class="h6">({{$str("Available")}}: {{toMoneyFormat(availableAmount)}}</span>
+          <span v-if="isGeneralCoin" class="h6">&nbsp;{{$str("limit")}} : {{$fixed(minAmount,tokenName)}})</span>
+          <span v-else class="h6">)</span>
         </div>
       </div>
       <div class="mt-2 mb-4">
@@ -53,16 +55,16 @@
         <div class="text-xs-left">{{$str("fee")}}</div>
         <v-spacer></v-spacer>
         <div class="text-xs-right color-darkgray" >
-          <h6>({{$str("Range")}}: {{$fixed(fee,tokenName)}} - {{$fixed(fee,tokenName)}})</h6>
+          <h6>({{$str("Range")}}: {{$fixed(fee,feeTokenName)}} - {{$fixed(fee,feeTokenName)}})</h6>
         </div>
       </div>
 
       <div class="mt-2 mb-4">
         <div class="p-relative">
           <div class="input text-xs-left vertical-center">
-            {{$fixed(fee,tokenName)}}
+            {{$fixed(fee,feeTokenName)}}
           </div>
-          <span class="crypto-text">{{tokenName}}</span>
+          <span class="crypto-text">{{feeTokenName}}</span>
         </div>
       </div>
       <div class="cs-flex">
@@ -92,7 +94,7 @@
         {{$str("tips")}}
       </h6>
       <h6 class="color-darkgray text-xs-left mb-3">
-        {{$str("Minimum withdrawal amount")}}: {{maxAmount}} {{tokenName}}
+        {{$str("Minimum withdrawal amount")}}: {{minAmount}} {{tokenName}}
       </h6>
       <h6 v-if="getCryptoName(tokenName)  === 'ETH'" class="color-darkgray text-xs-left mb-3">
         {{$str("withdrawtipsETH1")}}<br>
@@ -137,7 +139,7 @@
             warning_address: false,
             warning_amount: false,
             fee : 0,
-            maxAmount : 0,
+            minAmount : 0,
         }),
         computed:{
             receiveAmount(){
@@ -146,6 +148,18 @@
                 }
                 return (this.amount*Math.pow(10, 9) - this.fee*Math.pow(10, 9))/Math.pow(10, 9);
             },
+            isGeneralCoin(){
+                return MainRepository.Wallet.getStatus().cryptocurrencyType === 'General Coin'
+            },
+            feeTokenName(){
+                if(this.isGeneralCoin){
+                    return this.tokenName
+                }
+                else{
+                    //custom일때 fee 는 ether로 처리.
+                    return 'ETH'
+                }
+            }
         },
         created(){
             this.$eventBus.$on('showWithdrawDialog', (tokenName) => {
@@ -157,7 +171,7 @@
         },
         methods: {
             initData(){
-                this.maxAmount = this.calMaxAmount();
+                this.minAmount = this.calminAmount();
                 this.amount = ''
                 this.fee = this.calFee()
                 this.address = ''
@@ -177,16 +191,16 @@
 
                     case 'ethereum':
                     case 'ETH':
-                        return  0.005
+                        return  0.05
 
                     case 'allb':
                     case 'ALLB':
                         return 0
                     default:
-                        return 0;
+                        return 0.05;
                 }
             },
-            calMaxAmount(){
+            calminAmount(){
                 switch (this.tokenName) {
                     case 'bitcoin':
                     case 'BTC':
@@ -206,9 +220,9 @@
 
             onNumberCheck(type) {
                 if (type === 'Amount') {
-                    if(this.amount >this.maxAmount){
+                    if(this.amount <this.minAmount){
                         this.warning_amount = true;
-                        this.text_warning_amount = this.$str("Please enter less than Limit");
+                        this.text_warning_amount = this.$str("Please enter more than limit");
                         return false;
                     }
                     if (this.amount <= 0 ) {
@@ -217,7 +231,7 @@
                         return false;
                     }
                     this.warning_amount = false;
-
+                    return true;
                 }
             },
 
@@ -241,7 +255,7 @@
                     this.text_warning_amount = this.$str("Please enter more than 0");
                     return false;
                 }
-                if (this.amount > this.maxAmount ) {
+                if (this.amount < this.minAmount ) {
                     this.warning_amount = true;
                     this.text_warning_amount = this.$str("Please enter less than Limit");
                     return false;

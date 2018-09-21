@@ -9,7 +9,8 @@ export default class WalletHistory {
     txHash : string;
     fee : number;
     processingTime : number
-
+    tokenNo : number
+    tokenName : string
 
     constructor(data: any) {
         this.cryptocurrency = this.transCryptocurrency(data.cryptocurrency)  || '';
@@ -22,6 +23,9 @@ export default class WalletHistory {
         this.txHash = data.txHash || '';
         this.fee = data.fee || '';
         this.processingTime = data.processingTime || '';
+
+        this.tokenNo = data.tokenNo || '';
+        this.tokenName = data.tokenName || '';
     }
 
     isNull(): boolean {
