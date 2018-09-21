@@ -14,7 +14,7 @@
             <i class="material-icons color-darkgray h1 p-absolute icon-style ">calendar_today</i>
         </div>
         <div :class="classname" class=" mt-2 d-none p-absolute date-picker-wrapper c-pointer">
-            <v-date-picker width="254" v-model="propsDate !== '' ? propsDate : date" @input="onPickDate(date)"></v-date-picker>
+            <v-date-picker width="254" v-model="date" @input="onPickDate(date)"></v-date-picker>
         </div>
     </div>
 </template>
@@ -46,7 +46,7 @@
               if(this.clear == null){
                   return null;
               }else{
-                  return this.propsDate !== '' ? this.propsDate : this.date;
+                  return this.propsDate !== '' && this.date === null ? this.propsDate : this.date;
               }
           }
         },
