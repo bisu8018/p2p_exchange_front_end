@@ -1,6 +1,5 @@
 <template>
-    <v-layout wrap align-center>
-
+    <v-layout wrap align-center v-if="init()">
         <!--token list loading indicator-->
         <div class="p-relative w-full"
              v-if="selectBoxType === 'customToken' && customTokens.length === 0 || selectBoxType === 'generalToken'  && generalTokens.length === 0">
@@ -40,6 +39,7 @@
 <script>
     import MainRepository from "@/vuex/MainRepository";
     import SelectBox from "../vuex/model/SelectBox";
+    import Vue from "vue";
 
     export default {
         name: 'selectBox',
@@ -111,13 +111,16 @@
                             return 'floatprice'
                         }
                         break;
+
+                    case 'payment' :
+                        if (this.optionFilter === 'unselected') {
+                            this.selected = '';
+                            this.selectedValue = Vue.prototype.$str('paymentMethodSelectboxPlaceholder');
+                            return 'ALL'
+                        }
+                        break;
                 }
             }
-        },
-        created() {
-            this.$nextTick(() => {
-                this.init();
-            });
         },
         mounted() {
             this.$eventBus.$emit('clickEvent', (event) => {
@@ -130,7 +133,6 @@
             });
         },
         methods: {
-
             //  초기화
             init() {
                 switch (this.selectBoxType) {
@@ -145,7 +147,7 @@
                         if (this.editValue) {
                             this.selected = this.editValue;
                             this.selectedValue = SelectBox.findValue(this.selectBoxType, this.editValue);
-                        } else {
+                        } else if(this.selected === '' && this.selectedValue === ''){
                             this.selected = this.getList[0].code;
                             this.selectedValue = this.getList[0].value;
                         }
@@ -175,6 +177,7 @@
                         });
                         break;
                 }
+                return true;
             },
 
             //  값 설정

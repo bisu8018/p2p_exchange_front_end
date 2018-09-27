@@ -10,13 +10,8 @@
 
             <!-- 결제 수단 Select -->
             <div class="p-relative my-4">
-                <select class="comp-selectbox h6" v-model="type" :disabled="edit">
-                    <option value="" disabled selected hidden>{{ $str('paymentMethodSelectboxPlaceholder') }}</option>
-                    <option value="bank">{{ $str("bankAccountText") }}</option>
-                    <option value="alipay">{{ $str("alipayText") }}</option>
-                    <option value="wechat">{{ $str("wechatPayText") }}</option>
-                </select>
-                <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+                <select-box :selectBoxType="'payment'" :optionFilter="'unselected'" :editValue="type"
+                            :class="{'input-disabled2' : edit}" v-on:payment="setPayment"></select-box>
             </div>
 
             <!-- PaymentMethod에 따라 바뀌는 영역 -->
@@ -75,7 +70,7 @@
                 </div>
 
                 <!-- PaymentMethod === bank -->
-                <div v-else-if="type === 'bank' || type === 'bankaccount'">
+                <div v-else-if="type === 'bankaccount'">
 
                     <!-- 은행 이름 -->
                     <div class="mb-4">
@@ -122,12 +117,13 @@
                 </div>
 
                 <!-- QR Code -->
-                <div v-if="type !== 'bank' && type !== 'bankaccount'">
+                <div v-if="type !== 'bankaccount'">
                     <h5 class="mb-2">{{ $str("qrCode") }}</h5>
 
                     <div class="mb-4">
                         <label class="">
-                            <div class="textarea-style p-relative" :class="{'warning-border' : warning_attachment_file}">
+                            <div class="textarea-style p-relative"
+                                 :class="{'warning-border' : warning_attachment_file}">
 
                                 <!--사진 없을 경우-->
                                 <div v-if="image === ''" class="ma-4a">
@@ -145,7 +141,7 @@
 
                                 <!--사진 있을 경우-->
                                 <div v-else class="text-xs-center p-relative">
-                                    <img :src="image" class="attachment-img-style">
+                                    <a :href="image" target="_blank"><img :src="image" class="attachment-img-style"></a>
                                     <span class="text-white-hover color-blue c-pointer vertical-center image-delete"
                                           @click="deleteFile()">
                                     {{ $str('delete') }}
@@ -193,7 +189,7 @@
 
 <script>
     import MainRepository from "../../vuex/MainRepository";
-    import CommonService from "../../service/common/CommonService";
+    import SelectBox from '../SelectBox.vue';
     import PaymentMethod from "../../vuex/model/PaymentMethod";
     import Vue from "vue";
 
@@ -211,11 +207,13 @@
                 default: () => false
             }
         },
+        components: {
+            SelectBox
+        },
         data() {
             return {
                 // paymentMethods: '',
                 typeData: '',
-                selectedType: '',
 
                 warning_name: false,
                 warning_alipay: false,
@@ -252,20 +250,20 @@
                 }
             },
             type: {
-                get() {
+                get() { console.log('get')
                     // 수정모드일 때 : 기존 데이터 가져오기
                     if (this.edit) {
                         this.typeData = this.paymentMethods.type
                     }
                     return this.typeData;
                 },
-                set(value) {
+                set(value) {    console.log(value)
                     if (value === 'alipay') {
                         this.typeData = 'alipay';
                     } else if (value === 'wechat') {
                         this.typeData = 'wechat';
-                    } else if (value === 'bank') {
-                        this.typeData = 'bank';
+                    } else if (value === 'bankaccount') {
+                        this.typeData = 'bankaccount';
                     } else {
                         this.typeData = '';
                     }
@@ -383,7 +381,7 @@
             wholeCheck() {
                 if ((this.typeData === 'alipay' && this.onCheck('alipay')) ||
                     (this.typeData === 'wechat' && this.onCheck('wechat')) ||
-                    (this.typeData === 'bank' && this.onCheck('bank') && this.onCheck('bankAccount'))
+                    (this.typeData === 'bankaccount' && this.onCheck('bank') && this.onCheck('bankAccount'))
                 ) {
                     if (this.onCheck('name') && this.onCheck('tradePassword')) {
                         this.onDone();
@@ -391,23 +389,10 @@
                 }
             },
             onClearData() {
-                this.paymentMethods.activeYn = 'n';
-                this.paymentMethods.alipayId = '';
-                this.paymentMethods.alipayQrCodeImgUrl = '';
-                this.paymentMethods.bankAccount = '';
-                this.paymentMethods.bankBranchInfo = '';
-                this.paymentMethods.bankName = '';
-                this.paymentMethods.memberNo = null;
-                this.paymentMethods.modifyDatetime = null;
-                this.paymentMethods.modifyMemberNo = null;
-                this.paymentMethods.ownerName = '';
-                this.paymentMethods.registerDatetime = null;
-                this.paymentMethods.registerMemberNo = null;
-                this.paymentMethods.type = '';
-                this.paymentMethods.wechatId = '';
-                this.paymentMethods.wechatQrCodeImgUrl = '';
-                this.paymentMethods.tradePassword = '';
-                this.typeData = '';
+                if(!this.edit){
+                    this.paymentMethods.onClear();
+                    this.typeData = '';
+                }
             },
             getImg() {
                 let type = this.paymentMethods.type;
@@ -451,7 +436,7 @@
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
                 //파일첨부
-                if (this.file !== '' && this.type != 'bank') {
+                if (this.file !== '' && this.type != 'bankaccount') {
                     let _purpose = '';
                     if (this.paymentMethods.type === 'alipay') {
                         _purpose = 'alipay';
@@ -481,24 +466,27 @@
                     this.$emit('done');
                 });
             },
-
             onDelete(item) {
                 this.paymentMethods.type = this.type;
                 this.paymentMethods.memberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
-                MainRepository.MyPage.deletePaymentMethod(this.myInfo.email, this.paymentMethods, function (data) {
+                MainRepository.MyPage.deletePaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
                     this.$eventBus.$emit('showAlert', 2254);
                     this.onClose();
                     this.$emit('delete');
                 });
-            }
+            },
+            setPayment(code) {
+                this.type = code;
+            },
         },
     }
 </script>
 
 <style scoped>
+
     .dialog-add-new-payment_wrapper {
         text-align: left;
         position: relative;

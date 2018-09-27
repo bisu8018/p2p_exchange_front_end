@@ -694,6 +694,12 @@
         text-align: left;
     }
 
+    /*overflow*/
+    .of-visible {
+        overflow: visible;
+    }
+
+
     /*태그*/
     h1 {
         font-size: 26px;
@@ -1193,6 +1199,7 @@
         background: white;
         max-width: 384px;
         padding: 24px 16px 24px 16px;
+        overflow-y: visible !important;
     }
 
     /* 포지션 */

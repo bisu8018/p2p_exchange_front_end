@@ -1133,6 +1133,10 @@
             },
             setTradeType(code) {
                 this.tradeType = code;
+
+                //타입 전환 시, volume 값 및 상태 초기화
+                this.warning_volume = false;
+                this.volume = null;
             },
             setCryptocurrencyType(code) {
                 this.cryptocurrencyType = code;

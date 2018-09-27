@@ -148,8 +148,6 @@ export default {
 
 
     findValue(type,data){
-        console.log(type);
-        console.log(data);
         let value;
         let list = this.getList(type) || [];
         value = list.find(function (element) {

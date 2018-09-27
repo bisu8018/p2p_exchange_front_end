@@ -5,12 +5,12 @@ export default class PaymentMethod {
     bankAccount: string;
     bankBranchInfo: string;
     bankName: string;
-    memberNo: number;
-    modifyDatetime: number;
-    modifyMemberNo: number;
+    memberNo: any;
+    modifyDatetime: any;
+    modifyMemberNo: any;
     ownerName: string;
-    registerDatetime: number;
-    registerMemberNo: number;
+    registerDatetime: any;
+    registerMemberNo: any;
     type: string;
     wechatId: string;
     wechatQrCodeImgUrl: string;
@@ -58,5 +58,25 @@ export default class PaymentMethod {
 
     isNull(): boolean {
         return (this.type === undefined || this.type === '')
+    }
+
+    onClear() {
+        this.activeYn =  'n';
+        this.alipayId = '';
+        this.alipayQrCodeImgUrl ='';
+        this.bankAccount =  '';
+        this.bankBranchInfo = '';
+        this.bankName = '';
+        this.memberNo = null;
+        this.modifyDatetime = null;
+        this.modifyMemberNo = null;
+        this.ownerName ='';
+        this.registerDatetime = null;
+        this.registerMemberNo = null;
+        this.type = '';
+        this.wechatId = '';
+        this.wechatQrCodeImgUrl = '';
+        this.tradePassword = '';
+        this.iconClass = ''
     }
 }
