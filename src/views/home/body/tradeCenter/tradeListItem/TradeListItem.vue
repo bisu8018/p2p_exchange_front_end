@@ -585,7 +585,6 @@
         },
         created() {
             //환율 및 유져 정보 get 필요
-            let self = this;
             if (MainRepository.MyInfo.isLogin()) {
                 this.checkSelectBtn()
             }
