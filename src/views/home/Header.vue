@@ -67,13 +67,13 @@
                               </div>
                           </transition-group >
                           <!--Exchange-->
-                          <button v-if="!isMobile" class="menu-button" @click="goExchange()"
+                          <!--button v-if="!isMobile" class="menu-button" @click="goExchange()"
                                   v-bind:class="{'left32-right16' : (getDomain === 'OTC')}">
                               {{$str("Exchange")}}
-                          </button>
+                          </button-->
                           <!--Service-->
                           <button v-if="!isMobile" class="menu-button" @click="goService()"
-                                  v-bind:class="{'left16-right16' : getDomain === 'Service'}">
+                                  v-bind:class="{'left16-right32' : getDomain === 'Service','left32-right16' : (getDomain === 'OTC')}">
                               {{$str("Service")}}
                           </button>
                           <transition name="Service" >

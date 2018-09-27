@@ -16,7 +16,7 @@
         <!-- Web 일때만 -->
         <div v-if="!isMobile">
             <!-- chart의 title들 -->
-            <v-layout mb-3>
+            <v-layout mb-2>
                 <v-flex  md3 text-md-left color-darkgray>
                     {{$str("Merchant(Volume | Trade rate)")}}
                 </v-flex>

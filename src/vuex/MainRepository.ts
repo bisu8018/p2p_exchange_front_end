@@ -631,6 +631,7 @@ export default {
             selectBoxController.setPayment('ALL');
         },
         initPage(isBlock: boolean) {
+            instance.GeneralToken.setGeneralTokenList(()=>{})
             this.setTradeFilter({
                 type: isBlock ? 'block' : 'general',
                 status: 'enable',
@@ -644,6 +645,7 @@ export default {
                 page: 1,
                 size: 10,
             })
+
         },
         setTradeFilter(data) {
             tradelistController.setTradeFilter(
