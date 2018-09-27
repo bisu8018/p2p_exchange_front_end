@@ -268,9 +268,18 @@
             <!--img와 button을 양쪽에 정렬시키기 위함.-->
             <v-spacer></v-spacer>
             <!-- buy 혹은 sell button -->
-            <button class="btn-rounded-blue medium" @click="changeDrawer">
-              <h5>{{$str(user.tradeType)}} {{tokenName}}</h5>
-            </button>
+            <div v-if="can_not_trade ===''">
+              <button class="btn-rounded-blue medium" @click="changeDrawer">
+                <h5>{{$str(user.tradeType)}} {{tokenName}}</h5>
+              </button>
+            </div>
+            <div v-else-if="can_not_trade ==='MyPage'">
+              <h6 class="color-darkgray">{{$str("Need to")}}</h6>
+              <h6 class="color-blue-active" @click="goMyPage">{{do_not_trade_message}}</h6>
+            </div>
+            <div v-else-if="can_not_trade ==='noMyPage'">
+              <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
+            </div>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -474,6 +483,8 @@
             warning_tradePassword: false,
             clickToAll: false,              //tovalue부분의 input에 All button이 올라가 있게
             clickFromAll: false,            //fromvalue부분의 input에 All button이 올라가 있게
+            do_not_trade_message: "",         // trade 충족이 안돼면 어떤 이유인지 알려주는 string.
+            can_not_trade: '',            //merchant가 올린 요건이 충족 안될경우 true로 trade버튼을 가려줌.
 
             isValid: false,
 
@@ -528,6 +539,9 @@
                   })
               )
           }
+          if (MainRepository.MyInfo.isLogin()) {
+              this.checkSelectBtn()
+          }
         },
         mounted(){
             switch (this.tokenName) {
@@ -546,6 +560,18 @@
             }
         },
         methods : {
+            //trade를 막기 위해 button대신 띄워주는 filter값 처리
+            checkSelectBtn(){
+                let _obj;
+                _obj = MainRepository.TradeView.controller().setCannotTrade(
+                    this.myInfo,
+                    this.user.counterpartyFilterTradeCount,
+                    this.user.counterpartyFilterAdvancedVerificationYn,
+                    this.user.counterpartyFilterMobileVerificationYn,
+                    this.user.counterpartyFilterDoNotOtherMerchantsYn);
+                this.do_not_trade_message = _obj.do_not_trade_message;
+                this.can_not_trade = _obj.can_not_trade;
+            },
             onNumberCheck(type){
                 if(type ==='toValue'){
                     if (this.toValue > this.user.maxLimit) { // || this.toValue < this.user.minLimit 나중에 추가할것.

@@ -85,13 +85,15 @@
 
                   <!-- 우측 -->
                   <div>
-                      <span v-if="isLogin && totalMsgCount > 0" class="badge mr-1">{{ totalMsgCount }}</span>
-
                       <!--MyOrder-->
                       <div class="dropdown" v-if="getDomain ==='OTC'">
+
                           <button class="menu-button dropbtn" @click="goMyOrder()" v-if="isLogin">
+                              <button v-if="isLogin && totalMsgCount > 0 &&!isMobile" class="badge mr-1">{{ totalMsgCount }}</button>
                               {{$str("order")}}
+                              <button v-if="isLogin && totalMsgCount > 0 &&isMobile" class="badge ml-1">{{ totalMsgCount }}</button>
                           </button>
+
 
                           <!-- ongoing order 드롭다운 -->
                           <div v-if="!isFixed &&!isMobile" class="dropdown-content myorder-dropdown">
