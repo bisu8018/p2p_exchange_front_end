@@ -21,10 +21,10 @@
 
             <!--MyOrder-->
             <div class="dropdown">
-                <div class="vertical-center text-xs-right text-md-left dropbtn">
+                <a :href="getImg" target="_blank" class="vertical-center text-xs-right text-md-left dropbtn color-white">
                     <div class="sprite-img ic-qr mr-1 pointer qr-code-img"></div>
                     <div class="d-inline-block color-black h6"> QR Code</div>
-                </div>
+                </a>
                 <!-- ongoing order 드롭다운 -->
                 <div class="dropdown-content myorder-dropdown">
                     <div class="pa-2" >

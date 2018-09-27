@@ -90,7 +90,7 @@
 
 
 <script>
-    import FilterSelectBox from '../../../../../../components/filter/filterSelectBox.vue'
+    import FilterSelectBox from '../../../../../../components/filter/FilterSelectBox.vue'
     import DatePicker from '@/components/DatePicker.vue';
     import {abUtils} from "@/common/utils";
     import Vue from 'vue';
