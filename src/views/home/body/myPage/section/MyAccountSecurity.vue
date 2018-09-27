@@ -40,6 +40,11 @@
                             @click="goTurnOff('email')"
                 />
 
+                <!--비활성화 불가 버튼-->
+                <div v-else-if="email.status === 'turn_on' && phone.status !== 'turn_on'" class="btn-disabled-gray d-inline-block-none-middle">
+                    {{ $str('turnOff') }}
+                </div>
+
                 <!--활성화 버튼-->
                 <btn-mypage v-if="!email.isNull() && email.status !== 'turn_on'"
                             :txt="$str('turnOn')"
@@ -81,6 +86,12 @@
                                 :txt="$str('turnOff')"
                                 @click="goTurnOff('phone')"
                     />
+
+                    <!--비활성화 불가 버튼-->
+                    <div v-else-if="email.status !== 'turn_on' && phone.status === 'turn_on'" class="btn-disabled-gray d-inline-block-none-middle">
+                        {{ $str('turnOff') }}
+                    </div>
+
 
                     <!--활성화 버튼-->
                     <btn-mypage v-if="!phone.isNull() && phone.status !== 'turn_on'"
@@ -210,7 +221,7 @@
         data() {
             return {
                 showTurnOn: false,
-                modalType : '',
+                modalType: '',
             }
         },
         computed: {

@@ -172,6 +172,9 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재
                     case 4102 : this.show(this.type.Warning, "", this.$str('warn_changeStatusDisable')); break;       // disable 상태 변경 필요
 
+                    //마이페이지 에러코드 4150 ~
+                    case 4151 : this.show(this.type.Warning, "", this.$str('warn_password_duplicate')); break;       // 비밀번호 동일
+
                     // 준비중
                     case 9000 : this.show(this.type.Warning, "", this.$str('It\'s under development now.')); break;       // 개발중입니다.
 

@@ -36,6 +36,7 @@
             <v-flex xs12 md4>
                 <div class="mb-3 p-relative">
                     <input type="text" class="input" v-model="tokenName" maxlength="5"
+                           @keyup="toUpperCase()"
                            @blur="onCheck('tokenName')" v-bind:class="{'warning-border' : warning_tokenName}">
                     <div class="warning-text-wrapper">
                     <span class="d-none"
@@ -367,8 +368,10 @@
                 //값 숫자 형식 체크
                 let temp;
                 switch (type) {
-                    // 고정가격
+
+                    // 토큰 이름
                     case 'tokenName' :
+                        this.toUpperCase();
                         if (this.tokenName === '') {
                             this.warning_tokenName = true;
                             this.verify_warning_tokenName = Vue.prototype.$str('warning_token_name_null');
@@ -383,6 +386,7 @@
                         this.warning_tokenName = false;
                         return true;
 
+                    // 자리수
                     case 'decimals' :
                         if (this.decimals === '') {
                             this.warning_decimals = true;
@@ -404,6 +408,7 @@
                         this.warning_decimals = false;
                         return true;
 
+                    // 설명
                     case 'description' :
                         if (this.description === '') {
                             this.warning_description = true;
@@ -415,6 +420,7 @@
                         this.warning_description = false;
                         return true;
 
+                    // 토큰 발행량
                     case 'totalToken' :
                         if (this.totalToken === '') {
                             this.warning_totalToken = true;
@@ -456,6 +462,9 @@
                         return false;
                     }
                 }
+            },
+            toUpperCase() {
+              this.tokenName = this.tokenName.toUpperCase();
             },
             onModal(type) {
                 this.modalType = type;

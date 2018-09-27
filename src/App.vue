@@ -878,6 +878,16 @@
         color: #214ea1;
     }
 
+    .btn-disabled-gray {
+        height: 36px;
+        padding-left: 16px;
+        padding-right: 16px;
+        background: white;
+        border-radius: 30px;
+        color: #9294a6;
+        font-size: 12px;
+    }
+
     /*버튼 호버 CSS 설정*/
     .btn-rounded-blue:hover {
         background-color: #316ee4 !important;
@@ -1075,6 +1085,7 @@
         bottom: 0;
     }
 
+
     /*input text 필드 공통 CSS*/
     input {
         position: relative !important;
@@ -1253,6 +1264,10 @@
     .d-inline-block {
         display: inline-block;
         vertical-align: middle;
+    }
+
+    .d-inline-block-none-middle {
+        display: inline-block;
     }
 
     .d-inherit {
@@ -2315,9 +2330,10 @@
         margin-right: 10px;
     }
 
-    .content-css {
+    .alert-content-css {
         text-align: left;
         margin-left: 44px;
+        margin-right: 13px;
     }
 
     .notification {
@@ -2328,6 +2344,9 @@
         box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
         background-color: #ffffff;
         margin-bottom: 8px;
+        display: table;
+        width: 100%;
+        padding-bottom: 8px;
     }
 
     .alertItem-enter-active, .alertItem-leave-active {
