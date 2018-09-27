@@ -61,7 +61,7 @@
     import MainRepository from "../../../../vuex/MainRepository";
     import Pagination from '@/components/Pagination.vue';
     import MyAdsListItem from './myAdsListItem/MyAdsListItem';
-    import MyAdsFilter from './myAdsListItem/MyAdsFilter';
+    import MyAdsFilter from './myAdsListItem/filter/MyAdsFilter';
 
     export default {
         name: "MyAds",

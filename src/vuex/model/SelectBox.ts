@@ -43,6 +43,13 @@ export default {
         ];
         return orderTypes;
     },
+    adsTypes() {
+        const adsTypes =[
+            {value: Vue.prototype.$str("general"), code: 'general'},
+            {value: Vue.prototype.$str("block"), code: 'block'},
+        ];
+        return adsTypes;
+    },
     countries() {
         const countries = [
             {value: Vue.prototype.$str('allCountries'), code: 'ALL'},
@@ -141,6 +148,8 @@ export default {
 
 
     findValue(type,data){
+        console.log(type);
+        console.log(data);
         let value;
         let list = this.getList(type) || [];
         value = list.find(function (element) {
@@ -180,7 +189,10 @@ export default {
                 return this.status();
 
             case 'orderType' :
-                return this.orderTypes();
+                return this.orderTypes()
+
+            case 'adsType' :
+                return this.adsTypes();
         }
     },
 }

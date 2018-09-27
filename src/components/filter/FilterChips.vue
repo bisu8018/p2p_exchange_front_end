@@ -1,6 +1,6 @@
 <template>
     <div class="mr-5 chip-wrapper d-inline-block">
-        <h6 class="statusChip" :class="{'d-none-important' : flag && index === 'searchStartTime' || index === 'tokenNo'}" v-if="data !== ''" v-for="(data,index) in chipData">
+        <h6 class="statusChip" :class="{'d-none-important' : flag && index === 'searchStartTime' || index === 'tokenNo' || index === 'cryptocurrency'}" v-if="data !== ''" v-for="(data,index) in chipData">
             <v-layout align-center row fill-height>
                 {{ showDateChip(index,data) }}
                 <i class="h5 material-icons ml-2 close-icons c-pointer" @click="chipDelete(index)">close</i>
@@ -11,13 +11,14 @@
 
 <script>
     import Vue from 'vue';
-    import MainRepository from "../../../../../../vuex/MainRepository";
+    import MainRepository from "../../vuex/MainRepository";
 
     export default Vue.extend({
-        name: "my-order-chips",
+        name: "filter-chips",
         props: ['chipData'],
         data() {
           return {
+              cryptocurrency : "",
               searchStartTime: "",
               searchEndTime: "",
               flag: false,
@@ -28,6 +29,14 @@
             chipDelete(index) {
                 let _data = {};
                 _data[index] = '';
+
+                if(index === 'searchEndTime'){          //end date 초기화 시, start date 함께 초기화
+                    _data['searchStartTime'] = '';
+                }else if(index === 'cryptocurrencyType'){
+                    _data['cryptocurrency'] = '';
+                    _data['tokenNo'] = '';
+                }
+
                 this.$emit('delete',_data);
             },
             showDateChip(index,data) {
@@ -46,23 +55,28 @@
                         this.searchEndTime = data;
                         return this.searchStartTime + " ~ " + this.searchEndTime;
 
-                    case 'status':
+                    case 'cryptocurrency':
+                        if(data === 'custom'){
+                            data = MainRepository.CustomToken.controller().findCustomToken(this.chipData.tokenNo,'no').tokenName;
+                        }
+                        this.cryptocurrency = data;
+                        break;
+
                     case 'cryptocurrencyType':
-                    case 'orderType':
-                    case 'tradeType':
                         if(data === 'custom'){
                             data = 'Custom Token';
                         }else if(data === 'general'){
                             data = 'General Coin';
                         }
-                        return  Vue.prototype.$str(data) ;
+                        return  Vue.prototype.$str(data) + (this.cryptocurrency !== '' ?  " : " + this.cryptocurrency : '') ;
 
+                    case 'status':
+                    case 'orderType':
+                    case 'adsType':
+                    case 'tradeType':
                     case 'orderNo':
-                    case 'cryptocurrency':
+                    case 'adsNo':
                     case 'currency':
-                        if(data === 'custom'){
-                            data = MainRepository.CustomToken.controller().findCustomToken(this.chipData.tokenNo,'no').tokenName;
-                        }
                         return  data ;
                 }
             },

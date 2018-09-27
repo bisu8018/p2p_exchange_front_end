@@ -15,18 +15,11 @@
                          v-on:switch="clear = 'on'"></date-picker>
         </div>
 
-        <!--  주문 상태  -->
-        <div class="text-xs-left text-black mb-2">{{$str("orderStatus")}}</div>
-        <div class="mb-4 p-relative">
-            <filter-select-box :selectBoxType="'status'" :filterValue="chipValues.status"
-                                 v-on:status="setData"></filter-select-box>
-        </div>
-
-        <!--  주문 번호  -->
-        <div class="text-xs-left text-black mb-2">{{$str("orderNo")}}</div>
+        <!--  광고 번호  -->
+        <div class="text-xs-left text-black mb-2">{{$str("adsNo")}}</div>
         <div class="mb-4">
-            <input type="text" class="input" :placeholder='$str("orderNoPlaceholder")' @keyup="onCheckNum()"
-                   v-model="chipValues.orderNo">
+            <input type="text" class="input" :placeholder='$str("adsNoPlaceholder")' @keyup="onCheckNum()"
+                   v-model="chipValues.adsNo">
         </div>
 
         <!--  암호화폐 타입  -->
@@ -53,10 +46,10 @@
         </div>
 
         <!--  주문 종류  -->
-        <div class="text-xs-left text-black mb-2">{{$str("orderType")}}</div>
+        <div class="text-xs-left text-black mb-2">{{$str("adsType")}}</div>
         <div class="mb-4 p-relative">
-            <filter-select-box :selectBoxType="'orderType'" :filterValue="chipValues.orderType"
-                                 v-on:orderType="setData"></filter-select-box>
+            <filter-select-box :selectBoxType="'adsType'" :filterValue="chipValues.adsType"
+                                 v-on:adsType="setData"></filter-select-box>
         </div>
 
         <!--  거래 종류  -->
@@ -98,7 +91,7 @@
     import FilterChipsModel from "../../../../../../vuex/model/filterChips";
 
     export default Vue.extend({
-        name: "my-order-content",
+        name: "my-ads-content",
         components: {
             FilterSelectBox, DatePicker
         },
@@ -110,7 +103,7 @@
             startdateclass: 'startdateclass',
             enddateclass: 'enddateclass',
             chipValues: new FilterChipsModel(''),
-            orderNo: ''
+            adsNo: ''
         }),
         computed: {},
         created() {
@@ -139,10 +132,10 @@
             },
             onCheckNum() {
                 // 자연수 체크
-                if (!abUtils.isNaturalNumber(this.chipValues.orderNo)) {
-                    this.chipValues.orderNo = "";
+                if (!abUtils.isNaturalNumber(this.chipValues.adsNo)) {
+                    this.chipValues.adsNo = "";
                 } else {
-                    this.setData('orderNo', this.chipValues.orderNo);
+                    this.setData('adsNo', this.chipValues.adsNo);
                 }
             },
             setData(emitData) {

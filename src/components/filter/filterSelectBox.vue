@@ -1,5 +1,5 @@
 <template>
-    <v-layout wrap align-center>
+    <v-layout wrap align-center v-if="init()">
 
         <!--select box-->
         <div class="p-relative  w-full" @click="onShow()">
@@ -31,11 +31,11 @@
 </template>
 
 <script>
-    import SelectBox from "../../../../../../vuex/model/SelectBox";
-    import MainRepository from "../../../../../../vuex/MainRepository";
+    import SelectBox from "../../vuex/model/SelectBox";
+    import MainRepository from "../../vuex/MainRepository";
 
     export default {
-        name: 'my-order-select-box',
+        name: 'filter-select-box',
         props: {
             'selectBoxType': {type: String, default: 'currency'},        //country, currency, payment, phone, customToken
             'filterValue': '',    // 수정 모드, 데이터
@@ -52,6 +52,7 @@
             tradeTypes: SelectBox.tradeTypes(),
             status: SelectBox.status(),
             orderTypes: SelectBox.orderTypes(),
+            adsTypes: SelectBox.adsTypes(),
             cryptocurrencyTypes: SelectBox.cryptocurrencyTypes(),
             customTokens: [],
             generalTokens: [],
@@ -79,15 +80,14 @@
 
                     case 'orderType' :
                         return this.orderTypes;
+
+                    case 'adsType' :
+                        return this.adsTypes;
                 }
             },
         },
-        created() {
-            this.$nextTick(() => {
-                this.init();
-            });
-        },
         mounted() {
+            this.getTokenList();
             this.$eventBus.$emit('clickEvent', (event) => {
                 this.hideOnClickOutside(event);
             });
@@ -100,18 +100,8 @@
         methods: {
             //  초기화
             init() {
-                if (this.selectBoxType === 'customToken' ) {
-                    MainRepository.CustomToken.setCustomTokenList(() => {
-                        this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
-                    });
-                }else if(this.selectBoxType === 'generalToken'){
-                    MainRepository.GeneralToken.setGeneralTokenList(() => {
-                        this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
-                    });
-                }
                 if(this.filterValue !== '' && this.filterValue) {
                     this.selected = this.filterValue;
-
                     if(this.selectBoxType === 'customToken' ){
                         this.selectedValue = MainRepository.CustomToken.controller().findCustomToken(this.filterValue, 'no').tokenName;
                     }else if(this.selectBoxType === 'generalToken'){
@@ -120,6 +110,18 @@
                         this.selectedValue = SelectBox.findValue(this.selectBoxType, this.filterValue);
                     }
 
+                }
+                return true;
+            },
+            getTokenList() {
+                if (this.selectBoxType === 'customToken' ) {
+                    MainRepository.CustomToken.setCustomTokenList(() => {
+                        this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
+                    });
+                }else if(this.selectBoxType === 'generalToken'){
+                    MainRepository.GeneralToken.setGeneralTokenList(() => {
+                        this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
+                    });
                 }
             },
             //선택 시
