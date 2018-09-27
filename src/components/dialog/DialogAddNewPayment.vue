@@ -475,6 +475,7 @@
 
             },
             onPost() {
+
                 MainRepository.MyPage.setPaymentMethod(this.myInfo.email, this.paymentMethods, (data) => {
                     this.$eventBus.$emit('showAlert', 2253);
                     this.onClose();
@@ -488,7 +489,7 @@
                 this.paymentMethods.modifyMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
                 this.paymentMethods.registerMemberNo = MainRepository.MyInfo.getUserInfo().memberNo;
 
-                MainRepository.MyPage.deletePaymentMethod(this.myInfo.email, this.paymentMethods, function (data) {
+                MainRepository.MyPage.deletePaymentMethod(this.myInfo.email, this.paymentMethods,  (data) => {
                     this.$eventBus.$emit('showAlert', 2254);
                     this.onClose();
                     this.$emit('delete');
