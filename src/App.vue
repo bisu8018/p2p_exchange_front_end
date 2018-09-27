@@ -371,8 +371,9 @@
 
     input[type="checkbox"] + label span {
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        position: relative;
+        min-width: 20px;
+        min-height: 20px;
         margin-right: 8px;
         vertical-align: middle;
         background: white;
@@ -397,9 +398,12 @@
     }
 
     input[type="checkbox"]:checked + label span i {
+        position: absolute;
+        right: 1px;
+        bottom: 1px;
         padding-top: 1px;
         padding-left: 2px;
-        font-size: 15px;
+        font-size: 16px;
         color: #214ea1;
         font-weight: bold;
         display: inline-block;
@@ -576,6 +580,10 @@
 
     .bd-red {
         border-color: #e62a2b;
+    }
+
+    bd-btm-none {
+        border-bottom: none !important;
     }
 
     /* 마진, margin 설정*/
@@ -878,6 +886,16 @@
         color: #214ea1;
     }
 
+    .btn-disabled-gray {
+        height: 36px;
+        padding-left: 16px;
+        padding-right: 16px;
+        background: white;
+        border-radius: 30px;
+        color: #9294a6;
+        font-size: 12px;
+    }
+
     /*버튼 호버 CSS 설정*/
     .btn-rounded-blue:hover {
         background-color: #316ee4 !important;
@@ -1075,6 +1093,7 @@
         bottom: 0;
     }
 
+
     /*input text 필드 공통 CSS*/
     input {
         position: relative !important;
@@ -1090,6 +1109,7 @@
         font-size: 14px;
         color: #353535;
         outline: none;
+        padding-bottom: 2px;
     }
 
     .input:hover, .input:focus {
@@ -1253,6 +1273,10 @@
     .d-inline-block {
         display: inline-block;
         vertical-align: middle;
+    }
+
+    .d-inline-block-none-middle {
+        display: inline-block;
     }
 
     .d-inherit {
@@ -2045,7 +2069,7 @@
     }
 
     .myPage-box .otherInfo-body:last-child {
-        border-bottom: none;
+        border-bottom: none !important;
     }
 
     .otherInfo-body > li {
@@ -2315,9 +2339,10 @@
         margin-right: 10px;
     }
 
-    .content-css {
+    .alert-content-css {
         text-align: left;
         margin-left: 44px;
+        margin-right: 13px;
     }
 
     .notification {
@@ -2328,6 +2353,9 @@
         box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
         background-color: #ffffff;
         margin-bottom: 8px;
+        display: table;
+        width: 100%;
+        padding-bottom: 8px;
     }
 
     .alertItem-enter-active, .alertItem-leave-active {

@@ -3569,10 +3569,10 @@ const strings = new Map([
         HK: '代幣名'
     }],
     ['tokenNameExplain', {
-        KOR: '토큰명을 입력해 주십시오. 3-5개의 문자만 허용됩니다.',
-        ENG: 'Please input CustomToken name without any blank. Only 3-5 capital letters are available.',
-        CN: '请输入代币名，只能输入3~5个字',
-        HK: '請輸入代幣名，只能輸入3~5個字'
+        KOR: '토큰명을 입력해 주십시오. 3-5개의 영어 대문자만 허용됩니다.',
+        ENG: 'Please input CustomToken name without any blank. Only 3-5 English capital letters are available.',
+        CN: '请输入代币名称。只能输入3-5个英文大写字母。',
+        HK: '請輸入代幣名稱。只能輸入3-5個英文大寫字母。'
     }],
     ['decimals', {
         KOR: '소수점 자리',
@@ -3581,10 +3581,10 @@ const strings = new Map([
         HK: '小數點'
     }],
     ['decimalsExplain', {
-        KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. ',
-        ENG: 'Defines the number of decimal places in the CustomToken. Numbers 0-18 are allowed.',
-        CN: '请输入代币小数点的位置，只能输入0~18个数字',
-        HK: '請輸入代幣小數點的位置，只能輸入0~18個數字'
+        KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. (최대 5자리까지 설정하는 것이 일반적입니다.)',
+        ENG: 'Defines the number of decimal places in the CustomToken. Numbers 0-18 are allowed. (The standard setting is five digits\' decimal point.)',
+        CN: '请输入代币小数点的位置，只能输入0~18个数字。 (通常设定5位数的小数点。)',
+        HK: '請輸入代幣小數點的位置，只能輸入0~18個數字。(通常設定5位數的小數點。)',
     }],
     ['description', {
         KOR: '설명',
@@ -3966,7 +3966,6 @@ const strings = new Map([
         CN: '请输入底限额以下的金额',
         HK: '請輸入底限額以下的金額'
     }],
-
     ['If you press disable, your Ad would be not appeared on Ads list. Are you sure to disable?', {
         KOR: '비활성을 누르면. 당신의 광고는 거래소 광고에서 사라집니다. 비활성 하시겠습니까?',
         ENG: 'If you press disable, your Ad would be not appeared on Ads list." +\n' +
@@ -3980,9 +3979,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_password_duplicate', {
+        KOR: '새로운 암호는 기존 암호와 달라야 합니다.',
+        ENG: 'Original password and new password can not be the same.',
         CN: '',
         HK: ''
     }],

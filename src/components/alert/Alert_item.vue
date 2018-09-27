@@ -25,7 +25,7 @@
 
 
             <!--내용-->
-            <div class="content-css">
+            <div class="alert-content-css">
                 <h6 class="color-darkgray">{{notification.text}}</h6>
             </div>
         </div>

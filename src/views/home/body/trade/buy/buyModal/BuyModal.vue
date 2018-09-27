@@ -32,9 +32,9 @@
 
                 <!--type이 appeal 상태 일 경우 내용-->
                 <span v-else-if="type === 'appeal'">
-                    <div class=" color-darkgray mb-4">
+                    <h5 class=" color-darkgray mb-4">
                         {{$str("appealModalContent")}}
-                    </div>
+                    </h5>
                     <div class="text-xs-left color-black mb-2">
                          {{$str("appealReason")}}
                     </div>

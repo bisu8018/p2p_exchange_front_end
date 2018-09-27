@@ -126,7 +126,7 @@
     @media only screen and (min-width: 960px) {
         .mainView {
             max-width: 1224px;
-            min-height: 600px;
+            min-height: 820px;
             margin-left: auto;
             margin-right: auto;
         }

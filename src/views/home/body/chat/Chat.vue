@@ -109,6 +109,9 @@
             image: '',
         }),
         computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
             getMassageList() {
                 this.$nextTick(() => {
                     // 현재 스크롤이 최하단일경우 -> scroll
@@ -213,6 +216,7 @@
             goUserPage(memberNo) {
                 //유저페이지 이동
                 if(memberNo) MainRepository.router().goUserPage(memberNo);
+                if(this.isMobile) MainRepository.Chat.isClosed();
             }
         }
 

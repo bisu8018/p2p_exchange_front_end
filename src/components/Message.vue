@@ -131,7 +131,7 @@
                     class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
 
                 <!--파일첨부-->
-                <input type="file" id="file" ref="file" v-on:input="onCheckAttachmentFile()"
+                <input type="file" id="file" ref="file" v-on:change="onCheckAttachmentFile()"
                        class="d-none" accept="image/*" /></label>
             </div>
         </div>
@@ -335,6 +335,7 @@
                     this.createLocalMsg(url, 'img');
                     this.file = '';
                     this.image = '';
+                    document.getElementById('file').value='';
                 });
                 this.$nextTick(() => {
                     this.scrollBottom();

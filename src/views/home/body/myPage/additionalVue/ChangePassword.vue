@@ -56,7 +56,7 @@
 <script>
     import {abUtils} from '@/common/utils';
     import AccountService from "../../../../../service/account/AccountService";
-    import MainRepository from "../../../../../vuex/MainRepository";
+    import Vue from "vue";
 
     export default {
         name: 'changePassword',
@@ -84,7 +84,6 @@
                 this.$router.push("/myPage");
             },
             onChange() {
-                let self = this;
                 // AXIOS post 작업 진행
                 AccountService.Account.changePassword(this.old_password, this.new_password, () => {
                     this.goMyPage();
@@ -94,7 +93,7 @@
             },
             onCheck() {
                 // Warnings in case of error in e-mail or password entry
-                if (this.onCheckOldPassword() && this.onCheckNewPassword() && this.onCheckPasswordConfirm()) {
+                if (this.onCheckOldPassword() && this.onCheckNewPassword() && this.onCheckPasswordConfirm() && this.onCheckDuplicated()) {
                     this.onChange();
                 }
             },
@@ -157,6 +156,13 @@
                 }
                 this.warning_confirm_password = false;
                 return true;
+            },
+            onCheckDuplicated() {
+                if (this.new_password === this.old_password){
+                    Vue.prototype.$eventBus.$emit('showAlert', 4151);
+                    return false;
+                }
+                return true
             }
         }
     }

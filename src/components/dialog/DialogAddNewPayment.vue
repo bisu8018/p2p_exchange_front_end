@@ -3,7 +3,7 @@
         <div class="dialog-add-new-payment_wrapper">
 
             <!-- 헤더, 타이틀 -->
-            <h3>{{ header }}</h3>
+            <h3 class="mr-2">{{ header }}</h3>
             <div class="dialog_btn-close">
                 <i class="material-icons " @click="onClose">close</i>
             </div>
@@ -250,14 +250,14 @@
                 }
             },
             type: {
-                get() { console.log('get')
+                get() {
                     // 수정모드일 때 : 기존 데이터 가져오기
                     if (this.edit) {
                         this.typeData = this.paymentMethods.type
                     }
                     return this.typeData;
                 },
-                set(value) {    console.log(value)
+                set(value) {
                     if (value === 'alipay') {
                         this.typeData = 'alipay';
                     } else if (value === 'wechat') {
