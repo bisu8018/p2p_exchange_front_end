@@ -645,6 +645,7 @@ export default {
                 page: 1,
                 size: 10,
             })
+
         },
         setTradeFilter(data) {
             tradelistController.setTradeFilter(

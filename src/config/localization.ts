@@ -382,7 +382,7 @@ const strings = new Map([
 
     //  header
     ['exchange', {
-        KOR: '거래소',
+        KOR: '중앙화 거래소',
         ENG: 'Exchange',
         CN: '币币交易',
         HK: '幣幣交易'

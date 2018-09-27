@@ -23,19 +23,19 @@
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>{{ $str('Available') }} :</v-flex>
-          <v-flex xs6 text-xs-right> {{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}} </v-flex>
+          <v-flex xs6 text-xs-right class="w-break"> {{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}} </v-flex>
         </v-layout>
         <!-- Limits -->
         <v-layout>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>{{ $str('limits') }} :</v-flex>
-          <v-flex xs6 text-xs-right> {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
+          <v-flex xs6 text-xs-right class="w-break"> {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
         </v-layout>
         <!-- Price -->
         <v-layout mb-3>
           <v-flex xs2></v-flex>
           <v-flex xs4 text-xs-left color-darkgray>{{ $str('price') }} :</v-flex>
-          <v-flex xs6 text-xs-right bold color-orange-price> {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}} </v-flex>
+          <v-flex xs6 text-xs-right bold color-orange-price class="w-break"> {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}} </v-flex>
         </v-layout>
         <!-- Payment Methods -->
         <v-layout align-center justify-space-between row fill-height mb-4>
@@ -97,8 +97,8 @@
             </v-flex>
           </v-layout>
           <v-layout mt-4a>
-            <v-flex xs4 offset-xs8>
-              <button class="btn-white " @click="changeDrawer">{{$str("cancel")}}</button>
+            <v-flex xs4 offset-xs8 pr-3>
+              <button class="btn-white" @click="changeDrawer">{{$str("cancel")}}</button>
             </v-flex>
           </v-layout>
         </div>

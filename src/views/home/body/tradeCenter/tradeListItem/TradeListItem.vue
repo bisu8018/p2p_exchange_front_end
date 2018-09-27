@@ -35,13 +35,13 @@
                     <!-- Available volume -->
                     <ul>
                         <li>{{$str("Available")}} :</li>
-                        <li>{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</li>
+                        <li class="w-break">{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</li>
                     </ul>
 
                     <!-- Limits -->
                     <ul>
                         <li>{{$str("limits")}} :</li>
-                        <li>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</li>
+                        <li class="w-break">{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</li>
                     </ul>
 
                     <!-- Price -->
@@ -114,7 +114,7 @@
                         </v-flex>
                     </v-layout>
                     <v-layout mt-4a>
-                        <v-flex xs4 offset-xs8>
+                        <v-flex xs4 offset-xs8 pr-3>
                             <button class="btn-white " @click="changeDrawer">{{$str("cancel")}}</button>
                         </v-flex>
                     </v-layout>

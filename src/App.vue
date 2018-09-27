@@ -2361,6 +2361,9 @@
         color: #353535;
         outline: none;
     }
+    .w-break{
+        word-break: break-all;
+    }
 
 
 </style>
