@@ -371,8 +371,9 @@
 
     input[type="checkbox"] + label span {
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        position: relative;
+        min-width: 20px;
+        min-height: 20px;
         margin-right: 8px;
         vertical-align: middle;
         background: white;
@@ -397,9 +398,12 @@
     }
 
     input[type="checkbox"]:checked + label span i {
+        position: absolute;
+        right: 1px;
+        bottom: 1px;
         padding-top: 1px;
         padding-left: 2px;
-        font-size: 15px;
+        font-size: 16px;
         color: #214ea1;
         font-weight: bold;
         display: inline-block;
@@ -576,6 +580,10 @@
 
     .bd-red {
         border-color: #e62a2b;
+    }
+
+    bd-btm-none {
+        border-bottom: none !important;
     }
 
     /* 마진, margin 설정*/
@@ -1101,6 +1109,7 @@
         font-size: 14px;
         color: #353535;
         outline: none;
+        padding-bottom: 2px;
     }
 
     .input:hover, .input:focus {
@@ -2060,7 +2069,7 @@
     }
 
     .myPage-box .otherInfo-body:last-child {
-        border-bottom: none;
+        border-bottom: none !important;
     }
 
     .otherInfo-body > li {

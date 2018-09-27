@@ -3582,7 +3582,7 @@ const strings = new Map([
     }],
     ['decimalsExplain', {
         KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. (최대 5자리까지 설정하는 것이 일반적입니다.)',
-        ENG: 'Defines the number of decimal places in the CustomToken. Numbers 0-18 are allowed. (The standard setting is five digits\' decimal point)',
+        ENG: 'Defines the number of decimal places in the CustomToken. Numbers 0-18 are allowed. (The standard setting is five digits\' decimal point.)',
         CN: '请输入代币小数点的位置，只能输入0~18个数字。 (通常设定5位数的小数点。)',
         HK: '請輸入代幣小數點的位置，只能輸入0~18個數字。(通常設定5位數的小數點。)',
     }],

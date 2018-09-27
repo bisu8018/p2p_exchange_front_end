@@ -167,7 +167,7 @@
         </ul>
 
         <!-- 6. Trade Password -->
-        <ul class="otherInfo-body">
+        <ul class="otherInfo-body bd-btm-none">
 
             <!-- 아이콘, 서브타이틀 -->
             <li class="otherInfo-subtitle">

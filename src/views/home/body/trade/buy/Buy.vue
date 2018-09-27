@@ -390,6 +390,7 @@
                 this.showModal = false;
             },
             onCopy(type) {
+
                 let copyTemp;
                 if (type === 'reference') {
                     this.$clipboard(this.currentOrder.referenceNo)
@@ -398,6 +399,8 @@
                     this.$clipboard(this.currentOrder.amount)
                     //copyTemp = document.querySelector('#amountValue');
                 }
+                Vue.prototype.$eventBus.$emit('showAlert', 2001);
+
                 /*
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
 
@@ -408,7 +411,6 @@
 
                 document.execCommand('copy');
                 */
-                Vue.prototype.$eventBus.$emit('showAlert', 2001);
 
             },
             onModal(type) {
