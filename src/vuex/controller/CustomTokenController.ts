@@ -2,6 +2,7 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import CustomToken from "@/vuex/model/CustomToken";
 
+
 export default class CustomTokenController {
     store: Store<any>;
 

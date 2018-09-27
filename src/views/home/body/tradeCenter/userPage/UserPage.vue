@@ -315,6 +315,8 @@
                     self.SellLists = result.SellLists
                     self.showProgress = false;
                 })
+            MainRepository.CustomToken.setCustomTokenList(()=>{})
+            MainRepository.GeneralToken.setGeneralTokenList(()=>{})
             // 나의 block 리스트 정보 GET
             if(MainRepository.MyInfo.isLogin()){
               MainRepository.MyPage.getBlockList(1,function (result) {

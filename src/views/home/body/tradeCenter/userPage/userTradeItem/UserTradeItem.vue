@@ -449,6 +449,7 @@
     ></nick-name-modal>
 
     <div v-if="myPaments || myInfo "></div>
+    <div v-if="tokenNo"></div>
   </div>
 </template>
 
@@ -527,7 +528,16 @@
                 }else{
                     return this.user.tokenName;
                 }
-            }
+            },
+            tokenNo(){
+                if(this.isGeneralCoin){
+                    return MainRepository.GeneralToken.controller().findGeneralToken(this.user.cryptocurrency, 'name').tokenNo
+                }
+                else{
+
+                    return MainRepository.CustomToken.controller().findCustomToken(this.tokenName, 'name').tokenNo
+                }
+            },
         },
         created(){
             //customtoken 일때
@@ -729,6 +739,7 @@
                         price : this.user.tradePrice,
                         status : "unpaid",
                         tradePassword : this.tradePW,
+                        tokenNo: this.tokenNo
                     }, function (orderNo) {
                         let isBuy = instance.user.tradeType === 'buy';
                         MainRepository.router().goBuyOrSell(isBuy, orderNo);

@@ -16,12 +16,12 @@
             >{{$str("OTC")}}</h6>
         </div>
           <!--Exchange-->
-        <div class="tap-button" @click="goExchange">
+        <!--div class="tap-button" @click="goExchange">
           <div class="sprite-img2 ic-tab-exchange-gray"
                v-bind:class="{ 'ic-tab-exchange-blue': (getDomain === 'Exchange') }"></div>
             <h6 v-bind:class="{ 'color-blue': (getDomain === 'Exchange') }"
             >{{$str("Exchange")}}</h6>
-        </div>
+        </div-->
           <!--Service-->
         <div class="tap-button" @click="goService">
           <div class="sprite-img2 ic-tab-service-gray"
@@ -98,7 +98,7 @@
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.18);
   }
   .tap-button{
-    width: 20%;
+    width: 25%;
     height: 64px;
     flex-direction: column;
     align-items: center;

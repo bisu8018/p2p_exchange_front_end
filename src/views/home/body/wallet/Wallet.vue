@@ -6,13 +6,13 @@
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
       <div  class="balance-width flex-padding-web">
-        <div class="dropbtn select-wallet-wrapper" @click="showDropdown('walletType')" >
+        <div class="dropbtn select-wallet-wrapper"  > <!--@click="showDropdown('walletType')"-->
           {{$str(selectedWallet)}}
-          <i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
+          <!--i class="material-icons md-light md-12 ">keyboard_arrow_down</i>
             <div class="dropdown-content dropdown-wallet" v-if="isdropdown.walletType">
               <div class=" btn-blue-hover" @click.stop="clickWallet('OTC Wallet')" >{{$str("OTC Wallet")}}</div>
               <div class=" btn-blue-hover" @click.stop="clickWallet('Exchange Wallet')">{{$str("Exchange Wallet")}}</div>
-            </div>
+            </div-->
         </div>
         <h6 class="text-total">
           {{$str("Total")}}

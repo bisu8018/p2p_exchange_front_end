@@ -511,8 +511,8 @@
                 :show=showNickNameModal
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
-
-        <div v-if="myPaments || myInfo ||tokenNo"></div>
+        <div v-if="myPaments || myInfo "></div>
+        <div v-if="tokenNo"></div>
     </div>
 </template>
 
@@ -521,7 +521,6 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Avatar from '@/components/Avatar.vue';
     import NickNameModal from '@/components/NickNameModal.vue';
-    import Common from "../../../../../service/common/CommonService";
     import {abUtils} from "../../../../../common/utils";
 
     export default {
@@ -715,11 +714,11 @@
                 this.clickFromAll = false;
                 //차후 마진고려해 수정해야함
                 this.toValue = this.user.maxLimit
-                console.log(this.toValue)
+
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-                console.log(this.toValue)
+
                 /*
                 if(this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;

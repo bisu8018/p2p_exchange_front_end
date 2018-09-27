@@ -162,7 +162,19 @@ export function transCryptocurrencyName(name: string){
         case 'ETH':
             return 'ethereum';
         default:
-            return '';
+            return name;
+    }
+}
+export function transCryptocurrencyFullName(name: string){
+    switch (name) {
+        case 'bitcoin':
+        case 'BTC':
+            return 'bitcoin';
+        case 'ethereum':
+        case 'ETH':
+            return 'ethereum';
+        default:
+            return name;
     }
 }
 

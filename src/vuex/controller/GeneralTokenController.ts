@@ -2,6 +2,7 @@ import {VuexTypes} from "@/vuex/config/VuexTypes";
 import {Store} from "vuex";
 import GeneralToken from "@/vuex/model/GeneralToken";
 
+
 export default class GeneralTokenController {
     store: Store<any>;
 
@@ -29,5 +30,6 @@ export default class GeneralTokenController {
         });
         return token;
     }
+
 }
 
