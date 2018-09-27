@@ -94,6 +94,8 @@
     text-align: center;
     background-color: #ffffff;
     color: #9294a6;
+    border-top: 1px solid #c8c8c8;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.18);
   }
   .tap-button{
     width: 20%;

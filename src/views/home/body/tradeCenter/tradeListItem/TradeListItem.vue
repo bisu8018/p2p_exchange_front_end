@@ -512,7 +512,7 @@
                 v-on:close="closeNicknameModal"
         ></nick-name-modal>
 
-        <div v-if="myPaments || myInfo "></div>
+        <div v-if="myPaments || myInfo ||tokenNo"></div>
     </div>
 </template>
 
@@ -548,6 +548,7 @@
             cryptocurrency: MainRepository.TradeView.getSelectFilter().cryptocurrency,
 
             isValid: false,
+            isCustomTrade : false,
         }),
         props: {
             user: {},
@@ -582,8 +583,20 @@
                 );
                 return MyBalance.availableAmount
             },
+            tokenNo(){
+                if(this.isCustomTrade){
+                    return MainRepository.CustomToken.controller().findCustomToken(this.user.cryptocurrency, 'name').tokenNo
+                }
+                else{
+                    return MainRepository.GeneralToken.controller().findGeneralToken(this.user.cryptocurrency, 'name').tokenNo
+                }
+            },
         },
         created() {
+            //custom Token Trade 일때
+            if(this.$route.name === 'customTokenTrade'){
+                this.isCustomTrade = true;
+            }
             //환율 및 유져 정보 get 필요
             if (MainRepository.MyInfo.isLogin()) {
                 this.checkSelectBtn()
@@ -690,6 +703,7 @@
                     price : this.user.tradePrice,
                     status : "unpaid",
                     tradePassword : this.tradePW,
+                    tokenNo: this.tokenNo
                 }, function (orderNo) {
                     let isBuy = self.user.tradeType === 'buy';
                     MainRepository.router().goBuyOrSell(isBuy, orderNo);
