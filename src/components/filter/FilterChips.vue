@@ -44,7 +44,7 @@
                     case 'searchStartTime':
                         this.searchStartTime = data;
                         if(this.searchEndTime === ''){
-                            return this.searchStartTime + "~";
+                            return this.searchStartTime + " ~ ";
                             this.flag = false;
                         }else{
                             this.flag = true;

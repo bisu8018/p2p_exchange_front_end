@@ -481,6 +481,7 @@
             padding-right: 16px;
             padding-left: 16px;
             cursor: pointer;
+            font-size: 14px;
         }
         .sub-domain-menu{
             background-color: rgba(0, 0, 0, 0.4);
@@ -786,7 +787,7 @@
             left: 0;
             background-color: rgba(0, 0, 0, 0.45);
             opacity: 0.5;
-            z-index: 150;           /*tab의 z-index: 100*/
+            z-index: 110;           /*tab의 z-index: 100*/
         }
 
         .both-flex{

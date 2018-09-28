@@ -3,7 +3,7 @@
         <v-flex md8 xs12 pr-0 pl-0>
             <div class="order-filter no-drag p-relative f-right text-xs-left d-inline-table"
                  v-bind:class="{'w-full' : isMobile}">
-                <div class="color-darkgray  p-relative  ma-2 d-inline-block"
+                <div class="color-darkgray  p-relative  ma-2 d-inline-block h5"
                      v-if="placeholderFlag">
                     {{$str("orderFilterPlaceholder")}}
                 </div>

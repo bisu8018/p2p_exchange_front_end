@@ -2367,6 +2367,8 @@
         opacity: 0;
     }
 
+
+
     /*post AD 사용 CSS*/
     .price-input-wrapper {
         border: solid 1px #8d8d8d;
@@ -2391,6 +2393,33 @@
     }
     .w-break{
         word-break: break-all;
+    }
+
+
+    /*달력 date picker CSS*/
+    .date-picker-icon-style {
+        right: 6px;
+        top: 2px;
+        pointer-events: none;
+    }
+
+    .date-picker-wrapper {
+        z-index: 2;
+    }
+
+    .screen-modal-wrapper {
+        z-index: 1;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+
+    /*내역 없음 표시*/
+
+    .no-more-ads-text{
+        font-size: 14px;
     }
 
 
