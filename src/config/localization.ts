@@ -2892,9 +2892,9 @@ const strings = new Map([
         CN: '交易时限已结束',
         HK: '交易時限已結束'
     }],
-    ['ALLB OTC', {
-        KOR: 'ALLB OTC',
-        ENG: 'ALLB OTC',
+    ['AllB OTC', {
+        KOR: 'AllB OTC',
+        ENG: 'AllB OTC',
         CN: '埃尔比场外交易',
         HK: '埃爾比場外交易'
     }],
@@ -4015,21 +4015,21 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['order_cancel_count_suspension', {
+        KOR: '24시간 거래 중지: 3번 거래취소함',
+        ENG: 'Transaction blocked in 24hrs: Order canceled 3 times.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['duplicated_phone_number', {
+        KOR: '중복되는 휴대폰 번호',
+        ENG: 'Duplicated phone number',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['vault_exception', {
+        KOR: 'vault 오류',
+        ENG: 'vault_exception',
         CN: '',
         HK: ''
     }],['', {

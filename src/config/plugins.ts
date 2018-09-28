@@ -77,7 +77,7 @@ export default (Vue: any) => {
         return abString(key);
     }
 
-    Vue.prototype.$fixed = function (value: number, currency: string) {
+    Vue.prototype.$fixed = function (value: number, currency: any) {
         let fixedDigits = 0;
         let isCustomToken = false;
 
@@ -99,6 +99,7 @@ export default (Vue: any) => {
         }
         if(isCustomToken){
             let pointer = Math.pow(10, fixedDigits);
+
             return String(Math.floor(value * pointer)/pointer);
         }
         let pointer = Math.pow(10, fixedDigits);
@@ -106,6 +107,16 @@ export default (Vue: any) => {
         //if (String(value).indexOf(".")==-1) { return value }
         //fixedValue = fixedValue.replace(/(0+$)/, "");
         return String(fixedValue.toFixed(fixedDigits));
+    }
+
+    Vue.prototype.$fix = function (value: number, fixedDigits: number) {
+        let pointer = Math.pow(10, fixedDigits+1);
+        let fixedValue = Math.floor(value * pointer)/pointer;
+        if(fixedDigits <15){
+            return String(fixedValue.toFixed(fixedDigits));
+        }
+        return String(fixedValue);
+
     }
 }
 

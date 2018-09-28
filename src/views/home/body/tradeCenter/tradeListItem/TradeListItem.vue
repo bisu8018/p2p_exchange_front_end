@@ -56,11 +56,17 @@
                         <li>
                             <!--payment method-->
                             <div v-if="user.bank_account"
-                                 class="mr-2 sprite-img ic-bank f-left"></div>
+                                 class="mr-2 sprite-img ic-bank f-left tooltip">
+                                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+                            </div>
                             <div v-if="user.alipay_id"
-                                 class="mr-2 sprite-img ic-alipay f-left"></div>
+                                 class="mr-2 sprite-img ic-alipay f-left tooltip">
+                                <span class="tooltip-content">{{$str("alipayText")}}</span>
+                            </div>
                             <div v-if="user.wechat_id"
-                                 class="sprite-img ic-wechatpay f-left"></div>
+                                 class="sprite-img ic-wechatpay f-left tooltip">
+                                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+                            </div>
                         </li>
                         <li>
                             <div v-if="can_not_trade ===''">
@@ -184,16 +190,23 @@
                     <v-layout>
                         <v-flex xs3 offset-xs2 text-xs-left>
                             <h5 class="medium color-darkgray">
-                                {{$str("payment")}} :
+                                {{$str("paymentMethod")}} :
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <div v-if="user.bank_account"
-                                 class="ml-2 sprite-img ic-bank f-right"></div>
-                            <div v-if="user.alipay_id"
-                                 class="ml-2 sprite-img ic-alipay f-right"></div>
+                            <!--payment method-->
                             <div v-if="user.wechat_id"
-                                 class="ml-2 sprite-img ic-wechatpay f-right"></div>
+                                 class="sprite-img ic-wechatpay ml-2 f-right tooltip">
+                                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+                            </div>
+                            <div v-if="user.alipay_id"
+                                 class="ml-2 sprite-img ic-alipay f-right tooltip">
+                                <span class="tooltip-content">{{$str("alipayText")}}</span>
+                            </div>
+                            <div v-if="user.bank_account"
+                                 class="sprite-img ic-bank f-right tooltip">
+                                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+                            </div>
                         </v-flex>
                     </v-layout>
                     <v-layout mt-4>
@@ -635,6 +648,7 @@
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
                     this.warning_toValue = false;
+                    this.warning_fromValue = false;
                     //fromvalue 계산해줌
                     temp = this.toValue/ this.user.tradePrice   //coinCount
                     temp -= temp*this.user.fee;             //coinWithoutFee
@@ -648,7 +662,7 @@
                         return false;
                     }
                     if (this.user.tradeType=='sell' && this.fromValue > this.getBalance) {
-                        this.verify_warning_toValue = Vue.prototype.$str("Enter less than available");
+                        this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                         this.warning_fromValue = true;
                         return false;
                     }
@@ -660,6 +674,7 @@
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
                     this.warning_fromValue = false;
+                    this.warning_toValue = false;
                     //toValue 계산해줌
                     temp = this.user.tradePrice * this.fromValue
                     temp += temp * this.user.fee
@@ -777,6 +792,11 @@
                     this.warning_fromValue = true;
                     return false;
                 }
+                if (this.toValue < this.user.minLimit) {
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Enter more than minimum limit");
+                    return false;
+                }
                 if (this.fromValue > this.user.volumeAvailable) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                     this.warning_fromValue = true;
@@ -850,12 +870,6 @@
         padding-right: 36px;
     }
 
-
-    .mobileInput {
-        height: 36px;
-
-    }
-
     .textRightPlaceholder::-webkit-input-placeholder {
         text-align: right;
 
@@ -866,24 +880,19 @@
 
     }
 
-    .userRank {
-        max-width: 16px;
-        height: 18px;
-        margin-left: 16px;
-    }
 
     .BankTooltip {
-        width: 101px;
+        width: 95px;
         left: 45% !important;
     }
 
     .premiumTooltip {
-        width: 150px;
+        width: 125px;
         left: 75% !important;
     }
 
     .certifiedTooltip {
-        width: 150px;
+        width: 125px;
         left: 75% !important;
         bottom: 160% !important;
     }
@@ -952,9 +961,5 @@
         text-align: right;
     }
 
-    .ic_payment {
-        display: inline-block;
-        margin-right: 8px;
-    }
 
 </style>

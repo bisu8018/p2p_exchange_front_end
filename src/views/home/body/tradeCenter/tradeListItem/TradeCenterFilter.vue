@@ -50,7 +50,7 @@
         </v-layout>
         <!--필터링된 사항들-->
         <v-flex xs12 class="cardParent">
-          <v-layout row class="statusBox" mt-4a pr-2>
+          <v-layout row class="statusBox" mt-4a>
             <h6  class="statusChip" @click.stop="transisModal('open')">{{$str(getCountryName(nationality))}}</h6>
             <h6  class="statusChip" @click.stop="transisModal('open')">{{currency}}</h6>
             <h6  class=" statusChip" @click.stop="transisModal('open')">{{$str(getPaymentName(paymentMethod))}}</h6>
@@ -64,7 +64,7 @@
             <v-spacer></v-spacer>
             <!-- 필터 펼치기 버튼 -->
             <button @click.stop="transisModal('open')">
-              <i class="material-icons color-darkgray" >filter_list</i>
+              <i class="material-icons color-darkgray filter-img" >filter_list</i>
             </button>
           </v-layout>
 
@@ -188,21 +188,19 @@
 
         <!--right filter-->
         <v-flex md4 offset-md1 class="cardParent p-relative">
-          <v-layout row class="statusBox" >
+          <div row class="statusBox" >
             <h6  class="statusChip" @click="transisModal('open')">{{$str(getCountryName(nationality))}}</h6>
             <h6  class="statusChip" @click="transisModal('open')">{{currency}}</h6>
             <h6  class=" statusChip" @click="transisModal('open')">{{$str(getPaymentName(paymentMethod))}}</h6>
-            <h6  class="statusChip " v-if="amount>0" v-model="isAmout">
-              <v-layout align-center row fill-height>
+            <h6  class="statusChip d-inline-flex" v-if="amount>0" v-model="isAmout">
                 {{toMoneyFormat(amount)}}
                 <i class="h5 material-icons " @click="removeAmount">close</i>
-              </v-layout>
             </h6>
             <v-spacer></v-spacer>
             <button @click="transisModal('open')">
-              <i class="material-icons color-darkgray">filter_list</i>
+              <i class="material-icons color-darkgray filter-img">filter_list</i>
             </button>
-          </v-layout>
+          </div>
           <div class="cardModal" v-if="isModal">
             <v-layout row wrap>
               <v-flex xs12 text-xs-left cardText>{{$str("country")}}</v-flex>
@@ -235,11 +233,6 @@
           </div>
         </v-flex>
       </v-layout>
-
-
-    <!-- right filter -->
-
-
   </v-layout>
 </template>
 
@@ -527,7 +520,7 @@
       padding: 16px 8px 24px 8px;
       width: 75%;
       left: 22%;
-      top: 60px;
+      top: 130%;
     }
 
   }
@@ -540,10 +533,13 @@
     margin-bottom: 8px;
   }
   .statusBox{
+    position: relative;
+    display: flex;
+    flex-wrap : wrap;
     min-height: 40px;
     border-radius: 2px;
     border: solid 1px #8d8d8d;
-    padding-right: 8px;
+    padding-right: 36px;
     width: 100%;
 
   }
@@ -609,7 +605,11 @@
     left: 0;
     z-index: 1;
   }
-
+  .filter-img {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+  }
   .mobile-token{
 
   }

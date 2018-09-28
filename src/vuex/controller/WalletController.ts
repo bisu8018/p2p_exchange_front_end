@@ -4,6 +4,7 @@ import Wallet from "@/vuex/model/Wallet";
 import Withdraw from "@/vuex/model/Withdraw";
 import WalletHistory from "@/vuex/model/WalletHistory";
 import MyTradeFilter from "@/vuex/model/MyTradeFilter";
+import MainRepository from "@/vuex/MainRepository";
 import CustomToken from "@/vuex/model/CustomToken";
 
 export default class WalletController {
@@ -28,6 +29,20 @@ export default class WalletController {
 
     getCustomTokenWallet() {
         return this.store.state.wallet.customWalletList;
+    }
+    getCustomTokenMyWallet(){
+        let tokenList:Wallet[] = []
+        let MyToken = MainRepository.MyToken.controller().getMyToken().tokenName
+        for (let key in this.getCustomTokenWallet()) {
+            let _wallet:Wallet = this.getCustomTokenWallet()[key]
+            let compared =  _wallet.tokenName;
+            if( compared.indexOf(MyToken) > -1){
+                tokenList.unshift(_wallet);
+            }else{
+                tokenList.push(_wallet);
+            }
+        }
+        return tokenList;
     }
 
     getWallets() {
@@ -55,23 +70,25 @@ export default class WalletController {
         if (type === 'General Coin'){
             let self = this
             let tokenList:Wallet[] = []
-            this.getWallets().find(function (element) {
-                let compared =  self.transCryptocurrencyName(element.cryptocurrency);
+            for (let key in this.getWallets()) {
+                let _wallet:Wallet = this.getWallets()[key]
+                let compared = self.transCryptocurrencyName(_wallet.cryptocurrency);
                 if( compared.indexOf(value) > -1){
-                    tokenList.push(element);
+                    tokenList.push(_wallet);
                 }
-            });
+            }
             return tokenList;
         }
         //custom 일때
         else{
             let tokenList:Wallet[] = []
-            this.getCustomTokenWallet().find(function (element) {
-                let compared =  element.tokenName;
+            for (let key in this.getCustomTokenMyWallet()) {
+                let _wallet:Wallet = this.getCustomTokenMyWallet()[key]
+                let compared =  _wallet.tokenName;
                 if( compared.indexOf(value) > -1){
-                    tokenList.push(element);
+                    tokenList.push(_wallet);
                 }
-            });
+            }
             return tokenList;
         }
     }
