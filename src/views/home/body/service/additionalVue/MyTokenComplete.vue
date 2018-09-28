@@ -41,6 +41,7 @@
                     if (tokenInfo.isNull()) {
                         MainRepository.router().goMyToken();
                     }
+                    MainRepository.State.setDomain('Service');
                 }
             },
             goWallet() {
