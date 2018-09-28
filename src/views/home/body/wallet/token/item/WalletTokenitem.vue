@@ -141,7 +141,6 @@
                 if(this.isGeneralCoin) {
                     return this.getCryptoName(this.item.cryptocurrency)
                 }else{
-
                     return this.item.tokenName;
                 }
             },
@@ -200,7 +199,7 @@
                 this.$eventBus.$emit('showTransferDialog');
             },
             showDetails(){
-                MainRepository.router().goWalletDetail(this.tokenName);
+                MainRepository.router().goWalletDetail(this.item.tokenNo, this.item.cryptocurrencyType);
             },
 
         }

@@ -4,6 +4,7 @@ import MainRepository from "@/vuex/MainRepository";
 export default class Wallet {
     ownerMemberNo: number;
     cryptocurrency : string;
+    cryptocurrencyType : string;
     depositType: string;
     ownerEmail : string;
     availableAmount : number;
@@ -27,6 +28,7 @@ export default class Wallet {
             this.ownerMemberNo = Number(data.ownerMemberNo);
         }
         this.cryptocurrency = data.cryptocurrency || '';
+        this.cryptocurrencyType = data.cryptocurrencyType || '';
         this.depositType = data.depositType || '';
         this.ownerEmail = data.ownerEmail || '';
         this.availableAmount = Number(data.availableAmount) || 0;

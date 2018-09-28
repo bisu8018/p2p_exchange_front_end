@@ -1,52 +1,44 @@
 <template>
     <v-layout row wrap>
-        <v-flex md8 xs12 pr-0 pl-0>
+        <v-flex xs12 pr-0 pl-0>
             <div class="order-filter no-drag p-relative f-right text-xs-left d-inline-table"
                  v-bind:class="{'w-full' : isMobile}">
+
+
+                <!--필터 input box-->
                 <div class="p-relative  ma-2 d-inline-block"
                      v-if="placeholderFlag">
                     <span class="h5 color-darkgray  ">
-                        {{$str("orderFilterPlaceholder")}}
+                        {{$str("walletDetailsFilterPlaceholder")}}
                     </span>
                 </div>
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer" @click.stop="onModal">filter_list</i>
 
+
                 <!--  chips  -->
                 <filter-chips :chipData="chipData" @delete="onPost" class="pr-4a"></filter-chips>
 
+
                 <!--  filter  -->
-                <my-order-content v-if="isModal" :chipData="chipData" @closeModal="closeModal"
-                                  @update="onUpdate"></my-order-content>
+                <wallet-detail-content v-if="isModal" :chipData="chipData" @closeModal="closeModal"
+                                       @update="onUpdate"></wallet-detail-content>
             </div>
         </v-flex>
-
-        <!--   only desktop   -->
-        <v-flex md4 pl-4 pr-0 v-if="!isMobile">
-            <div class="btn-white align-center " @click="showDownloadDialog">
-                <i class="material-icons md-24 export-icon">save_alt</i>
-                {{$str("Export")}}
-            </div>
-        </v-flex>
-
-        <!--  download modal  -->
-        <my-order-download-dialog></my-order-download-dialog>
-
     </v-layout>
 </template>
 
 <script>
     import Vue from 'vue';
-    import MainRepository from '../../../../../../vuex/MainRepository';
+    import MainRepository from '../../../../../../../vuex/MainRepository';
     import {transCryptocurrencyName} from "@/common/common";
-    import MyOrderDownloadDialog from '../dialog/MyOrderDownloadDialog'
-    import MyOrderContent from './MyOrderContent.vue'
-    import FilterChips from '../../../../../../components/filter/FilterChips.vue'
-    import FilterChipsModel from "../../../../../../vuex/model/filterChips";
+    import FilterChips from '../../../../../../../components/filter/FilterChips.vue'
+    import FilterChipsModel from "../../../../../../../vuex/model/filterChips";
+    import WalletDetailContent from "./WalletDetailContent.vue"
 
     export default Vue.extend({
-        name: "myOrder-filter",
+        name: "wallet-detail-filter",
         components: {
-            MyOrderDownloadDialog, MyOrderContent, FilterChips
+            WalletDetailContent, FilterChips
         },
         data() {
             return {
@@ -60,7 +52,25 @@
                 return MainRepository.State.isMobile();
             },
         },
+        created() {
+            let urlParam = this.getUrlParam();
+            //tokenlist에서 넘어올때
+            if (urlParam !== '') {
+                this.chipData.cryptocurrencyType = urlParam[1] || '';
+                this.chipData.tokenNo = urlParam[0] || '';
+            }
+        },
         methods: {
+            getUrlParam() {
+                let currentURL = window.location.href;
+                let params = currentURL.split('?');
+
+                if (params) {
+                    return params;
+                } else {
+                    return '';
+                }
+            },
             // placeholder
             showPlaceholder() {
                 for (let key in this.chipData) {
@@ -95,13 +105,15 @@
             onPost(data) {
                 this.chipData.update(data);
                 this.showPlaceholder();
-                MainRepository.MyOrder.updatePage(this.chipData);
-            },
-            showDownloadDialog() {
-                this.$eventBus.$emit('showMyOrderDownloadDialog');
-            },
-            myOrderDownload() {
-                MainRepository.MyOrder.getMyOrderDownload();
+
+                //Axios 태우기
+                MainRepository.Wallet.updateHistoryPage({
+                    searchStartTime: this.chipData.searchStartTime,
+                    searchEndTime: this.chipData.searchEndTime,
+                    type: this.chipData.walletType,
+                    cryptocurrencyType: this.chipData.cryptocurrencyType,
+                    tokenNo: this.chipData.tokenNo,
+                });
             },
         },
 
@@ -114,21 +126,6 @@
             height: 40px;
             border: solid 1px #8d8d8d;
             min-width: unset;
-        }
-    }
-
-    /* 웹에서 */
-    @media only screen and (min-width: 960px) {
-        .export-icon {
-            width: 18px;
-            margin-right: 16px;
-        }
-
-        .align-center {
-            display: flex;
-            align-content: center;
-            justify-content: center;
-            cursor: pointer;
         }
     }
 

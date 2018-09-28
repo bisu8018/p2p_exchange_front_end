@@ -10,7 +10,7 @@
                 <i class="material-icons p-absolute filter-img color-darkgray c-pointer" @click.stop="onModal">filter_list</i>
 
                 <!--  chips  -->
-                <filter-chips :chipData="chipData" @delete="onPost"></filter-chips>
+                <filter-chips :chipData="chipData" @delete="onPost" class="pr-4a"></filter-chips>
 
                 <!--  filter  -->
                 <my-ads-content v-if="isModal" :chipData="chipData" @closeModal="closeModal"

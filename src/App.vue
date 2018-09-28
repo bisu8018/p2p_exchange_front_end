@@ -1219,7 +1219,6 @@
         background: white;
         max-width: 384px;
         padding: 24px 16px 24px 16px;
-        overflow-y: visible !important;
     }
 
     /* 포지션 */
@@ -1392,12 +1391,23 @@
         border-left: 6px solid transparent;
     }
 
-    :hover.tooltip .tooltip-content {
-        display: block;
-        bottom: 140%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
+    @media (min-width: 959px) {
+        :hover.tooltip .tooltip-content {
+            display: block;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+    }
+    @media (max-width: 959px) {
+        :active.tooltip .tooltip-content {
+            display: block;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
     }
 
     /*vuetify 버튼 hover 시, color foggy 현상 방지*/
