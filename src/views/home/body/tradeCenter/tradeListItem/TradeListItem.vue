@@ -70,10 +70,10 @@
                             </div>
                             <div v-else-if="can_not_trade ==='MyPage'">
                                 <h6 class="color-darkgray">{{$str("Need to")}}</h6>
-                                <h6 class="color-blue-active" @click="goMyPage">{{do_not_trade_message}}</h6>
+                                <h6 class="color-blue-active" @click="goMyPage">{{$str(do_not_trade_message)}}</h6>
                             </div>
                             <div v-else-if="can_not_trade ==='noMyPage'">
-                                <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
+                                <h6 class="color-darkgray">{{$str(do_not_trade_message)}}</h6>
                             </div>
                         </li>
                     </ul>
@@ -319,10 +319,10 @@
                         </div>
                         <div v-else-if="can_not_trade ==='MyPage'">
                             <h6 class="color-darkgray">{{$str("Need to")}}</h6>
-                            <h6 class="color-blue-active" @click="goMyPage">{{do_not_trade_message}}</h6>
+                            <h6 class="color-blue-active" @click="goMyPage">{{$str(do_not_trade_message)}}</h6>
                         </div>
                         <div v-else-if="can_not_trade ==='noMyPage'">
-                            <h6 class="color-darkgray">{{do_not_trade_message}}</h6>
+                            <h6 class="color-darkgray">{{$str(do_not_trade_message)}}</h6>
                         </div>
                     </v-layout>
                 </v-flex>

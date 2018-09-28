@@ -16,16 +16,16 @@
                     <span class="mr-4 color-orange-price bold" v-if="adslist.tradeType === 'sell'">
                         {{$str("buy")}}
                       </span>
-                    {{adslist.cryptocurrency}}
+                    {{tokenName}}
                 </v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Amount</v-flex>
-                <v-flex xs9 text-xs-right>{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</v-flex>
+                <v-flex xs9 text-xs-right>{{ $fixed(adslist.volumeAvailable, tokenName) }}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Limits</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.currency}}</v-flex>
+                <v-flex xs9 text-xs-right>{{toMoneyFormat(adslist.minLimit)}} ~ {{toMoneyFormat(adslist.maxLimit)}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Price</v-flex>
@@ -66,10 +66,10 @@
                     </v-layout>
                 </v-flex>
                 <v-flex md2 text-md-left>
-                    <span>{{adslist.cryptocurrency}}</span>
-                    <span class="ml-2">{{ $fixed(adslist.volumeAvailable, adslist.cryptocurrency) }}</span>
+                    <span>{{tokenName}}</span>
+                    <span class="ml-2">{{ $fixed(adslist.volumeAvailable, tokenName) }}</span>
                 </v-flex>
-                <v-flex md2 text-md-left>{{adslist.minLimit}} ~ {{adslist.maxLimit}} {{adslist.currency}}</v-flex>
+                <v-flex md2 text-md-left>{{toMoneyFormat(adslist.minLimit)}} ~ {{toMoneyFormat(adslist.maxLimit)}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>{{toMoneyFormat(adslist.tradePrice)}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>
                     <span class="ml-3">{{transTime(adslist.registerDatetime)}}</span>
@@ -89,7 +89,7 @@
             </v-layout>
         </div>
         <my-ads-enable-dialog
-                :cryptocurrency = adslist.cryptocurrency
+                :cryptocurrency = tokenName
                 :adNo = adslist.adNo
         />
         <my-ads-delete-dialog
@@ -131,7 +131,17 @@
             },
             canModify(){
                 return (this.adslist.status === 'disable')&&(this.adslist.processingOrderCount === 0)
-            }
+            },
+            isGeneralCoin(){
+                return this.adslist.tokenName === ""
+            },
+            tokenName(){
+                if(this.isGeneralCoin) {
+                    return this.adslist.cryptocurrency
+                }else{
+                    return this.adslist.tokenName;
+                }
+            },
         },
         methods: {
             transTime(time){
