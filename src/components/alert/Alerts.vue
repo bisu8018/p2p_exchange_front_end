@@ -104,6 +104,9 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 458 : this.show(this.type.Error, "", "duplicated_custom_token_name"); break;
                     case 459 : this.show(this.type.Error, "", "duplicated_custom_token_name_short"); break;
                     case 460 : this.show(this.type.Error, "", "update_phone_suspension_period"); break;  //phone update  되면 24시간 거래x
+                    case 461 : this.show(this.type.Error, "", "duplicated_phone_number"); break;  //
+                    case 462 : this.show(this.type.Error, "", "vault_exception"); break;  //
+                    case 463 : this.show(this.type.Error, "", "order_cancel_count_suspension"); break;  //거래3번 취소되면 24시간 거래x
                     case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;

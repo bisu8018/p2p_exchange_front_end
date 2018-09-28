@@ -190,13 +190,13 @@
                     <v-layout>
                         <v-flex xs3 offset-xs2 text-xs-left>
                             <h5 class="medium color-darkgray">
-                                {{$str("payment")}} :
+                                {{$str("paymentMethod")}} :
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
                             <!--payment method-->
                             <div v-if="user.wechat_id"
-                                 class="sprite-img ic-wechatpay f-right tooltip">
+                                 class="sprite-img ic-wechatpay ml-2 f-right tooltip">
                                 <span class="tooltip-content">{{$str("wechatPayText")}}</span>
                             </div>
                             <div v-if="user.alipay_id"
@@ -204,7 +204,7 @@
                                 <span class="tooltip-content">{{$str("alipayText")}}</span>
                             </div>
                             <div v-if="user.bank_account"
-                                 class="ml-2 sprite-img ic-bank f-right tooltip">
+                                 class="sprite-img ic-bank f-right tooltip">
                                 <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
                             </div>
                         </v-flex>
@@ -863,12 +863,6 @@
         padding-right: 36px;
     }
 
-
-    .mobileInput {
-        height: 36px;
-
-    }
-
     .textRightPlaceholder::-webkit-input-placeholder {
         text-align: right;
 
@@ -879,11 +873,6 @@
 
     }
 
-    .userRank {
-        max-width: 16px;
-        height: 18px;
-        margin-left: 16px;
-    }
 
     .BankTooltip {
         width: 95px;
@@ -965,9 +954,5 @@
         text-align: right;
     }
 
-    .ic_payment {
-        display: inline-block;
-        margin-right: 8px;
-    }
 
 </style>

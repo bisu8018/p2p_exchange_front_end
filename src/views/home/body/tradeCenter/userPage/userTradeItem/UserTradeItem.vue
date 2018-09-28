@@ -5,7 +5,7 @@
     <!-- mobile 일때-->
     <div v-if="isMobile" class="p-relative">
       <!--거래 list -->
-      <div v-if="!drawer">
+      <div v-if="!drawer" class="mb-4">
         <!-- name-->
         <!--userPage 일때-->
         <v-layout  mt-4 align-center fill-height>
@@ -17,49 +17,61 @@
             <span class="bold">{{tokenName}}</span>
           </v-flex>
         </v-layout>
+        <!-- 디테일 설명 -->
+        <div class="detail-mobile">
 
+          <!-- Available volume -->
+          <ul>
+            <li>{{$str("Available")}} :</li>
+            <li class="w-break">{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</li>
+          </ul>
 
-        <!-- Volume -->
-        <v-layout>
-          <v-flex xs2></v-flex>
-          <v-flex xs4 text-xs-left color-darkgray>{{ $str('Available') }} :</v-flex>
-          <v-flex xs6 text-xs-right class="w-break"> {{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}} </v-flex>
-        </v-layout>
-        <!-- Limits -->
-        <v-layout>
-          <v-flex xs2></v-flex>
-          <v-flex xs4 text-xs-left color-darkgray>{{ $str('limits') }} :</v-flex>
-          <v-flex xs6 text-xs-right class="w-break"> {{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
-        </v-layout>
-        <!-- Price -->
-        <v-layout mb-3>
-          <v-flex xs2></v-flex>
-          <v-flex xs4 text-xs-left color-darkgray>{{ $str('price') }} :</v-flex>
-          <v-flex xs6 text-xs-right bold color-orange-price class="w-break"> {{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}} </v-flex>
-        </v-layout>
-        <!-- Payment Methods -->
-        <v-layout align-center justify-space-between row fill-height mb-4>
-          <v-flex xs2></v-flex>
-          <v-flex xs5 text-xs-left>
-            <a class="tooltip" v-if="user.bank_account">
-              <div class="mr-2 sprite-img ic-bank f-left"></div>
-              <span class="BankTooltip tooltip-content">{{ $str('bankAccountText') }}</span>
-            </a>
-            <a class="tooltip" v-if="user.alipay_id">
-              <div class="mr-2 sprite-img ic-alipay f-left"></div>
-              <span class="tooltip-content">{{ $str('alipayText') }}</span>
-            </a>
-            <a class="tooltip" v-if="user.wechat_id">
-              <div class="mr-2 sprite-img ic-wechatpay f-left"></div>
-              <span class="tooltip-content">{{ $str('wechatPayText') }}</span>
-            </a>
-          </v-flex>
-          <!--거래 버튼-->
-          <v-flex xs5 text-xs-right>
-            <button class="btn-rounded-blue medium" @click="changeDrawer">
-              {{$str(user.tradeType)}} {{tokenName}}</button>
-          </v-flex>
-        </v-layout>
+          <!-- Limits -->
+          <ul>
+            <li>{{$str("limits")}} :</li>
+            <li class="w-break">{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</li>
+          </ul>
+
+          <!-- Price -->
+          <ul>
+            <li>{{$str("price")}} :</li>
+            <li class="bold color-orange-price">{{toMoneyFormat($fixed(user.tradePrice,'USD'))}} {{user.currency}}</li>
+          </ul>
+
+          <!-- Payment Methods -->
+          <ul class="pt-3">
+            <!-- 아이콘 v-if="user.bank_account== 'y'"  v-if="user.alipay_id== 'y'" v-if="user.wechat_id== 'y'"-->
+            <li>
+              <!--payment method-->
+              <div v-if="user.bank_account"
+                   class="mr-2 sprite-img ic-bank f-left tooltip">
+                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+              </div>
+              <div v-if="user.alipay_id"
+                   class="mr-2 sprite-img ic-alipay f-left tooltip">
+                <span class="tooltip-content">{{$str("alipayText")}}</span>
+              </div>
+              <div v-if="user.wechat_id"
+                   class="sprite-img ic-wechatpay f-left tooltip">
+                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+              </div>
+            </li>
+            <li>
+              <div v-if="can_not_trade ===''">
+                <button class="btn-rounded-blue medium" @click="changeDrawer">
+                  <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
+                </button>
+              </div>
+              <div v-else-if="can_not_trade ==='MyPage'">
+                <h6 class="color-darkgray">{{$str("Need to")}}</h6>
+                <h6 class="color-blue-active" @click="goMyPage">{{$str(do_not_trade_message)}}</h6>
+              </div>
+              <div v-else-if="can_not_trade ==='noMyPage'">
+                <h6 class="color-darkgray">{{$str(do_not_trade_message)}}</h6>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
       <v-flex v-if="!drawer"><div class="divider"></div></v-flex>
       <!-- Nicname 설정을 안했을경우 띄움-->
@@ -155,16 +167,23 @@
         <v-layout>
           <v-flex xs3  offset-xs2 text-xs-left>
             <h5 class="medium color-darkgray">
-              {{$str("payment")}}:
+              {{$str("paymentMethod")}}:
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <div v-if="user.bank_account"
-                 class="ml-2 sprite-img ic-bank f-right"></div>
-            <div v-if="user.alipay_id"
-                 class="ml-2 sprite-img ic-alipay f-right"></div>
+            <!--payment method-->
             <div v-if="user.wechat_id"
-                 class="ml-2 sprite-img ic-wechatpay f-right"></div>
+                 class="sprite-img ml-2 ic-wechatpay f-right tooltip">
+              <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+            </div>
+            <div v-if="user.alipay_id"
+                 class="ml-2 sprite-img ic-alipay f-right tooltip">
+              <span class="tooltip-content">{{$str("alipayText")}}</span>
+            </div>
+            <div v-if="user.bank_account"
+                 class="sprite-img ic-bank f-right tooltip">
+              <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+            </div>
           </v-flex>
         </v-layout>
         <v-layout mt-4>
@@ -812,7 +831,8 @@
   }
 
   .BankTooltip{
-    width: 101px;
+    width: 95px;
+    left: 45% !important;
   }
   .tradeWebModal{
     background-color: #ffffff;
@@ -845,5 +865,27 @@
     width: 24px;
     height: 24px;
     border-radius: 100px;
+  }
+  .detail-mobile {
+    text-align: left;
+    padding-left: 50px;
+    margin-top: 8px;
+  }
+
+  .detail-mobile ul {
+    padding: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .detail-mobile li:nth-child(2n-1) {
+    width: 100px;
+    color: #9294A6;
+  }
+
+  .detail-mobile li:nth-child(2n) {
+    width: calc(100% - 100px);
+    text-align: right;
   }
 </style>

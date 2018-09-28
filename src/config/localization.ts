@@ -4015,21 +4015,21 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['order_cancel_count_suspension', {
+        KOR: '24시간 거래 중지: 3번 거래취소함',
+        ENG: 'Transaction blocked in 24hrs: Order canceled 3 times.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['duplicated_phone_number', {
+        KOR: '중복되는 휴대폰 번호',
+        ENG: 'Duplicated phone number',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['vault_exception', {
+        KOR: 'vault 오류',
+        ENG: 'vault_exception',
         CN: '',
         HK: ''
     }],['', {

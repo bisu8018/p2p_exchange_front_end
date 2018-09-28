@@ -109,9 +109,7 @@ export default (Vue: any) => {
         return String(fixedValue.toFixed(fixedDigits));
     }
 
-    Vue.prototype.$fix = function (value: number, currency: any) {
-        let fixedDigits = 0;
-        let isCustomToken = false;
+    Vue.prototype.$fix = function (value: number, fixedDigits: number) {
         let pointer = Math.pow(10, fixedDigits);
         return String(Math.floor(value * pointer)/pointer);
 
