@@ -14,6 +14,7 @@ export default class Order {
     memberNo: string;
     merchantMemberNo : number;
     orderNo: number;
+    tokenNo: number;
     paymentMethods : string;
     filteredPaymentMethod : PaymentMethod[];
     paymentWindow : string;
@@ -31,8 +32,10 @@ export default class Order {
     counterParty : MsgAvatar;
     statusImg : string;
 
+
     constructor (data: any) {
         this.orderNo = Number(data.orderNo) || 0;
+        this.tokenNo = data.tokenNo || 0;
         this.unreadMessageCount = Number(data.unreadMessageCount);
         this.referenceNo = Number(data.referenceNo) || 0;
         this.adNo = Number(data.adNo) || 0;
@@ -102,6 +105,8 @@ export default class Order {
             case 'ethereum':
             case 'ETH':
                 return 'ETH';
+            case 'custom':
+                return cryptocurrency;
             default:
                 return 'ALLB';
         }

@@ -785,7 +785,7 @@
             left: 0;
             background-color: rgba(0, 0, 0, 0.45);
             opacity: 0.5;
-            z-index: 1;
+            z-index: 150;           /*tab의 z-index: 100*/
         }
 
         .both-flex{

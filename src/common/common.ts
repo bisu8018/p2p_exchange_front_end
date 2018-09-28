@@ -165,6 +165,7 @@ export function transCryptocurrencyName(name: string){
             return name;
     }
 }
+
 export function transCryptocurrencyFullName(name: string){
     switch (name) {
         case 'bitcoin':
@@ -176,5 +177,16 @@ export function transCryptocurrencyFullName(name: string){
         default:
             return name;
     }
+}
+
+export function findCustomTokenName(data: any, no: number){
+    let value;
+    let list = data || [];
+    value = list.find(function (element) {
+        if( no === element.tokenNo){
+            return element;
+        }
+    });
+    return value.tokenName;
 }
 

@@ -6,7 +6,7 @@
         <div class="ml-3">
             <h5 class="color-darkgray">
                 <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
-                {{ $str(data.orderTradeType) }} | {{ data.cryptocurrency }} | {{ $str('TotalPrice') }}: {{ data.amount }} {{ data.currency }}
+                {{ $str(data.orderTradeType) }} | {{ getTokenName }} | {{ $str('TotalPrice') }}: {{ data.amount }} {{ data.currency }}
                 <!--Buy BTC Total Price: 200 CNY-->
             </h5>
             <h5>
@@ -19,7 +19,7 @@
 
 <script>
     import Avatar from '@/components/Avatar.vue';
-    import {getLimitTime} from "../../../../../common/common";
+    import {getLimitTime,transCryptocurrencyName, findCustomTokenName} from "../../../../../common/common";
     import MainRepository from "../../../../../vuex/MainRepository";
 
     export default {
@@ -34,13 +34,22 @@
               timerInterval: {},
           }
         },
+        computed: {
+            getTokenName() {
+                if(this.data.cryptocurrency !== 'custom'){         //general token 이름 찾기
+                    return this.data.cryptocurrency;
+                }else{                                        //custom token 이름 찾기
+                    let data = MainRepository.CustomToken.controller().getCustomTokenList();
+                    return findCustomTokenName(data, this.data.tokenNo);
+                }
+            },
+        },
         created() {
             this.limitTime = this.getLimitTime();
             this.timerInterval = setInterval(() => {
                 this.limitTime = this.getLimitTime();
                 // 만료되었을 경우
                 if (this.limitTime === '00:00') {
-
                 }
             }, 1000)
         },

@@ -1,5 +1,5 @@
 <template>
-    <v-layout wrap align-center v-if="init()">
+    <v-layout wrap align-center >
         <!--token list loading indicator-->
         <div class="p-relative w-full"
              v-if="selectBoxType === 'customToken' && customTokens.length === 0 || selectBoxType === 'generalToken'  && generalTokens.length === 0">
@@ -11,7 +11,8 @@
         <div class="p-relative  w-full" v-else @click="onShow()">
 
             <!--body-->
-            <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType" :class="[selectBoxType, showOptions ? 'comp-selectbox-active' : '']">
+            <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType"
+                 :class="[selectBoxType, showOptions ? 'comp-selectbox-active' : '']">
                 {{ selectedValue }}
             </div>
 
@@ -22,7 +23,7 @@
                     <li class="select-option vertical-center"
                         v-for="data in getList"
                         @click="onSelect(data)"
-                        v-if="selectBoxType !== 'customToken' && selectBoxType !== 'generalToken' ? getCondition !== data.code : true"
+                        v-if="getCondition !== (data.tokenNo || data.code) "
                         :class="selected === (data.tokenNo || data.code) ? 'selected-option' : ''">
                         {{ data.tokenName || data.value }}
                     </li>
@@ -67,7 +68,13 @@
             customTokens: [],
             generalTokens: [],
         }),
+        watch : {
+            editValue() {
+                this.init();
+            } ,
+        },
         computed: {
+            // 목록 가져오기
             getList() {
                 switch (this.selectBoxType) {
                     case 'country' :
@@ -108,19 +115,27 @@
                         if (this.optionFilter === 'custom') {
                             this.selected = 'fixedprice';
                             this.selectedValue = SelectBox.findValue(this.selectBoxType, this.selected);
-                            return 'floatprice'
+                            return 'floatprice';
                         }
                         break;
 
                     case 'payment' :
                         if (this.optionFilter === 'unselected') {
+                            let data = MainRepository.MyInfo.controller().getMyPaymentMethods();
                             this.selected = '';
                             this.selectedValue = Vue.prototype.$str('paymentMethodSelectboxPlaceholder');
-                            return 'ALL'
+                            return 'ALL';
                         }
                         break;
                 }
+
+                return '';
             }
+        },
+        created() {
+            this.$nextTick(() => {
+                this.init();
+            });
         },
         mounted() {
             this.$eventBus.$emit('clickEvent', (event) => {
@@ -147,7 +162,7 @@
                         if (this.editValue) {
                             this.selected = this.editValue;
                             this.selectedValue = SelectBox.findValue(this.selectBoxType, this.editValue);
-                        } else if(this.selected === '' && this.selectedValue === ''){
+                        } else if (this.selected === '' && this.selectedValue === '') {
                             this.selected = this.getList[0].code;
                             this.selectedValue = this.getList[0].value;
                         }
@@ -155,31 +170,26 @@
                         break;
 
                     case 'customToken' :
-                        MainRepository.CustomToken.setCustomTokenList(() => {
-                            this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
-                            this.selected = this.getList[0].tokenNo;
-                            this.selectedValue = this.getList[0].tokenName;
-                            if (this.editValue) {
-                                this.selected = this.editValue;
-                            }
-                            this.setting();
-                        });
+                        this.customTokens = MainRepository.MyToken.controller().getCustomTokenList();
+                        this.selected = this.getList[0].tokenNo;
+                        this.selectedValue = this.getList[0].tokenName;
+                        if (this.editValue) {
+                            this.selected = this.editValue;
+                        }
+                        this.setting();
                         break;
+
                     case 'generalToken' :
-                        MainRepository.GeneralToken.setGeneralTokenList(() => {
-                            this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
-                            this.selected = this.getList[0].tokenNo;
-                            this.selectedValue = this.getList[0].tokenName;
-                            if (this.editValue) {
-                                this.selected = this.editValue;
-                            }
-                            this.setting();
-                        });
+                        this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
+                        this.selected = this.getList[0].tokenNo;
+                        this.selectedValue = this.getList[0].tokenName;
+                        if (this.editValue) {
+                            this.selected = this.editValue;
+                        }
+                        this.setting();
                         break;
                 }
-                return true;
             },
-
             //  값 설정
             setting() {
                 let type = this.selectBoxType;
