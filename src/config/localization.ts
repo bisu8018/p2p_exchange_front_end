@@ -3991,7 +3991,59 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-
+    ['Need to', {
+        KOR: '필요조건',
+        ENG: 'Need to',
+        CN: '',
+        HK: ''
+    }],
+    ['verify phone', {
+        KOR: '휴대폰 인증',
+        ENG: 'verify phone',
+        CN: '',
+        HK: ''
+    }],
+    ['Lack of transaction success', {
+        KOR: '거래성공률 부족',
+        ENG: 'Lack of transaction success',
+        CN: '',
+        HK: ''
+    }],
+    ['Need to complete current trading', {
+        KOR: '현재 진행중 거래 미종료',
+        ENG: 'Need to complete current trading',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
 
 
 

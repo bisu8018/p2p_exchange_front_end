@@ -13,7 +13,7 @@
                     <v-spacer></v-spacer>
                     <!--햄버거 bar-->
                     <div class="p-relative menu-margin">
-                        <a><i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i></a>
+                        <i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i>
                         <div v-if="isLogin && totalMsgCount > 0 && orderList.length > 0" class="new-msg-dot"></div>
                     </div>
                 </div>
@@ -684,6 +684,7 @@
 
         .menu-margin {
             margin: auto 24px auto auto;
+            padding-top: 4px;
         }
         .menu-button {
             height: 52px;

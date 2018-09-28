@@ -17,8 +17,8 @@
           <span class="mr-2 color-green bold" v-if="orderlist.orderTradeType === 'sell'">
             {{$str("sell")}}
           </span>
-          <span >{{ $fixed(orderlist.coinWithoutFeeCount, orderlist.cryptocurrency)}}</span>
-          {{orderlist.cryptocurrency}}
+          <span >{{ $fixed(orderlist.coinWithoutFeeCount, tokenName)}}</span>
+          {{tokenName}}
         </v-flex>
       </v-layout>
       <v-layout>
@@ -63,8 +63,8 @@
           <span class="color-green bold mr-2" v-if="orderlist.orderTradeType === 'sell'">
                         {{$str("sell")}}
           </span>
-          <span class="mr-2">{{ $fixed(orderlist.coinWithoutFeeCount, orderlist.cryptocurrency)}}</span>
-          <span>{{orderlist.cryptocurrency}}</span>
+          <span class="mr-2">{{ $fixed(orderlist.coinWithoutFeeCount, tokenName)}}</span>
+          <span>{{tokenName}}</span>
         </v-flex>
         <v-flex  md2 text-md-left>{{toMoneyFormat(orderlist.amount)}} {{orderlist.currency}}</v-flex>
         <v-flex  md2 text-md-left>{{toMoneyFormat($fixed(orderlist.price,orderlist.currency))}} {{orderlist.currency}}</v-flex>
@@ -103,6 +103,16 @@
         computed : {
             isMobile(){
                 return MainRepository.State.isMobile();
+            },
+            isGeneralCoin(){
+                return this.orderlist.tokenName === ""
+            },
+            tokenName(){
+                if(this.isGeneralCoin) {
+                    return this.orderlist.cryptocurrency
+                }else{
+                    return this.orderlist.tokenName;
+                }
             },
 
         },

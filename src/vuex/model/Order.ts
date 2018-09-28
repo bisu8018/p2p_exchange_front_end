@@ -31,6 +31,7 @@ export default class Order {
     appealList : object;
     counterParty : MsgAvatar;
     statusImg : string;
+    tokenName : string;
 
 
     constructor (data: any) {
@@ -66,6 +67,7 @@ export default class Order {
         this.appealList = data.appealList || '';
         this.counterParty = data.counterParty || new MsgAvatar('');
         this.statusImg = this.setImg(this.status);
+        this.tokenName = data.tokenName || '';
     };
 
     setImg(data){
@@ -106,9 +108,8 @@ export default class Order {
             case 'ETH':
                 return 'ETH';
             case 'custom':
-                return cryptocurrency;
             default:
-                return 'ALLB';
+                return cryptocurrency;
         }
     }
 }

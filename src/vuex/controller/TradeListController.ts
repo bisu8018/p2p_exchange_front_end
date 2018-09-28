@@ -64,7 +64,7 @@ export default class TradeListController {
             }
             //현재거래중일때
             else if(doNotMerchant && MyInfo.processingOrderCount !== 0) {
-                _obj.do_not_trade_message += ' Need to complete current trading'
+                _obj.do_not_trade_message += 'Need to complete current trading'
                 _obj.can_not_trade = 'noMyPage'
             }
         }
