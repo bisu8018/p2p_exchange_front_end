@@ -648,6 +648,7 @@
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
                     this.warning_toValue = false;
+                    this.warning_fromValue = false;
                     //fromvalue 계산해줌
                     temp = this.toValue/ this.user.tradePrice   //coinCount
                     temp -= temp*this.user.fee;             //coinWithoutFee
@@ -661,7 +662,7 @@
                         return false;
                     }
                     if (this.user.tradeType=='sell' && this.fromValue > this.getBalance) {
-                        this.verify_warning_toValue = Vue.prototype.$str("Enter less than available");
+                        this.verify_warning_fromValue = Vue.prototype.$str("Enter less than available");
                         this.warning_fromValue = true;
                         return false;
                     }
@@ -673,6 +674,7 @@
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
                     this.warning_fromValue = false;
+                    this.warning_toValue = false;
                     //toValue 계산해줌
                     temp = this.user.tradePrice * this.fromValue
                     temp += temp * this.user.fee
@@ -788,6 +790,11 @@
                 if (this.fromValue === "" || tempTovalue > this.user.maxLimit) {
                     this.verify_warning_fromValue = Vue.prototype.$str("Please_enter_a_vaild_number");
                     this.warning_fromValue = true;
+                    return false;
+                }
+                if (this.toValue < this.user.minLimit) {
+                    this.warning_toValue = true;
+                    this.verify_warning_toValue = Vue.prototype.$str("Enter more than minimum limit");
                     return false;
                 }
                 if (this.fromValue > this.user.volumeAvailable) {
