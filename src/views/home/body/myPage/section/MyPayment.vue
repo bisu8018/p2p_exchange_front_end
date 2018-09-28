@@ -5,7 +5,7 @@
         <dialog-add-new-payment
                 :showDialog="showModal"
                 :my-info="myInfo"
-                :data="paymentMethodItem"
+                :paymentData="paymentMethodItem"
                 :edit="isEdit"
                 @close="onClose"
                 @done="onAddPayment"

@@ -6,11 +6,13 @@
                 <h5>AllB {{$str("userList")}}</h5>
             </v-layout>
             <v-divider/>
-            <div v-for="data in getMemberList" class="member-list" @click="goUserPage(data.memberNo)">
-                <avatar
-                        :chat="'memberList'" :member="data" class="mr-2">
-                </avatar>
-                <span class="color-black h6"> {{ data.name }}</span>
+            <div class="member-list-wrapper">
+                <div v-for="data in getMemberList" class="member-list" @click="goUserPage(data.memberNo)">
+                    <avatar
+                            :chat="'memberList'" :member="data" class="mr-2">
+                    </avatar>
+                    <span class="color-black h6"> {{ data.name }}</span>
+                </div>
             </div>
         </div>
         <div class="modal-wrapper" @click="onClose()"></div>
@@ -27,10 +29,10 @@
         components: {
             Avatar
         },
-        props :{
-            onModal : {
+        props: {
+            onModal: {
                 type: Boolean,
-                default : false
+                default: false
             },
         },
         data() {
@@ -47,7 +49,7 @@
             },
             goUserPage(memberNo) {
                 //유저페이지 이동
-                if(memberNo) MainRepository.router().goUserPage(memberNo);
+                if (memberNo) MainRepository.router().goUserPage(memberNo);
             }
         }
     })
@@ -62,6 +64,7 @@
         color: white;
         border-left: #334B99 1px solid;
     }
+
     .member-list-container {
         background: white;
         height: 100%;
@@ -70,7 +73,7 @@
         top: 0px;
         right: 0px;
         z-index: 2;
-        animation: modal-on  0.25s ease-out;
+        animation: modal-on 0.25s ease-out;
     }
 
     .member-list:hover {
@@ -78,8 +81,12 @@
     }
 
     @keyframes modal-on {
-        0% {right: -100%}
-        100% {right: 0}
+        0% {
+            right: -100%
+        }
+        100% {
+            right: 0
+        }
     }
 
     .member-list {
@@ -97,12 +104,21 @@
         position: absolute;
         opacity: 0.45;
         z-index: 1;
-        animation: turn-on  0.25s ease-out;
+        animation: turn-on 0.25s ease-out;
+    }
+
+    .member-list-wrapper {
+        overflow-y: auto;
+        height: calc(100% - 64px);
     }
 
     @keyframes turn-on {
-        0% {opacity: 0}
-        100% {opacity: 0.45}
+        0% {
+            opacity: 0
+        }
+        100% {
+            opacity: 0.45
+        }
     }
 
 </style>

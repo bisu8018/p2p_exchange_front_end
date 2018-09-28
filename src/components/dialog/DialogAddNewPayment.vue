@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="showDialog" persistent>
-        <div class="dialog-add-new-payment_wrapper">
+        <div class="dialog-add-new-payment_wrapper" v-if="showDialog">
 
             <!-- 헤더, 타이틀 -->
             <h3 class="mr-2">{{ header }}</h3>
@@ -196,7 +196,7 @@
     export default {
         name: "dialog-add-new-payment",
         props: {
-            data: {},
+            paymentData: {},
             showDialog: {
                 type: Boolean,
                 default: () => false
@@ -212,7 +212,7 @@
         },
         data() {
             return {
-                // paymentMethods: '',
+                paymentMethods: new PaymentMethod(''),
                 typeData: '',
 
                 warning_name: false,
@@ -241,14 +241,6 @@
                     return this.$str('paymentMethod');
                 }
             },
-            paymentMethods() {
-                // 수정모드일 때 : 기존 데이터 가져오기
-                if (this.edit) {
-                    return new PaymentMethod(this.data);
-                } else {
-                    return new PaymentMethod('');
-                }
-            },
             type: {
                 get() {
                     // 수정모드일 때 : 기존 데이터 가져오기
@@ -270,16 +262,18 @@
                 }
             },
         },
-        created() {
-
-        },
         watch: {
             typeData: function (data) {
                 this.getImg();
+            },
+            showDialog: function (data) {
+                // 수정모드일 때 : 기존 데이터 가져오기
+                if (this.edit && data) {
+                    this.paymentMethods = new PaymentMethod(this.paymentData);
+                }
             }
         },
         methods: {
-
             //값 체크 로직
             onCheck(type) {
                 switch (type) {
@@ -376,6 +370,24 @@
                         this.handleFileUpload(fileInfo);
 
                         break;
+
+
+                    //결제수단 중복 등록 체크
+                    case 'duplicated':
+
+                        if (!this.edit) {
+                            let paymentData = MainRepository.MyInfo.controller().getMyPaymentMethods();
+                            let result = paymentData.find((element) => {
+                                if (this.typeData === element.type) {
+                                    Vue.prototype.$eventBus.$emit('showAlert', 4152);
+                                    return element;
+                                }
+                            });
+                            if (result) {
+                                return false;
+                            }
+                        }
+                        return true;
                 }
             },
             wholeCheck() {
@@ -383,16 +395,15 @@
                     (this.typeData === 'wechat' && this.onCheck('wechat')) ||
                     (this.typeData === 'bankaccount' && this.onCheck('bank') && this.onCheck('bankAccount'))
                 ) {
-                    if (this.onCheck('name') && this.onCheck('tradePassword')) {
+                    if (this.onCheck('name') && this.onCheck('tradePassword') && this.onCheck('duplicated')) {
                         this.onDone();
                     }
                 }
             },
             onClearData() {
-                if(!this.edit){
-                    this.paymentMethods.onClear();
-                    this.typeData = '';
-                }
+                this.paymentMethods.onClear();
+                this.deleteFile();
+                this.typeData = '';
             },
             getImg() {
                 let type = this.paymentMethods.type;

@@ -103,7 +103,7 @@
                 <div>
                     <div class="text-xs-left mb-2  color-black display-flex ">
                         <div class="cs-red-asterisk" v-if="!isMobile">*</div>
-                        {{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}
+                        <h5>{{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}</h5>
                         <div v-if="priceType === 'floatprice'"
                              class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
                             <span class="tooltip-content">{{ $str("explainMargin") }}</span>

@@ -3985,6 +3985,12 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['warn_payment_method_duplicate', {
+        KOR: '이미 등록된 결제수단 입니다.',
+        ENG: 'This payment method has already been registered.',
+        CN: '',
+        HK: ''
+    }],
     ['Need to', {
         KOR: '필요조건',
         ENG: 'Need to',
@@ -4038,10 +4044,6 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-
-
-
-
 
 
 

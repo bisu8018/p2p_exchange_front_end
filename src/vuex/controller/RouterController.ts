@@ -33,6 +33,8 @@ export default class RouterController {
     }
 
     goMyPage() {
+        MainRepository.MyInfo.loadMyInfo(()=>{});
+
         let r = this.router;
         Vue.nextTick(function () {
             r.push('/myPage');

@@ -12,7 +12,7 @@
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 {{ $str('buy') }}
                 {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
-                {{ currentOrder.cryptocurrency }}
+                {{ getTokenName }}
                 <br v-if="isMobile()"/>
                 {{ $str('from') }} {{ counterPartyNickname }}
             </div>
@@ -20,14 +20,14 @@
                 <div class="color-black mb-3 ">
                     {{ $str('price') }} :            <!-- 가격 -->
                     <span class="ml-3 h3">{{ toMoneyFormat(currentOrder.price) }}
-                        {{ currentOrder.currency }} / {{ currentOrder.cryptocurrency }}
+                        {{ currentOrder.currency }} / {{ getTokenName }}
                     </span>
                 </div>
                 <div class="color-black">
                     {{ $str('amount') }} :           <!--{{ currentOrder.price }} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">
-                             {{ toMoneyFormat(currentOrder.amount) }}{{ currentOrder.currency }}</span>      <!--{{ currentOrder.currency }} 화폐단위-->
+                             {{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>      <!--{{ currentOrder.currency }} 화폐단위-->
                         <input type="text" :value="currentOrder.amount" id="amountValue" class="referenceNum">
                         <span class="tooltip-content">{{ $str("Copy") }}</span>
                     </div>
@@ -70,7 +70,7 @@
                     <span v-if="currentOrder.status === 'paid'" class="mb-2">
                     {{ $str("buyingExplain1") }}
                     <span class="color-orange-price">
-                        {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ currentOrder.cryptocurrency }}      <!--{{ currentOrder.coinWithoutFeeCount }} 가격 , {{ currentOrder.cryptocurrency }} 단위-->
+                        {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ getTokenName }}      <!--{{ currentOrder.coinWithoutFeeCount }} 가격 , {{ currentOrder.cryptocurrency }} 단위-->
                     </span>
                     {{ $str("buyingExplain2") }}
                     {{ counterPartyNickname }}       <!--{{ counterPartyNickname }} 닉네임-->
@@ -209,7 +209,7 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
-    import {getLimitTime} from "../../../../../common/common";
+    import {getLimitTime,transCryptocurrencyName, findCustomTokenName } from "../../../../../common/common";
     import {abUtils} from "../../../../../common/utils";
 
     export default Vue.extend({
@@ -260,6 +260,14 @@
                 } else {
                     return false
                 }
+            },
+            getTokenName() {
+              if(this.currentOrder.cryptocurrency !== 'custom'){         //general token 이름 찾기
+                  return transCryptocurrencyName(this.currentOrder.cryptocurrency)
+              }else{                                        //custom token 이름 찾기
+                  let data = MainRepository.CustomToken.controller().getCustomTokenList();
+                  return findCustomTokenName(data, this.currentOrder.tokenNo);
+              }
             },
         },
         created() {

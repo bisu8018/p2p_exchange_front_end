@@ -1,5 +1,5 @@
 <template>
-    <post-ad></post-ad>
+    <post-ad message="block"></post-ad>
 </template>
 
 <script lang="ts">

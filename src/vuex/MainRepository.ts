@@ -148,6 +148,10 @@ export default {
                 });
                 self.MarketPrice.load(() => {
                 });
+                self.GeneralToken.setGeneralTokenList(() => {
+                });
+                self.CustomToken.setCustomTokenList(()=>{
+                });
                 self.MyInfo.loadMyPaymentMethods(() => {
                     self.MyToken.getMytoken(() => {
                         callback();

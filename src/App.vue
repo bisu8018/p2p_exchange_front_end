@@ -2286,7 +2286,7 @@
         height: 24px !important;
         position: absolute !important;
         right: 10px;
-        top: -2px;
+        margin-top: 7px;
     }
 
     .progress-circular-selectbox {

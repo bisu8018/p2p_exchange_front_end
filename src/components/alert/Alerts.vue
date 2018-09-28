@@ -174,6 +174,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
 
                     //마이페이지 에러코드 4150 ~
                     case 4151 : this.show(this.type.Warning, "", this.$str('warn_password_duplicate')); break;       // 비밀번호 동일
+                    case 4152 : this.show(this.type.Warning, "", this.$str('warn_payment_method_duplicate')); break;       // 결제수단 중복 등록
 
                     // 준비중
                     case 9000 : this.show(this.type.Warning, "", this.$str('It\'s under development now.')); break;       // 개발중입니다.
