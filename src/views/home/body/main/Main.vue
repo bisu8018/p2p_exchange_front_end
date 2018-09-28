@@ -7,7 +7,7 @@
 
         <!--모바일 메인-->
         <div v-if="isMobile" class="pageView mt-5">
-            <h2 class="bold sizeUp">{{ $str('ALLB OTC') }}</h2>
+            <h2 class="bold sizeUp">{{ $str('AllB OTC') }}</h2>
             <h5 class="medium mt-3">{{ $str('The world\'s leading P2P trading platform')}}</h5>
         </div>
 

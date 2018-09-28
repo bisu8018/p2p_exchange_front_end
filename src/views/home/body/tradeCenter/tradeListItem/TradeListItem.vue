@@ -56,11 +56,17 @@
                         <li>
                             <!--payment method-->
                             <div v-if="user.bank_account"
-                                 class="mr-2 sprite-img ic-bank f-left"></div>
+                                 class="mr-2 sprite-img ic-bank f-left tooltip">
+                                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+                            </div>
                             <div v-if="user.alipay_id"
-                                 class="mr-2 sprite-img ic-alipay f-left"></div>
+                                 class="mr-2 sprite-img ic-alipay f-left tooltip">
+                                <span class="tooltip-content">{{$str("alipayText")}}</span>
+                            </div>
                             <div v-if="user.wechat_id"
-                                 class="sprite-img ic-wechatpay f-left"></div>
+                                 class="sprite-img ic-wechatpay f-left tooltip">
+                                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+                            </div>
                         </li>
                         <li>
                             <div v-if="can_not_trade ===''">
@@ -188,12 +194,19 @@
                             </h5>
                         </v-flex>
                         <v-flex xs5 offset-xs1 text-xs-right>
-                            <div v-if="user.bank_account"
-                                 class="ml-2 sprite-img ic-bank f-right"></div>
-                            <div v-if="user.alipay_id"
-                                 class="ml-2 sprite-img ic-alipay f-right"></div>
+                            <!--payment method-->
                             <div v-if="user.wechat_id"
-                                 class="ml-2 sprite-img ic-wechatpay f-right"></div>
+                                 class="sprite-img ic-wechatpay f-right tooltip">
+                                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+                            </div>
+                            <div v-if="user.alipay_id"
+                                 class="ml-2 sprite-img ic-alipay f-right tooltip">
+                                <span class="tooltip-content">{{$str("alipayText")}}</span>
+                            </div>
+                            <div v-if="user.bank_account"
+                                 class="ml-2 sprite-img ic-bank f-right tooltip">
+                                <span class="BankTooltip tooltip-content">{{$str("bankAccountText")}}</span>
+                            </div>
                         </v-flex>
                     </v-layout>
                     <v-layout mt-4>
@@ -873,17 +886,17 @@
     }
 
     .BankTooltip {
-        width: 101px;
+        width: 95px;
         left: 45% !important;
     }
 
     .premiumTooltip {
-        width: 150px;
+        width: 125px;
         left: 75% !important;
     }
 
     .certifiedTooltip {
-        width: 150px;
+        width: 125px;
         left: 75% !important;
         bottom: 160% !important;
     }

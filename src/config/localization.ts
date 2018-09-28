@@ -2892,9 +2892,9 @@ const strings = new Map([
         CN: '交易时限已结束',
         HK: '交易時限已結束'
     }],
-    ['ALLB OTC', {
-        KOR: 'ALLB OTC',
-        ENG: 'ALLB OTC',
+    ['AllB OTC', {
+        KOR: 'AllB OTC',
+        ENG: 'AllB OTC',
         CN: '埃尔比场外交易',
         HK: '埃爾比場外交易'
     }],

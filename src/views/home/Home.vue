@@ -1,9 +1,9 @@
 <template>
     <v-app v-if="isInitCompleted">
-        <div>
-            <div class="cssUnFixed" v-bind:class="{cssFixed : isFixed || isChatOpened}">
+        <div style="height: 100%;">
+            <div class="main-wrapper-height" v-bind:class="{cssFixed : isFixed || isChatOpened}">
                 <abHeader></abHeader>
-                <v-content class="bg-white mt-6">
+                <v-content class="bg-white main-fullheight">
                     <alert></alert>
                     <div class="mainView" :class="{ fullSizeMainView : isFullSize }">
                         <router-view></router-view>
@@ -126,7 +126,6 @@
     @media only screen and (min-width: 960px) {
         .mainView {
             max-width: 1224px;
-            min-height: 820px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -135,15 +134,18 @@
         .fullSizeMainView {
             max-width: 100%;
         }
-    }
+        .main-fullheight{
+            margin-top: 64px;
+            min-height: calc(100% - 436px);
+        }
 
+    }
     /* mobile 에서 gutter 주기*/
 
     @media only screen and (max-width: 959px) {
         .mainView {
             padding-left: 12px;
             padding-right: 12px;
-            min-height: 400px;
         }
 
         /*main일때만 예외로 width 할당*/
@@ -151,7 +153,12 @@
             padding: 0px;
             max-width: 100%;
         }
+        .main-fullheight{
+            margin-top: 64px;
+            min-height: calc(100% - 850px);
+        }
     }
+
 
     .right-box {
         width: 300px;
@@ -174,12 +181,9 @@
     .cssFixed {
         width: calc(100% - 300px);
     }
-
-    cssUnFixed {
-        -webkit-box-flex: 1;
-        display: flex;
-        max-width: 100%;
-
+    .main-wrapper-height{
+        height: calc(100% - 64px);
     }
+
 
 </style>
