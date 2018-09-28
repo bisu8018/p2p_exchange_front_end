@@ -21,7 +21,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Amount</v-flex>
-                <v-flex xs9 text-xs-right>{{ $fixed(adslist.volumeAvailable, decimalCount) }}</v-flex>
+                <v-flex xs9 text-xs-right>{{ $fix(adslist.volumeAvailable, adslist.decimalCount) }}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>Limits</v-flex>
@@ -67,7 +67,7 @@
                 </v-flex>
                 <v-flex md2 text-md-left>
                     <span>{{tokenName}}</span>
-                    <span class="ml-2">{{ $fixed(adslist.volumeAvailable, decimalCount) }}</span>
+                    <span class="ml-2">{{ $fix(adslist.volumeAvailable, adslist.decimalCount) }}</span>
                 </v-flex>
                 <v-flex md2 text-md-left>{{toMoneyFormat(adslist.minLimit)}} ~ {{toMoneyFormat(adslist.maxLimit)}} {{adslist.currency}}</v-flex>
                 <v-flex md2 text-md-left>{{toMoneyFormat(adslist.tradePrice)}} {{adslist.currency}}</v-flex>
@@ -141,13 +141,6 @@
                     return this.adslist.cryptocurrency
                 }else{
                     return this.adslist.tokenName;
-                }
-            },
-            decimalCount(){
-                if(this.isGeneralCoin) {
-                    return this.adslist.cryptocurrency
-                }else{
-                    return this.adslist.decimalCount;
                 }
             },
         },

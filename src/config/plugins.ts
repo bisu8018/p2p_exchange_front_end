@@ -110,8 +110,12 @@ export default (Vue: any) => {
     }
 
     Vue.prototype.$fix = function (value: number, fixedDigits: number) {
-        let pointer = Math.pow(10, fixedDigits);
-        return String(Math.floor(value * pointer)/pointer);
+        let pointer = Math.pow(10, fixedDigits+1);
+        let fixedValue = Math.floor(value * pointer)/pointer;
+        if(fixedDigits <15){
+            return String(fixedValue.toFixed(fixedDigits));
+        }
+        return String(fixedValue);
 
     }
 }
