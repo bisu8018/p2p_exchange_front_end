@@ -5,23 +5,23 @@
             <div>
                 <div class="mb-3 login-title align-center">
                     <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                    <div class="h2 bold">{{type === 'email' ? $str("email") : $str("phone")}} {{$str("turnOff")}}</div>
+                    <div class="h2 bold">{{ type === 'email' ? $str("email") : $str("phone") }} {{ $str("turnOff") }}</div>
                 </div>
                 <div class="color-darkgray mb-4 text-xs-left">
-                    {{type === 'email' ? $str("emailTurnOffExplain") : $str("phoneTurnOffExplain")}}
+                    {{ type === 'email' ? $str("emailTurnOffExplain") : $str("phoneTurnOffExplain") }}
                 </div>
                     <span v-if="type === 'email'">
 
                         <!--이메일 -->
                         <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("email")}}
+                            {{ $str("email") }}
                         </div>
-                        <div class="input-disabled  vertical-center disabled mb-4">{{setEmail}}</div>
+                        <div class="input-disabled  vertical-center disabled mb-4">{{ setEmail }}</div>
 
 
                         <!--이메일인증-->
                         <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("emailVerification")}}
+                            {{ $str("emailVerification") }}
                         </div>
                         <verification-code v-on:verify="onCheckVerificationCode" :email="email"
                                            :type="'email'" />
@@ -31,13 +31,13 @@
 
                         <!--전화 번호-->
                         <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("phoneNumber")}}
+                            {{ $str("phoneNumber") }}
                         </div>
-                        <div class="input-disabled  vertical-center disabled mb-4">{{setPhoneNumber}}</div>
+                        <div class="input-disabled  vertical-center disabled mb-4">{{ setPhoneNumber }}</div>
 
                         <!--문자인증-->
                         <div class=" color-black  mb-2 text-xs-left">
-                            {{$str("SMSverification")}}
+                            {{ $str("SMSverification") }}
                         </div>
                         <verification-code v-on:verify="onCheckVerificationCode" :phone="phone"
                                            :type="'phone'" />
@@ -45,8 +45,8 @@
 
 
                 <div class="text-xs-right">
-                    <button class="btn-white  button-style" @click="goMyPage">{{$str('cancel')}}</button>
-                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onChange">{{$str('change')}}
+                    <button class="btn-white  button-style" @click="goMyPage">{{ $str('cancel') }}</button>
+                    <button class="btn-blue btn-blue-hover button-style ml-4a" @click="onChange">{{ $str('change') }}
                     </button>
                 </div>
             </div>
@@ -83,7 +83,7 @@
         },
         computed: {
             setPhoneNumber: function () {
-                let phoneNumber = this.phone.substr(0, 3) + '****' + this.phone.substr(7, 6);
+                let phoneNumber = this.phone.substr(0, 5) + '****' + this.phone.substr(10, 7);
                 return phoneNumber;
             },
             setEmail: function () {

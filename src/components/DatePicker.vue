@@ -11,11 +11,12 @@
         <div class="p-relative ">
             <input type="text" class="input c-pointer" v-bind:value="dateControl"  :placeholder="$str('datePickerPlaceholder')"
                    @click="onDate"  readonly/>
-            <i class="material-icons color-darkgray h1 p-absolute icon-style ">calendar_today</i>
+            <i class="material-icons color-darkgray h1 p-absolute date-picker-icon-style ">calendar_today</i>
         </div>
         <div :class="classname" class=" mt-2 d-none p-absolute date-picker-wrapper c-pointer">
             <v-date-picker width="254" v-model="date" @input="onPickDate(date)"></v-date-picker>
         </div>
+        <div class="screen-modal-wrapper" @click="onClose()" v-if="this.status"></div>
     </div>
 </template>
 
@@ -40,6 +41,7 @@
         },
         data: () => ({
             date: null,
+            status: false,
         }),
         computed: {
           dateControl () {
@@ -53,12 +55,17 @@
         methods: {
             onDate() {
                 document.getElementsByClassName(this.classname)[0].style.display = "block";
+                this.status = true;
             },
             onPickDate(date) {
-                document.getElementsByClassName(this.classname)[0].style.display = "none";
+                this.onClose();
                 this.date = date;
                 this.$emit('date', date);
                 this.$emit('switch');
+            },
+            onClose() {
+                document.getElementsByClassName(this.classname)[0].style.display = "none";
+                this.status = false;
             }
         }
     })
@@ -66,13 +73,4 @@
 </script>
 
 <style scoped>
-    .icon-style {
-        right: 6px;
-        top: 2px;
-        pointer-events: none;
-    }
-
-    .date-picker-wrapper {
-        z-index: 1;
-    }
 </style>

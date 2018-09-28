@@ -250,7 +250,6 @@
 
     .drag_verify .dv_handler i {
         background: #214ea1;
-        padding: 0px 1px 0px 2px;
         border-radius: 47px;
         color: white;
     }
@@ -278,8 +277,8 @@
     .verify-icon {
         width: 21px;
         height: 21px;
-        font-size: 21px;
-        padding: 0px 0px 0px 1px;
+        font-size: 18px;
+        padding: 1px 0 0 1px;
         position: absolute;
         font-weight: 100;
         left: 9px;
