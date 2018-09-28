@@ -5,7 +5,7 @@
       <!-- mobile 일때 -->
       <v-layout row wrap v-if="isMobile" mb-3>
         <!-- buy sell 버튼 -->
-        <v-flex xs12>
+        <v-flex xs12 pr-2>
             <!--buy가 활성화-->
             <div class="buyBtn" @click="onTokenClicked('current','Buy')"
                  :class="{mobileActiveBtn : tradeType ==='Buy'}"
@@ -275,7 +275,7 @@
             tokens: {
                 left: 'ETH',
                 center: 'BTC',
-                right: 'ALLB',
+                right: 'AllB',
             },
             showDim: false,
             isCustomTrade : false,

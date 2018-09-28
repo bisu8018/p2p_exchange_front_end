@@ -1,11 +1,12 @@
 <template>
   <div>
     <v-layout class="tokenlist" align-center row fill-height >
-      <v-flex xs12 class="cs-flex c-pointer" @click="goCustomTokenTrade">
-        <img class="symbol" :src="item.symbolImgUrl">
-        <h4 class="medium">{{item.tokenName}}</h4>
-        <v-spacer></v-spacer>
-        <button class="btn-rounded-white text-white-hover" @mousedown="onDescription(item.tokenName)">
+      <v-flex xs12 class="cs-flex" >
+        <div class="select-wrapper" @click="goCustomTokenTrade">
+          <img class="symbol" :src="item.symbolImgUrl">
+          <h4 class="medium">{{item.tokenName}}</h4>
+        </div>
+        <button class="btn-rounded-white text-white-hover description" @click="onDescription(item.tokenName)">
           {{$str('Description')}}
         </button>
       </v-flex>
@@ -70,8 +71,18 @@
   }
   .cs-flex{
     align-items: center;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
   }
   .tokenlist:hover{
     background-color: #F8F8FA;
+  }
+  .select-wrapper{
+    width: 100%;
+    display: flex;
+  }
+  .description{
+    width: 120px;
   }
 </style>

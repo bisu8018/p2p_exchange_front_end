@@ -210,7 +210,7 @@
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 100%;
+        font-size: 14px;
         font: inherit;
         vertical-align: baseline;
     }
@@ -852,7 +852,7 @@
         width: 100%;
         background: #214ea1;
         color: white;
-        border-radius: 3px;
+        border-radius: 2px;
     }
 
     .btn-rounded-blue {

@@ -13,7 +13,7 @@
                     <v-spacer></v-spacer>
                     <!--햄버거 bar-->
                     <div class="p-relative menu-margin">
-                        <i class="material-icons md-light md-36" @click.stop="drawer = !drawer">menu</i>
+                        <i class="material-icons md-light md-36 c-pointer" @click.stop="drawer = !drawer">menu</i>
                         <div v-if="isLogin && totalMsgCount > 0 && orderList.length > 0" class="new-msg-dot"></div>
                     </div>
                 </div>
