@@ -1009,6 +1009,10 @@
         animation-duration: 0.3s;
     }
 
+    .select-option-small{
+        padding-left: 17px !important;
+    }
+
     .scroll-out {
         max-height: 200px;
         display: block;
