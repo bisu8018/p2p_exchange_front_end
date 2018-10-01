@@ -853,6 +853,7 @@
         background: #214ea1;
         color: white;
         border-radius: 2px;
+        font-size: 14px;
     }
 
     .btn-rounded-blue {
@@ -863,6 +864,7 @@
         background: #214ea1;
         border-radius: 30px;
         color: white;
+        font-size: 14px;
     }
 
     .btn-white {
@@ -874,6 +876,7 @@
         background: white;
         border-radius: 3px;
         color: #214EA1;
+        font-size: 14px;
     }
 
     .btn-rounded-white {
@@ -884,6 +887,7 @@
         background: white;
         border-radius: 30px;
         color: #214ea1;
+        font-size: 14px;
     }
 
     .btn-disabled-gray {
@@ -2193,6 +2197,7 @@
     .lang-menu > div {
         padding: 8px 16px 8px 16px;
         cursor: pointer;
+        font-size: 14px;
     }
 
     .lang-menu > div:hover {

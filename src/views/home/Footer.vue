@@ -57,22 +57,22 @@
             <!-- 중국어간체일때 -->
             <button v-if="currentLang=='ZH'" class="dropbtn vertical-center">
               <div class="sprite-img ic-chinese f-left"></div>
-              <span class=" ml-2">简体中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
+              <span class=" ml-2 h5">简体中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 중국어번체일때 -->
             <button v-else-if="currentLang=='HK'" class="dropbtn vertical-center">
               <div class="sprite-img ic-chinese f-left"></div>
-              <span class=" ml-2">繁體中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
+              <span class=" ml-2 h5">繁體中文<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 영어모드일때 -->
             <button v-else-if="currentLang=='EN'" class="dropbtn vertical-center">
               <div class="sprite-img ic-english f-left"></div>
-              <span class=" ml-2 " >English<i class="material-icons md-12">keyboard_arrow_up</i></span>
+              <span class=" ml-2 h5" >English<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
             <!-- 한국어모드일때-->
             <button v-else class="dropbtn vertical-center">
               <div class="sprite-img ic-korean f-left"></div>
-              <span class=" ml-2 ">한국어<i class="material-icons md-12">keyboard_arrow_up</i></span>
+              <span class=" ml-2 h5">한국어<i class="material-icons md-12">keyboard_arrow_up</i></span>
             </button>
 
             <!--언어 설정시 dropdown box-->
@@ -91,7 +91,7 @@
         </v-flex>
 
         <v-flex md6 xs12 text-md-right>
-          <span>© 2018 allb.com</span>
+          <h5>© 2018 allb.com</h5>
         </v-flex>
       </v-layout>
   </div>
