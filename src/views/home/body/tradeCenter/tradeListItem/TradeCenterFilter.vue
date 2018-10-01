@@ -551,8 +551,11 @@
    .cardModal:after{
      content: '';
      position: absolute;
-     bottom: 100%;
-     left: 95%;
+
+     bottom: 99.6%;
+     right: 8px;
+     border-width: 7px;
+
      margin-left: -8px;
      width: 0; height: 0;
      border-style: solid;
@@ -565,11 +568,13 @@
      content: '';
      position: absolute;
      border-style: solid;
+
      bottom: 100%;
-     left: 94.5%;
+     right: 8px;
+     border-width: 10px;
+
      margin-left: -8px;
      width: 0; height: 0;
-     border-width: 10px;
      border-bottom: 8px solid  #ffffff;
      border-right: 8px solid transparent;
      border-left: 8px solid transparent;
