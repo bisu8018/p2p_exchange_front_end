@@ -1173,7 +1173,9 @@
         right: 10px;
     }
 
-
+    .verify-slider-wrapper {
+        max-width: 290px;
+    }
 
     /*textarea css*/
     textarea::-webkit-input-placeholder {
