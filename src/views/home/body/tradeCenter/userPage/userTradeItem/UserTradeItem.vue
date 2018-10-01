@@ -616,6 +616,7 @@
                         return this.toValue = abUtils.toDeleteZero(temp);
                     }
                     this.warning_toValue = false;
+                    this.warning_fromValue = false;
                     //fromvalue 계산해줌
                     temp = this.toValue/ this.user.tradePrice   //coinCount
                     temp -= temp*this.user.fee;             //coinWithoutFee
@@ -641,6 +642,7 @@
                         return this.fromValue = abUtils.toDeleteZero(temp);
                     }
                     this.warning_fromValue = false;
+                    this.warning_toValue = false;
                     //toValue 계산해줌
                     temp = this.user.tradePrice * this.fromValue
                     temp += temp * this.user.fee
@@ -661,11 +663,11 @@
                 if (this.user.volumeAvailable * this.user.tradePrice < this.user.maxLimit) {
                     this.toValue = this.user.volumeAvailable * this.user.tradePrice;
                 }
-
+                /*
                 if(this.user.tradeType=='sell' && this.toValue > this.user.tradePrice * this.getBalance){
                     this.toValue = this.user.tradePrice * this.getBalance;
                 }
-
+                */
                 if(this.toValue < this.user.minLimit){
                     this.warning_toValue = true;
                     this.verify_warning_toValue = Vue.prototype.$str("Please_enter_a_vaild_number");
@@ -743,27 +745,44 @@
                 this.warning_tradePassword = false;
                 return true;
             },
+            haveNoCustomWallet(){
+                return (!this.isGeneralCoin) &&
+                    (MainRepository.Wallet.controller().findWalletsByName(this.tokenName, 'custom')[0].walletAddress === "")
+            },
             goTrade(){
                 let instance = this;
-                if (this.onChecktoValue() && this.onCheckfromValue()) {
-                    MainRepository.TradeView.createOrder({
-                        email : MainRepository.MyInfo.getUserInfo().email,
-                        adNo : this.user.adNo,
-                        amount :   this.toValue,
-                        coinCount : this.toValue/this.user.tradePrice,
-                        coinFeeCount : (this.toValue/this.user.tradePrice) * this.user.fee,
-                        coinWithoutFeeCount : this.fromValue,
-                        customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
-                        merchantMemberNo :  this.user.memberNo,
-                        price : this.user.tradePrice,
-                        status : "unpaid",
-                        tradePassword : this.tradePW,
-                        tokenNo: this.tokenNo
-                    }, function (orderNo) {
-                        let isBuy = instance.user.tradeType === 'buy';
-                        MainRepository.router().goBuyOrSell(isBuy, orderNo);
-                    });
+                if (this.onChecktoValue() && this.onCheckfromValue()
+                    &&( this.user.tradeType === 'buy'|| this.onChecktradePassword()) ) {
+                    //customtokenTrade일때 지갑에 없으면.
+                    if(this.haveNoCustomWallet()){
+                        MainRepository.Wallet.generateTokenWallet(this.tokenNo,()=>{
+                            this.createOrder();
+                        })
+                    }
+                    else{
+                        this.createOrder();
+                    }
                 }
+            },
+            createOrder(){
+                let self = this;
+                MainRepository.TradeProcess.createOrder({
+                    email : MainRepository.MyInfo.getUserInfo().email,
+                    adNo : this.user.adNo,
+                    amount : this.toValue,
+                    coinCount : this.toValue/this.user.tradePrice,
+                    coinFeeCount : (this.toValue/this.user.tradePrice) * this.user.fee,
+                    coinWithoutFeeCount : this.fromValue,
+                    customerMemberNo :  MainRepository.MyInfo.getUserInfo().memberNo,
+                    merchantMemberNo :  this.user.memberNo,
+                    price : this.user.tradePrice,
+                    status : "unpaid",
+                    tradePassword : this.tradePW,
+                    tokenNo: this.tokenNo
+                }, function (orderNo) {
+                    let isBuy = self.user.tradeType === 'buy';
+                    MainRepository.router().goBuyOrSell(isBuy, orderNo);
+                });
             },
             changeDrawer() {
                 /////////////login 안했을때 login창으로 돌려보냄////////
