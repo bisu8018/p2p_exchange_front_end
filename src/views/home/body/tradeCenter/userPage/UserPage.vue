@@ -276,61 +276,68 @@
                 return (this.haveBuyList||this.haveSellList)
             }
         },
-        created(){
+        created() {
+            this.$eventBus.$on('refreshUserPage', () => {
+                this.init();
+            });
 
-
-            let currentURL = window.location.href
-            let param = currentURL.split('?');
-            this.userMemberNo = Number(param[1])
-            let self = this;
-            this.showProgress = true;
-
-            if(MainRepository.MyInfo.isLogin() && MainRepository.MyInfo.getUserInfo().memberNo === this.userMemberNo){
-                this.goMyPage();
-                return false;
-            }
-            //상단 과거 이력정보 5개
-            MainRepository.Users.getUserPageHistoryInfo(
-                {memberNo : self.userMemberNo},function (result) {
-                    self.merchant.securityDeposit = result.securityDeposit
-                    self.merchant.completionRate = result.completionRate
-                    self.merchant.tradeTimes = result.tradeTimes
-                    self.merchant.tradeMonthTimes = result.tradeMonthTimes
-                    self.merchant.avgRelease = result.avgRelease
-                })
-            //상단 유저 인증정보
-            MainRepository.Users.getOtherUsersbyMemberNo(
-                    self.userMemberNo,function (result) {
-                    self.merchant.email = result.email
-                    self.merchant.nickName = result.nickName
-                    self.merchant.createDatetime = result.createDatetime
-                    self.merchant.emailVerification = result.emailVerification
-                    self.merchant.phoneVerification = result.phoneVerification
-                    self.merchant.idVerification = result.idVerification
-                })
-            //이 유저가 올린 ads 리스트
-            MainRepository.Users.getUserPageAdsList(
-                {memberNo : self.userMemberNo},function (result) {
-                    self.BuyLists = result.BuyLists
-                    self.SellLists = result.SellLists
-                    self.showProgress = false;
-                })
-            MainRepository.CustomToken.setCustomTokenList(()=>{})
-            MainRepository.GeneralToken.setGeneralTokenList(()=>{})
-            // 나의 block 리스트 정보 GET
-            if(MainRepository.MyInfo.isLogin()){
-              MainRepository.MyPage.getBlockList(1,function (result) {
-                  for(let key in result){
-                    if(self.userMemberNo == result[key].blockMemberNo){
-
-                        self.blockThisMember = true;
-                    }
-                }
-              })
-            }
-
+            this.$eventBus.$emit('refreshUserPage');
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('refreshUserPage');
         },
         methods:{
+            init() {
+                let currentURL = window.location.href
+                let param = currentURL.split('?');
+                this.userMemberNo = Number(param[1])
+                let self = this;
+                this.showProgress = true;
+
+                if(MainRepository.MyInfo.isLogin() && MainRepository.MyInfo.getUserInfo().memberNo === this.userMemberNo){
+                    this.goMyPage();
+                    return false;
+                }
+                //상단 과거 이력정보 5개
+                MainRepository.Users.getUserPageHistoryInfo(
+                    {memberNo : self.userMemberNo},function (result) {
+                        self.merchant.securityDeposit = result.securityDeposit;
+                        self.merchant.completionRate = result.completionRate;
+                        self.merchant.tradeTimes = result.tradeTimes;
+                        self.merchant.tradeMonthTimes = result.tradeMonthTimes;
+                        self.merchant.avgRelease = result.avgRelease;
+                    });
+                //상단 유저 인증정보
+                MainRepository.Users.getOtherUsersbyMemberNo(
+                    self.userMemberNo,function (result) {
+                        self.merchant.email = result.email;
+                        self.merchant.nickName = result.nickName;
+                        self.merchant.createDatetime = result.createDatetime;
+                        self.merchant.emailVerification = result.emailVerification;
+                        self.merchant.phoneVerification = result.phoneVerification;
+                        self.merchant.idVerification = result.idVerification;
+                    });
+                //이 유저가 올린 ads 리스트
+                MainRepository.Users.getUserPageAdsList(
+                    {memberNo : self.userMemberNo},function (result) {
+                        self.BuyLists = result.BuyLists;
+                        self.SellLists = result.SellLists;
+                        self.showProgress = false;
+                    });
+                MainRepository.CustomToken.setCustomTokenList(()=>{});
+                MainRepository.GeneralToken.setGeneralTokenList(()=>{});
+                // 나의 block 리스트 정보 GET
+                if(MainRepository.MyInfo.isLogin()){
+                    MainRepository.MyPage.getBlockList(1,function (result) {
+                        for(let key in result){
+                            if(self.userMemberNo == result[key].blockMemberNo){
+
+                                self.blockThisMember = true;
+                            }
+                        }
+                    })
+                }
+            },
             transTime(time){
                 return abUtils.toTimeFormat(time);
             },

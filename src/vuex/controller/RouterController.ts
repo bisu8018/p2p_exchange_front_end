@@ -147,6 +147,7 @@ export default class RouterController {
         let r = this.router;
         Vue.nextTick(function () {
             r.push("/userpage?" + memberNo);
+            Vue.prototype.$eventBus.$emit('refreshUserPage');
         });
     }
 

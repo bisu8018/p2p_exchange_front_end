@@ -134,30 +134,27 @@ export default {
     },
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
-        let self = this;
+        this.GeneralToken.setGeneralTokenList(() => {});
+        this.CustomToken.setCustomTokenList(() => {});
+
         AccountService.Account.checkLogin(
             // 로그인 유저 -> 유저 정보 Set
-            function (data) {
+            (data) => {
                 accountController.setUserInfo(new Account(data));
 
-                self.Wallet.load(() => {
+                this.Wallet.load(() => {
                 });
-                self.Wallet.setSecurityWallets(() => {
+                this.Wallet.setSecurityWallets(() => {
                 });
-                self.Merchant.loadMyMerchantInfo(() => {
+                this.Merchant.loadMyMerchantInfo(() => {
                 });
-                self.MarketPrice.load(() => {
+                this.MarketPrice.load(() => {
                 });
-                self.GeneralToken.setGeneralTokenList(() => {
-                });
-                self.CustomToken.setCustomTokenList(()=>{
-                });
-                self.MyInfo.loadMyPaymentMethods(() => {
-                    self.MyToken.getMytoken(() => {
+                this.MyInfo.loadMyPaymentMethods(() => {
+                    this.MyToken.getMytoken(() => {
                         callback();
                     });
                 });
-
             },
             // 로그인 하지 않음
             function () {
@@ -637,7 +634,8 @@ export default {
             selectBoxController.setPayment('ALL');
         },
         initPage(isBlock: boolean) {
-            instance.GeneralToken.setGeneralTokenList(()=>{})
+            instance.GeneralToken.setGeneralTokenList(() => {
+            })
             this.setTradeFilter({
                 type: isBlock ? 'block' : 'general',
                 status: 'enable',
@@ -1320,10 +1318,10 @@ export default {
         getCustomTokenNo() {
             return customTokenController.getCustomTokenNo();
         },
-        setSelectedCustomToken(token : CustomToken){
+        setSelectedCustomToken(token: CustomToken) {
             customTokenController.setSelectedCustomToken(token);
         },
-        getSelectedCustomToken(){
+        getSelectedCustomToken() {
             return customTokenController.getSelectedCustomToken();
         }
     },

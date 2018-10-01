@@ -24,7 +24,7 @@
                         v-for="data in getList"
                         @click="onSelect(data)"
                         v-if="getCondition !== (data.tokenNo || data.code) "
-                        :class="selected === (data.tokenNo || data.code) ? 'selected-option' : ''">
+                        :class="[{'selected-option' : selected === (data.tokenNo || data.code)}, {'select-option-small' : cssOption}]">
                         {{ data.tokenName || data.value }}
                     </li>
                 </ul>
@@ -48,6 +48,7 @@
             'selectBoxType': {type: String, default: 'country'},        //country, currency, payment, phone, customToken
             'editValue': '',    // 수정 모드, 데이터
             'optionFilter': '',    // 옵션 필터링
+            'cssOption' : {type: Boolean, default: false}    //CSS 옵션
 
         },
         data: () => ({
@@ -269,4 +270,7 @@
     }
 </script>
 
-<style></style>
+<style scoped>
+
+
+</style>

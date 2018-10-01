@@ -18,22 +18,22 @@
         <!-- amount -->
         <v-flex xs12 md3 mb-4>
             <div class="p-relative selectbox-wrapper">
-                <select-box :selectBoxType="'currency'" class="selectbox-width-part" ></select-box>
-                <input type="text" class="input" v-model="amount"   :placeholder="$str('How_much_you_want_to_trade?')">
+                <select-box :selectBoxType="'currency'" :cssOption="true" class="selectbox-width-part" ></select-box>
+                <input type="text" class="input" v-model="amount" :placeholder="$str('How_much_you_want_to_trade?')">
             </div>
         </v-flex>
 
 
         <v-flex xs12 md4 mb-4>
             <v-layout justify-space-between>
-                <div class="p-relative userInput">
+                <div class="search-input">
                     <!-- cryptocurrency -->
                     <select-box :selectBoxType="'generalToken'" @generalToken="selectToken" ></select-box>
                 </div>
                 <div v-if="isMobile" class="pl-1 pr-1"></div>
                 <div v-else class="color-darkgray pt-2 mb-4">{{$str('Via')}}</div>
                 <!-- paymentmethod -->
-                <div class="p-relative userInput">
+                <div class="search-input">
                     <select-box :selectBoxType="'payment'"></select-box>
                 </div>
             </v-layout>
@@ -94,13 +94,15 @@
 <style scoped>
 
     @media only screen and (min-width: 960px) {
-        .userInput{
+        .search-input{
+            position: relative;
             min-width: 155px;
         }
     }
 
     @media only screen and (max-width: 959px) {
-        .userInput {
+        .search-input {
+            position: relative;
             width: 100%;
         }
     }
