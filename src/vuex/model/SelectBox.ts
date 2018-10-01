@@ -43,6 +43,15 @@ export default {
         ];
         return orderTypes;
     },
+    walletTypes() {
+        const walletTypes =[
+            {code: 'buy', value: Vue.prototype.$str('buy')},
+            {code: 'sell', value: Vue.prototype.$str('sell')},
+            {code: 'deposit', value: Vue.prototype.$str('Deposit')},
+            {code: 'withdraw', value: Vue.prototype.$str('withdraw')},
+        ];
+        return walletTypes;
+    },
     adsTypes() {
         const adsTypes =[
             {value: Vue.prototype.$str("general"), code: 'general'},
@@ -188,6 +197,9 @@ export default {
 
             case 'orderType' :
                 return this.orderTypes()
+
+            case 'walletType' :
+                return this.walletTypes()
 
             case 'adsType' :
                 return this.adsTypes();

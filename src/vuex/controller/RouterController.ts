@@ -194,8 +194,9 @@ export default class RouterController {
         });
     }
 
-    goWalletDetail(cryptoCurrency){
+    goWalletDetail(cryptoCurrency,cryptocurrencyType){
         let code = '';
+        let type = cryptocurrencyType ? "?" + cryptocurrencyType : '';
         switch (cryptoCurrency) {
             case 'bitcoin':
                 code = 'BTC';
@@ -209,7 +210,7 @@ export default class RouterController {
         }
         let r = this.router;
         Vue.nextTick(function () {
-            r.push("/wallet/details?"+code);
+            r.push("/wallet/details?"+code + type);
         });
     }
 

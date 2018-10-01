@@ -1,5 +1,5 @@
 <template v-if="item.activeYn === true">
-    <v-layout wrap row :class="{'mb-4' : isMobile()}" vertical-center>
+    <v-layout wrap row :class="{'mb-4' : isMobile}" vertical-center>
         <v-flex xs6 md2 mb-3>
             <div class="text-xs-left vertical-center">
                 <div class="sprite-img d-inline-block" v-bind:class="getIcon"></div>
@@ -16,17 +16,17 @@
                 <span class="tooltip-content">{{ $str("Copy") }}</span>
             </div>
         </v-flex>
-        <!-- QR코드-->
+
         <v-flex xs12 md6 mb-3  c-pointer   v-if="item.type != 'bank' && getImg !== ''">
 
             <!--MyOrder-->
             <div class="dropdown">
-                <a :href="getImg" target="_blank" class="vertical-center text-xs-right text-md-left dropbtn color-white">
+                <div class="vertical-center text-xs-right text-md-left dropbtn" :class="{'f-right' : isMobile}">
                     <div class="sprite-img ic-qr mr-1 pointer qr-code-img"></div>
-                    <div class="d-inline-block color-black h6"> QR Code</div>
-                </a>
+                    <div class="d-inline-block color-black h6 "> QR Code</div>
+                </div>
                 <!-- ongoing order 드롭다운 -->
-                <div class="dropdown-content myorder-dropdown">
+                <div class="dropdown-content myorder-dropdown" :class="{'qr-img-mobile' : isMobile}">
                     <div class="pa-2" >
                         <img :src="getImg" class="attachment-img-style"/>
                     </div>
@@ -51,6 +51,9 @@
             }
         },
         computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
             initItem() {
                 switch (this.item.type) {
                     case  'alipay':
@@ -99,9 +102,6 @@
             }
         },
         methods: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
             onCopy() {
                 let copyTemp = document.querySelector('#getInfo');
 
@@ -134,6 +134,11 @@
     }
     .tooltip-content {
         font-weight: 100;
+    }
+
+    .qr-img-mobile {
+        right: 36px;
+        left: auto !important;
     }
 
 

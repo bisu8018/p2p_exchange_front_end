@@ -47,7 +47,7 @@
         props: {
             'selectBoxType': {type: String, default: 'country'},        //country, currency, payment, phone, customToken
             'editValue': '',    // 수정 모드, 데이터
-            'optionFilter': ''    // 옵션 필터링
+            'optionFilter': '',    // 옵션 필터링
         },
         data: () => ({
             selected: '',
@@ -71,7 +71,7 @@
         watch : {
             editValue() {
                 this.init();
-            } ,
+            }
         },
         computed: {
             // 목록 가져오기
@@ -130,7 +130,7 @@
                 }
 
                 return '';
-            }
+            },
         },
         created() {
             this.$nextTick(() => {

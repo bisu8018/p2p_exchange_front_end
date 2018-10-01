@@ -324,6 +324,8 @@ export default {
                 searchEndTime: walletController.getHistoryFilter().searchEndTime,
                 type: walletController.getHistoryFilter().type,
                 cryptocurrency: walletController.getHistoryFilter().cryptocurrency,
+                cryptocurrencyType: walletController.getHistoryFilter().cryptocurrencyType,
+                tokenNo: walletController.getHistoryFilter().tokenNo,
                 page: walletController.getHistoryFilter().page,
                 size: '8'
             }, function (data) {

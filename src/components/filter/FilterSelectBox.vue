@@ -1,5 +1,5 @@
 <template>
-    <v-layout wrap align-center v-if="init()">
+    <v-layout wrap align-center >
 
         <!--select box-->
         <div class="p-relative  w-full" @click="onShow()">
@@ -7,7 +7,7 @@
             <!--body-->
             <div class="o-none comp-selectbox h6 vertical-center" :id="selectBoxType"
                  :class="[selectBoxType, showOptions ? 'comp-selectbox-active' : '']">
-                {{ filterValue ? selectedValue : filterValue }}
+                {{ selectedValue }}
             </div>
 
             <!--scroll-->
@@ -37,7 +37,7 @@
     export default {
         name: 'filter-select-box',
         props: {
-            'selectBoxType': {type: String, default: 'currency'},        //country, currency, payment, phone, customToken
+            'selectBoxType': {type: String, default: 'currency'},
             'filterValue': '',    // 수정 모드, 데이터
         },
         data: () => ({
@@ -52,11 +52,17 @@
             tradeTypes: SelectBox.tradeTypes(),
             status: SelectBox.status(),
             orderTypes: SelectBox.orderTypes(),
+            walletTypes: SelectBox.walletTypes(),
             adsTypes: SelectBox.adsTypes(),
             cryptocurrencyTypes: SelectBox.cryptocurrencyTypes(),
             customTokens: [],
             generalTokens: [],
         }),
+        watch : {
+            filterValue() {
+                this.init();
+            } ,
+        },
         computed: {
             getList() {
                 switch (this.selectBoxType) {
@@ -81,10 +87,18 @@
                     case 'orderType' :
                         return this.orderTypes;
 
+                    case 'walletType' :
+                        return this.walletTypes;
+
                     case 'adsType' :
                         return this.adsTypes;
                 }
             },
+        },
+        created() {
+            this.$nextTick(() => {
+                this.init();
+            });
         },
         mounted() {
             this.getTokenList();
@@ -109,9 +123,10 @@
                     }else{
                         this.selectedValue = SelectBox.findValue(this.selectBoxType, this.filterValue);
                     }
-
+                }else{
+                    this.selected = '';
+                    this.selectedValue = '';
                 }
-                return true;
             },
             getTokenList() {
                 if (this.selectBoxType === 'customToken' ) {

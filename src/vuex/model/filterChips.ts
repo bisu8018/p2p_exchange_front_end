@@ -8,6 +8,7 @@ export default class FilterChips {
     cryptocurrency: string;
     tokenNo: any;
     orderType: string;
+    walletType: string;
     adsType: string;
     tradeType: string;
     currency: string;
@@ -23,6 +24,7 @@ export default class FilterChips {
         this.tokenNo = data.tokenNo  || '';
         this.tradeType = data.tradeType || '';
         this.orderType = data.orderType || '';
+        this.walletType = data.walletType || '';
         this.adsType = data.adsType || '';
         this.currency = data.currency || '';
     }
@@ -38,6 +40,7 @@ export default class FilterChips {
         if(data.tokenNo !==undefined && data.tokenNo !==null) this.tokenNo = data.tokenNo;
         if(data.tradeType !==undefined && data.tradeType !==null) this.tradeType = data.tradeType;
         if(data.orderType !==undefined && data.orderType !==null) this.orderType = data.orderType;
+        if(data.walletType !==undefined && data.walletType !==null) this.walletType = data.walletType;
         if(data.adsType !==undefined && data.adsType !==null) this.adsType = data.adsType;
         if(data.currency !==undefined && data.currency !==null) this.currency = data.currency;
     }
@@ -51,6 +54,7 @@ export default class FilterChips {
         this.cryptocurrency = "";
         this.tokenNo = '';
         this.orderType = "";
+        this.walletType = "";
         this.adsType = "";
         this.tradeType = "";
         this.currency = "";

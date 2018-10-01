@@ -1,5 +1,5 @@
 <template>
-    <div class="mr-5 chip-wrapper d-inline-block">
+    <div class="chip-wrapper d-inline-block">
         <h6 class="statusChip" :class="{'d-none-important' : flag && index === 'searchStartTime' || index === 'tokenNo' || index === 'cryptocurrency'}" v-if="data !== ''" v-for="(data,index) in chipData">
             <v-layout align-center row fill-height>
                 {{ showDateChip(index,data) }}
@@ -70,14 +70,17 @@
                         }
                         return  Vue.prototype.$str(data) + (this.cryptocurrency !== '' ?  " : " + this.cryptocurrency : '') ;
 
-                    case 'status':
-                    case 'orderType':
-                    case 'adsType':
-                    case 'tradeType':
                     case 'orderNo':
                     case 'adsNo':
                     case 'currency':
                         return  data ;
+
+                    case 'adsType':
+                    case 'status':
+                    case 'tradeType':
+                    case 'orderType':
+                    case 'walletType':
+                        return  Vue.prototype.$str(data) ;
                 }
             },
         }
