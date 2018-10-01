@@ -4044,9 +4044,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['comp_order_cancel', {
+        KOR: '주문이 취소 되었습니다.',
+        ENG: 'Order successfully canceled.',
         CN: '',
         HK: ''
     }],

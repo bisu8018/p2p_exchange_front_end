@@ -125,6 +125,14 @@
                 return MainRepository.Chat.controller().getChatSubscribe();
             },
         },
+        created() {
+            this.$eventBus.$on('chatScrollBottom', () => {
+                this.scrollBottom();
+            });
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('chatScrollBottom', () => {});
+        },
         methods: {
             onSend(url) {
                 let message;
@@ -146,7 +154,6 @@
                         this.latestPostTime = Date.now();
                         this.$eventBus.$emit('chatSendMessage', message, type);
                         this.inputValue = '';
-                        this.scrollBottom();
                     }
                 }
             },

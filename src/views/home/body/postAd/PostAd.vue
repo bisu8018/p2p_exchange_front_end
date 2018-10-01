@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
-                         v-bind:class="{'warning-border' : warning_fixed_price, 'warning-border' : warning_float_price}">
+                         v-bind:class="{'warning-border' : warning_fixed_price || warning_float_price}">
                         <input type="text" class="price-input" placeholder="0" v-model="fixedPrice"
                                @keyup="onNumberCheck('fixedPrice')" v-if="priceType === 'fixedprice'">
                         <input type="text" class="price-input" placeholder="0" v-model="margin"
@@ -521,7 +521,7 @@
     import Common from "../../../../service/common/CommonService";
     import MainRepository from "../../../../vuex/MainRepository";
     import {abUtils} from "../../../../common/utils";
-    import {transCryptocurrencyName} from "../../../../common/common";
+    import {transCryptocurrencyName, transCryptocurrencyFullName} from "../../../../common/common";
     import PostAdModal from "./postAdItem/PostAdModal.vue";
     import Policy from "../../../../vuex/model/Policy";
 
@@ -624,7 +624,7 @@
             getMarketPrice() {
                 if (this.cryptocurrencyType === 'general') {
                     let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
-                    let coinFullName = transCryptocurrencyName(this.cryptocurrency)
+                    let coinFullName = transCryptocurrencyFullName(this.cryptocurrency)
                     for (let i = 0; i < Object.keys(this.marketPrice).length; i++) {
                         if (this.marketPrice[i].cryptocurrency === coinFullName && this.marketPrice[i].currency === tmp_currency) {
                             //console.log(this.marketPrice[i]);
@@ -1173,9 +1173,7 @@
         right: 10px;
     }
 
-    .verify-slider-wrapper {
-        max-width: 290px;
-    }
+
 
     /*textarea css*/
     textarea::-webkit-input-placeholder {

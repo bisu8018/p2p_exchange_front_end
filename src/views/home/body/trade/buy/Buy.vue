@@ -465,7 +465,7 @@
                     orderNo: Number(self.orderNo),
                     email: MainRepository.MyInfo.getUserInfo().email
                 }, (result) => {
-                    Vue.prototype.$eventBus.$emit('showAlert', 2102);
+                    Vue.prototype.$eventBus.$emit('showAlert', 2156);
                     self.getOrderStatus();
                     self.onClose();
                 }, () => {
