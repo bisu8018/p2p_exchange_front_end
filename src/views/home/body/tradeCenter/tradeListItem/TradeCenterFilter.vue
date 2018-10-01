@@ -565,8 +565,8 @@
      content: '';
      position: absolute;
      border-style: solid;
-     bottom: 100.3%;
-     left: 95%;
+     bottom: 100%;
+     left: 94.5%;
      margin-left: -8px;
      width: 0; height: 0;
      border-width: 10px;

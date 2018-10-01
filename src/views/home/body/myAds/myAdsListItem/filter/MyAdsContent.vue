@@ -210,8 +210,8 @@
         content: '';
         position: absolute;
         border-style: solid;
-        bottom: 100.2%;
-        left: 95%;
+        bottom: 100%;
+        left: 94.4%;
         margin-left: -8px;
         width: 0;
         height: 0;
