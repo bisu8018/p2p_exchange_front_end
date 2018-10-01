@@ -5,7 +5,10 @@
     </span>
         <div class="loginCircle" v-bind:style="{background: loginColor}">
         </div>
-        <div v-if="chat !== '' && msgAvatar"></div>
+
+        <!--Buy/Sell 메세지 일때-->
+        <div v-if="(chat === 'main' || chat === 'sub')  && msgAvatar"></div>
+        <!--자신 일때-->
         <div v-else-if="me && myInfo"></div>
     </div>
 </template>
@@ -57,7 +60,6 @@
         computed: {
             msgAvatar() {
                 let avatarInfo =MainRepository.Message.msgAvatar().get();
-                console.log(avatarInfo)
                 this.bgColor = avatarInfo.bgColor;
                 this.nickname = avatarInfo.nickname;
 

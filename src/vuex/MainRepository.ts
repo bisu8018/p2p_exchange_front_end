@@ -134,33 +134,36 @@ export default {
     },
     //서버 초기 데이터를 파싱
     initData: function (callback: any) {
-        this.GeneralToken.setGeneralTokenList(() => {});
         this.CustomToken.setCustomTokenList(() => {});
+        this.GeneralToken.setGeneralTokenList(() => {
+            AccountService.Account.checkLogin(
+                // 로그인 유저 -> 유저 정보 Set
+                (data) => {
+                    accountController.setUserInfo(new Account(data));
 
-        AccountService.Account.checkLogin(
-            // 로그인 유저 -> 유저 정보 Set
-            (data) => {
-                accountController.setUserInfo(new Account(data));
-
-                this.Wallet.load(() => {
-                });
-                this.Wallet.setSecurityWallets(() => {
-                });
-                this.Merchant.loadMyMerchantInfo(() => {
-                });
-                this.MarketPrice.load(() => {
-                });
-                this.MyInfo.loadMyPaymentMethods(() => {
-                    this.MyToken.getMytoken(() => {
-                        callback();
+                    this.Wallet.load(() => {
                     });
-                });
-            },
-            // 로그인 하지 않음
-            function () {
-                callback();
-            }
-        );
+                    this.Wallet.setSecurityWallets(() => {
+                    });
+                    this.Merchant.loadMyMerchantInfo(() => {
+                    });
+                    this.MarketPrice.load(() => {
+                    });
+                    this.MyInfo.loadMyPaymentMethods(() => {
+                        this.MyToken.getMytoken(() => {
+                            callback();
+                        });
+                    });
+                },
+                // 로그인 하지 않음
+                function () {
+                    callback();
+                }
+            );
+        });
+
+
+
     },
     // 주기적으로 작동하는 함수
     initInterval() {
@@ -464,6 +467,7 @@ export default {
         },
         // 인증 여부 체크
         checkValidity(needGo): boolean {
+
             // NickName 설정 여부
             if (this.getUserInfo().nickname === "") {
                 if (needGo) {

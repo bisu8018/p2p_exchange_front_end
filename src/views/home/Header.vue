@@ -316,7 +316,6 @@
                 }
             },
             goWallet() {
-
                 MainRepository.router().goWallet();
             },
             goOTC() {
