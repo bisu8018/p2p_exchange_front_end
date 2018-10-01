@@ -52,6 +52,17 @@
               }
           }
         },
+        created(){
+            this.$eventBus.$on('clearEndDate', () => {
+                if(this.classname=='enddateclass'){
+                    this.date = null;
+                }
+            });
+
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('clearEndDate');
+        },
         methods: {
             onDate() {
                 document.getElementsByClassName(this.classname)[0].style.display = "block";

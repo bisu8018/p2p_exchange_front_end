@@ -1,3 +1,5 @@
+import Vue from "vue";
+
 export default class FilterChips {
     searchStartTime: any;
     searchEndTime: any;
@@ -31,7 +33,7 @@ export default class FilterChips {
 
     update (data: any){
         if(data.searchStartTime !==undefined && data.searchStartTime !==null) this.searchStartTime = data.searchStartTime;
-        if(data.searchEndTime !==undefined && data.searchEndTime !==null) this.searchEndTime = data.searchEndTime;
+        if(data.searchEndTime !==undefined && data.searchEndTime !==null) this.searchEndTime = this.checkDateTime(data.searchEndTime);
         if(data.status !==undefined && data.status !==null) this.status = data.status;
         if(data.orderNo !==undefined && data.orderNo !==null) this.orderNo = data.orderNo;
         if(data.adsNo !==undefined && data.adsNo !==null) this.adsNo = data.adsNo;
@@ -58,6 +60,13 @@ export default class FilterChips {
         this.adsType = "";
         this.tradeType = "";
         this.currency = "";
+    }
+    checkDateTime(endDate){
+        if(this.searchStartTime > endDate){
+            Vue.prototype.$eventBus.$emit('showAlert', 4014);
+            Vue.prototype.$eventBus.$emit('clearEndDate');
+            return '';
+        }
     }
 }
 

@@ -170,6 +170,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 4011 : this.show(this.type.Error, "", this.$str('err_login')); break;    // 로그인 실패
                     case 4012 : this.show(this.type.Error, "", this.$str('warn_file_size')); break;    // 이미지 용량 초과
                     case 4013 : this.show(this.type.Error, "", this.$str('warn_file_exist')); break;    // 이미지 없음
+                    case 4014 : this.show(this.type.Error, "", this.$str('Incorrect end date')); break;    // 종료날짜가 시작날짜보다 빠름
 
                     //광고 에러코드 4100 ~
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재

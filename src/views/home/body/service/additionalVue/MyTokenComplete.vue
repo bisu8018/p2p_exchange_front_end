@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 md6 offset-md3 container mt-5>
+    <v-flex xs12 md6 offset-md3 container-wrapper mt-5>
         <div class="sprite-img ic-watch mt-2 mb-4 ma-a"></div>
         <h3 class="font-weight-bold ">{{ status === 'registered' ? $str('myTokenOrderSubj') :
             $str('myTokenCompleteSubj') }}</h3>
@@ -53,10 +53,12 @@
 </script>
 
 <style scoped>
-    .container {
+    .container-wrapper {
         border-radius: 3px;
         background-color: #ffffff;
         border: solid 1px #8d8d8d;
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
 
     .divider-css {

@@ -4032,7 +4032,37 @@ const strings = new Map([
         ENG: 'vault_exception',
         CN: '',
         HK: ''
-    }],['', {
+    }],['Transfer to', {
+        KOR: '인출을 위해',
+        ENG: 'Transfer to',
+        CN: '',
+        HK: ''
+    }],
+    ['to withdraw', {
+        KOR: '에게 전송',
+        ENG: 'to withdraw',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
         KOR: '',
         ENG: '',
         CN: '',
