@@ -312,8 +312,8 @@
                 <!--token-->
                 <span v-if="isGeneralCoin" :class="tokenImg" > </span>
                 <img v-else class="symbol" :src="user.symbolImgUrl">
-                <div class="ml-3 bold">
-                  <span>{{tokenName}}</span>
+                <div class="ml-3 ">
+                  <span class="bold">{{tokenName}}</span>
                 <!-- merchant 정보-->
                   <div class="color-darkgray medium">{{$str("Available")}}  {{user.volumeAvailable}} {{tokenName}}</div>
                 </div>

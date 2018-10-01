@@ -34,8 +34,9 @@
           <!-- token[1] 버튼. 활성화된 버튼 -->
           <!--v-bind:class="{'color-blue bold underline' : clicked[2].isALLB}"-->
           <button
-                 class="mobile-token color-blue-active bold underline"
-                 @click="onTokenClicked(1,'current')"><h4>{{tokens.center}}</h4>
+                 class="mobile-token color-blue-active underline"
+                 @click="onTokenClicked(1,'current')">
+            <h4 class="bold">{{tokens.center}}</h4>
           </button>
           <!--token[2]-->
           <!--v-bind:class="{'color-blue bold underline' : clicked[1].isETH}"-->
@@ -122,7 +123,8 @@
                   <button @click="onTokenClicked(0, 'Buy')"><h4>{{tokens.left}}</h4></button>
                   <!-- center 버튼-->
                   <button v-bind:class="{'color-blue-active underline bold' : tradeType==='Buy'}"
-                          @click="onTokenClicked(1, 'Buy')"><h4>{{tokens.center}}</h4>
+                          @click="onTokenClicked(1, 'Buy')">
+                    <h4 :class="{' bold' : tradeType==='Buy'}">{{tokens.center}}</h4>
                   </button>
                   <!-- right 버튼-->
                   <button @click="onTokenClicked(2, 'Buy')"><h4>{{tokens.right}}</h4></button>
@@ -143,8 +145,8 @@
         <v-flex md3 pl-0  v-if="!isCustomTrade">
           <v-layout column>
             <v-layout row mb-3>
-              <v-flex md3 offset-md2 bold text-md-left>
-                <h4>{{$str("sell")}}</h4>
+              <v-flex md3 offset-md2  text-md-left>
+                <h4 class="bold">{{$str("sell")}}</h4>
               </v-flex>
             </v-layout>
             <v-layout justify-space-between row color-darkgray>
@@ -157,7 +159,8 @@
               <button @click="onTokenClicked(0, 'Sell')"><h4>{{tokens.left}}</h4></button>
               <!-- center 버튼-->
               <button v-bind:class="{'color-blue-active underline bold' :  tradeType==='Sell'}"
-                      @click="onTokenClicked(1, 'Sell')"><h4>{{tokens.center}}</h4>
+                      @click="onTokenClicked(1, 'Sell')">
+                <h4 :class="{' bold' : tradeType==='Sell'}">{{tokens.center}}</h4>
               </button>
               <!-- right 버튼-->
               <button @click="onTokenClicked(2, 'Sell')"><h4>{{tokens.right}}</h4></button>
