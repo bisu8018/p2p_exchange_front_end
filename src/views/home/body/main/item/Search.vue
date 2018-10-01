@@ -19,7 +19,7 @@
         <v-flex xs12 md3 mb-4>
             <div class="p-relative selectbox-wrapper">
                 <select-box :selectBoxType="'currency'" :cssOption="true" class="selectbox-width-part" ></select-box>
-                <input type="text" class="input" v-model="amount" :placeholder="$str('How_much_you_want_to_trade?')">
+                <input type="text" class="input combined-input" v-model="amount" :placeholder="$str('How_much_you_want_to_trade?')">
             </div>
         </v-flex>
 
@@ -113,6 +113,10 @@
         border-top-left-radius: 0px;
     }
 
+    .combined-input {
+        width: 80%;
+    }
+
     .selectbox-wrapper {
         border: none;
     }
@@ -125,8 +129,6 @@
         border-top-right-radius: 0px !important;
         border-bottom-right-radius: 0px !important;
     }
-
-
 
     .selectbox-width-part :first-child > :last-child {
         right: 0px;
