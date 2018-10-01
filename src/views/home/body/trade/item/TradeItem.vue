@@ -13,7 +13,7 @@
             <div class="text-xs-left color-black line-height-1  c-pointer tooltip">
                 <span slot="activator" @click="onCopy('getInfo')">{{getInfo}}</span>
                 <input type="text" :value="getInfo" :id="item.type" class="referenceNum">
-                <span class="tooltip-content" :class="{bold : GetLang === 'KO'}">{{ $str("Copy") }}</span>
+                <span class="tooltip-content" >{{ $str("Copy") }}</span>
             </div>
         </v-flex>
 
@@ -39,8 +39,6 @@
 <script>
     import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
-    import {abGetLang} from "../../../../../config/localization";
-
     export default Vue.extend({
         name: 'trade-item',
         props: ['item'],
@@ -101,9 +99,6 @@
                         return this.item.wechatQrCodeImgUrl;
                 }
             },
-            GetLang(){
-                return abGetLang();
-            }
         },
         methods: {
             onCopy() {
