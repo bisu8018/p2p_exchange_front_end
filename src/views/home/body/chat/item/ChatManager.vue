@@ -51,7 +51,6 @@
                     type : type};
                     let channelId = 'all';
                     this.stompClient.send("/publish/channels/" + channelId, JSON.stringify(msg), {});
-                    //this.inputValue = '';
                 }
             },
             connect() {

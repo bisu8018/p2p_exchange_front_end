@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" persistent scrollable>
+    <v-dialog v-model="showDialog" persistent>
         <div class="dialog-add-new-payment_wrapper" v-if="showDialog">
 
             <!-- 헤더, 타이틀 -->
