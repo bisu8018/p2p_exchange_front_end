@@ -67,6 +67,9 @@ export default class FilterChips {
             Vue.prototype.$eventBus.$emit('clearEndDate');
             return '';
         }
+        else{
+            return endDate;
+        }
     }
 }
 

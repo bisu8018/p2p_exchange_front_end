@@ -180,12 +180,12 @@
                     <input type="radio" id="mainnet" value="main" name="tokenServer" v-model="tokenServer"/>
                     <label for="mainnet">
                         <span>
-                              <i class="material-icons">brightness_1</i>
+                              <i class="material-icons ml-slice">brightness_1</i>
                         </span>
                         <h5 class="d-inline-block">{{ $str("mainnet") }}</h5>
                     </label>
                     <div class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip" v-if="isMobile">
-                        <span class="tooltip-content">{{ $str("tokenServerExplain") }}</span>
+                        <span class="tooltip-content ">{{ $str("tokenServerExplain") }}</span>
                     </div>
                 </div>
             </v-flex>
@@ -196,7 +196,7 @@
                     <input type="radio" id="testnet" value="test" name="tokenServer" v-model="tokenServer"/>
                     <label for="testnet">
                             <span>
-                                  <i class="material-icons">brightness_1</i>
+                                  <i class="material-icons ml-slice">brightness_1</i>
                             </span>
                         <h5 class="d-inline-block">{{ $str("testnet") }}</h5>
                     </label>
@@ -596,6 +596,9 @@
 
     textarea:-ms-input-placeholder {
         color: #9294a6;
+    }
+    .ml-slice{
+    margin-left: 0.5px;
     }
 </style>
 
