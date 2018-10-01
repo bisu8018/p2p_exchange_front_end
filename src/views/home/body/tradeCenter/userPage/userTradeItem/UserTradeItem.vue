@@ -49,11 +49,11 @@
               </div>
               <div v-if="user.alipay_id"
                    class="mr-2 sprite-img ic-alipay f-left tooltip">
-                <span class="tooltip-content">{{$str("alipayText")}}</span>
+                <span class="tooltip-content width-60">{{$str("alipayText")}}</span>
               </div>
               <div v-if="user.wechat_id"
                    class="sprite-img ic-wechatpay f-left tooltip">
-                <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+                <span class="tooltip-content width-60">{{$str("wechatPayText")}}</span>
               </div>
             </li>
             <li>
@@ -174,11 +174,11 @@
             <!--payment method-->
             <div v-if="user.wechat_id"
                  class="sprite-img ml-2 ic-wechatpay f-right tooltip">
-              <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+              <span class="tooltip-content width-60">{{$str("wechatPayText")}}</span>
             </div>
             <div v-if="user.alipay_id"
                  class="ml-2 sprite-img ic-alipay f-right tooltip">
-              <span class="tooltip-content">{{$str("alipayText")}}</span>
+              <span class="tooltip-content width-60">{{$str("alipayText")}}</span>
             </div>
             <div v-if="user.bank_account"
                  class="sprite-img ic-bank f-right tooltip">
@@ -278,11 +278,11 @@
             </a>
             <a class="tooltip" v-if="user.alipay_id">
               <div class="sprite-img ic-alipay mr-2"></div>
-              <span class="tooltip-content">{{$str("alipayText")}}</span>
+              <span class="tooltip-content width-60">{{$str("alipayText")}}</span>
             </a>
             <a class="tooltip" v-if="user.wechat_id">
               <div class="sprite-img ic-wechatpay mr-2"></div>
-              <span class="tooltip-content">{{$str("wechatPayText")}}</span>
+              <span class="tooltip-content width-60">{{$str("wechatPayText")}}</span>
             </a>
             <!--img와 button을 양쪽에 정렬시키기 위함.-->
             <v-spacer></v-spacer>
@@ -887,5 +887,8 @@
   .detail-mobile li:nth-child(2n) {
     width: calc(100% - 100px);
     text-align: right;
+  }
+  .width-60{
+    width: 60px;
   }
 </style>
