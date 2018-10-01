@@ -104,7 +104,8 @@
             //tokenlist에서 넘어올때
             if (urlParam !== '') {
                 MainRepository.Wallet.updateHistoryPage({
-                    tokenNo: urlParam,
+                    tokenNo : urlParam[0] || '',
+                    cryptocurrencyType : urlParam[1] || ''
                 });
             }
 
@@ -129,9 +130,10 @@
             getUrlParam() {
                 let currentURL = window.location.href;
                 let params = currentURL.split('?');
+                params = params[1].split('&');      //params[0] = tokenNo,   params[1] = cryptocurrencyType
 
-                if (params[1]) {
-                    return params[1];
+                if (params) {
+                    return params;
                 } else {
                     return '';
                 }
