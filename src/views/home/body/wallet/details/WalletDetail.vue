@@ -129,7 +129,6 @@
         methods:{
             getUrlParam() {
                 let currentURL = window.location.href;
-                console.log(currentURL)
                 let params = currentURL.split('?');
 
                 if(params.length[1]){
