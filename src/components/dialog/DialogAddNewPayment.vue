@@ -497,9 +497,6 @@
 </script>
 
 <style scoped>
-    .v-dialog {
-
-    }
 
     .dialog-add-new-payment_wrapper {
         text-align: left;
