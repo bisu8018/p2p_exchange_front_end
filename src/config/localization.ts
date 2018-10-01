@@ -1292,7 +1292,7 @@ const strings = new Map([
         HK: '時間'
     }],
     ['Export', {
-        KOR: '내보내기',
+        KOR: '다운로드',
         ENG: 'Export',
         CN: '传送',
         HK: '傳送'
@@ -4050,9 +4050,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Export Data', {
+        KOR: '데이터 다운로드',
+        ENG: 'Export Data',
         CN: '',
         HK: ''
     }],

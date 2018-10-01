@@ -3,7 +3,7 @@
     <div>
       <div class="modal-subject-wrapper mb-3">
         <div class="h3 text-xs-left color-black bold">
-          {{$str("Export")}} {{$str("Data")}}
+          {{$str("Export Data")}}
         </div>
         <v-spacer></v-spacer>
         <i class="material-icons color-black c-pointer" @click="onClose">close</i>
