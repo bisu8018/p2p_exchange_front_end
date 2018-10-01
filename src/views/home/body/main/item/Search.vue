@@ -31,7 +31,7 @@
                     <select-box :selectBoxType="'generalToken'" @generalToken="selectToken" ></select-box>
                 </div>
                 <div v-if="isMobile" class="pl-1 pr-1"></div>
-                <div v-else class="color-darkgray pt-2 mb-4">{{$str('Via')}}</div>
+                <h6 v-else class="color-darkgray pt-2 mb-4 mr-3 ml-3">{{$str('Via')}}</h6>
                 <!-- paymentmethod -->
                 <div class="search-input">
                     <select-box :selectBoxType="'payment'"></select-box>
