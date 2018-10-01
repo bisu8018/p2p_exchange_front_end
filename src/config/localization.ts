@@ -4044,15 +4044,15 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['Export Data', {
-        KOR: '데이터 다운로드',
-        ENG: 'Export Data',
+    ['comp_order_cancel', {
+        KOR: '주문이 취소 되었습니다.',
+        ENG: 'Order successfully canceled.',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['Export Data', {
+        KOR: '데이터 다운로드',
+        ENG: 'Export Data',
         CN: '',
         HK: ''
     }],

@@ -13,7 +13,7 @@
 
 
             <!--chat contents section-->
-            <div class="scroll-space" v-on:scroll.passive="scrollEvent" id="contentsWrapper">
+            <div class="scroll-space" v-on:scroll.passive="scrollEvent" id="chatContentsWrapper">
                 <div v-for="data in getMassageList">
                     <!--상대방-->
                     <div class="mb-4 display-flex" v-if="getChatSubscribe.myInfo.name !== data.sender.name ">
@@ -125,6 +125,17 @@
                 return MainRepository.Chat.controller().getChatSubscribe();
             },
         },
+        created() {
+            this.$eventBus.$on('chatScrollBottom', () => {
+                this.scrollBottom();
+            });
+        },
+        mounted() {
+            this.scrollBottom();
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('chatScrollBottom', () => {});
+        },
         methods: {
             onSend(url) {
                 let message;
@@ -146,7 +157,6 @@
                         this.latestPostTime = Date.now();
                         this.$eventBus.$emit('chatSendMessage', message, type);
                         this.inputValue = '';
-                        this.scrollBottom();
                     }
                 }
             },
@@ -196,7 +206,7 @@
                 MainRepository.Chat.isClosed();
             },
             scrollBottom() {
-                let chatWrapper = document.getElementById("contentsWrapper");
+                let chatWrapper = document.getElementById("chatContentsWrapper");
                 chatWrapper.scrollTop = chatWrapper.scrollHeight;
             },
             scrollEvent(e) {

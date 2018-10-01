@@ -116,6 +116,7 @@
             init() {
                 if(this.filterValue !== '' && this.filterValue) {
                     this.selected = this.filterValue;
+
                     if(this.selectBoxType === 'customToken' ){
                         this.selectedValue = MainRepository.CustomToken.controller().findCustomToken(this.filterValue, 'no').tokenName;
                     }else if(this.selectBoxType === 'generalToken'){

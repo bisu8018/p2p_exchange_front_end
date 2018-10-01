@@ -51,6 +51,7 @@
                     type : type};
                     let channelId = 'all';
                     this.stompClient.send("/publish/channels/" + channelId, JSON.stringify(msg), {});
+                    this.$eventBus.$emit('chatScrollBottom', () => { });
                 }
             },
             connect() {
@@ -75,6 +76,7 @@
                 this.stompClient.subscribe("/subscribe/channels/" + channelId, tick => {
                     let result = JSON.parse(tick.body);
                     let chatMessage = result.message;
+                    let memberNo = MainRepository.MyInfo.controller().getUserInfo().memberNo;
                     //console.log(result);
 
                     if(result.sender.name === 'SYSTEM'){
@@ -82,6 +84,10 @@
                     }else{
                         //vuex 메세지 업데이트
                         MainRepository.Chat.addChatMessage(result);
+                        if(result.sender.memberNo === memberNo){
+                            // 자신 입력 시, 채팅창 스크롤 맨밑
+                            this.$eventBus.$on('chatScrollBottom', () => {});
+                        }
                     }
                 });
             },

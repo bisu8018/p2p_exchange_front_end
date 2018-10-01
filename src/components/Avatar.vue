@@ -56,12 +56,15 @@
         },
         computed: {
             msgAvatar() {
-                this.bgColor = MainRepository.Message.msgAvatar().get().bgColor;
-                this.nickname = MainRepository.Message.msgAvatar().get().nickname;
+                let avatarInfo =MainRepository.Message.msgAvatar().get();
+                console.log(avatarInfo)
+                this.bgColor = avatarInfo.bgColor;
+                this.nickname = avatarInfo.nickname;
+
                 if(this.chat === 'sub'){
-                    this.loginColor = MainRepository.Message.msgAvatar().get().isLogin ? '#59D817' : '#c8c8c8';
+                    this.loginColor = avatarInfo.isLogin ? '#59D817' : '#c8c8c8';
                 }
-                return MainRepository.Message.msgAvatar().get();
+                return avatarInfo;
             },
             myInfo() {
                 if (this.me) {

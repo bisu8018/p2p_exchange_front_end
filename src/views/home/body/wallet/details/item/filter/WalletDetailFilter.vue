@@ -56,14 +56,30 @@
             let urlParam = this.getUrlParam();
             //tokenlist에서 넘어올때
             if (urlParam !== '') {
-                this.chipData.cryptocurrencyType = urlParam[1] || '';
-                this.chipData.tokenNo = urlParam[0] || '';
+                let _tokenNo = Number(urlParam[0]) || '';
+                let _cryptocurrencyType = urlParam[1] || '';
+
+                let data = {
+                    tokenNo :  _tokenNo,
+                    cryptocurrencyType :  _cryptocurrencyType
+                };
+
+                if(_cryptocurrencyType === 'custom' ){
+                    data.cryptocurrency = 'custom';
+                }else if(_cryptocurrencyType === 'general' ){
+                    let _cryptocurrency = MainRepository.GeneralToken.controller().findGeneralToken(_tokenNo,'no');
+                    data.cryptocurrency =  _cryptocurrency.tokenName;
+                }
+
+                this.chipData.update(data);
+                this.showPlaceholder();
             }
         },
         methods: {
             getUrlParam() {
                 let currentURL = window.location.href;
                 let params = currentURL.split('?');
+                params = params[1].split('&');      //params[0] = tokenNo,   params[1] = cryptocurrencyType
 
                 if (params) {
                     return params;

@@ -197,7 +197,7 @@ export default class RouterController {
 
     goWalletDetail(cryptoCurrency,cryptocurrencyType){
         let code = '';
-        let type = cryptocurrencyType ? "?" + cryptocurrencyType : '';
+        let type = cryptocurrencyType ? "&" + cryptocurrencyType : '';
         switch (cryptoCurrency) {
             case 'bitcoin':
                 code = 'BTC';
