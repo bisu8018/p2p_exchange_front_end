@@ -24,7 +24,7 @@
                         <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">
                              {{ toMoneyFormat(currentOrder.amount) }}{{ currentOrder.currency }}</span>      <!--{{ currentOrder.currency }} 화폐단위-->
                         <input type="text" :value="currentOrder.amount" id="amountValue" class="referenceNum">
-                        <span class="tooltip-content">{{ $str("Copy") }}</span>
+                        <span class="tooltip-content" :class="{bold : GetLang === 'KO'}">{{ $str("Copy") }}</span>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                         {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                     </span>
                     <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
-                    <span class="tooltip-content">{{ $str("Copy") }}</span>
+                    <span class="tooltip-content" :class="{bold : GetLang === 'KO'}">{{ $str("Copy") }}</span>
                 </div>
             </div>
         </div>
@@ -191,6 +191,7 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
+    import {abGetLang} from "../../../../../config/localization";
     import {getLimitTime,transCryptocurrencyName, findCustomTokenName } from "../../../../../common/common";
     import {abUtils} from "../../../../../common/utils";
 
@@ -251,6 +252,9 @@
                     return findCustomTokenName(data, this.currentOrder.tokenNo);
                 }
             },
+            GetLang(){
+                return abGetLang();
+            }
         },
         created() {
             this.$eventBus.$on('refreshSell', () => {
@@ -511,7 +515,7 @@
     }
 
     .tooltip-content {
-        font-weight: 100;
+        font-weight: 400;
     }
 
     .cancel-explain {

@@ -18,7 +18,7 @@
         <!-- amount -->
         <v-flex xs12 md3 mb-4>
             <div class="p-relative selectbox-wrapper">
-                <select-box :selectBoxType="'currency'" :cssOption="true" class="selectbox-width-part" ></select-box>
+                <<select-box :selectBoxType="'currency'" :cssOption="true" class="selectbox-width-part" ></select-box>
                 <input type="text" class="input" v-model="amount" :placeholder="$str('How_much_you_want_to_trade?')">
             </div>
         </v-flex>

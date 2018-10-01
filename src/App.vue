@@ -330,6 +330,26 @@
         color: #9294a6;
     }
 
+    :-moz-placeholder { /* Firefox 18- */
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #9294a6;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #9294a6;
+    }
+
     /*스크롤바 스타일 설정*/
     /* width */
     ::-webkit-scrollbar {
@@ -799,7 +819,7 @@
     }
 
     .bold {
-        font-weight: 700;
+        font-weight: 700 !important;
     }
 
     .line-height-1 {
