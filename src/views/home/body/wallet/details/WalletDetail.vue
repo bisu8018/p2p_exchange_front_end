@@ -129,12 +129,13 @@
         methods:{
             getUrlParam() {
                 let currentURL = window.location.href;
+                console.log(currentURL)
                 let params = currentURL.split('?');
-                params = params[1].split('&');      //params[0] = tokenNo,   params[1] = cryptocurrencyType
 
-                if (params) {
+                if(params.length[1]){
+                    params = params[1].split('&');      //params[0] = tokenNo,   params[1] = cryptocurrencyType
                     return params;
-                } else {
+                }else{
                     return '';
                 }
             },
