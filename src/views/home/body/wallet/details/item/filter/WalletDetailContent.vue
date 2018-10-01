@@ -201,7 +201,7 @@
         bottom: 100%;
         right: 8px;
         border-width: 10px;
-      
+
         margin-left: -8px;
         width: 0;
         height: 0;
