@@ -129,6 +129,12 @@
                             return 'ALL';
                         }
                         break;
+
+                    case 'cryptocurrencyType' :
+                        if (this.optionFilter === 'block') {
+                            return 'custom';
+                        }
+                        break;
                 }
 
                 return '';

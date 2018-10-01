@@ -90,7 +90,9 @@
                     {{ $str("appealCodeExplain") }}
                     {{ getAppeal.appealNo }} ,
                 </span>
-                {{ $str("referenceText") }} :
+                <span class="bold">
+                    {{ $str("referenceText") }} :
+                </span>
                 <div class="c-pointer tooltip">
                     <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                         {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->

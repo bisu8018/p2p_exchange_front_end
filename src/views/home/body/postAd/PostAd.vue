@@ -52,6 +52,7 @@
                     <div class="text-xs-left mb-2 h5  color-black">{{ $str("cryptoCurrencyType") }}</div>
                     <div class="p-relative">
                         <select-box :selectBoxType="'cryptocurrencyType'" :editValue="myAdList.cryptocurrencyType"
+                                    :optionFilter="this.message"
                                     v-on:cryptocurrencyType="setCryptocurrencyType"
                                     :class="{'input-disabled2' : edit}"></select-box>
                     </div>

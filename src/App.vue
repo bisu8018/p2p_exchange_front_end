@@ -1231,6 +1231,12 @@
         overflow-y: inherit !important;
     }
 
+    @media (max-width: 959px) {
+        .v-dialog {
+            overflow-y: auto !important;
+        }
+    }
+
     /* 포지션 */
 
     .p-absolute {
