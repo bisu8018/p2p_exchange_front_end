@@ -46,6 +46,13 @@ export default class RouterController {
         let params = currentURL.split('?');
         let r = this.router;
         let url = isBlock ? '/blockAd' : '/generalAd';
+
+        if(!MainRepository.MyInfo.isLogin() ){
+            Vue.prototype.$eventBus.$emit('showAlert', 4015);
+            this.goLogin();
+            return false;
+        }
+
         if (!MainRepository.MyInfo.checkValidity(true)) {
             return;
         }

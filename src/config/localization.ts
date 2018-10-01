@@ -4056,9 +4056,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_needLogin', {
+        KOR: '로그인 해주십시오.',
+        ENG: 'You need login.',
         CN: '',
         HK: ''
     }],
