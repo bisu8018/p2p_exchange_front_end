@@ -23,7 +23,7 @@
           <!-- Available volume -->
           <ul>
             <li>{{$str("Available")}} :</li>
-            <li class="w-break">{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{user.cryptocurrency}}</li>
+            <li class="w-break">{{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}}</li>
           </ul>
 
           <!-- Limits -->
@@ -59,7 +59,7 @@
             <li>
               <div v-if="can_not_trade ===''">
                 <button class="btn-rounded-blue medium" @click="changeDrawer">
-                  <h5>{{$str(user.tradeType)}} {{user.cryptocurrency}}</h5>
+                  <h5>{{$str(user.tradeType)}} {{tokenName}}</h5>
                 </button>
               </div>
               <div v-else-if="can_not_trade ==='MyPage'">
@@ -263,7 +263,7 @@
           </v-layout>
         </v-flex>
         <!--available-->
-        <v-flex md2 text-md-left >{{ $fixed(user.volumeAvailable, user.cryptocurrency) }} {{tokenName}} </v-flex>
+        <v-flex md2 text-md-left >{{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}} </v-flex>
         <!--limits-->
         <v-flex md2 text-md-left >{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}} </v-flex>
         <!--price-->
@@ -534,7 +534,7 @@
                 return MainRepository.MyInfo.getMyPaymentMethods();
             },
             getBalance(){
-                let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(this.user.cryptocurrency);
+                let MyBalance = MainRepository.Wallet.controller().findByCrptoCurrency(this.tokenName);
 
                 return MyBalance.availableAmount
             },
