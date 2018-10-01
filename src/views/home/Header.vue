@@ -102,7 +102,7 @@
                                       <h3 class="medium">{{$str("Ongoing order")}}</h3>
                                       <v-spacer></v-spacer>
                                       <v-layout justify-end c-pointer @click="fixModal()">
-                                          <div class="color-blue-active mr-2">{{$str("Fixed")}}</div>
+                                          <div class="color-blue-active mr-2 h5">{{$str("Fixed")}}</div>
                                           <div class="sprite-img ic-fix color-blue-active"></div>
                                       </v-layout>
                                   </v-layout>
@@ -125,7 +125,7 @@
                                       <v-divider />
                                   </div>
                               </div>
-                              <div @click="goMyOrder()" class="myorder-footer text-md-right color-blue-active my-3 mr-3">
+                              <div @click="goMyOrder()" class="h5 text-md-right color-blue-active my-3 mr-3">
                                   {{$str("View All")}}
                               </div>
                           </div>
@@ -542,7 +542,8 @@
         }
 
         .dropdown-content a:hover {
-            background-color: #ddd;
+            background-color: #316ee4;
+            color: white;
         }
 
         .dropdown:hover .dropdown-content,
@@ -552,19 +553,15 @@
 
         /*sub menu 드롭다운*/
         .submenu {
+            font-size: 14px;
             padding: 8px 16px 8px 16px;
             cursor: pointer;
         }
 
-        .submenu:hover {
-            background-color: #f8f8fa;
-        }
-
-        .submenu:active {
+        .submenu:hover, .submenu:active {
             background-color: #316ee4;
-            color: white
+            color: white;
         }
-
 
 
         /*my menu 드롭다운*/
@@ -573,11 +570,7 @@
             cursor: pointer;
         }
 
-        .my-menu:hover {
-            background-color: #f8f8fa;
-        }
-
-        .my-menu:active {
+        .my-menu:hover, .my-menu:active {
             background-color: #316ee4;
             color: white
         }

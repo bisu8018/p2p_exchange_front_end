@@ -105,6 +105,7 @@
         bottom: 0px;
         width: 100%;
         border-top: solid 1px #d1d1d1;
+        font-size: 14px;
     }
 
     .no-more-ads {

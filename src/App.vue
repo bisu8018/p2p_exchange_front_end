@@ -211,7 +211,6 @@
         padding: 0;
         border: 0;
         font-size: 14px;
-        font: inherit;
         vertical-align: baseline;
     }
 
@@ -2214,11 +2213,7 @@
         font-size: 14px;
     }
 
-    .lang-menu > div:hover {
-        background-color: #f8f8fa;
-    }
-
-    .lang-menu > div:active {
+    .lang-menu > div:active, .lang-menu > div:hover {
         background-color: #316ee4;
         color: white
     }

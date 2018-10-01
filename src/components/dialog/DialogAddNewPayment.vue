@@ -497,6 +497,9 @@
 </script>
 
 <style scoped>
+    .v-dialog {
+        overflow-y: inherit !important;
+    }
 
     .dialog-add-new-payment_wrapper {
         text-align: left;
