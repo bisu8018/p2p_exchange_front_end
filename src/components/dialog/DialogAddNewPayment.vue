@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" persistent>
+    <v-dialog v-model="showDialog" persistent scrollable>
         <div class="dialog-add-new-payment_wrapper" v-if="showDialog">
 
             <!-- 헤더, 타이틀 -->
@@ -497,13 +497,11 @@
 </script>
 
 <style scoped>
-    .v-dialog {
-        overflow-y: inherit !important;
-    }
 
     .dialog-add-new-payment_wrapper {
         text-align: left;
         position: relative;
+        width: 100%;
     }
 
     .dialog-add-new-payment_wrapper h3 {

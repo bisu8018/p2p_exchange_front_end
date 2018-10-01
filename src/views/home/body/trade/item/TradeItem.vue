@@ -12,7 +12,7 @@
         <v-flex xs6 md4 mb-3 text-xs-right text-md-left>
             <div class="text-xs-left color-black line-height-1  c-pointer tooltip">
                 <span slot="activator" @click="onCopy('getInfo')">{{getInfo}}</span>
-                <input type="text" :value="getInfo" id="getInfo" class="referenceNum">
+                <input type="text" :value="getInfo" :id="item.type" class="referenceNum">
                 <span class="tooltip-content">{{ $str("Copy") }}</span>
             </div>
         </v-flex>
@@ -103,9 +103,7 @@
         },
         methods: {
             onCopy() {
-                let copyTemp = document.querySelector('#getInfo');
-
-
+                let copyTemp = document.querySelector('#' + this.item.type);
                 let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
 
                 if (!isiOSDevice) {
@@ -113,6 +111,7 @@
                     copyTemp.select();
                 }
                 document.execCommand('copy');
+                Vue.prototype.$eventBus.$emit('showAlert', 2001);
             },
         }
     });

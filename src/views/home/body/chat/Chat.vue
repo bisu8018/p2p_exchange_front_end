@@ -157,7 +157,7 @@
             onCheckAttachmentFile() {               //첨부파일 타입, 확장자, 용량 체크
                 let fileInfo = this.$refs.file.files[0];
                 let fileSize = fileInfo.size;
-                console.log(fileInfo);
+                // console.log(fileInfo);
                 if (fileSize > 2000000) {
                     this.$eventBus.$emit('showAlert', 4012);
                     document.getElementById("file").value = "";

@@ -61,11 +61,11 @@
 
     .divider-css {
         border-bottom: 1px solid #d1d1d1;
-        margin: 24px -24px 24px -24px;
+        margin: 24px -12px;
     }
 
     .divider-css-mobile {
-        margin: 24px -16px 24px -16px;
+        margin: 24px -4px;
     }
 
     .btn-blue-wallet {

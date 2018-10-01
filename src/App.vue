@@ -210,7 +210,9 @@
         margin: 0;
         padding: 0;
         border: 0;
+        /*font: inherit;*/
         font-size: 14px;
+        font-weight: 400;
         vertical-align: baseline;
     }
 
