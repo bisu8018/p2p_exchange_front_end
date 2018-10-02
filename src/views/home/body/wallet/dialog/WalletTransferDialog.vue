@@ -36,7 +36,6 @@
       <select-box v-else :selectBoxType="'customToken'"
                   @customToken="selectCustomToken" :editCustomToken="tokenNo">
       </select-box>
-      <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
     </div>
     <!-- 3. From 창-->
     <div class="cs-flex">
