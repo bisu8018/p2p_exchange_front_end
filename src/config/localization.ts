@@ -4094,151 +4094,151 @@ const strings = new Map([
     }],
     ['invalid_request', {
         KOR: '잘못된 요청입니다',
-        ENG: 'invalid_request',
+        ENG: 'Invalid request',
         CN: '',
         HK: ''
     }],
     ['not_verified_email', {
         KOR: '확인되지 않은 이메일 입니다',
-        ENG: 'not_verified_email',
+        ENG: 'Not verified email',
         CN: '',
         HK: ''
     }],
     ['id_verification_required', {
         KOR: 'ID 인증이 필요합니다',
-        ENG: 'id_verification_required',
+        ENG: 'ID verification required',
         CN: '',
         HK: ''
     }],
     ['already_setted', {
         KOR: '이미 설정되었습니다',
-        ENG: 'already_setted',
+        ENG: 'Already setted',
         CN: '',
         HK: ''
     }],
     ['not_enough_available_balance', {
         KOR: '잔액이 충분하지 않습니다',
-        ENG: 'not_enough_available_balance',
+        ENG: 'Not enough available balance',
         CN: '',
         HK: ''
     }],
     ['not_enough_available_volume', {
-        KOR: '',
-        ENG: 'not_enough_available_volume',
+        KOR: '가능한 양이 충분하지 않습니다',
+        ENG: 'Not enough available volume',
         CN: '',
         HK: ''
     }],
     ['invalid_trade_password', {
-        KOR: '',
-        ENG: 'invalid_trade_password',
+        KOR: '거래 비밀번호가 틀립니다',
+        ENG: 'Invalid trade password',
         CN: '',
         HK: ''
     }],
     ['not_valid_min_max_amount', {
-        KOR: '',
-        ENG: 'not_valid_min_max_amount',
+        KOR: '최대 최소량이 유효하지 않습니다',
+        ENG: 'Not valid min max amount',
         CN: '',
         HK: ''
     }],
     ['amount_not_matched', {
-        KOR: '',
-        ENG: 'amount_not_matched',
+        KOR: '금액이 일치하지 않습니다',
+        ENG: 'Amount not matched',
         CN: '',
         HK: ''
     }],
     ['invalid_ad_no', {
-        KOR: '',
-        ENG: 'invalid_ad_no',
+        KOR: '유효하지 않은 광고번호 입니다',
+        ENG: 'Invalid ad number',
         CN: '',
         HK: ''
     }],
     ['invalid_id_verification', {
-        KOR: '',
-        ENG: 'invalid_id_verification',
+        KOR: 'ID 인증이 유효하지 않습니다',
+        ENG: 'Invalid ID verification',
         CN: '',
         HK: ''
     }],
     ['merchant_can_not_approach', {
-        KOR: '',
-        ENG: 'merchant_can_not_approach',
+        KOR: '거래중이므로 접근 불가능합니다',
+        ENG: 'Merchant can not approach',
         CN: '',
         HK: ''
     }],
     ['invalid_mobile_verification', {
-        KOR: '',
-        ENG: 'invalid_mobile_verification',
+        KOR: '휴대폰 인증이 유효하지 않습니다',
+        ENG: 'Invalid mobile verification',
         CN: '',
         HK: ''
     }],
     ['already_paid_order', {
-        KOR: '',
-        ENG: 'already_paid_order',
+        KOR: '이미 지불된 주문입니다',
+        ENG: 'Already paid order',
         CN: '',
         HK: ''
     }],
     ['invalid_order_status', {
-        KOR: '',
-        ENG: 'invalid_order_status',
+        KOR: '유효하지 않은 주문상태 입니다',
+        ENG: 'Invalid order status',
         CN: '',
         HK: ''
     }],
     ['not_unpaid_status', {
-        KOR: '',
-        ENG: 'not_unpaid_status',
+        KOR: '미지불 상태가 아닙니다',
+        ENG: 'Not unpaid status',
         CN: '',
         HK: ''
     }],
     ['not_paid_status', {
-        KOR: '',
-        ENG: 'not_paid_status',
+        KOR: '지불 상태가 아닙니다',
+        ENG: 'Not paid status',
         CN: '',
         HK: ''
     }],
     ['not_complaining_status', {
-        KOR: '',
-        ENG: 'not_complaining_status',
+        KOR: '이의제기 상태가 아닙니다',
+        ENG: 'Not complaining status',
         CN: '',
         HK: ''
     }],
     ['already_completed_order', {
-        KOR: '',
-        ENG: 'already_completed_order',
+        KOR: '주문 완료 상태가 아닙니다',
+        ENG: 'Already completed order',
         CN: '',
         HK: ''
     }],
     ['already_canceled_order', {
-        KOR: '',
-        ENG: 'already_canceled_order',
+        KOR: '이미 취소된 주문입니다',
+        ENG: 'Already canceled order',
         CN: '',
         HK: ''
     }],
     ['invalid_member_for_cancel', {
-        KOR: '',
-        ENG: 'invalid_member_for_cancel',
+        KOR: '취소할 멤버가 잘못되었습니다',
+        ENG: 'Invalid member for cancel',
         CN: '',
         HK: ''
     }],
     ['has_processing_order', {
-        KOR: '',
-        ENG: 'has_processing_order',
+        KOR: '진행중인 주문이 있습니다',
+        ENG: 'Has processing order',
         CN: '',
         HK: ''
     }],
     ['not_valid_approach', {
-        KOR: '',
-        ENG: 'not_valid_approach',
+        KOR: '유효하지 않은 접근입니다',
+        ENG: 'Not valid approach',
         CN: '',
         HK: ''
     }],
     ['mail_server_error', {
-        KOR: '',
-        ENG: 'mail_server_error',
+        KOR: '메일 서버 에러',
+        ENG: 'Mail server error',
         CN: '',
         HK: ''
     }],
     ['sms_sender_error', {
-        KOR: '',
-        ENG: 'sms_sender_error',
+        KOR: 'SMS 전달 오류',
+        ENG: 'SMS sender error',
         CN: '',
         HK: ''
     }],

@@ -3,8 +3,8 @@
     <div v-if="isMobile" class="myorderlist-mobile-wrapper">
       <!-- name-->
       <v-layout>
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("OrderNumber")}} : </v-flex>
-        <v-flex xs5 text-xs-right color-blue-active @click="goTrade">
+        <v-flex xs4 text-xs-left color-darkgray>{{$str("OrderNumber")}} : </v-flex>
+        <v-flex xs8 text-xs-right color-blue-active @click="goTrade">
           {{orderlist.orderNo}}
         </v-flex>
       </v-layout>
