@@ -1198,6 +1198,7 @@
         padding: 8px;
         resize: none;
         outline: none;
+        border-radius: 2px;
     }
 
     .common-textarea:hover, .common-textarea:focus {
@@ -1446,7 +1447,6 @@
         border-left: 6px solid transparent;
     }
 
-    @media (min-width: 959px) {
         :hover.tooltip .tooltip-content {
             display: block;
             bottom: 140%;
@@ -1454,16 +1454,7 @@
             transform: translateX(-50%);
             z-index: 999;
         }
-    }
-    @media (max-width: 959px) {
-        :active.tooltip .tooltip-content {
-            display: block;
-            bottom: 140%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 999;
-        }
-    }
+
 
     /*vuetify 버튼 hover 시, color foggy 현상 방지*/
 
@@ -1878,6 +1869,11 @@
 
     .ic-appeal-octa-lg {
         background: 0px -50px;
+        width: 34px;
+        height: 34px;
+    }
+    .ic-success-md {
+        background: -34px -16px;
         width: 34px;
         height: 34px;
     }

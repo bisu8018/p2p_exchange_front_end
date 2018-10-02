@@ -536,7 +536,7 @@
     }
 
     /*tooltip 수정*/
-    .tooltip .tooltip-content {
+    :hover.tooltip .tooltip-content {
         width: 200px !important;
         top: 25px;
         height: fit-content;
@@ -546,18 +546,14 @@
     }
 
 
+
+
     .tooltip .tooltip-content:after {
         left: 16% !important;
         bottom: 100% !important;
         top: -9% !important;
         border-top: 0px !important;
         border-bottom: 10px solid #545c6a !important;
-    }
-
-    @media (max-width: 959px) {
-        .tooltip .tooltip-content:active:disabled {
-
-        }
     }
 
     .tooltip {

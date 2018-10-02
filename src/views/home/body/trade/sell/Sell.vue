@@ -550,14 +550,15 @@
     }
 
 
-
-        .tooltip .tooltip-content[disabled]:hover {
+    @media (max-width: 959px) {
+        :active.tooltip .tooltip-content {
             display: block;
             bottom: 140%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
         }
+    }
 
 
 </style>

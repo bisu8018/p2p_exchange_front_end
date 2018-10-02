@@ -1,6 +1,6 @@
 <template>
     <v-flex xs12 md6 offset-md3 container-wrapper mt-5>
-        <div class="sprite-img ic-watch mt-2 mb-4 ma-a"></div>
+        <div class="sprite-img2 ic-success-md mt-2 mb-4 ma-a"></div>
         <h3 class="font-weight-bold ">{{ status === 'registered' ? $str('myTokenOrderSubj') :
             $str('myTokenCompleteSubj') }}</h3>
         <div class="divider-css" :class="{'divider-css-mobile' : isMobile}"></div>
