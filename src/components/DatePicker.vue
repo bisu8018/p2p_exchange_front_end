@@ -58,6 +58,11 @@
                     this.date = null;
                 }
             });
+            this.$eventBus.$on('clearStartDate', () => {
+                if(this.classname=='startdateclass'){
+                    this.date = null;
+                }
+            });
 
         },
         beforeDestroy() {

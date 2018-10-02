@@ -1,4 +1,5 @@
 import Vue from "vue";
+import {abUtils} from '@/common/utils';
 
 export default class FilterChips {
     searchStartTime: any;
@@ -32,8 +33,8 @@ export default class FilterChips {
     }
 
     update (data: any){
-        if(data.searchStartTime !==undefined && data.searchStartTime !==null) this.searchStartTime = data.searchStartTime;
-        if(data.searchEndTime !==undefined && data.searchEndTime !==null) this.searchEndTime = this.checkDateTime(data.searchEndTime);
+        if(data.searchStartTime !==undefined && data.searchStartTime !==null) this.searchStartTime = this.checkStartDate(data.searchStartTime);
+        if(data.searchEndTime !==undefined && data.searchEndTime !==null) this.searchEndTime = this.checkEndDate(data.searchEndTime);
         if(data.status !==undefined && data.status !==null) this.status = data.status;
         if(data.orderNo !==undefined && data.orderNo !==null) this.orderNo = data.orderNo;
         if(data.adsNo !==undefined && data.adsNo !==null) this.adsNo = data.adsNo;
@@ -61,7 +62,20 @@ export default class FilterChips {
         this.tradeType = "";
         this.currency = "";
     }
-    checkDateTime(endDate){
+
+    checkStartDate(startDate){
+        let today = abUtils.getDateTime();
+        if(today < startDate){
+            Vue.prototype.$eventBus.$emit('showAlert', 4016);
+            Vue.prototype.$eventBus.$emit('clearStartDate');
+            return '';
+        }
+        else{
+            return startDate;
+        }
+    }
+
+    checkEndDate(endDate){
         if(this.searchStartTime > endDate){
             Vue.prototype.$eventBus.$emit('showAlert', 4014);
             Vue.prototype.$eventBus.$emit('clearEndDate');
@@ -72,5 +86,6 @@ export default class FilterChips {
         }
     }
 }
+
 
 

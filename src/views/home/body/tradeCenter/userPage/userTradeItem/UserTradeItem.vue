@@ -127,7 +127,7 @@
             <span class="bold">{{tokenName}}</span>
           </v-flex>
           <v-flex xs2 text-xs-center>
-            <button><i class="material-icons" @click="changeDrawer">close</i></button>
+            <i class="material-icons c-pointer" @click="changeDrawer">close</i>
           </v-flex>
         </v-layout>
         <!-- Volume -->
@@ -138,7 +138,7 @@
             </h5>
           </v-flex>
           <v-flex xs4 offset-xs1 text-xs-right>
-            <h5>{{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}}</h5>
+            <h5 class="w-break">{{ $fixed(user.volumeAvailable, tokenName) }} {{tokenName}}</h5>
           </v-flex>
         </v-layout>
         <!-- Limits -->
@@ -149,7 +149,7 @@
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
-            <h5>{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</h5>
+            <h5 class="w-break">{{toMoneyFormat(user.minLimit)}}-{{toMoneyFormat(user.maxLimit)}} {{user.currency}}</h5>
           </v-flex>
         </v-layout>
         <!-- Price -->

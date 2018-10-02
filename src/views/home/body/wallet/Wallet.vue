@@ -1,7 +1,7 @@
 <template>
   <div >
     <!-- mobile에서 select box 선택을 위한 dim box-->
-    <div v-if="(isdropdown.walletType || isdropdown.currencyType ) && isMobile"
+    <div v-if="(isdropdown.walletType || isdropdown.currencyType ) "
          class="layout_dim" @click="showDropdown('closeAll')"></div>
     <!-- 상단 파란색 부분-->
     <div class="balance-wrapper" >
@@ -263,6 +263,16 @@
     .dropdown-wallet{
       border: solid 1px #b2b2b2;
     }
+
+    .layout_dim {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 1;
+    }
+
   }
 
   /* mobile 에서*/

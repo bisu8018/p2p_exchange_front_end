@@ -604,7 +604,6 @@
             position: relative;
             max-height: 336px;
         }
-
         .padding-top-16 {
             padding-top: 16px;
         }

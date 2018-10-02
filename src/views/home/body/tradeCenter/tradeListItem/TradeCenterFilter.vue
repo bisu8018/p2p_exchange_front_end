@@ -64,9 +64,7 @@
             </h6>
             <v-spacer></v-spacer>
             <!-- 필터 펼치기 버튼 -->
-            <button @click.stop="transisModal('open')">
-              <i class="material-icons color-darkgray filter-img" >filter_list</i>
-            </button>
+            <i @click.stop="transisModal('open')" class="material-icons color-darkgray filter-img" >filter_list</i>
           </v-layout>
 
           <!--필터링 card modal-->
@@ -551,7 +549,7 @@
      content: '';
      position: absolute;
 
-     bottom: 99.6%;
+     bottom: 100%;
      right: 8px;
      border-width: 7px;
 
@@ -569,7 +567,7 @@
      border-style: solid;
 
      bottom: 100%;
-     right: 8px;
+     right: 6px;
      border-width: 10px;
 
      margin-left: -8px;

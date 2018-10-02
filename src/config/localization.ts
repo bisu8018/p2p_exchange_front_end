@@ -4086,9 +4086,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['warn_Incorrect_start_date', {
+        KOR: '오늘 이전의 시작일을 지정하세요.',
+        ENG: 'warn_Incorrect_start_date',
         CN: '',
         HK: ''
     }],
