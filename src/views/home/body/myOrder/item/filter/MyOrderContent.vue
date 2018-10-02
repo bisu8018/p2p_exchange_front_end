@@ -222,7 +222,7 @@
         border-style: solid;
 
         bottom: 100%;
-        right: 8px;
+        right: 6.5px;
         border-width: 10px;
 
         margin-left: -8px;
