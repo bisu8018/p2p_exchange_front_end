@@ -1028,6 +1028,7 @@
         background-color: #ffffff;
         border: solid 1px #b2b2b2;
         animation-duration: 0.3s;
+        overflow-x: hidden;
     }
 
     .select-option-small{
