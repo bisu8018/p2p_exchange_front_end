@@ -4242,9 +4242,9 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['has_processing_ad', {
+        KOR: '현재 진행중인 광고가 있습니다.',
+        ENG: 'Has processing Ad',
         CN: '',
         HK: ''
     }],
