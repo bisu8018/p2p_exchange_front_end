@@ -18,8 +18,8 @@
         <!-- amount -->
         <v-flex xs12 md3 mb-4>
             <div class="p-relative selectbox-wrapper">
-                <select-box :selectBoxType="'currency'" :cssOption="true" class="selectbox-width-part" ></select-box>
-                <input type="text" class="input combined-input" v-model="amount" :placeholder="$str('How_much_you_want_to_trade?')">
+                <select-box :selectBoxType="'currency'" :cssOption="'padding'" class="selectbox-width-part" ></select-box>
+                <input type="text" class="input combined-input" v-model="amount" :placeholder="$str('How_much_you_want_to_trade?')" :class="{'combined-input-firefox' : checkFirefox}">
             </div>
         </v-flex>
 
@@ -58,12 +58,6 @@
     export default Vue.extend({
         name: 'search',
         components: {SelectBox},
-        computed: {
-            isMobile() {
-                return MainRepository.State.isMobile();
-            },
-
-        },
         data() {
             return {
                 tokenNo: '',
@@ -72,6 +66,19 @@
                 amount: '',
                 currentLang: abGetLang(),
             }
+        },
+        computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            //firefox 예외처리
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            }
+
+        },
+        mounted() {
+            this.setCss();
         },
         methods: {
             goSearchedTradeCenter() {
@@ -87,6 +94,12 @@
                 this.cryptocurrency = _tokenName;
                 this.tokenNo = tokenNo;
             },
+            setCss() {
+                let selectOption = this.$refs.selectOption;
+                for(let key in selectOption){
+                    selectOption[key].style.paddingLeft = '0px';
+                }
+                }
         },
     })
 </script>
@@ -115,6 +128,9 @@
 
     .combined-input {
         width: 80%;
+    }
+    .combined-input-firefox {
+        width: 75%;
     }
 
     .selectbox-wrapper {

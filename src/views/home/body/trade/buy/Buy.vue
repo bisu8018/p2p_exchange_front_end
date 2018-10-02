@@ -55,7 +55,7 @@
             </v-flex>
 
             <v-flex xs12 mb-4>
-                <v-flex xs12 md5 h4 bold color-black text-xs-left>
+                <v-flex xs12 md6 h4 bold color-black text-xs-left class="buy-content">
 
                     <!--*******************  unpaid 상태  ******************-->
 
@@ -73,14 +73,14 @@
 
                     <!--*******************  buying 상태  ******************-->
 
-                    <span v-if="currentOrder.status === 'paid'" class="mb-2">
-                    {{ $str("buyingExplain1") }}
-                    <span class="color-orange-price">
-                        {{ currentOrder.cryptocurrency==='custom' ? currentOrder.coinWithoutFeeCount : this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ getTokenName }}
-                    </span>
-                    {{ $str("buyingExplain2") }}
-                    {{ counterPartyNickname }}       <!--{{ counterPartyNickname }} 닉네임-->
-                    {{ $str("buyingExplain3") }}
+                    <span v-if="currentOrder.status === 'paid'">
+                        {{ $str("buyingExplain1") }}
+                        <span class="color-orange-price">
+                            {{ currentOrder.cryptocurrency==='custom' ? currentOrder.coinWithoutFeeCount : this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ getTokenName }}
+                        </span>
+                        {{ $str("buyingExplain2") }}
+                        {{ counterPartyNickname }}       <!--{{ counterPartyNickname }} 닉네임-->
+                        {{ $str("buyingExplain3") }}
                     </span>
 
                     <!--*******************  expired, cancelled 상태  ******************-->
@@ -95,7 +95,7 @@
 
                     <!--*******************  complete, Cancel, expired 상태  ******************-->
 
-                    <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled'">
+                    <span v-if="currentOrder.status === 'complete' || currentOrder.status === 'cancelled'" class="bold">
                     {{ $str("complete") }},
                     </span>
 
@@ -105,7 +105,10 @@
                         {{ $str("appealCodeExplain") }}
                         {{ getAppeal.appealNo }} ,
                     </span>
-                    {{ $str("referenceText") }} :
+
+                    <span>
+                        {{ $str("referenceText") }} :
+                    </span>
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
                             {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
@@ -512,6 +515,11 @@
 <style scoped>
     .flex-divide {
         border-bottom: solid 1px #d1d1d1;
+    }
+
+    .buy-content > span,.buy-content > span > span  {
+        font-size: 18px;
+        font-weight: bold;
     }
 
     .payment-complete-wrapper {

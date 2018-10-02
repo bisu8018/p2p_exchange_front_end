@@ -38,7 +38,7 @@
         <!--*******************  cancel / expired 상태  ******************-->
 
         <div class="h4 bold color-black text-xs-left mb-4">
-            <v-flex xs12 md4>
+            <v-flex xs12 md4 sell-content>
                 <div class="cancel-explain mb-4 "
                      v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
                     {{ $str("cancelExplain") }}
@@ -47,7 +47,7 @@
 
             <!--*******************  unpaid 상태  ******************-->
 
-            <div class="mb-2" v-if="currentOrder.status === 'unpaid'">
+            <div class="mb-2 sell-content" v-if="currentOrder.status === 'unpaid'">
                 {{ $str("payingExplain1") }}
                 {{ counterPartyNickname }}           <!-- 닉네임-->
                 {{ $str("payingExplain2") }}
@@ -59,7 +59,7 @@
 
             <!--*******************  paid 상태  ******************-->
 
-            <div class="mb-2" v-if="currentOrder.status === 'paid'">
+            <div class="mb-2 sell-content" v-if="currentOrder.status === 'paid'">
                 {{ $str("confirmgExplain1") }}
                 {{ counterPartyNickname }}
                 {{ $str("confirmgExplain2") }}
@@ -67,7 +67,7 @@
             </div>
 
 
-            <div>
+            <div class="sell-content">
 
                 <!--*******************  cancel/ expired 상태  ******************-->
 
@@ -467,6 +467,11 @@
 <style scoped>
     .flex-divide {
         border-bottom: solid 1px #d1d1d1;
+    }
+
+    .sell-content > span,.sell-content > span > span  {
+        font-size: 18px;
+        font-weight: bold;
     }
 
     .payment-complete-wrapper {

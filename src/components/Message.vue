@@ -125,7 +125,7 @@
 
         <!--채팅 입력-->
         <div class="pl-3 input-wrapper">
-            <input type="text" class="o-none chat-input" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
+            <input type="text" class="o-none chat-input" :class="{'chat-input-firefox' : checkFirefox}" v-model="inputValue" :placeholder="$str('chatPlaceholder')"
                    @keypress.enter="onPost()"/>
             <div class="pr-3"><label><i
                     class="c-pointer material-icons color-darkgray attatchment-wrapper">attachment</i>
@@ -169,6 +169,10 @@
             isMsgInitCompleted: false,
         }),
         computed: {
+            //firefox 예외처리
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            },
             messageList() {
                 this.$nextTick(() => {
                     // 현재 스크롤이 최하단일경우 -> scroll
@@ -421,6 +425,9 @@
     .chat-input {
         width: 100%;
         height: 100%;
+    }
+    .chat-input-firefox {
+        width: 80%;
     }
 
     .attatchment-wrapper {

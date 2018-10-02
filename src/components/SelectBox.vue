@@ -1,5 +1,5 @@
 <template>
-    <v-layout wrap align-center >
+    <v-layout wrap align-center>
         <!--token list loading indicator-->
         <div class="p-relative w-full"
              v-if="selectBoxType === 'customToken' && customTokens.length === 0 || selectBoxType === 'generalToken'  && generalTokens.length === 0">
@@ -49,7 +49,7 @@
             'selectBoxType': {type: String, default: 'country'},        //country, currency, payment, phone, customToken
             'editValue': '',    // 수정 모드, 데이터
             'optionFilter': '',    // 옵션 필터링
-            'cssOption' : {type: Boolean, default: false}    //CSS 옵션
+            'cssOption': ''    //CSS 옵션
 
         },
         data: () => ({
@@ -71,7 +71,7 @@
             customTokens: [],
             generalTokens: [],
         }),
-        watch : {
+        watch: {
             editValue() {
                 this.init();
             }
@@ -200,9 +200,20 @@
                         break;
                 }
             },
+            //CSS 설정
             setCss() {
-                this.$refs.selectOption[0].style.paddingLeft = '17px';
-                //console.log(this.$refs.selectOption)
+                switch (this.selectBoxType) {
+                    case 'currency' :
+                        if (this.cssOption === 'padding') {
+                            let selectOption = this.$refs.selectOption;
+                            for (let key in selectOption) {
+                                selectOption[key].style.paddingLeft = '17px';
+                            }
+                        }
+
+                        break;
+
+                }
             },
             //  값 설정
             setting() {
