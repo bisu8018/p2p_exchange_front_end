@@ -17,7 +17,7 @@
             </div>
         </v-flex>
 
-        <v-flex xs12 md6 mb-3  c-pointer   v-if="item.type != 'bank' && getImg !== ''">
+        <v-flex xs12 md6 mb-3  c-pointer   v-if="item.type != 'bankaccount' && getImg !== ''">
 
             <!--MyOrder-->
             <div class="dropdown">
@@ -45,8 +45,6 @@
         data() {
             return {
                 itemId: '',
-                wechatpay_address: 'wwxx8888888888   微信支付直接扫码',
-                bankaccount_address: '8888888888  建设银行',
             }
         },
         computed: {

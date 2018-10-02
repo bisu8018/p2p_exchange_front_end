@@ -111,7 +111,7 @@
                     <input type="text" class="buying-process"
                            :value="$str('buyingIndicator')"
                            readonly>
-                    <v-progress-circular indeterminate class="color-blue progress-circular"></v-progress-circular>
+                    <v-progress-circular ref="progressCircular" indeterminate class="color-blue progress-circular"></v-progress-circular>
                 </span>
             </v-flex>
         </v-flex>
@@ -251,6 +251,10 @@
                     return findCustomTokenName(data, this.currentOrder.tokenNo);
                 }
             },
+            //firefox 예외처리
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            },
         },
         created() {
             this.$eventBus.$on('refreshSell', () => {
@@ -321,6 +325,8 @@
                 if (this.currentOrder.status === 'unpaid') {
                     this.limitTime = this.getLimitTime();
                     this.timerInterval = setInterval(() => {
+                        this.$refs.progressCircular.$el.style.marginTop = '8px';
+
                         this.limitTime = this.getLimitTime();
                         // 만료되었을 경우
                         if (this.limitTime === '0 Min 0 Sec') {
@@ -434,7 +440,6 @@
                     email : MainRepository.MyInfo.getUserInfo().email,
                     orderNo : self.orderNo
                 }, (result)=> {
-
                 })
             },
             //이의 제기 취소
@@ -469,7 +474,7 @@
         border-bottom: solid 1px #d1d1d1;
     }
 
-    .sell-content > span,.sell-content > span > span  {
+    .sell-content, .sell-content > span  {
         font-size: 18px;
         font-weight: bold;
     }
@@ -543,4 +548,16 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
+
+
+
+        .tooltip .tooltip-content[disabled]:hover {
+            display: block;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+
+
 </style>

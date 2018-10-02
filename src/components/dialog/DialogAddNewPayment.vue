@@ -268,23 +268,33 @@
         mounted () {
             // 모바일 환경 짤림 방지
             if(!this.edit && this.isMobile) {
+                //console.log(1)
                 this.$refs.dialog.$refs.dialog.style.overflowY = 'inherit';
             }
         },
         watch: {
             typeData: function (data) {
                 // 모바일 환경 짤림 방지
-                if(!this.edit && this.isMobile) {
+                if((!this.edit && this.isMobile) || data !== '') {
                     this.$refs.dialog.$refs.dialog.style.overflowY = 'auto';
                 }
+                if(data === ''){
+                    this.$refs.dialog.$refs.dialog.style.overflowY = 'inherit';
+                }
+
                 this.getImg();
+            },
+            isMobile: function (data) {
+                if(this.typeData === '' && data){
+                    this.$refs.dialog.$refs.dialog.style.overflowY = 'inherit';
+                }
             },
             showDialog: function (data) {
                 // 수정모드일 때 : 기존 데이터 가져오기
                 if (this.edit && data) {
                     this.paymentMethods = new PaymentMethod(this.paymentData);
                 }
-            }
+            },
         },
         methods: {
             //값 체크 로직
