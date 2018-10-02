@@ -13,7 +13,7 @@
             <div class="text-xs-left color-black line-height-1  c-pointer tooltip">
                 <span slot="activator" @click="onCopy('getInfo')">{{getInfo}}</span>
                 <input type="text" :value="getInfo" :id="item.type" class="referenceNum">
-                <span class="tooltip-content">{{ $str("Copy") }}</span>
+                <span class="tooltip-content" >{{ $str("Copy") }}</span>
             </div>
         </v-flex>
 
@@ -39,7 +39,6 @@
 <script>
     import Vue from 'vue';
     import MainRepository from "../../../../../vuex/MainRepository";
-
     export default Vue.extend({
         name: 'trade-item',
         props: ['item'],
@@ -99,7 +98,7 @@
                     case 'wechat':
                         return this.item.wechatQrCodeImgUrl;
                 }
-            }
+            },
         },
         methods: {
             onCopy() {
@@ -132,7 +131,7 @@
         left: -1000px;
     }
     .tooltip-content {
-        font-weight: 100;
+        font-weight: 400;
     }
 
     .qr-img-mobile {

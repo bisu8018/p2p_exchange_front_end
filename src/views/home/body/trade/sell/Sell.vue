@@ -98,7 +98,7 @@
                         {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                     </span>
                     <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
-                    <span class="tooltip-content">{{ $str("Copy") }}</span>
+                    <span class="tooltip-content" >{{ $str("Copy") }}</span>
                 </div>
             </div>
         </div>
@@ -511,7 +511,7 @@
     }
 
     .tooltip-content {
-        font-weight: 100;
+        font-weight: 400;
     }
 
     .cancel-explain {

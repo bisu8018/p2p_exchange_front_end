@@ -200,9 +200,7 @@
                 <i class="h5 material-icons " @click="removeAmount">close</i>
             </h6>
             <v-spacer></v-spacer>
-            <button @click="transisModal('open')">
-              <i class="material-icons color-darkgray filter-img">filter_list</i>
-            </button>
+            <i @click="transisModal('open')" class="material-icons color-darkgray filter-img">filter_list</i>
           </div>
           <div class="cardModal" v-if="isModal">
             <v-layout row wrap>
@@ -527,6 +525,7 @@
     }
 
   }
+
   .underline{
     border-bottom: 1px solid currentColor
   }
@@ -615,6 +614,7 @@
     z-index: 1;
   }
   .filter-img {
+    cursor: pointer;
     position: absolute;
     right: 7px;
     top: 7px;

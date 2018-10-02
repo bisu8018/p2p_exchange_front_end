@@ -29,7 +29,7 @@
                         <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">
                              {{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>      <!--{{ currentOrder.currency }} 화폐단위-->
                         <input type="text" :value="currentOrder.amount" id="amountValue" class="referenceNum">
-                        <span class="tooltip-content">{{ $str("Copy") }}</span>
+                        <span class="tooltip-content" >{{ $str("Copy") }}</span>
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                             {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                        </span>
                         <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
-                        <span class="tooltip-content">{{ $str("Copy") }}</span>
+                        <span class="tooltip-content" >{{ $str("Copy") }}</span>
                     </div>
                 </v-flex>
             </v-flex>
@@ -269,6 +269,7 @@
                   return findCustomTokenName(data, this.currentOrder.tokenNo);
               }
             },
+
         },
         created() {
             this.$eventBus.$on('refreshBuy', () => {
@@ -545,7 +546,7 @@
     }
 
     .tooltip-content {
-        font-weight: 100;
+        font-weight: 400;
     }
 
     .cancel-explain {
