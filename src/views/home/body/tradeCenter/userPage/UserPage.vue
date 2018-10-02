@@ -17,19 +17,19 @@
             </v-layout>
           </h5>
           <!--판매자 rank-->
-          <h6 class="ml-3 color-darkgray">{{$str("accountCreatedTime")}}: {{transTime(merchant.createDatetime)}}</h6>
+          <h6 class="ml-3 color-darkgray">{{$str("accountCreatedTime")}} : {{transTime(merchant.createDatetime)}}</h6>
         </v-flex>
         <v-flex xs12><div class="divider"></div></v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>{{$str("Security_Deposit")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mt-3 mb-2>{{$str("Security_Deposit")}} :</v-flex>
         <v-flex xs4 text-xs-right mt-3 mb-2>{{merchant.securityDeposit}} BTC</v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Completion_rate")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Completion_rate")}} :</v-flex>
         <v-flex xs4 text-xs-right mb-2>{{merchant.completionRate}} % </v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Trades")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Trades")}} :</v-flex>
         <v-flex xs4 text-xs-right mb-2>{{merchant.tradeTimes}} {{$str("Times")}}</v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Trades_in_30_days")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-2>{{$str("Trades_in_30_days")}} :</v-flex>
         <v-flex xs4 text-xs-right mb-2>{{merchant.tradeMonthTimes}} {{$str("Times")}}</v-flex>
-        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-3>{{$str("Avg_release")}}</v-flex>
-        <v-flex xs4 text-xs-right mb-3>{{merchant.avgRelease}} {{$str("Min")}}</v-flex>
+        <v-flex xs6 offset-xs2 text-xs-left color-darkgray mb-3>{{$str("Avg_release")}} :</v-flex>
+        <v-flex xs4 text-xs-right mb-3>{{merchant.avgRelease}} {{$str("min")}}</v-flex>
         <v-flex xs12><div class="divider"></div></v-flex>
 
         <v-flex xs3 offset-xs2 text-xs-left mt-4>

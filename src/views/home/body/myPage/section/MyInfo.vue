@@ -7,25 +7,25 @@
             <avatar big me />
             <div class="ml-3">
                 <p class="color-blue mb-1">{{ myInfo.nickname }}</p>
-                <p class="color-darkgray">UID: {{ myInfo.memberNo }}</p>
+                <p class="color-darkgray">UID : {{ myInfo.memberNo }}</p>
             </div>
         </div>
 
         <!-- 트레이드 횟수, 평균 시간 -->
         <div class="d-block">
             <p class="mb-1">
-                <span class="color-darkgray mr-2">{{ $str('trades') }}:</span>
+                <span class="color-darkgray mr-2">{{ $str('trades') }} :</span>
                 <span class="color-black"> {{ myOrderStat.tradeTimes }} {{ $str('times') }}</span>
             </p>
             <p>
-                <span class="color-darkgray mr-2">{{$str('avgRelease')}}:</span>
+                <span class="color-darkgray mr-2">{{$str('avgRelease')}} :</span>
                 <span class="color-black"> {{ myOrderStat.avgRelease }} {{ $str('minuteText' )}}</span>
             </p>
         </div>
 
         <!-- Create Account Time -->
         <div class="color-darkgray d-block">
-            <p class="d-block">{{ $str('accountCreatedTime') }} {{ toTimeFormat(myInfo.createDatetime) }}, </p>
+            <p class="d-block">{{ $str('accountCreatedTime') }} : {{ toTimeFormat(myInfo.createDatetime) }}, </p>
             <p>{{ getTimes }}</p>
         </div>
     </div>

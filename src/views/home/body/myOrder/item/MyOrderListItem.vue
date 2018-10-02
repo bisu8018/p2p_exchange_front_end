@@ -3,13 +3,13 @@
     <div v-if="isMobile" class="myorderlist-mobile-wrapper">
       <!-- name-->
       <v-layout>
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("OrderNumber")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("OrderNumber")}} : </v-flex>
         <v-flex xs5 text-xs-right color-blue-active @click="goTrade">
           {{orderlist.orderNo}}
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("orderType")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("orderType")}} : </v-flex>
         <v-flex xs5 text-xs-right>
           <span class="mr-2  color-orange-price bold" v-if="orderlist.orderTradeType === 'buy'">
             {{$str("buy")}}
@@ -22,19 +22,19 @@
         </v-flex>
       </v-layout>
       <v-layout>
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("amount")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("amount")}} : </v-flex>
         <v-flex xs5 text-xs-right>{{toMoneyFormat(orderlist.amount)}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("price")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("price")}} : </v-flex>
         <v-flex xs5 text-xs-right>{{toMoneyFormat($fixed(orderlist.price,orderlist.currency))}} {{orderlist.currency}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("time")}} :</v-flex>
         <v-flex xs5 text-xs-right>{{transTime(orderlist.registerDatetime)}}</v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("status")}} :</v-flex>
         <v-flex xs5 text-xs-right>
           <v-layout justify-end align-center>
             <div class="mr-2" :class="orderlist.statusImg"></div>
@@ -43,7 +43,7 @@
         </v-flex>
       </v-layout>
       <v-layout >
-        <v-flex xs7 text-xs-left color-darkgray>{{$str("counterparty")}}</v-flex>
+        <v-flex xs7 text-xs-left color-darkgray>{{$str("counterparty")}} :</v-flex>
         <v-flex xs5 text-xs-right color-blue c-pointer text-white-hover @click="goUserPage()">
           {{orderlist.counterParty.nickname}}
         </v-flex>

@@ -4074,6 +4074,73 @@ const strings = new Map([
         CN: '退出验证',
         HK: ''
     }],
+    ['warn_Incorrect_end_date', {
+        KOR: '시작일보다 늦은 날을 지정하세요',
+        ENG: 'Incorrect end date',
+        CN: '',
+        HK: ''
+    }],
+    ['Merchants will enjoy our one-to-one exclusive service.', {
+        KOR: '판매자는 저희의 일대일 서비스를 이용하실 수 있습니다.',
+        ENG: 'Merchants will enjoy our one-to-one exclusive service.',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+
 
 
 

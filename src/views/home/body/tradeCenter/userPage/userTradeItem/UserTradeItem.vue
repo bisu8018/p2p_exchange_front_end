@@ -134,7 +134,7 @@
         <v-layout medium>
           <v-flex xs4  offset-xs2 text-xs-left>
             <h5 class="color-darkgray">
-              {{$str("Available")}}
+              {{$str("Available")}} :
             </h5>
           </v-flex>
           <v-flex xs4 offset-xs1 text-xs-right>
@@ -167,7 +167,7 @@
         <v-layout>
           <v-flex xs3  offset-xs2 text-xs-left>
             <h5 class="medium color-darkgray">
-              {{$str("paymentMethod")}}:
+              {{$str("paymentMethod")}} :
             </h5>
           </v-flex>
           <v-flex xs5 offset-xs1 text-xs-right>
@@ -242,7 +242,7 @@
         <v-layout v-if="user.termsOfTransaction !== '' " mt-4>
           <v-flex xs9 offset-xs2 text-xs-left>
             <h6 class="color-darkgray medium">
-              {{$str("userMemo")}}： <br>
+              {{$str("userMemo")}}<br>
               {{user.termsOfTransaction}}
             </h6>
           </v-flex>

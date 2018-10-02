@@ -1,19 +1,19 @@
 <template>
     <div class="history-login-detail">
         <div>
-            <span class="label-mobile-history">{{ $str('date') }}:</span>
+            <span class="label-mobile-history">{{ $str('date') }} :</span>
             {{ toTimeFormat(data.registerDatetime) }}
         </div>
         <div>
-            <span class="label-mobile-history">{{ $str('Type') }}:</span>
+            <span class="label-mobile-history">{{ $str('Type') }} :</span>
             {{ $str(data.type) }}
         </div>
         <div>
-            <span class="label-mobile-history">IP:</span>
+            <span class="label-mobile-history">IP :</span>
             {{ data.ip }}
         </div>
         <div>
-            <span class="label-mobile-history">{{ $str('status') }}:</span>
+            <span class="label-mobile-history">{{ $str('status') }} :</span>
             {{ data.status === 'success' ? $str('successful') : $str('failed') }}
         </div>
     </div>
