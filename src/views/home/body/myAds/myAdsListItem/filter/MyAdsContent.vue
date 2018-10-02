@@ -197,7 +197,7 @@
         content: '';
         position: absolute;
 
-        bottom: 99.9%;
+        bottom: 100%;
         right: 8px;
         border-width: 7px;
 
@@ -215,7 +215,7 @@
         border-style: solid;
 
         bottom: 100%;
-        right: 8px;
+        right: 6px;
         border-width: 10px;
 
         margin-left: -8px;
