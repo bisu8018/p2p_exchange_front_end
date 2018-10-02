@@ -107,6 +107,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 461 : this.show(this.type.Error, "", "duplicated_phone_number"); break;  //
                     case 462 : this.show(this.type.Error, "", "vault_exception"); break;  //
                     case 463 : this.show(this.type.Error, "", "order_cancel_count_suspension"); break;  //거래3번 취소되면 24시간 거래x
+                    case 464 : this.show(this.type.Error, "", "has_processing_ad"); break;
                     case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
                     case 512 : this.show(this.type.Error, "", "mail_server_error"); break;

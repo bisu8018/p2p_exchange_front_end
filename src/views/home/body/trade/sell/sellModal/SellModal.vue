@@ -22,7 +22,15 @@
                     </div>
                    <input type="password" class="input mb-4" :placeholder="$str('tradePwText')"
                           v-model="tradePassword"/>
-                    <label class="color-black "><input type="checkbox" v-model="confirmCheckbox"/>  {{$str("confirmCheckbox")}}</label>
+                   <div class="text-xs-left mb-4 ">
+                   <input type="checkbox" v-model="confirmCheckbox" id="confirm_and_release"/>
+                       <label for="confirm_and_release">
+                         <span>
+                            <i class="material-icons">done</i>
+                         </span>
+                         <h5>{{$str("confirmCheckbox")}}</h5>
+                        </label>
+                   </div>
                 </span>
 
                 <!--type이  cancelAppeal 상태 일 경우 내용-->
@@ -66,7 +74,9 @@
             <div class="text-xs-right">
                 <!--type이 confirm 상태 일 경우 확인 버튼-->
                 <span v-if="type === 'confirm'">
-                    <button @click="onConfirm" class="btn-blue btn-blue-hover ">
+                    <button @click="onConfirm" class="btn-blue  "
+                            v-bind:class="{'inactive' : !confirmCheckbox, 'btn-blue-hover' : confirmCheckbox}"
+                    >
                         {{$str("confirmRelease")}}
                     </button>
                 </span>
@@ -105,7 +115,9 @@
                 this.$emit('close');
             },
             onConfirm: function () {
-                this.$emit('confirm', this.tradePassword);
+                if(this.confirmCheckbox){
+                  this.$emit('confirm', this.tradePassword);
+                }
             },
             onAppeal: function () {
                 let appeal = {
@@ -141,34 +153,10 @@
         resize: none;
     }
 
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        font-size: 12px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #9294a6;
-    }
 
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        font-size: 12px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #9294a6;
+    .inactive{
+      /*사각형 파랑배경 흰색폰트 버튼*/
+      background: #d1d1d1;
+      color: white;
     }
-
-    ::-ms-input-placeholder { /* Microsoft Edge */
-        font-size: 12px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #9294a6;
-    }
-
 </style>
