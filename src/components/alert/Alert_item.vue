@@ -18,9 +18,7 @@
                     {{$str(notification.title)}}</h5>
 
                 <!--닫기 버튼-->
-                <button @click="triggerClose(notification)" aria-label="Close alert">
-                    <span aria-hidden="true" class="close-css">&times;</span>
-                </button>
+                <span @click="triggerClose(notification)" aria-label="Close alert" aria-hidden="true" class="close-css c-pointer">&times;</span>
             </div>
 
 
