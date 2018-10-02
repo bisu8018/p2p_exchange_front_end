@@ -4088,43 +4088,157 @@ const strings = new Map([
     }],
     ['warn_Incorrect_start_date', {
         KOR: '오늘 이전의 시작일을 지정하세요.',
-        ENG: 'warn_Incorrect_start_date',
+        ENG: 'Incorrect start date',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['invalid_request', {
+        KOR: '잘못된 요청입니다',
+        ENG: 'invalid_request',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['not_verified_email', {
+        KOR: '확인되지 않은 이메일 입니다',
+        ENG: 'not_verified_email',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['id_verification_required', {
+        KOR: 'ID 인증이 필요합니다',
+        ENG: 'id_verification_required',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['already_setted', {
+        KOR: '이미 설정되었습니다',
+        ENG: 'already_setted',
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
+    ['not_enough_available_balance', {
+        KOR: '잔액이 충분하지 않습니다',
+        ENG: 'not_enough_available_balance',
         CN: '',
         HK: ''
     }],
-    ['', {
+    ['not_enough_available_volume', {
         KOR: '',
-        ENG: '',
+        ENG: 'not_enough_available_volume',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_trade_password', {
+        KOR: '',
+        ENG: 'invalid_trade_password',
+        CN: '',
+        HK: ''
+    }],
+    ['not_valid_min_max_amount', {
+        KOR: '',
+        ENG: 'not_valid_min_max_amount',
+        CN: '',
+        HK: ''
+    }],
+    ['amount_not_matched', {
+        KOR: '',
+        ENG: 'amount_not_matched',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_ad_no', {
+        KOR: '',
+        ENG: 'invalid_ad_no',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_id_verification', {
+        KOR: '',
+        ENG: 'invalid_id_verification',
+        CN: '',
+        HK: ''
+    }],
+    ['merchant_can_not_approach', {
+        KOR: '',
+        ENG: 'merchant_can_not_approach',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_mobile_verification', {
+        KOR: '',
+        ENG: 'invalid_mobile_verification',
+        CN: '',
+        HK: ''
+    }],
+    ['already_paid_order', {
+        KOR: '',
+        ENG: 'already_paid_order',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_order_status', {
+        KOR: '',
+        ENG: 'invalid_order_status',
+        CN: '',
+        HK: ''
+    }],
+    ['not_unpaid_status', {
+        KOR: '',
+        ENG: 'not_unpaid_status',
+        CN: '',
+        HK: ''
+    }],
+    ['not_paid_status', {
+        KOR: '',
+        ENG: 'not_paid_status',
+        CN: '',
+        HK: ''
+    }],
+    ['not_complaining_status', {
+        KOR: '',
+        ENG: 'not_complaining_status',
+        CN: '',
+        HK: ''
+    }],
+    ['already_completed_order', {
+        KOR: '',
+        ENG: 'already_completed_order',
+        CN: '',
+        HK: ''
+    }],
+    ['already_canceled_order', {
+        KOR: '',
+        ENG: 'already_canceled_order',
+        CN: '',
+        HK: ''
+    }],
+    ['invalid_member_for_cancel', {
+        KOR: '',
+        ENG: 'invalid_member_for_cancel',
+        CN: '',
+        HK: ''
+    }],
+    ['has_processing_order', {
+        KOR: '',
+        ENG: 'has_processing_order',
+        CN: '',
+        HK: ''
+    }],
+    ['not_valid_approach', {
+        KOR: '',
+        ENG: 'not_valid_approach',
+        CN: '',
+        HK: ''
+    }],
+    ['mail_server_error', {
+        KOR: '',
+        ENG: 'mail_server_error',
+        CN: '',
+        HK: ''
+    }],
+    ['sms_sender_error', {
+        KOR: '',
+        ENG: 'sms_sender_error',
         CN: '',
         HK: ''
     }],

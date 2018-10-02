@@ -4,8 +4,8 @@
         <div v-if="isMobile">
             <!-- name-->
             <v-layout mt-4 mb-4>
-                <v-flex xs3 text-xs-left color-darkgray>{{$str('adsNo')}} :</v-flex>
-                <v-flex xs9 text-xs-right>{{adslist.adNo}}</v-flex>
+                <v-flex xs5 text-xs-left color-darkgray>{{$str('adsNo')}} :</v-flex>
+                <v-flex xs7 text-xs-right>{{adslist.adNo}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('Type')}} :</v-flex>
@@ -25,7 +25,7 @@
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("limits")}} :</v-flex>
-                <v-flex xs9 text-xs-right>{{toMoneyFormat(adslist.minLimit)}} ~ {{toMoneyFormat(adslist.maxLimit)}} {{adslist.currency}}</v-flex>
+                <v-flex xs9 text-xs-right mb-4>{{toMoneyFormat(adslist.minLimit)}} ~ {{toMoneyFormat(adslist.maxLimit)}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
                 <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("price")}} :</v-flex>
