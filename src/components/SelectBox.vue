@@ -21,10 +21,11 @@
                 <ul class="o-none select-option-list"
                     :class="{'scroll-out' : showOptions , 'scroll-up' : !showOptions && showOptions !== ''  && !showInit}">
                     <li class="select-option vertical-center"
+                        ref="selectOption"
                         v-for="data in getList"
                         @click="onSelect(data)"
                         v-if="getCondition !== (data.tokenNo || data.code) "
-                        :class="[{'selected-option' : selected === (data.tokenNo || data.code)}, {'select-option-small' : cssOption}]">
+                        :class="[{'selected-option' : selected === (data.tokenNo || data.code)}]">
                         {{ data.tokenName || data.value }}
                     </li>
                 </ul>
@@ -149,6 +150,7 @@
             this.$eventBus.$emit('clickEvent', (event) => {
                 this.hideOnClickOutside(event);
             });
+            this.setCss();
         },
         beforeDestroy() {
             this.selected = '';
@@ -197,6 +199,10 @@
                         this.setting();
                         break;
                 }
+            },
+            setCss() {
+                this.$refs.selectOption[0].style.paddingLeft = '17px';
+                //console.log(this.$refs.selectOption)
             },
             //  값 설정
             setting() {

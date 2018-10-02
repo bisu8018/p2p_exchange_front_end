@@ -368,10 +368,28 @@
         border-radius: 10px;
     }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #a0a0a0;
+    @-moz-document url-prefix(http://),url-prefix(https://) {
+        scrollbar {
+            -moz-appearance: none !important;
+            background: rgb(0,255,0) !important;
+        }
+        thumb,scrollbarbutton {
+            -moz-appearance: none !important;
+            background-color: rgb(0,0,255) !important;
+        }
+
+        thumb:hover,scrollbarbutton:hover {
+            -moz-appearance: none !important;
+            background-color: rgb(255,0,0) !important;
+        }
+        scrollbarbutton {
+            display: none !important;
+        }
+        scrollbar[orient="vertical"] {
+            min-width: 15px !important;
+        }
     }
+
 
     /*체크박스 CSS
     이용법 :
@@ -1031,9 +1049,9 @@
         overflow-x: hidden;
     }
 
-    .select-option-small{
+   /* .select-option-small{
         padding-left: 17px !important;
-    }
+    }*/
 
     .scroll-out {
         max-height: 200px;

@@ -266,7 +266,7 @@
             },
         },
         mounted () {
-            // 모바일 환경 짤림 방지 
+            // 모바일 환경 짤림 방지
             if(!this.edit && this.isMobile) {
                 this.$refs.dialog.$refs.dialog.style.overflowY = 'inherit';
             }
