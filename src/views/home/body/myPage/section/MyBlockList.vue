@@ -22,9 +22,8 @@
         </div>
 
         <!-- Pagination -->
-        <div class="pagination-wrapper">
+        <div class="pagination-wrapper"   v-if="blockList.totalCount !== 0">
             <v-pagination
-                    v-if="blockList.totalCount !== 0"
                     v-model="blockPage"
                     @input="onBlockPage(blockPage)"
                     :color="'TextBlue'"

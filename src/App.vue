@@ -306,6 +306,7 @@
         line-height: normal;
         letter-spacing: normal;
         color: #9294a6;
+        line-height: 40px;
     }
 
     :-ms-input-placeholder {
@@ -1389,8 +1390,6 @@
         font-size: 12px;
         text-align: center;
         border-radius: 2px;
-        width: -moz-max-content;
-        width: max-content;
         line-height: 1;
     }
 

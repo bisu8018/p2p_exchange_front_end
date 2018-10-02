@@ -4062,16 +4062,16 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['startVerification', {
+        KOR: '인증 시작',
+        ENG: 'Start Verification',
+        CN: '开始验证',
         HK: ''
     }],
-    ['', {
-        KOR: '',
-        ENG: '',
-        CN: '',
+    ['exitVerification', {
+        KOR: '인증 종료',
+        ENG: 'Exit Verification',
+        CN: '退出验证',
         HK: ''
     }],
 
