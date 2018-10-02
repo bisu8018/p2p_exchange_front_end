@@ -4,11 +4,11 @@
         <div v-if="isMobile">
             <!-- name-->
             <v-layout mt-4 mb-4>
-                <v-flex xs3 text-xs-left color-darkgray>{{$str('adsNo')}}</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray>{{$str('adsNo')}} :</v-flex>
                 <v-flex xs9 text-xs-right>{{adslist.adNo}}</v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('Type')}}</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str('Type')}} :</v-flex>
                 <v-flex xs9 text-xs-right>
                     <span class="mr-4 color-green bold" v-if="adslist.tradeType === 'buy'">
                   {{$str("sell")}}
@@ -20,29 +20,29 @@
                 </v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>Amount</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("amount")}} :</v-flex>
                 <v-flex xs9 text-xs-right>{{ $fix(adslist.volumeAvailable, adslist.decimalCount) }}</v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>Limits</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("limits")}} :</v-flex>
                 <v-flex xs9 text-xs-right>{{toMoneyFormat(adslist.minLimit)}} ~ {{toMoneyFormat(adslist.maxLimit)}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>Price</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("price")}} :</v-flex>
                 <v-flex xs9 text-xs-right>{{toMoneyFormat(adslist.tradePrice)}} {{adslist.currency}}</v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>Time</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("time")}} :</v-flex>
                 <v-flex xs9 text-xs-right>{{transTime(adslist.registerDatetime)}}</v-flex>
             </v-layout>
             <v-layout>
-                <v-flex xs3 text-xs-left color-darkgray mb-4>Control</v-flex>
+                <v-flex xs3 text-xs-left color-darkgray mb-4>{{$str("control")}} :</v-flex>
                 <v-flex xs9 text-xs-right c-pointer color-darkgray>
                     <span :class="{ 'color-blue text-white-hover ' : canModify }"
                           @click="onEdit">{{$str('edit')}}</span>
                     <span v-if="adslist.status === 'enable'"
                           :class="{ 'color-blue text-white-hover ' : !canModify }"
-                          class="ml-3" @click="showDisable">{{$str('disable')}}</span>
+                          class="ml-3" @click="showDisable">{{$str("disable")}}</span>
                     <span v-else :class="{ 'color-blue text-white-hover ': canModify }"
                           class="ml-3" @click="showEnable">{{$str('enable')}}</span>
                     <span :class="{ 'color-blue text-white-hover ': canModify }"

@@ -1433,13 +1433,13 @@ const strings = new Map([
         HK: '修改'
     }],
     ['enable', {
-        KOR: '올리기',
+        KOR: '활성',
         ENG: 'Enable',
         CN: '上架',
         HK: '上架'
     }],
     ['disable', {
-        KOR: '내리기',
+        KOR: '비활성',
         ENG: 'Disable',
         CN: '下架',
         HK: '下架'
@@ -3967,7 +3967,7 @@ const strings = new Map([
         HK: '請輸入底限額以下的金額'
     }],
     ['If you press disable, your Ad would be not appeared on Ads list. Are you sure to disable?', {
-        KOR: '비활성을 누르면. 당신의 광고는 거래소 광고에서 사라집니다. 비활성 하시겠습니까?',
+        KOR: '비활성을 누르면, 당신의 광고는 거래소 광고에서 사라집니다. 비활성 하시겠습니까?',
         ENG: 'If you press disable, your Ad would be not appeared on Ads list." +\n' +
         '            "Are you sure to disable?',
         CN: '',
@@ -4074,6 +4074,73 @@ const strings = new Map([
         CN: '退出验证',
         HK: ''
     }],
+    ['warn_Incorrect_end_date', {
+        KOR: '시작일보다 늦은 날을 지정하세요',
+        ENG: 'Incorrect end date',
+        CN: '',
+        HK: ''
+    }],
+    ['Merchants will enjoy our one-to-one exclusive service.', {
+        KOR: '판매자는 저희의 일대일 서비스를 이용하실 수 있습니다.',
+        ENG: 'Merchants will enjoy our one-to-one exclusive service.',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+    ['', {
+        KOR: '',
+        ENG: '',
+        CN: '',
+        HK: ''
+    }],
+
 
 
 

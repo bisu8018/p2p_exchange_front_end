@@ -1,15 +1,15 @@
 <template>
     <div class="history-security-detail">
         <div>
-            <span class="label-mobile-history">{{ $str('date') }}:</span>
+            <span class="label-mobile-history">{{ $str('date') }} :</span>
             {{ toTimeFormat(data.registerDatetime) }}
         </div>
         <div>
-            <span class="label-mobile-history">{{ $str('securitySettings') }}:</span>
+            <span class="label-mobile-history">{{ $str('securitySettings') }} :</span>
             {{ txt }}
         </div>
         <div>
-            <span class="label-mobile-history">IP:</span>
+            <span class="label-mobile-history">IP :</span>
             {{ data.ip }}
         </div>
     </div>
