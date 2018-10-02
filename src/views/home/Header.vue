@@ -815,8 +815,8 @@ height: 7px;
 background-color: #e62a2b;
 border-radius: 20px;
 position: absolute;
-top: 1px;
-left: -8px;
+top: 5px;
+left: -3px;
 }
 
 .cssFixed {
