@@ -6,7 +6,7 @@
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 {{ $str('sell') }}
-                {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
+                {{ currentOrder.cryptocurrency==='custom' ? currentOrder.coinWithoutFeeCount : this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
                 {{ getTokenName }}
                 <br v-if="isMobile()"/>
                 {{ $str('from') }} {{ counterPartyNickname }}

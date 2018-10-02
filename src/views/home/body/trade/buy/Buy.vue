@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5  p-relative"  v-if="isInitCompleted" :class="{'ml-3' : !isMobile(),'mr-3' : !isMobile()}">
+    <div class="mt-5 mb-5  p-relative" v-if="isInitCompleted" :class="{'ml-3' : !isMobile(),'mr-3' : !isMobile()}">
 
 
         <!--***************      첫번째       *********-->
@@ -11,7 +11,8 @@
             </div>
             <div class="h1 bold color-black text-xs-left mb-3  vertical-center">
                 {{ $str('buy') }}
-                {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
+                {{ currentOrder.cryptocurrency==='custom' ? currentOrder.coinWithoutFeeCount :
+                this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }}
                 {{ getTokenName }}
                 <br v-if="isMobile()"/>
                 {{ $str('from') }} {{ counterPartyNickname }}
@@ -27,9 +28,10 @@
                     {{ $str('amount') }} :           <!--{{ currentOrder.price }} 가격 -->
                     <div class="c-pointer tooltip d-inline-block">
                         <span slot="activator" class="ml-3 h3 color-orange-price bold" @click="onCopy('amount')">
-                             {{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>      <!--{{ currentOrder.currency }} 화폐단위-->
+                             {{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>
+                        <!--{{ currentOrder.currency }} 화폐단위-->
                         <input type="text" :value="currentOrder.amount" id="amountValue" class="referenceNum">
-                        <span class="tooltip-content" >{{ $str("Copy") }}</span>
+                        <span class="tooltip-content">{{ $str("Copy") }}</span>
                     </div>
                 </div>
             </div>
@@ -46,8 +48,10 @@
 
         <v-layout wrap row>
             <!--*******************  expired, cancelled 상태  ******************-->
-            <v-flex xs12 md4 cancel-explain mb-4  v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">    <!--status cancel 일 시 설명 문구-->
-                    {{ $str("cancelExplain") }}
+            <v-flex xs12 md4 cancel-explain mb-4
+                    v-if="currentOrder.status ==='cancelled' || currentOrder.status ==='expired'">
+                <!--status cancel 일 시 설명 문구-->
+                {{ $str("cancelExplain") }}
             </v-flex>
 
             <v-flex xs12 mb-4>
@@ -55,9 +59,11 @@
 
                     <!--*******************  unpaid 상태  ******************-->
 
-                    <span v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired' && currentOrder.status === 'unpaid'"  class="mb-3">
+                    <span v-if="currentOrder.status !== 'cancelled' && currentOrder.status !== 'expired' && currentOrder.status === 'unpaid'"
+                          class="mb-3">
                         {{ $str("paymentExplain1") }}
-                        <span class="color-orange-price">{{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>        <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
+                        <span class="color-orange-price">{{ toMoneyFormat(currentOrder.amount) }} {{ currentOrder.currency }}</span>
+                        <!--{{ currentOrder.price }} 가격, {{ currentOrder.currency }} 화폐단위-->
                         {{ $str("paymentExplain2") }}
                         {{ counterPartyNickname }}            <!-- 닉네임-->
                         {{ $str("paymentExplain3") }}
@@ -70,7 +76,7 @@
                     <span v-if="currentOrder.status === 'paid'" class="mb-2">
                     {{ $str("buyingExplain1") }}
                     <span class="color-orange-price">
-                        {{ this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ getTokenName }}      <!--{{ currentOrder.coinWithoutFeeCount }} 가격 , {{ currentOrder.cryptocurrency }} 단위-->
+                        {{ currentOrder.cryptocurrency==='custom' ? currentOrder.coinWithoutFeeCount : this.$fixed(currentOrder.coinWithoutFeeCount, currentOrder.cryptocurrency) }} {{ getTokenName }}
                     </span>
                     {{ $str("buyingExplain2") }}
                     {{ counterPartyNickname }}       <!--{{ counterPartyNickname }} 닉네임-->
@@ -105,14 +111,15 @@
                             {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                        </span>
                         <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
-                        <span class="tooltip-content" >{{ $str("Copy") }}</span>
+                        <span class="tooltip-content">{{ $str("Copy") }}</span>
                     </div>
                 </v-flex>
             </v-flex>
 
             <!--******************* unpaid 상태  ******************-->
 
-            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="currentOrder.status === 'unpaid'">        <!--paid 버튼-->
+            <v-flex xs12 md2 :class="{'mb-3' : isMobile()}" v-if="currentOrder.status === 'unpaid'">
+                <!--paid 버튼-->
                 <input type="button" class=" btn-blue btn-blue-hover"
                        :value="$str('paidText')" @click="onModal('paid')">
             </v-flex>
@@ -152,13 +159,15 @@
             <!--******************* cancel  상태  ******************-->
 
             <v-flex xs12 md12 mb-4 cancel-icon-wrapper text-xs-left
-                    v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">        <!--거래 취소 아이콘 -->
+                    v-if="currentOrder.status === 'cancelled' || currentOrder.status === 'expired'">
+                <!--거래 취소 아이콘 -->
                 <i class="material-icons cancel-icon">cancel</i>
             </v-flex>
 
             <!--******************* appeal  상태  ******************-->
 
-            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">        <!--이의제기 아이콘 및 취소 버튼 -->
+            <v-flex xs6 md12 mb-4 cancel-icon-wrapper text-xs-left v-if="currentOrder.status === 'complaining'">
+                <!--이의제기 아이콘 및 취소 버튼 -->
                 <i class="material-icons  warning-icon ">error</i>
             </v-flex>
 
@@ -170,9 +179,9 @@
             </v-flex>
 
 
-
             <v-flex xs12 mb-4a text-md-left text-xs-left
-                    v-if="currentOrder.status != 'complete' && currentOrder.status != 'cancelled' && currentOrder.status != 'expired' &&currentOrder.status !='complaining'">       <!--취소 및 이의제기 버튼-->
+                    v-if="currentOrder.status != 'complete' && currentOrder.status != 'cancelled' && currentOrder.status != 'expired' &&currentOrder.status !='complaining'">
+                <!--취소 및 이의제기 버튼-->
                 <input class="btn-rounded-white text-white-hover mr-3" type="button" :value="$str('cancel')"
                        @click="onModal('cancel')">
                 <input v-if="currentOrder.status === 'paid'" class="text-white-hover btn-rounded-white" type="button"
@@ -199,7 +208,8 @@
         </div>
 
         <buy-modal :show="showModal" :type="modalType" v-on:paymentConfirm="onPaid" v-on:close="onClose"
-                   v-on:cancel="onCancel" v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></buy-modal>        <!--buy modal-->
+                   v-on:cancel="onCancel" v-on:appeal="onAppeal" v-on:cancelAppeal="onCancelAppeal"></buy-modal>
+        <!--buy modal-->
     </div>
 </template>
 
@@ -209,7 +219,7 @@
     import MainRepository from "../../../../../vuex/MainRepository";
     import Message from "@/components/Message.vue";
     import TradeItem from "../item/TradeItem"
-    import {getLimitTime,transCryptocurrencyName, findCustomTokenName } from "../../../../../common/common";
+    import {getLimitTime, transCryptocurrencyName, findCustomTokenName} from "../../../../../common/common";
     import {abUtils} from "../../../../../common/utils";
 
     export default Vue.extend({
@@ -255,19 +265,19 @@
                 return this.currentOrder.appealList[this.currentOrder.appealList.length - 1];
             },
             checkAppealBtn() {
-                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo && this.getAppeal.status === 'registered' ) {
+                if (this.getAppeal.registerMemberNo === MainRepository.MyInfo.getUserInfo().memberNo && this.getAppeal.status === 'registered') {
                     return true
                 } else {
                     return false
                 }
             },
             getTokenName() {
-              if(this.currentOrder.cryptocurrency !== 'custom'){         //general token 이름 찾기
-                  return transCryptocurrencyName(this.currentOrder.cryptocurrency)
-              }else{                                        //custom token 이름 찾기
-                  let data = MainRepository.CustomToken.controller().getCustomTokenList();
-                  return findCustomTokenName(data, this.currentOrder.tokenNo);
-              }
+                if (this.currentOrder.cryptocurrency !== 'custom') {         //general token 이름 찾기
+                    return transCryptocurrencyName(this.currentOrder.cryptocurrency)
+                } else {                                        //custom token 이름 찾기
+                    let data = MainRepository.CustomToken.controller().getCustomTokenList();
+                    return findCustomTokenName(data, this.currentOrder.tokenNo);
+                }
             },
 
         },
@@ -303,7 +313,7 @@
                     this.orderNo = urlParam;
                 }
                 MainRepository.TradeProcess.setCurrentOrder(this.orderNo, () => {
-                    this.currentOrder =  MainRepository.TradeProcess.getCurrentOrder();
+                    this.currentOrder = MainRepository.TradeProcess.getCurrentOrder();
 
                     // 부적합한 유저 접근시 거래소 강제 이동
                     let myInfo = MainRepository.MyInfo.getUserInfo();
@@ -385,12 +395,12 @@
             },
             getAppealData() {
                 let self = this;
-               MainRepository.TradeProcess.getAppeal({
-                   email : MainRepository.MyInfo.getUserInfo().email,
-                   orderNo : self.orderNo
-               }, (result)=> {
+                MainRepository.TradeProcess.getAppeal({
+                    email: MainRepository.MyInfo.getUserInfo().email,
+                    orderNo: self.orderNo
+                }, (result) => {
 
-               })
+                })
             },
             isMobile() {
                 return MainRepository.State.isMobile();

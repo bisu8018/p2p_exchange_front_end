@@ -101,6 +101,7 @@
             this.showProgress = true;
 
             let urlParam = this.getUrlParam();
+
             //tokenlist에서 넘어올때
             if (urlParam !== '') {
                 MainRepository.Wallet.updateHistoryPage({
@@ -131,8 +132,9 @@
                 let currentURL = window.location.href;
                 let params = currentURL.split('?');
 
-                if(params.length[1]){
+                if(params.length > 1){
                     params = params[1].split('&');      //params[0] = tokenNo,   params[1] = cryptocurrencyType
+
                     return params;
                 }else{
                     return '';

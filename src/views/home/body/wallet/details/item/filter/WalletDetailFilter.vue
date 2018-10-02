@@ -78,10 +78,9 @@
         methods: {
             getUrlParam() {
                 let currentURL = window.location.href;
-                console.log(currentURL)
                 let params = currentURL.split('?');
 
-                if(params.length[1]){
+                if(params.length > 1){
                     params = params[1].split('&');      //params[0] = tokenNo,   params[1] = cryptocurrencyType
                     return params;
                 }else{
@@ -124,13 +123,7 @@
                 this.showPlaceholder();
 
                 //Axios 태우기
-                MainRepository.Wallet.updateHistoryPage({
-                    searchStartTime: this.chipData.searchStartTime,
-                    searchEndTime: this.chipData.searchEndTime,
-                    type: this.chipData.walletType,
-                    cryptocurrencyType: this.chipData.cryptocurrencyType,
-                    tokenNo: this.chipData.tokenNo,
-                });
+                MainRepository.Wallet.updateHistoryPage(this.chipData);
             },
         },
 

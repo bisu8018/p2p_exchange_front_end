@@ -55,6 +55,8 @@
         },
         data() {
             return {
+                status : 'main',          //main -> ready -> camera ->
+                onModal : false,
 
             }
         },
@@ -85,8 +87,7 @@
     .verification-content-container {
         background: white;
         position: relative;
-        width: 100%;
-        padding-top: 75%;
+        padding-top: 63%;
         margin: 0 16px;
         box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
         border-radius: 7px;

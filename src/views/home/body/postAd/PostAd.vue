@@ -622,7 +622,6 @@
                 return MainRepository.SelectBox.controller().getCurrency();
             },
             getMarketPrice() {
-                console.log(transCryptocurrencyName(this.cryptocurrency))
                 if (this.cryptocurrencyType === 'general') {
                     let tmp_currency = MainRepository.SelectBox.controller().getCurrency();
                     let coinFullName = transCryptocurrencyFullName(this.cryptocurrency)

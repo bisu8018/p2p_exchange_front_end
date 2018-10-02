@@ -1249,14 +1249,16 @@
         background: white;
         max-width: 384px;
         padding: 24px 16px 24px 16px;
-        overflow-y: inherit !important;
+
     }
 
-    @media (max-width: 959px) {
+    @media (min-width: 959px) {
         .v-dialog {
-            overflow-y: auto !important;
+            overflow-y: inherit !important;
         }
     }
+
+
 
     /* 포지션 */
 

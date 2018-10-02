@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" persistent>
+    <v-dialog v-model="showDialog" persistent ref="dialog">
         <div class="dialog-add-new-payment_wrapper" v-if="showDialog">
 
             <!-- 헤더, 타이틀 -->
@@ -181,7 +181,7 @@
                         class="color-red">{{ $str("delete") }}</h6></button>
                 <button class="btn-rounded-white text-white-hover" @click="onClose"><h6>{{ $str("cancel") }}</h6>
                 </button>
-                <button class="btn-rounded-blue btn-blue-hover" @click="wholeCheck"><h6>{{ $str("Done") }}</h6></button>
+                <button class="btn-rounded-blue btn-blue-hover" @click="wholeCheck" v-if="type !== ''"><h6>{{ $str("Done") }}</h6></button>
             </div>
         </div>
     </v-dialog>
@@ -234,6 +234,9 @@
             }
         },
         computed: {
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
             header() {
                 if (this.edit) {
                     return this.$str('editPayment');
@@ -262,8 +265,18 @@
                 }
             },
         },
+        mounted () {
+            // 모바일 환경 짤림 방지 
+            if(!this.edit && this.isMobile) {
+                this.$refs.dialog.$refs.dialog.style.overflowY = 'inherit';
+            }
+        },
         watch: {
             typeData: function (data) {
+                // 모바일 환경 짤림 방지
+                if(!this.edit && this.isMobile) {
+                    this.$refs.dialog.$refs.dialog.style.overflowY = 'auto';
+                }
                 this.getImg();
             },
             showDialog: function (data) {
