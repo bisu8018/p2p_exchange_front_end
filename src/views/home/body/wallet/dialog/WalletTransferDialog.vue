@@ -121,7 +121,7 @@
             cryptocurrencyList : [
                 {name : 'BTC', fullname: 'bitcoin'},
                 {name : 'ETH', fullname: 'ethereum'},
-                {name : 'AllB', fullname: 'allb'},
+                {name : 'TST', fullname: 'tst'},
             ],
 
         }),

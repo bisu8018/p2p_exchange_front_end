@@ -52,18 +52,21 @@ export default class MyTradeController{
         //this.compareToCurrentAlarm(orderItems);
         this.store.dispatch(VuexTypes.SET_MY_ORDER_AlARM_LIST, orderItems);
     }
+    //새로들어온 order가 있는지 따지기 위한 여부.
     compareToCurrentAlarm(orderItems : Order[]){
         let isEqual = true;
         let key1 = 0;
         let key2 = 0;
         let _cur : Order[] = this.getMyOrderAlarmItems();
         for (let key in orderItems) {
-            if(_cur[key] == undefined){
-                return;
+            if(_cur[key] !== undefined){
+                 if(orderItems[key].registerDatetime === _cur[key].registerDatetime){
+                     break;
+                 }else if(orderItems[key].registerDatetime > _cur[key].registerDatetime){
+
+                 }
+
             }
-            // if(orderItems[key].registerDatetime != this.getMyOrderAlarmItems()[key].registerDatetime){
-            //     isEqual = false;
-            // }
         }
     };
 
