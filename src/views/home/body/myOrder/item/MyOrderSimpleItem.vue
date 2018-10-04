@@ -6,7 +6,7 @@
         <div class="ml-3">
             <h5 class="color-darkgray">
                 <!--{{buy}}  {{USDT}}  {{Totalprice}} :  {{200}} {{CNY}}-->
-                {{ $str(data.orderTradeType) }} | {{ getTokenName }} | {{ $str('TotalPrice') }}: {{ data.amount }} {{ data.currency }}
+                {{ $str(data.orderTradeType) }} | {{ getTokenName }} | {{ $str('TotalPrice') }}: {{ toMoneyFormat(data.amount) }} {{ data.currency }}
                 <!--Buy BTC Total Price: 200 CNY-->
             </h5>
             <h5>
@@ -21,6 +21,7 @@
     import Avatar from '@/components/Avatar.vue';
     import {getLimitTime,transCryptocurrencyName, findCustomTokenName} from "../../../../../common/common";
     import MainRepository from "../../../../../vuex/MainRepository";
+    import {abUtils} from '@/common/utils';
 
     export default {
         name: "my-order-simple-item",
@@ -45,6 +46,7 @@
             },
         },
         created() {
+            //this.$eventBus.$emit('showAlert', 2157);
             this.limitTime = this.getLimitTime();
             this.timerInterval = setInterval(() => {
                 this.limitTime = this.getLimitTime();
@@ -71,6 +73,9 @@
                         MainRepository.router().goBuyOrSell(false, this.data.orderNo);
                         break;
                 }
+            },
+            toMoneyFormat(value) {
+                return abUtils.toMoneyFormat(String(this.$fixed(value, this.data.currency)));
             },
         }
     }
