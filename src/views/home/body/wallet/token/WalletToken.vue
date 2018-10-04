@@ -251,7 +251,7 @@
   .selectDivider{
     display: inline-flex;
     border: solid 1px #d1d1d1;
-    height: 27px;
+    height: 20px;
     width: 1px;
     margin-left: 16px;
     margin-right: 16px;
