@@ -537,12 +537,13 @@
 
     /*tooltip 수정*/
     :hover.tooltip .tooltip-content {
+        height: auto !important;
         width: 200px !important;
         top: 25px;
-        height: fit-content;
         text-align: left;
         line-height: 1.4;
         left: 77px;
+        bottom: auto;
     }
 
 

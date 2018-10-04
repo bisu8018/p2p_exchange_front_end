@@ -20,17 +20,17 @@
         <v-layout wrap class="pageView">
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons md-36 color-blue">verified_user</i>
-                <h1 class="bold">{{$str('landingSubject_1')}}</h1>
+                <h1 class="bold mb-3">{{$str('landingSubject_1')}}</h1>
                 <h4>{{$str('landingContents_1')}}</h4>
             </v-flex>
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons arrows-style">compare_arrows</i>
-                <h1 class="bold">{{$str('landingSubject_2')}}</h1>
+                <h1 class="bold mb-3">{{$str('landingSubject_2')}}</h1>
                 <h4>{{$str('landingContents_2')}}</h4>
             </v-flex>
             <v-flex md4 xs12 mt-5 mb-6 text-md-left text-xs-left>
                 <i class="material-icons md-36 color-blue">live_help</i>
-                <h1 class="bold">{{$str('landingSubject_3')}}</h1>
+                <h1 class="bold mb-3">{{$str('landingSubject_3')}}</h1>
                 <h4>{{$str('landingContents_3')}}</h4>
             </v-flex>
         </v-layout>

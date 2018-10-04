@@ -68,6 +68,7 @@
             tradeTypes: SelectBox.tradeTypes(),
             cryptocurrencyTypes: SelectBox.cryptocurrencyTypes(),
             priceTypes: SelectBox.priceTypes(),
+            appeals: SelectBox.appeals(),
             customTokens: [],
             generalTokens: [],
         }),
@@ -109,6 +110,9 @@
 
                     case 'priceType' :
                         return this.priceTypes;
+
+                    case 'appeal' :
+                        return this.appeals;
                 }
             },
             //특정 option에 대한 작업 필요 시 이용
@@ -168,6 +172,7 @@
                     case 'tradeType' :
                     case 'priceType' :
                     case 'cryptocurrencyType' :
+                    case 'appeal' :
                     case 'phone' :
                         if (this.editValue) {
                             this.selected = this.editValue;
@@ -245,6 +250,7 @@
                     case 'tradeType' :
                     case 'priceType' :
                     case 'cryptocurrencyType' :
+                    case 'appeal' :
                         break;
                 }
                 this.$emit(type, this.selected);
@@ -256,6 +262,7 @@
                 switch (type) {
                     case 'country' :
                     case 'signupCountry' :
+                    case 'appeal' :
                     case 'payment' :
                     case 'phone' :
                     case 'tradeType' :

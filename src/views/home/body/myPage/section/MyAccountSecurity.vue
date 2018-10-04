@@ -88,7 +88,8 @@
                     />
 
                     <!--비활성화 불가 버튼-->
-                    <div v-else-if="email.status !== 'turn_on' && phone.status === 'turn_on'" class="btn-disabled-gray d-inline-block-none-middle">
+                    <div v-else-if="email.status !== 'turn_on' && phone.status === 'turn_on'"
+                         class="btn-disabled-gray d-inline-block-none-middle">
                         {{ $str('turnOff') }}
                     </div>
 
@@ -234,6 +235,9 @@
                     ++level;
                 }
                 return level;
+            },
+            isMobile() {
+                return MainRepository.State.isMobile();
             },
         },
         methods: {

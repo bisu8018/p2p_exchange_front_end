@@ -152,6 +152,16 @@ export default {
         ];
         return priceTypes;
     },
+    appeals() {
+        const appeals = [
+            {code: 'notPaid', value: Vue.prototype.$str('appealReason1')},
+            {code: 'notRelease', value: Vue.prototype.$str('appealReason2')},
+            {code: 'noAnswer', value: Vue.prototype.$str('appealReason3')},
+            {code: 'cheating', value: Vue.prototype.$str('appealReason4')},
+            {code: 'other', value: Vue.prototype.$str('appealReason5')},
+        ];
+        return appeals;
+    },
 
 
 
@@ -203,6 +213,9 @@ export default {
 
             case 'adsType' :
                 return this.adsTypes();
+
+            case 'appeal' :
+                return this.appeals();
         }
     },
 }

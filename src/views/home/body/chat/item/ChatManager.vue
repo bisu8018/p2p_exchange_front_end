@@ -68,6 +68,8 @@
                     error => {
                         console.log(error);
                         this.connected = false;
+                        setTimeout(()=>{  this.connect(); }, 5000);
+
                     }
                 );
             },
@@ -77,7 +79,7 @@
                     let result = JSON.parse(tick.body);
                     let chatMessage = result.message;
                     let memberNo = MainRepository.MyInfo.controller().getUserInfo().memberNo;
-                    //console.log(result);
+                    console.log(result);
 
                     if(result.sender.name === 'SYSTEM'){
                         MainRepository.Chat.setChatSubscribe(chatMessage, ()=>{});
@@ -105,9 +107,10 @@
             },
             disconnect() {
                 if (this.stompClient) {
-                    this.stompClient.disconnect();
+                    this.stompClient.disconnect(function() {
+                        this.connected = false;
+                    })
                 }
-                this.connected = false;
             },
             tickleConnection() {
                 this.connected ? this.disconnect() : this.connect();

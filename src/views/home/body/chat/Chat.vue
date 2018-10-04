@@ -203,7 +203,8 @@
                 });
             },
             clickCancel() {
-                MainRepository.Chat.isClosed();
+                this.$eventBus.$emit('chatDisconnect')
+               // MainRepository.Chat.isClosed();
             },
             scrollBottom() {
                 let chatWrapper = document.getElementById("chatContentsWrapper");

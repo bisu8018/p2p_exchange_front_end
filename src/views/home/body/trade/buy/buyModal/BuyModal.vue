@@ -41,14 +41,7 @@
 
                     <!--이의제기 이유 selectbox-->
                     <div class="p-relative mb-4">
-                        <select class="comp-selectbox h6" id="appealReasonSelectbox" v-model="appealReason">
-                             <option value="notPaid">{{$str("appealReason1")}}</option>
-                            <option value="notRelease">{{$str("appealReason2")}}</option>
-                            <option value="noAnswer">{{$str("appealReason3")}}</option>
-                            <option value="cheating">{{$str("appealReason4")}}</option>
-                            <option value="other">{{$str("appealReason5")}}</option>
-                        </select>
-                        <i class="material-icons comp-selectbox-icon">keyboard_arrow_down</i>
+                         <select-box :selectBoxType="'appeal'" @appeal="selectAppeal"></select-box>
                     </div>
                     <div class="text-xs-left color-black mb-2">
                        {{$str("details")}}
@@ -96,9 +89,14 @@
     </v-dialog>
 </template>
 <script>
+    import SelectBox from '../../../../../../components/SelectBox.vue';
+
     export default {
         name: 'buyModal',
         props: ['show', 'type'],
+        components: {
+            SelectBox
+        },
         data() {
             return {
                 appealReason : "",
@@ -125,6 +123,9 @@
             },
             onCancelAppeal: function () {
                 this.$emit('cancelAppeal');
+            },
+            selectAppeal: function (value) {
+                this.appealReason = value;
             }
         },
     }

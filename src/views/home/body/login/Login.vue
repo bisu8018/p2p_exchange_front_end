@@ -188,6 +188,7 @@
                 if (this.isVerified === false) {
                     this.verify_warning_slider = Vue.prototype.$str("verifySlider");
                     this.warning_slider = true;
+                    Vue.prototype.$eventBus.$emit('showAlert', 4003);
                     return false;
                 }
                 this.warning_slider = false;
