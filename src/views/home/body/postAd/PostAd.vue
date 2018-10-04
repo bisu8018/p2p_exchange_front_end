@@ -1014,7 +1014,7 @@
             onDetermine: function () {
                 this.showModal = false;
 
-                // 커스텀 토큰 지갑 없을 시 생성 
+                // 커스텀 토큰 지갑 없을 시 생성
                 if (this.cryptocurrencyType === 'custom') {
                     let walletAddress = MainRepository.Wallet.controller().findWalletInfo(this.tokenNo).walletAddress;
                     if (!walletAddress || walletAddress === '') {
@@ -1193,22 +1193,6 @@
         max-width: 290px;
     }
 
-    /*textarea css*/
-    textarea::-webkit-input-placeholder {
-        color: #9294a6;
-    }
-
-    textarea:-moz-placeholder { /* Firefox 18- */
-        color: #9294a6;
-    }
-
-    textarea::-moz-placeholder { /* Firefox 19+ */
-        color: #9294a6;
-    }
-
-    textarea:-ms-input-placeholder {
-        color: #9294a6;
-    }
 
     /*tooltip 수정*/
     :hover.tooltip .tooltip-content {

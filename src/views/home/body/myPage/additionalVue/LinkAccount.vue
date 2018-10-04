@@ -16,7 +16,7 @@
                         <div class="p-relative selectbox-wrapper">
                             <phone-select-box :selectBoxType="'phone'" v-on:phone="setCode"
                                         class="selectbox-width-part"></phone-select-box>
-                            <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18">
+                            <input type="tel" class="input input-phone" v-model="phone_number" maxlength="18" :class="{'input-phone-firefox' : checkFirefox && isMobile}">
                         </div>
                     </div>
 
@@ -55,6 +55,12 @@
                 } else {
                     return this.phone_number;
                 }
+            },
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
             },
         },
         data: function () {
@@ -127,5 +133,9 @@
     .input-phone {
         border: none;
         font-size: 12px;
+    }
+
+    .input-phone-firefox {
+        width: 75%;
     }
 </style>

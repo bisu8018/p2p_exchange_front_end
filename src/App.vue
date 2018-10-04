@@ -303,7 +303,7 @@
         font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        line-height: normal;
+        line-height: 22px;
         letter-spacing: normal;
         color: #9294a6;
     }
@@ -348,6 +348,28 @@
         line-height: 40px;
         letter-spacing: normal;
         color: #9294a6;
+    }
+
+
+    /*textarea css*/
+    textarea::-webkit-input-placeholder {
+        color: #9294a6;
+        line-height: 15px;
+    }
+
+    textarea:-moz-placeholder { /* Firefox 18- */
+        color: #9294a6;
+        line-height: 15px;
+    }
+
+    textarea::-moz-placeholder { /* Firefox 19+ */
+        color: #9294a6;
+        line-height: 15px;
+    }
+
+    textarea:-ms-input-placeholder {
+        color: #9294a6;
+        line-height: 15px;
     }
 
     /*스크롤바 스타일 설정*/
@@ -1340,6 +1362,10 @@
         display: inherit;
     }
 
+    .d-ruby {
+        display: ruby;
+    }
+
     .d-contents {
         display: contents;
     }
@@ -1452,7 +1478,7 @@
             bottom: 140%;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 999;
+            z-index: 100;
         }
 
 

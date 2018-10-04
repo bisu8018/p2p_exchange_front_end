@@ -176,12 +176,12 @@
             </div>
 
             <!-- footer, 버튼 영역 -->
-            <div class="dialog--footer">
+            <div class="dialog--footer" >
                 <button class="btn-rounded-white text-white-hover btn-delete" @click="onDelete" v-if="edit"><h6
                         class="color-red">{{ $str("delete") }}</h6></button>
                 <button class="btn-rounded-white text-white-hover" @click="onClose"><h6>{{ $str("cancel") }}</h6>
                 </button>
-                <button class="btn-rounded-blue btn-blue-hover" @click="wholeCheck" v-if="type !== ''"><h6>{{ $str("Done") }}</h6></button>
+                <button class="btn-rounded-blue btn-blue-hover" :class="{'mb-4' : checkFirefox}" @click="wholeCheck" v-if="type !== ''"><h6>{{ $str("Done") }}</h6></button>
             </div>
         </div>
     </v-dialog>
@@ -234,6 +234,9 @@
             }
         },
         computed: {
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            },
             isMobile() {
                 return MainRepository.State.isMobile();
             },
