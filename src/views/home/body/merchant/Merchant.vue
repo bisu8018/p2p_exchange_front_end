@@ -52,12 +52,12 @@
             <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
                 <v-flex xs12 md5 pl-0>
                     <i class="material-icons d-inline-block pt-1 pr-2 check-icon">check_circle</i>
-                    <h2 class="d-inline-block">{{$str("OTC Merchant application is approved.")}}</h2>
+                    <h4 class="d-inline-block">{{$str("OTC Merchant application is approved.")}}</h4>
                 </v-flex>
             </v-layout>
             <v-layout justify-center mb-6>
                 <v-flex md5 xs12>
-                    <h4> {{$str("Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!")}}</h4>
+                    <h5 class="color-darkgray"> {{$str("Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!")}}</h5>
                 </v-flex>
             </v-layout>
         </div>
