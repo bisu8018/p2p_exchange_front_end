@@ -1477,6 +1477,7 @@
             display: block;
             bottom: 140%;
             left: 50%;
+            min-width: 43px;
             transform: translateX(-50%);
             z-index: 100;
         }
