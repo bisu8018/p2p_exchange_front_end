@@ -92,6 +92,19 @@ export default class WalletController {
             return tokenList;
         }
     }
+
+    findWalletInfo(tokenNo){
+        let walletList = MainRepository.Wallet.getCustomTokenWallets();
+        let wallet = walletList.find(function (element) {
+            if( tokenNo === element.tokenNo){
+                return element;
+            }
+        });
+
+        return wallet;
+    }
+
+
     //잔고 있는 Wallet model만  return 시켜줌.
     getHaveBalance(walletData : Wallet[]){
         let tokenList:Wallet[] = []

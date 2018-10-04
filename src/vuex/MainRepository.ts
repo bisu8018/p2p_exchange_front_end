@@ -344,7 +344,7 @@ export default {
         getWalletHistories() {
             return walletController.getWalletHistoryList();
         },
-        generateTokenWallet: function (tokenNo: number, callback: any) {
+        generateTokenWallet: function (tokenNo: number, callback: any, failure: any) {
             //지갑생성
             customTokenService.generateTokenWallet(tokenNo, (result) => {
                 //customtoken지갑 load
@@ -352,6 +352,8 @@ export default {
                     //deposit 혹은 order로 이동
                     callback(result);
                 })
+            }, (err)=> {
+                failure(err);
             })
         },
 

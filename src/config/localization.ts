@@ -4248,8 +4248,8 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
-    ['', {
-        KOR: '',
+    ['warn_wallet_create', {
+        KOR: '지갑 생성 실패하였습니다.',
         ENG: '',
         CN: '',
         HK: ''

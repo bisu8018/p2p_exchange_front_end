@@ -64,54 +64,54 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                 // Title === "" 의 경우 Title = Type
                 switch (param) {
                     case 0 : this.show(this.type.Success, "", ""); break;
-                    case 400 : this.show(this.type.Error, "", "duplicate_request"); break;
+                    case 400 : this.show(this.type.Error, "", this.$str("duplicate_request")); break;
                     case 401 : this.show(this.type.Error, "401 Error", abGetLang('401')); break;
-                    case 406 : this.show(this.type.Error, "", "suspended_account"); break;
-                    case 412 : this.show(this.type.Error, "", 'invalid_request'); break;
-                    case 413 : this.show(this.type.Error, "", 'invalid_email_verification_code'); break;
-                    case 414 : this.show(this.type.Error, "", 'not_verified_email'); break;
-                    case 415 : this.show(this.type.Error, "", 'id_verification_required'); break;
-                    case 416 : this.show(this.type.Error, "", 'already_setted'); break;
-                    case 417 : this.show(this.type.Error, "", 'not_enough_available_balance'); break;
-                    case 418 : this.show(this.type.Error, "", 'not_enough_available_volume'); break;
-                    case 419 : this.show(this.type.Error, "", 'invalid_trade_password'); break;
-                    case 420 : this.show(this.type.Error, "", 'not_valid_min_max_amount'); break;
-                    case 421 : this.show(this.type.Error, "", 'amount_not_matched'); break;
-                    case 422 : this.show(this.type.Error, "", 'invalid_ad_no'); break;
-                    case 423 : this.show(this.type.Error, "", 'invalid_id_verification'); break;
-                    case 424 : this.show(this.type.Error, "", 'merchant_can_not_approach'); break;
-                    case 425 : this.show(this.type.Error, "", "invalid_mobile_verification"); break;
-                    case 426 : this.show(this.type.Error, "", "already_paid_order"); break;
-                    case 427 : this.show(this.type.Error, "", "invalid_order_status"); break;
-                    case 428 : this.show(this.type.Error, "", "not_unpaid_status"); break;
-                    case 429 : this.show(this.type.Error, "", "not_paid_status"); break;
-                    case 430 : this.show(this.type.Error, "", "not_complaining_status"); break;
-                    case 431 : this.show(this.type.Error, "", "already_completed_order"); break;
-                    case 432 : this.show(this.type.Error, "", "already_canceled_order"); break;
-                    case 433 : this.show(this.type.Error, "", "invalid_member_for_cancel"); break;
-                    case 434 : this.show(this.type.Error, "", "has_processing_order"); break;
-                    case 435 : this.show(this.type.Error, "", "already_expired_order"); break;
-                    case 436 : this.show(this.type.Error, "", "invalid_sms_verification_code"); break;
-                    case 437 : this.show(this.type.Error, "", "invalid_sms_phone_number"); break;
-                    case 450 : this.show(this.type.Error, "", "block_member"); break;
-                    case 451 : this.show(this.type.Error, "", "update_password_suspension_period"); break;  //password update  되면 24시간 거래x
-                    case 452 : this.show(this.type.Error, "", "trade_count_limit"); break;
-                    case 453 : this.show(this.type.Error, "", "already_disabled_ad"); break;
-                    case 454 : this.show(this.type.Error, "", "already_enable_ad"); break;
-                    case 455 : this.show(this.type.Error, "", "not_disabled_ad"); break;
-                    case 456 : this.show(this.type.Error, "", "not_enable_ad"); break;
-                    case 457 : this.show(this.type.Error, "", "invalid_amount"); break;
-                    case 458 : this.show(this.type.Error, "", "duplicated_custom_token_name"); break;
-                    case 459 : this.show(this.type.Error, "", "duplicated_custom_token_name_short"); break;
-                    case 460 : this.show(this.type.Error, "", "update_phone_suspension_period"); break;  //phone update  되면 24시간 거래x
-                    case 461 : this.show(this.type.Error, "", "duplicated_phone_number"); break;  //
-                    case 462 : this.show(this.type.Error, "", "vault_exception"); break;  //
-                    case 463 : this.show(this.type.Error, "", "order_cancel_count_suspension"); break;  //거래3번 취소되면 24시간 거래x
-                    case 464 : this.show(this.type.Error, "", "has_processing_ad"); break;
-                    case 499 : this.show(this.type.Error, "", "not_valid_approach"); break;
+                    case 406 : this.show(this.type.Error, "", this.$str("suspended_account")); break;
+                    case 412 : this.show(this.type.Error, "", this.$str('invalid_request')); break;
+                    case 413 : this.show(this.type.Error, "", this.$str('invalid_email_verification_code')); break;
+                    case 414 : this.show(this.type.Error, "", this.$str('not_verified_email')); break;
+                    case 415 : this.show(this.type.Error, "", this.$str('id_verification_required')); break;
+                    case 416 : this.show(this.type.Error, "", this.$str('already_setted')); break;
+                    case 417 : this.show(this.type.Error, "", this.$str('not_enough_available_balance')); break;
+                    case 418 : this.show(this.type.Error, "", this.$str('not_enough_available_volume')); break;
+                    case 419 : this.show(this.type.Error, "", this.$str('invalid_trade_password')); break;
+                    case 420 : this.show(this.type.Error, "", this.$str('not_valid_min_max_amount')); break;
+                    case 421 : this.show(this.type.Error, "", this.$str('amount_not_matched')); break;
+                    case 422 : this.show(this.type.Error, "", this.$str('invalid_ad_no')); break;
+                    case 423 : this.show(this.type.Error, "", this.$str('invalid_id_verification')); break;
+                    case 424 : this.show(this.type.Error, "", this.$str('merchant_can_not_approach')); break;
+                    case 425 : this.show(this.type.Error, "", this.$str("invalid_mobile_verification")); break;
+                    case 426 : this.show(this.type.Error, "", this.$str("already_paid_order")); break;
+                    case 427 : this.show(this.type.Error, "", this.$str("invalid_order_status")); break;
+                    case 428 : this.show(this.type.Error, "", this.$str("not_unpaid_status")); break;
+                    case 429 : this.show(this.type.Error, "", this.$str("not_paid_status")); break;
+                    case 430 : this.show(this.type.Error, "", this.$str("not_complaining_status")); break;
+                    case 431 : this.show(this.type.Error, "", this.$str("already_completed_order")); break;
+                    case 432 : this.show(this.type.Error, "", this.$str("already_canceled_order")); break;
+                    case 433 : this.show(this.type.Error, "", this.$str("invalid_member_for_cancel")); break;
+                    case 434 : this.show(this.type.Error, "", this.$str("has_processing_order")); break;
+                    case 435 : this.show(this.type.Error, "", this.$str("already_expired_order")); break;
+                    case 436 : this.show(this.type.Error, "", this.$str("invalid_sms_verification_code")); break;
+                    case 437 : this.show(this.type.Error, "", this.$str("invalid_sms_phone_number")); break;
+                    case 450 : this.show(this.type.Error, "", this.$str("block_member")); break;
+                    case 451 : this.show(this.type.Error, "", this.$str("update_password_suspension_period")); break;  //password update  되면 24시간 거래x
+                    case 452 : this.show(this.type.Error, "", this.$str("trade_count_limit")); break;
+                    case 453 : this.show(this.type.Error, "", this.$str("already_disabled_ad")); break;
+                    case 454 : this.show(this.type.Error, "", this.$str("already_enable_ad")); break;
+                    case 455 : this.show(this.type.Error, "", this.$str("not_disabled_ad")); break;
+                    case 456 : this.show(this.type.Error, "", this.$str("not_enable_ad")); break;
+                    case 457 : this.show(this.type.Error, "", this.$str("invalid_amount")); break;
+                    case 458 : this.show(this.type.Error, "", this.$str("duplicated_custom_token_name")); break;
+                    case 459 : this.show(this.type.Error, "", this.$str("duplicated_custom_token_name_short")); break;
+                    case 460 : this.show(this.type.Error, "", this.$str("update_phone_suspension_period")); break;  //phone update  되면 24시간 거래x
+                    case 461 : this.show(this.type.Error, "", this.$str("duplicated_phone_number")); break;  //
+                    case 462 : this.show(this.type.Error, "", this.$str("vault_exception")); break;  //
+                    case 463 : this.show(this.type.Error, "", this.$str("order_cancel_count_suspension")); break;  //거래3번 취소되면 24시간 거래x
+                    case 464 : this.show(this.type.Error, "", this.$str("has_processing_ad")); break;
+                    case 499 : this.show(this.type.Error, "", this.$str("not_valid_approach")); break;
                     // case 500 : this.show(this.type.Error, "", "failed"); break;
-                    case 512 : this.show(this.type.Error, "", "mail_server_error"); break;
-                    case 513 : this.show(this.type.Error, "", "sms_sender_error"); break;
+                    case 512 : this.show(this.type.Error, "", this.$str("mail_server_error")); break;
+                    case 513 : this.show(this.type.Error, "", this.$str("sms_sender_error")); break;
 
 
 
@@ -179,6 +179,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     //광고 에러코드 4100 ~
                     case 4101 : this.show(this.type.Warning, "", this.$str('warn_completeProcessingOrder')); break;       // 진행중인 거래 존재
                     case 4102 : this.show(this.type.Warning, "", this.$str('warn_changeStatusDisable')); break;       // disable 상태 변경 필요
+                    case 4103 : this.show(this.type.Warning, "", this.$str('warn_wallet_create')); break;       // 지갑 생성 실패
 
                     //마이페이지 에러코드 4150 ~
                     case 4151 : this.show(this.type.Warning, "", this.$str('warn_password_duplicate')); break;       // 비밀번호 동일
