@@ -19,13 +19,14 @@ export default {
 
             })
     },
-    generateTokenWallet: function (tokenNo: any, callback: any) {
+    generateTokenWallet: function (tokenNo: any, callback: any, failure: any) {
         let url = 'customtoken/'+tokenNo+'/wallet'
         AxiosService._requestWithPath(url, 'PUT', '',
             function (data: any) {
                 callback(data);
             },
-            function () {
+            function (data: any) {
+            failure(data);
             })
     },
 }

@@ -110,7 +110,8 @@
                         {{ $str("referenceText") }} :
                     </span>
                     <div class="c-pointer tooltip d-inline-block">
-                        <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
+                        <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')"
+                              :class="{'d-ruby': checkFirefox}">
                             {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                        </span>
                         <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">
@@ -282,6 +283,9 @@
                     return findCustomTokenName(data, this.currentOrder.tokenNo);
                 }
             },
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            },
 
         },
         created() {
@@ -412,28 +416,33 @@
                 this.showModal = false;
             },
             onCopy(type) {
-
-                let copyTemp;
+                let isiOSDevice = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+                let value;
                 if (type === 'reference') {
-                    this.$clipboard(this.currentOrder.referenceNo)
-                    //copyTemp = document.querySelector('#referenceNum');
+                    value = this.currentOrder.referenceNo;
                 } else {
-                    this.$clipboard(this.currentOrder.amount)
-                    //copyTemp = document.querySelector('#amountValue');
+                    value = this.currentOrder.amount;
                 }
+
+
+                if (isiOSDevice) {
+                    let textArea = document.createElement('textArea');
+                    textArea.value = value;
+                    document.body.appendChild(textArea);
+
+                    let range = document.createRange();
+                    range.selectNodeContents(textArea);
+                    let selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    textArea.setSelectionRange(0, 999999);
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                } else {
+                    this.$clipboard(value);
+                }
+
                 Vue.prototype.$eventBus.$emit('showAlert', 2001);
-
-                /*
-                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-
-                if (!isiOSDevice) {
-                    copyTemp.setAttribute('type', 'text');
-                    copyTemp.select();
-                }
-
-                document.execCommand('copy');
-                */
-
             },
             onModal(type) {
                 this.showModal = true;
@@ -517,7 +526,7 @@
         border-bottom: solid 1px #d1d1d1;
     }
 
-    .buy-content > span,.buy-content > span > span  {
+    .buy-content > span, .buy-content > span > span {
         font-size: 18px;
         font-weight: bold;
     }

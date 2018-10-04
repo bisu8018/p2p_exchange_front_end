@@ -94,7 +94,7 @@
                     {{ $str("referenceText") }} :
                 </span>
                 <div class="c-pointer tooltip">
-                    <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')">
+                    <span slot="activator" class=" btn-white h5 bold pl-3 pr-3 ml-3 " @click="onCopy('reference')" :class="{'d-ruby': checkFirefox}">
                         {{ currentOrder.referenceNo }}       <!--{{ 거래번호 }}-->
                     </span>
                     <input type="text" :value="currentOrder.referenceNo" id="referenceNum" class="referenceNum">

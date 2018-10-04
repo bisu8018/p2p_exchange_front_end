@@ -133,7 +133,7 @@
                 {{ $str('totalToken') }}
             </v-flex>
             <div v-else class="mb-2 vertical-center">
-                {{ $str('decimals') }}
+                {{ $str('totalToken') }}
                 <div class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
                     <span class="tooltip-content">{{ $str("totalTokenExplain") }}</span>
                 </div>

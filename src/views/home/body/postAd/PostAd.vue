@@ -466,7 +466,7 @@
                     <div class="p-relative">
                         <input type="password" v-bind:class="{'warning-border' : warning_trade_password}" class="input"
                                :placeholder="$str('tradePwText')" v-model="tradePassword"
-                               @keyup="onCheckTradePassword"/>
+                               @keyup="onCheck('tradePassword')"/>
                         <div class="warning-text-wrapper">
                             <span class="d-none" v-bind:class="{'warning-text' : warning_trade_password}">{{ verify_warning_trade_password }}</span>
                         </div>
@@ -502,7 +502,7 @@
                     </div>
                 </div>
                 <div>
-                    <button @click='onCheck' class="color-blue btn-blue btn-blue-hover">
+                    <button @click='onFinalCheck' class="color-blue btn-blue btn-blue-hover">
                         {{ edit === true ? $str("modify") : (message === 'general' ? $str("generalPostAdBtn") :
                         $str("blockPostAdBtn")) }}
                     </button>
@@ -524,6 +524,7 @@
     import {transCryptocurrencyName, transCryptocurrencyFullName} from "../../../../common/common";
     import PostAdModal from "./postAdItem/PostAdModal.vue";
     import Policy from "../../../../vuex/model/Policy";
+    import WalletController from "../../../../vuex/controller/WalletController";
 
     export default Vue.extend({
         name: 'postAd',
@@ -610,7 +611,7 @@
                 if (MainRepository.State.isInitCompleted()) {
                     if (this.getAlipay.activeYn === 'n' && this.getWechat.activeYn === 'n' && this.getBank.activeYn === 'n' && MainRepository.MyInfo.isLogin()) {
                         Vue.prototype.$eventBus.$emit('showAlert', 4004);
-                        MainRepository.router().goMyPage();
+                        this.goMyPage();
                     }
 
                     // 수정 모드 체크
@@ -669,7 +670,7 @@
                 let wallets
                 if (this.cryptocurrencyType === 'general') {
                     wallets = MainRepository.Wallet.getWallets();
-                }else{
+                } else {
                     wallets = MainRepository.Wallet.getCustomTokenWallets();
                 }
 
@@ -755,9 +756,6 @@
                     this.initCheck = true;
                 }
             },
-            onClose() {
-                this.showModal = false;
-            },
             onNumberCheck(type) {
                 //값 숫자 형식 체크
                 let temp;
@@ -765,7 +763,7 @@
                     // 고정가격
                     case 'fixedPrice' :
                         temp = this.fixedPrice;
-                        this.onCheckFixedPrice();
+                        this.onCheck('fixedPrice');
                         if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                             return this.fixedPrice = "";
                         }
@@ -777,7 +775,7 @@
                     // 유동가격
                     case 'floatPrice' :
                         temp = this.margin;
-                        this.onCheckMargin();
+                        this.onCheck('floatPrice');
                         if (!abUtils.isDouble(temp) || temp[0] === '.') {
                             return this.margin = "";
                         }
@@ -789,7 +787,7 @@
                     // 총 코인 수량
                     case 'volume' :
                         temp = this.volume;
-                        this.onCheckVolume();
+                        this.onCheck('volume');
                         if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                             return this.volume = "";
                         }
@@ -801,7 +799,7 @@
                     // 최소가격
                     case 'minLimit' :
                         temp = this.minLimit;
-                        this.onCheckMinLimit();
+                        this.onCheck('minLimit');
                         if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                             return this.minLimit = "";
                         }
@@ -813,7 +811,7 @@
                     // 최대갸격
                     case 'maxLimit' :
                         temp = this.maxLimit;
-                        this.onCheckMaxLimit();
+                        this.onCheck('maxLimit');
                         if (!abUtils.isDouble(temp) || temp[0] === '.' || temp[0] === '-') {
                             return this.maxLimit = "";
                         }
@@ -825,7 +823,7 @@
                     // 지불시간
                     case 'paymentWindow' :
                         temp = this.paymentWindow;
-                        this.onCheckPaymentWindow();
+                        this.onCheck('paymentWindow');
                         if (!abUtils.isInteger(temp) || temp[0] === '-') {
                             return this.paymentWindow = "";
                         }
@@ -835,7 +833,7 @@
                     // 거래상대 조건
                     case 'counterParty' :
                         temp = this.counterpartyFilterTradeCount;
-                        this.onCheckCounterparty();
+                        this.onCheck('counterParty');
                         if (!abUtils.isInteger(temp) || temp[0] === '-') {
                             return this.counterpartyFilterTradeCount = "";
                         }
@@ -843,21 +841,171 @@
                         break;
                 }
             },
+            onCheck(type) {
+                //값 체크
+                switch (type) {
+                    case 'fixedPrice' :
+                        // 고정가격 체크
+                        if (this.priceType === 'floatprice') {
+                            return true
+                        }
+                        let fixedPrice = Number(this.fixedPrice);
+                        if (fixedPrice === 0 || fixedPrice === undefined) {
+                            this.warning_fixed_price = true;
+                            this.verify_warning_fixed_price = Vue.prototype.$str("warningFixedPricePlaceholder");
+                            return false;
+                        }
+                        this.warning_fixed_price = false;
+                        return true;
+
+                    case 'floatPrice' :
+                        // 유동가격 체크
+                        if (this.priceType === 'fixedprice') {
+                            return true
+                        }
+                        let margin = Number(this.margin);
+                        if (!margin) {
+                            this.warning_float_price = true;
+                            this.verify_warning_float_price = Vue.prototype.$str("warningFloatPricePlaceholder");
+                            return false;
+                        }
+                        if (margin > 100 || margin < -100) {
+                            this.warning_float_price = true;
+                            this.verify_warning_float_price = Vue.prototype.$str("warningFloatPriceLimit");
+                            return false;
+                        }
+                        this.warning_float_price = false;
+                        return true;
+
+                    case 'volume' :
+                        //거래수량 체크
+                        let volume = Number(this.volume);
+                        if (volume === 0 || volume === undefined) {
+                            this.warning_volume = true;
+                            this.verify_warning_volume = Vue.prototype.$str("warningVolume");
+                            return false;
+                        }
+                        if (volume > this.balance && this.tradeType === 'sell') {
+                            this.warning_volume = true;
+                            this.verify_warning_volume = Vue.prototype.$str("lowBalance");
+                            return false;
+                        }
+
+                        this.warning_volume = false;
+                        return true;
+
+                    case 'minLimit' :
+                        //최소금액 체크
+                        let minLimit = Number(this.minLimit);
+                        if (minLimit === 0 || minLimit === undefined) {
+                            this.verify_warning_min_limit = Vue.prototype.$str("warningMinLimit");
+                            this.warning_min_limit = true;
+                            return false;
+                        }
+                        if (minLimit < this.getMinLimit) {
+                            this.warning_min_limit = true;
+                            this.verify_warning_min_limit = Vue.prototype.$str("atLeast");
+                            return false;
+                        }
+                        this.warning_min_limit = false;
+                        return true;
+
+                    case 'maxLimit' :
+                        //최대금액 체크
+                        let _minLimit = Number(this.minLimit);
+                        let maxLimit = Number(this.maxLimit);
+                        if (maxLimit === undefined) {
+                            this.warning_max_limit = true;
+                            this.verify_warning_max_limit = Vue.prototype.$str("warningMaxLimit");
+                            return false;
+                        }
+                        if (maxLimit <= _minLimit) {
+                            this.warning_max_limit = true;
+                            this.verify_warning_max_limit = Vue.prototype.$str("atMost");
+                            return false;
+                        }
+                        this.warning_max_limit = false;
+                        return true;
+
+                    case 'paymentWindow' :
+                        //지불기간 체크
+                        let paymentWindow = Number(this.paymentWindow);
+                        if (paymentWindow === 0 || paymentWindow === undefined) {
+                            this.warning_payment_window = true;
+                            this.verify_warning_payment_window = Vue.prototype.$str("warningPaymentWindow");
+                            return false;
+                        }
+                        if (paymentWindow < 10 || paymentWindow > 20) {
+                            this.warning_payment_window = true;
+                            this.verify_warning_payment_window = Vue.prototype.$str("timeRange");
+                            return false;
+                        }
+                        this.warning_payment_window = false;
+                        return true;
+
+                    case 'counterParty' :
+                        //거래상대 조건 체크
+                        let counterpartyFilterTradeCount = Number(this.counterpartyFilterTradeCount);
+                        if (counterpartyFilterTradeCount > 99) {
+                            this.warning_counterparty = true;
+                            this.verify_warning_counterparty = Vue.prototype.$str("counterpartyWarning");
+                            return false;
+                        }
+                        this.warning_counterparty = false;
+                        return true;
+
+                    case 'toggle' :
+                        if (!this.alipay_toggle_use && !this.wechat_toggle_use && !this.bank_toggle_use) {
+                            Vue.prototype.$eventBus.$emit('showAlert', 4004);
+                            return false;
+                        } else {
+                            return true
+                        }
+
+                    case 'slideBar' :
+                        //인증바 체크
+                        if (!this.isVerified) {
+                            Vue.prototype.$eventBus.$emit('showAlert', 4003);
+                            return false;
+                        }
+                        return true;
+
+                    case 'tradePassword' :
+                        //거래 비밀번호 체크
+                        let tradePassword = Number(this.tradePassword);
+                        if (tradePassword === 0 || tradePassword === undefined) {
+                            this.warning_trade_password = true;
+                            this.verify_warning_trade_password = Vue.prototype.$str("warning_trade_password");
+                            return false;
+                        }
+                        this.warning_trade_password = false;
+                        return true;
+
+                    case 'agreeTerm' :
+                        //이용약관 체크
+                        if (!this.agreeTerms) {
+                            Vue.prototype.$eventBus.$emit('showAlert', 4002);
+                            return false;
+                        }
+                        return true;
+                }
+            },
             //최종 값 체크
-            onCheck: function () {
-                if (this.onCheckPaymentWindow() && this.onCheckMaxLimit() && this.onCheckMinLimit() && this.onCheckVolume() &&
-                    this.onCheckFixedPrice() && this.onCheckMargin() && this.onCheckCounterparty() && this.onCheckToggle() && this.onCheckSlideBar &&
-                    this.onCheckTradePassword() && this.onCheckAgreeTerm()) {
+            onFinalCheck: function () {
+                if (this.onCheck('paymentWindow') && this.onCheck('maxLimit') && this.onCheck('minLimit') && this.onCheck('volume') &&
+                    this.onCheck('fixedPrice') && this.onCheck('floatPrice') && this.onCheck('counterParty') && this.onCheck('toggle') && this.onCheck('slideBar') &&
+                    this.onCheck('tradePassword') && this.onCheck('agreeTerm')) {
 
                     this.onModal();
                 }
             },
             onModal: function () {
                 this.showModal = true;
-
             },
-            //가격타입 변경 시, 값 초기화
-            onClear: function () {
+            onClose() {
+                this.showModal = false;
+            },
+            onClear: function () {          //가격타입 변경 시, 값 초기화
                 this.fixedPrice = '';
                 this.margin = '';
                 this.warning_fixed_price = false;
@@ -865,14 +1013,30 @@
             },
             onDetermine: function () {
                 this.showModal = false;
-                this.onPost();
+
+                // 커스텀 토큰 지갑 없을 시 생성
+                if (this.cryptocurrencyType === 'custom') {
+                    let walletAddress = MainRepository.Wallet.controller().findWalletInfo(this.tokenNo).walletAddress;
+                    if (!walletAddress || walletAddress === '') {
+                        MainRepository.Wallet.generateTokenWallet(this.tokenNo, result => {
+                            this.onPost();
+                            return;
+                        },err => {
+                            Vue.prototype.$eventBus.$emit('showAlert', 4103);
+                            return false;
+                        })
+                    }else{
+                        this.onPost();
+                    }
+                }else{
+                    this.onPost();
+                }
             },
             onPost: function () {
                 //결제수단 토글 object 화
                 let alipayToggle = this.alipay_toggle_use ? 'alipay' : '';
                 let wechatToggle = this.wechat_toggle_use ? 'wechat' : '';
                 let bankToggle = this.bank_toggle_use ? 'bankaccount' : '';
-
 
                 let paymentMethodsArr = [
                     alipayToggle,
@@ -884,9 +1048,9 @@
                 nationality = nationality === 'ALL' ? 'CN' : nationality;
 
                 let _cryptocurrency;
-                if(this.cryptocurrencyType === 'general'){
+                if (this.cryptocurrencyType === 'general') {
                     _cryptocurrency = MainRepository.Wallet.controller().transCryptocurrencyFullName(this.cryptocurrency);
-                }else{
+                } else {
                     _cryptocurrency = 'custom';
                 }
 
@@ -922,17 +1086,16 @@
 
                 if (this.edit) {
                     MainRepository.AD.editAD(data, (result) => {
-                        MainRepository.Wallet.loadWallets( () => {
+                        MainRepository.Wallet.loadWallets(() => {
                                 Vue.prototype.$eventBus.$emit('showAlert', 2103);
                                 MainRepository.router().goMyAd();
                             },
                         );
                     }, (code) => {
-
                     })
                 } else {
                     MainRepository.AD.postAD(data, function (result) {
-                        MainRepository.Wallet.loadWallets( () => {
+                        MainRepository.Wallet.loadWallets(() => {
                             Vue.prototype.$eventBus.$emit('showAlert', 2101);
                             MainRepository.router().goGeneralTrade();
                         });
@@ -972,155 +1135,8 @@
                     }
                 }
             },
-            onCheckFixedPrice() {
-                // 고정가격 체크
-                if (this.priceType === 'floatprice') {
-                    return true
-                }
-                let fixedPrice = Number(this.fixedPrice);
-                if (fixedPrice === 0 || fixedPrice === undefined) {
-                    this.warning_fixed_price = true;
-                    this.verify_warning_fixed_price = Vue.prototype.$str("warningFixedPricePlaceholder");
-                    return false;
-                }
-                this.warning_fixed_price = false;
-                return true;
-            },
-            onCheckMargin() {
-                // 유동가격 체크
-                if (this.priceType === 'fixedprice') {
-                    return true
-                }
-                let margin = Number(this.margin);
-                if (!margin) {
-                    this.warning_float_price = true;
-                    this.verify_warning_float_price = Vue.prototype.$str("warningFloatPricePlaceholder");
-                    return false;
-                }
-                if (margin > 100 || margin < -100) {
-                    this.warning_float_price = true;
-                    this.verify_warning_float_price = Vue.prototype.$str("warningFloatPriceLimit");
-                    return false;
-                }
-                this.warning_float_price = false;
-                return true;
-            },
-            onCheckVolume() {
-                //거래수량 체크
-                let volume = Number(this.volume);
-                if (volume === 0 || volume === undefined) {
-                    this.warning_volume = true;
-                    this.verify_warning_volume = Vue.prototype.$str("warningVolume");
-                    return false;
-                }
-                if (volume > this.balance && this.tradeType === 'sell') {
-                    this.warning_volume = true;
-                    this.verify_warning_volume = Vue.prototype.$str("lowBalance");
-                    return false;
-                }
-
-                this.warning_volume = false;
-                return true;
-            },
-            onCheckMinLimit() {
-                //최소금액 체크
-                let minLimit = Number(this.minLimit);
-                if (minLimit === 0 || minLimit === undefined) {
-                    this.verify_warning_min_limit = Vue.prototype.$str("warningMinLimit");
-                    this.warning_min_limit = true;
-                    return false;
-                }
-                if (minLimit < this.getMinLimit) {
-                    this.warning_min_limit = true;
-                    this.verify_warning_min_limit = Vue.prototype.$str("atLeast");
-                    return false;
-                }
-                this.warning_min_limit = false;
-                return true;
-            },
-            onCheckMaxLimit() {
-                //최대금액 체크
-                let minLimit = Number(this.minLimit);
-                let maxLimit = Number(this.maxLimit);
-                if (maxLimit === undefined) {
-                    this.warning_max_limit = true;
-                    this.verify_warning_max_limit = Vue.prototype.$str("warningMaxLimit");
-                    return false;
-                }
-                if (maxLimit <= minLimit) {
-                    this.warning_max_limit = true;
-                    this.verify_warning_max_limit = Vue.prototype.$str("atMost");
-                    return false;
-                }
-                this.warning_max_limit = false;
-                return true;
-            },
-            onCheckPaymentWindow() {
-                //지불기간 체크
-                let paymentWindow = Number(this.paymentWindow);
-                if (paymentWindow === 0 || paymentWindow === undefined) {
-                    this.warning_payment_window = true;
-                    this.verify_warning_payment_window = Vue.prototype.$str("warningPaymentWindow");
-                    return false;
-                }
-                if (paymentWindow < 10 || paymentWindow > 20) {
-                    this.warning_payment_window = true;
-                    this.verify_warning_payment_window = Vue.prototype.$str("timeRange");
-                    return false;
-                }
-                this.warning_payment_window = false;
-                return true;
-            },
-            onCheckCounterparty() {
-                //거래상대 조건 체크
-                let counterpartyFilterTradeCount = Number(this.counterpartyFilterTradeCount);
-                if (counterpartyFilterTradeCount > 99) {
-                    this.warning_counterparty = true;
-                    this.verify_warning_counterparty = Vue.prototype.$str("counterpartyWarning");
-                    return false;
-                }
-                this.warning_counterparty = false;
-                return true;
-            },
-            onCheckTradePassword() {
-                //거래 비밀번호 체크
-                let tradePassword = Number(this.tradePassword);
-                if (tradePassword === 0 || tradePassword === undefined) {
-                    this.warning_trade_password = true;
-                    this.verify_warning_trade_password = Vue.prototype.$str("warning_trade_password");
-                    return false;
-                }
-                this.warning_trade_password = false;
-                return true;
-            },
-            onCheckAgreeTerm: function () {
-                //이용약관 체크
-                if (!this.agreeTerms) {
-                    Vue.prototype.$eventBus.$emit('showAlert', 4002);
-                    return false;
-                }
-                return true;
-
-            },
-            onCheckSlideBar: function () {
-                //인증바 체크
-                if (!this.isVerified) {
-                    Vue.prototype.$eventBus.$emit('showAlert', 4003);
-                    return false;
-                }
-                return true;
-
-            },
-            onCheckToggle: function () {
-                if (!this.alipay_toggle_use && !this.wechat_toggle_use && !this.bank_toggle_use) {
-                    Vue.prototype.$eventBus.$emit('showAlert', 4004);
-                    return false;
-                } else {
-                    return true
-                }
-            },
             goMyPage() {
-                this.$router.push("/myPage");
+                MainRepository.router().goMyPage();
             },
             selectToken(tokenNo) {
                 let _tokenName;
@@ -1177,22 +1193,6 @@
         max-width: 290px;
     }
 
-    /*textarea css*/
-    textarea::-webkit-input-placeholder {
-        color: #9294a6;
-    }
-
-    textarea:-moz-placeholder { /* Firefox 18- */
-        color: #9294a6;
-    }
-
-    textarea::-moz-placeholder { /* Firefox 19+ */
-        color: #9294a6;
-    }
-
-    textarea:-ms-input-placeholder {
-        color: #9294a6;
-    }
 
     /*tooltip 수정*/
     :hover.tooltip .tooltip-content {

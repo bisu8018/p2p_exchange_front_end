@@ -167,7 +167,7 @@ this.verify = true;
                 if ((this.email === "" || !abUtils.isEmail(this.email)) && this.type === 'email') {
                     Vue.prototype.$eventBus.$emit('showAlert', 4009);
                     return false;
-                }else if(this.phone === '' && this.type === 'phone'){
+                }else if(this.phone.length < 6 && this.type === 'phone'){
                     Vue.prototype.$eventBus.$emit('showAlert', 4008);
                     return false;
                 }
