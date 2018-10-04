@@ -17,6 +17,7 @@
                     <li class="select-option vertical-center"
                         v-for="data in getList"
                         @click="onSelect(data)"
+                        v-if="getCondition !== (data.tokenNo || data.code) "
                         :class="selected === (data.tokenNo || data.code) ? 'selected-option' : ''">
                         {{ data.tokenName || data.value }}
                     </li>
@@ -38,6 +39,7 @@
         name: 'filter-select-box',
         props: {
             'selectBoxType': {type: String, default: 'currency'},
+            'optionFilter': '',    // 옵션 필터링
             'filterValue': '',    // 수정 모드, 데이터
         },
         data: () => ({
@@ -93,6 +95,20 @@
                     case 'adsType' :
                         return this.adsTypes;
                 }
+            },
+            getCondition() {
+                switch (this.selectBoxType) {
+                    case 'orderType' :
+                        if (this.optionFilter === 'custom') {
+                            this.selected = 'general';
+                            this.selectedValue = SelectBox.findValue(this.selectBoxType, this.selected);
+                            this.$emit(this.selectBoxType, [this.selectBoxType,this.selected]);
+                            return 'block';
+                        }
+                        break;
+                }
+
+                return '';
             },
         },
         created() {

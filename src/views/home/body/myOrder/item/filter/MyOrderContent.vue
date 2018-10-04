@@ -55,7 +55,7 @@
         <!--  주문 종류  -->
         <div class="text-xs-left text-black mb-2">{{$str("orderType")}}</div>
         <div class="mb-4 p-relative">
-            <filter-select-box :selectBoxType="'orderType'" :filterValue="chipValues.orderType"
+            <filter-select-box :selectBoxType="'orderType'" :filterValue="chipValues.orderType" :optionFilter="chipValues.cryptocurrencyType"
                                  v-on:orderType="setData"></filter-select-box>
         </div>
 
@@ -169,6 +169,10 @@
                             cryptocurrency: '',
                             tokenNo: ''
                         };
+                        if(data === 'custom'){
+
+                        }
+
                         break;
                     default :
                         _data[index] = data;

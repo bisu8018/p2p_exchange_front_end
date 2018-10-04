@@ -442,4 +442,14 @@
     .none-avatar {
         width: 34px;
     }
+
+
+    :-moz-placeholder { /* Firefox 18- */
+        line-height: 50px !important;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+        line-height: 60px !important;
+    }
+
 </style>

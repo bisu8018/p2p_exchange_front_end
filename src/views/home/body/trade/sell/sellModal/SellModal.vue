@@ -71,7 +71,7 @@
                     </div>
             </div>
 
-            <div class="text-xs-right">
+            <div class="text-xs-right" :class="{'mb-4' : checkFirefox && isMobile}">
                 <!--type이 confirm 상태 일 경우 확인 버튼-->
                 <span v-if="type === 'confirm'">
                     <button @click="onConfirm" class="btn-blue  "
@@ -99,6 +99,8 @@
     </v-dialog>
 </template>
 <script>
+    import MainRepository from "../../../../../../vuex/MainRepository";
+
     export default {
         name: 'sellModal',
         props: ['show', 'type'],
@@ -109,6 +111,14 @@
                 tradePassword: "",
                 confirmCheckbox: false
             }
+        },
+        computed: {
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            },
+            isMobile() {
+                return MainRepository.State.isMobile();
+            },
         },
         methods: {
             onClose: function () {
