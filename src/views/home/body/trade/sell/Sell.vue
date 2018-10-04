@@ -379,27 +379,40 @@
             onClose() {
                 this.showModal = false;
             },
+
             onCopy(type) {
-                let copyTemp;
-                if (type == 'reference') {
-                    this.$clipboard(this.currentOrder.referenceNo)
-                    //copyTemp = document.querySelector('#referenceNum');
+                let isiOSDevice = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+                let value;
+
+                if (type === 'reference') {
+                    value = this.currentOrder.referenceNo;
                 } else {
-                    this.$clipboard(this.currentOrder.amount)
-                    //copyTemp = document.querySelector('#amountValue');
+                    value = this.currentOrder.amount;
                 }
-                /*
-                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+                if (isiOSDevice) {
+                    let textArea = document.createElement('textArea');
+                    textArea.style.position = 'absolute';
+                    textArea.style.left = '-9999px';
+                    textArea.value = value;
+                    if (type === 'reference') {
+                        document.getElementById('referenceNum').appendChild(textArea);
+                    } else {
+                        document.getElementById('amountValue').appendChild(textArea);
+                    }
 
-                if (!isiOSDevice) {
-                    copyTemp.setAttribute('type', 'text');
-                    copyTemp.select();
-                    Vue.prototype.$eventBus.$emit('showAlert', 2001);
+                    let range = document.createRange();
+                    range.selectNodeContents(textArea);
+                    let selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    textArea.setSelectionRange(0, 999999);
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                } else {
+                    this.$clipboard(value);
                 }
-                document.execCommand('copy');
-                */
+
                 Vue.prototype.$eventBus.$emit('showAlert', 2001);
-
             },
             onModal(type) {
                 this.showModal = true;

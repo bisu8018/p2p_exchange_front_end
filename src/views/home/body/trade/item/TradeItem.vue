@@ -10,8 +10,8 @@
         </v-flex>
         <!-- 정보-->
         <v-flex xs6 md4 mb-3 text-xs-right text-md-left>
-            <div class="text-xs-left color-black line-height-1  c-pointer tooltip">
-                <span slot="activator" @click="onCopy('getInfo')">{{getInfo}}</span>
+            <div class="text-xs-left color-black line-height-1  c-pointer tooltip" id="infoWrapper">
+                <span slot="activator" @click="onCopy()">{{ getInfo }}</span>
                 <input type="text" :value="getInfo" :id="item.type" class="referenceNum">
                 <span class="tooltip-content" >{{ $str("Copy") }}</span>
             </div>
@@ -100,14 +100,28 @@
         },
         methods: {
             onCopy() {
-                let copyTemp = document.querySelector('#' + this.item.type);
-                let isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+                let isiOSDevice = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+                let value = this.getInfo;
 
-                if (!isiOSDevice) {
-                    copyTemp.setAttribute('type', 'text');
-                    copyTemp.select();
+
+                if (isiOSDevice) {
+                    let textArea = document.createElement('textArea');
+                    textArea.style.position = 'absolute';
+                    textArea.style.left = '-9999px';
+                    textArea.value = value;
+                    document.getElementById('infoWrapper').appendChild(textArea);
+                    let range = document.createRange();
+                    range.selectNodeContents(textArea);
+                    let selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    textArea.setSelectionRange(0, 999999);
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                } else {
+                    this.$clipboard(value);
                 }
-                document.execCommand('copy');
+
                 Vue.prototype.$eventBus.$emit('showAlert', 2001);
             },
         }

@@ -418,17 +418,23 @@
             onCopy(type) {
                 let isiOSDevice = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
                 let value;
+
                 if (type === 'reference') {
                     value = this.currentOrder.referenceNo;
                 } else {
                     value = this.currentOrder.amount;
                 }
 
-
                 if (isiOSDevice) {
                     let textArea = document.createElement('textArea');
+                    textArea.style.position = 'absolute';
+                    textArea.style.left = '-9999px';
                     textArea.value = value;
-                    document.body.appendChild(textArea);
+                    if (type === 'reference') {
+                        document.getElementById('referenceNum').appendChild(textArea);
+                    } else {
+                        document.getElementById('amountValue').appendChild(textArea);
+                    }
 
                     let range = document.createRange();
                     range.selectNodeContents(textArea);
