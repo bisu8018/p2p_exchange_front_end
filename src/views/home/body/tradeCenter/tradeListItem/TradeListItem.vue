@@ -15,7 +15,7 @@
                     <!-- 닉네임 -->
                     <div class="d-flex">
                         <h5 class="color-blue-active" @click="onNicknameClick">
-                            {{user.nickname}} ( {{ $fixed(user.volumeAvailable, user.cryptocurrency) }} | {{user.completionRate}}%)
+                            {{user.nickname}} ( {{user.tradeMonthTimes}} | {{user.completionRate}}%)
                         </h5>
                         <!-- user의 rank 이미지-->
                         <a class="tooltip d-inline-block" v-if="user.rank==1">
