@@ -1060,7 +1060,7 @@
         overflow: auto;
         position: absolute;
         margin-top: 4px;
-        z-index: 1500;
+        z-index: 100;
         padding: 0;
         width: 100%;
         border-radius: 2px;
