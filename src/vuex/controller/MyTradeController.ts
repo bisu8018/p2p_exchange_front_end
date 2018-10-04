@@ -49,8 +49,24 @@ export default class MyTradeController{
 
     //10개씩 item 설정
     setMyOrderAlarmItems(orderItems : Order[]) {
+        //this.compareToCurrentAlarm(orderItems);
         this.store.dispatch(VuexTypes.SET_MY_ORDER_AlARM_LIST, orderItems);
     }
+    compareToCurrentAlarm(orderItems : Order[]){
+        let isEqual = true;
+        let key1 = 0;
+        let key2 = 0;
+        let _cur : Order[] = this.getMyOrderAlarmItems();
+        for (let key in orderItems) {
+            if(_cur[key] == undefined){
+                return;
+            }
+            // if(orderItems[key].registerDatetime != this.getMyOrderAlarmItems()[key].registerDatetime){
+            //     isEqual = false;
+            // }
+        }
+    };
+
      getMyOrderAlarmItems(): Order[] {
         return this.store.state.mytrade.myOrderAlarmItems;
     }
@@ -84,3 +100,4 @@ export default class MyTradeController{
 
 
 }
+

@@ -4254,6 +4254,12 @@ const strings = new Map([
         CN: '',
         HK: ''
     }],
+    ['comp_order_create', {
+        KOR: '주문이 생성되었습니다.',
+        ENG: 'The order created',
+        CN: '',
+        HK: ''
+    }],
 
 
 

@@ -143,6 +143,7 @@ showWarning(){ this.$eventBus.$emit('showAlert', 2); }
                     case 2154 : this.show(this.type.Success, "", this.$str('comp_order_appeal_cancel')); break;    // 이의제기 취소
                     case 2155 : this.show(this.type.Success, "", this.$str('comp_order_expire')); break;    // 거래 만료
                     case 2156 : this.show(this.type.Success, "", this.$str('comp_order_cancel')); break;    // 취소 완료
+                    case 2157 : this.show(this.type.Success, "", this.$str('comp_order_create')); break;    // 취소 완료
 
 
                     //마이페이지 메세지 2250~
