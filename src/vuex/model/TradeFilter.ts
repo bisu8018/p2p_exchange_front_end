@@ -59,8 +59,8 @@ export default class TradeFilter {
             case 'ethereum':
                 return 'ethereum'
 
-            case 'AllB':
-            case 'allb':
+            case 'TST':
+            case 'tst':
                 return 'allb'
 
             case 'custom':

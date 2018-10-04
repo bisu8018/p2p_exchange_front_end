@@ -267,7 +267,7 @@
             tokens: {
                 left: 'ETH',
                 center: 'BTC',
-                right: 'AllB',
+                right: 'TST',
             },
             showDim: false,
             isCustomTrade : false,
@@ -301,10 +301,10 @@
                 this.amount = MainRepository.TradeView.getSelectFilter().amount;
                 //tradeCoin의 순서 배치
                 if(this.tradeCoin == 'ethereum'){
-                    this.tokens = {left: 'ALLB',center: 'ETH',right: 'BTC',}
+                    this.tokens = {left: 'TST',center: 'ETH',right: 'BTC',}
                 }
-                else if (this.tradeCoin == 'ALLB'){
-                    this.tokens = {left: 'BTC',center: 'ALLB',right: 'ETH',}
+                else if (this.tradeCoin == 'TST'){
+                    this.tokens = {left: 'BTC',center: 'TST',right: 'ETH',}
                 }
                 //TradeType 수정.
                 if(this.tradeType == 'buy'||this.tradeType == 'Buy'){
