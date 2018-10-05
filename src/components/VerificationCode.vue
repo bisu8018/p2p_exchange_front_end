@@ -136,7 +136,7 @@ this.verify = true;
             checkVerificationCode() {
                 let self = this;
                 let email = self.email;
-                let isForValidation = false;
+                let isForValidation = true;
                 let isForUpdate = false;
 
                 this.tmpCode = this.verificationCode;

@@ -110,7 +110,8 @@
                     email : self.email,
                     phoneNumber : self.phone,
                     code : self.verificationCode,
-                    status : 'turn_off'
+                    status : 'turn_off',
+                    isForValidation: false,
                 }, (result) => {
                     this.goMyPage();
                 }, () => {

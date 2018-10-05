@@ -91,6 +91,7 @@
                     phoneNumber: self.code_number + self.phone_number,
                     code: self.verificationCode,
                     status: 'turn_on',
+                    isForValidation: false,
                 }, (result) => {
                     this.verifyStatus = 'verified';
                     this.goMyPage();
