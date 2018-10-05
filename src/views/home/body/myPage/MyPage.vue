@@ -49,6 +49,7 @@
             <nick-name-modal
                 :show="showNicknameModal"
                 :option="'mypage'"
+                @close="onClose"
 
             />
         </div>
@@ -126,6 +127,9 @@
             }
         },
         methods: {
+            onClose() {
+                this.showNicknameModal = false;
+            },
             isMobile() {
                 return MainRepository.State.isMobile();
             },

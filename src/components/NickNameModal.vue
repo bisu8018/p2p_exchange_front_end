@@ -97,20 +97,18 @@
                 this.$emit('close');
             },
             onComplete: function (type) {
-                let self = this;
                 if (type === 'nickName') {
                     AccountService.Account.setNickName({
                         email: MainRepository.MyInfo.getUserInfo().email,
                         nickname: this.user.nick_name,
                         tradePassword: this.new_password
-                    }, function (result) {
+                    },  (result) => {
                         MainRepository.MyInfo.loadMyInfo(() => {
+                            this.onClose();
+                            this.onClearData();
                         })
-                        self.$emit('close');
-                        self.onClearData();
                     })
                 }
-                // post 작업 완료 후 진행
             },
             onClearData() {
                 this.new_password =  '';
