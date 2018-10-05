@@ -4004,25 +4004,25 @@ const strings = new Map([
         HK: ''
     }],
     ['Lack of transaction success', {
-        KOR: '거래성공률 부족',
+        KOR: '거래 성공률 미달',
         ENG: 'Lack of transaction success',
         CN: '',
         HK: ''
     }],
     ['Need to complete current trading', {
-        KOR: '현재 진행중 거래 미종료',
+        KOR: '진행중인 거래 미완료',
         ENG: 'Need to complete current trading',
         CN: '',
         HK: ''
     }],
     ['order_cancel_count_suspension', {
-        KOR: '24시간 거래 중지: 3번 거래취소함',
+        KOR: '24시간 거래 중지: 거래취소 3번 이상',
         ENG: 'Transaction blocked in 24hrs: Order canceled 3 times.',
         CN: '',
         HK: ''
     }],
     ['duplicated_phone_number', {
-        KOR: '중복되는 휴대폰 번호',
+        KOR: '휴대폰 번호 중복',
         ENG: 'Duplicated phone number',
         CN: '',
         HK: ''

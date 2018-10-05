@@ -129,6 +129,8 @@ this.verify = true;
                         Vue.prototype.$eventBus.$emit('showAlert', 2002);
                         this.verifyStatus = 'verifying';
                         this.getTimer();
+                    }, (err) => {
+
                     })
                 }
             },
@@ -161,6 +163,8 @@ this.verify = true;
                     Vue.prototype.$eventBus.$emit('showAlert', 2003);
                     self.verifyStatus = 'verified';
                     self.$emit('verify', self.verificationCode);
+                }, (err)=> {
+
                 })
             },
             onCheckValue() {

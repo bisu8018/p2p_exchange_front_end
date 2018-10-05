@@ -18,7 +18,7 @@ export default {
                 })
         },
         // 인증코드 전송
-        sendVerificationCode: function (type: string, data: any, callback: any) {
+        sendVerificationCode: function (type: string, data: any, callback: any, failure: any) {
             let url;
             let _type;
             if (type === 'signup') {          //회원가입
@@ -51,6 +51,7 @@ export default {
                     callback(data)
                 },
                 function () {
+                    failure(data)
                 })
         },
         // 인증코드 검증 및 상태 업데이트
@@ -80,8 +81,8 @@ export default {
                 function (data: any) {
                     callback(data);
                 },
-                function () {
-                failure();
+                function (err: any) {
+                failure(err);
                 })
         },
         // 로그인 체크
