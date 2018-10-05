@@ -1660,6 +1660,12 @@
         height: 18px;
     }
 
+    .ic-logo-otc-demo {
+        background: -129px -24px;
+        width: 104px;
+        height: 46px;
+    }
+
     .ic-only-logo-otc {
         background: -128px 0px;
         width: 60px;

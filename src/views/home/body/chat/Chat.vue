@@ -5,7 +5,7 @@
             <v-layout class="header-box" align-center>
                 <i class="material-icons c-pointer " @click="clickCancel()">close</i>
                 <v-spacer></v-spacer>
-                <h5>AllB {{$str("Chat")}}</h5>
+                <h5>OTC Demo {{$str("Chat")}}</h5>
                 <v-spacer></v-spacer>
                 <i class="material-icons c-pointer mr-3" @click="onMemberListModal()">more_vert</i>
             </v-layout>

@@ -79,7 +79,7 @@
                     let result = JSON.parse(tick.body);
                     let chatMessage = result.message;
                     let memberNo = MainRepository.MyInfo.controller().getUserInfo().memberNo;
-                    console.log(result);
+                    //console.log(result);
 
                     if(result.sender.name === 'SYSTEM'){
                         MainRepository.Chat.setChatSubscribe(chatMessage, ()=>{});

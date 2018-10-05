@@ -3,6 +3,7 @@
         <v-carousel delimiter-icon="remove" lazy style="height: 600px;">
             <v-carousel-item>
                 <div class="landing-img-first">
+                    <img src="../../../../../assets/img/landing_logo.png" style="width: 145px" >
                     <div class="landing-subject"> {{ $str('landingSubj_1') }}</div>
                     <div class="landing-content"> {{ $str('landingContent_1') }}</div>
                 </div>
