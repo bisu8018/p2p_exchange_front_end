@@ -81,7 +81,7 @@ export default {
                     callback(data);
                 },
                 function () {
-                failure();
+
                 })
         },
         // 로그인 체크

@@ -316,8 +316,7 @@
                                 <span class="ml-2 mr-1 color-darkgray absolute">{{ $str("bankAccountText") }} : </span>
                             </v-flex>
                             <v-flex xs12 md8 pa-0>
-                                <div class="d-inline-block">{{ getBank.bankName }}, {{ getBank.bankBranchInfo }}
-                                    {{ getBank.bankAccount }}
+                                <div class="d-inline-block">{{ getBank.bankName + ', ' + getBank.bankBranchInfo + ' ' + getBank.bankAccount }}
                                 </div>
                             </v-flex>
                         </v-layout>

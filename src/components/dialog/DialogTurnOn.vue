@@ -100,7 +100,8 @@
                     phoneNumber: self.phoneNumber,
                     email: self.email,
                     code: self.verificationCode,
-                    status: 'turn_on'
+                    status: 'turn_on',
+                    isForValidation: false,
                 }, (result) => {
                     self.verifyStatus = 'verified';
                     self.$emit('done');
