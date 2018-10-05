@@ -32,6 +32,7 @@
 
     .toggle-wrapper {
         width: 48px;
+        min-width: 48px;
         height: 26px;
         background: #c8c8c8;
         border-radius: 17px;
@@ -39,6 +40,7 @@
         padding-left: 3px;
         display: inline-block;
         vertical-align: middle;
+
     }
 
     .circle-button{

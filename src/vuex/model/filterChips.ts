@@ -53,6 +53,7 @@ export default class FilterChips {
         this.searchEndTime = '';
         this.status = "";
         this.orderNo = '';
+        this.adsNo = '';
         this.cryptocurrencyType = "";
         this.cryptocurrency = "";
         this.tokenNo = '';

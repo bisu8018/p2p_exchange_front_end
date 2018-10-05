@@ -103,7 +103,6 @@
             startdateclass: 'startdateclass',
             enddateclass: 'enddateclass',
             chipValues: new FilterChipsModel(''),
-            adsNo: ''
         }),
         computed: {},
         created() {
@@ -172,7 +171,9 @@
             },
             onClear() {
                 this.clear = null;
+                this.adsNo = null;
                 this.chipValues.clear();
+
             },
             onSearch() {
                 this.$emit('update', this.chipValues);
