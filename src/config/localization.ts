@@ -64,8 +64,8 @@ const strings = new Map([
         HK: '請同意使用條款'
     }],
     ['signupSubject', {
-        KOR: 'AllB OTC 회원가입',
-        ENG: 'Sign up to AllB OTC',
+        KOR: 'OTC Demo OTC 회원가입',
+        ENG: 'Sign up to OTC Demo',
         CN: '注册埃尔比场外交易',
         HK: '注冊埃爾比場外交易'
     }],
@@ -107,7 +107,7 @@ const strings = new Map([
     }],
     ['termsLabel1', {
         KOR: '본 이용약관을 확인하였으며, 이에 동의합니다',
-        ENG: 'I agree to the AllB\'s',
+        ENG: 'I agree to the OTC Demo\'s',
         CN: '已阅读并同意遵守本',
         HK: '已閲讀並同意遵守本'
     }],
@@ -1582,13 +1582,13 @@ const strings = new Map([
     ['withdrawtipsETH3', {
         KOR: '• 거래를 완료하는 데 필요한 계산 용도 (가스)에 따라 거래 수수료가 고정되어 있지 않습니다.' +
         '인출에 대한 저희 시스템의 가스 한도는 90000입니다. 한 거래에 90000 이상의 가스를 사용하면, 거래가 실패됩니다.' +
-        '이후 ALLB는 자산을 ALLB 계정에 수동으로 환불하는 절차를 진행하며, 소요 시간이 길어질 수 있습니다.',
+        '이후 OTC Demo는 자산을 OTC Demo 계정에 수동으로 환불하는 절차를 진행하며, 소요 시간이 길어질 수 있습니다.',
         ENG: '• Transaction fee is not fixed which depends on the computational use (gas) required to complete the transaction. ' +
         'Gas limit on our system for withdrawal is 90000. If the transaction uses more than 90000 gas, the transaction will be failed. ' +
-        'ALLB will refund your assets to your ALLB account manually.',
+        'OTC Demo will refund your assets to your OTC Demo account manually.',
         CN: '• 交易费用不固定，取决于完成交易所需的计算用量（燃气）。 对于提款本系统制定的燃气限制为90000。若交易时使用超过90000然气，交易会失败，本系统手动将退款您的资产。',
         HK: '• 交易費用不固定，取決於完成交易所需的計算用量（瓦斯）。' +
-        'ALLB提取的天然氣限制為90000.如果交易使用超過90000瓦斯，交易將失敗。ALLB將手動將您的資產退還給您的ALLB賬戶。 感謝你的理解。'
+        'OTC Demo提取的天然氣限制為90000.如果交易使用超過90000瓦斯，交易將失敗。OTC Demo將手動將您的資產退還給您的OTC Demo賬戶。 感謝你的理解。'
     }],
     ['withdrawTips1', {
         KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 직원의 전화 혹은 이메일을 기다려주십시오.',
@@ -2571,9 +2571,9 @@ const strings = new Map([
         CN: '场外交易商家申请成功',
         HK: '場外交易商家申請成功'
     }],
-    ['Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!', {
-        KOR: '귀하의 판매자 신청이 성공적으로 등록되었습니다. AllB OTC에서 광고를 등록할 수 있습니다!',
-        ENG: 'Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!',
+    ['Your Merchant application has been successfully approved. You can post advertisement in OTC!', {
+        KOR: '귀하의 판매자 신청이 성공적으로 등록되었습니다. OTC에서 광고를 등록할 수 있습니다!',
+        ENG: 'Your Merchant application has been successfully approved. You can post advertisement in OTC!',
         CN: '您的商家申请成功了。您可以在埃尔比场外交易所发广告！',
         HK: '您的商家申請成功了。您可以在埃爾比場外交易所發廣告！'
     }],
@@ -2892,9 +2892,9 @@ const strings = new Map([
         CN: '交易时限已结束',
         HK: '交易時限已結束'
     }],
-    ['AllB OTC', {
-        KOR: 'AllB OTC',
-        ENG: 'AllB OTC',
+    ['OTC Demo', {
+        KOR: 'OTC Demo',
+        ENG: 'OTC Demo',
         CN: '埃尔比场外交易',
         HK: '埃爾比場外交易'
     }],
@@ -3833,20 +3833,20 @@ const strings = new Map([
         HK: '沒有此結果'
     }],
     ['landingSubj_1', {
-        KOR: '최고의 블록체인 기반 OTC 거래 플랫폼, AllB OTC!',
-        ENG: 'The First Blockchain based OTC platform, AllB OTC!',
+        KOR: '최고의 블록체인 기반 OTC 거래 플랫폼, OTC Demo!',
+        ENG: 'The First Blockchain based OTC platform, OTC Demo!',
         CN: '埃尔比，基于区块链的全球领先场外交易平台',
         HK: '埃爾比，基於區塊鏈的全球領先場外交易平台'
     }],
     ['landingSubj_2', {
-        KOR: 'AllB OTC에서 어떻게 거래하나요?',
-        ENG: 'How to trade on AllB OTC?',
+        KOR: 'OTC Demo에서 어떻게 거래하나요?',
+        ENG: 'How to trade on OTC Demo?',
         CN: '如何在埃尔比进行交易？',
         HK: '如何在埃爾比進行交易？'
     }],
     ['landingSubj_3', {
-        KOR: 'AllB 의 첫 무료 토큰을 받으세요.',
-        ENG: 'Get your first free AllB token',
+        KOR: 'OTC Demo 의 첫 무료 토큰을 받으세요.',
+        ENG: 'Get your first free OTC Demo token',
         CN: '请领取埃尔比首发免费代币',
         HK: '請領取埃爾比首發免費代幣'
     }],
@@ -3863,10 +3863,10 @@ const strings = new Map([
         HK: '只要5分鐘，即可輕鬆搞定！'
     }],
     ['landingContent_3', {
-        KOR: '첫 번째 에어드랍 토큰,',
-        ENG: 'The first airdrop AllB token,',
-        CN: '埃尔比的首发空投币，',
-        HK: '埃爾比的首發空投幣，'
+        KOR: '첫 번째 에어드랍 토큰',
+        ENG: 'The first airdrop OTC Demo token',
+        CN: '埃尔比的首发空投币',
+        HK: '埃爾比的首發空投幣'
     }],
     //alerts 추가
     ['duplicate_request', {

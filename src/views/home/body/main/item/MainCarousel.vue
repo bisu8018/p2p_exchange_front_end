@@ -3,7 +3,6 @@
         <v-carousel delimiter-icon="remove" lazy style="height: 600px;">
             <v-carousel-item>
                 <div class="landing-img-first">
-                    <div class="sprite-img2-small ic-allb-logo-big d-inline-block mb-2"></div>
                     <div class="landing-subject"> {{ $str('landingSubj_1') }}</div>
                     <div class="landing-content"> {{ $str('landingContent_1') }}</div>
                 </div>
@@ -18,7 +17,6 @@
                 <div class="landing-img-third">
                     <div class="landing-subject mt-6a"> {{ $str('landingSubj_3') }}</div>
                     <div class="landing-content"> {{ $str('landingContent_3') }}</div>
-                    <div class="landing-content"> ABT, ABC, ABH!</div>
                 </div>
             </v-carousel-item>
         </v-carousel>

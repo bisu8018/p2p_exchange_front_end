@@ -7,7 +7,7 @@
             <div class="mobile-header">
                 <!--logo-->
                 <button @click="goMain()" class="logo ">
-                    <div class="sprite-img2 ic-header-logo-web "></div>
+                    <img src="../../assets/img/icon_logo_red.png" style="width: 35px">
                 </button>
                 <div v-if="isMobile" class="full-width">
                     <v-spacer></v-spacer>
