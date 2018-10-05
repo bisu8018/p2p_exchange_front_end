@@ -107,7 +107,7 @@
                         <h5>{{ priceType === 'fixedprice' ? $str("fixedPrice") : $str("margin") }}</h5>
                         <div v-if="priceType === 'floatprice'"
                              class="sprite-img2 ic_postad_help ml-2 c-pointer tooltip">
-                            <span class="tooltip-content">{{ $str("explainMargin") }}</span>
+                            <span class="tooltip-content" :class="{'tooltip-firefox' : checkFirefox && isMobile}">{{ $str("explainMargin") }}</span>
                         </div>
                     </div>
                     <div class="price-input-wrapper mb-4 p-relative"
@@ -700,7 +700,10 @@
                 }
 
                 return abUtils.toMoneyFormat(Vue.prototype.$fixed(floatPrice, currency));
-            }
+            },
+            checkFirefox() {
+                return navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+            },
         },
         methods: {
             // 수정모드
@@ -1198,7 +1201,6 @@
     :hover.tooltip .tooltip-content {
         width: 200px !important;
         top: 25px;
-        height: fit-content;
         text-align: left;
         line-height: 1.4;
         left: 77px;
@@ -1210,6 +1212,10 @@
         top: -9% !important;
         border-top: 0px !important;
         border-bottom: 10px solid #545c6a !important;
+    }
+
+    .tooltip-firefox {
+        height: 65px;
     }
 
     .textarea-wrapper {

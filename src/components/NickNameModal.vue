@@ -54,7 +54,7 @@
 
             <div class="text-xs-right">
                 <v-spacer></v-spacer>
-                <button @click="onClose" class="h6 btn-rounded-white text-white-hover mr-3">
+                <button @click="onClose" class="h6 btn-rounded-white text-white-hover mr-3" v-if="option !== 'mypage'">
                     {{$str("cancel")}}
                 </button>
 
@@ -73,7 +73,7 @@
     import MainRepository from '../vuex/MainRepository';
     export default {
         name: 'nickNameModal',
-        props: ['show',],
+        props: ['show', 'option'],
         data() {
             return {
                 user: {

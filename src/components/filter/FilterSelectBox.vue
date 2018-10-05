@@ -98,6 +98,7 @@
             },
             getCondition() {
                 switch (this.selectBoxType) {
+                    case 'adsType' :
                     case 'orderType' :
                         if (this.optionFilter === 'custom') {
                             this.selected = 'general';

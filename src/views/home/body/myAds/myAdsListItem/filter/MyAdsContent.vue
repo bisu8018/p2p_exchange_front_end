@@ -48,7 +48,7 @@
         <!--  주문 종류  -->
         <div class="text-xs-left text-black mb-2">{{$str("adsType")}}</div>
         <div class="mb-4 p-relative">
-            <filter-select-box :selectBoxType="'adsType'" :filterValue="chipValues.adsType"
+            <filter-select-box :selectBoxType="'adsType'" :filterValue="chipValues.adsType" :optionFilter="chipValues.cryptocurrencyType"
                                  v-on:adsType="setData"></filter-select-box>
         </div>
 
