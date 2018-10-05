@@ -1,6 +1,7 @@
 import Vue from "vue";
 import MainRepository from "@/vuex/MainRepository";
 import CustomToken from "@/vuex/model/CustomToken";
+import qs from 'qs';
 
 export default class RouterController {
     router: any;
@@ -253,4 +254,13 @@ export default class RouterController {
             MainRepository.MyOrder.controller().setMyOrderModalFixed(false);        //my order modal fix 종료 후 채팅 open
         }
     }
+    goSMSVerification(){
+        let r = this.router;
+        Vue.nextTick(function () {
+            let _Withdraw = MainRepository.Wallet.controller().getWithdraw();
+            let param = qs.stringify(_Withdraw);
+            r.push("/smsVerification?" +param);
+        });
+    }
 }
+

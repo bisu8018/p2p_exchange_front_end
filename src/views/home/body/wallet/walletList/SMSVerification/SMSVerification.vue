@@ -49,6 +49,8 @@
     import MainRepository from "../../../../../../vuex/MainRepository";
     import VerificationCode from '@/components/VerificationCode.vue';
     import AccountService from "../../../../../../service/account/AccountService";
+    import qs from 'qs';
+    import Withdraw from "../../../../../../vuex/model/Withdraw";
       export default {
         name: "SMSVerification",
           components: {
@@ -62,6 +64,7 @@
                   emailVerify: false,
                   phoneVerify: false,      //차후 phone 가능시 false로 수정.
                   verifyWithPhone: false,
+                  withDraw: new Withdraw(''),
               }
           },
           computed: {
@@ -85,7 +88,7 @@
                   MainRepository.router().goLogin();
                   return;
               }
-
+              this.getUrlParam();
               MainRepository.MyPage.getMemberVerification(function (email, phone) {
                   self.email = email.email;
                   self.phone = phone.phoneNumber;
@@ -127,8 +130,14 @@
                   } else {
                       this.phoneVerify = true;
                   }
+              },
+              getUrlParam() {
+                  let currentURL = window.location.href;
+                  let params = currentURL.split('?');
 
-
+                  if(params.length > 1){
+                      MainRepository.Wallet.setWithdraw(qs.parse(params[1]));
+                  }
               },
           }
 

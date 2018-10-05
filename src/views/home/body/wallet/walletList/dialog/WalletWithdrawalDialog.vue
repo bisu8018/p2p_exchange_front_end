@@ -159,6 +159,9 @@
                     //custom일때 fee 는 ether로 처리.
                     return 'ETH'
                 }
+            },
+            tokenNo(){
+                return MainRepository.Wallet.controller().findByCrptoCurrency(this.tokenName).tokenNo;
             }
         },
         created(){
@@ -272,10 +275,11 @@
                       amount : this.amount,
                       cryptocurrency : this.getCryptoName(this.tokenName),
                       fee : this.fee,
+                      tokenNo : this.tokenNo,
                       ownerMemberNo : MainRepository.MyInfo.getUserInfo().memberNo,
                       receiveAmount : this.receiveAmount
                   })
-                  this.$router.push("/smsVerification");
+                    MainRepository.router().goSMSVerification();
                 }
             },
 
