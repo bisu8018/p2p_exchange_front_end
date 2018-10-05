@@ -70,7 +70,7 @@ export default {
                 url = 'resetTradePasswordVerification';
             } else if (type === 'phoneChange') {     //휴대전화 인증코드
                 url = 'memberVerification/sms/status'
-            } else if (type === 'emailPhoneChange') {    //전화번호 변경 인증코드
+            } else if (type === 'emailPhoneChange') {    //이메일 변경 인증코드
                 url = 'changePhoneNumberVerification/email';
             } else if (type === 'resetPassword') {    //전화번호 변경 인증코드
                 url = 'resetPassword/verify';
