@@ -7,7 +7,7 @@
       <v-layout wrap row pt-4 mb-4 class="footerContainer">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 mt-4 class="footer-top">
-          <img src="../../assets/img/icon_logo_gray.png">
+          <img src="../../assets/img/icon_otcdemo.png" style="width: 150px">
         </v-flex>
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 mt-4 class="footer-top">
