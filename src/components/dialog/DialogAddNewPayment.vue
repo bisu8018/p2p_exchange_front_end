@@ -387,7 +387,8 @@
 
                         let fileInfo = this.$refs.file.files[0];
                         let fileSize = fileInfo.size;
-                        if (fileSize > 2000000) {
+                        //console.log(fileInfo)
+                        if (fileSize > 20000000) {
                             this.warning_attachment_file = true;
                             this.verify_warning_attachment_file = this.$str('warningAttachmentFileSize');
                             return false;

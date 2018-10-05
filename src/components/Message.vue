@@ -251,7 +251,7 @@
                 let fileInfo = this.$refs.file.files[0];
                 let fileSize = fileInfo.size;
                 console.log(fileInfo);
-                if (fileSize > 2000000) {
+                if (fileSize > 20000000) {
                     // 용량 alert
 
                     this.$eventBus.$emit('showAlert', 4012);
