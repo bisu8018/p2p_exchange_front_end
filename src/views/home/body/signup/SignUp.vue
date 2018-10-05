@@ -2,8 +2,8 @@
     <v-layout pt-5 pb-5>
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex align-center">
-                <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                <div class="h2 bold">{{$str("signupSubject")}}</div>
+                <img src="../../../../assets/img/icon_login.png">
+                <div class="h2 bold ml-2">{{$str("signupSubject")}}</div>
             </div>
 
             <!--국가 select box-->

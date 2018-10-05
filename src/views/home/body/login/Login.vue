@@ -4,8 +4,8 @@
         <v-flex card-flex xs12 md6 lg4 offset-md3 offset-lg4 pt-4a pb-4a pr-3 pl-3>
             <div>
                 <div class="mb-4a login-title align-center">
-                    <div class="mr-2 sprite-img ic-logo-bl d-inline-block"></div>
-                    <div class="h2 bold">{{$str("welcome")}}</div>
+                    <img src="../../../../assets/img/icon_login.png">
+                    <div class="h2 bold ml-2">{{$str("welcome")}}</div>
                 </div>
                 <form action="/login" method="post" id="loginForm">
                     <div class="text-xs-left mb-2 h5 color-black">{{$str("email")}}</div>

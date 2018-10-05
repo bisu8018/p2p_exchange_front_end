@@ -7,7 +7,7 @@
       <v-layout wrap row pt-4 mb-4 class="footerContainer">
         <!-- 카드 1 로고사진  -->
         <v-flex xs12 md3 mt-4 class="footer-top">
-          <div class="sprite-img ic-only-logo-otc mb-4a"></div>
+          <img src="../../assets/img/icon_logo_gray.png">
         </v-flex>
         <!-- 카드 2 Support -->
         <v-flex xs12 md3 mt-4 class="footer-top">
@@ -41,15 +41,18 @@
             <p>{{$str("KYC&AML_Policies")}}</p>
           </a>
         </v-flex>
+
         <!-- 카드 4 Contact Us-->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("contact_Us")}}</p>
           <a href="https://www.allblab.com" target="_blank">
-            <p>support@allblab.com</p>
+            <p>support@otcdemo.com</p>
           </a>
         </v-flex>
       </v-layout>
+
     <v-divider></v-divider>
+
     <!-- 언어설정버튼 -->
       <v-layout pt-4a pb-4a row wrap class="footerContainer ">
         <v-flex md6 xs12 mb-1 text-md-left>
@@ -91,7 +94,7 @@
         </v-flex>
 
         <v-flex md6 xs12 text-md-right>
-          <h5>© 2018 allb.com</h5>
+          <h5>© 2018 otcdemo.com</h5>
         </v-flex>
       </v-layout>
   </div>
@@ -118,7 +121,7 @@
                 abSetLang(userLang)
             },
             go_Guides(){
-                if(this.currentLang =='EN'){
+            /*    if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880552-Beginners-Guide";
                     window.open(URL, "_blank");
                 }
@@ -133,10 +136,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/zh-cn";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_FAQ(){
-                if(this.currentLang =='EN'){
+             /*   if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us";
                     window.open(URL, "_blank");
                 }
@@ -151,10 +154,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_announcements(){
-                if(this.currentLang =='EN'){
+              /*  if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880491";
                     window.open(URL, "_blank");
                 }
@@ -169,10 +172,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/sections/360001880491";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_Terms_of_Service(){
-                if(this.currentLang =='EN'){
+             /*   if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
                     window.open(URL, "_blank");
                 }
@@ -187,10 +190,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_Transaction_Regulations(){
-                if(this.currentLang =='EN'){
+             /*   if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012615751";
                     window.open(URL, "_blank");
                 }
@@ -205,10 +208,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012615751";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_Fees(){
-                if(this.currentLang =='EN'){
+              /*  if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us";
                     window.open(URL, "_blank");
                 }
@@ -223,10 +226,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_Terms_Of_Privacy_Policy(){
-                if(this.currentLang =='EN'){
+              /*  if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012603291";
                     window.open(URL, "_blank");
                 }
@@ -241,10 +244,10 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012603291";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
             go_KYC_Policies(){
-                if(this.currentLang =='EN'){
+           /*     if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012389672";
                     window.open(URL, "_blank");
                 }
@@ -259,7 +262,7 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012389672";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
 
         },
