@@ -2,7 +2,7 @@
     <v-layout pt-5 pb-5>
         <v-flex xs12 lg4 offset-lg4>
             <div class="mb-4a signup-flex align-center">
-                <img src="../../../../assets/img/icon_login.png">
+                <img src="../../../../assets/img/icon_login.png" style="width: 35px">
                 <div class="h2 bold ml-2">{{$str("signupSubject")}}</div>
             </div>
 

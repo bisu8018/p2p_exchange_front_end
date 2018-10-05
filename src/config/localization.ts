@@ -64,7 +64,7 @@ const strings = new Map([
         HK: '請同意使用條款'
     }],
     ['signupSubject', {
-        KOR: 'OTC Demo OTC 회원가입',
+        KOR: 'OTC Demo 회원가입',
         ENG: 'Sign up to OTC Demo',
         CN: '注册埃尔比场外交易',
         HK: '注冊埃爾比場外交易'
