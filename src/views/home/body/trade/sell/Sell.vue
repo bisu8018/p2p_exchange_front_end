@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 mr-3 ml-3 p-relative"  v-if="isInitCompleted"  :class="{'ml-3' : !isMobile(),'mr-3' : !isMobile()}">
+    <div class="mt-5 mb-5 p-relative"  v-if="isInitCompleted"  :class="{'ml-3' : !isMobile(),'mr-3' : !isMobile()}">
         <v-layout column mb-4 flex-divide>
             <div class="color-darkgray h6 text-xs-left mb-3">
                 {{ $str('order') }} : #{{ getOrderNumber }}         <!--{{ order_number }} 주문번호-->

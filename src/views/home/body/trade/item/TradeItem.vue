@@ -11,7 +11,7 @@
         <!-- 정보-->
         <v-flex xs6 md4 mb-3 text-xs-right text-md-left>
             <div class="text-xs-left color-black line-height-1  c-pointer tooltip" id="infoWrapper">
-                <span slot="activator" @click="onCopy()">{{ getInfo }}</span>
+                <span class="payment-info" slot="activator" @click="onCopy()">{{ getInfo }}</span>
                 <input type="text" :value="getInfo" :id="item.type" class="referenceNum">
                 <span class="tooltip-content" >{{ $str("Copy") }}</span>
             </div>
@@ -84,7 +84,7 @@
                         return this.item.wechatId;
 
                     default:
-                        let value = this.item.ownerName + ', ' + this.item.bankName + this.item.bankBranchInfo + this.item.bankAccount;
+                        let value = this.item.ownerName + ', ' + this.item.bankName+' ' + this.item.bankBranchInfo+' ' + this.item.bankAccount;
                         return value;
                 }
             },
@@ -200,5 +200,8 @@
     .attachment-img-style {
         height: 200px;
         margin: 5px;
+    }
+    .payment-info{
+        word-break: break-all;
     }
 </style>
