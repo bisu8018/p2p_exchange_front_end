@@ -490,6 +490,7 @@
     .sell-content, .sell-content > span  {
         font-size: 18px;
         font-weight: bold;
+        max-width: 50%;
     }
 
     .payment-complete-wrapper {
