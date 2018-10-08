@@ -4,7 +4,7 @@ const strings = new Map([
 
     // signup
     ['emailValue', {
-        KOR: '이메일을 입력해 주십시오.',
+        KOR: '이메일을 입력해 주세요.',
         ENG: 'Please enter email value.',
         CN: '请输入电子邮件',
         HK: '請填寫Email'
@@ -16,7 +16,7 @@ const strings = new Map([
         HK: 'Email格式不正確'
     }],
     ['verificationCode', {
-        KOR: '인증코드를 입력해 주십시오.',
+        KOR: '인증코드를 입력해 주세요.',
         ENG: 'Pleaes enter verification code.',
         CN: '请输入验证码',
         HK: '請輸入驗證碼'
@@ -34,7 +34,7 @@ const strings = new Map([
         HK: '滑動驗證'
     }],
     ['passwordValue', {
-        KOR: '비밀번호를 입력해 주십시오.',
+        KOR: '비밀번호를 입력해 주세요.',
         ENG: 'Please Enter password.',
         CN: '请输入密码',
         HK: '請輸入密碼'
@@ -58,7 +58,7 @@ const strings = new Map([
         HK: '密碼錯誤'
     }],
     ['acceptConditions', {
-        KOR: '이용약관에 동의해 주십시오.',
+        KOR: '이용약관에 동의해 주세요.',
         ENG: 'Accept the terms and conditions.',
         CN: '请同意使用条款',
         HK: '請同意使用條款'
@@ -186,7 +186,7 @@ const strings = new Map([
         HK: '請輸入密碼'
     }],
     ['verifySliderPlaceholder', {
-        KOR: '인증을 위해 슬라이드해 주십시오',
+        KOR: '인증을 위해 슬라이드해 주세요',
         ENG: 'Slide to verify',
         CN: '请按住滑块，拖动到最右测',
         HK: '請按住滑塊，拖動到最右側'
@@ -222,13 +222,13 @@ const strings = new Map([
         HK: '提交'
     }],
     ['warningAttachmentFileType', {
-        KOR: '이미지 파일로 업로드 해주십시오.',
+        KOR: '이미지 파일로 업로드 해주세요.',
         ENG: 'Upload only in an image file.',
         CN: '请上传图像档案',
         HK: '請上傳圖像檔案'
     }],
     ['warningAttachmentFileSize', {
-        KOR: '20MB 이하 파일로 업로드 해주십시오.',
+        KOR: '20MB 이하 파일로 업로드 해주세요.',
         ENG: 'Please upload less than 20MB file.',
         CN: '请上传20MB一下的档案',
         HK: '請上傳20MB一下的檔案'
@@ -609,13 +609,13 @@ const strings = new Map([
         HK: '利潤'
     }],
     ['warningFixedPricePlaceholder', {
-        KOR: '올바른 수를 입력해 주십시오',
+        KOR: '올바른 수를 입력해 주세요',
         ENG: 'Please Enter a valid number',
         CN: '请输入适合数量',
         HK: '請輸入適合數量'
     }],
     ['warningFloatPricePlaceholder', {
-        KOR: '올바른 수를 입력해 주십시오',
+        KOR: '올바른 수를 입력해 주세요',
         ENG: 'Enter a vaild number',
         CN: '请输入适合数量',
         HK: '請輸入適合數量'
@@ -633,25 +633,25 @@ const strings = new Map([
         HK: '購買代幣時利潤與交易價格成正比，但出售時利潤與交易價格成反比。'
     }],
     ['warningVolume', {
-        KOR: '거래 수량을 입력해 주십시오',
+        KOR: '거래 수량을 입력해 주세요',
         ENG: 'Please Enter Trade volume',
         CN: '请输入交易数量',
         HK: '請輸入交易數量'
     }],
     ['warningMinLimit', {
-        KOR: '최소액을 입력해 주십시오',
+        KOR: '최소액을 입력해 주세요',
         ENG: 'Please Enter Minimum limit',
         CN: '请输入最小金额',
         HK: '請輸入最小金額'
     }],
     ['warningMaxLimit', {
-        KOR: '최대액을 입력해 주십시오',
+        KOR: '최대액을 입력해 주세요',
         ENG: 'Please Enter Maximum limit',
         CN: '请输入最大金额',
         HK: '請輸入最大金額'
     }],
     ['warningPaymentWindow', {
-        KOR: '지불 기간을 입력해 주십시오',
+        KOR: '지불 기간을 입력해 주세요',
         ENG: 'Enter the payment window',
         CN: '请输入支付期间',
         HK: '請輸入支付期間'
@@ -921,19 +921,19 @@ const strings = new Map([
         HK: '保有貨幣餘額不足'
     }],
     ['atLeast', {
-        KOR: '한도금액 이상으로 입력해 주십시오',
+        KOR: '한도금액 이상으로 입력해 주세요',
         ENG: 'Please input more than limit price',
         CN: '请输入限度以上的金额',
         HK: '請輸入限度以上的金額'
     }],
     ['atMost', {
-        KOR: '최저 한도금액 이상으로 입력해 주십시오',
+        KOR: '최저 한도금액 이상으로 입력해 주세요',
         ENG: 'Input more than minimum limit',
         CN:  '请输入最小限度以上金额',
         HK:  '請輸入最小限度以上金額'
     }],
     ['timeRange', {
-        KOR: '범위 시간 내로 입력해 주십시오',
+        KOR: '범위 시간 내로 입력해 주세요',
         ENG: 'Enter within the range of time',
         CN: '请输入范围内时间',
         HK: '請輸入範圍内時間'
@@ -945,7 +945,7 @@ const strings = new Map([
         HK: '交易次數最多為99次'
     }],
     ['warning_trade_password', {
-        KOR: '거래 비밀번호를 입력해 주십시오',
+        KOR: '거래 비밀번호를 입력해 주세요',
         ENG: 'Please enter your trade password',
         CN: '请输入交易密码',
         HK: '請輸入交易密碼'
@@ -995,7 +995,7 @@ const strings = new Map([
         HK: '我已付款'
     }],
     ['paymentText', {
-        KOR: '지불 완료 후, 이 버튼을 클릭하여 판매자에게 알려주십시오',
+        KOR: '지불 완료 후, 이 버튼을 클릭하여 판매자에게 알려주세요',
         ENG: 'After complete the payment, please click here to notice seller.',
         CN: '完成付款后，请点击此处提醒卖家',
         HK: '完成付款後，請點擊此處提醒賣家'
@@ -1170,7 +1170,7 @@ const strings = new Map([
         HK: '詳細内容'
     }],
     ['detailsPlaceholder', {
-        KOR: '이의제기 사유의 세부정보을 입력해 주십시오',
+        KOR: '이의제기 사유의 세부정보을 입력해 주세요',
         ENG: 'Enter the details of appeal reasons',
         CN: '请填写投诉理由的详细内容。',
         HK: '請填寫投訴理由的詳細内容。'
@@ -1310,7 +1310,7 @@ const strings = new Map([
         HK: '日期'
     }],
     ['datePickerPlaceholder', {
-        KOR: '날짜를 선택해 주십시오',
+        KOR: '날짜를 선택해 주세요',
         ENG: 'Select date',
         CN: '请选择日期',
         HK: '請選擇日期'
@@ -1358,7 +1358,7 @@ const strings = new Map([
         HK: '訂單編碼'
     }],
     ['orderNoPlaceholder', {
-        KOR: '주문 번호를 입력해 주십시오',
+        KOR: '주문 번호를 입력해 주세요',
         ENG: 'Enter Order number',
         CN: '请输入订单编码',
         HK: '請輸入訂單編碼'
@@ -1394,7 +1394,7 @@ const strings = new Map([
         HK: '沒有任何交易記錄'
     }],
     ['chatPlaceholder', {
-        KOR: '글 입력 후 엔터키를 눌러주십시오',
+        KOR: '글 입력 후 엔터키를 눌러주세요',
         ENG: 'Type in and press enter',
         CN: '填写后请按回车键。',
         HK: '填寫後請按Enter。'
@@ -1421,7 +1421,7 @@ const strings = new Map([
         HK: '廣告號碼'
     }],
     ['adsNoPlaceholder', {
-        KOR: '광고 번호를 입력해 주십시오',
+        KOR: '광고 번호를 입력해 주세요',
         ENG: 'Please input Ad number',
         CN: '请输入广告号码',
         HK: '請輸入廣告號碼'
@@ -1591,7 +1591,7 @@ const strings = new Map([
         'OTC Demo提取的天然氣限制為90000.如果交易使用超過90000瓦斯，交易將失敗。OTC Demo將手動將您的資產退還給您的OTC Demo賬戶。 感謝你的理解。'
     }],
     ['withdrawTips1', {
-        KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 직원의 전화 혹은 이메일을 기다려주십시오.',
+        KOR: '보안상의 이유로, 보안 설정을 변경하고 비밀번호를 변경하고 새로운 인출 주소를 사용할 때 인출 사실을 직접 검토합니다. 직원의 전화 혹은 이메일을 기다려주세요.',
         ENG: '• For security reasons, when you change security settings, change password and use new withdraw address, ' +
         'we will manually review your withdrawal. Please wait for phone calls or emails from our staff.',
         CN: '• 出于安全原因，当您更改安全设置，更改密码并使用新的提款地址时，我们将手动审核您的提款。 请等待客服电话或电子邮箱的回复。',
@@ -2108,13 +2108,13 @@ const strings = new Map([
         HK: '更改'
     }],
     ['paymentMethodSelectboxPlaceholder', {
-        KOR: '결제수단을 선택하여 주십시오',
+        KOR: '결제수단을 선택하여 주세요',
         ENG: 'Choose a payment method',
         CN: '请选择支付方式',
         HK: '請選擇支付方式'
     }],
     ['namePlaceholder', {
-        KOR: '당신의 실제 이름을 입력해 주십시오',
+        KOR: '당신의 실제 이름을 입력해 주세요',
         ENG: 'Enter your real name',
         CN: '请输入您的实名',
         HK: '請輸入您的實名'
@@ -2132,19 +2132,19 @@ const strings = new Map([
         HK: '實名'
     }],
     ['alipayPlaceholder', {
-        KOR: '알리페이를 입력해 주십시오',
+        KOR: '알리페이를 입력해 주세요',
         ENG: 'Input Alipay number',
         CN: '请输入支付宝号码',
         HK: '請輸入支付寶號碼'
     }],
     ['wechatPlaceholder', {
-        KOR: '위챗페이를 입력해 주십시오',
+        KOR: '위챗페이를 입력해 주세요',
         ENG: 'Input Wechat number',
         CN: '请输入微信支付号码',
         HK: '請輸入微信支付號碼'
     }],
     ['bankPlaceholder', {
-        KOR: '은행 계좌를 입력해 주십시오',
+        KOR: '은행 계좌를 입력해 주세요',
         ENG: 'Input Bank Account number',
         CN: '请输入银行账户号码',
         HK: '請輸入銀行帳戶號碼'
@@ -2156,19 +2156,19 @@ const strings = new Map([
         HK: 'QR Code'
     }],
     ['alipayQrCodeExplain', {
-        KOR: '당신의 알리페이 QR코드 이미지를 업로드 해주십시오 ',
+        KOR: '당신의 알리페이 QR코드 이미지를 업로드 해주세요 ',
         ENG: 'Upload your Alipay receipt QR code image ',
         CN: '请上传您的支付宝二维码',
         HK: '請上傳您的支付寶QR code'
     }],
     ['wechatQrCodeExplain', {
-        KOR: '당신의 위챗페이 QR코드 이미지를 업로드 해주십시오 ',
+        KOR: '당신의 위챗페이 QR코드 이미지를 업로드 해주세요 ',
         ENG: 'Upload your Wechat receipt QR code image ',
         CN: '请上传您的微信支付二维码',
         HK: '請上傳您的微信支付QR code'
     }],
     ['tradePwPlaceholder', {
-        KOR: '거래 비밀번호를 입력해 주십시오',
+        KOR: '거래 비밀번호를 입력해 주세요',
         ENG: 'Enter your trade password',
         CN: '请输入交易密码',
         HK: '請輸入交易密碼'
@@ -2186,43 +2186,43 @@ const strings = new Map([
         HK: '分店信息（選項）'
     }],
     ['bankNamePlaceholder', {
-        KOR: '은행 이름을 입력해 주십시오',
+        KOR: '은행 이름을 입력해 주세요',
         ENG: 'Enter the bank name',
         CN: '请输入银行名',
         HK: '請輸入銀行名'
     }],
     ['branchInfoPlaceholder', {
-        KOR: '지점 정보를 입력해 주십시오',
+        KOR: '지점 정보를 입력해 주세요',
         ENG: 'Enter the branch information',
         CN: '请输入分店信息',
         HK: '請輸入分店信息'
     }],
     ['warning_name', {
-        KOR: '이름을 입력해 주십시오.',
+        KOR: '이름을 입력해 주세요.',
         ENG: 'Enter your real name.',
         CN: '请输入您的实名',
         HK: '請輸入您的實名'
     }],
     ['warning_alipay', {
-        KOR: '알리페이를 입력해 주십시오.',
+        KOR: '알리페이를 입력해 주세요.',
         ENG: 'Enter your alipay.',
         CN: '请输入您的支付宝',
         HK: '請輸入您的支付寶'
     }],
     ['warning_wechat', {
-        KOR: '위챗을 입력해 주십시오.',
+        KOR: '위챗을 입력해 주세요.',
         ENG: 'Enter your wechat.',
         CN: '请输入您的微信',
         HK: '請輸入您的微信'
     }],
     ['warning_bank', {
-        KOR: '은행 이름을 입력해 주십시오.',
+        KOR: '은행 이름을 입력해 주세요.',
         ENG: 'Enter bank name.',
         CN: '请输入银行名',
         HK: '請輸入銀行名'
     }],
     ['warning_bank_account', {
-        KOR: '은행 계좌를 입력해 주십시오.',
+        KOR: '은행 계좌를 입력해 주세요.',
         ENG: 'Enter bank account.',
         CN: '请输入您的银行账户',
         HK: '請輸入您的銀行帳戶'
@@ -2264,7 +2264,7 @@ const strings = new Map([
         HK: '更改'
     }],
     ['warningNewPassword', {
-        KOR: '새로운 비밀번호를 입력해 주십시오.',
+        KOR: '새로운 비밀번호를 입력해 주세요.',
         ENG: 'Enter new password.',
         CN: '请输入更改密码',
         HK: '請輸入更改密碼'
@@ -2390,7 +2390,7 @@ const strings = new Map([
         HK: '請不要更改實名，無法更改'
     }],
     ['warning_nick_name', {
-        KOR: '닉네임을 입력해 주십시오.',
+        KOR: '닉네임을 입력해 주세요.',
         ENG: 'Enter you nickname.',
         CN: '请设定昵称',
         HK: '請設定昵稱'
@@ -2402,7 +2402,7 @@ const strings = new Map([
         HK: '爲了保護您的資產，請設定您的交易密碼'
     }],
     ['nickNameConfirmPasswordPlaceholder', {
-        KOR: '거래 비밀번호를 다시 한번 입력해 주십시오',
+        KOR: '거래 비밀번호를 다시 한번 입력해 주세요',
         ENG: 'Please put your trade password again',
         CN: '请再输入您的交易密码',
         HK: '請再輸入您的交易密碼'
@@ -2414,7 +2414,7 @@ const strings = new Map([
         HK: '請重試'
     }],
     ['timerExplain2', {
-        KOR: '초 후에 재시도 해주십시오',
+        KOR: '초 후에 재시도 해주세요',
         ENG: 'seconds',
         CN: '秒后',
         HK: '秒後'
@@ -2579,7 +2579,7 @@ const strings = new Map([
     }],
     //404 페이지
     ['pageNotFound', {
-        KOR: '요청하신 페이지를 찾을 수 없습니다. 나중에 다시 시도해 주십시오.',
+        KOR: '요청하신 페이지를 찾을 수 없습니다. 나중에 다시 시도해 주세요.',
         ENG: 'The page you are trying to reach is not available at the moment. Please try again later.',
         CN: '无法显示您所需要的网页。稍后请再试。',
         HK: '無法顯示您所需要的網頁。稍後請再試。'
@@ -3362,13 +3362,13 @@ const strings = new Map([
         HK: '需要驗證ID'
     }],
     ['warn_verification_no_phone_data', {
-        KOR: '전화번호를 입력해 주십시오.',
+        KOR: '전화번호를 입력해 주세요.',
         ENG: 'Please Enter your phone number.',
         CN: '请输入电话号码',
         HK: '請輸入電話號碼'
     }],
     ['warn_verification_code_no_email_data', {
-        KOR: '이메일을 입력해 주십시오.',
+        KOR: '이메일을 입력해 주세요.',
         ENG: 'Please Enter your email.',
         CN: '请输入电子邮箱',
         HK: '請輸入Email'
@@ -3380,31 +3380,31 @@ const strings = new Map([
         HK: '請輸入大于0的價格'
     }],
     ['verify_warning_realName', {
-        KOR: '실명을 입력해 주십시오.',
+        KOR: '실명을 입력해 주세요.',
         ENG: 'Please input your real name.',
         CN: '请输入您的真实姓名',
         HK: '請輸入您的真實姓名'
     }],
     ['verify_warning_IdNum', {
-        KOR: '식별 번호를 입력해 주십시오.',
+        KOR: '식별 번호를 입력해 주세요.',
         ENG: 'Please input your ID Number.',
         CN: '请输入识别码',
         HK: '請輸入識別碼'
     }],
     ['verify_warning_firstName', {
-        KOR: '이름을 입력해 주십시오.',
+        KOR: '이름을 입력해 주세요.',
         ENG: 'Please input your first name.',
         CN: '请输入名字',
         HK: '請輸入名字'
     }],
     ['verify_warning_lastName', {
-        KOR: '성을 입력해 주십시오.',
+        KOR: '성을 입력해 주세요.',
         ENG: 'Please input your last name.',
         CN: '请输入姓氏',
         HK: '請輸入姓氏'
     }],
     ['verify_warning_file', {
-        KOR: '이미지를 업로드해 주십시오.',
+        KOR: '이미지를 업로드해 주세요.',
         ENG: 'Please upload your ID Photo.',
         CN: '请上传图片',
         HK: '請上傳圖片'
@@ -3569,7 +3569,7 @@ const strings = new Map([
         HK: '代幣名'
     }],
     ['tokenNameExplain', {
-        KOR: '토큰명을 입력해 주십시오. 3-5개의 영어 대문자만 허용됩니다.',
+        KOR: '토큰명을 입력해 주세요. 3-5개의 영어 대문자만 허용됩니다.',
         ENG: 'Please input CustomToken name without any blank. Only 3-5 English capital letters are available.',
         CN: '请输入代币名称。只能输入3-5个英文大写字母。',
         HK: '請輸入代幣名稱。只能輸入3-5個英文大寫字母。'
@@ -3581,7 +3581,7 @@ const strings = new Map([
         HK: '小數點'
     }],
     ['decimalsExplain', {
-        KOR: '토큰의 소수점 자리를 설정해 주십시오. 0-18 자리 숫자만 허용됩니다. (최대 5자리까지 설정하는 것이 일반적입니다.)',
+        KOR: '토큰의 소수점 자리를 설정해 주세요. 0-18 자리 숫자만 허용됩니다. (최대 5자리까지 설정하는 것이 일반적입니다.)',
         ENG: 'Defines the number of decimal places in the CustomToken. Numbers 0-18 are allowed. (The standard setting is five digits\' decimal point.)',
         CN: '请输入代币小数点的位置，只能输入0~18个数字。 (通常设定5位数的小数点。)',
         HK: '請輸入代幣小數點的位置，只能輸入0~18個數字。(通常設定5位數的小數點。)',
@@ -3593,7 +3593,7 @@ const strings = new Map([
         HK: '描述'
     }],
     ['descriptionExplain', {
-        KOR: '토큰에 대한 설명을 입력해 주십시오. (10 - 300 자 허용)',
+        KOR: '토큰에 대한 설명을 입력해 주세요. (10 - 300 자 허용)',
         ENG: 'Please input issuing CustomToken\'s descryption. (10 to 300 characters)',
         CN: '请输入代币的详细描述（可输入10~300个字）',
         HK: '請輸入代幣的詳細描述（可輸入10~300個字）'
@@ -3617,55 +3617,55 @@ const strings = new Map([
         HK: '製作'
     }],
     ['warning_token_name_null', {
-        KOR: '토큰명을 입력해 주십시오.',
+        KOR: '토큰명을 입력해 주세요.',
         ENG: 'Please enter the CustomToken name.',
         CN: '请输入代币名',
         HK: '請輸入代幣名'
     }],
     ['warning_token_name_length', {
-        KOR: '3-5자 이내로 입력해 주십시오.',
+        KOR: '3-5자 이내로 입력해 주세요.',
         ENG: 'Please enter 8 to 20 letters.',
         CN: '请输入3~5字之内的文字',
         HK: '請輸入3~5字之内的文字'
     }],
     ['warning_decimals_null', {
-        KOR: '소수점 자리를 입력해 주십시오.',
+        KOR: '소수점 자리를 입력해 주세요.',
         ENG: 'Please enter decimals.',
         CN: '请输入小数点范围',
         HK: '請輸入小數點範圍'
     }],
     ['warning_decimals_number', {
-        KOR: '숫자를 입력해 주십시오.',
+        KOR: '숫자를 입력해 주세요.',
         ENG: 'Please enter real number',
         CN: '请输入数字',
         HK: '請輸入數字'
     }],
     ['warning_decimals_range', {
-        KOR: '18 이하로 입력해 주십시오.',
+        KOR: '18 이하로 입력해 주세요.',
         ENG: 'Please enter less than 18.',
         CN: '请输入18以下的数字',
         HK: '請輸入18以下的數字'
     }],
     ['warning_description_null', {
-        KOR: '토큰 설명을 입력해 주십시오.',
+        KOR: '토큰 설명을 입력해 주세요.',
         ENG: 'Please enter CustomToken description.',
         CN: '请输入代币描述',
         HK: '請輸入代幣描述'
     }],
     ['warning_total_token_null', {
-        KOR: '토큰 발행량을 입력해 주십시오.',
+        KOR: '토큰 발행량을 입력해 주세요.',
         ENG: 'Please enter total issued CustomToken.',
         CN: '请输入代币发行量',
         HK: '請輸入代幣發行量'
     }],
     ['warning_total_token_number', {
-        KOR: '정수형으로 입력해 주십시오.',
+        KOR: '정수형으로 입력해 주세요.',
         ENG: 'Pleaes enter integer number.',
         CN: '请用整数的方式输入',
         HK: '請用整數的方式輸入'
     }],
     ['warn_file_exist', {
-        KOR: '이미지를 등록해 주십시오.',
+        KOR: '이미지를 등록해 주세요.',
         ENG: 'Please register your image.',
         CN: '请注册图片',
         HK: '請注冊圖片'
@@ -4057,7 +4057,7 @@ const strings = new Map([
         HK: ''
     }],
     ['warn_needLogin', {
-        KOR: '로그인 해주십시오.',
+        KOR: '로그인 해주세요.',
         ENG: 'You need to login.',
         CN: '',
         HK: ''

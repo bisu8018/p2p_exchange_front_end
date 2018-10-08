@@ -303,6 +303,7 @@
         display: inline-block;
         text-align: center;
         padding-right: 40px;
+        font-size: 12px;
     }
 
     @keyframes isMove {

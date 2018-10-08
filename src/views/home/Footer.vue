@@ -45,7 +45,8 @@
         <!-- 카드 4 Contact Us-->
         <v-flex xs12 md3 mt-4 class="footer-top">
           <p>{{$str("contact_Us")}}</p>
-          <a href="https://www.allblab.com" target="_blank">
+          <!--<a href="" target="_blank">-->
+          <a>
             <p>support@otcdemo.com</p>
           </a>
         </v-flex>
