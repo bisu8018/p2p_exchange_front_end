@@ -1,18 +1,26 @@
-import {VuexTypes} from "@/vuex/config/VuexTypes";
+import {VuexTypes} from "../config/VuexTypes";
 import {Store} from "vuex";
-import Wallet from "@/vuex/model/Wallet";
-import Withdraw from "@/vuex/model/Withdraw";
-import WalletHistory from "@/vuex/model/WalletHistory";
-import MyTradeFilter from "@/vuex/model/MyTradeFilter";
-import MainRepository from "@/vuex/MainRepository";
-import CustomToken from "@/vuex/model/CustomToken";
+import Wallet from "../model/Wallet";
+import Withdraw from "../model/Withdraw";
+import WalletHistory from "../model/WalletHistory";
+import MyTradeFilter from "../model/MyTradeFilter";
+import MainRepository from "../MainRepository";
+import CustomToken from "../model/CustomToken";
 
 export default class WalletController {
     store: Store<any>;
     processingTime: number;
+    totalValue = {
+        btc: 0,
+        eth: 0,
+    };
     constructor (vuexStore: Store<any>) {
         this.processingTime = 0;
         this.store = vuexStore
+        this.totalValue = {
+            btc: 0,
+            eth: 0,
+        };
     }
 
     setWallet(walletData: any) {
@@ -143,7 +151,7 @@ export default class WalletController {
         return name
     }
 
-    getTotalEstimatedValue(currency: string) {
+    /*getTotalEstimatedValue(currency: string) {
         let _totalValue = {
             btc: 0,
             currency: 0,
@@ -155,6 +163,27 @@ export default class WalletController {
         }
 
         return _totalValue;
+    }*/
+    getTotalEstimatedValue(){
+        return this.calTotal('','');
+    }
+
+    calTotal(cryptocurrency, price){
+
+        switch (cryptocurrency) {
+            case 'bitcoin':
+            case 'BTC':
+                this.totalValue.btc = price;
+                break;
+            case 'ethereum':
+            case 'ETH':
+                this.totalValue.eth = price;
+                break;
+            default:
+                break;
+        }
+        return this.totalValue.btc + this.totalValue.eth;
+
     }
 
     //withdraw

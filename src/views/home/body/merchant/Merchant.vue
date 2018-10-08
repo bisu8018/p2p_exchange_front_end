@@ -38,12 +38,12 @@
             <v-layout row wrap align-center fill-height justify-center mt-4a mb-3>
                 <v-flex xs12 md4 pl-0>
                     <i class="material-icons d-inline-block pt-1 pr-2">schedule</i>
-                    <h4 class="d-inline-block">{{$str("Your application is under review.")}}</h4>
+                    <h2 class="d-inline-block">{{$str("Your application is under review.")}}</h2>
                 </v-flex>
             </v-layout>
             <v-layout justify-center mb-6>
                 <v-flex md5 xs12>
-                    <h5 class="color-darkgray"> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h5>
+                    <h4> {{$str("Your application has been successfully submitted. We will complete the review within 2 working days.")}}</h4>
                 </v-flex>
             </v-layout>
         </div>
@@ -57,7 +57,7 @@
             </v-layout>
             <v-layout justify-center mb-6>
                 <v-flex md5 xs12>
-                    <h5 class="color-darkgray"> {{$str("Your Merchant application has been successfully approved. You can post advertisement in AllB OTC!")}}</h5>
+                    <h5 class="color-darkgray"> {{$str("Your Merchant application has been successfully approved. You can post advertisement in OTC Demo!")}}</h5>
                 </v-flex>
             </v-layout>
         </div>

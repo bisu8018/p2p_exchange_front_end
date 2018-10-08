@@ -86,7 +86,6 @@
             //selectedCurrencyData : 'CNY',
             selectedWallet : 'OTC Wallet',
             currencyLists : SelectBox.currencies(),
-            EstimatedCryptocurrencyValue : '',
             EstimatedCurrencyValue : '',
             walletInterval: {},
 
@@ -140,12 +139,11 @@
         },
         methods: {
             loadTotalEstimatedValue() {
-                let totalValue = MainRepository.Wallet.controller().getTotalEstimatedValue(this.selectedCurrency);
-                this.EstimatedCryptocurrencyValue = totalValue.btc;
-                if (totalValue.currency === 0) {
+                let totalValue = MainRepository.Wallet.controller().getTotalEstimatedValue();
+                if (totalValue === 0) {
                     this.EstimatedCurrencyValue = '';
                 } else {
-                    this.EstimatedCurrencyValue = totalValue.currency;
+                    this.EstimatedCurrencyValue = totalValue;
                 }
             },
             toMoneyFormat(value) {

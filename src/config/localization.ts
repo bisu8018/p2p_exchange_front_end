@@ -3851,7 +3851,7 @@ const strings = new Map([
         HK: '請領取埃爾比首發免費代幣'
     }],
     ['landingContent_1', {
-        KOR: '안전함, 신송성, 높은 신뢰도, 대규모 시장의 플랫폼!',
+        KOR: '안전함, 신속성, 높은 신뢰도, 대규모 시장의 플랫폼!',
         ENG: 'Safety, Fastest, Reliable, Big market!',
         CN: '安全、迅速、可靠的大规模市场！',
         HK: '安全、迅速、可靠的大規模市場！'

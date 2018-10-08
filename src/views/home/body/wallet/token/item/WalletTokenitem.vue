@@ -114,6 +114,7 @@
             },
             estimatedValue(){
                 this.price = MainRepository.MarketPrice.controller().find(this.item.cryptocurrency, this.currency).price
+                MainRepository.Wallet.controller().calTotal(this.item.cryptocurrency,this.totalValue * this.price);
                 return this.totalValue * this.price;
             },
             isGeneralCoin(){
