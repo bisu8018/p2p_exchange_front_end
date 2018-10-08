@@ -3,7 +3,7 @@
         <div class="member-list-container">
             <v-layout class="member-list-header-box" align-center>
                 <i class="material-icons c-pointer mr-2" @click="onClose()">keyboard_arrow_right</i>
-                <h5>AllB {{$str("userList")}}</h5>
+                <h5>OTC Demo {{$str("userList")}}</h5>
             </v-layout>
             <v-divider/>
             <div class="member-list-wrapper">
