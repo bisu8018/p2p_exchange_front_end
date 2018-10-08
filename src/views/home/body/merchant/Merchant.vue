@@ -200,7 +200,7 @@
                 MainRepository.router().goMyPage();
             },
             go_Terms_of_Service(){
-                if(this.currentLang =='EN'){
+         /*       if(this.currentLang =='EN'){
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
                     window.open(URL, "_blank");
                 }
@@ -215,7 +215,7 @@
                 else{
                     var URL = "https://allbglobal.zendesk.com/hc/en-us/articles/360012379132";
                     window.open(URL, "_blank");
-                }
+                }*/
             },
         },
 

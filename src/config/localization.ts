@@ -2571,7 +2571,7 @@ const strings = new Map([
         CN: '场外交易商家申请成功',
         HK: '場外交易商家申請成功'
     }],
-    ['Your Merchant application has been successfully approved. You can post advertisement in OTC!', {
+    ['Your Merchant application has been successfully approved. You can post advertisement in OTC Demo!', {
         KOR: '귀하의 판매자 신청이 성공적으로 등록되었습니다. OTC에서 광고를 등록할 수 있습니다!',
         ENG: 'Your Merchant application has been successfully approved. You can post advertisement in OTC!',
         CN: '您的商家申请成功了。您可以在埃尔比场外交易所发广告！',
