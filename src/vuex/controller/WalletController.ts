@@ -5,6 +5,7 @@ import Withdraw from "../model/Withdraw";
 import WalletHistory from "../model/WalletHistory";
 import MyTradeFilter from "../model/MyTradeFilter";
 import MainRepository from "../MainRepository";
+import Vue from "vue";
 import CustomToken from "../model/CustomToken";
 
 export default class WalletController {
@@ -173,11 +174,12 @@ export default class WalletController {
         switch (cryptocurrency) {
             case 'bitcoin':
             case 'BTC':
-                this.totalValue.btc = price;
+                this.totalValue.btc = Number(Vue.prototype.$fixed(price, this.getStatus().currency));
                 break;
             case 'ethereum':
             case 'ETH':
-                this.totalValue.eth = price;
+                this.totalValue.eth = Number(Vue.prototype.$fixed(price, this.getStatus().currency));
+
                 break;
             default:
                 break;

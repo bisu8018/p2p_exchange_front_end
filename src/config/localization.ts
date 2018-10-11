@@ -2922,9 +2922,9 @@ const strings = new Map([
         CN: '处理错误',
         HK: '處理錯誤'
     }],
-    ['Return to Balances', {
-        KOR: '밸런스로 돌아가기',
-        ENG: 'Return to Balances',
+    ['Return to Wallet', {
+        KOR: '지갑으로 돌아가기',
+        ENG: 'Return to Wallet',
         CN: '返回资产',
         HK: '返回資產'
     }],

@@ -141,7 +141,7 @@
             loadTotalEstimatedValue() {
                 let totalValue = MainRepository.Wallet.controller().getTotalEstimatedValue();
                 if (totalValue === 0) {
-                    this.EstimatedCurrencyValue = '';
+                    this.EstimatedCurrencyValue = 0;
                 } else {
                     this.EstimatedCurrencyValue = totalValue;
                 }
@@ -164,6 +164,7 @@
 
             clickedCurrency(item){
                 MainRepository.Wallet.updateStatus({currency: item});
+                this.loadTotalEstimatedValue();
                 this.showDropdown('currencyType');
 
             },
