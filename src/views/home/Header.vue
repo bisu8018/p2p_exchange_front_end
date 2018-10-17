@@ -7,7 +7,7 @@
             <div class="mobile-header">
                 <!--logo-->
                 <button @click="goMain()" class="logo ">
-                    <img src="../../assets/img/icon_logo_red.png" style="width: 35px">
+                    <img src="../../assets/img/demo_logo.png" style="width: 29px">
                 </button>
                 <div v-if="isMobile" class="full-width">
                     <v-spacer></v-spacer>
@@ -471,7 +471,7 @@
         }
 
         .logo{
-            margin: 22px 16px 22px 24px;
+            margin: 16px 16px 22px 24px;
         }
 
         .menu-button {
@@ -483,7 +483,7 @@
             font-size: 14px;
         }
         .sub-domain-menu{
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: #8a8a8a66;
             max-height: 64px;
         }
 
@@ -657,7 +657,7 @@
     /*mobile 일때*/
     @media only screen and (max-width: 959px) {
         .dropdown-wrapper {
-            background-color: #002970;
+            background-color: #000000;
         }
 
         .logo {
@@ -691,7 +691,7 @@
         }
 
         .my-menu {
-            background-color: #002970;
+            background-color: #000000;
             height: 52px;
             padding: 16px 24px 16px 24px;
             text-align: left;
@@ -707,7 +707,7 @@
             z-index: 50;
             width: 100%;
             color: white;
-            background-color: #002970;
+            background-color: #000000;
             position: fixed;
         }
 
@@ -790,7 +790,7 @@
 
 .nav {
 height: 64px;
-background-color: #002970;
+background-color: #000000;
 color: white;
 position: fixed;
 top: 0;

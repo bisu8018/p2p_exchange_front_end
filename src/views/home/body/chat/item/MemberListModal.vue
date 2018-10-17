@@ -58,11 +58,11 @@
 <style scoped>
     .member-list-header-box {
         display: flex;
-        background-color: #002970;
+        background-color: black;
         height: 64px;
         padding: 22px 0px 22px 8px;
         color: white;
-        border-left: #334B99 1px solid;
+        border-left: black 1px solid;
     }
 
     .member-list-container {

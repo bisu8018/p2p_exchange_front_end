@@ -444,14 +444,14 @@
     }
 
     input[type="checkbox"]:checked + label span {
-        border: 1px solid #214ea1;
+        border: 1px solid #1c3a72;
         font-size: 12px;
-        color: #214ea1;
+        color: #1c3a72;
         font-weight: bold;
     }
 
     input[type="checkbox"]:hover + label span {
-        border: 1px solid #214ea1;
+        border: 1px solid #1c3a72;
     }
 
     input[type="checkbox"] + label span i {
@@ -465,7 +465,7 @@
         padding-top: 1px;
         padding-left: 2px;
         font-size: 16px;
-        color: #214ea1;
+        color: #1c3a72;
         font-weight: bold;
         display: inline-block;
         -ms-user-select: none;
@@ -509,14 +509,14 @@
     }
 
     input[type="radio"]:checked + label span {
-        border: 1px solid #214ea1;
+        border: 1px solid #1c3a72;
         font-size: 12px;
-        color: #214ea1;
+        color: #1c3a72;
         font-weight: bold;
     }
 
     input[type="radio"]:hover + label span {
-        border: 1px solid #214ea1;
+        border: 1px solid #1c3a72;
     }
 
     input[type="radio"] + label span i {
@@ -526,7 +526,7 @@
     input[type="radio"]:checked + label span i {
         font-size: 14px;
         vertical-align: middle;
-        color: #214ea1;
+        color: #1c3a72;
         font-weight: bold;
         display: inline-block;
         -ms-user-select: none;
@@ -570,16 +570,16 @@
     }
 
     .color-blue {
-        color: #214EA1;
+        color: #1c3a72;
     }
 
     .color-blue-active {
-        color: #214EA1;
+        color: #1c3a72;
         cursor: pointer;
     }
 
     .color-blue-active:hover {
-        color: #316ee4 !important;
+        color: #33579b !important;
 
     }
 
@@ -626,7 +626,7 @@
     }
 
     .bg-blue {
-        background-color: #214ea1;
+        background-color: #1c3a72;
     }
 
     /* border 색깔 */
@@ -911,7 +911,7 @@
         /*사각형 파랑배경 흰색폰트 버튼*/
         height: 40px;
         width: 100%;
-        background: #214ea1;
+        background: #1c3a72;
         color: white;
         border-radius: 2px;
         font-size: 14px;
@@ -922,7 +922,7 @@
         height: 36px;
         padding-left: 16px;
         padding-right: 16px;
-        background: #214ea1;
+        background: #1c3a72;
         border-radius: 30px;
         color: white;
         font-size: 14px;
@@ -930,13 +930,13 @@
 
     .btn-white {
         /*사각형 하얀배경 파랑폰트 파랑보더 버튼*/
-        border: 1px solid #214ea1 !important;
+        border: 1px solid #1c3a72 !important;
         margin-bottom: -10px;
         width: 100%;
         height: 40px;
         background: white;
         border-radius: 3px;
-        color: #214EA1;
+        color: #1c3a72;
         font-size: 14px;
     }
 
@@ -947,7 +947,7 @@
         padding-right: 16px;
         background: white;
         border-radius: 30px;
-        color: #214ea1;
+        color: #1c3a72;
         font-size: 14px;
     }
 
@@ -963,23 +963,23 @@
 
     /*버튼 호버 CSS 설정*/
     .btn-rounded-blue:hover {
-        background-color: #316ee4 !important;
+        background-color: #33579b !important;
         color: white !important;
     }
 
     .btn-blue-hover:hover {
-        background-color: #316ee4 !important;
+        background-color: #33579b !important;
         color: white !important;
     }
 
     .btn-white:hover {
         background-color: white !important;
-        color: #316ee4 !important;
-        border: 1px solid #316ee4 !important;
+        color: #33579b !important;
+        border: 1px solid #33579b !important;
     }
 
     .text-white-hover:hover {
-        color: #316ee4 !important;
+        color: #33579b !important;
     }
 
     /*refresh 버튼*/
@@ -1024,11 +1024,11 @@
       }*/
 
     .comp-selectbox:hover {
-        border: solid 1px #316ee4;
+        border: solid 1px #33579b;
     }
 
     .comp-selectbox-active {
-        border: solid 1px #316ee4;
+        border: solid 1px #33579b;
     }
 
     .comp-selectbox-icon { /*셀렉박스 화살표 아이콘 공통 CSS*/ /*   </select><v-icon class="common-selectbox-icon ">keyboard_arrow_down</v-icon>    추가!!    */
@@ -1117,12 +1117,12 @@
     }
 
     .select-option:active {
-        background-color: #316ee4;
+        background-color: #33579b;
         color: white
     }
 
     .selected-option {
-        background-color: #316ee4 !important;
+        background-color: #33579b !important;
         color: white
     }
 
@@ -1150,11 +1150,11 @@
     }
 
     .selectbox-wrapper:hover {
-        border-color: #316ee4;
+        border-color: #33579b;
     }
 
     .selectbox-wrapper:hover :first-child :first-child :first-child {
-        border-color: #316ee4 !important;
+        border-color: #33579b !important;
     }
 
     .selectbox-width-part {
@@ -1183,7 +1183,7 @@
     }
 
     .input:hover, .input:focus {
-        border: solid 1px #316ee4;
+        border: solid 1px #33579b;
     }
 
     .input-disabled {
@@ -1224,7 +1224,7 @@
     }
 
     .common-textarea:hover, .common-textarea:focus {
-        border: #316ee4;
+        border: #33579b;
     }
 
     /*인증코드 전달 버튼*/
@@ -1239,7 +1239,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #214ea1;
+        color: #1c3a72;
         position: absolute;
         right: 11px;
         top: 10px;
@@ -1268,7 +1268,7 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        color: #214ea1;
+        color: #1c3a72;
         position: absolute;
         right: 11px;
         top: 10px;
@@ -2128,7 +2128,7 @@
     .blocked-user-item p {
         display: inline-block;
         font-size: 14px;
-        color: #214ea1;
+        color: #1c3a72;
         margin-left: 16px;
     }
 
@@ -2285,7 +2285,7 @@
     }
 
     .lang-menu > div:active, .lang-menu > div:hover {
-        background-color: #316ee4;
+        background-color: #33579b;
         color: white
     }
 
@@ -2342,7 +2342,7 @@
     }
 
     .arrows-style {
-        background: #214EA1;
+        background: #1c3a72;
         border-radius: 6px;
         color: white;
         font-size: 28px;
@@ -2463,7 +2463,7 @@
     }
 
     .price-input-wrapper:hover, .price-input-wrapper:focus-within {
-        border: solid 1px #316ee4;
+        border: solid 1px #33579b;
     }
 
     .price-input {
