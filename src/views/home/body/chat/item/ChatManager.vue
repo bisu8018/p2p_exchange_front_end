@@ -33,7 +33,7 @@
             });
 
 
-            this.$nextTick(function () {
+           /* this.$nextTick(function () {
                 //websocket 접속
                 this.connect();
 
@@ -42,7 +42,7 @@
                 this.memberInterval = setInterval(() => {
                     this.setMembers();
                 }, 5000);
-            })
+            })*/
         },
         methods: {
             send(message,type) {

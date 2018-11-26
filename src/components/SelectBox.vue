@@ -196,6 +196,7 @@
 
                     case 'generalToken' :
                         this.generalTokens = MainRepository.GeneralToken.controller().getGeneralTokenList();
+                        console.log(this.generalTokens)
                         this.selected = this.getList[0].tokenNo;
                         this.selectedValue = this.getList[0].tokenName;
                         if (this.editValue) {

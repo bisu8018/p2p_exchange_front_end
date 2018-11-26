@@ -2,6 +2,7 @@ import axios from 'axios'
 import qs from 'qs';
 import Vue from "vue";
 import MainRepository from "@/vuex/MainRepository";
+import demoSetting from "@/config/demoSetting";
 
 export default {
     init: function () {
@@ -25,67 +26,72 @@ export default {
         if (this.DEBUG()) {
             console.log('[request]\nurl: ' + url + '\ndata: ' + data)
         }
-
-        axios({
-            method: type,
-            url: this.getRootUrlWithApi() + url,
-            data: data,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then((response) => {
-                if (this.DEBUG()) {
-                    console.log('성공\nurl: ' + url + '\nres:\n' + JSON.stringify(response.data))
+        if(!demoSetting.demoSetting()){
+            axios({
+                method: type,
+                url: this.getRootUrlWithApi() + url,
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-                if (response.data.code === 0) {
-                    success(response.data.result);
-                } else {
-                    this.showErrorPopup(response.data.code);
-                    failure(response.data.code);
-                }
-                //Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
             })
-            .catch((error) => {
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-
-                    let status = error.response.status;
-                    let headers = error.response.headers;
-                    let data = error.response.data;
-                    let statusText = error.response.statusText;
-
+                .then((response) => {
                     if (this.DEBUG()) {
-                        //console.log(headers);
-                        //console.log(data);
-                        //console.log(status)
-                        //위에 세개 일단 주석처리 jack
-                        //  console.log(statusText)
-                        //  console.log('Error!\ncode:' + request.status + '\n' + 'message:' + request.responseText + '\n' + 'error:' + error)
+                        console.log('성공\nurl: ' + url + '\nres:\n' + JSON.stringify(response.data))
                     }
-                    //  console.log('Status: ' + status);
-                    // 401 Error
-                    if (status === 401 || status === 502) {
-                        window.location.replace(self.getRootUrl() + '/login')
+                    if (response.data.code === 0) {
+                        success(response.data.result);
                     } else {
-                        this.showErrorPopup(status);
-                        failure(status)
+                        this.showErrorPopup(response.data.code);
+                        failure(response.data.code);
                     }
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
-                    console.log(error.request)
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error)
-                }
+                    //Vue.prototype.$eventBus.$emit('showAlert', response.data.code);
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
 
-                console.log(error)
-            }).then(() => {
-            // always executed
-        })
+                        let status = error.response.status;
+                        let headers = error.response.headers;
+                        let data = error.response.data;
+                        let statusText = error.response.statusText;
+
+                        if (this.DEBUG()) {
+                            //console.log(headers);
+                            //console.log(data);
+                            //console.log(status)
+                            //위에 세개 일단 주석처리 jack
+                            //  console.log(statusText)
+                            //  console.log('Error!\ncode:' + request.status + '\n' + 'message:' + request.responseText + '\n' + 'error:' + error)
+                        }
+                        //  console.log('Status: ' + status);
+                        // 401 Error
+                        if (status === 401 || status === 502) {
+                            window.location.replace(self.getRootUrl() + '/login')
+                        } else {
+                            this.showErrorPopup(status);
+                            failure(status)
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                        // http.ClientRequest in node.js
+                        console.log(error.request)
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error)
+                    }
+
+                    console.log(error)
+                }).then(() => {
+                // always executed
+            })
+        }else if(demoSetting.demoSetting() && type == 'GET'){
+            let urlTmp = url.split('?');
+            success(demoSetting.getDemoData(urlTmp[0]));
+        }
+
     },
     _requestWithUrlPram: function (url: string, type: string, data: any, success: any, failure: any) {
         data = data || {};

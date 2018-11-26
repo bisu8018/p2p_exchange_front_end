@@ -5,6 +5,7 @@ import PaymentMethod from "@/vuex/model/PaymentMethod.ts"
 import axios from "axios";
 import IdVerification from "@/vuex/model/IdVerification";
 import IdVerificationId from "@/vuex/model/IdVerificationId";
+import demoSetting from "@/config/demoSetting";
 
 export default {
     Account: {
@@ -86,26 +87,31 @@ export default {
         },
         // 로그인 체크
         checkLogin: function (success: any, failure: any) {
-            axios({
-                method: 'GET',
-                url: AxiosService.getRootUrlWithApi() + 'member/my',
-                data: '',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-
-            })
-                .then((response) => {
-                    if (response.data.code === 0) {
-                        success(response.data.result);
-                    }else{
-                        failure();
+            if(!demoSetting.demoSetting()){
+                axios({
+                    method: 'GET',
+                    url: AxiosService.getRootUrlWithApi() + 'member/my',
+                    data: '',
+                    headers: {
+                        'Content-Type': 'application/json',
                     }
+
                 })
-                .catch((error) => {
-                    failure();
-                }).then(() => {
-            })
+                    .then((response) => {
+                        if (response.data.code === 0) {
+                            success(response.data.result);
+                        }else{
+                            failure();
+                        }
+                    })
+                    .catch((error) => {
+                        failure();
+                    }).then(() => {
+                })
+            }else{
+                success(demoSetting.getDemoData("member/my"));
+            }
+
         },
         // 유저 정보 get
         getUserInfo: function (callback: any) {
