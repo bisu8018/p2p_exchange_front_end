@@ -1,7 +1,0 @@
-/node_modules
-/dist
-/.idea
-/.vscode
-/webpack.config.ts
-src/service/verification/
-/src/webpack.config.js
