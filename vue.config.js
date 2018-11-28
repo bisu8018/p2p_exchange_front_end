@@ -3,7 +3,7 @@
 module.exports = {
     // options...
     devServer: {
-        proxy: 'https://otc.jakincorp.com',
+        proxy: 'https://otc.demo.com',
         https: false,
         disableHostCheck: true,
         port: 8081
