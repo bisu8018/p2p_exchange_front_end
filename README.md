@@ -8,12 +8,12 @@
 <br>
 
 ## 시연 동영상
-1. <a href="https://drive.google.com/file/d/1LOb0qX82tHi7jMNO7FxkAgQQlJVrhiHa/view?usp=sharing">회원가입, 로그인</a>
-2. <a href="https://drive.google.com/file/d/1PWgX2SDEeTJ6FcdXmiueIqT61aCX1hpC/view?usp=sharing">지갑, 마이페이지</a>
-3. <a href="https://drive.google.com/file/d/1oBucfwBDlUuGNwNsFh8MMhZrdNnZvcaD/view?usp=sharing">OTC 광고 게시</a>
-4. <a href="https://drive.google.com/file/d/1e36T8ocq1ZaHcbgn92hwZTsbHdY5zPF2/view?usp=sharing">거래소 목록, 주문/출금</a>
-5. <a href="https://drive.google.com/file/d/1mt0wr2jOgiIz2uFZje1uPeAykXLPnecB/view?usp=sharing">채팅, 내 광고/주문</a>
-6. <a href="https://drive.google.com/file/d/1aFaPeJpzy_uvNXkFN1ell-1lK3dF_qhr/view?usp=sharing">서비스</a>
+1. <a href="https://drive.google.com/file/d/1LOb0qX82tHi7jMNO7FxkAgQQlJVrhiHa/view?usp=sharing" target="_blank">회원가입, 로그인</a>
+2. <a href="https://drive.google.com/file/d/1PWgX2SDEeTJ6FcdXmiueIqT61aCX1hpC/view?usp=sharing" target="_blank">지갑, 마이페이지</a>
+3. <a href="https://drive.google.com/file/d/1oBucfwBDlUuGNwNsFh8MMhZrdNnZvcaD/view?usp=sharing" target="_blank">OTC 광고 게시</a>
+4. <a href="https://drive.google.com/file/d/1e36T8ocq1ZaHcbgn92hwZTsbHdY5zPF2/view?usp=sharing" target="_blank">거래소 목록, 주문/출금</a>
+5. <a href="https://drive.google.com/file/d/1mt0wr2jOgiIz2uFZje1uPeAykXLPnecB/view?usp=sharing" target="_blank">채팅, 내 광고/주문</a>
+6. <a href="https://drive.google.com/file/d/1aFaPeJpzy_uvNXkFN1ell-1lK3dF_qhr/view?usp=sharing" target="_blank">서비스</a>
 <br>
 
 ## 개요
