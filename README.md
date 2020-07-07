@@ -6,10 +6,6 @@
 <a href="images/sitemap.pdf">
   사이트 맵</a>
 <br>
-  <a href="https://bisu8018.github.io/">
-  DEMO 사이트 (https://bisu8018.github.io)</a><br>(서버 미연동으로 인한 테스트 데이터 삽입 작업중이므로, 진입 불가한 페이지가 부분적으로 존재하는 점 양해 부탁드립니다.)
-<br>
-<br>
 
 ## 시연 동영상
 1. <a href="https://drive.google.com/file/d/1LOb0qX82tHi7jMNO7FxkAgQQlJVrhiHa/view?usp=sharing">회원가입, 로그인</a>
