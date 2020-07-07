@@ -3,7 +3,7 @@
 <a href="https://github.com/bisu8018/p2p_exchange_front_end/">
   Github 소스코드 (https://github.com/bisu8018/p2p_exchange_front_end/)
 </a><br>
-<a href="images/sitemap.pdf">
+<a href="desc/images/sitemap.pdf">
   사이트 맵</a>
 <br>
 
