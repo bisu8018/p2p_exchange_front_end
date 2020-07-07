@@ -31,8 +31,8 @@
 - 번역 : 1명
 - Front-End : 2명 
 - Back-End : 3명
-- BlockChain : 1명
-- 디자인 : 4명 
+- BlockChain Expert: 1명
+- 디자인 : 3명 
 
 ### 개발기간 
 - 2018.06 ~ 2018.10 (약 4개월)
